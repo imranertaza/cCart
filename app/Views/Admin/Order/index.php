@@ -40,6 +40,7 @@
                         <th>Name</th>
                         <th>Amount</th>
                         <th>Order Status</th>
+                        <th>Time</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -47,9 +48,10 @@
                     <?php $i=1; foreach ($order as $val){ ?>
                         <tr>
                             <td><?php echo $val->order_id;?></td>
-                            <td><?php echo $val->payment_firstname . $val->payment_lastname;?></td>
+                            <td><?php echo $val->payment_firstname .' '. $val->payment_lastname;?></td>
                             <td><?php echo currency_symbol($val->final_amount) ;?></td>
                             <td><?php echo order_id_by_status($val->order_id) ;?></td>
+                            <td><?php echo invoiceDateFormat($val->createdDtm);?></td>
                             <td width="180">
                                 <a href="<?php echo base_url('order_view/'.$val->order_id);?>" class="btn btn-primary btn-xs"><i class="fas fa-eye"></i> View</a>
 
@@ -64,6 +66,7 @@
                         <th>Name</th>
                         <th>Amount</th>
                         <th>Order Status</th>
+                        <th>Time</th>
                         <th>Action</th>
                     </tr>
                     </tfoot>
