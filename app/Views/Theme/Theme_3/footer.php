@@ -246,6 +246,7 @@
     </section>
 
 <script src="<?php echo base_url() ?>/assets/assets_fl/script.js"></script>
+<script src="<?php echo base_url() ?>/assets/assets_fl/details.js"></script>
 <script src="<?php echo base_url() ?>/assets/assets_fl/slick/slick.js" type="text/javascript" charset="utf-8"> </script>
 
 <script>
@@ -331,6 +332,10 @@
         $("#price").val("" + $(".slider-range").slider("values", 0) +
             "," + $(".slider-range").slider("values", 1));
     });
+
+    function  buyNow(){
+        location.replace("<?php echo base_url('checkout') ?>");
+    }
     
      function addToCompare(pro_id) {
         $.ajax({
