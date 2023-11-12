@@ -12,6 +12,7 @@ class AllDemo extends Seeder
         $this->call('Country');
         $this->call('Icons');
         $this->call('Modules');
+        $this->call('ModulesSettings');
         $this->call('Option');
         $this->call('OptionValue');
         $this->call('OrderStatus');

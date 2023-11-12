@@ -412,7 +412,7 @@
                                         <div class="col-md-8">
                                             <div class="row ">
                                                 <div class="col-md-2 img_view">
-                                                <?php echo image_view('uploads/products',$prod->product_id,'100_'.$prod->image,'noimage.png',$class='');?>
+                                                <?php echo image_view('uploads/products',$prod->product_id,'100_'.$prod->image,'noimage.png',$class='img-100-100');?>
                                                 </div>
                                             </div>
                                             <div id="framesdef"></div><br>
