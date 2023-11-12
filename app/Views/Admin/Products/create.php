@@ -28,7 +28,8 @@
                             <h3 class="card-title">Product create</h3>
                         </div>
                         <div class="col-md-4" style="text-align: right;">
-                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="submit" class="btn btn-primary float-right mr-2">Save</button>
+                            <a href="<?php echo base_url('products') ?>" class="btn btn-danger float-right mr-2 " >Back</a>
                         </div>
                         <div class="col-md-12" style="margin-top: 10px">
                             <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message'); endif; ?>
