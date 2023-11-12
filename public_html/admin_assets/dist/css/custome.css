@@ -69,3 +69,8 @@
     margin-top: 5px;
     border: 1px solid #ced4da;
 }
+
+.img-100-100{
+    width: 100px !important;
+    height: 100px !important;
+}
