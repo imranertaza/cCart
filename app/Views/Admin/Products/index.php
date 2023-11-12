@@ -47,10 +47,10 @@
                         <tr>
                             <th><input type="checkbox" onclick="allchecked(this)" ></th>
                             <th>Sl</th>
+                            <th>Image</th>
                             <th>Name</th>
                             <th>Model</th>
                             <th>Quantity</th>
-                            <th>Image</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -62,10 +62,10 @@
                                 <input type="checkbox" name="productId[]" value="<?php echo $val->product_id;?>" >
                             </td>
                             <td><?php echo $i++;?></td>
+                            <td><?php echo image_view('uploads/products',$val->product_id,'100_'.$val->image,'noimage.png',$class='img-100-100');?></td>
                             <td><?php echo $val->name;?></td>
                             <td><?php echo $val->model;?></td>
                             <td> <?php echo $val->quantity;?></td>
-                            <td><?php echo image_view('uploads/products',$val->product_id,'100_'.$val->image,'noimage.png',$class='img-100-100');?></td>
                             <td> <?php echo $val->status;?></td>
                             <td>
                                 <a href="<?php echo base_url('product_update/'.$val->product_id)?>"
@@ -81,10 +81,10 @@
                         <tr>
                             <th></th>
                             <th>Sl</th>
+                            <th>Image</th>
                             <th>Name</th>
                             <th>Model</th>
                             <th>Quantity</th>
-                            <th>Image</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>

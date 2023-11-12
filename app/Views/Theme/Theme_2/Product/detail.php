@@ -123,6 +123,8 @@
                                     required>
                                 <button type="submit" class="btn btn-cart rounded-0 mt-2"
                                     onclick="addToCartdetail()">Add to Cart</button>
+                                <button type="submit" class="btn btn-buy-now rounded-0 mt-2"
+                                            onclick="buyNowAction()">Buy Now</button>
                                 <?php } ?>
                             </form>
                             <div class="d-flex justify-content-between pro-w">
