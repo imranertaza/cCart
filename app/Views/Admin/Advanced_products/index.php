@@ -25,18 +25,15 @@
                 <div class="row">
                     <div class="col-md-8">
                         <h3 class="card-title">Bulk Edit Product List</h3><br>
-                        <a href="<?php echo base_url('products') ?>" class="btn btn-warning  btn-xs" >Back</a>
+
                     </div>
                     <div class="col-md-4">
-
-                        <a href="<?php echo base_url('product_create') ?>"
-                            class="btn btn-primary  btn-xs float-right "><i class="fas fa-plus"></i> Add</a>
-                        <a class="btn btn-xs btn-info float-right mr-2" data-toggle="collapse" href="#collapseProduct"
-                            role="button" aria-expanded="false" aria-controls="collapseProduct">Settings</a>
+                        <a href="<?php echo base_url('product_create') ?>" class="btn btn-primary  btn-xs float-right "><i class="fas fa-plus"></i> Add</a>
+                        <a class="btn btn-xs btn-info float-right mr-2" data-toggle="collapse" href="#collapseProduct" role="button" aria-expanded="false" aria-controls="collapseProduct">Settings</a>
+                        <a href="<?php echo base_url('products') ?>" class="btn btn-danger btn-xs float-right mr-2 " >Back</a>
                     </div>
                     <div class="col-md-12" id="message" style="margin-top: 10px">
-                        <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message');
-                        endif; ?>
+                        <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message'); endif; ?>
                     </div>
                 </div>
             </div>
@@ -48,6 +45,10 @@
                                 id="check_1" checked="">
                             <label class="form-check-label" for="check_1">
                                 Id </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input type="checkbox" name="image" class="form-check-input" onclick="bulk_status('image')" id="check_10" checked="">
+                            <label class="form-check-label" for="check_10"> Image </label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input type="checkbox" name="name" class="form-check-input" onclick="bulk_status('name')"
@@ -103,8 +104,8 @@
                     <table id="example2" class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th class="colum_id row_show ">
-                                    Id</th>
+                                <th class="colum_id row_show "> Id</th>
+                                <th class="colum_image row_show "> Image</th>
                                 <th class="colum_name row_show ">
                                     Name</th>
                                 <th class="colum_model row_show ">
@@ -138,6 +139,7 @@
                             <tr>
                                 <td class="colum_id row_show ">
                                     <?php echo $val->product_id; ?></td>
+                                <td class="colum_image row_show "> <?php echo image_view('uploads/products',$val->product_id,'100_'.$val->image,'noimage.png',$class='img-100-100');?></td>
                                 <td class="colum_name row_show ">
                                     <p
                                         onclick="updateFunction('<?php echo $val->product_id; ?>','name','<?php echo $val->name; ?>','view_name_<?php echo $j++; ?>','bulkForm_name_<?php echo $val->product_id; ?>')">

@@ -4,15 +4,15 @@ namespace App\Database\Seeds;
 
 use CodeIgniter\Database\Seeder;
 
-class PaymentMethod extends Seeder
+class PaymentMethodCreditCardDebitCard extends Seeder
 {
     public function run()
     {
         $data = [
             [
-                'payment_method_id' => 1,
-                'name' => 'Cash On Delivery',
-                'code' => 'cash_on',
+                'payment_method_id' => 7,
+                'name' => 'Credit Card / Debit Card',
+                'code' => 'credit_card',
                 'status' => '1',
             ],
         ];

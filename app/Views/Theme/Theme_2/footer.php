@@ -900,6 +900,40 @@
         });
     }
 
+    function buyNowAction(){
+        $("#addto-cart-form").on('submit', (function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: $(this).attr('action'),
+                type: "POST",
+                data: new FormData(this),
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(response) {
+                    $('#cartReload').load(location.href + " #cartReload");
+                    $('#cartReload2').load(location.href + " #cartReload2");
+                    $('#mesVal').html(response);
+                    $('.btn-count').load(location.href + " .btn-count");
+                    $('.body-count').load(location.href + " .body-count");
+                    $('#carticon2').css('transform', 'rotate(90deg)');
+                    $('#collapseExample').addClass('show');
+                    buyNow();
+                    $('.message_alert').show();
+                    setTimeout(function() {
+                        $("#messAlt").fadeOut(1500);
+                    }, 600);
+
+                }
+            });
+        }));
+
+    }
+
+    function  buyNow(){
+        location.replace("<?php echo base_url('checkout') ?>");
+    }
+
     function addToCartdetail() {
         $("#addto-cart-form").on('submit', (function(e) {
             e.preventDefault();

@@ -210,7 +210,7 @@
                                             <div class="addto-card-2btn">
                                                 <input type="hidden" name="product_id" value="<?php echo $products->product_id ?>"
                                                        required>
-                                                <button type="submit" class="btn rounded-0" onclick="addToCartdetail(),buyNow()">
+                                                <button type="submit" class="btn rounded-0" onclick="buyNowAction()">
                                                     Buy Now
                                                 </button>
                                             </div>

@@ -18,7 +18,7 @@
 
     <!-- Main content -->
     <section class="content">
-
+        <form action="<?php echo base_url('product_copy_action'); ?>" method="post">
         <!-- Default box -->
         <div class="card">
             <div class="card-header">
@@ -34,6 +34,10 @@
                             class="btn btn-info btn-xs float-right mr-2"><i class="fas fa-plus"></i> Bulk Edit
                             Products</a>
                         <?php } ?>
+                        <button type="submit" class="btn btn-secondary btn-xs float-right mr-2"><i class="nav-icon fas fa-copy"></i> Copy</button>
+                    </div>
+                    <div class="col-md-12" style="margin-top: 10px">
+                        <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message'); endif; ?>
                     </div>
                 </div>
             </div>
@@ -41,23 +45,28 @@
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
                         <tr>
+                            <th><input type="checkbox" onclick="allchecked(this)" ></th>
                             <th>Sl</th>
+                            <th>Image</th>
                             <th>Name</th>
                             <th>Model</th>
                             <th>Quantity</th>
-                            <th>Image</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php $i=1; foreach ($product as $val){ ?>
                         <tr>
+                            <td>
+                                <input type="checkbox" name="productId[]" value="<?php echo $val->product_id;?>" >
+                            </td>
                             <td><?php echo $i++;?></td>
+                            <td><?php echo image_view('uploads/products',$val->product_id,'100_'.$val->image,'noimage.png',$class='img-100-100');?></td>
                             <td><?php echo $val->name;?></td>
                             <td><?php echo $val->model;?></td>
                             <td> <?php echo $val->quantity;?></td>
-                            <td><?php echo image_view('uploads/products',$val->product_id,'100_'.$val->image,'noimage.png',$class='');?>
-                            </td>
+                            <td> <?php echo $val->status;?></td>
                             <td>
                                 <a href="<?php echo base_url('product_update/'.$val->product_id)?>"
                                     class="btn btn-sm btn-info">Edit</a>
@@ -70,11 +79,13 @@
                     </tbody>
                     <tfoot>
                         <tr>
+                            <th></th>
                             <th>Sl</th>
+                            <th>Image</th>
                             <th>Name</th>
                             <th>Model</th>
                             <th>Quantity</th>
-                            <th>Image</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </tfoot>
@@ -87,7 +98,7 @@
             <!-- /.card-footer-->
         </div>
         <!-- /.card -->
-
+        </form>
     </section>
     <!-- /.content -->
 </div>

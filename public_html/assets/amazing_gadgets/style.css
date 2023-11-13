@@ -965,6 +965,13 @@ a {
     color: #FFFFFF;
     line-height: 40px;
 }
+
+.product-details .btn-buy-now {
+    width: 210px;
+    background-color: #2396e6;
+    color: #FFFFFF;
+    line-height: 40px;
+}
 .product-details .product-info {
     background-color: #F1F1F1;
     font-size: 12px;
@@ -1562,6 +1569,13 @@ input[type="checkbox"] {
 .product-details .btn-cart {
     width: 100%;
     background-color: #1359a9 ;
+    color: #FFFFFF;
+    line-height: 20px;
+}
+
+.product-details .btn-buy-now {
+    width: 100%;
+    background-color: #2396e6;
     color: #FFFFFF;
     line-height: 20px;
 }
