@@ -251,6 +251,7 @@ $routes->post('/bulk_data_update', 'Admin\Advanced_products::bulk_data_update');
 $routes->post('/bulk_all_status_update', 'Admin\Advanced_products::bulk_all_status_update');
 $routes->post('/bulk_category_view', 'Admin\Advanced_products::bulk_category_view');
 $routes->post('/bulk_category_update', 'Admin\Advanced_products::bulk_category_update');
+$routes->post('/description_data_update', 'Admin\Advanced_products::description_data_update');
 
 
 

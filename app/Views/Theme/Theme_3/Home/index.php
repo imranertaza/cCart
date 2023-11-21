@@ -333,7 +333,6 @@
     <div class="popular-category">
         <div class="container">
             <div class="text-center mb-5">
-                <h5>Category</h5>
                 <h2>Shop by Category</h2>
             </div>
             <div class="row row-cols-lg-5 row-cols-md-3 row-cols-sm-2 row-cols-1 gx-5">
