@@ -9,18 +9,18 @@ function goBack() {
 $(function() {
     $("#example1").DataTable({
         "responsive": true,
-        "lengthChange": false,
+        "lengthChange": true,
         "autoWidth": false,
         "order": [
             [0, "desc"]
         ],
-        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        "buttons": ["csv", "excel", "pdf", "print" ]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 
     $('#example2').DataTable({
         "paging": true,
-        "lengthChange": false,
-        "searching": false,
+        "lengthChange": true,
+        "searching": true,
         "ordering": true,
         "info": true,
         "autoWidth": false,
@@ -679,6 +679,19 @@ function updateFunction(proId, input, value, viewId, formName) {
     $('#' + viewId).html(data);
 }
 
+function descriptionTableDataUpdateFunction(proId, input, value, viewId, formName) {
+    var formID = "'" + formName + "'"
+    var data = '<form id="' + formName +
+        '" action="<?php echo base_url('description_data_update') ?>" method="post"><input type="text" name="' +
+        input +
+        '" class="form-control mb-2" value="' + value +
+        '" ><input type="hidden" name="product_desc_id" class="form-control mb-2" value="' + proId +
+        '" ><button type="button" onclick="submitFormBulk(' + formID +
+        ')" class="btn btn-xs btn-primary mr-2">Update</button><a href="javascript:void(0)" onclick="hideInput(this)" class="btn btn-xs btn-danger">Cancel</button> </form>';
+
+    $('#' + viewId).html(data);
+}
+
 function hideInput(data) {
     $(data).parent().remove();
 }
@@ -703,7 +716,7 @@ function submitFormBulk(formID) {
 
 function checkShowHideRow() {
 
-    var fields = ['id', 'name', 'model', 'quantity', 'category', 'price', 'status', 'featured', 'action'];
+    var fields = ['id', 'name','image', 'model', 'quantity', 'category', 'price', 'status', 'featured','meta_title','meta_keyword','meta_description', 'action'];
 
     for (let i = 0; i < fields.length; ++i) {
         if ($('input[name="' + fields[i] + '"]').is(':checked')) {
