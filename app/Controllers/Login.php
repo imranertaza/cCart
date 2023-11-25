@@ -17,6 +17,10 @@ class Login extends BaseController {
         if (!isset($isLoggedInCustomer) || $isLoggedInCustomer != TRUE) {
 
             $data['page_title'] = 'Sign In';
+            $data['keywords'] = 'Sign In';
+            $data['description'] = 'Sign In';
+            $data['title'] = 'Sign In';
+
             echo view('Theme/'.get_lebel_by_value_in_settings('Theme').'/header',$data);
             echo view('Theme/'.get_lebel_by_value_in_settings('Theme').'/Login/login');
             echo view('Theme/'.get_lebel_by_value_in_settings('Theme').'/footer');
@@ -97,6 +101,9 @@ class Login extends BaseController {
         if (!isset($isLoggedInCustomer) || $isLoggedInCustomer != TRUE) {
 
             $data['page_title'] = 'Sign up';
+            $data['keywords'] = 'Sign up';
+            $data['description'] = 'Sign up';
+            $data['title'] = 'Sign up';
             echo view('Theme/'.get_lebel_by_value_in_settings('Theme').'/header',$data);
             echo view('Theme/'.get_lebel_by_value_in_settings('Theme').'/Login/register');
             echo view('Theme/'.get_lebel_by_value_in_settings('Theme').'/footer');
@@ -161,6 +168,9 @@ class Login extends BaseController {
     }
 
     public function forgotPassword(){
+        $data['title'] = 'Forgot password';
+        $data['keywords'] = 'Forgot password';
+        $data['description'] = 'Forgot password';
         $data['page_title'] = 'Forgot Password';
         echo view('Theme/'.get_lebel_by_value_in_settings('Theme').'/header',$data);
         echo view('Theme/'.get_lebel_by_value_in_settings('Theme').'/Login/forgotPassword');
@@ -200,6 +210,9 @@ class Login extends BaseController {
 
     public function otp_submit(){
         if ($this->session->forgetPassword == true) {
+            $data['title'] = 'Otp Submit';
+            $data['keywords'] = 'Otp Submit';
+            $data['description'] = 'Otp Submit';
             $data['page_title'] = 'Otp Submit';
             echo view('Theme/' . get_lebel_by_value_in_settings('Theme') . '/header', $data);
             echo view('Theme/' . get_lebel_by_value_in_settings('Theme') . '/Login/otp_submit');
@@ -221,7 +234,9 @@ class Login extends BaseController {
     }
 
     public function password_reset(){
-
+        $data['title'] = 'Reset password';
+        $data['keywords'] = 'Reset password';
+        $data['description'] = 'Reset password';
         $data['page_title'] = 'Reset password';
         echo view('Theme/' . get_lebel_by_value_in_settings('Theme') . '/header', $data);
         echo view('Theme/' . get_lebel_by_value_in_settings('Theme') . '/Login/reset_password');

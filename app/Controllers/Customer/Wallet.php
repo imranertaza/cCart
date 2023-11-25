@@ -29,8 +29,12 @@ class Wallet extends BaseController
             $tableBal = DB()->table('cc_customer');
             $data['cust'] = $tableBal->where('customer_id', $this->session->cusUserId)->get()->getRow();
 
-            $data['page_title'] = 'Walllet';
-            $data['menu_active'] = 'walllet';
+
+            $data['keywords'] = 'Customer Wallet';
+            $data['description'] = 'Customer Wallet';
+            $data['title'] = 'Customer Wallet';
+            $data['page_title'] = 'Wallet';
+            $data['menu_active'] = 'wallet';
             echo view('Theme/' . get_lebel_by_value_in_settings('Theme') . '/header', $data);
             echo view('Theme/' . get_lebel_by_value_in_settings('Theme') . '/Customer/menu');
             echo view('Theme/' . get_lebel_by_value_in_settings('Theme') . '/Customer/walllet');
@@ -50,6 +54,10 @@ class Wallet extends BaseController
             $tableBal = DB()->table('cc_customer');
             $data['cust'] = $tableBal->where('customer_id', $this->session->cusUserId)->get()->getRow();
 
+
+            $data['keywords'] = 'Customer Add Found';
+            $data['description'] = 'Customer Add Found';
+            $data['title'] = 'Customer Add Found';
             $data['page_title'] = 'Dashboard';
             $data['menu_active'] = 'dashboard';
             echo view('Theme/' . get_lebel_by_value_in_settings('Theme') . '/header', $data);
