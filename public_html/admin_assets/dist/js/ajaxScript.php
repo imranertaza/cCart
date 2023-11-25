@@ -708,7 +708,17 @@ function submitFormBulk(formID) {
         processData: false,
         success: function(data) {
             $("#message").html(data);
-            $('#tablereload').load(document.URL + ' #example2', '', checkShowHideRow);
+            $("#tablereload").load(document.URL+ ' #example2', function(){
+                $('#example2').DataTable({
+                    "paging": true,
+                    "lengthChange": true,
+                    "searching": true,
+                    "ordering": true,
+                    "autoWidth": false,
+                    "responsive": true,
+                });
+                checkShowHideRow();
+            });
         }
     });
 
@@ -741,7 +751,17 @@ function bulkAllStatusUpdate(proId, value, field) {
         },
         success: function(data) {
             $("#message").html(data);
-            $('#tablereload').load(document.URL + ' #example2', '', checkShowHideRow);
+            $("#tablereload").load(document.URL+ ' #example2', function(){
+                $('#example2').DataTable({
+                    "paging": true,
+                    "lengthChange": true,
+                    "searching": true,
+                    "ordering": true,
+                    "autoWidth": false,
+                    "responsive": true,
+                });
+                checkShowHideRow();
+            });
         }
     });
 }
@@ -775,7 +795,17 @@ function categoryBulkUpdateAction() {
         success: function(data) {
             $('#categoryModal').modal('hide');
             $("#message").html(data);
-            $('#tablereload').load(document.URL + ' #example2', '', checkShowHideRow);
+            $("#tablereload").load(document.URL+ ' #example2', function(){
+                $('#example2').DataTable({
+                    "paging": true,
+                    "lengthChange": true,
+                    "searching": true,
+                    "ordering": true,
+                    "autoWidth": false,
+                    "responsive": true,
+                });
+                checkShowHideRow();
+            });
         }
     });
 }
