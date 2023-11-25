@@ -93,6 +93,25 @@
                                 Featured </label>
                         </div>
                         <div class="form-check form-check-inline">
+                            <input type="checkbox" name="meta_title" class="form-check-input"
+                                   onclick="bulk_status('meta_title')" id="check_11"  >
+                            <label class="form-check-label" for="check_11">
+                                Meta Title </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input type="checkbox" name="meta_keyword" class="form-check-input"
+                                   onclick="bulk_status('meta_keyword')" id="check_12"  >
+                            <label class="form-check-label" for="check_12">
+                                Meta Keyword </label>
+                        </div>
+
+                        <div class="form-check form-check-inline">
+                            <input type="checkbox" name="meta_description" class="form-check-input"
+                                   onclick="bulk_status('meta_description')" id="check_13"  >
+                            <label class="form-check-label" for="check_13">
+                                Meta Description </label>
+                        </div>
+                        <div class="form-check form-check-inline">
                             <input type="checkbox" name="action" class="form-check-input"
                                 onclick="bulk_status('action')" id="check_9" checked="">
                             <label class="form-check-label" for="check_9">
@@ -120,20 +139,29 @@
                                     Status</th>
                                 <th class="colum_featured row_show ">
                                     Featured</th>
+                                <th class="colum_meta_title row_hide "> Meta Title</th>
+                                <th class="colum_meta_keyword row_hide "> Meta Keyword</th>
+                                <th class="colum_meta_description row_hide "> Meta Description</th>
                                 <th class="colum_action row_show ">
                                     Action</th>
                             </tr>
                         </thead>
                         <!-- row_hide -->
                         <tbody>
-                            <?php $i = 1;
-                        $j = 1;
-                        $m = 1;
-                        $ml = 1;
-                        $q = 1;
-                        $ql = 1;
-                        $p = 1;
-                        $pl = 1;
+                        <?php $i = 1;
+                            $j = 1;
+                            $m = 1;
+                            $ml = 1;
+                            $q = 1;
+                            $ql = 1;
+                            $p = 1;
+                            $pl = 1;
+                            $mt =1;
+                            $mt1 =1;
+                            $mk1 =1;
+                            $mk =1;
+                            $md =1;
+                            $md1 =1;
                         foreach ($product as $key => $val) {
                         ?>
                             <tr>
@@ -161,9 +189,8 @@
                                 <td class="colum_category row_show">
                                     <ul class="list-unstyled"
                                         onclick="categoryBulkUpdate('<?php echo $val->product_id; ?>')">
-                                        <?php foreach (get_array_data_by_id('cc_product_to_category', 'product_id', $val->product_id) as $cat) {
-                                            $catName = get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $cat->category_id); ?>
-                                        <li><?php echo $catName; ?></li>
+                                        <?php foreach (get_array_data_by_id('cc_product_to_category', 'product_id', $val->product_id) as $cat) { ?>
+                                        <li><?php echo display_category_with_parent($cat->category_id); ?></li>
                                         <?php } ?>
                                     </ul>
 
@@ -197,6 +224,19 @@
                                         onclick="bulkAllStatusUpdate('<?php echo $val->product_id; ?>','1','featured')"
                                         class="btn btn-warning btn-xs">Off</button>
                                     <?php } ?>
+                                </td>
+                                <td class="colum_meta_title row_hide">
+                                    <p onclick="descriptionTableDataUpdateFunction('<?php echo $val->product_desc_id; ?>','meta_title', '<?php echo $val->meta_title;?>' , 'view_meta_title_<?php echo $mt1++; ?>', 'desc_meta_title_<?php echo $val->product_id; ?>')"><?php echo $val->meta_title;?></p>
+                                    <span id="view_meta_title_<?php echo $mt++; ?>"></span>
+                                </td>
+                                <td class="colum_meta_keyword row_hide">
+                                    <p onclick="descriptionTableDataUpdateFunction('<?php echo $val->product_desc_id; ?>','meta_keyword', '<?php echo $val->meta_keyword;?>' , 'view_meta_keyword_<?php echo $mk1++; ?>', 'desc_meta_keyword_<?php echo $val->product_id; ?>')"><?php echo $val->meta_keyword;?></p>
+                                    <span id="view_meta_keyword_<?php echo $mk++; ?>"></span>
+                                </td>
+
+                                <td class="colum_meta_description row_hide">
+                                    <p onclick="descriptionTableDataUpdateFunction('<?php echo $val->product_desc_id; ?>','meta_description', '<?php echo $val->meta_description;?>' , 'view_meta_description_<?php echo $md1++; ?>', 'desc_meta_description_<?php echo $val->product_id; ?>')"><?php echo $val->meta_description;?></p>
+                                    <span id="view_meta_description_<?php echo $md++; ?>"></span>
                                 </td>
                                 <td class="colum_action row_show">
                                     <a href="<?php echo base_url('product_update/' . $val->product_id) ?>"
