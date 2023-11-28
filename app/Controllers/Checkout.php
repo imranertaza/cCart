@@ -335,14 +335,14 @@ class Checkout extends BaseController
 
             //email send customer
             $temMes = order_email_template($order_id);
-            $subject = 'Product order';
+            $subject = 'Product order - Order ID '.$order_id;
             $message = $temMes;
             email_send($data['payment_email'], $subject, $message);
 
 
             //email send admin
             $email = get_lebel_by_value_in_settings('email');
-            $subjectAd = 'Product order';
+            $subjectAd = 'Product order - Order ID '.$order_id;
             $messageAd = $temMes;
             email_send($email, $subjectAd, $messageAd);
 

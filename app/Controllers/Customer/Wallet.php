@@ -56,9 +56,9 @@ class Wallet extends BaseController
             $data['cust'] = $tableBal->where('customer_id', $this->session->cusUserId)->get()->getRow();
 
 
-            $data['keywords'] = 'Customer Add Found';
-            $data['description'] = 'Customer Add Found';
-            $data['title'] = 'Customer Add Found';
+            $data['keywords'] = get_lebel_by_value_in_settings('meta_keyword');
+            $data['description'] = get_lebel_by_value_in_settings('meta_description');
+            $data['title'] = 'Account Add Found';
             $data['page_title'] = 'Dashboard';
             $data['menu_active'] = 'dashboard';
             echo view('Theme/' . get_lebel_by_value_in_settings('Theme') . '/header', $data);
