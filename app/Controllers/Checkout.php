@@ -44,9 +44,9 @@ class Checkout extends BaseController
             $tableSet = DB()->table('cc_payment_settings');
             $data['paypalEmail'] = $tableSet->where('payment_method_id', '3')->where('label', 'email')->get()->getRow();
 
-            $data['keywords'] = 'Checkout Page';
-            $data['description'] = 'Checkout Page';
-            $data['title'] = 'Checkout Page';
+            $data['keywords'] = get_lebel_by_value_in_settings('meta_keyword');
+            $data['description'] = get_lebel_by_value_in_settings('meta_description');
+            $data['title'] = 'Checkout';
 
             $data['page_title'] = 'Checkout';
             echo view('Theme/' . get_lebel_by_value_in_settings('Theme') . '/header', $data);
@@ -385,9 +385,9 @@ class Checkout extends BaseController
     public function success()
     {
 
-        $data['keywords'] = 'Checkout Success';
-        $data['description'] = 'Checkout Success';
-        $data['title'] = 'Checkout Success';
+        $data['keywords'] = get_lebel_by_value_in_settings('meta_keyword');
+        $data['description'] = get_lebel_by_value_in_settings('meta_description');
+        $data['title'] = 'Order Success';
 
         $data['page_title'] = 'Checkout Success';
         echo view('Theme/' . get_lebel_by_value_in_settings('Theme') . '/header', $data);
@@ -397,9 +397,9 @@ class Checkout extends BaseController
 
     public function failed()
     {
-        $data['keywords'] = 'Checkout Failed';
-        $data['description'] = 'Checkout Failed';
-        $data['title'] = 'Checkout Failed';
+        $data['keywords'] = get_lebel_by_value_in_settings('meta_keyword');
+        $data['description'] = get_lebel_by_value_in_settings('meta_description');
+        $data['title'] = 'Order Failed';
 
         $data['page_title'] = 'Checkout Failed';
         echo view('Theme/' . get_lebel_by_value_in_settings('Theme') . '/header', $data);
@@ -409,9 +409,9 @@ class Checkout extends BaseController
 
     public function canceled()
     {
-        $data['keywords'] = 'Checkout Canceled';
-        $data['description'] = 'Checkout Canceled';
-        $data['title'] = 'Checkout Canceled';
+        $data['keywords'] = get_lebel_by_value_in_settings('meta_keyword');
+        $data['description'] = get_lebel_by_value_in_settings('meta_description');
+        $data['title'] = 'Order Canceled';
 
         $data['page_title'] = 'Checkout Canceled';
         echo view('Theme/' . get_lebel_by_value_in_settings('Theme') . '/header', $data);
