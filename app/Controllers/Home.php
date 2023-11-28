@@ -76,6 +76,10 @@ class Home extends BaseController {
         $tabShopBy = DB()->table('cc_product_category_shop_by');
         $data['shop_by'] = $tabShopBy->limit(10)->get()->getResult();
 
+        $data['keywords'] = get_lebel_by_value_in_settings('meta_keyword');
+        $data['description'] = get_lebel_by_value_in_settings('meta_description');
+        $data['title'] = !empty(get_lebel_by_value_in_settings('meta_title'))?get_lebel_by_value_in_settings('meta_title'):get_lebel_by_value_in_settings('store_name');
+
         $data['home_menu'] = true;
         $data['theme'] = get_lebel_by_value_in_settings('Theme');
 
