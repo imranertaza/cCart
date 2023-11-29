@@ -246,7 +246,7 @@
     </section>
 
 <script src="<?php echo base_url() ?>/assets/assets_fl/script.js"></script>
-<!-- <script src="<?php echo base_url() ?>/assets/assets_fl/details.js"></script> -->
+<script src="<?php echo base_url() ?>/assets/assets_fl/details.js"></script>
 <script src="<?php echo base_url() ?>/assets/assets_fl/slick/slick.js" type="text/javascript" charset="utf-8"> </script>
 
 <script>
@@ -937,12 +937,12 @@
 
         const errors = document.getElementsByClassName('err');
         for (let item of errors) {
-            console.log(item);
+           
             item.innerHTML = "";
         }
         const inErr = document.getElementsByClassName('in_err');
         for (let item of inErr) {
-            console.log(item);
+           
             item.classList.remove('border-danger')
         }
     }
@@ -1059,12 +1059,12 @@
 
             return false;
         } else if (!Number(payment_phone.value)) {
-            console.log("error")
+            
             error("#paymentPhoneError", "Invalid phone number. Please enter a valid numeric value");
             payment_phone.classList.add("border-danger");
             return false;
         } else if (payment_phone.value.length < 3 || payment_phone.value.length > 15) {
-            console.log("phone number")
+           
             error("#paymentPhoneError", "Invalid phone number. Please enter a valid number");
             payment_phone.classList.add("border-danger");
             return false;
@@ -1114,7 +1114,7 @@
         const shipping_postcode = get("#shipping_postcode");
         const shipping_address_1 = get("#shipping_address_1");
         const shipping_address_2 = get("#shipping_address_2");
-        console.log(get("#shipping_lastname_mess"));
+        
         if (shippingFirstname.value === "") {
 
             shippingFirstname.classList.add("border-danger");
@@ -1122,7 +1122,7 @@
             return false;
         } else if (shippingFirstname.value.length > 12) {
             shippingFirstname.classList.add("border-danger");
-            // console.log(get("#shipping_firstname_mess"));
+            
             error("#shipping_firstname_mess", "Your first name is too long");
             return false;
         } else if (shipping_lastname.value === "") {
@@ -1134,12 +1134,12 @@
             shipping_phone.classList.add("border-danger");
             return false;
         } else if (!Number(shipping_phone.value)) {
-            console.log("error")
+            
             error("#shipping_phone_mess", "Invalid phone number. Please enter a valid numeric value");
             shipping_phone.classList.add("border-danger");
             return false;
         } else if (shipping_phone.value.length < 3 || payment_phone.value.length > 15) {
-            console.log("phone number")
+           
             error("#shipping_phone_mess", "Invalid phone number. Please enter a valid number");
             shipping_phone.classList.add("border-danger");
             return false;
@@ -1172,7 +1172,7 @@
             error("#shipping_address_2_mess", "Please enter your address");
             return false;
         } else {
-            // console.log("he")
+          
             return true;
         }
     }
@@ -1217,12 +1217,12 @@
             phone.parentElement.classList.add("border-danger");
             return false;
         } else if (!Number(phone.value)) {
-            console.log("error")
+            
             error("#phone_error", "Invalid phone number. Please enter a valid number");
             phone.parentElement.classList.add("border-danger");
             return false;
         } else if (phone.value.length < 10 || phone.value.length > 15) {
-            console.log("phone number")
+            
             error("#phone_error", "Invalid phone number. Please enter a valid number");
             phone.parentElement.classList.add("border-danger");
             return false;

@@ -244,7 +244,7 @@
                 <form action="<?php echo base_url('register_action')?>" method="post" class="sing-up" onsubmit="return onRegistration()">
                     <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message'); endif; ?>
                     <div class="form-group">
-                        <div class="input-group in_err d-flex align-items-center bg-white border rounded-2 px-3 mb-4">
+                        <div class="input-group in_err d-flex align-items-center bg-white border rounded-2 px-3">
                             <input class="form-control border-0" id="firstname" name="firstname" type="text" placeholder="First Name" required >
                             <div class="input-group-addon p-1">
                                 <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -254,9 +254,9 @@
                             </div>
                         </div>
                     </div>
-                    <span class="text-danger err d-inline-block text-capitalize mb-3" id="firstname_error"></span>
+                    <span class="text-danger err d-inline-block text-capitalize mb-4" id="firstname_error"></span>
                     <div class="form-group">
-                        <div class="input-group in_err d-flex align-items-center bg-white border rounded-2 px-3 mb-4">
+                        <div class="input-group in_err d-flex align-items-center bg-white border rounded-2 px-3">
                             <input class="form-control border-0" id="lastname" name="lastname" type="text" placeholder="Last Name" required >
                             <div class="input-group-addon p-1">
                                 <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -266,9 +266,9 @@
                             </div>
                         </div>
                     </div>
-                    <span class="text-danger err d-inline-block text-capitalize mb-3" id="lastname_error"></span>
+                    <span class="text-danger err d-inline-block text-capitalize mb-4" id="lastname_error"></span>
                     <div class="form-group">
-                        <div class="input-group in_err d-flex align-items-center bg-white border rounded-2 px-3 mb-4">
+                        <div class="input-group in_err d-flex align-items-center bg-white border rounded-2 px-3">
                             <input class="form-control border-0" id="email" name="email" type="email" placeholder="Email" required>
                             <div class="input-group-addon p-1">
                                 <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -277,9 +277,9 @@
                             </div>
                         </div>
                     </div>
-                    <span class="text-danger err d-inline-block text-capitalize mb-3" id="email_error"></span>
+                    <span class="text-danger err d-inline-block text-capitalize mb-4" id="email_error"></span>
                     <div class="form-group">
-                        <div class="input-group in_err d-flex align-items-center bg-white border rounded-2 px-3 mb-4">
+                        <div class="input-group in_err d-flex align-items-center bg-white border rounded-2 px-3 ">
                             <input class="form-control border-0" id="phone" name="phone" type="number" placeholder="Phone" required>
                             <div class="input-group-addon p-1">
                                 <svg aria-hidden="true" focusable="false" class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="20" height="16">
@@ -288,9 +288,9 @@
                             </div>
                         </div>
                     </div>
-                    <span class="text-danger err d-inline-block text-capitalize mb-3" id="phone_error"></span>
+                    <span class="text-danger err d-inline-block text-capitalize mb-4" id="phone_error"></span>
                     <div class="form-group">
-                        <div class="input-group in_err d-flex align-items-center bg-white border rounded-2 px-3 mb-4">
+                        <div class="input-group in_err d-flex align-items-center bg-white border rounded-2 px-3">
                             <input class="form-control border-0" id="password" name="password" type="password" placeholder="Password" required>
                             <div class="input-group-addon p-1">
                                 <svg width="23" height="12" viewBox="0 0 23 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -299,9 +299,9 @@
                             </div>
                         </div>
                     </div>
-                    <span class="text-danger err d-inline-block text-capitalize mb-3" id="password_error"></span>
+                    <span class="text-danger err d-inline-block text-capitalize mb-4" id="password_error"></span>
                     <div class="form-group">
-                        <div class="input-group in_err d-flex align-items-center bg-white border rounded-2 px-3 mb-4">
+                        <div class="input-group in_err d-flex align-items-center bg-white border rounded-2 px-3">
                             <input class="form-control border-0" id="confirmPassword" name="confirm_password" type="password" placeholder="Confirm Password" required>
                             <div class="input-group-addon p-1">
                                 <svg width="23" height="12" viewBox="0 0 23 12" fill="none" xmlns="http://www.w3.org/2000/svg">
