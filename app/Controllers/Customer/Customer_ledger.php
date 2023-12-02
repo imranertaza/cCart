@@ -27,6 +27,9 @@ class Customer_ledger extends BaseController
             $data['ledger'] = $table->where('customer_id',$this->session->cusUserId)->get()->getResult();
 
 
+            $data['keywords'] = get_lebel_by_value_in_settings('meta_keyword');
+            $data['description'] = get_lebel_by_value_in_settings('meta_description');
+            $data['title'] = 'Account Ledger';
             $data['page_title'] = 'Ledger';
             $data['menu_active'] = 'ledger';
             echo view('Theme/'.get_lebel_by_value_in_settings('Theme').'/header',$data);
