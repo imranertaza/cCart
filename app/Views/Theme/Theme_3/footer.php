@@ -1031,6 +1031,10 @@
         const payment_postcode = get("#payment_postcode");
         const payment_address_1 = get("#payment_address_1");
         const payment_address_2 = get("#payment_address_2");
+        
+            // console.log([fname1,lname1,email,Number(payment_phone.value),countryName1,stateView,payment_postcode,payment_address_1,payment_address_2]);
+            // // shippingAddressValidetion();
+            //  return false
 
         let mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
         if (fname1.value === "") {
@@ -1050,6 +1054,7 @@
             error("#emailError", "Please enter your email address");
             return false;
         } else if (!email.value.match(mailformat)) {
+            console.log(shippingState);
             error("#emailError", "Invalid email address. Please enter a valid email");
             email.classList.add("border-danger");
             return false;
@@ -1097,7 +1102,8 @@
             error("#paymentAddress2Error", "Please enter your address");
             return false;
         } else if (shippingState) {
-            return shippingAddressValidetion();
+             return  shippingAddressValidetion();
+          
         } else {
             return true;
         }
@@ -1114,6 +1120,10 @@
         const shipping_postcode = get("#shipping_postcode");
         const shipping_address_1 = get("#shipping_address_1");
         const shipping_address_2 = get("#shipping_address_2");
+// console.log([shippingFirstname,shipping_lastname,shipping_phone,shipping_phone,shipping_country,shipping_postcode,shipping_address_1,shipping_address_1]);
+
+// console.log(shippingFirstname.value);
+//          return false;
         
         if (shippingFirstname.value === "") {
 
@@ -1176,7 +1186,7 @@
             return true;
         }
     }
-
+    // shippingAddressValidetion()
     //for Registration  validetion 
     const onRegistration = () => {
         clearErrors();
