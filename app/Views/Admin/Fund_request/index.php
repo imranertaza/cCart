@@ -46,7 +46,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $i=1; foreach ($found_request as $val){ ?>
+                        <?php $i=1; foreach ($fund_request as $val){ ?>
                         <tr>
                             <td width="40"><?php echo $i++;?></td>
                             <td><?php echo get_data_by_id('firstname','cc_customer','customer_id',$val->customer_id).' '.get_data_by_id('lastname','cc_customer','customer_id',$val->customer_id);?></td>
@@ -55,7 +55,7 @@
                             <td><?php echo saleDate($val->createdDtm);?></td>
                             <td width="180">
                                 <?php if($val->status == 'Pending'){ ?>
-                                    <select name="status" id="status" onchange="found_request_update(this.value,'<?php echo $val->found_request_id;?>')" >
+                                    <select name="status" id="status" onchange="found_request_update(this.value,'<?php echo $val->fund_request_id;?>')" >
                                         <option value="Pending" <?php echo ($val->status == 'Pending')?'selected':'';?>>Pending</option>
                                         <option value="Complete" <?php echo ($val->status == 'Complete')?'selected':'';?>>Complete</option>
                                         <option value="Canceled" <?php echo ($val->status == 'Canceled')?'selected':'';?>>Canceled</option>
