@@ -1021,8 +1021,9 @@
 
     // chackout from validetion
     const onchackoutsubmit = () => {
+
         clearErrors();
-        const fname1 = get("#fname1");
+        const  fname1 = get("#fname1");
         const lname1 = get("#lname1");
         const email = get("#email");
         const payment_phone = get("#payment_phone");
@@ -1031,10 +1032,6 @@
         const payment_postcode = get("#payment_postcode");
         const payment_address_1 = get("#payment_address_1");
         const payment_address_2 = get("#payment_address_2");
-        
-            // console.log([fname1,lname1,email,Number(payment_phone.value),countryName1,stateView,payment_postcode,payment_address_1,payment_address_2]);
-            // // shippingAddressValidetion();
-            //  return false
 
         let mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
         if (fname1.value === "") {
@@ -1054,7 +1051,7 @@
             error("#emailError", "Please enter your email address");
             return false;
         } else if (!email.value.match(mailformat)) {
-            console.log(shippingState);
+           
             error("#emailError", "Invalid email address. Please enter a valid email");
             email.classList.add("border-danger");
             return false;
@@ -1112,19 +1109,15 @@
     // shipping address validetion
     const shippingAddressValidetion = () => {
 
-        const shippingFirstname = get("#shipping_firstname");
-        const shipping_lastname = get("#shipping_lastname");
+        const shippingFirstname = get("#fname");
+        const shipping_lastname = get("#lname");
         const shipping_phone = get("#shipping_phone");
         const shipping_country = get("#shipping_country");
         const sh_stateView = get("#sh_stateView");
         const shipping_postcode = get("#shipping_postcode");
         const shipping_address_1 = get("#shipping_address_1");
         const shipping_address_2 = get("#shipping_address_2");
-// console.log([shippingFirstname,shipping_lastname,shipping_phone,shipping_phone,shipping_country,shipping_postcode,shipping_address_1,shipping_address_1]);
 
-// console.log(shippingFirstname.value);
-//          return false;
-        
         if (shippingFirstname.value === "") {
 
             shippingFirstname.classList.add("border-danger");
@@ -1186,7 +1179,8 @@
             return true;
         }
     }
-    // shippingAddressValidetion()
+    
+
     //for Registration  validetion 
     const onRegistration = () => {
         clearErrors();
@@ -1197,7 +1191,7 @@
             password = get("#password"),
             confirmPassword = get("#confirmPassword");
         let mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-        
+       
         if (firstname.value === "") {
             firstname.parentElement.classList.add("border-danger");
             error("#firstname_error", "Please enter your first name");
