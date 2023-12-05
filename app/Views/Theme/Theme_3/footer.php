@@ -1021,8 +1021,9 @@
 
     // chackout from validetion
     const onchackoutsubmit = () => {
+
         clearErrors();
-        const fname1 = get("#fname1");
+        const  fname1 = get("#fname1");
         const lname1 = get("#lname1");
         const email = get("#email");
         const payment_phone = get("#payment_phone");
@@ -1050,6 +1051,7 @@
             error("#emailError", "Please enter your email address");
             return false;
         } else if (!email.value.match(mailformat)) {
+           
             error("#emailError", "Invalid email address. Please enter a valid email");
             email.classList.add("border-danger");
             return false;
@@ -1097,7 +1099,8 @@
             error("#paymentAddress2Error", "Please enter your address");
             return false;
         } else if (shippingState) {
-            return shippingAddressValidetion();
+             return  shippingAddressValidetion();
+          
         } else {
             return true;
         }
@@ -1106,15 +1109,15 @@
     // shipping address validetion
     const shippingAddressValidetion = () => {
 
-        const shippingFirstname = get("#shipping_firstname");
-        const shipping_lastname = get("#shipping_lastname");
+        const shippingFirstname = get("#fname");
+        const shipping_lastname = get("#lname");
         const shipping_phone = get("#shipping_phone");
         const shipping_country = get("#shipping_country");
         const sh_stateView = get("#sh_stateView");
         const shipping_postcode = get("#shipping_postcode");
         const shipping_address_1 = get("#shipping_address_1");
         const shipping_address_2 = get("#shipping_address_2");
-        
+
         if (shippingFirstname.value === "") {
 
             shippingFirstname.classList.add("border-danger");
@@ -1176,6 +1179,7 @@
             return true;
         }
     }
+    
 
     //for Registration  validetion 
     const onRegistration = () => {
@@ -1187,7 +1191,7 @@
             password = get("#password"),
             confirmPassword = get("#confirmPassword");
         let mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-        
+       
         if (firstname.value === "") {
             firstname.parentElement.classList.add("border-danger");
             error("#firstname_error", "Please enter your first name");
