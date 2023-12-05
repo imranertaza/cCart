@@ -37,6 +37,7 @@ class Checkout extends BaseController
 
     public function index()
     {
+
         if (!empty($this->cart->contents())) {
             $table = DB()->table('cc_customer');
             $data['customer'] = $table->where('customer_id', $this->session->cusUserId)->get()->getRow();
@@ -373,10 +374,10 @@ class Checkout extends BaseController
             $data['charge'] = $this->zone_shipping->getSettings()->calculateShipping($city_id);
         }
         if ($paymethod == 'weight') {
-            $data['charge'] = $this->weight_shipping->getSettings();
+            $data['charge'] = $this->weight_shipping->getSettings()->calculateShipping();
         }
         if ($paymethod == 'zone_rate') {
-            $data['charge'] = $this->zone_rate_shipping->getSettings($city_id);
+            $data['charge'] = $this->zone_rate_shipping->getSettings($city_id)->calculateShipping();
         }
 
         return $this->response->setJSON($data);
@@ -456,10 +457,10 @@ class Checkout extends BaseController
             $charge = $this->zone_shipping->getSettings()->calculateShipping($city_id);
         }
         if ($shipping_method == 'weight') {
-            $charge = $this->weight_shipping->getSettings();
+            $charge = $this->weight_shipping->getSettings()->calculateShipping();
         }
         if ($shipping_method == 'zone_rate') {
-            $charge = $this->zone_rate_shipping->getSettings($city_id);
+            $charge = $this->zone_rate_shipping->getSettings($city_id)->calculateShipping();
         }
 
         return $charge;
