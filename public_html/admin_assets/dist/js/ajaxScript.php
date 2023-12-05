@@ -25,6 +25,9 @@ $(function() {
         "info": true,
         "autoWidth": false,
         "responsive": true,
+        "drawCallback": function( settings ) {
+            checkShowHideRow();
+        }
     });
 });
 // This is for DataTable -- End --
