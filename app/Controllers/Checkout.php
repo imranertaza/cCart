@@ -37,12 +37,17 @@ class Checkout extends BaseController
 
     public function index()
     {
+
         if (!empty($this->cart->contents())) {
             $table = DB()->table('cc_customer');
             $data['customer'] = $table->where('customer_id', $this->session->cusUserId)->get()->getRow();
 
             $tableSet = DB()->table('cc_payment_settings');
             $data['paypalEmail'] = $tableSet->where('payment_method_id', '3')->where('label', 'email')->get()->getRow();
+
+            $data['keywords'] = get_lebel_by_value_in_settings('meta_keyword');
+            $data['description'] = get_lebel_by_value_in_settings('meta_description');
+            $data['title'] = 'Checkout';
 
             $data['page_title'] = 'Checkout';
             echo view('Theme/' . get_lebel_by_value_in_settings('Theme') . '/header', $data);
@@ -331,14 +336,14 @@ class Checkout extends BaseController
 
             //email send customer
             $temMes = order_email_template($order_id);
-            $subject = 'Product order';
+            $subject = 'Product order - Order ID '.$order_id;
             $message = $temMes;
             email_send($data['payment_email'], $subject, $message);
 
 
             //email send admin
             $email = get_lebel_by_value_in_settings('email');
-            $subjectAd = 'Product order';
+            $subjectAd = 'Product order - Order ID '.$order_id;
             $messageAd = $temMes;
             email_send($email, $subjectAd, $messageAd);
 
@@ -369,10 +374,10 @@ class Checkout extends BaseController
             $data['charge'] = $this->zone_shipping->getSettings()->calculateShipping($city_id);
         }
         if ($paymethod == 'weight') {
-            $data['charge'] = $this->weight_shipping->getSettings();
+            $data['charge'] = $this->weight_shipping->getSettings()->calculateShipping();
         }
         if ($paymethod == 'zone_rate') {
-            $data['charge'] = $this->zone_rate_shipping->getSettings($city_id);
+            $data['charge'] = $this->zone_rate_shipping->getSettings($city_id)->calculateShipping();
         }
 
         return $this->response->setJSON($data);
@@ -380,6 +385,11 @@ class Checkout extends BaseController
 
     public function success()
     {
+
+        $data['keywords'] = get_lebel_by_value_in_settings('meta_keyword');
+        $data['description'] = get_lebel_by_value_in_settings('meta_description');
+        $data['title'] = 'Order Success';
+
         $data['page_title'] = 'Checkout Success';
         echo view('Theme/' . get_lebel_by_value_in_settings('Theme') . '/header', $data);
         echo view('Theme/' . get_lebel_by_value_in_settings('Theme') . '/Checkout/success', $data);
@@ -388,6 +398,10 @@ class Checkout extends BaseController
 
     public function failed()
     {
+        $data['keywords'] = get_lebel_by_value_in_settings('meta_keyword');
+        $data['description'] = get_lebel_by_value_in_settings('meta_description');
+        $data['title'] = 'Order Failed';
+
         $data['page_title'] = 'Checkout Failed';
         echo view('Theme/' . get_lebel_by_value_in_settings('Theme') . '/header', $data);
         echo view('Theme/' . get_lebel_by_value_in_settings('Theme') . '/Checkout/failed', $data);
@@ -396,6 +410,10 @@ class Checkout extends BaseController
 
     public function canceled()
     {
+        $data['keywords'] = get_lebel_by_value_in_settings('meta_keyword');
+        $data['description'] = get_lebel_by_value_in_settings('meta_description');
+        $data['title'] = 'Order Canceled';
+
         $data['page_title'] = 'Checkout Canceled';
         echo view('Theme/' . get_lebel_by_value_in_settings('Theme') . '/header', $data);
         echo view('Theme/' . get_lebel_by_value_in_settings('Theme') . '/Checkout/canceled', $data);
@@ -439,10 +457,10 @@ class Checkout extends BaseController
             $charge = $this->zone_shipping->getSettings()->calculateShipping($city_id);
         }
         if ($shipping_method == 'weight') {
-            $charge = $this->weight_shipping->getSettings();
+            $charge = $this->weight_shipping->getSettings()->calculateShipping();
         }
         if ($shipping_method == 'zone_rate') {
-            $charge = $this->zone_rate_shipping->getSettings($city_id);
+            $charge = $this->zone_rate_shipping->getSettings($city_id)->calculateShipping();
         }
 
         return $charge;
