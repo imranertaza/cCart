@@ -219,6 +219,34 @@ class Settings extends Seeder
                 'value' => 'ssl',
                 'createdBy' => 1,
             ],
+            [
+                'settings_id' => 32,
+                'label' => 'category_product_limit',
+                'title' => 'Category product limit',
+                'value' => '9',
+                'createdBy' => 1,
+            ],
+            [
+                'settings_id' => 33,
+                'label' => 'meta_title',
+                'title' => 'Meta Title',
+                'value' => 'Lorem ipsum dolor sit amet',
+                'createdBy' => 1,
+            ],
+            [
+                'settings_id' => 34,
+                'label' => 'meta_keyword',
+                'title' => 'Meta Keyword',
+                'value' => 'Lorem ipsum dolor sit amet',
+                'createdBy' => 1,
+            ],
+            [
+                'settings_id' => 35,
+                'label' => 'meta_description',
+                'title' => 'Meta Description',
+                'value' => 'Lorem ipsum dolor sit amet',
+                'createdBy' => 1,
+            ],
         ];
         // Using Query Builder
         $this->db->table('cc_settings')->insertBatch($data);
