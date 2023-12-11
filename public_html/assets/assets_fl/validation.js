@@ -239,7 +239,6 @@ const shippingAddressValidetion = () => {
         error("#shipping_address_2_mess", "Please enter your address");
         return false;
     } else {
-
         return true;
     }
 }
