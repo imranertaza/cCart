@@ -32,31 +32,19 @@ const onsubmitHendler = () => {
     let mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
     if (email.value === '') {
-
         error("#emailMass", "Please enter your email address");
-        // logEamilParent.classList.add("border-danger");
-
         email.parentElement.classList.add("border-danger");
-
         return false;
     } else if (!email.value.match(mailformat)) {
-
         error("#emailMass", "Invalid email address. Please enter a valid email");
         email.parentElement.classList.add("border-danger");
-        //  logEamilParent.classList.add("border-danger");
-
         return false;
     } else if (password.value === "") {
-
         error("#passwordMass", "Please enter your email address");
         password.parentElement.classList.add("border-danger");
-        // logPasswordParent.classList.add("border-danger");
-
         return false;
     } else if (password.value.length < 5) {
-
         error("#passwordMass", "password length is less then 5 creators");
-        // logPasswordParent.classList.add("border-danger");
         password.parentElement.classList.add("border-danger");
         return false;
     } else {
@@ -68,6 +56,7 @@ const onsubmitHendler = () => {
 let shippingState = false;
 // define inable shipping address
 function shippingAddress() {
+
     var shipping = document.getElementById('shipping_address');
     var shippingicon = document.getElementById('shippingicon2');
 
@@ -163,6 +152,7 @@ const onchackoutsubmit = () => {
         error("#paymentAddress2Error", "Please enter your address");
         return false;
     } else if (shippingState) {
+
         return shippingAddressValidetion();
 
     } else {
@@ -253,6 +243,7 @@ const onRegistration = () => {
         phone = get("#phone"),
         password = get("#password"),
         confirmPassword = get("#confirmPassword");
+
     let mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
     if (firstname.value === "") {
@@ -371,7 +362,7 @@ const onProfileForm = () => {
     const payment_address_1 = get("#payment_address_1");
     const payment_address_2 = get("#payment_address_2");
     const passReset = typeof get("#passReset").value === "string" && get("#passReset").value === "0" ? true : false;
-    console.log(passReset)
+
     let mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (fname1.value === "") {
         fname1.classList.add("border-danger");
@@ -506,20 +497,20 @@ const passwordRecovery = () => {
     const confirmPassword = get("#confirm_password");
 
     if (password.value === "") {
-        password.classList.add("border-danger");
-        error("#new_password_err_mess", "Please enter your password"); 
+        password.parentElement.classList.add("border-danger");
+        error("#new_password_err_mess", "Please enter your password");
         return false;
     } else if (password.value.length < 5) {
-        password.classList.add("border-danger");
+        password.parentElement.classList.add("border-danger");
         error("#new_password_err_mess", "Password must be at least 5 characters long.");
         return false;
     } else if (confirmPassword.value === "") {
-        confirmPassword.classList.add("border-danger");
+        confirmPassword.parentElement.classList.add("border-danger");
         error("#confirm_password_err_mess", "Please enter your confirm Password");
         return false;
     } else if (confirmPassword.value !== password.value) {
-        confirmPassword.classList.add("border-danger");
-        password.classList.add("border-danger");
+        confirmPassword.parentElement.classList.add("border-danger");
+        password.parentElement.classList.add("border-danger");
         error("#new_password_err_mess", "password is not match");
         error("#confirm_password_err_mess", "password is not match");
         return false;
