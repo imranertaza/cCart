@@ -59,15 +59,21 @@ function shippingAddress() {
 
     var shipping = document.getElementById('shipping_address');
     var shippingicon = document.getElementById('shippingicon2');
-
+    
     if (shipping.style.display === "none") {
-        shipping.style.display = "block";
         shippingState = true;
-        shippingicon.style.transform = "rotate(90deg)";
+        shipping.style.display = "block";
+        if (shippingicon) { 
+            shippingicon.style.transform = "rotate(90deg)";
+        }
+
     } else {
-        shipping.style.display = "none";
         shippingState = false;
-        shippingicon.style.transform = "rotate(0deg)";
+        shipping.style.display = "none";
+        if (shippingicon) {
+            shippingicon.style.transform = "rotate(0deg)";
+        }
+
     }
 }
 
@@ -133,7 +139,7 @@ const onchackoutsubmit = () => {
         return false;
     } else if (payment_postcode.value === "") {
         payment_postcode.classList.add("border-danger");
-        error("#stateViewPhoneError", "Please enter your post code");
+        error("#paymentPostcodeError", "Please enter your post code");
         return false;
     } else if (payment_postcode.value.length > 10) {
         payment_postcode.classList.add("border-danger");

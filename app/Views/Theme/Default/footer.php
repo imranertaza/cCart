@@ -464,6 +464,6 @@
     }
 
 </script>
-
+<script src="<?php echo base_url() ?>/assets/assets_fl/validation.js" type="text/javascript" ></script>
 </body>
 </html>
