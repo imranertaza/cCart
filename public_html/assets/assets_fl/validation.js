@@ -59,11 +59,11 @@ function shippingAddress() {
 
     var shipping = document.getElementById('shipping_address');
     var shippingicon = document.getElementById('shippingicon2');
-    
+
     if (shipping.style.display === "none") {
         shippingState = true;
         shipping.style.display = "block";
-        if (shippingicon) { 
+        if (shippingicon) {
             shippingicon.style.transform = "rotate(90deg)";
         }
 
@@ -331,7 +331,7 @@ const resetPassword = () => {
         return false;
     } else if (password.value === "") {
         password.classList.add("border-danger");
-        error("#new_password_err_mess", "Please enter your password"); s
+        error("#new_password_err_mess", "Please enter your password");
         return false;
     } else if (password.value.length < 5) {
         password.classList.add("border-danger");
@@ -368,7 +368,17 @@ const onProfileForm = () => {
     const payment_address_1 = get("#payment_address_1");
     const payment_address_2 = get("#payment_address_2");
     const passReset = typeof get("#passReset").value === "string" && get("#passReset").value === "0" ? true : false;
-
+    // console.log([fname1,
+    //     lname1,
+    //     email,
+    //     payment_phone,
+    //     countryName1,
+    //     stateView,
+    //     payment_postcode,
+    //     payment_address_1,
+    //     payment_address_2,
+    //     passReset,])
+    // return false;
     let mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (fname1.value === "") {
         fname1.classList.add("border-danger");
