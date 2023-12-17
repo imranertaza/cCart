@@ -21,7 +21,7 @@ class Login extends BaseController {
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != TRUE) {
             echo view('Admin/login');
         }else{
-            return redirect()->to(site_url('admin_dashboard'));
+            return redirect()->to(site_url('admin/dashboard'));
         }
     }
 
@@ -66,7 +66,7 @@ class Login extends BaseController {
                 );
                 $this->session->set($sessionArray);
 
-                return redirect()->to(site_url('admin_dashboard'));
+                return redirect()->to(site_url('admin/dashboard'));
 
 
             }else{

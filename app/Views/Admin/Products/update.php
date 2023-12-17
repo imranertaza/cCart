@@ -8,7 +8,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="<?php echo base_url('admin_dashboard') ?>">Home</a></li>
+                        <li class="breadcrumb-item"><a href="<?php echo base_url('admin/dashboard') ?>">Home</a></li>
                         <li class="breadcrumb-item active">Product Update</li>
                     </ol>
                 </div>
@@ -18,7 +18,7 @@
 
     <!-- Main content -->
     <section class="content">
-        <form action="<?php echo base_url('product_update_action') ?>" method="post" enctype="multipart/form-data">
+        <form action="<?php echo base_url('admin/product_update_action') ?>" method="post" enctype="multipart/form-data">
             <!-- Default box -->
             <div class="card">
                 <div class="card-header">
@@ -29,8 +29,8 @@
                         <div class="col-md-4" style="text-align: right;">
                             
                             <button type="submit" class="btn btn-primary float-right mr-2 ">Update</button>
-                            <a href="<?php echo base_url('product_create');?>" class="btn btn-warning float-right mr-2 "> Add New</a>
-                            <a href="<?php echo base_url('products') ?>" class="btn btn-danger float-right mr-2 " >Back</a>
+                            <a href="<?php echo base_url('admin/product_create');?>" class="btn btn-warning float-right mr-2 "> Add New</a>
+                            <a href="<?php echo base_url('admin/products') ?>" class="btn btn-danger float-right mr-2 " >Back</a>
                         </div>
                         <div class="col-md-12" id="message" style="margin-top: 10px">
                             <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message'); endif; ?>

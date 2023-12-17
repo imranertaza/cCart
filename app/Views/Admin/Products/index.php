@@ -8,7 +8,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="<?php echo base_url('admin_dashboard')?>">Home</a></li>
+                        <li class="breadcrumb-item"><a href="<?php echo base_url('admin/dashboard')?>">Home</a></li>
                         <li class="breadcrumb-item active">Product List</li>
                     </ol>
                 </div>
@@ -18,7 +18,7 @@
 
     <!-- Main content -->
     <section class="content">
-        <form action="<?php echo base_url('product_copy_action'); ?>" method="post">
+        <form action="<?php echo base_url('admin/product_copy_action'); ?>" method="post">
         <!-- Default box -->
         <div class="card">
             <div class="card-header">
@@ -27,10 +27,10 @@
                         <h3 class="card-title">Product List</h3>
                     </div>
                     <div class="col-md-4">
-                        <a href="<?php echo base_url('product_create') ?>" class="btn btn-primary btn-xs float-right"><i
+                        <a href="<?php echo base_url('admin/product_create') ?>" class="btn btn-primary btn-xs float-right"><i
                                 class="fas fa-plus"></i> Add</a>
                         <?php if(modules_key_by_access('bulk_edit_products') == '1' ){?>
-                        <a href="<?php echo base_url('bulk_edit_products') ?>"
+                        <a href="<?php echo base_url('admin/bulk_edit_products') ?>"
                             class="btn btn-info btn-xs float-right mr-2"><i class="fas fa-plus"></i> Bulk Edit
                             Products</a>
                         <?php } ?>
@@ -68,9 +68,9 @@
                             <td> <?php echo $val->quantity;?></td>
                             <td> <?php echo $val->status;?></td>
                             <td>
-                                <a href="<?php echo base_url('product_update/'.$val->product_id)?>"
+                                <a href="<?php echo base_url('admin/product_update/'.$val->product_id)?>"
                                     class="btn btn-sm btn-info">Edit</a>
-                                <a href="<?php echo base_url('product_delete/'.$val->product_id)?>"
+                                <a href="<?php echo base_url('admin/product_delete/'.$val->product_id)?>"
                                     class="btn btn-sm btn-danger"
                                     onclick="return confirm('Are you sure you want to Delete?')">delete</a>
                             </td>

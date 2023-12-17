@@ -1,7 +1,7 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="<?php echo base_url('admin_dashboard') ?>" class="brand-link">
+    <a href="<?php echo base_url('admin/dashboard') ?>" class="brand-link">
         <img src="<?php echo base_url() ?>/admin_assets/dist/img/AdminLTELogo.png" alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light"><?php echo get_lebel_by_value_in_settings('store_name'); ?></span>
     </a>
@@ -33,7 +33,7 @@
                 $menuAccessPur = all_menu_permission_check($modArrayPur, $adRoleId);
                 if ($menuAccessPur == true) {
                 ?>
-                    <?php echo add_main_based_menu_with_permission('Dashboard', base_url('admin_dashboard'), $adRoleId, 'fa-tachometer-alt', 'Dashboard'); ?>
+                    <?php echo add_main_based_menu_with_permission('Dashboard', base_url('admin/dashboard'), $adRoleId, 'fa-tachometer-alt', 'Dashboard'); ?>
 
                 <?php } ?>
 
@@ -45,7 +45,7 @@
                 if ($menuAccessPur == true) {
                 ?>
                     <li class="nav-item">
-                        <a href="<?php echo base_url('order_list'); ?>" class="nav-link">
+                        <a href="<?php echo base_url('admin/order_list'); ?>" class="nav-link">
                             <i class="nav-icon far fa-calendar-alt"></i>
                             <p>
                                 Order
@@ -67,18 +67,18 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
-                            <?php echo add_main_based_menu_with_permission('Product List', base_url('products'), $adRoleId, 'fa-circle', 'Products'); ?>
+                            <?php echo add_main_based_menu_with_permission('Product List', base_url('admin/products'), $adRoleId, 'fa-circle', 'Products'); ?>
 
-                            <?php echo add_main_based_menu_with_permission('Product Category', base_url('product_category'), $adRoleId, 'fa-circle', 'Product_category'); ?>
+                            <?php echo add_main_based_menu_with_permission('Product Category', base_url('admin/product_category'), $adRoleId, 'fa-circle', 'Product_category'); ?>
 
-                            <?php echo add_main_based_menu_with_permission('Brand', base_url('brand'), $adRoleId, 'fa-circle', 'Brand'); ?>
+                            <?php echo add_main_based_menu_with_permission('Brand', base_url('admin/brand'), $adRoleId, 'fa-circle', 'Brand'); ?>
 
                             <?php //echo add_main_based_menu_with_permission('Color Family', base_url('color_family'), $adRoleId, 'fa-circle', 'Color_family');
                             ?>
 
-                            <?php echo add_main_based_menu_with_permission('Attribute Group', base_url('attribute_group'), $adRoleId, 'fa-circle', 'Attribute_group'); ?>
+                            <?php echo add_main_based_menu_with_permission('Attribute Group', base_url('admin/attribute_group'), $adRoleId, 'fa-circle', 'Attribute_group'); ?>
 
-                            <?php echo add_main_based_menu_with_permission('Option', base_url('option'), $adRoleId, 'fa-circle', 'Option'); ?>
+                            <?php echo add_main_based_menu_with_permission('Option', base_url('admin/option'), $adRoleId, 'fa-circle', 'Option'); ?>
 
                             <?php //echo add_main_based_menu_with_permission('Advanced Products', base_url('advanced_products'), $adRoleId, 'fa-circle', 'Advanced_products'); 
                             ?>
@@ -94,7 +94,7 @@
                 if ($menuAccessPur == true) {
                 ?>
                     <li class="nav-item">
-                        <a href="<?php echo base_url('coupon'); ?>" class="nav-link">
+                        <a href="<?php echo base_url('admin/coupon'); ?>" class="nav-link">
                             <i class="nav-icon far fa-calendar-alt"></i>
                             <p>
                                 Coupon
@@ -109,7 +109,7 @@
                 if ($menuAccessPur == true) {
                 ?>
                     <li class="nav-item">
-                        <a href="<?php echo base_url('reviews'); ?>" class="nav-link">
+                        <a href="<?php echo base_url('admin/reviews'); ?>" class="nav-link">
                             <i class="nav-icon far fa-calendar-alt"></i>
                             <p>
                                 Reviews
@@ -124,7 +124,7 @@
                 $menuAccessPur = all_menu_permission_check($modArrayPur, $adRoleId);
                 if ($menuAccessPur == true) { ?>
                     <li class="nav-item">
-                        <a href="<?php echo base_url('shipping'); ?>" class="nav-link">
+                        <a href="<?php echo base_url('admin/shipping'); ?>" class="nav-link">
                             <i class="nav-icon far fa-calendar-alt"></i>
                             <p>
                                 Shipping method
@@ -138,7 +138,7 @@
                 $menuAccessPur = all_menu_permission_check($modArrayPur, $adRoleId);
                 if ($menuAccessPur == true) { ?>
                     <li class="nav-item">
-                        <a href="<?php echo base_url('payment'); ?>" class="nav-link">
+                        <a href="<?php echo base_url('admin/payment'); ?>" class="nav-link">
                             <i class="nav-icon far fa-calendar-alt"></i>
                             <p>
                                 Payment method
@@ -154,7 +154,7 @@
                 if ($menuAccessPur == true) {
                     ?>
                     <li class="nav-item">
-                        <a href="<?php echo base_url('module'); ?>" class="nav-link">
+                        <a href="<?php echo base_url('admin/module'); ?>" class="nav-link">
                             <i class="nav-icon far fa-calendar-alt"></i>
                             <p>
                                 Module
@@ -171,7 +171,7 @@
                 if ($menuAccessPur == true) {
                 ?>
                     <li class="nav-item">
-                        <a href="<?php echo base_url('user'); ?>" class="nav-link">
+                        <a href="<?php echo base_url('admin/user'); ?>" class="nav-link">
                             <i class="nav-icon far fa-calendar-alt"></i>
                             <p>
                                 Users
@@ -186,7 +186,7 @@
                 if ($menuAccessPur == true) {
                 ?>
                     <li class="nav-item">
-                        <a href="<?php echo base_url('role'); ?>" class="nav-link">
+                        <a href="<?php echo base_url('admin/role'); ?>" class="nav-link">
                             <i class="nav-icon far fa-calendar-alt"></i>
                             <p> User Role </p>
                         </a>
@@ -199,7 +199,7 @@
                 if ($menuAccessPur == true) {
                 ?>
                     <li class="nav-item">
-                        <a href="<?php echo base_url('customers'); ?>" class="nav-link">
+                        <a href="<?php echo base_url('admin/customers'); ?>" class="nav-link">
                             <i class="nav-icon far fa-calendar-alt"></i>
                             <p>Customers </p>
                         </a>
@@ -212,7 +212,7 @@
                 if ($menuAccessPur == true) {
                 ?>
                     <li class="nav-item">
-                        <a href="<?php echo base_url('fund_request'); ?>" class="nav-link">
+                        <a href="<?php echo base_url('admin/fund_request'); ?>" class="nav-link">
                             <i class="nav-icon far fa-calendar-alt"></i>
                             <p>Fund Request </p>
                         </a>
@@ -225,7 +225,7 @@
                 $menuAccessPur = all_menu_permission_check($modArrayPur, $adRoleId);
                 if ($menuAccessPur == true) { ?>
                     <li class="nav-item">
-                        <a href="<?php echo base_url('settings'); ?>" class="nav-link">
+                        <a href="<?php echo base_url('admin/settings'); ?>" class="nav-link">
                             <i class="nav-icon far fa-calendar-alt"></i>
                             <p>
                                 Settings
@@ -239,7 +239,7 @@
                 $menuAccessPur = all_menu_permission_check($modArrayPur, $adRoleId);
                 if ($menuAccessPur == true) { ?>
                     <li class="nav-item">
-                        <a href="<?php echo base_url('theme_settings'); ?>" class="nav-link">
+                        <a href="<?php echo base_url('admin/theme_settings'); ?>" class="nav-link">
                             <i class="nav-icon far fa-calendar-alt"></i>
                             <p>
                                 Theme Settings
@@ -256,7 +256,7 @@
                     </a>
                     <ul class="nav nav-treeview">
 
-                        <?php echo add_main_based_menu_with_permission('Geo Zone', base_url('geo_zone'), $adRoleId, 'fa-circle', 'Geo_zone'); ?>
+                        <?php echo add_main_based_menu_with_permission('Geo Zone', base_url('admin/geo_zone'), $adRoleId, 'fa-circle', 'Geo_zone'); ?>
 
                     </ul>
                 </li>
@@ -270,7 +270,7 @@
                 $menuAccessPur = all_menu_permission_check($modArrayPur, $adRoleId);
                 if ($menuAccessPur == true) { ?>
                     <li class="nav-item">
-                        <a href="<?php echo base_url('page_list'); ?>" class="nav-link">
+                        <a href="<?php echo base_url('admin/page_list'); ?>" class="nav-link">
                             <i class="nav-icon far fa-calendar-alt"></i>
                             <p>
                                 Page
@@ -285,7 +285,7 @@
                 if ($menuAccessPur == true) {
                 ?>
                     <li class="nav-item">
-                        <a href="<?php echo base_url('newsletter'); ?>" class="nav-link">
+                        <a href="<?php echo base_url('admin/newsletter'); ?>" class="nav-link">
                             <i class="nav-icon far fa-calendar-alt"></i>
                             <p>
                                 Subscriber
@@ -299,7 +299,7 @@
                 $menuAccessPur = all_menu_permission_check($modArrayPur, $adRoleId);
                 if ($menuAccessPur == true) { ?>
                     <li class="nav-item">
-                        <a href="<?php echo base_url('email_send'); ?>" class="nav-link">
+                        <a href="<?php echo base_url('admin/email_send'); ?>" class="nav-link">
                             <i class="nav-icon far fa-calendar-alt"></i>
                             <p>
                                 Email Send

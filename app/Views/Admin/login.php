@@ -30,7 +30,7 @@
                 <?php $message = isset($_SESSION['message']) ? $_SESSION['message'] : 0; if($message){ ?>
                 <?php print $message; ?> <?php } ?>
 
-                <form action="<?php echo base_url()?>/admin_login_action" method="post">
+                <form action="<?php echo base_url()?>/admin/login_action" method="post">
                     <div class="input-group mb-3">
                         <input type="email" name="email" class="form-control" placeholder="Email"
                             value="<?php if(isset($_COOKIE['login_email'])){ echo $_COOKIE['login_email'];} ?>"

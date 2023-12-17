@@ -8,7 +8,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="<?php echo base_url('admin_dashboard') ?>">Home</a></li>
+                        <li class="breadcrumb-item"><a href="<?php echo base_url('admin/dashboard') ?>">Home</a></li>
                         <li class="breadcrumb-item active">Theme Settings</li>
                     </ol>
                 </div>
@@ -63,7 +63,7 @@
                                  aria-labelledby="custom-tabs-four-home-tab">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <form action="<?php echo base_url('slider_update') ?>" method="post"
+                                        <form action="<?php echo base_url('admin/slider_update') ?>" method="post"
                                               enctype="multipart/form-data">
                                             <div class="form-group mt-5">
                                                 <?php
@@ -82,9 +82,7 @@
                                             <button type="submit" class="btn btn-primary">Save</button>
                                         </form>
 
-
-
-                                        <form action="<?php echo base_url('slider_update') ?>" method="post"
+                                        <form action="<?php echo base_url('admin/slider_update') ?>" method="post"
                                               enctype="multipart/form-data">
                                             <div class="form-group mt-5">
                                                 <?php
@@ -103,7 +101,7 @@
                                         </form>
                                     </div>
                                     <div class="col-md-6">
-                                        <form action="<?php echo base_url('slider_update') ?>" method="post"
+                                        <form action="<?php echo base_url('admin/slider_update') ?>" method="post"
                                               enctype="multipart/form-data">
                                             <div class="form-group mt-5">
                                                 <?php
@@ -128,7 +126,7 @@
                                  aria-labelledby="custom-tabs-four-profile-tab">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <form action="<?php echo base_url('logo_update') ?>" method="post"
+                                        <form action="<?php echo base_url('admin/logo_update') ?>" method="post"
                                               enctype="multipart/form-data">
                                             <div class="form-group mt-5">
                                                 <?php

@@ -92,6 +92,7 @@ class Advanced_products extends BaseController
         if (!empty($quantity)) {
             $data['quantity'] = $quantity;
         }
+        
 
         $table = DB()->table('cc_products');
         $table->where('product_id', $product_id)->update($data);

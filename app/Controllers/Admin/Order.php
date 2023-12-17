@@ -98,13 +98,13 @@ class Order extends BaseController
 
         if ($this->validation->run($data) == FALSE) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            return redirect()->to('order_view/' . $data['order_id'] . '?selTab=history');
+            return redirect()->to('admin/order_view/' . $data['order_id'] . '?selTab=history');
         } else {
             $table = DB()->table('cc_order_history');
             $table->insert($data);
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert"> History Add Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            return redirect()->to('order_view/' . $data['order_id'] . '?selTab=history');
+            return redirect()->to('admin/order_view/' . $data['order_id'] . '?selTab=history');
         }
     }
 }

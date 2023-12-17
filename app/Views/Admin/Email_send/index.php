@@ -8,7 +8,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="<?php echo base_url('admin_dashboard')?>">Home</a></li>
+                        <li class="breadcrumb-item"><a href="<?php echo base_url('admin/dashboard')?>">Home</a></li>
                         <li class="breadcrumb-item active">Email Send</li>
                     </ol>
                 </div>
@@ -33,7 +33,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <form action="<?php echo base_url('email_send_action')?>" method="post">
+                <form action="<?php echo base_url('admin/email_send_action')?>" method="post">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
