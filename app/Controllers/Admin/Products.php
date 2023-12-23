@@ -116,7 +116,7 @@ class Products extends BaseController
 
         if ($this->validation->run($data) == FALSE) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            return redirect()->to('product_create');
+            return redirect()->to('admin/product_create');
         } else {
             DB()->transStart();
 
@@ -408,7 +408,7 @@ class Products extends BaseController
 
             DB()->transComplete();
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Create Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            return redirect()->to('product_create');
+            return redirect()->to('admin/product_create');
         }
     }
 
@@ -572,10 +572,10 @@ class Products extends BaseController
             DB()->transComplete();
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Create Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            return redirect()->to('products');
+            return redirect()->to('admin/products');
         }else{
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Please select any product! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            return redirect()->to('products');
+            return redirect()->to('admin/products');
         }
 
     }
@@ -668,7 +668,7 @@ class Products extends BaseController
 
         if ($this->validation->run($data) == FALSE) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            return redirect()->to('product_update/'.$product_id);
+            return redirect()->to('admin/product_update/'.$product_id);
         } else {
             DB()->transStart();
 
@@ -1040,7 +1040,7 @@ class Products extends BaseController
 
             DB()->transComplete();
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Update Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            return redirect()->to('product_update/'.$product_id);
+            return redirect()->to('admin/product_update/'.$product_id);
 
         }
     }
@@ -1087,7 +1087,7 @@ class Products extends BaseController
         DB()->transComplete();
 
         $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Delete Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-        return redirect()->to('products');
+        return redirect()->to('admin/products');
     }
 
     public function get_subCategory(){

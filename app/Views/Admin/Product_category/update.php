@@ -8,7 +8,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="<?php echo base_url('admin_dashboard') ?>">Home</a></li>
+                        <li class="breadcrumb-item"><a href="<?php echo base_url('admin/dashboard') ?>">Home</a></li>
                         <li class="breadcrumb-item active">Product Category update</li>
                     </ol>
                 </div>
@@ -57,7 +57,7 @@
                             <div class="card-body">
                                 <div class="tab-content" id="custom-tabs-four-tabContent">
                                     <div class="tab-pane fade active show" id="custom-tabs-four-home" role="tabpanel" aria-labelledby="custom-tabs-four-home-tab">
-                                        <form action="<?php echo base_url('product_category_update_action') ?>" method="post" enctype="multipart/form-data">
+                                        <form action="<?php echo base_url('admin/product_category_update_action') ?>" method="post" enctype="multipart/form-data">
                                             <div class="row">
                                                 <div class="col-md-6">
 
@@ -103,7 +103,7 @@
                                                     </div>
 
                                                     <button class="btn btn-primary">Update</button>
-                                                    <a href="<?php echo base_url('product_category') ?>" class="btn btn-danger">Back</a>
+                                                    <a href="<?php echo base_url('admin/product_category') ?>" class="btn btn-danger">Back</a>
 
                                                 </div>
 
@@ -128,7 +128,7 @@
 
                                     </div>
                                     <div class="tab-pane fade" id="custom-tabs-four-profile" role="tabpanel" aria-labelledby="custom-tabs-four-profile-tab">
-                                        <form action="<?php echo base_url('product_category_update_action_others') ?>" method="post" enctype="multipart/form-data">
+                                        <form action="<?php echo base_url('admin/product_category_update_action_others') ?>" method="post" enctype="multipart/form-data">
                                             <div class="row">
                                                 <div class="col-md-6">
 
@@ -151,7 +151,7 @@
 
 
                                                     <button class="btn btn-primary">Update</button>
-                                                    <a href="<?php echo base_url('Admin/Product_category') ?>" class="btn btn-danger">Back</a>
+                                                    <a href="<?php echo base_url('admin/Product_category') ?>" class="btn btn-danger">Back</a>
 
                                                 </div>
 

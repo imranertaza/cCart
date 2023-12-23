@@ -91,7 +91,7 @@ class Page_settings extends BaseController
 
         if ($this->validation->run($data) == FALSE) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            return redirect()->to('page_create');
+            return redirect()->to('admin/page_create');
         } else {
 //            if (!empty($_FILES['f_image']['name'])) {
 //                $target_dir = FCPATH . '/uploads/page/';
@@ -113,7 +113,7 @@ class Page_settings extends BaseController
             $table->insert($data);
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Create Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            return redirect()->to('page_create');
+            return redirect()->to('admin/page_create');
         }
     }
 
@@ -165,14 +165,14 @@ class Page_settings extends BaseController
 
         if ($this->validation->run($data) == FALSE) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            return redirect()->to('page_update/' . $page_id);
+            return redirect()->to('admin/page_update/' . $page_id);
         } else {
 
             $table = DB()->table('cc_pages');
             $table->where('page_id', $page_id)->update($data);
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Update Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            return redirect()->to('page_update/' . $page_id);
+            return redirect()->to('admin/page_update/' . $page_id);
 
         }
     }
@@ -183,7 +183,7 @@ class Page_settings extends BaseController
         $table->where('page_id', $page_id)->delete();
 
         $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Delete Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-        return redirect()->to('page_list');
+        return redirect()->to('admin/page_list');
     }
 
 }

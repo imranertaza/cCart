@@ -8,7 +8,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="<?php echo base_url('admin_dashboard')?>">Home</a></li>
+                        <li class="breadcrumb-item"><a href="<?php echo base_url('admin/dashboard')?>">Home</a></li>
                         <li class="breadcrumb-item active">Zone Shipping Settings</li>
                     </ol>
                 </div>
@@ -33,7 +33,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <form action="<?php echo base_url('shipping_update_action')?>" method="post" enctype="multipart/form-data">
+                <form action="<?php echo base_url('admin/shipping_update_action')?>" method="post" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -57,7 +57,7 @@
                         <div class="col-md-12">
                             <button class="btn btn-primary" >Update</button>
                             <input type="hidden" name="shipping_method_id" value="<?php echo $shipping_method_id;?>" required>
-                            <a href="<?php echo base_url('shipping')?>" class="btn btn-danger" >Back</a>
+                            <a href="<?php echo base_url('admin/shipping')?>" class="btn btn-danger" >Back</a>
                         </div>
                     </div>
                 </form>

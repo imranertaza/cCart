@@ -8,7 +8,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="<?php echo base_url('admin_dashboard') ?>">Home</a></li>
+                        <li class="breadcrumb-item"><a href="<?php echo base_url('admin/dashboard') ?>">Home</a></li>
                         <li class="breadcrumb-item active">Modules Settings List</li>
                     </ol>
                 </div>
@@ -33,7 +33,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <form action="<?php echo base_url('module_settings_action') ?>" method="post">
+                <form action="<?php echo base_url('admin/module_settings_action') ?>" method="post">
                     <div class="row">
                         <?php foreach ($modulesSettings as $val) { ?>
                         <div class="col-md-6">
@@ -49,7 +49,7 @@
                         <div class="col-md-12">
                             <input type="hidden" name="module_id" value="<?php echo $module_id; ?>" required>
                             <button type="submit" class="btn btn-primary">Update</button>
-                            <a href="<?php echo base_url('module')?>" type="button" class="btn btn-danger">Back</a>
+                            <a href="<?php echo base_url('admin/module')?>" type="button" class="btn btn-danger">Back</a>
                         </div>
                     </div>
                 </form>

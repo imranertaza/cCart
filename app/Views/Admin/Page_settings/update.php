@@ -8,7 +8,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="<?php echo base_url('admin_dashboard')?>">Home</a></li>
+                        <li class="breadcrumb-item"><a href="<?php echo base_url('admin/dashboard')?>">Home</a></li>
                         <li class="breadcrumb-item active">Page update</li>
                     </ol>
                 </div>
@@ -33,7 +33,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <form action="<?php echo base_url('page_update_action')?>" method="post" enctype="multipart/form-data">
+                <form action="<?php echo base_url('admin/page_update_action')?>" method="post" enctype="multipart/form-data">
                     <div class="row">
 
                         <div class="col-md-6">
@@ -62,7 +62,7 @@
 
                             <input type="hidden" name="page_id" value="<?php echo $page->page_id;?>" >
                             <button class="btn btn-primary" >Update</button>
-                            <a href="<?php echo base_url('page_list')?>" class="btn btn-danger" >Back</a>
+                            <a href="<?php echo base_url('admin/page_list')?>" class="btn btn-danger" >Back</a>
                         </div>
                         <div class="col-md-6">
 

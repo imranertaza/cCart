@@ -34,8 +34,8 @@
                         <div class="icon">
                             <i class="ion ion-bag"></i>
                         </div>
-                        <a href="<?php echo base_url('order_list'); ?>" class="small-box-footer">More info <i
-                                    class="fas fa-arrow-circle-right"></i></a>
+                        <a href="<?php echo base_url('admin/order_list');?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+
                     </div>
                 </div>
                 <!-- ./col -->
@@ -50,8 +50,8 @@
                         <div class="icon">
                             <i class="ion ion-bag"></i>
                         </div>
-                        <a href="<?php echo base_url('order_list'); ?>" class="small-box-footer">More info <i
-                                    class="fas fa-arrow-circle-right"></i></a>
+                        <a href="<?php echo base_url('admin/order_list');?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+
                     </div>
                 </div>
                 <!-- ./col -->
@@ -66,8 +66,8 @@
                         <div class="icon">
                             <i class="ion ion-bag"></i>
                         </div>
-                        <a href="<?php echo base_url('order_list'); ?>" class="small-box-footer">More info <i
-                                    class="fas fa-arrow-circle-right"></i></a>
+                        <a href="<?php echo base_url('admin/order_list');?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+
                     </div>
                 </div>
                 <!-- ./col -->
@@ -82,8 +82,8 @@
                         <div class="icon">
                             <i class="ion ion-bag"></i>
                         </div>
-                        <a href="<?php echo base_url('order_list'); ?>" class="small-box-footer">More info <i
-                                    class="fas fa-arrow-circle-right"></i></a>
+                        <a href="<?php echo base_url('admin/order_list');?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+
                     </div>
                 </div>
                 <!-- ./col -->
@@ -231,7 +231,7 @@
                                         <td><?php echo $val->order_id;?></td>
                                         <td><?php echo $fname.' '.$lname;?></td>
                                         <td><span class="badge badge-default"><?php echo get_data_by_id('name','cc_order_status','order_status_id',$val->status);?></span></td>
-                                        <td><a href="<?php echo base_url('order_view/'.$val->order_id);?>" class="btn btn-success btn-xs"><i class="fas fa-eye"></i> View</a></td>
+                                        <td><a href="<?php echo base_url('admin/order_view/'.$val->order_id);?>" class="btn btn-success btn-xs"><i class="fas fa-eye"></i> View</a></td>
                                     </tr>
                                 <?php } ?>
 

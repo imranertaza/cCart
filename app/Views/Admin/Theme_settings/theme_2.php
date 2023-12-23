@@ -8,7 +8,7 @@
         ?>
 
 
-        <form action="<?php echo base_url('settings_update') ?>" method="post" enctype="multipart/form-data">
+        <form action="<?php echo base_url('admin/settings_update') ?>" method="post" enctype="multipart/form-data">
 
             <div class="form-group mt-2">
                 <label><?php echo get_lebel_by_title_in_theme_settings('trending_youtube_video'); ?></label>
@@ -19,7 +19,7 @@
 
             <button class="btn btn-primary">Save</button>
         </form>
-        <form action="<?php echo base_url('settings_update') ?>" method="post" enctype="multipart/form-data">
+        <form action="<?php echo base_url('admin/settings_update') ?>" method="post" enctype="multipart/form-data">
 
             <div class="form-group mt-2">
                 <label><?php echo get_lebel_by_title_in_theme_settings('brands_youtube_video'); ?></label>
@@ -32,7 +32,7 @@
         </form>
 
 
-        <form action="<?php echo base_url('home_special_banner') ?>" method="post" enctype="multipart/form-data">
+        <form action="<?php echo base_url('admin/home_special_banner') ?>" method="post" enctype="multipart/form-data">
             <div class="form-group mt-5">
                 <?php
                 $special_banner_1 = get_lebel_by_value_in_theme_settings('special_banner');
@@ -48,7 +48,7 @@
             <button type="submit" class="btn btn-primary">Save</button>
         </form>
 
-        <form action="<?php echo base_url('home_left_side_banner') ?>" method="post" enctype="multipart/form-data">
+        <form action="<?php echo base_url('admin/home_left_side_banner') ?>" method="post" enctype="multipart/form-data">
             <div class="form-group mt-5">
                 <?php
                 $special_banner_1 = get_lebel_by_value_in_theme_settings('left_side_banner_one');
@@ -65,7 +65,7 @@
             <button type="submit" class="btn btn-primary">Save</button>
         </form>
 
-        <form action="<?php echo base_url('home_left_side_banner') ?>" method="post" enctype="multipart/form-data">
+        <form action="<?php echo base_url('admin/home_left_side_banner') ?>" method="post" enctype="multipart/form-data">
             <div class="form-group mt-5">
                 <?php
                 $banner_1 = get_lebel_by_value_in_theme_settings('left_side_banner_three');
@@ -87,7 +87,7 @@
 
     <div class="col-md-6 ">
 
-        <form action="<?php echo base_url('settings_update') ?>" method="post" enctype="multipart/form-data">
+        <form action="<?php echo base_url('admin/settings_update') ?>" method="post" enctype="multipart/form-data">
 
             <div class="form-group mt-2">
                 <label><?php echo get_lebel_by_title_in_theme_settings('hot_deals_category'); ?></label>
@@ -108,7 +108,7 @@
             <button class="btn btn-primary">Save</button>
         </form>
 
-        <form action="<?php echo base_url('settings_update') ?>" method="post" enctype="multipart/form-data">
+        <form action="<?php echo base_url('admin/settings_update') ?>" method="post" enctype="multipart/form-data">
 
             <div class="form-group mt-2">
                 <label><?php echo get_lebel_by_title_in_theme_settings('trending_collection_category'); ?></label>
@@ -129,7 +129,7 @@
             <button class="btn btn-primary">Save</button>
         </form>
 
-        <form action="<?php echo base_url('settings_update') ?>" method="post" enctype="multipart/form-data">
+        <form action="<?php echo base_url('admin/settings_update') ?>" method="post" enctype="multipart/form-data">
 
             <div class="form-group mt-2">
                 <label><?php echo get_lebel_by_title_in_theme_settings('special_category_one'); ?></label>
@@ -149,7 +149,7 @@
 
             <button class="btn btn-primary">Save</button>
         </form>
-        <form action="<?php echo base_url('settings_update') ?>" method="post" enctype="multipart/form-data">
+        <form action="<?php echo base_url('admin/settings_update') ?>" method="post" enctype="multipart/form-data">
 
             <div class="form-group mt-2">
                 <label><?php echo get_lebel_by_title_in_theme_settings('special_category_two'); ?></label>
@@ -169,7 +169,7 @@
 
             <button class="btn btn-primary">Save</button>
         </form>
-        <form action="<?php echo base_url('settings_update') ?>" method="post" enctype="multipart/form-data">
+        <form action="<?php echo base_url('admin/settings_update') ?>" method="post" enctype="multipart/form-data">
 
             <div class="form-group mt-2">
                 <label><?php echo get_lebel_by_title_in_theme_settings('special_category_three'); ?></label>
@@ -190,7 +190,7 @@
             <button class="btn btn-primary">Save</button>
         </form>
 
-        <form action="<?php echo base_url('home_left_side_banner') ?>" method="post" enctype="multipart/form-data">
+        <form action="<?php echo base_url('admin/home_left_side_banner') ?>" method="post" enctype="multipart/form-data">
             <div class="form-group mt-5">
                 <?php
                 $banner_1 = get_lebel_by_value_in_theme_settings('left_side_banner_two');
