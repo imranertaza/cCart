@@ -194,7 +194,7 @@
                             <div class="col-lg-6">
                                 <div class="form-group mb-4">
                                     <label class="w-100" for="country">Country</label>
-                                    <select name="shipping_country_id in_err" class="form-control" id="shipping_country"
+                                    <select name="shipping_country_id" class="form-control in_err" id="shipping_country"
                                         onchange="selectState(this.value,'sh_stateView'),liveView(this,'counVal')">
                                         <option value="">Please select</option>
                                         <?php echo country(''); ?>

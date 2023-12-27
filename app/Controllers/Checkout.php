@@ -169,13 +169,25 @@ class Checkout extends BaseController
         $shipping_else = $this->request->getPost('shipping_else');
 
         $this->validation->setRules([
-            'payment_firstname' => ['label' => 'First name', 'rules' => 'required'],
-            'payment_lastname' => ['label' => 'Last name', 'rules' => 'required'],
-            'payment_phone' => ['label' => 'Phone', 'rules' => 'required'],
-            'payment_email' => ['label' => 'Email', 'rules' => 'required'],
-            'payment_country_id' => ['label' => 'Country', 'rules' => 'required'],
-            'payment_city' => ['label' => 'City', 'rules' => 'required'],
+            'payment_firstname' => ['label' => 'Payment First name', 'rules' => 'required'],
+            'payment_lastname' => ['label' => 'Payment Last name', 'rules' => 'required'],
+            'payment_phone' => ['label' => 'Payment Phone', 'rules' => 'required'],
+            'payment_email' => ['label' => 'Payment Email', 'rules' => 'required'],
+            'payment_country_id' => ['label' => 'Payment Country', 'rules' => 'required'],
+            'payment_city' => ['label' => 'Payment City', 'rules' => 'required'],
         ]);
+
+        if ($shipping_else == 'on'){
+            $this->validation->setRules([
+                'shipping_firstname' => ['label' => 'Shipping First name', 'rules' => 'required'],
+                'shipping_lastname' => ['label' => 'Shipping Last name', 'rules' => 'required'],
+                'shipping_phone' => ['label' => 'Shipping Phone', 'rules' => 'required'],
+                'shipping_country_id' => ['label' => 'Shipping Country', 'rules' => 'required'],
+                'shipping_city' => ['label' => 'Shipping City', 'rules' => 'required'],
+                'shipping_postcode' => ['label' => 'Shipping Postcode', 'rules' => 'required'],
+                'shipping_address_1' => ['label' => 'Shipping Address', 'rules' => 'required'],
+            ]);
+        }
 
         if ($this->validation->run($data) == FALSE) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert" style="color: #fff;" >' . $this->validation->listErrors() . ' </div>');

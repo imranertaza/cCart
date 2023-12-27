@@ -2228,3 +2228,7 @@ input[type='radio']:checked{
 .product-title{
     min-height:35px;
 }
+
+button, input, optgroup, select, textarea {
+    font-family: none !important;
+}
