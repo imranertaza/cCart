@@ -207,6 +207,9 @@ class Checkout extends BaseController
 
             
             DB()->transStart();
+            $order_status_id = get_data_by_id('order_status_id', 'cc_order_status', 'name', 'Pending');
+
+
 
             if ($shipping_else == 'on') {
                 $data['shipping_firstname'] = $this->request->getPost('shipping_firstname');
@@ -231,6 +234,7 @@ class Checkout extends BaseController
 
 
 
+            $data['status'] = $order_status_id;
             $data['total'] = $this->cart->total();
             $data['discount'] = $disc;
             $data['final_amount'] = $finalAmo;
@@ -239,6 +243,13 @@ class Checkout extends BaseController
             $table = DB()->table('cc_order');
             $table->insert($data);
             $order_id = DB()->insertID();
+
+
+            //order cc_order_history
+            $dataOrderHistory['order_id'] = $order_id;
+            $dataOrderHistory['order_status_id'] = $order_status_id;
+            $tabHistOr = DB()->table('cc_order_history');
+            $tabHistOr->insert($dataOrderHistory);
 
 
             //u-wallet
@@ -278,17 +289,6 @@ class Checkout extends BaseController
             }
             //card detail add
 
-
-
-
-
-
-            //order cc_order_history
-            $order_status_id = get_data_by_id('order_status_id', 'cc_order_status', 'name', 'Pending');
-            $dataOrderHistory['order_id'] = $order_id;
-            $dataOrderHistory['order_status_id'] = $order_status_id;
-            $tabHistOr = DB()->table('cc_order_history');
-            $tabHistOr->insert($dataOrderHistory);
 
 
 
