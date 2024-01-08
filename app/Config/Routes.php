@@ -209,7 +209,6 @@ $routes->get('/admin/order_list', 'Admin\Order::index');
 $routes->post('/admin/order_history_action', 'Admin\Order::history_action');
 $routes->get('/admin/order_view/(:num)', 'Admin\Order::order_view/$1');
 
-//Theme Settings
 
 $routes->get('/admin/theme_settings', 'Admin\Theme_settings::index');
 $routes->post('/admin/slider_update', 'Admin\Theme_settings::slider_update');
@@ -226,6 +225,7 @@ $routes->post('/admin/header_section_one_update', 'Admin\Theme_settings_3::heade
 $routes->post('/admin/header_section_two_update', 'Admin\Theme_settings_3::header_section_two_update');
 $routes->post('/admin/home_category_update', 'Admin\Theme_settings_3::home_category_update');
 $routes->post('/admin/banner_bottom_update', 'Admin\Theme_settings_3::banner_bottom_update');
+
 
 //Localization
 $routes->get('/admin/geo_zone', 'Admin\Geo_zone::index');

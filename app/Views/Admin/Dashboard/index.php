@@ -34,6 +34,7 @@
                         <div class="icon">
                             <i class="ion ion-bag"></i>
                         </div>
+                      
                         <a href="<?php echo base_url('admin/order_list');?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
 
                     </div>
@@ -50,7 +51,9 @@
                         <div class="icon">
                             <i class="ion ion-bag"></i>
                         </div>
+
                         <a href="<?php echo base_url('admin/order_list');?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+
 
                     </div>
                 </div>
@@ -66,6 +69,7 @@
                         <div class="icon">
                             <i class="ion ion-bag"></i>
                         </div>
+                      
                         <a href="<?php echo base_url('admin/order_list');?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
 
                     </div>
@@ -82,6 +86,7 @@
                         <div class="icon">
                             <i class="ion ion-bag"></i>
                         </div>
+                      
                         <a href="<?php echo base_url('admin/order_list');?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
 
                     </div>
@@ -167,6 +172,7 @@
 <!--                                <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 20%</span>-->
                                 <h5 class="description-header"><?php echo $orderYear;?></h5>
                                 <span class="description-text">TOTAL SALE THIS YEAR</span>
+
                             </div>
                             <!-- /.description-block -->
                         </div>
@@ -186,13 +192,16 @@
 <!--                                <span class="description-percentage text-danger"><i class="fas fa-caret-down"></i> 18%</span>-->
                                 <h5 class="description-header"><?php echo currency_symbol($orderAmoYear); ?></h5>
                                 <span class="description-text">SALE AMOUNT THIS YEAR</span>
+
                             </div>
                             <!-- /.description-block -->
                         </div>
 
+
                     </div>
                 </div>
             </div>
+
 
 
             <!-- Main row -->
@@ -231,7 +240,9 @@
                                         <td><?php echo $val->order_id;?></td>
                                         <td><?php echo $fname.' '.$lname;?></td>
                                         <td><span class="badge badge-default"><?php echo get_data_by_id('name','cc_order_status','order_status_id',$val->status);?></span></td>
+
                                         <td><a href="<?php echo base_url('admin/order_view/'.$val->order_id);?>" class="btn btn-success btn-xs"><i class="fas fa-eye"></i> View</a></td>
+
                                     </tr>
                                 <?php } ?>
 
