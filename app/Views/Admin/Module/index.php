@@ -8,7 +8,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="<?php echo base_url('admin_dashboard') ?>">Home</a></li>
+                        <li class="breadcrumb-item"><a href="<?php echo base_url('admin/dashboard') ?>">Home</a></li>
                         <li class="breadcrumb-item active">Modules List</li>
                     </ol>
                 </div>
@@ -57,9 +57,8 @@
                                 <?php
                                     $check = is_exists('cc_module_settings', 'module_id', $rows->module_id);
                                     if ($check == false) {
-                                    ?>
-                                <a href="<?php echo base_url('module_settings/' . $rows->module_id) ?>"
-                                    class="btn btn-primary btn-xs"><i class="fas fa-cogs"></i> </a>
+                                ?>
+                                <a href="<?php echo base_url('admin/module_settings/' . $rows->module_id) ?>" class="btn btn-primary btn-xs"><i class="fas fa-cogs"></i> </a>
                                 <?php } ?>
                             </td>
                         </tr>

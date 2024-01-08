@@ -51,24 +51,5 @@ class Newsletter extends BaseController
     }
 
 
-    public function delete($brand_id){
-
-        $target_dir = FCPATH . '/uploads/brand/';
-        //old image unlink
-        $old_img = get_data_by_id('image', 'brand', 'brand_id', $brand_id);
-        if (!empty($old_img)) {
-            $imgPath = $target_dir . '' . $old_img;
-            if (file_exists($imgPath)) {
-                unlink($target_dir . '' . $old_img);
-            }
-        }
-
-
-        $table = DB()->table('brand');
-        $table->where('brand_id', $brand_id)->delete();
-
-        $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Delete Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-        return redirect()->to('brand');
-    }
 
 }

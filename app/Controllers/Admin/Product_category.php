@@ -29,37 +29,6 @@ class Product_category extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != TRUE) {
             return redirect()->to(site_url('admin'));
         } else {
-//            $catArray = [];
-//            function display($parent_id) {
-//                global $catArray;
-//
-//                $table = DB()->table('cc_product_category');
-//                $cat = $table->where('prod_cat_id',$parent_id)->get()->getRow();
-//
-//                if (!empty($cat)) {
-//                    $catArray[] = $cat->category_name;
-//                }
-//                if(!empty($parent_id)){
-//                    display($cat->parent_id);
-//                }
-//                return $catArray;
-//            }
-//
-//
-//
-//            $catArr = display('64');
-//            sort($catArr);
-//            for( $i = 0; $i<=count($catArr)-1; $i++){
-//                if ($i == count($catArr)-1) {
-//                    print $catArr[$i];
-//                }else {
-//                    print $catArr[$i]." > ";
-//                }
-//
-//            }
-
-//            print category_view_list_by_id('64');
-//            die();
 
             $table = DB()->table('cc_product_category');
             $data['category'] = $table->get()->getResult();
@@ -121,7 +90,7 @@ class Product_category extends BaseController
 
         if ($this->validation->run($data) == FALSE) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            return redirect()->to('product_category_create');
+            return redirect()->to('admin/product_category_create');
         } else {
             if (!empty($_FILES['image']['name'])) {
                 $target_dir = FCPATH . '/uploads/category/';
@@ -143,7 +112,7 @@ class Product_category extends BaseController
             $table->insert($data);
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Create Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            return redirect()->to('product_category_create');
+            return redirect()->to('admin/product_category_create');
         }
     }
 
@@ -194,7 +163,7 @@ class Product_category extends BaseController
 
         if ($this->validation->run($data) == FALSE) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            return redirect()->to('product_category_update/' . $prod_cat_id);
+            return redirect()->to('admin/product_category_update/' . $prod_cat_id);
         } else {
 
             $checkPop = is_exists('cc_product_category_popular', 'prod_cat_id', $prod_cat_id);
@@ -255,7 +224,7 @@ class Product_category extends BaseController
             $table->where('prod_cat_id', $prod_cat_id)->update($data);
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Update Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            return redirect()->to('product_category_update/' . $prod_cat_id);
+            return redirect()->to('admin/product_category_update/' . $prod_cat_id);
         }
     }
 
@@ -278,14 +247,14 @@ class Product_category extends BaseController
 
         if ($this->validation->run($data) == FALSE) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            return redirect()->to('product_category_update/' . $prod_cat_id);
+            return redirect()->to('admin/product_category_update/' . $prod_cat_id);
         } else {
 
             $table = DB()->table('cc_product_category');
             $table->where('prod_cat_id', $prod_cat_id)->update($data);
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Update Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            return redirect()->to('product_category_update/' . $prod_cat_id);
+            return redirect()->to('admin/product_category_update/' . $prod_cat_id);
         }
     }
 
@@ -319,7 +288,7 @@ class Product_category extends BaseController
         $table->where('prod_cat_id', $prod_cat_id)->delete();
 
         $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Delete Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-        return redirect()->to('product_category');
+        return redirect()->to('admin/product_category');
     }
 
     public function sort_update_action()
