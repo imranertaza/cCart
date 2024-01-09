@@ -658,13 +658,21 @@ function remove_data_weight(settings_id) {
 </script>
 <script>
 function bulk_status(label) {
-    var className = 'colum_' + label;
-    if ($('input[name="' + label + '"]').is(':checked')) {
-        $("." + className).addClass('row_show');
-        $("." + className).removeClass('row_hide');
-    } else {
-        $("." + className).removeClass('row_show');
-        $("." + className).addClass('row_hide');
+
+    var numberOfChecked = $('input:checkbox:checked').length;
+    if (numberOfChecked > 10 ) {
+        $('input[name="' + label + '"]').prop("checked", false);
+        $('#message').html('<div class="alert alert-danger alert-dismissible" role="alert">Checked Box limit 10 ! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+    }else{
+        var className = 'colum_' + label;
+        if ($('input[name="' + label + '"]').is(':checked')) {
+            $("." + className).addClass('row_show');
+            $("." + className).removeClass('row_hide');
+        } else {
+            $("." + className).removeClass('row_show');
+            $("." + className).addClass('row_hide');
+        }
+        $('#message').html('');
     }
 }
 
@@ -719,8 +727,11 @@ function submitFormBulk(formID) {
                     "ordering": true,
                     "autoWidth": false,
                     "responsive": true,
+                    "drawCallback": function( settings ) {
+                        checkShowHideRow();
+                    }
                 });
-                checkShowHideRow();
+                // checkShowHideRow();
             });
         }
     });
@@ -762,8 +773,10 @@ function bulkAllStatusUpdate(proId, value, field) {
                     "ordering": true,
                     "autoWidth": false,
                     "responsive": true,
+                    "drawCallback": function( settings ) {
+                        checkShowHideRow();
+                    }
                 });
-                checkShowHideRow();
             });
         }
     });
@@ -806,8 +819,10 @@ function categoryBulkUpdateAction() {
                     "ordering": true,
                     "autoWidth": false,
                     "responsive": true,
+                    "drawCallback": function( settings ) {
+                        checkShowHideRow();
+                    }
                 });
-                checkShowHideRow();
             });
         }
     });

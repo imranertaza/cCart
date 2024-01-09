@@ -146,28 +146,28 @@ $routes->post('/admin/zone_rate_delete', 'Admin\Shipping\Shipping::zone_rate_del
 $routes->get('/admin/payment', 'Admin\Payment\Payment::index');
 $routes->post('/admin/payment_status_update', 'Admin\Payment\Payment::status_update');
 
-$routes->get('/admin/cash_on/(:num)', 'Admin\Payment\Cash_on_delivery::settings/$1');
+$routes->get('/admin/payment/cash_on/(:num)', 'Admin\Payment\Cash_on_delivery::settings/$1');
 $routes->post('/admin/cash_on_update_action', 'Admin\Payment\Cash_on_delivery::update_action');
 
-$routes->get('/admin/bank_transfer/(:num)', 'Admin\Payment\Bank_transfer::bank_settings/$1');
+$routes->get('/admin/payment/bank_transfer/(:num)', 'Admin\Payment\Bank_transfer::bank_settings/$1');
 $routes->post('/admin/bank_transfer_update_action', 'Admin\Payment\Bank_transfer::update_action');
 
-$routes->get('/admin/paypal/(:num)', 'Admin\Payment\Paypal::settings/$1');
+$routes->get('/admin/payment/paypal/(:num)', 'Admin\Payment\Paypal::settings/$1');
 $routes->post('/admin/paypal_update_action', 'Admin\Payment\Paypal::update_action');
 
-$routes->get('/admin/western_union/(:num)', 'Admin\Payment\Western_union::settings/$1');
+$routes->get('/admin/payment/western_union/(:num)', 'Admin\Payment\Western_union::settings/$1');
 $routes->post('/admin/western_union_update_action', 'Admin\Payment\Western_union::update_action');
 
-$routes->get('/admin/moneyGram/(:num)', 'Admin\Payment\MoneyGram::settings/$1');
+$routes->get('/admin/payment/moneyGram/(:num)', 'Admin\Payment\MoneyGram::settings/$1');
 $routes->post('/admin/moneyGram_update_action', 'Admin\Payment\MoneyGram::update_action');
 
-$routes->get('/admin/bitcoin/(:num)', 'Admin\Payment\Bitcoin::settings/$1');
+$routes->get('/admin/payment/bitcoin/(:num)', 'Admin\Payment\Bitcoin::settings/$1');
 $routes->post('/admin/bitcoin_update_action', 'Admin\Payment\Bitcoin::update_action');
 
-$routes->get('/admin/credit_card/(:num)', 'Admin\Payment\Credit_card::settings/$1');
+$routes->get('/admin/payment/credit_card/(:num)', 'Admin\Payment\Credit_card::settings/$1');
 $routes->post('/admin/credit_card_update_action', 'Admin\Payment\Credit_card::update_action');
 
-$routes->get('/admin/u_wallet/(:num)', 'Admin\Payment\U_wallet::settings/$1');
+$routes->get('/admin/payment/u_wallet/(:num)', 'Admin\Payment\U_wallet::settings/$1');
 $routes->post('/admin/u_wallet_update_action', 'Admin\Payment\U_wallet::update_action');
 
 //Ajax
@@ -326,6 +326,7 @@ $routes->get('/payment_paypal_checkout_action', 'Paypal::paypal_checkout_action'
 //pages routes
 $routes->get('/about', 'Pages\Pages::about');
 $routes->get('/contact', 'Pages\Pages::contact');
+$routes->post('/contact_form_action', 'Pages\Pages::contact_action');
 $routes->get('/page/(:any)', 'Pages\Pages::page/$1');
 
 //products routes
