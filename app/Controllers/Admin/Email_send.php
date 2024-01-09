@@ -62,7 +62,7 @@ class Email_send extends BaseController
 
         if ($this->validation->run($data) == FALSE) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            return redirect()->to('email_send');
+            return redirect()->to('admin/email_send');
         } else {
 
 //            $to= 'dnationsoftbd5@gmail.com';
@@ -93,7 +93,7 @@ class Email_send extends BaseController
 
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Create Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            return redirect()->to('email_send');
+            return redirect()->to('admin/email_send');
         }
     }
 

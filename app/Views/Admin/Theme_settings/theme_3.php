@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-6 card p-2">
-        <form action="<?php echo base_url('header_section_one_update') ?>" method="post" enctype="multipart/form-data">
+        <form action="<?php echo base_url('admin/header_section_one_update') ?>" method="post" enctype="multipart/form-data">
             <h3>Top Section One</h3>
             <?php $theme = get_lebel_by_value_in_settings('Theme');?>
             <div class="form-group">
@@ -41,7 +41,7 @@
     </div>
 
     <div class="col-md-6 card p-2">
-        <form action="<?php echo base_url('header_section_two_update') ?>" method="post" enctype="multipart/form-data">
+        <form action="<?php echo base_url('admin/header_section_two_update') ?>" method="post" enctype="multipart/form-data">
             <h3>Top Section Two</h3>
 
             <div class="form-group">
@@ -82,7 +82,7 @@
     </div>
 
     <div class="col-md-6 card p-2">
-        <form action="<?php echo base_url('home_category_update') ?>" method="post" enctype="multipart/form-data">
+        <form action="<?php echo base_url('admin/home_category_update') ?>" method="post" enctype="multipart/form-data">
             <h3>Category Section One</h3>
             <div class="form-group">
                 <label><?php echo get_lebel_by_title_in_theme_settings_with_theme('home_category_title_1',$theme);?></label>
@@ -119,7 +119,7 @@
     </div>
 
     <div class="col-md-6 card p-2">
-        <form action="<?php echo base_url('home_category_update') ?>" method="post" enctype="multipart/form-data">
+        <form action="<?php echo base_url('admin/home_category_update') ?>" method="post" enctype="multipart/form-data">
             <h3>Category Section Two</h3>
             <div class="form-group">
                 <label><?php echo get_lebel_by_title_in_theme_settings_with_theme('home_category_title_2',$theme);?></label>
@@ -156,7 +156,7 @@
     </div>
 
     <div class="col-md-6 card p-2">
-        <form action="<?php echo base_url('home_category_update') ?>" method="post" enctype="multipart/form-data">
+        <form action="<?php echo base_url('admin/home_category_update') ?>" method="post" enctype="multipart/form-data">
             <h3>Category Section Three</h3>
             <div class="form-group">
                 <label><?php echo get_lebel_by_title_in_theme_settings_with_theme('home_category_title_3',$theme);?></label>
@@ -193,7 +193,7 @@
     </div>
 
     <div class="col-md-6 card p-2">
-        <form action="<?php echo base_url('home_category_update') ?>" method="post" enctype="multipart/form-data">
+        <form action="<?php echo base_url('admin/home_category_update') ?>" method="post" enctype="multipart/form-data">
             <h3>Category Section Four</h3>
             <div class="form-group">
                 <label><?php echo get_lebel_by_title_in_theme_settings_with_theme('home_category_title_4',$theme);?></label>
@@ -230,7 +230,7 @@
     </div>
 
     <div class="col-md-6 card p-2">
-        <form action="<?php echo base_url('home_category_update') ?>" method="post" enctype="multipart/form-data">
+        <form action="<?php echo base_url('admin/home_category_update') ?>" method="post" enctype="multipart/form-data">
             <h3>Category Section Five</h3>
             <div class="form-group">
                 <label><?php echo get_lebel_by_title_in_theme_settings_with_theme('home_category_title_5',$theme);?></label>
@@ -267,7 +267,7 @@
     </div>
 
     <div class="col-md-6 card p-2">
-        <form action="<?php echo base_url('banner_bottom_update') ?>" method="post" enctype="multipart/form-data">
+        <form action="<?php echo base_url('admin/banner_bottom_update') ?>" method="post" enctype="multipart/form-data">
             <h3>Banner Bottom</h3>
             <div class="form-group">
                 <?php

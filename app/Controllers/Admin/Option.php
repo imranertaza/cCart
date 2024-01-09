@@ -86,7 +86,7 @@ class Option extends BaseController
 
         if ($this->validation->run($data) == FALSE) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            return redirect()->to('option');
+            return redirect()->to('admin/option');
         } else {
 
             $table = DB()->table('cc_option');
@@ -101,7 +101,7 @@ class Option extends BaseController
             }
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Create Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            return redirect()->to('option');
+            return redirect()->to('admin/option');
         }
     }
 
@@ -151,7 +151,7 @@ class Option extends BaseController
 
         if ($this->validation->run($data) == FALSE) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            return redirect()->to('option_update/' . $option_id);
+            return redirect()->to('admin/option_update/' . $option_id);
         } else {
 
             if (!empty($value)) {
@@ -173,10 +173,10 @@ class Option extends BaseController
                 }
 
                 $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Update Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-                return redirect()->to('option_update/' . $option_id);
+                return redirect()->to('admin/option_update/' . $option_id);
             }else{
                 $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert"> Please Add Value ! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-                return redirect()->to('option_update/' . $option_id);
+                return redirect()->to('admin/option_update/' . $option_id);
             }
 
         }
@@ -195,7 +195,7 @@ class Option extends BaseController
 
 
         $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Delete Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-        return redirect()->to('option');
+        return redirect()->to('admin/option');
     }
 
     public function option_remove_action(){

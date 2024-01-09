@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-6 ">
-        <form action="<?php echo base_url('home_category') ?>" method="post" enctype="multipart/form-data">
+        <form action="<?php echo base_url('admin/home_category') ?>" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label>Home category</label>
                 <select name="home_category" class="form-control" required>
@@ -20,7 +20,7 @@
             <button class="btn btn-primary">Save</button>
         </form>
 
-        <form action="<?php echo base_url('home_category_banner') ?>" method="post" enctype="multipart/form-data">
+        <form action="<?php echo base_url('admin/home_category_banner') ?>" method="post" enctype="multipart/form-data">
             <div class="form-group mt-5">
                 <?php
                 $banner_1 = get_lebel_by_value_in_theme_settings('home_category_banner');
@@ -38,7 +38,7 @@
     </div>
 
     <div class="col-md-6">
-        <form action="<?php echo base_url('settings_update') ?>" method="post" enctype="multipart/form-data">
+        <form action="<?php echo base_url('admin/settings_update') ?>" method="post" enctype="multipart/form-data">
 
             <div class="form-group">
                 <label>Featured Products Limit</label>
@@ -49,7 +49,6 @@
 
             <button class="btn btn-primary">Save</button>
         </form>
-
 
     </div>
 

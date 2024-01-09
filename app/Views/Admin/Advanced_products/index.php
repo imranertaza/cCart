@@ -8,7 +8,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="<?php echo base_url('admin_dashboard') ?>">Home</a></li>
+                        <li class="breadcrumb-item"><a href="<?php echo base_url('admin/dashboard') ?>">Home</a></li>
                         <li class="breadcrumb-item active">Bulk Edit Product List</li>
                     </ol>
                 </div>
@@ -28,9 +28,9 @@
 
                     </div>
                     <div class="col-md-4">
-                        <a href="<?php echo base_url('product_create') ?>" class="btn btn-primary  btn-xs float-right "><i class="fas fa-plus"></i> Add</a>
+                        <a href="<?php echo base_url('admin/product_create') ?>" class="btn btn-primary  btn-xs float-right "><i class="fas fa-plus"></i> Add</a>
                         <a class="btn btn-xs btn-info float-right mr-2" data-toggle="collapse" href="#collapseProduct" role="button" aria-expanded="false" aria-controls="collapseProduct">Settings</a>
-                        <a href="<?php echo base_url('products') ?>" class="btn btn-danger btn-xs float-right mr-2 " >Back</a>
+                        <a href="<?php echo base_url('admin/products') ?>" class="btn btn-danger btn-xs float-right mr-2 " >Back</a>
                     </div>
                     <div class="col-md-12" id="message" style="margin-top: 10px">
                         <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message'); endif; ?>
@@ -263,7 +263,7 @@
     <div class="modal fade" id="categoryModal">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form id="categoryForm" action="<?php echo base_url('bulk_category_update') ?>" method="post">
+                <form id="categoryForm" action="<?php echo base_url('admin/bulk_category_update') ?>" method="post">
                     <div class="modal-header">
                         <h4 class="modal-title">Default Modal</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">

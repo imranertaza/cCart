@@ -8,7 +8,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="<?php echo base_url('admin_dashboard') ?>">Home</a></li>
+                        <li class="breadcrumb-item"><a href="<?php echo base_url('admin/dashboard') ?>">Home</a></li>
                         <li class="breadcrumb-item active">Order View</li>
                     </ol>
                 </div>
@@ -269,19 +269,19 @@
                                         </table>
                                     </div>
                                     <div class="col-md-6">
-                                        <form action="<?php echo base_url('order_history_action') ?>" method="post">
+                                        <form action="<?php echo base_url('admin/order_history_action') ?>" method="post">
                                             <div class="form-group">
                                                 <label>Status <span class="requi">*</span></label>
 
-                                                <select class="form-control" name="order_status_id">
+                                                <select class="form-control" name="order_status_id" required >
                                                     <option>Please select</option>
                                                     <?php echo getListInOption($orderhistoryLast->order_status_id, 'order_status_id', 'name', 'cc_order_status'); ?>
                                                 </select>
                                             </div>
                                             <div class="form-group">
-                                                <label>Comments</label>
+                                                <label>Comments <span class="requi">*</span></label>
                                                 <textarea name="comment" rows="3" class="form-control"
-                                                    placeholder="Comments"></textarea>
+                                                    placeholder="Comments" required ></textarea>
                                             </div>
                                             <div class="form-group">
                                                 <input type="hidden" name="order_id"

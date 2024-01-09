@@ -87,7 +87,7 @@ class Geo_zone extends BaseController
 
         if ($this->validation->run($data) == FALSE) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            return redirect()->to('geo_zone_create');
+            return redirect()->to('admin/geo_zone_create');
         } else {
 
             $exist = $this->check_exist_to_create($country_id,$zone_id);
@@ -109,10 +109,10 @@ class Geo_zone extends BaseController
 
 
                 $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Create Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-                return redirect()->to('geo_zone_create');
+                return redirect()->to('admin/geo_zone_create');
             }else{
                 $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert"> Zone already exist ! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-                return redirect()->to('geo_zone_create');
+                return redirect()->to('admin/geo_zone_create');
             }
 
 
@@ -167,7 +167,7 @@ class Geo_zone extends BaseController
 
         if ($this->validation->run($data) == FALSE) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            return redirect()->to('geo_zone_update/' . $geo_zone_id);
+            return redirect()->to('admin/geo_zone_update/' . $geo_zone_id);
         } else {
             $table = DB()->table('cc_geo_zone');
             $table->where('geo_zone_id',$geo_zone_id)->update($data);
@@ -184,7 +184,7 @@ class Geo_zone extends BaseController
                         $tableZone->insert($zoneData);
                     }else{
                         $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert"> Zone already exist ! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-                        return redirect()->to('geo_zone_update/' . $geo_zone_id);
+                        return redirect()->to('admin/geo_zone_update/' . $geo_zone_id);
                     }
                 }else{
                     $zoneData['country_id'] = $val;
@@ -195,7 +195,7 @@ class Geo_zone extends BaseController
             }
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Update Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            return redirect()->to('geo_zone_update/' . $geo_zone_id);
+            return redirect()->to('admin/geo_zone_update/' . $geo_zone_id);
 
         }
     }
@@ -209,7 +209,7 @@ class Geo_zone extends BaseController
         $table->where('geo_zone_id', $geo_zone_id)->delete();
 
         $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Delete Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-        return redirect()->to('geo_zone');
+        return redirect()->to('admin/geo_zone');
     }
 
     public function geo_zone_detail_delete(){

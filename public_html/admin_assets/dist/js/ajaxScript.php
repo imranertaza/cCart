@@ -41,7 +41,7 @@ $(function() {
         theme: 'bootstrap4',
         tags: true,
         ajax: {
-            url: "<?php echo base_url('related_product') ?>",
+            url: "<?php echo base_url('admin/related_product') ?>",
             dataType: 'json',
             delay: 250,
             processResults: function(data) {
@@ -66,7 +66,7 @@ $(function() {
         multiple: true,
         theme: 'bootstrap4',
         ajax: {
-            url: "<?php echo base_url('related_product') ?>",
+            url: "<?php echo base_url('admin/related_product') ?>",
             dataType: 'json',
             delay: 250,
             processResults: function(data) {
@@ -389,7 +389,7 @@ $('#clear').live("click", function() {
 function selectState(country_id) {
     $.ajax({
         method: "POST",
-        url: "<?php echo base_url('get_state') ?>",
+        url: "<?php echo base_url('admin/get_state') ?>",
         data: {
             country_id: country_id
         },
@@ -413,7 +413,7 @@ function page_slug(Text) {
 function changeStatus(id) {
     $.ajax({
         method: "POST",
-        url: "<?php echo base_url('module_update') ?>",
+        url: "<?php echo base_url('admin/module_update') ?>",
         data: {
             id: id
         },
@@ -451,7 +451,7 @@ function remove_option_new_remove(data, id) {
     $(data).parent().remove();
     $.ajax({
         method: "POST",
-        url: "<?php echo base_url('option_remove_action') ?>",
+        url: "<?php echo base_url('admin/option_remove_action') ?>",
         data: {
             id: id
         },
@@ -469,7 +469,7 @@ function remove_option_new_remove(data, id) {
 function reviewStatusUpdate(val, feedback_id) {
     $.ajax({
         method: "POST",
-        url: "<?php echo base_url('reviews_status_update') ?>",
+        url: "<?php echo base_url('admin/reviews_status_update') ?>",
         data: {
             feedback_id: feedback_id,
             status: val
@@ -488,7 +488,7 @@ function reviewStatusUpdate(val, feedback_id) {
 function removeImg(product_image_id) {
     $.ajax({
         method: "POST",
-        url: "<?php echo base_url('product_image_delete') ?>",
+        url: "<?php echo base_url('admin/product_image_delete') ?>",
         data: {
             product_image_id: product_image_id
         },
@@ -506,7 +506,7 @@ function removeImg(product_image_id) {
 function searchOptionUp(key) {
     $.ajax({
         method: "POST",
-        url: "<?php echo base_url('product_option_search') ?>",
+        url: "<?php echo base_url('admin/product_option_search') ?>",
         data: {
             key: key
         },
@@ -548,7 +548,7 @@ function add_option_new_ajax(id, option_id) {
     // var data = '';
     $.ajax({
         method: "POST",
-        url: "<?php echo base_url('product_option_value_search') ?>",
+        url: "<?php echo base_url('admin/product_option_value_search') ?>",
         data: {
             option_id: option_id
         },
@@ -595,7 +595,7 @@ function add_option() {
 function update_payment_status(id) {
     $.ajax({
         method: "POST",
-        url: "<?php echo base_url('payment_status_update') ?>",
+        url: "<?php echo base_url('admin/payment_status_update') ?>",
         data: {
             id: id
         },
@@ -612,7 +612,7 @@ function update_payment_status(id) {
 function update_shipping_status(id) {
     $.ajax({
         method: "POST",
-        url: "<?php echo base_url('update_shipping_status') ?>",
+        url: "<?php echo base_url('admin/update_shipping_status') ?>",
         data: {
             id: id
         },
@@ -672,7 +672,7 @@ function bulk_status(label) {
 function updateFunction(proId, input, value, viewId, formName) {
     var formID = "'" + formName + "'"
     var data = '<form id="' + formName +
-        '" action="<?php echo base_url('bulk_data_update') ?>" method="post"><input type="text" name="' +
+        '" action="<?php echo base_url('admin/bulk_data_update') ?>" method="post"><input type="text" name="' +
         input +
         '" class="form-control mb-2" value="' + value +
         '" ><input type="hidden" name="product_id" class="form-control mb-2" value="' + proId +
@@ -685,7 +685,7 @@ function updateFunction(proId, input, value, viewId, formName) {
 function descriptionTableDataUpdateFunction(proId, input, value, viewId, formName) {
     var formID = "'" + formName + "'"
     var data = '<form id="' + formName +
-        '" action="<?php echo base_url('description_data_update') ?>" method="post"><input type="text" name="' +
+        '" action="<?php echo base_url('admin/description_data_update') ?>" method="post"><input type="text" name="' +
         input +
         '" class="form-control mb-2" value="' + value +
         '" ><input type="hidden" name="product_desc_id" class="form-control mb-2" value="' + proId +
@@ -745,7 +745,7 @@ function checkShowHideRow() {
 
 function bulkAllStatusUpdate(proId, value, field) {
     $.ajax({
-        url: '<?php echo base_url('bulk_all_status_update') ?>',
+        url: '<?php echo base_url('admin/bulk_all_status_update') ?>',
         type: "POST",
         data: {
             product_id: proId,
@@ -772,7 +772,7 @@ function bulkAllStatusUpdate(proId, value, field) {
 function categoryBulkUpdate(proId) {
     $('#categoryModal').modal('show');
     $.ajax({
-        url: '<?php echo base_url('bulk_category_view') ?>',
+        url: '<?php echo base_url('admin/bulk_category_view') ?>',
         type: "POST",
         data: {
             product_id: proId
@@ -829,7 +829,7 @@ function updateSorting(val, id) {
 
 function found_request_update(val,id){
     $.ajax({
-        url: '<?php echo base_url('fund_request_action') ?>',
+        url: '<?php echo base_url('admin/fund_request_action') ?>',
         type: "POST",
         data: {
             status: val,
@@ -859,7 +859,7 @@ function add_zone_detail() {
 function zoneVal(val,idview){
     $.ajax({
         method: "POST",
-        url: "<?php echo base_url('get_zone_value') ?>",
+        url: "<?php echo base_url('admin/get_zone_value') ?>",
         data: {
             country_id: val
         },
@@ -877,7 +877,7 @@ function zoneVal(val,idview){
 function deleteZone(details_id){
     $.ajax({
         method: "POST",
-        url: "<?php echo base_url('geo_zone_detail_delete') ?>",
+        url: "<?php echo base_url('admin/geo_zone_detail_delete') ?>",
         data: {
             geo_zone_details_id: details_id
         },

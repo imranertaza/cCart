@@ -97,6 +97,6 @@ class Module extends BaseController
 
 
         $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Update Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-        return redirect()->to('module_settings/' . $module_id);
+        return redirect()->to('admin/module_settings/' . $module_id);
     }
 }
