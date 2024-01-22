@@ -184,10 +184,10 @@ class Theme_settings extends BaseController
             $table->where('label', 'favicon')->update($data);
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Update Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            return redirect()->to('theme_settings');
+            return redirect()->to('admin/theme_settings');
         } else {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Logo required <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            return redirect()->to('theme_settings');
+            return redirect()->to('admin/theme_settings');
         }
 
 

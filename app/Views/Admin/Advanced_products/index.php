@@ -236,11 +236,8 @@
                                     <span id="view_meta_description_<?php echo $md++; ?>"></span>
                                 </td>
                                 <td class="colum_action row_show">
-                                    <a href="<?php echo base_url('product_update/' . $val->product_id) ?>"
+                                    <a href="<?php echo base_url('admin/product_update/' . $val->product_id) ?>"
                                         class="btn btn-sm btn-info">Edit</a>
-                                    <!-- <a href="<?php echo base_url('product_delete/' . $val->product_id) ?>"
-                                    class="btn btn-sm btn-danger"
-                                    onclick="return confirm('Are you sure you want to Delete?')">delete</a> -->
                                 </td>
                             </tr>
                             <?php } ?>

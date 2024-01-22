@@ -598,7 +598,7 @@ function get_lebel_by_value_in_theme_settings_with_theme($lable, $theme)
     return $result;
 }
 
-function email_send($to, $subject, $message)
+function email_send($to, $subject, $message,$replyTo='')
 {
 
     $email = \Config\Services::email();
@@ -619,6 +619,10 @@ function email_send($to, $subject, $message)
 
     $email->setFrom($form, $titleStore);
     $email->setTo($to);
+
+    if (!empty($replyTo)) {
+        $email->setReplyTo($replyTo, 'Contact page');
+    }
 
     $email->setSubject($subject);
     $email->setMessage($message);
