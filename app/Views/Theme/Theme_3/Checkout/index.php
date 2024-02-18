@@ -370,23 +370,25 @@
                                         d="M0 4.125V5.5H13.0625V15.8125H8.83025C8.52362 14.6307 7.46075 13.75 6.1875 13.75C4.91425 13.75 3.85138 14.6307 3.54475 15.8125H2.75V12.375H1.375V17.1875H3.54475C3.85138 18.3693 4.91425 19.25 6.1875 19.25C7.46075 19.25 8.52362 18.3693 8.83025 17.1875H14.5448C14.8514 18.3693 15.9143 19.25 17.1875 19.25C18.4607 19.25 19.5236 18.3693 19.8302 17.1875H22V11.5802L21.9567 11.4723L20.5817 7.34731L20.4325 6.875H14.4375V4.125H0ZM0.6875 6.875V8.25H6.875V6.875H0.6875ZM14.4375 8.25H19.4432L20.625 11.7734V15.8125H19.8302C19.5236 14.6307 18.4607 13.75 17.1875 13.75C15.9143 13.75 14.8514 14.6307 14.5448 15.8125H14.4375V8.25ZM1.375 9.625V11H5.5V9.625H1.375ZM6.1875 15.125C6.95544 15.125 7.5625 15.7321 7.5625 16.5C7.5625 17.2679 6.95544 17.875 6.1875 17.875C5.41956 17.875 4.8125 17.2679 4.8125 16.5C4.8125 15.7321 5.41956 15.125 6.1875 15.125ZM17.1875 15.125C17.9554 15.125 18.5625 15.7321 18.5625 16.5C18.5625 17.2679 17.9554 17.875 17.1875 17.875C16.4196 17.875 15.8125 17.2679 15.8125 16.5C15.8125 15.7321 16.4196 15.125 17.1875 15.125Z"
                                         fill="white" />
                                 </svg>
-                                <span class="text-label">Shipping Method</span></label>
+                                <span class="text-label">Shipping Method</span>
+                            </label>
                         </div>
 
                         <div class="group-check ">
 
                             <div class="d-flex flex-column">
-                                <?php foreach (get_all_data_array('cc_shipping_method') as $ship) {
-                                    if ($ship->status == '1') { ?>
+                                <?php
+                                $dataCount = count(get_array_data_by_id('cc_shipping_method','status','1'));
+                                foreach (get_array_data_by_id('cc_shipping_method','status','1') as $ship) { ?>
                                 <div class="d-flex justify-content-between mt-3">
-                                    <div class="form-check"><label class="form-check-label"><input
-                                                class="form-check-input" type="radio" name="shipping_method"
-                                                oninput="shippingCharge()" id="shipping_method"
-                                                value="<?php echo $ship->code; ?>" required>
-                                            <?php echo $ship->name; ?></label></div>
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input class="form-check-input" type="radio" name="shipping_method" oninput="shippingCharge()" id="shipping_method" value="<?php echo $ship->code; ?>" <?php echo ($dataCount == 1)?'checked':'';?> required>
+                                            <?php echo $ship->name; ?>
+                                        </label>
+                                    </div>
                                 </div>
-                                <?php }
-                                } ?>
+                                <?php } ?>
                             </div>
 
                             <div class="d-flex justify-content-between mt-3">
