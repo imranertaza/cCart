@@ -33,7 +33,7 @@
         </div>
         <div class="contact-form bg-white border p-4 p-lg-5 mb-5">
             <div class="row">
-                <div class="col-lg-6 offset-lg-3">
+                <div class="col-lg-6 offset-lg-3 login_form">
                     <h3>Get in touch</h3>
                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
 <!--                    <form id="contact-form" action="--><?php //echo base_url('contact_form_action') ?><!--" method="post" class="contact-form" onsubmit="return contactForm()" >-->
@@ -45,6 +45,21 @@
                             <textarea name="message" class="form-control in_err" id="message" cols="30" rows="6" placeholder="Question"></textarea>
                             <span class="text-danger err d-inline-block text-capitalize" id="messageERR"></span>
                         </div>
+
+                        <div class="mb-3">
+                            <div id="captcha" class="form_div">
+                                <input type="hidden" id="genaretCapt" >
+                                <div class="preview"></div>
+                                <div class="captcha_form">
+                                    <input type="text" id="captcha_form" class="form_input_captcha" placeholder="Enter Captcha ">
+                                    <button class="captcha_refersh">
+                                        <i class="fa fa-refresh"></i>
+                                    </button>
+                                </div>
+                                <span class="text-danger err d-inline-block text-capitalize" id="messageRecaptcha"></span>
+                            </div>
+                        </div>
+
                         <div class="mb-3">
                             <input type="submit" value="Get a Quary" onclick="contactFormSubmit()" class="btn bg-custom-color text-white rounded-0">
                         </div>

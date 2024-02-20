@@ -37,7 +37,7 @@
                         </div>
                         <div class="col-sm-6 col-lg-3 col-12 mb-3 mb-lg-0">
                             <div class="d-flex flex-row gap-2">
-                                <svg fill="#000000" width="40px" viewBox="0 0 32 32" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;" version="1.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:serif="http://www.serif.com/" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <svg fill="#000000" width="40px" viewBox="0 0 32 32" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;" version="1.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                     <g id="Icon">
                                     <path d="M4.019,15.977c0,2.543 0,9.011 0,9.011c0,0.795 0.316,1.558 0.879,2.121c0.563,0.563 1.326,0.879 2.121,0.879c0.638,-0 1.343,-0 1.981,-0c0.796,-0 1.559,-0.316 2.121,-0.879c0.563,-0.563 0.879,-1.326 0.879,-2.121c0,-1.486 0,-3.503 -0,-4.988c0,-0.796 -0.316,-1.559 -0.879,-2.121c-0.562,-0.563 -1.325,-0.879 -2.121,-0.879l-2.981,0l0,-1.023c0,-5.497 4.456,-9.952 9.952,-9.952l0.077,-0c5.496,-0 9.952,4.455 9.952,9.952l0,1.011l-2.981,-0c-0.795,-0 -1.558,0.316 -2.121,0.878c-0.563,0.563 -0.879,1.326 -0.879,2.122c0,1.491 0,3.52 0,5.012c0,0.796 0.316,1.559 0.879,2.121c0.563,0.563 1.326,0.879 2.121,0.879c0.638,0 1.343,0 1.981,0c0.796,0 1.559,-0.316 2.121,-0.879c0.563,-0.562 0.879,-1.325 0.879,-2.121c-0,-0 0,-6.48 0,-9.023c-0,-6.601 -5.351,-11.952 -11.952,-11.952l-0.077,-0c-6.601,-0 -11.952,5.351 -11.952,11.952Zm21.981,3.011l-0,6.012c0,0.265 -0.105,0.52 -0.293,0.707c-0.187,0.188 -0.442,0.293 -0.707,0.293l-1.981,0c-0.265,0 -0.519,-0.105 -0.707,-0.293c-0.187,-0.187 -0.293,-0.442 -0.293,-0.707l0,-5.012c0,-0.266 0.106,-0.52 0.293,-0.707c0.188,-0.188 0.442,-0.293 0.707,-0.293l2.981,-0Zm-19.981,0.012l2.981,-0c0.265,-0 0.52,0.105 0.707,0.293c0.188,0.187 0.293,0.442 0.293,0.707l0,4.988c0,0.265 -0.105,0.519 -0.293,0.707c-0.187,0.187 -0.442,0.293 -0.707,0.293l-1.981,-0c-0.265,-0 -0.519,-0.106 -0.707,-0.293c-0.187,-0.188 -0.293,-0.442 -0.293,-0.707l0,-5.988Z"/>
                                     </g>
@@ -614,6 +614,17 @@
                 // checkout_data_calculate(response);
                 shippingCharge(response);
                 $(div).parent().parent().remove();
+
+                $.ajax({
+                    method: "GET",
+                    url: "<?php echo base_url('cart_empty_check') ?>",
+                    data: {},
+                    success: function(result) {
+                        if (result == false){
+                            location.reload();
+                        }
+                    }
+                });
             }
         });
     }
@@ -813,20 +824,20 @@
 
     function optionPriceCalculate(product_id) {
         <?php foreach (get_all_data_array('cc_option') as $v) {
-            if ($v->type == 'radio') { ?>
-                var <?php echo strtolower($v->name); ?> = $('input[name="<?php echo strtolower($v->name); ?>"]:checked').val();
-            <?php }
-            if ($v->type == 'select') { ?>
-                var <?php echo strtolower($v->name); ?> = $('[name="<?php echo strtolower($v->name); ?>"]').val();
+        $fildName = str_replace(' ','',$v->name);
+        if ($v->type == 'radio') { ?>
+        var <?php echo strtolower($fildName); ?> = $('input[name="<?php echo strtolower($fildName); ?>"]:checked').val();
         <?php }
-        } ?>
+        if ($v->type == 'select') { ?>
+        var <?php echo strtolower($fildName); ?> = $('[name="<?php echo strtolower($fildName); ?>"]').val();
+        <?php } } ?>
         $.ajax({
             method: "POST",
             url: "<?php echo base_url('optionPriceCalculate') ?>",
             data: {
                 product_id: product_id,
-                <?php foreach (get_all_data_array('cc_option') as $vl) { ?>
-                    <?php echo strtolower($vl->name); ?>: <?php echo strtolower($vl->name); ?>,
+                <?php foreach (get_all_data_array('cc_option') as $vl) { $fildName2 = str_replace(' ','',$vl->name); ?>
+                <?php echo strtolower($fildName2); ?>: <?php echo strtolower($fildName2); ?>,
                 <?php } ?>
             },
             success: function(data) {
@@ -880,6 +891,7 @@
 
 
     $(document).ready(function() {
+        shippingCharge();
         $('.toggleButton').click(function() {
             $(this).toggleClass('active');
             $(this).siblings('.elementToToggle').slideToggle();
@@ -936,29 +948,77 @@
 
     function contactFormSubmit(){
         if (contactForm() == true){
-            let email = $('#email').val();
-            let message = $('#message').val();
+            let inputcaptchavalue = $('#captcha_form').val();
+            let captchaValue = $('#genaretCapt').val();
+            if (inputcaptchavalue === captchaValue) {
+                let email = $('#email').val();
+                let message = $('#message').val();
 
-            $.ajax({
-                method: "POST",
-                url: "<?php echo base_url('contact_form_action') ?>",
-                data: {
-                    email: email,
-                    message: message,
-                },
-                success: function(response) {
-                    // alert(response);
-                    $('#email').val('');
-                    $('#message').val('');
-                    $('#mesVal').html('Your message was successfully submitted');
-                    $('.message_alert').show();
-                    setTimeout(function() {
-                        $("#messAlt").fadeOut(1500);
-                    }, 600);
-                }
-            })
+                $.ajax({
+                    method: "POST",
+                    url: "<?php echo base_url('contact_form_action') ?>",
+                    data: {
+                        email: email,
+                        message: message,
+                    },
+                    success: function (response) {
+                        // alert(response);
+                        $('#email').val('');
+                        $('#message').val('');
+                        $('#mesVal').html('Your message was successfully submitted');
+                        $('.message_alert').show();
+                        setTimeout(function () {
+                            $("#messAlt").fadeOut(1500);
+                        }, 600);
+                    }
+                })
+            }else {
+                error("#messageRecaptcha", "Please Enter Valid Captcha");
+                return false;
+            }
         }
     }
+
+
+    (function(){
+        const fonts = ["cursive"];
+        let captchaValue = "";
+        function gencaptcha()
+        {
+            let value = btoa(Math.random()*1000000000);
+            value = value.substr(0,5 + Math.random()*5);
+            captchaValue = value;
+        }
+
+        function setcaptcha()
+        {
+            let html = captchaValue.split("").map((char)=>{
+                const rotate = -20 + Math.trunc(Math.random()*30);
+                const font = Math.trunc(Math.random()*fonts.length);
+                return`<span
+		            style="
+		            transform:rotate(${rotate}deg);
+		            font-family:${font[font]};
+		            "
+		           >${char} </span>`;
+            }).join("");
+            document.querySelector(".login_form #captcha .preview").innerHTML = html;
+            document.querySelector(".login_form #genaretCapt").value = captchaValue;
+        }
+
+        function initCaptcha(){
+            document.querySelector(".login_form #captcha .captcha_refersh").addEventListener("click",function(){
+                gencaptcha();
+                setcaptcha();
+            });
+
+            gencaptcha();
+            setcaptcha();
+        }
+        initCaptcha();
+
+    })();
+
 </script>
 <script src="<?php echo base_url() ?>/assets/assets_fl/validation.js" type="text/javascript" ></script>
 </body>
