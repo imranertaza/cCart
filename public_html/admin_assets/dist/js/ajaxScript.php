@@ -524,7 +524,7 @@ function optionViewPro(option_id, name,nameTitle) {
     var n = "'" + name + "_op'";
     var rl = "'" + name + "_remove'";
     var nr = "'" + name + "'";
-    var link = '<a class="nav-link active text-dark" id="' + name + '_remove"  data-toggle="pill" href="#' + name +
+    var link = '<a class="nav-link active text-dark" id="' + name + '_remove"  data-toggle="pill" href="javascript:void(0)' + name +
         '" role="tab" aria-controls="vert-tabs-home" aria-selected="true">' + nameTitle +
         '<button type="button" class="btn btn-sm" onclick="remove_option_new_ajax(' + rl + ',' + nr +
         ')"><i class="fa fa-trash text-danger"></i></button></a>';
@@ -733,7 +733,7 @@ function submitFormBulk(formID) {
 
 function checkShowHideRow() {
 
-    var fields = ['id', 'name','image', 'model', 'quantity', 'category', 'price', 'status', 'featured','meta_title','meta_keyword','meta_description', 'action'];
+    var fields = ['id', 'name','image', 'model', 'quantity', 'category', 'price', 'status', 'featured','option','meta_title','meta_keyword','meta_description', 'action'];
 
     for (let i = 0; i < fields.length; ++i) {
         if ($('input[name="' + fields[i] + '"]').is(':checked')) {
@@ -807,6 +807,46 @@ function categoryBulkUpdateAction() {
         }
     });
 }
+
+
+function optionBulkUpdate(proId){
+    $('#optionModal').modal('show');
+    $.ajax({
+        url: '<?php echo base_url('/admin/bulk_option_view') ?>',
+        type: "POST",
+        data: {
+            product_id: proId
+        },
+        success: function(data) {
+            $("#optionData").html(data);
+
+        }
+    });
+}
+
+function optionBulkUpdateAction() {
+    var form = document.getElementById('optionForm');
+    var upRow = $(form).attr('data-row');
+    $.ajax({
+        url: $(form).prop('action'),
+        type: "POST",
+        data: new FormData(form),
+        contentType: false,
+        cache: false,
+        processData: false,
+        success: function(data) {
+            $('#optionModal').modal('hide');
+            // $("#message").html(data);
+            $("#mess").show();
+            var div = $("#"+upRow).html(data);
+            div.animate({opacity: '0.5'});
+            div.animate({opacity: '1'});
+            checkShowHideRow();
+
+        }
+    });
+}
+
 
 function updateSorting(val, id) {
     $.ajax({
