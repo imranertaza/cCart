@@ -188,4 +188,54 @@ class Advanced_products extends BaseController
 
         echo view('Admin/Advanced_products/row', $data);
     }
+
+
+    public function bulk_option_view(){
+        $product_id = $this->request->getPost('product_id');
+        $data['product_id'] = $product_id;
+
+        $table = DB()->table('cc_product_option');
+        $data['prodOption'] = $table->where('product_id', $product_id)->groupBy('option_id')->get()->getResult();
+        echo view('Admin/Advanced_products/option', $data);
+    }
+
+    public function bulk_option_update(){
+        $product_id = $this->request->getPost('product_id');
+
+        $option = $this->request->getPost('option[]');
+        $opValue = $this->request->getPost('opValue[]');
+        $qty = $this->request->getPost('qty[]');
+        $subtract = $this->request->getPost('subtract[]');
+        $price_op = $this->request->getPost('price_op[]');
+
+        $optionTableDel = DB()->table('cc_product_option');
+        $optionTableDel->where('product_id',$product_id)->delete();
+
+        if (!empty($qty)){
+            foreach ($qty as $key => $val){
+                $optionData['product_id'] = $product_id;
+                $optionData['option_id'] = $option[$key];
+                $optionData['option_value_id'] = $opValue[$key];
+                $optionData['quantity'] = $qty[$key];
+                $optionData['subtract'] = ($subtract[$key] == 'plus')?null:1;
+                $optionData['price'] = $price_op[$key];
+
+                $optionTable = DB()->table('cc_product_option');
+                $optionTable->insert($optionData);
+            }
+        }
+
+
+
+        $table2 = DB()->table('cc_products');
+        $data['val'] = $table2->join('cc_product_description', 'cc_product_description.product_id = cc_products.product_id')->where('cc_products.product_id', $product_id)->get()->getRow();
+
+        echo view('Admin/Advanced_products/row', $data);
+    }
+
+
+
+
+
+
 }

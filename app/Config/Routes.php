@@ -254,7 +254,8 @@ $routes->post('/admin/bulk_category_view', 'Admin\Advanced_products::bulk_catego
 $routes->post('/admin/bulk_category_update', 'Admin\Advanced_products::bulk_category_update');
 $routes->post('/admin/description_data_update', 'Admin\Advanced_products::description_data_update');
 
-
+$routes->post('/admin/bulk_option_view', 'Admin\Advanced_products::bulk_option_view');
+$routes->post('/admin/bulk_option_update', 'Admin\Advanced_products::bulk_option_update');
 
 
 //login routes
