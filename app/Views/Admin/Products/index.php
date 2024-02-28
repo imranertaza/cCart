@@ -35,6 +35,9 @@
                             Products</a>
                         <?php } ?>
                         <button type="submit" class="btn btn-secondary btn-xs float-right mr-2"><i class="nav-icon fas fa-copy"></i> Copy</button>
+                        <?php if(modules_key_by_access('image_crop') == '1' ){?>
+                            <button type="submit"  formaction="<?php echo base_url('admin/product_image_crop_action'); ?>" class="btn btn-info btn-xs float-right mr-2"><i class="fas fa-file"></i> Crop image</button>
+                        <?php } ?>
                     </div>
                     <div class="col-md-12" style="margin-top: 10px">
                         <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message'); endif; ?>
@@ -62,7 +65,7 @@
                                 <input type="checkbox" name="productId[]" value="<?php echo $val->product_id;?>" >
                             </td>
                             <td><?php echo $i++;?></td>
-                            <td><?php echo image_view('uploads/products',$val->product_id,'100_'.$val->image,'noimage.png',$class='img-100-100');?></td>
+                            <td><?php echo image_view('uploads/products',$val->product_id,'50_'.$val->image,'50_noimage.png','');?></td>
                             <td><?php echo $val->name;?></td>
                             <td><?php echo $val->model;?></td>
                             <td> <?php echo $val->quantity;?></td>

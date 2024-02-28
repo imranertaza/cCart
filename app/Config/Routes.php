@@ -92,6 +92,8 @@ $routes->get('/admin/related_product', 'Admin\Products::related_product');
 $routes->post('/admin/product_option_search', 'Admin\Products::product_option_search');
 $routes->post('/admin/product_option_value_search', 'Admin\Products::product_option_value_search');
 
+$routes->post('/admin/product_image_crop_action', 'Admin\Products::image_crop');
+
 //User
 $routes->get('/admin/user', 'Admin\User::index');
 $routes->get('/admin/user_create', 'Admin\User::create');
