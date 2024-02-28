@@ -303,6 +303,7 @@ $routes->post('/addtocartdetail', 'Cart\Cart::addtocartdetail');
 $routes->post('/addtocartgroup', 'Cart\Cart::addToCartGroup');
 $routes->post('/updateToCart', 'Cart\Cart::updateToCart');
 $routes->post('/removeToCart', 'Cart\Cart::removeToCart');
+$routes->get('/cart_empty_check', 'Cart\Cart::cart_empty_check');
 
 //Checkout
 $routes->get('/checkout', 'Checkout::index');
