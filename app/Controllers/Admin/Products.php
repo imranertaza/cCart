@@ -54,6 +54,8 @@ class Products extends BaseController
                 echo view('Admin/no_permission');
             }
             echo view('Admin/footer');
+
+            if (isset(newSession()->resetDatatable)){unset($_SESSION['resetDatatable']);}
         }
     }
 
@@ -572,7 +574,7 @@ class Products extends BaseController
             DB()->transComplete();
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Create Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            return redirect()->to('admin/products');
+            return redirect()->to('admin/products?page=1');
         }else{
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Please select any product! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/products');
@@ -1045,7 +1047,8 @@ class Products extends BaseController
         }
     }
 
-    public function delete($product_id){
+    public function delete(){
+        $product_id = $this->request->getPost('product_id');
 
         helper('filesystem');
 
@@ -1086,8 +1089,7 @@ class Products extends BaseController
 
         DB()->transComplete();
 
-        $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Delete Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-        return redirect()->to('admin/products');
+        print '<div class="alert alert-success alert-dismissible" role="alert">Delete Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
     }
 
     public function get_subCategory(){
@@ -1224,11 +1226,59 @@ class Products extends BaseController
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Please select any product <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/products');
         }
+    }
+
+    public function multi_delete_action(){
+        $allProductId =  $this->request->getPost('productId[]');
+        if (!empty($allProductId)) {
+            helper('filesystem');
+
+            DB()->transStart();
+            foreach ($allProductId as $product_id) {
 
 
+                $target_dir = FCPATH . '/uploads/products/' . $product_id;
+                if (file_exists($target_dir)) {
+                    delete_files($target_dir, TRUE);
+                    rmdir($target_dir);
+                }
 
+                $proTable = DB()->table('cc_products');
+                $proTable->where('product_id', $product_id)->delete();
 
+                $proImgTable = DB()->table('cc_product_image');
+                $proImgTable->where('product_id', $product_id)->delete();
 
+                $catTableDel = DB()->table('cc_product_to_category');
+                $catTableDel->where('product_id', $product_id)->delete();
+
+                $proFreetable = DB()->table('cc_product_free_delivery');
+                $proFreetable->where('product_id', $product_id)->delete();
+
+                $proDescTable = DB()->table('cc_product_description');
+                $proDescTable->where('product_id', $product_id)->delete();
+
+                $optionTableDel = DB()->table('cc_product_option');
+                $optionTableDel->where('product_id', $product_id)->delete();
+
+                $attributeTableDel = DB()->table('cc_product_attribute');
+                $attributeTableDel->where('product_id', $product_id)->delete();
+
+                $specialTable = DB()->table('cc_product_special');
+                $specialTable->where('product_id', $product_id)->delete();
+
+                $proReltableDel = DB()->table('cc_product_related');
+                $proReltableDel->where('product_id', $product_id)->delete();
+
+            }
+            DB()->transComplete();
+
+            $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Delete Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            return redirect()->to('admin/products');
+        }else{
+            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Please select any product <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            return redirect()->to('admin/products');
+        }
     }
 
 

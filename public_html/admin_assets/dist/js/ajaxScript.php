@@ -11,6 +11,8 @@ $(function() {
         "responsive": true,
         "lengthChange": true,
         "autoWidth": false,
+        "targets": 'no-sort',
+        "bSort": false,
         "order": [
             [0, "desc"]
         ],
@@ -21,16 +23,70 @@ $(function() {
         "paging": true,
         "lengthChange": true,
         "searching": true,
-        "ordering": true,
+        "ordering": false,
         "info": true,
         "autoWidth": false,
+        "targets": 'no-sort',
+        "bSort": false,
         "responsive": true,
         "drawCallback": function( settings ) {
             checkShowHideRow();
         }
     });
+
+    $('#productBulkEdit').DataTable({
+        "paging": true,
+        "responsive": true,
+        "lengthChange": true,
+        "autoWidth": false,
+        "stateSave": true,
+        "targets": 'no-sort',
+        "bSort": false,
+        "drawCallback": function( settings ) {
+            checkShowHideRow();
+        }
+    });
+
+
+
+    $("#productListData").DataTable({
+        "responsive": true,
+        "lengthChange": true,
+        "autoWidth": false,
+        "stateSave": true,
+        "targets": 'no-sort',
+        "bSort": false,
+        "order": [
+            [0, "desc"]
+        ],
+        "buttons": ["csv", "excel", "pdf", "print" ]
+    }).buttons().container().appendTo('#productListData_wrapper .col-md-6:eq(0)');
+
+    <?php if (isset(newSession()->resetDatatable) && (newSession()->resetDatatable == true)){  ?>
+    var table = $("#productListData").DataTable();
+    table.search('').draw();
+    table.page('first').draw('page');
+    table.page.len(10).draw();
+
+    <?php } if (isset($_GET['page'])){  ?>
+    $('#productListData').DataTable().page(<?= $_GET['page']-1;?>).draw('page');
+    $('#productBulkEdit').DataTable().page(<?= $_GET['page']-1;?>).draw('page');
+    <?php } ?>
+
+    if(sessionStorage.getItem("bulkDataTableReset") == '1'){
+        var table = $("#productBulkEdit").DataTable();
+        // Reset search query
+        table.search('').draw();
+        table.page('first').draw('page');
+        table.page.len(10).draw();
+    }
+    sessionStorage.removeItem("bulkDataTableReset");
+
 });
 // This is for DataTable -- End --
+function bulk_datatable_reset(){
+    sessionStorage.setItem("bulkDataTableReset", '1' );
+}
 
 $(function() {
     //Initialize Select2 Elements
@@ -957,6 +1013,24 @@ function allchecked(source) {
     for (var i = 0; i < checkboxes.length; i++) {
         if (checkboxes[i] != source)
             checkboxes[i].checked = source.checked;
+    }
+}
+
+function product_delete(id){
+    if (confirm('Do you want to delete it?')) {
+        $.ajax({
+            method: "POST",
+            url: "<?php echo base_url('admin/product_delete') ?>",
+            data: {product_id: id},
+            beforeSend: function () {
+                $("#loading-image").show();
+            },
+            success: function (data) {
+                $("#message").html(data);
+                $('#hide_' + id).hide('slow');
+            }
+
+        });
     }
 }
 

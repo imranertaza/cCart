@@ -36,6 +36,9 @@
     <link rel="stylesheet" href="<?php echo base_url() ?>/assets/amazing_gadgets/owl.carousel.min.css">
     <link rel="stylesheet" href="<?php echo base_url() ?>/assets/amazing_gadgets/owl.theme.default.min.css">
 
+    <script src="<?php echo base_url() ?>/assets/amazing_gadgets/jquery-3.6.0.js"></script>
+    <script src="<?php echo base_url() ?>/assets/amazing_gadgets/jquery-ui.js"></script>
+    <script src="<?php echo base_url() ?>/assets/amazing_gadgets/jquery.star-rating.js"></script>
 </head>
 
 <body>

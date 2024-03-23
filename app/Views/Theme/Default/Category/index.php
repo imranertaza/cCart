@@ -56,7 +56,8 @@
                 </div>
                 <div class="card-body">
                     <form action="<?php echo base_url('category_url_generate')?>" method="post" id="searchForm">
-<!--                    <form  method="get" id="searchForm">-->
+                        <input type="hidden" name="global_search" value="<?php echo $keywordSearch;?>">
+
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="card p-3 rounded-0">
@@ -79,88 +80,23 @@
                                         <?php } ?>
                                     </ul>
                                 </div>
-                                <div class="product-filter">
-                                    <p>Filter Price</p>
-                                    <p>
-                                        <input type="text" id="amount"  readonly style="border:0;">
-                                        <input type="hidden" name="price" id="price"  >
-                                    </p>
-                                    <div class="slider-range" ></div>
-                                </div>
-                                <?php
-                                $i=1;
-                                foreach(get_all_data_array('cc_option') as $op){ ?>
-                                <div class="product-filter">
-                                    <p><?php echo $op->name;?></p>
-                                    <ul class="list-unstyled filter-items">
-                                        <?php foreach(get_array_data_by_id('cc_option_value','option_id',$op->option_id) as $key=>$opVal){ ?>
-                                        <li class="mt-2"><input type="checkbox" onclick="formSubmit()"  class="btn-check" <?php foreach ($optionval as $vSel){ echo ($vSel == $opVal->option_value_id)?'checked':'';} ?> name="options[]" id="option_<?php echo $opVal->name; ?>" value="<?php echo $opVal->option_value_id?>"  autocomplete="off">
-                                            <label class="btn btn-outline-secondary" for="option_<?php echo $opVal->name; ?>"><?php echo $opVal->name?></label></li>
-                                        <?php } ?>
-                                    </ul>
-                                </div>
-                                <?php $i++; } ?>
+                                <?php if (!empty($products)){ ?>
+                                    <div class="product-filter">
+                                        <p class="mb-2">Filter Price</p>
+                                        <p>
+                                            <input type="text" id="amount"  readonly style="border:0;">
+                                            <input type="hidden" name="price" id="price"  >
+                                        </p>
+                                        <div class="slider-range" ></div>
+                                    </div>
+                                <?php } ?>
 
-                                <div class="product-filter">
-                                    <p>Manufacturer</p>
-                                    <?php foreach(get_all_data_array('cc_brand') as $bra){ ?>
-                                    <label class="w-100 mb-2">
-                                        <input type="checkbox" onclick="formSubmit()" name="manufacturer[]" <?php foreach ($brandval as $bSel){ echo ($bSel == $bra->brand_id)?'checked':'';} ?>  value="<?php echo $bra->brand_id?>"> <?php echo $bra->name?>
-                                    </label>
-                                    <?php } ?>
-                                </div>
+                                <?php echo $optionView;?>
 
-                                <div class="product-filter">
-                                    <p>Rating</p>
-                                    <label class="w-100 mb-2">
-                                        <input type="checkbox" onclick="formSubmit()" <?php foreach ($ratingval as $retSel){ echo ($retSel == '5')?'checked':'';} ?> name="rating[]" id="" value="5">
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <span class="count">5 Rating</span>
-                                    </label>
 
-                                    <label class="w-100 mb-2">
-                                        <input type="checkbox" onclick="formSubmit()" <?php foreach ($ratingval as $retSel){ echo ($retSel == '4')?'checked':'';} ?> name="rating[]" id="" value="4">
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-regular fa-star"></i>
-                                        <span class="count">4 Rating</span>
-                                    </label>
+                                <?php echo $brandView;?>
 
-                                    <label class="w-100 mb-2">
-                                        <input type="checkbox" onclick="formSubmit()" <?php foreach ($ratingval as $retSel){ echo ($retSel == '3')?'checked':'';} ?> name="rating[]" id="" value="3">
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-regular fa-star"></i>
-                                        <i class="fa-regular fa-star"></i>
-                                        <span class="count">3 Rating</span>
-                                    </label>
-
-                                    <label class="w-100 mb-2">
-                                        <input type="checkbox" onclick="formSubmit()" <?php foreach ($ratingval as $retSel){ echo ($retSel == '2')?'checked':'';} ?> name="rating[]" id="" value="2">
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-regular fa-star"></i>
-                                        <i class="fa-regular fa-star"></i>
-                                        <i class="fa-regular fa-star"></i>
-                                        <span class="count">2 Rating</span>
-                                    </label>
-                                    <label class="w-100 mb-2">
-                                        <input type="checkbox" onclick="formSubmit()" <?php foreach ($ratingval as $retSel){ echo ($retSel == '1')?'checked':'';} ?> name="rating[]" id="" value="1">
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-regular fa-star"></i>
-                                        <i class="fa-regular fa-star"></i>
-                                        <i class="fa-regular fa-star"></i>
-                                        <i class="fa-regular fa-star"></i>
-                                        <span class="count">1 Rating</span>
-                                    </label>
-                                </div>
+                                <?php if(modules_key_by_access('review') == '1' ){ echo $ratingView; }?>
                             </div>
                         </div>
                         <div class="col-lg-8">
@@ -311,3 +247,25 @@
         </div>
     </div>
 </section>
+
+<script>
+    jQuery(function($) {
+        $(".slider-range").slider({
+            range: true,
+            min: <?php print $price['minPrice']; ?>,
+            max: <?php print $price['maxPrice']; ?>,
+            values: [<?php print isset($fstprice) ? $fstprice : $price['minPrice']; ?>,
+                <?php print isset($lstPrice) ? $lstPrice : $price['maxPrice']; ?>
+            ],
+            slide: function(event, ui) {
+                $("#amount").val("" + ui.values[0] + " - " + ui.values[1]);
+                $("#price").val("" + ui.values[0] + "," + ui.values[1]);
+                $("#searchForm").submit();
+            }
+        });
+        $("#amount").val("" + $(".slider-range").slider("values", 0) +
+            " - " + $(".slider-range").slider("values", 1));
+        $("#price").val("" + $(".slider-range").slider("values", 0) +
+            "," + $(".slider-range").slider("values", 1));
+    });
+</script>

@@ -26,6 +26,9 @@
 
     <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
 
+    <script src="<?php echo base_url() ?>/assets/jquery-3.6.0.js"></script>
+    <script src="<?php echo base_url() ?>/assets/jquery-ui.js"></script>
+    <script src="<?php echo base_url() ?>/assets/jquery.star-rating.js"></script>
 </head>
 <body>
 <div class="message_alert" id="messAlt" >
