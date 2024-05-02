@@ -208,6 +208,7 @@
                                                         <?php } ?>
                                                     </ul>
                                                     <?php } else{ if (!empty($main_Cat)){?>
+                                                    <p class="mb-2">Category</p>
                                                     <ul class="lh-lg text-capitalize">
                                                         <?php  foreach ($main_Cat as $cat) { ?>
                                                         <li><a href="<?php echo base_url('category/'.$cat->prod_cat_id);?>"><?php echo $cat->category_name;?></a></li>
@@ -217,7 +218,7 @@
                                             <?php } }?>
                                         </div>
                                     <?php } ?>
-                                    <?php if (!empty($products)){ ?>
+                                    <?php if (!empty($productsArr)){ ?>
                                         <div class="product-filter">
                                             <p class="mb-2">Filter Price</p>
                                             <p>
@@ -282,6 +283,7 @@
                                                     <?php } ?>
                                                 </ul>
                                                 <?php } else{ if (!empty($main_Cat)){?>
+                                                    <p class="mb-2">Category</p>
                                                     <ul class="lh-lg text-capitalize">
                                                         <?php  foreach ($main_Cat as $cat) { ?>
                                                         <li><a href="<?php echo base_url('category/'.$cat->prod_cat_id);?>"><?php echo $cat->category_name;?></a></li>
@@ -291,7 +293,7 @@
                                                 <?php } }?>
                                             </div>
                                         <?php } ?>
-                                        <?php if (!empty($products)){ ?>
+                                        <?php if (!empty($productsArr)){ ?>
                                         <div class="product-filter">
                                             <p class="mb-2">Filter Price</p>
                                             <p>

@@ -80,7 +80,7 @@
                                         <?php } ?>
                                     </ul>
                                 </div>
-                                <?php if (!empty($products)){ ?>
+                                <?php if (!empty($productsArr)){ ?>
                                     <div class="product-filter">
                                         <p class="mb-2">Filter Price</p>
                                         <p>

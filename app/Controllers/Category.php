@@ -37,7 +37,7 @@ class Category extends BaseController {
 
         $table = DB()->table('cc_product_category');
         $data['parent_Cat'] = $table->where('parent_id',$cat_id)->get()->getResult();
-
+        $data['main_Cat'] = $table->where('parent_id',null)->get()->getResult();
         $data['prod_cat_id'] = $cat_id;
 
 
@@ -45,12 +45,15 @@ class Category extends BaseController {
         $data['description'] = get_lebel_by_value_in_settings('meta_description');
         $data['title'] = get_data_by_id('category_name','cc_product_category','prod_cat_id',$cat_id);
 
-
-        $filter = $this->filter->getSettings($data['products']);
+        $productsArr = $this->categoryproductsModel->where($where)->orderBy('cc_products.product_id','DESC')->query()->findAll();
+        $filter = $this->filter->getSettings($productsArr);
         $data['price'] = $filter->product_array_by_price_range();
         $data['optionView'] = $filter->product_array_by_options($data['optionval']);
         $data['brandView'] = $filter->product_array_by_brand($data['brandval']);
         $data['ratingView'] = $filter->product_array_by_rating_view($data['ratingval']);
+        $data['productsArr'] = $productsArr;
+
+        setcookie('category_cookie',$cat_id,time()+86400, "/");
 
         $data['page_title'] = 'Category products';
         echo view('Theme/'.get_lebel_by_value_in_settings('Theme').'/header',$data);
@@ -72,10 +75,10 @@ class Category extends BaseController {
         $global_search = $this->request->getPost('global_search');
 
         $category_cookie = isset($_COOKIE['category_cookie']) ? $_COOKIE['category_cookie'] : '';
-
+        $selCategory = !empty($category)?$category:$cat;
         $vars = array();
 
-        if (($category_cookie == $category) || (!empty($global_search))){
+        if (($category_cookie == $selCategory) || (!empty($global_search))){
 
             if (!empty($brand)) {
                 $menu = '';

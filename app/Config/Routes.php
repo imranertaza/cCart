@@ -171,7 +171,10 @@ $routes->group('admin', static function ($routes) {
     
     $routes->get('payment/u_wallet/(:num)', 'Admin\Payment\U_wallet::settings/$1');
     $routes->post('u_wallet_update_action', 'Admin\Payment\U_wallet::update_action');
-    
+
+    $routes->get('payment/stripe/(:num)', 'Admin\Payment\Stripe::settings/$1');
+    $routes->post('stripe_update_action', 'Admin\Payment\Stripe::update_action');
+
     //Ajax
     $routes->get('page_list', 'Admin\Page_settings::index');
     $routes->get('page_create', 'Admin\Page_settings::create');
@@ -327,6 +330,9 @@ $routes->post('/payment_instruction', 'Checkout::payment_instruction');
 $routes->get('/payment_paypal', 'Paypal::index');
 $routes->get('/payment_paypal_checkout_action', 'Paypal::paypal_checkout_action');
 
+$routes->post('/payment_stripe', 'StripeController::payment_stripe');
+$routes->post('/payment_stripe_checkout_action', 'StripeController::stripe_create_charge');
+$routes->get('/stripe_action', 'StripeController::stripe_action');
 
 //pages routes
 $routes->get('/about', 'Pages\Pages::about');
