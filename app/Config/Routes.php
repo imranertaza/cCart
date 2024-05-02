@@ -261,7 +261,9 @@ $routes->group('admin', static function ($routes) {
     $routes->post('bulk_option_view', 'Admin\Advanced_products::bulk_option_view');
     $routes->post('bulk_option_update', 'Admin\Advanced_products::bulk_option_update');
 
+
 });
+
 
 
 //login routes

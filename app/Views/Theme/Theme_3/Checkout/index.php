@@ -205,7 +205,7 @@
                             <div class="col-lg-6">
                                 <div class="form-group mb-4">
                                     <label class="w-100" for="email">District</label>
-                                    <select name="shipping_city"  class="form-control in_err"
+                                    <select name="shipping_city" class="form-control in_err"
                                         onchange="shippingCharge(),liveView(this,'zonVal')" id="sh_stateView">
                                         <option value="">Please select</option>
                                     </select>
@@ -226,7 +226,7 @@
                                     <input class="form-control rounded-0 in_err" oninput="liveTextView(this.value,'add1Val')"
                                         type="text" name="shipping_address_1" id="shipping_address_1"
                                         placeholder="Address line 1">
-                                        <span class="text-danger in_err d-inline-block text-capitalize" id="shipping_address_1_mess"></span>
+                                        <span class="text-danger err d-inline-block text-capitalize" id="shipping_address_1_mess"></span>
                                 </div>
                             </div>
                             <div class="col-lg-12">

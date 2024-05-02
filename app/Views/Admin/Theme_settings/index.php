@@ -144,6 +144,7 @@
                                     </div>
 
                                     <div class="col-md-6">
+
                                         <form action="<?php echo base_url('admin/favicon_update') ?>" method="post"
                                               enctype="multipart/form-data">
                                             <div class="form-group mt-5">

@@ -193,6 +193,7 @@ class Theme_settings extends BaseController
 
     }
 
+
     public function home_category_banner()
     {
 

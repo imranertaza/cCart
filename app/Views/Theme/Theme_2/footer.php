@@ -442,18 +442,6 @@
         showInfo: true
     });
 
-    function shippingAddress() {
-        var shipping = document.getElementById('shipping_address');
-        var shippingicon = document.getElementById('shippingicon2');
-
-        if (shipping.style.display === "none") {
-            shipping.style.display = "block";
-            shippingicon.style.transform = "rotate(90deg)";
-        } else {
-            shipping.style.display = "none";
-            shippingicon.style.transform = "rotate(0deg)";
-        }
-    }
 
     function iconRotate() {
         var cart = document.getElementById('carticon2');
@@ -1040,8 +1028,11 @@
     }
 
     function pass_show(val) {
-        var html =
-            '<h6 class="mt-2">Change information</h6><div class="form-group mt-4"><label>Current password</label><input type="password" name="current_password" class="form-control" placeholder="Current password" required></div><div class="form-group mt-4"><label>New password</label><input type="password" name="new_password" class="form-control" placeholder="New password" required></div><div class="form-group mt-4"><label>Confirm password</label><input type="password" name="confirm_password" class="form-control" placeholder="Confirm password" required></div>';
+        // var html =
+        //     '<h6 class="mt-2">Change information</h6><div class="form-group mt-4"><label>Current password</label><input type="password" name="current_password" class="form-control" placeholder="Current password" required></div><div class="form-group mt-4"><label>New password</label><input type="password" name="new_password" class="form-control" placeholder="New password" required></div><div class="form-group mt-4"><label>Confirm password</label><input type="password" name="confirm_password" class="form-control" placeholder="Confirm password" required></div>';
+
+        let html = `<h6 class="mt-2">Change information</h6><div class="form-group mt-4"><label>Current password</label><input type="password" name="current_password" id="current_password" class="form-control in_err" placeholder="Current password" required><span class="text-danger d-inline-block err text-capitalize" id="password_err_mess"></span></div><div class="form-group "><label>New password</label><input type="password" name="new_password" class="form-control in_err" id="new_password" placeholder="New password" required><span class="text-danger d-inline-block err text-capitalize mb-4" id="new_password_err_mess"></span></div><div class="form-group "><label>Confirm password</label><input type="password" name="confirm_password" class="form-control in_err" id="confirm_password" placeholder="Confirm password" required> <span class="text-danger d-inline-block err text-capitalize mb-4" id="confirm_password_err_mess"></span></div>`;
+        
         if (val == '1') {
             $('#passReset').val(0);
             $('#pass-data').html(html);
@@ -1339,7 +1330,7 @@
         }
     }
 </script>
-
+<script src="<?php echo base_url() ?>/assets/assets_fl/validation.js" type="text/javascript" ></script>
 </body>
 
 </html>

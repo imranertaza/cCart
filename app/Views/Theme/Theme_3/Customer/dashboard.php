@@ -63,11 +63,11 @@
                                 <span class="text-danger d-inline-block err text-capitalize" id="password_err_mess"></span>
                             </div>
                             <div class="mb-3">
-                                <input type="password" name="new_password" class="form-control con-or text-center" id="new_password" placeholder="New Password*" required >
+                                <input type="password" name="new_password" class="form-control con-or text-center in_err" id="new_password" placeholder="New Password*" required >
                                 <span class="text-danger d-inline-block err text-capitalize" id="new_password_err_mess"></span>
                             </div>
                             <div class="mb-3">
-                                <input type="password" name="confirm_password"  class="form-control con-or text-center" id="confirm_password" placeholder="Confirm Password*" required >
+                                <input type="password" name="confirm_password"  class="form-control con-or text-center in_err" id="confirm_password" placeholder="Confirm Password*" required >
                                 <span class="text-danger d-inline-block err text-capitalize" id="confirm_password_err_mess"></span>
                             </div>
                             <div class="mb-3">

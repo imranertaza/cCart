@@ -1,11 +1,11 @@
 <section class="main-container checkout" >
     <div class="container">
-        <form action="<?php echo base_url('checkout_action') ?>" method="post">
+        <form action="<?php echo base_url('checkout_action') ?>" method="post" onsubmit="return onchackoutsubmit()">
             <div class="row">
                 <div class="col-lg-6">
                     <?php $isLoggedInCustomer = newSession()->isLoggedInCustomer;
                     if (!isset($isLoggedInCustomer) || $isLoggedInCustomer != TRUE) { ?>
-                    <p><a class="btn bg-black w-100 text-white rounded-0" href="<?php echo base_url('login') ?>">Log In</a></p>
+                    <p><a class="btn bg-black w-100 text-white rounded-0 in_err" href="<?php echo base_url('login') ?>">Log In</a></p>
                     <p class="text-center">Or</p>
                     <div class="create-box mb-5">
                         <p class="mb-0"><label><input type="checkbox" onclick="user_create()" name="new_acc_create" id="createNew" value="0" > Check Mark the box
@@ -18,29 +18,33 @@
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="w-100" for="name">First Name</label>
-                                <input class="form-control rounded-0" type="text" name="payment_firstname" id="name"
+                                <input class="form-control rounded-0 in_err" type="text" name="payment_firstname" id="fname1"
                                        placeholder="First Name" value="<?php echo isset($customer->firstname)?$customer->firstname:'';?>" required>
+                                <span class="text-danger err d-inline-block text-capitalize" id="fnameError"></span>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="w-100" for="name">Last Name</label>
-                                <input class="form-control rounded-0" type="text" name="payment_lastname" id="payment_lastname"
+                                <input class="form-control rounded-0 in_err" type="text" name="payment_lastname" id="lname1"
                                        placeholder="Last Name" value="<?php echo isset($customer->lastname)?$customer->lastname:'';?>" required>
+                                <span class="text-danger err d-inline-block text-capitalize" id="lnameError"></span>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="w-100" for="email">Email</label>
-                                <input class="form-control rounded-0" type="email" name="payment_email" id="email"
+                                <input class="form-control rounded-0 in_err" type="email" name="payment_email" id="email"
                                        placeholder="Email" value="<?php echo isset($customer->email)?$customer->email:'';?>" required>
+                                       <span class="text-danger err d-inline-block text-capitalize" id="emailError"></span>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="w-100" for="phone">Phone</label>
-                                <input class="form-control rounded-0" type="number" name="payment_phone" id="payment_phone"
+                                <input class="form-control rounded-0 in_err" type="number" name="payment_phone" id="payment_phone"
                                        placeholder="Phone" value="<?php echo isset($customer->phone)?$customer->phone:'';?>" required>
+                                       <span class="text-danger err d-inline-block text-capitalize" id="paymentPhoneError"></span>
                             </div>
                         </div>
 
@@ -59,43 +63,47 @@
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="w-100" for="phone">Country</label>
-                                <select name="payment_country_id" class="form-control" onchange="selectState(this.value,'stateView')" required>
+                                <select name="payment_country_id" id="countryName1" class="form-control in_err" onchange="selectState(this.value,'stateView')" required>
                                     <option value="" >Please select</option>
-
                                     <?php echo country($coun);?>
                                 </select>
+                                <span class="text-danger err d-inline-block text-capitalize" id="countryNamePhoneError"></span>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="w-100" for="payment_city">District</label>
-                                <select name="payment_city" class="form-control" onchange="shippingCharge()" id="stateView" required >
+                                <select name="payment_city" class="form-control in_err" onchange="shippingCharge()" id="stateView" required >
                                     <option value="" >Please select</option>
                                     <?php echo state_with_country($coun,$zon)?>
                                 </select>
+                                <span class="text-danger err d-inline-block text-capitalize" id="stateViewPhoneError"></span>
                             </div>
                         </div>
 
                         <div class="col-lg-12">
                             <div class="form-group mb-4">
                                 <label class="w-100" for="email">Post code</label>
-                                <input class="form-control rounded-0" type="number" name="payment_postcode" id="payment_postcode"
+                                <input class="form-control rounded-0 in_err" type="number" name="payment_postcode" id="payment_postcode"
                                        placeholder="Post code" value="<?php echo $post;?>" required>
+                                <span class="text-danger err d-inline-block text-capitalize" id="paymentPostcodeError"></span>
                             </div>
                         </div>
 
                         <div class="col-lg-12">
                             <div class="form-group mb-4">
                                 <label class="w-100" for="name">Address line 1*</label>
-                                <input class="form-control rounded-0" type="text" name="payment_address_1"
+                                <input class="form-control rounded-0 in_err" type="text" name="payment_address_1"
                                        id="payment_address_1" placeholder="Address line 1" value="<?php echo $add1?>" required>
+                                <span class="text-danger err d-inline-block text-capitalize" id="paymentAddressError"></span>
                             </div>
                         </div>
                         <div class="col-lg-12">
                             <div class="form-group mb-4">
                                 <label class="w-100" for="name">Address line 2*</label>
-                                <input class="form-control rounded-0" type="text" name="payment_address_2"
+                                <input class="form-control rounded-0 in_err" type="text" name="payment_address_2"
                                        id="payment_address_2" placeholder="Address line 2" value="<?php echo $add2?>" required>
+                                <span class="text-danger err d-inline-block text-capitalize" id="paymentAddress2Error"></span>
                             </div>
                         </div>
                     </div>
@@ -106,61 +114,69 @@
                             <div class="col-lg-6">
                                 <div class="form-group mb-4">
                                     <label class="w-100" for="name">First Name</label>
-                                    <input class="form-control rounded-0" type="text" name="shipping_firstname" id="shipping_firstname"
+                                    <input class="form-control rounded-0 in_err" type="text" name="shipping_firstname" id="fname"
                                            placeholder="First Name">
+                                           <span class="text-danger err d-inline-block text-capitalize" id="shipping_firstname_mess"></span>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group mb-4">
                                     <label class="w-100" for="name">Last Name</label>
-                                    <input class="form-control rounded-0" type="text" name="shipping_lastname" id="shipping_lastname"
+                                    <input class="form-control rounded-0 in_err" type="text" name="shipping_lastname" id="lname"
                                            placeholder="Last Name">
+                                    <span class="text-danger err d-inline-block text-capitalize" id="shipping_lastname_mess"></span>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group mb-4">
                                     <label class="w-100" for="phone">Phone</label>
-                                    <input class="form-control rounded-0" type="number" name="shipping_phone" id="shipping_phone"
+                                    <input class="form-control rounded-0 in_err" type="number" name="shipping_phone" id="shipping_phone"
                                            placeholder="Phone">
+                                           <span class="text-danger err d-inline-block text-capitalize" id="shipping_phone_mess"></span>
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="form-group mb-4">
                                     <label class="w-100" for="country">Country</label>
-                                    <select name="shipping_country_id" class="form-control" onchange="selectState(this.value,'sh_stateView')" >
+                                    <select name="shipping_country_id" class="form-control in_err" id="shipping_country" onchange="selectState(this.value,'sh_stateView')" >
                                         <option value="" >Please select</option>
                                         <?php echo country('');?>
                                     </select>
+                                    <span class="text-danger d-inline-block text-capitalize err" id="shipping_country_mess"></span>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group mb-4">
                                     <label class="w-100" for="email">District</label>
-                                    <select name="shipping_city" class="form-control" onchange="shippingCharge()"  id="sh_stateView"  >
+                                    <select name="shipping_city" class="form-control in_err" onchange="shippingCharge()"  id="sh_stateView"  >
                                         <option value="" >Please select</option>
                                     </select>
+                                    <span class="text-danger d-inline-block text-capitalize err" id="sh_stateView_mess"></span>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group mb-4">
                                     <label class="w-100" for="email">Postcode</label>
-                                    <input class="form-control rounded-0" type="number" name="shipping_postcode" id="shipping_postcode"
+                                    <input class="form-control rounded-0 in_err" type="number" name="shipping_postcode" id="shipping_postcode"
                                            placeholder="Shipping postcode">
+                                    <span class="text-danger d-inline-block text-capitalize err" id="shipping_postcode_mess"></span>
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="form-group mb-4">
                                     <label class="w-100" for="name">Address line 1*</label>
-                                    <input class="form-control rounded-0" type="text" name="shipping_address_1"
+                                    <input class="form-control rounded-0 in_err" type="text" name="shipping_address_1"
                                            id="shipping_address_1" placeholder="Address line 1">
+                                    <span class="text-danger err d-inline-block text-capitalize" id="shipping_address_1_mess"></span>
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="form-group mb-4">
                                     <label class="w-100" for="name">Address line 2*</label>
-                                    <input class="form-control rounded-0" type="text" name="shipping_address_2"
+                                    <input class="form-control rounded-0 in_err" type="text" name="shipping_address_2"
                                            id="shipping_address_2" placeholder="Address line 2">
+                                    <span class="text-danger d-inline-block err text-capitalize" id="shipping_address_2_mess"></span>
                                 </div>
                             </div>
                         </div>

@@ -15,6 +15,9 @@ body {
     background-color: #FFFFFF;
     font-size: 1rem;
 }
+.custom-d-50  {
+    height: 50%;
+}
 @media (min-width:1400px) {
     .container {max-width:1180px;}
 }
@@ -93,6 +96,10 @@ a {
     .navbar-primary .navbar-nav .nav-link {color: #FFF;}
     .navbar-primary .navbar-nav .nav-link:hover {
         color: var(--color-primary);
+    }
+
+    .custom-d-50 {
+        height: auto;
     }
 }
 .help-center a {
