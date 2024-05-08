@@ -313,25 +313,7 @@
     });
 </script>
 <script>
-    jQuery(function($) {
-        $(".slider-range").slider({
-            range: true,
-            min: 0,
-            max: 10000,
-            values: [<?php print isset($fstprice) ? $fstprice : 5; ?>,
-                <?php print isset($lstPrice) ? $lstPrice : 6000; ?>
-            ],
-            slide: function(event, ui) {
-                $("#amount").val("" + ui.values[0] + " - " + ui.values[1]);
-                $("#price").val("" + ui.values[0] + "," + ui.values[1]);
-                $("#searchForm").submit();
-            }
-        });
-        $("#amount").val("" + $(".slider-range").slider("values", 0) +
-            " - " + $(".slider-range").slider("values", 1));
-        $("#price").val("" + $(".slider-range").slider("values", 0) +
-            "," + $(".slider-range").slider("values", 1));
-    });
+
     function buyNowAction(){
         $("#addto-cart-form").on('submit', (function(e) {
             e.preventDefault();
@@ -919,6 +901,9 @@
         if (code == 'paypal') {
             $('#checkout-form').attr('action', '<?php echo base_url('payment_paypal'); ?>');
             $('#checkout-form').attr('method', 'GET');
+        }else if(code == 'stripe'){
+            $('#checkout-form').attr('action', '<?php echo base_url('payment_stripe'); ?>');
+            $('#checkout-form').attr('method', 'POST');
         } else {
             $('#checkout-form').attr('action', '<?php echo base_url('checkout_action'); ?>');
             $('#checkout-form').attr('method', 'POST');

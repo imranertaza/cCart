@@ -11,7 +11,7 @@
             <div class="col-5 col-sm-3 h-100">
                 <div class="nav flex-column nav-tabs h-100 text-right font-weight-bolder tab-link-ajax" id="vert-tabs-tab" role="tablist" aria-orientation="vertical">
                     <?php foreach ($prodOption as $key => $op){ $option = get_all_row_data_by_id('cc_option','option_id',$op->option_id); ?>
-                        <a class="nav-link  <?php echo ($key ==0)?'active':'';?> text-dark" id="<?php echo strtolower(str_replace(' ','',$option->name)); ?>_remove"  data-toggle="pill" href="<?php echo strtolower(str_replace(' ','',$option->name)) ?>" role="tab" aria-controls="vert-tabs-home" aria-selected="true"><?php echo $option->name ?><button type="button" class="btn btn-sm" onclick="remove_option_new_ajax('<?php echo strtolower(str_replace(' ','',$option->name)) ?>_remove','<?php echo strtolower(str_replace(' ','',$option->name)) ?>')"><i class="fa fa-trash text-danger"></i></button></a>
+                        <a class="nav-link  <?php echo ($key ==0)?'active':'';?> text-dark" id="<?php echo strtolower(str_replace(' ','',$option->name)); ?>_remove"  data-toggle="pill" href="#<?php echo strtolower(str_replace(' ','',$option->name)) ?>" role="tab" aria-controls="vert-tabs-home" aria-selected="true"><?php echo $option->name ?><button type="button" class="btn btn-sm" onclick="remove_option_new_ajax('<?php echo strtolower(str_replace(' ','',$option->name)) ?>_remove','<?php echo strtolower(str_replace(' ','',$option->name)) ?>')"><i class="fa fa-trash text-danger"></i></button></a>
                     <?php } ?>
                 </div>
 
@@ -22,7 +22,7 @@
 
             </div>
 
-            <div class="col-7 col-sm-9">
+            <div class="col-7 col-sm-9" >
                 <div class="tab-content tab-content-ajax" id="vert-tabs-tabContent">
                     <?php foreach ($prodOption as $key => $op){ $option = get_all_row_data_by_id('cc_option','option_id',$op->option_id); ?>
                         <div class="tab-pane text-left fade  show <?php echo ($key ==0)?'active':'';?>" id="<?php echo strtolower(str_replace(' ','',$option->name)) ?>" role="tabpanel" aria-labelledby="vert-tabs-home-tab">

@@ -39,223 +39,231 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'Home::index');
 $routes->post('/user_subscribe', 'Home::user_subscribe');
 
-$routes->get('/admin', 'Admin\Login::index');
-$routes->post('/admin/login_action', 'Admin\Login::login_action');
-$routes->get('/admin/logout', 'Admin\Login::logout');
-$routes->get('/admin/dashboard', 'Admin\Dashboard::index');
 
-//Attribute_group
-$routes->get('/admin/attribute_group', 'Admin\Attribute_group::index');
-$routes->get('/admin/attribute_create', 'Admin\Attribute_group::create');
-$routes->post('/admin/attribute_create_action', 'Admin\Attribute_group::create_action');
-$routes->post('/admin/attribute_update_action', 'Admin\Attribute_group::update_action');
-$routes->get('/admin/attribute_update/(:num)', 'Admin\Attribute_group::update/$1');
-$routes->get('/admin/attribute_delete/(:num)', 'Admin\Attribute_group::delete/$1');
+$routes->group('admin', static function ($routes) {
 
-//Brand
-$routes->get('/admin/brand', 'Admin\Brand::index');
-$routes->get('/admin/brand_create', 'Admin\Brand::create');
-$routes->post('/admin/brand_create_action', 'Admin\Brand::create_action');
-$routes->post('/admin/brand_update_action', 'Admin\Brand::update_action');
-$routes->get('/admin/brand_update/(:num)', 'Admin\Brand::update/$1');
-$routes->get('/admin/brand_delete/(:num)', 'Admin\Brand::delete/$1');
-
-//Color_family
-$routes->get('/admin/color_family', 'Admin\Color_family::index');
-$routes->get('/admin/color_family_create', 'Admin\Color_family::create');
-$routes->post('/admin/color_family_create_action', 'Admin\Color_family::create_action');
-$routes->post('/admin/color_family_update_action', 'Admin\Color_family::update_action');
-$routes->get('/admin/color_family_update/(:num)', 'Admin\Color_family::update/$1');
-$routes->get('/admin/color_family_delete/(:num)', 'Admin\Color_family::delete/$1');
-
-//Product_category
-$routes->get('/admin/product_category', 'Admin\Product_category::index');
-$routes->get('/admin/product_category_create', 'Admin\Product_category::create');
-$routes->post('/admin/product_category_create_action', 'Admin\Product_category::create_action');
-$routes->post('/admin/product_category_update_action', 'Admin\Product_category::update_action');
-$routes->post('/admin/product_category_update_action_others', 'Admin\Product_category::update_action_others');
-$routes->get('/admin/product_category_update/(:num)', 'Admin\Product_category::update/$1');
-$routes->get('/admin/product_category_delete/(:num)', 'Admin\Product_category::delete/$1');
-
-$routes->post('/admin/product_category_sort_update_action', 'Admin\Product_category::sort_update_action');
-
-//Products
-$routes->get('/admin/products', 'Admin\Products::index');
-$routes->get('/admin/product_create', 'Admin\Products::create');
-$routes->post('/admin/product_create_action', 'Admin\Products::create_action');
-$routes->post('/admin/product_copy_action', 'Admin\Products::copy_action');
-$routes->post('/admin/product_update_action', 'Admin\Products::update_action');
-$routes->post('/admin/product_image_delete', 'Admin\Products::image_delete');
-$routes->get('/admin/product_update/(:num)', 'Admin\Products::update/$1');
-$routes->get('/admin/product_delete/(:num)', 'Admin\Products::delete/$1');
-$routes->get('/admin/related_product', 'Admin\Products::related_product');
-$routes->post('/admin/product_option_search', 'Admin\Products::product_option_search');
-$routes->post('/admin/product_option_value_search', 'Admin\Products::product_option_value_search');
-
-//User
-$routes->get('/admin/user', 'Admin\User::index');
-$routes->get('/admin/user_create', 'Admin\User::create');
-$routes->post('/admin/user_create_action', 'Admin\User::create_action');
-$routes->post('/admin/user_update_action', 'Admin\User::update_action');
-$routes->post('/admin/user_general_action', 'Admin\User::general_action');
-$routes->post('/admin/user_image_action', 'Admin\User::image_action');
-$routes->get('/admin/user_update/(:num)', 'Admin\User::update/$1');
-$routes->get('/admin/user_delete/(:num)', 'Admin\User::delete/$1');
-
-//Role
-$routes->get('/admin/role', 'Admin\Role::index');
-$routes->get('/admin/role_create', 'Admin\Role::create');
-$routes->post('/admin/role_create_action', 'Admin\Role::create_action');
-$routes->post('/admin/role_update_action', 'Admin\Role::update_action');
-$routes->get('/admin/role_update/(:num)', 'Admin\Role::update/$1');
-$routes->get('/admin/role_delete/(:num)', 'Admin\Role::delete/$1');
-
-//Customers
-$routes->get('/admin/customers', 'Admin\Customers::index');
-$routes->get('/admin/customers_create', 'Admin\Customers::create');
-$routes->post('/admin/customers_create_action', 'Admin\Customers::create_action');
-$routes->post('/admin/customers_update_action', 'Admin\Customers::update_action');
-$routes->post('/admin/customers_general_action', 'Admin\Customers::general_action');
-$routes->get('/admin/customers_update/(:num)', 'Admin\Customers::update/$1');
-$routes->get('/admin/customers_delete/(:num)', 'Admin\Customers::delete/$1');
-$routes->get('/admin/customers_ledger/(:num)', 'Admin\Customers::ledger/$1');
-
-// founds request
-$routes->get('/admin/fund_request', 'Admin\Fund_request::index');
-$routes->post('/admin/fund_request_action', 'Admin\Fund_request::fund_action');
-
-//Settings
-$routes->get('/admin/settings', 'Admin\Settings::index');
-$routes->post('/admin/settings_update_action', 'Admin\Settings::update_action');
+    $routes->get('/', 'Admin\Login::index');
+    $routes->post('login_action', 'Admin\Login::login_action');
+    $routes->get('logout', 'Admin\Login::logout');
+    $routes->get('dashboard', 'Admin\Dashboard::index');
 
 
-//Shipping
-$routes->get('/admin/shipping', 'Admin\Shipping\Shipping::index');
+    //Attribute_group
+    $routes->get('attribute_group', 'Admin\Attribute_group::index');
+    $routes->get('attribute_create', 'Admin\Attribute_group::create');
+    $routes->post('attribute_create_action', 'Admin\Attribute_group::create_action');
+    $routes->post('attribute_update_action', 'Admin\Attribute_group::update_action');
+    $routes->get('attribute_update/(:num)', 'Admin\Attribute_group::update/$1');
+    $routes->get('attribute_delete/(:num)', 'Admin\Attribute_group::delete/$1');
+    
+    //Brand
+    $routes->get('brand', 'Admin\Brand::index');
+    $routes->get('brand_create', 'Admin\Brand::create');
+    $routes->post('brand_create_action', 'Admin\Brand::create_action');
+    $routes->post('brand_update_action', 'Admin\Brand::update_action');
+    $routes->get('brand_update/(:num)', 'Admin\Brand::update/$1');
+    $routes->get('brand_delete/(:num)', 'Admin\Brand::delete/$1');
+    
+    //Color_family
+    $routes->get('color_family', 'Admin\Color_family::index');
+    $routes->get('color_family_create', 'Admin\Color_family::create');
+    $routes->post('color_family_create_action', 'Admin\Color_family::create_action');
+    $routes->post('color_family_update_action', 'Admin\Color_family::update_action');
+    $routes->get('color_family_update/(:num)', 'Admin\Color_family::update/$1');
+    $routes->get('color_family_delete/(:num)', 'Admin\Color_family::delete/$1');
+    
+    //Product_category
+    $routes->get('product_category', 'Admin\Product_category::index');
+    $routes->get('product_category_create', 'Admin\Product_category::create');
+    $routes->post('product_category_create_action', 'Admin\Product_category::create_action');
+    $routes->post('product_category_update_action', 'Admin\Product_category::update_action');
+    $routes->post('product_category_update_action_others', 'Admin\Product_category::update_action_others');
+    $routes->get('product_category_update/(:num)', 'Admin\Product_category::update/$1');
+    $routes->get('product_category_delete/(:num)', 'Admin\Product_category::delete/$1');
+    $routes->post('product_category_sort_update_action', 'Admin\Product_category::sort_update_action');
+    
+    //Products
+    $routes->get('products', 'Admin\Products::index');
+    $routes->get('product_create', 'Admin\Products::create');
+    $routes->post('product_create_action', 'Admin\Products::create_action');
+    $routes->post('product_copy_action', 'Admin\Products::copy_action');
+    $routes->post('product_update_action', 'Admin\Products::update_action');
+    $routes->post('product_image_delete', 'Admin\Products::image_delete');
+    $routes->get('product_update/(:num)', 'Admin\Products::update/$1');
+    $routes->post('product_delete', 'Admin\Products::delete');
+    $routes->get('related_product', 'Admin\Products::related_product');
+    $routes->post('product_option_search', 'Admin\Products::product_option_search');
+    $routes->post('product_option_value_search', 'Admin\Products::product_option_value_search');
+    $routes->post('product_image_crop_action', 'Admin\Products::image_crop');
+    $routes->post('product_multi_delete_action', 'Admin\Products::multi_delete_action');
+    
+    //User
+    $routes->get('user', 'Admin\User::index');
+    $routes->get('user_create', 'Admin\User::create');
+    $routes->post('user_create_action', 'Admin\User::create_action');
+    $routes->post('user_update_action', 'Admin\User::update_action');
+    $routes->post('user_general_action', 'Admin\User::general_action');
+    $routes->post('user_image_action', 'Admin\User::image_action');
+    $routes->get('user_update/(:num)', 'Admin\User::update/$1');
+    $routes->get('user_delete/(:num)', 'Admin\User::delete/$1');
+    
+    //Role
+    $routes->get('role', 'Admin\Role::index');
+    $routes->get('role_create', 'Admin\Role::create');
+    $routes->post('role_create_action', 'Admin\Role::create_action');
+    $routes->post('role_update_action', 'Admin\Role::update_action');
+    $routes->get('role_update/(:num)', 'Admin\Role::update/$1');
+    $routes->get('role_delete/(:num)', 'Admin\Role::delete/$1');
+    
+    //Customers
+    $routes->get('customers', 'Admin\Customers::index');
+    $routes->get('customers_create', 'Admin\Customers::create');
+    $routes->post('customers_create_action', 'Admin\Customers::create_action');
+    $routes->post('customers_update_action', 'Admin\Customers::update_action');
+    $routes->post('customers_general_action', 'Admin\Customers::general_action');
+    $routes->get('customers_update/(:num)', 'Admin\Customers::update/$1');
+    $routes->get('customers_delete/(:num)', 'Admin\Customers::delete/$1');
+    $routes->get('customers_ledger/(:num)', 'Admin\Customers::ledger/$1');
+    
+    // founds request
+    $routes->get('fund_request', 'Admin\Fund_request::index');
+    $routes->post('fund_request_action', 'Admin\Fund_request::fund_action');
+    
+    //Settings
+    $routes->get('settings', 'Admin\Settings::index');
+    $routes->post('settings_update_action', 'Admin\Settings::update_action');
+    
+    
+    //Shipping
+    $routes->get('shipping', 'Admin\Shipping\Shipping::index');
+    $routes->get('shipping_settings/(:num)', 'Admin\Shipping\Shipping::shipping_settings/$1');
+    $routes->post('shipping_update_action', 'Admin\Shipping\Shipping::update_action');
+    $routes->post('update_shipping_status', 'Admin\Shipping\Shipping::update_status');
+    $routes->post('remove_settings_weight', 'Admin\Shipping\Shipping::remove_settings_weight');
+    $routes->post('zone_rate_update_action', 'Admin\Shipping\Shipping::zone_rate_update_action');
+    $routes->post('zone_rate_delete', 'Admin\Shipping\Shipping::zone_rate_delete');
+    
+    
+    //Payment method
+    $routes->get('payment', 'Admin\Payment\Payment::index');
+    $routes->post('payment_status_update', 'Admin\Payment\Payment::status_update');
+    
+    $routes->get('payment/cash_on/(:num)', 'Admin\Payment\Cash_on_delivery::settings/$1');
+    $routes->post('cash_on_update_action', 'Admin\Payment\Cash_on_delivery::update_action');
+    
+    $routes->get('payment/bank_transfer/(:num)', 'Admin\Payment\Bank_transfer::bank_settings/$1');
+    $routes->post('bank_transfer_update_action', 'Admin\Payment\Bank_transfer::update_action');
+    
+    $routes->get('payment/paypal/(:num)', 'Admin\Payment\Paypal::settings/$1');
+    $routes->post('paypal_update_action', 'Admin\Payment\Paypal::update_action');
+    
+    $routes->get('payment/western_union/(:num)', 'Admin\Payment\Western_union::settings/$1');
+    $routes->post('western_union_update_action', 'Admin\Payment\Western_union::update_action');
+    
+    $routes->get('payment/moneyGram/(:num)', 'Admin\Payment\MoneyGram::settings/$1');
+    $routes->post('moneyGram_update_action', 'Admin\Payment\MoneyGram::update_action');
+    
+    $routes->get('payment/bitcoin/(:num)', 'Admin\Payment\Bitcoin::settings/$1');
+    $routes->post('bitcoin_update_action', 'Admin\Payment\Bitcoin::update_action');
+    
+    $routes->get('payment/credit_card/(:num)', 'Admin\Payment\Credit_card::settings/$1');
+    $routes->post('credit_card_update_action', 'Admin\Payment\Credit_card::update_action');
+    
+    $routes->get('payment/u_wallet/(:num)', 'Admin\Payment\U_wallet::settings/$1');
+    $routes->post('u_wallet_update_action', 'Admin\Payment\U_wallet::update_action');
 
-$routes->get('/admin/shipping_settings/(:num)', 'Admin\Shipping\Shipping::shipping_settings/$1');
-$routes->post('/admin/shipping_update_action', 'Admin\Shipping\Shipping::update_action');
-$routes->post('/admin/update_shipping_status', 'Admin\Shipping\Shipping::update_status');
-$routes->post('/admin/remove_settings_weight', 'Admin\Shipping\Shipping::remove_settings_weight');
+    $routes->get('payment/stripe/(:num)', 'Admin\Payment\Stripe::settings/$1');
+    $routes->post('stripe_update_action', 'Admin\Payment\Stripe::update_action');
+
+    //Ajax
+    $routes->get('page_list', 'Admin\Page_settings::index');
+    $routes->get('page_create', 'Admin\Page_settings::create');
+    $routes->get('page_update/(:num)', 'Admin\Page_settings::update/$1');
+    $routes->get('page_delete/(:num)', 'Admin\Page_settings::delete/$1');
+    $routes->post('page_create_action', 'Admin\Page_settings::create_action');
+    $routes->post('page_update_action', 'Admin\Page_settings::update_action');
+    
+    //Coupon
+    $routes->get('coupon', 'Admin\Coupon::index');
+    $routes->get('coupon_create', 'Admin\Coupon::create');
+    $routes->post('coupon_create_action', 'Admin\Coupon::create_action');
+    $routes->post('coupon_update_action', 'Admin\Coupon::update_action');
+    $routes->get('coupon_update/(:num)', 'Admin\Coupon::update/$1');
+    $routes->get('coupon_delete/(:num)', 'Admin\Coupon::delete/$1');
+    
+    //
+    $routes->get('module', 'Admin\Module::index');
+    $routes->post('module_update_action', 'Admin\Module::update_action');
+    $routes->post('module_update', 'Admin\Ajax::module_update');
+    $routes->get('module_settings/(:num)', 'Admin\Module::module_settings/$1');
+    $routes->post('module_settings_action', 'Admin\Module::module_settings_action');
+    
+    //
+    $routes->get('newsletter', 'Admin\Newsletter::index');
+    
+    $routes->get('option', 'Admin\Option::index');
+    $routes->get('option_create', 'Admin\Option::create');
+    $routes->post('option_create_action', 'Admin\Option::create_action');
+    $routes->post('option_update_action', 'Admin\Option::update_action');
+    $routes->get('option_update/(:num)', 'Admin\Option::update/$1');
+    $routes->get('option_delete/(:num)', 'Admin\Option::delete/$1');
+    $routes->post('option_remove_action', 'Admin\Option::option_remove_action');
+    
+    //Coupon
+    $routes->get('order_list', 'Admin\Order::index');
+    $routes->post('order_history_action', 'Admin\Order::history_action');
+    $routes->get('order_view/(:num)', 'Admin\Order::order_view/$1');
+    
+    //Theme Settings
+    
+    $routes->get('theme_settings', 'Admin\Theme_settings::index');
+    $routes->post('slider_update', 'Admin\Theme_settings::slider_update');
+    $routes->post('logo_update', 'Admin\Theme_settings::logo_update');
+    $routes->post('home_category', 'Admin\Theme_settings::home_category');
+    $routes->post('home_category_banner', 'Admin\Theme_settings::home_category_banner');
+    $routes->post('settings_update', 'Admin\Theme_settings::settings_update');
+    $routes->post('home_special_banner', 'Admin\Theme_settings::home_special_banner');
+    $routes->post('home_left_side_banner', 'Admin\Theme_settings::home_left_side_banner');
+    $routes->post('favicon_update', 'Admin\Theme_settings::favicon_update');
+    
+    
+    $routes->post('header_section_one_update', 'Admin\Theme_settings_3::header_section_one_update');
+    $routes->post('header_section_two_update', 'Admin\Theme_settings_3::header_section_two_update');
+    $routes->post('home_category_update', 'Admin\Theme_settings_3::home_category_update');
+    $routes->post('banner_bottom_update', 'Admin\Theme_settings_3::banner_bottom_update');
+    
+    //Localization
+    $routes->get('geo_zone', 'Admin\Geo_zone::index');
+    $routes->get('geo_zone_create', 'Admin\Geo_zone::create');
+    $routes->post('geo_zone_create_action', 'Admin\Geo_zone::create_action');
+    $routes->get('geo_zone_update/(:num)', 'Admin\Geo_zone::update/$1');
+    $routes->post('geo_zone_update_action', 'Admin\Geo_zone::update_action');
+    $routes->get('geo_zone_delete/(:num)', 'Admin\Geo_zone::delete/$1');
+    $routes->post('geo_zone_detail_delete', 'Admin\Geo_zone::geo_zone_detail_delete');
+    
+    //Email_send
+    $routes->get('email_send', 'Admin\Email_send::index');
+    $routes->post('email_send_action', 'Admin\Email_send::email_send_action');
+    
+    //Reviews
+    $routes->get('reviews', 'Admin\Reviews::index');
+    $routes->post('reviews_status_update', 'Admin\Reviews::reviews_status_update');
+    $routes->get('reviews_delete/(:num)', 'Admin\Reviews::delete/$1');
+    
+    //Advanced Products routes
+    $routes->get('bulk_edit_products', 'Admin\Advanced_products::index');
+    $routes->post('bulk_status_update', 'Admin\Advanced_products::bulk_status_update');
+    $routes->post('bulk_data_update', 'Admin\Advanced_products::bulk_data_update');
+    $routes->post('bulk_all_status_update', 'Admin\Advanced_products::bulk_all_status_update');
+    $routes->post('bulk_category_view', 'Admin\Advanced_products::bulk_category_view');
+    $routes->post('bulk_category_update', 'Admin\Advanced_products::bulk_category_update');
+    $routes->post('description_data_update', 'Admin\Advanced_products::description_data_update');
+    $routes->post('bulk_option_view', 'Admin\Advanced_products::bulk_option_view');
+    $routes->post('bulk_option_update', 'Admin\Advanced_products::bulk_option_update');
 
 
-$routes->post('/admin/zone_rate_update_action', 'Admin\Shipping\Shipping::zone_rate_update_action');
-$routes->post('/admin/zone_rate_delete', 'Admin\Shipping\Shipping::zone_rate_delete');
+});
 
-
-//Payment method
-$routes->get('/admin/payment', 'Admin\Payment\Payment::index');
-$routes->post('/admin/payment_status_update', 'Admin\Payment\Payment::status_update');
-
-$routes->get('/admin/payment/cash_on/(:num)', 'Admin\Payment\Cash_on_delivery::settings/$1');
-$routes->post('/admin/cash_on_update_action', 'Admin\Payment\Cash_on_delivery::update_action');
-
-$routes->get('/admin/payment/bank_transfer/(:num)', 'Admin\Payment\Bank_transfer::bank_settings/$1');
-$routes->post('/admin/bank_transfer_update_action', 'Admin\Payment\Bank_transfer::update_action');
-
-$routes->get('/admin/payment/paypal/(:num)', 'Admin\Payment\Paypal::settings/$1');
-$routes->post('/admin/paypal_update_action', 'Admin\Payment\Paypal::update_action');
-
-$routes->get('/admin/payment/western_union/(:num)', 'Admin\Payment\Western_union::settings/$1');
-$routes->post('/admin/western_union_update_action', 'Admin\Payment\Western_union::update_action');
-
-$routes->get('/admin/payment/moneyGram/(:num)', 'Admin\Payment\MoneyGram::settings/$1');
-$routes->post('/admin/moneyGram_update_action', 'Admin\Payment\MoneyGram::update_action');
-
-$routes->get('/admin/payment/bitcoin/(:num)', 'Admin\Payment\Bitcoin::settings/$1');
-$routes->post('/admin/bitcoin_update_action', 'Admin\Payment\Bitcoin::update_action');
-
-$routes->get('/admin/payment/credit_card/(:num)', 'Admin\Payment\Credit_card::settings/$1');
-$routes->post('/admin/credit_card_update_action', 'Admin\Payment\Credit_card::update_action');
-
-$routes->get('/admin/payment/u_wallet/(:num)', 'Admin\Payment\U_wallet::settings/$1');
-$routes->post('/admin/u_wallet_update_action', 'Admin\Payment\U_wallet::update_action');
-
-//Ajax
-$routes->get('/admin/page_list', 'Admin\Page_settings::index');
-$routes->get('/admin/page_create', 'Admin\Page_settings::create');
-$routes->get('/admin/page_update/(:num)', 'Admin\Page_settings::update/$1');
-$routes->get('/admin/page_delete/(:num)', 'Admin\Page_settings::delete/$1');
-$routes->post('/admin/page_create_action', 'Admin\Page_settings::create_action');
-$routes->post('/admin/page_update_action', 'Admin\Page_settings::update_action');
-
-//Coupon
-$routes->get('/admin/coupon', 'Admin\Coupon::index');
-$routes->get('/admin/coupon_create', 'Admin\Coupon::create');
-$routes->post('/admin/coupon_create_action', 'Admin\Coupon::create_action');
-$routes->post('/admin/coupon_update_action', 'Admin\Coupon::update_action');
-$routes->get('/admin/coupon_update/(:num)', 'Admin\Coupon::update/$1');
-$routes->get('/admin/coupon_delete/(:num)', 'Admin\Coupon::delete/$1');
-
-//
-$routes->get('/admin/module', 'Admin\Module::index');
-$routes->post('/admin/module_update_action', 'Admin\Module::update_action');
-$routes->post('/admin/module_update', 'Admin\Ajax::module_update');
-$routes->get('/admin/module_settings/(:num)', 'Admin\Module::module_settings/$1');
-$routes->post('/admin/module_settings_action', 'Admin\Module::module_settings_action');
-
-//
-$routes->get('/admin/newsletter', 'Admin\Newsletter::index');
-
-$routes->get('/admin/option', 'Admin\Option::index');
-$routes->get('/admin/option_create', 'Admin\Option::create');
-$routes->post('/admin/option_create_action', 'Admin\Option::create_action');
-$routes->post('/admin/option_update_action', 'Admin\Option::update_action');
-$routes->get('/admin/option_update/(:num)', 'Admin\Option::update/$1');
-$routes->get('/admin/option_delete/(:num)', 'Admin\Option::delete/$1');
-$routes->post('/admin/option_remove_action', 'Admin\Option::option_remove_action');
-
-//Coupon
-$routes->get('/admin/order_list', 'Admin\Order::index');
-$routes->post('/admin/order_history_action', 'Admin\Order::history_action');
-$routes->get('/admin/order_view/(:num)', 'Admin\Order::order_view/$1');
-
-
-$routes->get('/admin/theme_settings', 'Admin\Theme_settings::index');
-$routes->post('/admin/slider_update', 'Admin\Theme_settings::slider_update');
-$routes->post('/admin/logo_update', 'Admin\Theme_settings::logo_update');
-$routes->post('/admin/home_category', 'Admin\Theme_settings::home_category');
-$routes->post('/admin/home_category_banner', 'Admin\Theme_settings::home_category_banner');
-$routes->post('/admin/settings_update', 'Admin\Theme_settings::settings_update');
-$routes->post('/admin/home_special_banner', 'Admin\Theme_settings::home_special_banner');
-$routes->post('/admin/home_left_side_banner', 'Admin\Theme_settings::home_left_side_banner');
-$routes->post('/admin/favicon_update', 'Admin\Theme_settings::favicon_update');
-
-
-$routes->post('/admin/header_section_one_update', 'Admin\Theme_settings_3::header_section_one_update');
-$routes->post('/admin/header_section_two_update', 'Admin\Theme_settings_3::header_section_two_update');
-$routes->post('/admin/home_category_update', 'Admin\Theme_settings_3::home_category_update');
-$routes->post('/admin/banner_bottom_update', 'Admin\Theme_settings_3::banner_bottom_update');
-
-
-//Localization
-$routes->get('/admin/geo_zone', 'Admin\Geo_zone::index');
-$routes->get('/admin/geo_zone_create', 'Admin\Geo_zone::create');
-$routes->post('/admin/geo_zone_create_action', 'Admin\Geo_zone::create_action');
-$routes->get('/admin/geo_zone_update/(:num)', 'Admin\Geo_zone::update/$1');
-$routes->post('/admin/geo_zone_update_action', 'Admin\Geo_zone::update_action');
-$routes->get('/admin/geo_zone_delete/(:num)', 'Admin\Geo_zone::delete/$1');
-$routes->post('/admin/geo_zone_detail_delete', 'Admin\Geo_zone::geo_zone_detail_delete');
-
-//Email_send
-$routes->get('/admin/email_send', 'Admin\Email_send::index');
-$routes->post('/admin/email_send_action', 'Admin\Email_send::email_send_action');
-
-//Reviews
-$routes->get('/admin/reviews', 'Admin\Reviews::index');
-$routes->post('/admin/reviews_status_update', 'Admin\Reviews::reviews_status_update');
-$routes->get('/admin/reviews_delete/(:num)', 'Admin\Reviews::delete/$1');
-
-//Advanced Products routes
-$routes->get('/admin/bulk_edit_products', 'Admin\Advanced_products::index');
-$routes->post('/admin/bulk_status_update', 'Admin\Advanced_products::bulk_status_update');
-$routes->post('/admin/bulk_data_update', 'Admin\Advanced_products::bulk_data_update');
-$routes->post('/admin/bulk_all_status_update', 'Admin\Advanced_products::bulk_all_status_update');
-$routes->post('/admin/bulk_category_view', 'Admin\Advanced_products::bulk_category_view');
-$routes->post('/admin/bulk_category_update', 'Admin\Advanced_products::bulk_category_update');
-$routes->post('/admin/description_data_update', 'Admin\Advanced_products::description_data_update');
-
-$routes->post('/admin/bulk_option_view', 'Admin\Advanced_products::bulk_option_view');
-$routes->post('/admin/bulk_option_update', 'Admin\Advanced_products::bulk_option_update');
 
 
 //login routes
@@ -324,6 +332,9 @@ $routes->post('/payment_instruction', 'Checkout::payment_instruction');
 $routes->get('/payment_paypal', 'Paypal::index');
 $routes->get('/payment_paypal_checkout_action', 'Paypal::paypal_checkout_action');
 
+$routes->post('/payment_stripe', 'StripeController::payment_stripe');
+$routes->post('/payment_stripe_checkout_action', 'StripeController::stripe_create_charge');
+$routes->get('/stripe_action', 'StripeController::stripe_action');
 
 //pages routes
 $routes->get('/about', 'Pages\Pages::about');
@@ -352,8 +363,8 @@ $routes->Post('/category_url_generate', 'Category::url_generate');
 $routes->post('/top_search', 'Search::search_action');
 
 //ajax controller
-$routes->post('/admin/get_state', 'Admin\Ajax::get_state');
-$routes->post('/admin/get_zone_value', 'Admin\Ajax::get_zone_value');
+$routes->post('get_state', 'Admin\Ajax::get_state');
+$routes->post('get_zone_value', 'Admin\Ajax::get_zone_value');
 
 
 /*

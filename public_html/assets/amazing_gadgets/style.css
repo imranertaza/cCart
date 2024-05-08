@@ -28,6 +28,14 @@ a {
     color: #2E2E2E;
     text-decoration: none;
 }
+.category a{
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.category a:hover{
+    color: #ffffff;
+}
 .bg-black {
     background-color: var(--color-secondary) !important;
 }
@@ -871,6 +879,7 @@ a {
     border-bottom: 1px dashed #D4D4D4;
     padding-bottom: 15px;
     margin-bottom: 15px;
+    padding-right: 25px;
 }
 .product-filter a {
     color: #2E2E2E;
