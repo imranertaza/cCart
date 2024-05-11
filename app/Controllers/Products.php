@@ -56,11 +56,16 @@ class Products extends BaseController {
             foreach ($options as $valOp){
                 $optionWhere .= 'option_value_id = '.$valOp. ' OR ';
             }
+            $countOption = array();
+            foreach ($options as  $key => $valOp){
+                $optId = get_data_by_id('option_id','cc_product_option','option_value_id',$valOp);
+                $arr = $optId;
+                array_push($countOption,$arr);
+            }
+
             $allOption = '('.rtrim($optionWhere, ' OR ').')';
             $data['optionval'] = $options;
 
-//            print_r($allOption);
-//            die();
         }
 
         $data['brandval'] = array();
@@ -107,7 +112,7 @@ class Products extends BaseController {
         if(empty($this->request->getGetPost('option'))) {
             $data['products'] = $this->$searchModel->where($where)->query()->orderBy($shortBy)->paginate($lemit);
         }else{
-            $data['products'] = $this->$searchModel->where($where)->all_join()->orderBy($shortBy)->paginate($lemit);
+            $data['products'] = $this->$searchModel->where($where)->all_join()->having('COUNT(cc_products.product_id) >=', count(array_unique($countOption)))->orderBy($shortBy)->paginate($lemit);
         }
 
         if (!empty($keyword)){
