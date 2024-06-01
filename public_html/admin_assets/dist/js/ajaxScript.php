@@ -11,6 +11,8 @@ $(function() {
         "responsive": true,
         "lengthChange": true,
         "autoWidth": false,
+        "targets": 'no-sort',
+        "bSort": false,
         "order": [
             [0, "desc"]
         ],
@@ -21,16 +23,70 @@ $(function() {
         "paging": true,
         "lengthChange": true,
         "searching": true,
-        "ordering": true,
+        "ordering": false,
         "info": true,
         "autoWidth": false,
+        "targets": 'no-sort',
+        "bSort": false,
         "responsive": true,
         "drawCallback": function( settings ) {
             checkShowHideRow();
         }
     });
+
+    $('#productBulkEdit').DataTable({
+        "paging": true,
+        "responsive": true,
+        "lengthChange": true,
+        "autoWidth": false,
+        "stateSave": true,
+        "targets": 'no-sort',
+        "bSort": false,
+        "drawCallback": function( settings ) {
+            checkShowHideRow();
+        }
+    });
+
+
+
+    $("#productListData").DataTable({
+        "responsive": true,
+        "lengthChange": true,
+        "autoWidth": false,
+        "stateSave": true,
+        "targets": 'no-sort',
+        "bSort": false,
+        "order": [
+            [0, "desc"]
+        ],
+        "buttons": ["csv", "excel", "pdf", "print" ]
+    }).buttons().container().appendTo('#productListData_wrapper .col-md-6:eq(0)');
+
+    <?php if (isset(newSession()->resetDatatable) && (newSession()->resetDatatable == true)){  ?>
+    var table = $("#productListData").DataTable();
+    table.search('').draw();
+    table.page('first').draw('page');
+    table.page.len(10).draw();
+
+    <?php } if (isset($_GET['page'])){  ?>
+    $('#productListData').DataTable().page(<?= $_GET['page']-1;?>).draw('page');
+    $('#productBulkEdit').DataTable().page(<?= $_GET['page']-1;?>).draw('page');
+    <?php } ?>
+
+    if(sessionStorage.getItem("bulkDataTableReset") == '1'){
+        var table = $("#productBulkEdit").DataTable();
+        // Reset search query
+        table.search('').draw();
+        table.page('first').draw('page');
+        table.page.len(10).draw();
+    }
+    sessionStorage.removeItem("bulkDataTableReset");
+
 });
 // This is for DataTable -- End --
+function bulk_datatable_reset(){
+    sessionStorage.setItem("bulkDataTableReset", '1' );
+}
 
 $(function() {
     //Initialize Select2 Elements
@@ -524,7 +580,7 @@ function optionViewPro(option_id, name,nameTitle) {
     var n = "'" + name + "_op'";
     var rl = "'" + name + "_remove'";
     var nr = "'" + name + "'";
-    var link = '<a class="nav-link active text-dark" id="' + name + '_remove"  data-toggle="pill" href="#' + name +
+    var link = '<a class="nav-link active text-dark" id="' + name + '_remove"  data-toggle="pill" href="javascript:void(0)' + name +
         '" role="tab" aria-controls="vert-tabs-home" aria-selected="true">' + nameTitle +
         '<button type="button" class="btn btn-sm" onclick="remove_option_new_ajax(' + rl + ',' + nr +
         ')"><i class="fa fa-trash text-danger"></i></button></a>';
@@ -733,7 +789,7 @@ function submitFormBulk(formID) {
 
 function checkShowHideRow() {
 
-    var fields = ['id', 'name','image', 'model', 'quantity', 'category', 'price', 'status', 'featured','meta_title','meta_keyword','meta_description', 'action'];
+    var fields = ['id', 'name','image', 'model', 'quantity', 'category', 'price', 'status', 'featured','option','meta_title','meta_keyword','meta_description', 'action'];
 
     for (let i = 0; i < fields.length; ++i) {
         if ($('input[name="' + fields[i] + '"]').is(':checked')) {
@@ -807,6 +863,46 @@ function categoryBulkUpdateAction() {
         }
     });
 }
+
+
+function optionBulkUpdate(proId){
+    $('#optionModal').modal('show');
+    $.ajax({
+        url: '<?php echo base_url('/admin/bulk_option_view') ?>',
+        type: "POST",
+        data: {
+            product_id: proId
+        },
+        success: function(data) {
+            $("#optionData").html(data);
+
+        }
+    });
+}
+
+function optionBulkUpdateAction() {
+    var form = document.getElementById('optionForm');
+    var upRow = $(form).attr('data-row');
+    $.ajax({
+        url: $(form).prop('action'),
+        type: "POST",
+        data: new FormData(form),
+        contentType: false,
+        cache: false,
+        processData: false,
+        success: function(data) {
+            $('#optionModal').modal('hide');
+            // $("#message").html(data);
+            $("#mess").show();
+            var div = $("#"+upRow).html(data);
+            div.animate({opacity: '0.5'});
+            div.animate({opacity: '1'});
+            checkShowHideRow();
+
+        }
+    });
+}
+
 
 function updateSorting(val, id) {
     $.ajax({
@@ -917,6 +1013,24 @@ function allchecked(source) {
     for (var i = 0; i < checkboxes.length; i++) {
         if (checkboxes[i] != source)
             checkboxes[i].checked = source.checked;
+    }
+}
+
+function product_delete(id){
+    if (confirm('Do you want to delete it?')) {
+        $.ajax({
+            method: "POST",
+            url: "<?php echo base_url('admin/product_delete') ?>",
+            data: {product_id: id},
+            beforeSend: function () {
+                $("#loading-image").show();
+            },
+            success: function (data) {
+                $("#message").html(data);
+                $('#hide_' + id).hide('slow');
+            }
+
+        });
     }
 }
 

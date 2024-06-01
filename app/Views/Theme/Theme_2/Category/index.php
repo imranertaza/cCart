@@ -5,7 +5,7 @@
 
 
                     <form action="<?php echo base_url('category_url_generate')?>" method="post" id="searchForm">
-<!--                    <form  method="get" id="searchForm">-->
+                        <input type="hidden" name="global_search" value="<?php echo $keywordSearch;?>">
                     <div class="row">
                         <div class="col-md-3" id="side-data" >
 
@@ -177,16 +177,17 @@
     if ($(window).width() > 767) {
         var sidebarDesktop = `<div class="d-none d-md-block">
                                         <div class="title bg-custom-color text-white">
-                                        <span class="title-hot"><?php
+                                        <span class="title-hot category"><?php
         if (!empty($prod_cat_id)){
         $par_id = get_data_by_id('parent_id','cc_product_category','prod_cat_id',$prod_cat_id);
         if (!empty($par_id)){
             $url = base_url('category/'.$par_id);
             echo '<a href="'.$url.'">'.get_data_by_id('category_name','cc_product_category','prod_cat_id',$par_id).'</a> <i class="fa-solid fa-angle-right"></i>';
-        }
-        ?> <?php echo get_data_by_id('category_name','cc_product_category','prod_cat_id',$prod_cat_id);}else{ echo 'All Category';} ?></span>
+        } $url2 = base_url('category/' . $prod_cat_id);
+        ?> <a href="<?php echo $url2;?>" ><?php echo get_data_by_id('category_name','cc_product_category','prod_cat_id',$prod_cat_id);?> </a><?php }else{ echo 'Search Result';} ?></span>
                                 </div>
                                     <div class="card p-3 rounded-0 ">
+                                    <?php if (empty($keywordSearch)){ ?>
                                         <div class="product-filter">
                                             <?php if(!empty($parent_Cat)){ ?>
                                             <p class="mb-2">Sub Category</p>
@@ -207,6 +208,7 @@
                                                         <?php } ?>
                                                     </ul>
                                                     <?php } else{ if (!empty($main_Cat)){?>
+                                                    <p class="mb-2">Category</p>
                                                     <ul class="lh-lg text-capitalize">
                                                         <?php  foreach ($main_Cat as $cat) { ?>
                                                         <li><a href="<?php echo base_url('category/'.$cat->prod_cat_id);?>"><?php echo $cat->category_name;?></a></li>
@@ -215,6 +217,8 @@
 
                                             <?php } }?>
                                         </div>
+                                    <?php } ?>
+                                    <?php if (!empty($productsArr)){ ?>
                                         <div class="product-filter">
                                             <p class="mb-2">Filter Price</p>
                                             <p>
@@ -223,88 +227,14 @@
                                             </p>
                                             <div class="slider-range" ></div>
                                         </div>
-                                        <?php
-        $i=1;
-        foreach(get_all_data_array('cc_option') as $op){  ?>
-                                        <div class="product-filter">
-                                            <p class="mb-2"><?php echo $op->name;?></p>
-                                            <ul class="list-unstyled filter-items">
-                                                <?php foreach(get_array_data_by_id('cc_option_value','option_id',$op->option_id) as $key=>$opVal){
+                                    <?php } ?>
+                                        <?php echo $optionView;?>
 
-        $nameVal = get_data_by_id('name','cc_option_value','option_value_id',$opVal->option_value_id);
-        $firstCar =  mb_substr($nameVal, 0, 1); $length = strlen($nameVal);
-        $isColor = (($firstCar == '#') && ($length == 7))?'':$nameVal;
-        $nameOp = !empty($isColor)?$isColor:'';
-        $style = empty($isColor)?"background-color: $nameVal !important;padding: 15px; border: unset;":"";
-        ?>
 
-                                                <li class="mt-2"><input type="checkbox" onclick="formSubmit()"  class="btn-check" <?php foreach ($optionval as $vSel){ echo ($vSel == $opVal->option_value_id)?'checked':'';} ?> name="options[]" id="option_<?php echo $opVal->name; ?>" value="<?php echo $opVal->option_value_id?>"  autocomplete="off">
-                                                    <label class="btn btn-outline-secondary rounded-0" style="<?php echo $style;?>"   for="option_<?php echo $opVal->name; ?>"><?php  echo $nameOp; ?></label></li>
-                                                <?php } ?>
-                                            </ul>
-                                        </div>
-                                        <?php $i++; } ?>
+                                       <?php echo $brandView;?>
 
-                                        <div class="product-filter">
-                                            <p class="mb-2">Manufacturer</p>
-                                            <?php foreach(get_all_data_array('cc_brand') as $bra){ ?>
-                                            <label class="w-100 mb-2">
-                                                <input type="checkbox" onclick="formSubmit()" name="manufacturer[]" <?php foreach ($brandval as $bSel){ echo ($bSel == $bra->brand_id)?'checked':'';} ?>  value="<?php echo $bra->brand_id?>"> <?php echo $bra->name?>
-                                            </label>
-                                            <?php } ?>
-                                        </div>
+                                        <?php if(modules_key_by_access('review') == '1' ){ echo $ratingView; }?>
 
-                                        <div class="product-filter">
-                                            <p class="mb-2">Rating</p>
-                                            <label class="w-100 mb-2">
-                                                <input type="checkbox" onclick="formSubmit()" <?php foreach ($ratingval as $retSel){ echo ($retSel == '5')?'checked':'';} ?> name="rating[]" id="" value="5">
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <span class="count">5 Rating</span>
-                                            </label>
-
-                                            <label class="w-100 mb-2">
-                                                <input type="checkbox" onclick="formSubmit()" <?php foreach ($ratingval as $retSel){ echo ($retSel == '4')?'checked':'';} ?> name="rating[]" id="" value="4">
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-regular fa-star"></i>
-                                                    <span class="count">4 Rating</span>
-                                            </label>
-
-                                            <label class="w-100 mb-2">
-                                                <input type="checkbox" onclick="formSubmit()" <?php foreach ($ratingval as $retSel){ echo ($retSel == '3')?'checked':'';} ?> name="rating[]" id="" value="3">
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-regular fa-star"></i>
-                                                    <i class="fa-regular fa-star"></i>
-                                                    <span class="count">3 Rating</span>
-                                            </label>
-
-                                            <label class="w-100 mb-2">
-                                                <input type="checkbox" onclick="formSubmit()" <?php foreach ($ratingval as $retSel){ echo ($retSel == '2')?'checked':'';} ?> name="rating[]" id="" value="2">
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-regular fa-star"></i>
-                                                    <i class="fa-regular fa-star"></i>
-                                                    <i class="fa-regular fa-star"></i>
-                                                    <span class="count">2 Rating</span>
-                                            </label>
-                                            <label class="w-100 mb-2">
-                                                <input type="checkbox" onclick="formSubmit()" <?php foreach ($ratingval as $retSel){ echo ($retSel == '1')?'checked':'';} ?> name="rating[]" id="" value="1">
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-regular fa-star"></i>
-                                                    <i class="fa-regular fa-star"></i>
-                                                    <i class="fa-regular fa-star"></i>
-                                                    <i class="fa-regular fa-star"></i>
-                                                    <span class="count">1 Rating</span>
-                                            </label>
-                                        </div>
                                     </div>
                                 </div>`;
         $('#side-data').html(sidebarDesktop);
@@ -328,10 +258,11 @@
         if (!empty($par_id)){
             $url = base_url('category/'.$par_id);
             echo '<a href="'.$url.'">'.get_data_by_id('category_name','cc_product_category','prod_cat_id',$par_id).'</a> <i class="fa-solid fa-angle-right"></i>';
-        }
-        ?> <?php echo get_data_by_id('category_name','cc_product_category','prod_cat_id',$prod_cat_id);}else{ echo 'All Category';} ?></span>
+        } $url2 = base_url('category/' . $prod_cat_id);
+        ?> <a href="<?php echo $url2;?>" ><?php echo get_data_by_id('category_name','cc_product_category','prod_cat_id',$prod_cat_id);?> </a><?php }else{ echo 'Search Result';} ?></span>
                                         </div>
                                         <div class="card p-3 rounded-0 ">
+                                        <?php if (empty($keywordSearch)){ ?>
                                             <div class="product-filter">
                                                 <?php if(!empty($parent_Cat)){ ?>
                                                 <p class="mb-2">Sub Category</p>
@@ -352,6 +283,7 @@
                                                     <?php } ?>
                                                 </ul>
                                                 <?php } else{ if (!empty($main_Cat)){?>
+                                                    <p class="mb-2">Category</p>
                                                     <ul class="lh-lg text-capitalize">
                                                         <?php  foreach ($main_Cat as $cat) { ?>
                                                         <li><a href="<?php echo base_url('category/'.$cat->prod_cat_id);?>"><?php echo $cat->category_name;?></a></li>
@@ -360,96 +292,23 @@
 
                                                 <?php } }?>
                                             </div>
-                                            <div class="product-filter">
-                                                <p class="mb-2">Filter Price</p>
-                                                <p>
-                                                    <input type="text" id="amount"  readonly style="border:0;">
+                                        <?php } ?>
+                                        <?php if (!empty($productsArr)){ ?>
+                                        <div class="product-filter">
+                                            <p class="mb-2">Filter Price</p>
+                                            <p>
+                                                <input type="text" id="amount"  readonly style="border:0;">
                                                     <input type="hidden" name="price" id="price"  >
-                                                </p>
-                                                <div class="slider-range" ></div>
-                                            </div>
-                                            <?php
-        $i=1;
-        foreach(get_all_data_array('cc_option') as $op){  ?>
-                                            <div class="product-filter">
-                                                <p class="mb-2"><?php echo $op->name;?></p>
-                                                <ul class="list-unstyled filter-items">
-                                                    <?php foreach(get_array_data_by_id('cc_option_value','option_id',$op->option_id) as $key=>$opVal){
+                                            </p>
+                                            <div class="slider-range" ></div>
+                                        </div>
+                                        <?php } ?>
 
-        $nameVal = get_data_by_id('name','cc_option_value','option_value_id',$opVal->option_value_id);
-        $firstCar =  mb_substr($nameVal, 0, 1); $length = strlen($nameVal);
-        $isColor = (($firstCar == '#') && ($length == 7))?'':$nameVal;
-        $nameOp = !empty($isColor)?$isColor:'';
-        $style = empty($isColor)?"background-color: $nameVal;padding: 15px; border: unset;":"";
-        ?>
+                                        <?php echo $optionView;?>
 
-                                                    <li class="mt-2"><input type="checkbox" onclick="formSubmit()"  class="btn-check" <?php foreach ($optionval as $vSel){ echo ($vSel == $opVal->option_value_id)?'checked':'';} ?> name="options[]" id="option_<?php echo $opVal->name; ?>" value="<?php echo $opVal->option_value_id?>"  autocomplete="off">
-                                                        <label class="btn btn-outline-secondary" style="<?php echo $style;?>"   for="option_<?php echo $opVal->name; ?>"><?php  echo $nameOp; ?></label></li>
-                                                    <?php } ?>
-                                                </ul>
-                                            </div>
-                                            <?php $i++; } ?>
+                                        <?php echo $brandView;?>
 
-                                            <div class="product-filter">
-                                                <p class="mb-2">Manufacturer</p>
-                                                <?php foreach(get_all_data_array('cc_brand') as $bra){ ?>
-                                                <label class="w-100 mb-2">
-                                                    <input type="checkbox" onclick="formSubmit()" name="manufacturer[]" <?php foreach ($brandval as $bSel){ echo ($bSel == $bra->brand_id)?'checked':'';} ?>  value="<?php echo $bra->brand_id?>"> <?php echo $bra->name?>
-                                                </label>
-                                                <?php } ?>
-                                            </div>
-
-                                            <div class="product-filter">
-                                                <p class="mb-2">Rating</p>
-                                                <label class="w-100 mb-2">
-                                                    <input type="checkbox" onclick="formSubmit()" <?php foreach ($ratingval as $retSel){ echo ($retSel == '5')?'checked':'';} ?> name="rating[]" id="" value="5">
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <span class="count">5 Rating</span>
-                                                </label>
-
-                                                <label class="w-100 mb-2">
-                                                    <input type="checkbox" onclick="formSubmit()" <?php foreach ($ratingval as $retSel){ echo ($retSel == '4')?'checked':'';} ?> name="rating[]" id="" value="4">
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-regular fa-star"></i>
-                                                    <span class="count">4 Rating</span>
-                                                </label>
-
-                                                <label class="w-100 mb-2">
-                                                    <input type="checkbox" onclick="formSubmit()" <?php foreach ($ratingval as $retSel){ echo ($retSel == '3')?'checked':'';} ?> name="rating[]" id="" value="3">
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-regular fa-star"></i>
-                                                    <i class="fa-regular fa-star"></i>
-                                                    <span class="count">3 Rating</span>
-                                                </label>
-
-                                                <label class="w-100 mb-2">
-                                                    <input type="checkbox" onclick="formSubmit()" <?php foreach ($ratingval as $retSel){ echo ($retSel == '2')?'checked':'';} ?> name="rating[]" id="" value="2">
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-regular fa-star"></i>
-                                                    <i class="fa-regular fa-star"></i>
-                                                    <i class="fa-regular fa-star"></i>
-                                                    <span class="count">2 Rating</span>
-                                                </label>
-                                                <label class="w-100 mb-2">
-                                                    <input type="checkbox" onclick="formSubmit()" <?php foreach ($ratingval as $retSel){ echo ($retSel == '1')?'checked':'';} ?> name="rating[]" id="" value="1">
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-regular fa-star"></i>
-                                                    <i class="fa-regular fa-star"></i>
-                                                    <i class="fa-regular fa-star"></i>
-                                                    <i class="fa-regular fa-star"></i>
-                                                    <span class="count">1 Rating</span>
-                                                </label>
-                                            </div>
+                                        <?php if(modules_key_by_access('review') == '1' ){ echo $ratingView; }?>
                                         </div>
                                     </div>
                                 </div>
@@ -457,4 +316,25 @@
                             </div>`;
         $('#side-data').html(sidebarMobile);
     }
+
+
+    jQuery(function($) {
+        $(".slider-range").slider({
+            range: true,
+            min: <?php print $price['minPrice']; ?>,
+            max: <?php print $price['maxPrice']; ?>,
+            values: [<?php print isset($fstprice) ? $fstprice : $price['minPrice']; ?>,
+                <?php print isset($lstPrice) ? $lstPrice : $price['maxPrice']; ?>
+            ],
+            slide: function(event, ui) {
+                $("#amount").val("" + ui.values[0] + " - " + ui.values[1]);
+                $("#price").val("" + ui.values[0] + "," + ui.values[1]);
+                $("#searchForm").submit();
+            }
+        });
+        $("#amount").val("" + $(".slider-range").slider("values", 0) +
+            " - " + $(".slider-range").slider("values", 1));
+        $("#price").val("" + $(".slider-range").slider("values", 0) +
+            "," + $(".slider-range").slider("values", 1));
+    });
 </script>

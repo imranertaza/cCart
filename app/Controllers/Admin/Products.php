@@ -54,6 +54,8 @@ class Products extends BaseController
                 echo view('Admin/no_permission');
             }
             echo view('Admin/footer');
+
+            if (isset(newSession()->resetDatatable)){unset($_SESSION['resetDatatable']);}
         }
     }
 
@@ -572,7 +574,7 @@ class Products extends BaseController
             DB()->transComplete();
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Create Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            return redirect()->to('admin/products');
+            return redirect()->to('admin/products?page=1');
         }else{
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Please select any product! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/products');
@@ -1045,7 +1047,8 @@ class Products extends BaseController
         }
     }
 
-    public function delete($product_id){
+    public function delete(){
+        $product_id = $this->request->getPost('product_id');
 
         helper('filesystem');
 
@@ -1084,10 +1087,18 @@ class Products extends BaseController
         $proReltableDel = DB()->table('cc_product_related');
         $proReltableDel->where('product_id',$product_id)->delete();
 
+        $relProTableDel = DB()->table('cc_product_related');
+        $relProTableDel->where('related_id', $product_id)->delete();
+
+        $proBotTableDel = DB()->table('cc_product_bought_together');
+        $proBotTableDel->where('product_id',$product_id)->delete();
+
+        $bothTableDel = DB()->table('cc_product_bought_together');
+        $bothTableDel->where('related_id', $product_id)->delete();
+
         DB()->transComplete();
 
-        $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Delete Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-        return redirect()->to('admin/products');
+        print '<div class="alert alert-success alert-dismissible" role="alert">Delete Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
     }
 
     public function get_subCategory(){
@@ -1141,7 +1152,7 @@ class Products extends BaseController
         foreach ($option as $op){
             $optionname = "'$op->name'";
             $optionname2 = "'".strtolower(str_replace(' ','',$op->name))."'";
-            $view .= '<li><a href="#" onclick="optionViewPro('.$op->option_id.','.$optionname2.','.$optionname.')" >'.$op->name.'</a></li>';
+            $view .= '<li><a href="javascript:void(0)" onclick="optionViewPro('.$op->option_id.','.$optionname2.','.$optionname.')" >'.$op->name.'</a></li>';
         }
         $view .= '</ul>';
 
@@ -1159,5 +1170,137 @@ class Products extends BaseController
 //        print_r($data);
         print $view;
     }
+
+
+
+
+
+    public function image_crop(){
+
+        $allProductId =  $this->request->getPost('productId[]');
+
+        if (!empty($allProductId)) {
+            $theme = get_lebel_by_value_in_settings('Theme');
+            if ($theme == 'Theme_3') {
+                $theme_libraries = $this->theme_3;
+            }
+            if ($theme == 'Default') {
+                $theme_libraries = $this->theme_default;
+            }
+            if ($theme == 'Theme_2') {
+                $theme_libraries = $this->theme_2;
+            }
+
+            foreach ($allProductId as $productId) {
+
+                //product main image crop
+                $target_dir = FCPATH . '/uploads/products/' . $productId . '/';
+                $oldImg = get_data_by_id('image', 'cc_products', 'product_id', $productId);
+                if ((!empty($oldImg)) && (file_exists($target_dir))) {
+                    $mainImg = str_replace('pro_', '', $oldImg);
+                    if (file_exists($target_dir . '/' . $mainImg)) {
+                        foreach ($theme_libraries->product_image as $pro_img) {
+                            if (!file_exists($target_dir . '/' . $pro_img['width'] . '_pro_' . $oldImg)) {
+                                $this->crop->withFile($target_dir . '' . $mainImg)->fit($pro_img['width'], $pro_img['height'], 'center')->save($target_dir . $pro_img['width'] . '_pro_' . $mainImg,'100');
+                            }
+                        }
+                    }
+                }
+                //product main image crop end
+
+
+                //multi image crop
+                $allImage = get_array_data_by_id('cc_product_image', 'product_id', $productId);
+                if (!empty($allImage)) {
+                    foreach ($allImage as $val) {
+                        $target_dir_mult = FCPATH . '/uploads/products/' . $productId . '/' . $val->product_image_id . "/";
+                        $oldImgMul = $val->image;
+                        if ((!empty($oldImgMul)) && (file_exists($target_dir_mult))) {
+                            $mainImgMul = str_replace('pro_', '', $oldImgMul);
+                            if (file_exists($target_dir_mult . '/' . $mainImgMul)) {
+                                foreach ($theme_libraries->product_image as $pro_img) {
+                                    if (!file_exists($target_dir_mult . '/' . $pro_img['width'] . '_pro_' . $oldImgMul)) {
+                                        $this->crop->withFile($target_dir_mult . '' . $mainImgMul)->fit($pro_img['width'], $pro_img['height'], 'center')->save($target_dir_mult . $pro_img['width'] . '_pro_' . $mainImgMul,'100');
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Update Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            return redirect()->to('admin/products');
+        }else{
+            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Please select any product <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            return redirect()->to('admin/products');
+        }
+    }
+
+    public function multi_delete_action(){
+        $allProductId =  $this->request->getPost('productId[]');
+        if (!empty($allProductId)) {
+            helper('filesystem');
+
+            DB()->transStart();
+            foreach ($allProductId as $product_id) {
+
+
+                $target_dir = FCPATH . '/uploads/products/' . $product_id;
+                if (file_exists($target_dir)) {
+                    delete_files($target_dir, TRUE);
+                    rmdir($target_dir);
+                }
+
+                $proTable = DB()->table('cc_products');
+                $proTable->where('product_id', $product_id)->delete();
+
+                $proImgTable = DB()->table('cc_product_image');
+                $proImgTable->where('product_id', $product_id)->delete();
+
+                $catTableDel = DB()->table('cc_product_to_category');
+                $catTableDel->where('product_id', $product_id)->delete();
+
+                $proFreetable = DB()->table('cc_product_free_delivery');
+                $proFreetable->where('product_id', $product_id)->delete();
+
+                $proDescTable = DB()->table('cc_product_description');
+                $proDescTable->where('product_id', $product_id)->delete();
+
+                $optionTableDel = DB()->table('cc_product_option');
+                $optionTableDel->where('product_id', $product_id)->delete();
+
+                $attributeTableDel = DB()->table('cc_product_attribute');
+                $attributeTableDel->where('product_id', $product_id)->delete();
+
+                $specialTable = DB()->table('cc_product_special');
+                $specialTable->where('product_id', $product_id)->delete();
+
+                $proReltableDel = DB()->table('cc_product_related');
+                $proReltableDel->where('product_id', $product_id)->delete();
+                
+                $relProTableDel = DB()->table('cc_product_related');
+                $relProTableDel->where('related_id', $product_id)->delete();
+
+                $proBotTableDel = DB()->table('cc_product_bought_together');
+                $proBotTableDel->where('product_id',$product_id)->delete();
+
+                $bothTableDel = DB()->table('cc_product_bought_together');
+                $bothTableDel->where('related_id', $product_id)->delete();
+
+            }
+            DB()->transComplete();
+
+            $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Delete Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            return redirect()->to('admin/products');
+        }else{
+            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Please select any product <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            return redirect()->to('admin/products');
+        }
+    }
+
+
+
+
 
 }

@@ -59,11 +59,7 @@
     </div>
 </footer>
 
-<script src="<?php echo base_url() ?>/assets/jquery-3.6.0.js"></script>
-<script src="<?php echo base_url() ?>/assets/jquery-ui.js"></script>
 
-
-<script src="<?php echo base_url() ?>/assets/jquery.star-rating.js"></script>
 <script>
     $('.ratingPiont').starRating({
         starSize: 1.5,
@@ -75,23 +71,19 @@
         showInfo: true
     });
 
-    jQuery( function($) {
-        $( ".slider-range" ).slider({
-            range: true,
-            min: 0,
-            max: 10000,
-            values: [ <?php print isset($fstprice)?$fstprice:5; ?> , <?php print isset($lstPrice)?$lstPrice:6000; ?> ],
-            slide: function( event, ui ) {
-                $( "#amount" ).val( "" + ui.values[ 0 ] + " - " + ui.values[ 1 ] );
-                $( "#price" ).val( "" + ui.values[ 0 ] + "," + ui.values[ 1 ] );
-                $("#searchForm").submit();
-            }
-        });
-        $( "#amount" ).val( "" + $( ".slider-range" ).slider( "values", 0 ) +
-            " - " + $( ".slider-range" ).slider( "values", 1 ) );
-        $( "#price" ).val( "" + $( ".slider-range" ).slider( "values", 0 ) +
-            "," + $( ".slider-range" ).slider( "values", 1 ) );
-    } );
+
+    function shippingAddress() {
+        var shipping = document.getElementById('shipping_address');
+
+        if (shipping.style.display === "none") {
+            shipping.style.display = "block";
+        } else {
+            shipping.style.display = "none";
+        }
+    }
+
+
+
 
     var slider = new Swiper ('.gallery-slider', {
         slidesPerView: 1,
