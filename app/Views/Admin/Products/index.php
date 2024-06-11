@@ -70,6 +70,7 @@
                             <td> <?php echo $val->quantity;?></td>
                             <td> <?php echo $val->status;?></td>
                             <td>
+                                <a href="<?php echo base_url('detail/'.$val->product_id)?>" target="_blank" class="btn btn-sm btn-primary">View</a>
                                 <a href="<?php echo base_url('admin/product_update/'.$val->product_id)?>"
                                     class="btn btn-sm btn-info">Edit</a>
                                 <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="product_delete('<?php echo $val->product_id;?>')">delete</a>

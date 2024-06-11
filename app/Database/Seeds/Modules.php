@@ -45,6 +45,36 @@ class Modules extends Seeder
                 'module_key' => 'coupon',
                 'status' => 1,
             ],
+            [
+                'module_id' => 7,
+                'module_name' => 'Image Crop',
+                'module_key' => 'image_crop',
+                'status' => 1,
+            ],
+            [
+                'module_id' => 8,
+                'module_name' => 'Review',
+                'module_key' => 'review',
+                'status' => 1,
+            ],
+            [
+                'module_id' => 9,
+                'module_name' => 'Multi delete',
+                'module_key' => 'multi_delete',
+                'status' => 1,
+            ],
+            [
+                'module_id' => 10,
+                'module_name' => 'Multi option',
+                'module_key' => 'multi_option',
+                'status' => 1,
+            ],
+            [
+                'module_id' => 11,
+                'module_name' => 'Multi attribute',
+                'module_key' => 'multi_attribute',
+                'status' => 1,
+            ],
         ];
 
         // Using Query Builder

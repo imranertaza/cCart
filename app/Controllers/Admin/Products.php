@@ -965,10 +965,10 @@ class Products extends BaseController
             $name = $this->request->getPost('name[]');
             $details = $this->request->getPost('details[]');
 
-            if (!empty($attribute_group_id)){
-                $attributeTableDel = DB()->table('cc_product_attribute');
-                $attributeTableDel->where('product_id',$product_id)->delete();
+            $attributeTableDel = DB()->table('cc_product_attribute');
+            $attributeTableDel->where('product_id',$product_id)->delete();
 
+            if (!empty($attribute_group_id)){
                 foreach ($attribute_group_id as $key => $val){
                     $attributeData['product_id'] = $product_id;
                     $attributeData['attribute_group_id'] = $attribute_group_id[$key];
@@ -1001,7 +1001,9 @@ class Products extends BaseController
                 }else{
                     $specialTable->where('product_id',$product_id)->update($specialData);
                 }
-
+            }else{
+                $specialTable = DB()->table('cc_product_special');
+                $specialTable->where('product_id',$product_id)->delete();
             }
             //product product_special table data insert(end)
 

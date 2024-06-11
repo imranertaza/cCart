@@ -176,12 +176,12 @@
                             </div>
                             <!-- /.description-block -->
                         </div>
-
+                        <?php $symbol = get_lebel_by_value_in_settings('currency_symbol');?>
                         <!-- /.col -->
                         <div class="col-md-3 col-sm-6 col-12">
                             <div class="description-block border-right">
 <!--                                <span class="description-percentage text-warning"><i class="fas fa-caret-left"></i> 0%</span>-->
-                                <h5 class="description-header"><?php echo currency_symbol($orderAmo); ?></h5>
+                                <h5 class="description-header"><?php echo currency_symbol_with_symbol($orderAmo,$symbol); ?></h5>
                                 <span class="description-text">SALE AMOUNT</span>
                             </div>
                             <!-- /.description-block -->
@@ -190,7 +190,7 @@
                         <div class="col-md-3 col-sm-6 col-12">
                             <div class="description-block">
 <!--                                <span class="description-percentage text-danger"><i class="fas fa-caret-down"></i> 18%</span>-->
-                                <h5 class="description-header"><?php echo currency_symbol($orderAmoYear); ?></h5>
+                                <h5 class="description-header"><?php echo currency_symbol_with_symbol($orderAmoYear,$symbol); ?></h5>
                                 <span class="description-text">SALE AMOUNT THIS YEAR</span>
 
                             </div>

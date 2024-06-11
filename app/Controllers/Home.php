@@ -12,80 +12,89 @@ class Home extends BaseController {
         $this->validation = \Config\Services::validation();
         $this->session = \Config\Services::session();
     }
-
     public function index(){
-        $category = get_lebel_by_value_in_theme_settings('home_category');
-        $table = DB()->table('cc_products');
-        $table->join('cc_product_to_category', 'cc_product_to_category.product_id = cc_products.product_id')->where('cc_products.status','Active');
-        $data['products'] = $table->where('cc_product_to_category.category_id',$category)->limit(4)->get()->getResult();
+        $settings = get_settings();
+        $theme = $settings['Theme'];
+        $data = $this->$theme();
 
-        $featLimit = get_lebel_by_value_in_theme_settings('featured_products_limit');
-        $data['prodFeat'] = $table->where('status','Active')->where('featured','1')->orderBy('product_id','DESC')->limit($featLimit)->get()->getResult();
-
-
+        $tableBrand = DB()->table('cc_brand');
+        $data['brand'] = $tableBrand->limit(20)->get()->getResult();
 
         $tabPopuler = DB()->table('cc_product_category_popular');
+        $tabPopuler->join('cc_product_category','cc_product_category.prod_cat_id = cc_product_category_popular.prod_cat_id')->join('cc_icons','cc_icons.icon_id = cc_product_category.icon_id');
         $data['populerCat'] = $tabPopuler->limit(12)->get()->getResult();
 
-        //theme new theme
+        $data['home_menu'] = true;
+        $data['theme'] = $theme;
 
-        $hot_deals_category = get_lebel_by_value_in_theme_settings('hot_deals_category');
+        $data['keywords'] = $settings['meta_keyword'];
+        $data['description'] = $settings['meta_description'];
+        $data['title'] = !empty($settings['meta_title'])?$settings['meta_title']:$settings['store_name'];
+
+        echo view('Theme/'.$settings['Theme'].'/header',$data);
+        echo view('Theme/'.$settings['Theme'].'/Home/index',$data);
+        echo view('Theme/'.$settings['Theme'].'/footer');
+    }
+    private function Default(){
+        $settings = get_settings();
+        $category = $settings['home_category'];
         $table = DB()->table('cc_products');
-        $table->join('cc_product_to_category', 'cc_product_to_category.product_id = cc_products.product_id')->where('cc_products.status','Active');
-        $data['hotProSide'] = $table->where('cc_product_to_category.category_id',$hot_deals_category)->get()->getResult();
+        $table->join('cc_product_to_category', 'cc_product_to_category.product_id = cc_products.product_id')->where('cc_products.status', 'Active');
+        $data['products'] = $table->where('cc_product_to_category.category_id', $category)->limit(4)->get()->getResult();
 
-        $table->join('cc_product_to_category', 'cc_product_to_category.product_id = cc_products.product_id')->where('cc_products.status','Active');
-        $data['hotProlimit'] = $table->where('cc_product_to_category.category_id',$hot_deals_category)->limit(3)->get()->getResult();
+        $featLimit = $settings['featured_products_limit'];
+        $data['prodFeat'] = $table->where('status', 'Active')->where('featured', '1')->orderBy('product_id', 'DESC')->limit($featLimit)->get()->getResult();
+
+        return $data;
+    }
+    private function Theme_2(){
+        $settings = get_settings();
+        $hot_deals_category = $settings['hot_deals_category'];
+        $table = DB()->table('cc_products');
+        $table->join('cc_product_to_category', 'cc_product_to_category.product_id = cc_products.product_id')->where('cc_products.status', 'Active');
+        $data['hotProSide'] = $table->where('cc_product_to_category.category_id', $hot_deals_category)->get()->getResult();
+
+        $table->join('cc_product_to_category', 'cc_product_to_category.product_id = cc_products.product_id')->where('cc_products.status', 'Active');
+        $data['hotProlimit'] = $table->where('cc_product_to_category.category_id', $hot_deals_category)->limit(3)->get()->getResult();
 
         //trending_collection_category
-        $tr_col_category = get_lebel_by_value_in_theme_settings('trending_collection_category');
+        $tr_col_category = $settings['trending_collection_category'];
         $table = DB()->table('cc_products');
-        $table->join('cc_product_to_category', 'cc_product_to_category.product_id = cc_products.product_id')->where('cc_products.status','Active');
-        $data['tranPro'] = $table->where('cc_product_to_category.category_id',$tr_col_category)->get()->getResult();
+        $table->join('cc_product_to_category', 'cc_product_to_category.product_id = cc_products.product_id')->where('cc_products.status', 'Active');
+        $data['tranPro'] = $table->where('cc_product_to_category.category_id', $tr_col_category)->get()->getResult();
 
         // product special
         $table = DB()->table('cc_products');
-        $table->join('cc_product_special', 'cc_product_special.product_id = cc_products.product_id')->where('cc_products.status','Active');
+        $table->join('cc_product_special', 'cc_product_special.product_id = cc_products.product_id')->where('cc_products.status', 'Active');
         $data['specialPro'] = $table->limit(7)->get()->getResult();
 
-        $spc_category = get_lebel_by_value_in_theme_settings('special_category_one');
+        $spc_category = $settings['special_category_one'];
         $table = DB()->table('cc_products');
-        $table->join('cc_product_to_category', 'cc_product_to_category.product_id = cc_products.product_id')->where('cc_products.status','Active');
-        $data['special_category_onePro'] = $table->where('cc_product_to_category.category_id',$spc_category)->get()->getResult();
-        $data['special_category_one_name'] = get_data_by_id('category_name','cc_product_category','prod_cat_id',$spc_category);
+        $table->join('cc_product_to_category', 'cc_product_to_category.product_id = cc_products.product_id')->where('cc_products.status', 'Active');
+        $data['special_category_onePro'] = $table->where('cc_product_to_category.category_id', $spc_category)->get()->getResult();
+        $data['special_category_one_name'] = get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $spc_category);
 
-        $spc_category = get_lebel_by_value_in_theme_settings('special_category_two');
+        $spc_category = $settings['special_category_two'];
         $table = DB()->table('cc_products');
-        $table->join('cc_product_to_category', 'cc_product_to_category.product_id = cc_products.product_id')->where('cc_products.status','Active');
-        $data['special_category_twoPro'] = $table->where('cc_product_to_category.category_id',$spc_category)->get()->getResult();
-        $data['special_category_two_name'] = get_data_by_id('category_name','cc_product_category','prod_cat_id',$spc_category);
+        $table->join('cc_product_to_category', 'cc_product_to_category.product_id = cc_products.product_id')->where('cc_products.status', 'Active');
+        $data['special_category_twoPro'] = $table->where('cc_product_to_category.category_id', $spc_category)->get()->getResult();
+        $data['special_category_two_name'] = get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $spc_category);
 
-        $spc_category = get_lebel_by_value_in_theme_settings('special_category_three');
+        $spc_category = $settings['special_category_three'];
         $table = DB()->table('cc_products');
-        $table->join('cc_product_to_category', 'cc_product_to_category.product_id = cc_products.product_id')->where('cc_products.status','Active');
-        $data['special_category_threePro'] = $table->where('cc_product_to_category.category_id',$spc_category)->get()->getResult();
-        $data['special_category_three_name'] = get_data_by_id('category_name','cc_product_category','prod_cat_id',$spc_category);
+        $table->join('cc_product_to_category', 'cc_product_to_category.product_id = cc_products.product_id')->where('cc_products.status', 'Active');
+        $data['special_category_threePro'] = $table->where('cc_product_to_category.category_id', $spc_category)->get()->getResult();
+        $data['special_category_three_name'] = get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $spc_category);
 
+        $data['productsetc'] = $table->where('status', 'Active')->limit(3)->get()->getResult();
 
-
-        $data['productsetc'] = $table->where('status','Active')->limit(3)->get()->getResult();
-
-        $tableBrand = DB()->table('cc_brand');
-        $data['brand'] = $tableBrand->get()->getResult();
-
+        return $data;
+    }
+    private function Theme_3(){
         $tabShopBy = DB()->table('cc_product_category_shop_by');
+        $tabShopBy->join('cc_product_category','cc_product_category.prod_cat_id = cc_product_category_shop_by.prod_cat_id')->join('cc_icons','cc_icons.icon_id = cc_product_category.icon_id');
         $data['shop_by'] = $tabShopBy->limit(10)->get()->getResult();
-
-        $data['keywords'] = get_lebel_by_value_in_settings('meta_keyword');
-        $data['description'] = get_lebel_by_value_in_settings('meta_description');
-        $data['title'] = !empty(get_lebel_by_value_in_settings('meta_title'))?get_lebel_by_value_in_settings('meta_title'):get_lebel_by_value_in_settings('store_name');
-
-        $data['home_menu'] = true;
-        $data['theme'] = get_lebel_by_value_in_settings('Theme');
-
-        echo view('Theme/'.get_lebel_by_value_in_settings('Theme').'/header',$data);
-        echo view('Theme/'.get_lebel_by_value_in_settings('Theme').'/Home/index',$data);
-        echo view('Theme/'.get_lebel_by_value_in_settings('Theme').'/footer');
+        return $data;
     }
 
     public function user_subscribe(){

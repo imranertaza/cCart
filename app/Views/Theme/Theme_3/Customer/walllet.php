@@ -39,11 +39,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php $i=1; foreach($fund_request as $req ){ ?>
+                                    <?php $symbol = get_lebel_by_value_in_settings('currency_symbol'); $i=1; foreach($fund_request as $req ){ ?>
                                     <tr>
                                         <td><?php echo $i++?></td>
-                                        <td><?php echo get_data_by_id('name','cc_payment_method','payment_method_id',$req->payment_method_id); ?></td>
-                                        <td><?php echo currency_symbol($req->amount)?></td>
+                                        <td><?php echo $req->name; ?></td>
+                                        <td><?php echo currency_symbol_with_symbol($req->amount,$symbol)?></td>
                                         <td><?php echo $req->status?></td>
                                     </tr>
                                     <?php } ?>
