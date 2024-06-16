@@ -175,13 +175,17 @@ class Advanced_products extends BaseController
         $catTableDel = DB()->table('cc_product_to_category');
         $catTableDel->where('product_id', $product_id)->delete();
 
-        foreach ($category as $cat) {
-            $catData['product_id'] = $product_id;
-            $catData['category_id'] = $cat;
 
-            $catTable = DB()->table('cc_product_to_category');
-            $catTable->insert($catData);
+        $catData = [];
+        foreach ($category as $key => $cat) {
+            $catData[$key] = [
+                'product_id' => $product_id,
+                'category_id' => $cat,
+            ];
         }
+        $catTable = DB()->table('cc_product_to_category');
+        $catTable->insertBatch($catData);
+
 
         $table2 = DB()->table('cc_products');
         $data['val'] = $table2->join('cc_product_description', 'cc_product_description.product_id = cc_products.product_id')->where('cc_products.product_id', $product_id)->get()->getRow();
@@ -212,17 +216,19 @@ class Advanced_products extends BaseController
         $optionTableDel->where('product_id',$product_id)->delete();
 
         if (!empty($qty)){
+            $optionData = [];
             foreach ($qty as $key => $val){
-                $optionData['product_id'] = $product_id;
-                $optionData['option_id'] = $option[$key];
-                $optionData['option_value_id'] = $opValue[$key];
-                $optionData['quantity'] = $qty[$key];
-                $optionData['subtract'] = ($subtract[$key] == 'plus')?null:1;
-                $optionData['price'] = $price_op[$key];
-
-                $optionTable = DB()->table('cc_product_option');
-                $optionTable->insert($optionData);
+                $optionData[$key] = [
+                    'product_id' => $product_id,
+                    'option_id' => $option[$key],
+                    'option_value_id' => $opValue[$key],
+                    'quantity' => $qty[$key],
+                    'subtract' => ($subtract[$key] == 'plus')?null:1,
+                    'price' => $price_op[$key],
+                ];
             }
+            $optionTable = DB()->table('cc_product_option');
+            $optionTable->insertBatch($optionData);
         }
 
 
@@ -269,17 +275,19 @@ class Advanced_products extends BaseController
                 $optionTableDel = DB()->table('cc_product_option');
                 $optionTableDel->where('product_id',$p)->delete();
 
+                $optionData = [];
                 foreach ($qty as $key => $val) {
-                    $optionData['product_id'] = $p;
-                    $optionData['option_id'] = $option[$key];
-                    $optionData['option_value_id'] = $opValue[$key];
-                    $optionData['quantity'] = $qty[$key];
-                    $optionData['subtract'] = ($subtract[$key] == 'plus') ? null : 1;
-                    $optionData['price'] = $price_op[$key];
-
-                    $optionTable = DB()->table('cc_product_option');
-                    $optionTable->insert($optionData);
+                    $optionData[$key] = [
+                         'product_id' => $p,
+                         'option_id' => $option[$key],
+                         'option_value_id' => $opValue[$key],
+                         'quantity' => $qty[$key],
+                         'subtract' => ($subtract[$key] == 'plus') ? null : 1,
+                         'price' => $price_op[$key],
+                    ];
                 }
+                $optionTable = DB()->table('cc_product_option');
+                $optionTable->insertBatch($optionData);
             }
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Update Successfully <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/bulk_edit_products');
