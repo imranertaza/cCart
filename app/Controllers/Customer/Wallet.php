@@ -23,23 +23,25 @@ class Wallet extends BaseController
         if (!isset($isLoggedInCustomer) || $isLoggedInCustomer != TRUE) {
             return redirect()->to(site_url('Login'));
         } else {
+            $settings = get_settings();
             $table = DB()->table('cc_fund_request');
-            $data['fund_request'] = $table->where('customer_id', $this->session->cusUserId)->get()->getResult();
+            $table->join('cc_payment_method', 'cc_payment_method.payment_method_id = cc_fund_request.payment_method_id');
+            $data['fund_request'] = $table->where('cc_fund_request.customer_id', $this->session->cusUserId)->get()->getResult();
 
             $tableBal = DB()->table('cc_customer');
             $data['cust'] = $tableBal->where('customer_id', $this->session->cusUserId)->get()->getRow();
 
 
-            $data['keywords'] = get_lebel_by_value_in_settings('meta_keyword');
-            $data['description'] = get_lebel_by_value_in_settings('meta_description');
+            $data['keywords'] = $settings['meta_keyword'];
+            $data['description'] = $settings['meta_description'];
             $data['title'] = 'Wallet';
 
             $data['page_title'] = 'Wallet';
             $data['menu_active'] = 'wallet';
-            echo view('Theme/' . get_lebel_by_value_in_settings('Theme') . '/header', $data);
-            echo view('Theme/' . get_lebel_by_value_in_settings('Theme') . '/Customer/menu');
-            echo view('Theme/' . get_lebel_by_value_in_settings('Theme') . '/Customer/walllet');
-            echo view('Theme/' . get_lebel_by_value_in_settings('Theme') . '/footer');
+            echo view('Theme/' . $settings['Theme'] . '/header', $data);
+            echo view('Theme/' . $settings['Theme'] . '/Customer/menu');
+            echo view('Theme/' . $settings['Theme'] . '/Customer/walllet');
+            echo view('Theme/' . $settings['Theme'] . '/footer');
         }
     }
 
@@ -49,6 +51,7 @@ class Wallet extends BaseController
         if (!isset($isLoggedInCustomer) || $isLoggedInCustomer != TRUE) {
             return redirect()->to(site_url('Login'));
         } else {
+            $settings = get_settings();
             $table = DB()->table('cc_fund_request');
             $data['fund_request'] = $table->where('customer_id', $this->session->cusUserId)->get()->getResult();
 
@@ -56,15 +59,15 @@ class Wallet extends BaseController
             $data['cust'] = $tableBal->where('customer_id', $this->session->cusUserId)->get()->getRow();
 
 
-            $data['keywords'] = get_lebel_by_value_in_settings('meta_keyword');
-            $data['description'] = get_lebel_by_value_in_settings('meta_description');
+            $data['keywords'] = $settings['meta_keyword'];
+            $data['description'] = $settings['meta_description'];
             $data['title'] = 'Account Add Fund';
             $data['page_title'] = 'Dashboard';
             $data['menu_active'] = 'dashboard';
-            echo view('Theme/' . get_lebel_by_value_in_settings('Theme') . '/header', $data);
-            echo view('Theme/' . get_lebel_by_value_in_settings('Theme') . '/Customer/menu');
-            echo view('Theme/' . get_lebel_by_value_in_settings('Theme') . '/Customer/add_funds');
-            echo view('Theme/' . get_lebel_by_value_in_settings('Theme') . '/footer');
+            echo view('Theme/' . $settings['Theme'] . '/header', $data);
+            echo view('Theme/' . $settings['Theme'] . '/Customer/menu');
+            echo view('Theme/' . $settings['Theme'] . '/Customer/add_funds');
+            echo view('Theme/' . $settings['Theme'] . '/footer');
         }
     }
 

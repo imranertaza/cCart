@@ -22,6 +22,7 @@ class Search extends BaseController {
     }
 
     public function index(){
+        $settings = get_settings();
         $table = DB()->table('products');
         $data['products'] = $table->where('status','Active')->limit(4)->get()->getResult();
 
@@ -32,16 +33,17 @@ class Search extends BaseController {
         $data['populerCat'] = $tabPopuler->limit(12)->get()->getResult();
 
 
-        $data['keywords'] = get_lebel_by_value_in_settings('meta_keyword');
-        $data['description'] = get_lebel_by_value_in_settings('meta_description');
+        $data['keywords'] = $settings['meta_keyword'];
+        $data['description'] = $settings['meta_description'];
         $data['title'] = 'Search';
         $data['home_menu'] = true;
-        echo view('Theme/'.get_lebel_by_value_in_settings('Theme').'/header',$data);
-        echo view('Theme/'.get_lebel_by_value_in_settings('Theme').'/Home/index',$data);
-        echo view('Theme/'.get_lebel_by_value_in_settings('Theme').'/footer');
+        echo view('Theme/'.$settings['Theme'].'/header',$data);
+        echo view('Theme/'.$settings['Theme'].'/Home/index',$data);
+        echo view('Theme/'.$settings['Theme'].'/footer');
     }
 
     public function search_action(){
+        $settings = get_settings();
         $top_category = $this->request->getPost('top_category');
         $keywordTop = $this->request->getPost('keywordTop');
         $table = DB()->table('cc_products');
@@ -59,13 +61,13 @@ class Search extends BaseController {
         $data['keywordTop'] = $keywordTop;
         $data['top_category'] = $top_category;
 
-        $data['keywords'] = get_lebel_by_value_in_settings('meta_keyword');
-        $data['description'] = get_lebel_by_value_in_settings('meta_description');
+        $data['keywords'] = $settings['meta_keyword'];
+        $data['description'] = $settings['meta_description'];
         $data['title'] = 'Search';
         $data['page_title'] = 'Search';
-        echo view('Theme/'.get_lebel_by_value_in_settings('Theme').'/header',$data);
-        echo view('Theme/'.get_lebel_by_value_in_settings('Theme').'/Search/index',$data);
-        echo view('Theme/'.get_lebel_by_value_in_settings('Theme').'/footer');
+        echo view('Theme/'.$settings['Theme'].'/header',$data);
+        echo view('Theme/'.$settings['Theme'].'/Search/index',$data);
+        echo view('Theme/'.$settings['Theme'].'/footer');
 
     }
 

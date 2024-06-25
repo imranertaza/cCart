@@ -309,6 +309,82 @@ function admin_user_name()
     $query = $table->where('user_id', $userId)->get()->getRow()->name;
     return $query;
 }
+function get_settings(){
+    $table = DB()->table('cc_settings');
+    $data = $table->get()->getResult();
+
+    $settings = array();
+    foreach ($data as $key=>$val){
+        foreach($val as $k=>$v) {
+            if ($k == 'label'){
+                $settings[$v] = $data[$key]->value;
+            }
+        }
+    }
+    return $settings;
+}
+function get_settings_title(){
+    $table = DB()->table('cc_settings');
+    $data = $table->get()->getResult();
+
+    $settings = array();
+    foreach ($data as $key=>$val){
+        foreach($val as $k=>$v) {
+            if ($k == 'label'){
+                $settings[$v] = $data[$key]->title;
+            }
+        }
+    }
+    return $settings;
+}
+
+function get_theme_settings(){
+
+    $settings = get_settings();
+    $theme = $settings['Theme'];
+    $table = DB()->table('cc_theme_settings');
+    $data = $table->where('theme', $theme)->get()->getResult();
+    $settings = array();
+    foreach ($data as $key => $val){
+        foreach($val as $k=>$v) {
+            if ($k == 'label') {
+                $settings[$v] = $data[$key]->value;
+            }
+        }
+    }
+    return $settings;
+}
+function get_theme_title_settings(){
+
+    $settings = get_settings();
+    $theme = $settings['Theme'];
+    $table = DB()->table('cc_theme_settings');
+    $data = $table->where('theme', $theme)->get()->getResult();
+    $settings = array();
+    foreach ($data as $key => $val){
+        foreach($val as $k=>$v) {
+            if ($k == 'label') {
+                $settings[$v] = $data[$key]->title;
+            }
+        }
+    }
+    return $settings;
+}
+
+function modules_access()
+{
+    $table = DB()->table('cc_modules');
+    $data = $table->get()->getResult();
+    $settings = array();
+    foreach ($data as $key => $val){
+        foreach($val as $k=>$v) {
+            if ($k == 'module_key') {
+                $settings[$v] = $data[$key]->status;
+            }
+        }
+    }
+    return $settings;
+}
 
 function get_lebel_by_value_in_settings($lable)
 {
@@ -598,6 +674,8 @@ function get_lebel_by_value_in_theme_settings_with_theme($lable, $theme)
     return $result;
 }
 
+
+
 function email_send($to, $subject, $message,$replyTo='')
 {
 
@@ -636,9 +714,18 @@ function email_send($to, $subject, $message,$replyTo='')
     }
 }
 
-function currency_symbol($amount)
+function currency_symbol($amount) // Deprecated
 {
     $symbol = get_lebel_by_value_in_settings('currency_symbol');
+    $cur = !empty($amount) ? $amount : 0;
+    $split = explode('.', $cur);
+    $flot = empty($split[1]) ? '00' : $split[1];
+    $result = $symbol . '' . $split[0] . '<sup>' . $flot . '</sup>';
+
+    return $result;
+}
+
+function currency_symbol_with_symbol($amount,$symbol) {
     $cur = !empty($amount) ? $amount : 0;
     $split = explode('.', $cur);
     $flot = empty($split[1]) ? '00' : $split[1];
@@ -874,7 +961,8 @@ function order_id_by_status($order_id)
 function getSideMenuArray()
 {
     $table = DB()->table('cc_product_category');
-    $query = $table->where('side_menu', 1)->orderBy('sort_order', 'ASC')->get()->getResult();
+    $table->join('cc_icons','cc_icons.icon_id = cc_product_category.icon_id');
+    $query = $table->where('cc_product_category.side_menu', 1)->orderBy('cc_product_category.sort_order', 'ASC')->get()->getResult();
     return $query;
 }
 
@@ -976,15 +1064,16 @@ function get_category_id_by_product_show_home_slide($category_id)
 {
     $table = DB()->table('cc_products');
     $table->join('cc_product_to_category', 'cc_product_to_category.product_id = cc_products.product_id')->where('cc_products.status', 'Active');
-    $result = $table->where('cc_product_to_category.category_id', $category_id)->orderBy('cc_products.product_id','DESC')->get()->getResult();
-
+    $result = $table->where('cc_product_to_category.category_id', $category_id)->orderBy('cc_products.product_id','DESC')->limit(20)->get()->getResult();
+    $modules = modules_access();
+    $symbol = get_lebel_by_value_in_settings('currency_symbol');
     $view = '';
     $count = 0;
     foreach ($result as $pro) {
         if ($count % 2 == 0) $view .= '<div class="swiper-slide">' . "\n";
         $view .= '<div class="border p-3 product-grid h-100 d-flex align-items-stretch flex-column position-relative">
             <div class="product-grid position-relative">';
-        if (modules_key_by_access('wishlist') == 1) {
+        if ($modules['wishlist'] == 1) {
             if (!isset(newSession()->isLoggedInCustomer)) {
                 $view .= '<a href="' . base_url('login') . '" class="btn-wishlist position-absolute mt-2 ms-2"  ><i class="fa-solid fa-heart"></i>
                     <span class="btn-wishlist-text position-absolute  mt-5 ms-2">Favorite</span>
@@ -997,7 +1086,7 @@ function get_category_id_by_product_show_home_slide($category_id)
 
         }
 
-        if (modules_key_by_access('compare') == 1) {
+        if ($modules['compare'] == 1) {
             $view .= '<a href="javascript:void(0)" onclick="addToCompare(' . $pro->product_id . ')" class="btn-compare position-absolute  mt-5 ms-2"><i class="fa-solid fa-code-compare"></i>
                     <span class="btn-compare-text position-absolute  mt-5 ms-2">Compare</span>
                 </a>';
@@ -1010,7 +1099,7 @@ function get_category_id_by_product_show_home_slide($category_id)
                     <div class="product-title product_title_area mb-2">
                         <a href="' . base_url('detail/' . $pro->product_id) . '">' . substr($pro->name, 0, 40) . '</a>
                     </div>
-                    <div class="price mb-2">' . currency_symbol($pro->price) . '</div>';
+                    <div class="price mb-2">' . currency_symbol_with_symbol($pro->price,$symbol) . '</div>';
 
         $view .= addToCartBtn($pro->product_id);
         $view .= '</div>                                            
@@ -1082,5 +1171,9 @@ function zone_rate_type(){
     ];
     return $status;
 }
-
+function category_id_by_get_category_all_data($cat_id){
+    $table = DB()->table('cc_product_category');
+    $data = $table->join('cc_icons','cc_icons.icon_id = cc_product_category.icon_id')->where('cc_product_category.prod_cat_id',$cat_id)->get()->getRow();
+    return $data;
+}
 

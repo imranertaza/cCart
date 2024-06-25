@@ -17,14 +17,15 @@ class Cart extends BaseController {
 
     public function index()
     {
-        $data['keywords'] = get_lebel_by_value_in_settings('meta_keyword');
-        $data['description'] = get_lebel_by_value_in_settings('meta_description');
+        $settings = get_settings();
+        $data['keywords'] = $settings['meta_keyword'];
+        $data['description'] = $settings['meta_description'];
         $data['title'] = 'Shopping Cart';
 
         $data['page_title'] = 'Cart';
-        echo view('Theme/'.get_lebel_by_value_in_settings('Theme').'/header',$data);
-        echo view('Theme/'.get_lebel_by_value_in_settings('Theme').'/Cart/index');
-        echo view('Theme/'.get_lebel_by_value_in_settings('Theme').'/footer');
+        echo view('Theme/'.$settings['Theme'].'/header',$data);
+        echo view('Theme/'.$settings['Theme'].'/Cart/index');
+        echo view('Theme/'.$settings['Theme'].'/footer');
     }
 
     public function checkoption(){

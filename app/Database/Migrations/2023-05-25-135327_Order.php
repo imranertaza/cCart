@@ -198,6 +198,9 @@ class Order extends Migration
                 'type' => 'decimal',
                 'constraint' => '10,4',
             ],
+            'status' => [
+                'type' => 'tinyint'
+            ],
             'ip' => [
                 'type' => 'VARCHAR',
                 'constraint' => 40,
