@@ -261,6 +261,11 @@ $routes->group('admin', static function ($routes) {
     $routes->post('bulk_option_view', 'Admin\Advanced_products::bulk_option_view');
     $routes->post('bulk_option_update', 'Admin\Advanced_products::bulk_option_update');
 
+    $routes->post('bulk_product_multi_option_edit', 'Admin\Advanced_products::multi_option_edit');
+    $routes->post('bulk_multi_option_action', 'Admin\Advanced_products::multi_option_action');
+
+    $routes->post('bulk_product_multi_attribute_edit', 'Admin\Advanced_products::multi_attribute_edit');
+    $routes->post('bulk_multi_attribute_action', 'Admin\Advanced_products::multi_attribute_action');
 
 });
 

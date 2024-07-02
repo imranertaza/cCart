@@ -27,7 +27,8 @@
                                 <div class="form-group float-end me-2">
                                     <label class="d-none d-sm-inline">Show</label>
                                     <select name="show" onchange="formSubmit()" class="shortBy border">
-                                        <option value="<?php echo get_lebel_by_value_in_settings('category_product_limit');?>" <?php echo ((isset($_GET['show'])) && ($_GET['show'] == get_lebel_by_value_in_settings('category_product_limit')))?'selected':''; ?>><?php echo get_lebel_by_value_in_settings('category_product_limit');?></option>
+                                        <?php $product_limit = get_lebel_by_value_in_settings('category_product_limit');?>
+                                        <option value="<?php echo $product_limit;?>" <?php echo ((isset($_GET['show'])) && ($_GET['show'] == $product_limit))?'selected':''; ?>><?php echo $product_limit;?></option>
                                         <option value="20" <?php echo ((isset($_GET['show'])) && ($_GET['show'] == '20'))?'selected':''; ?>>20</option>
                                         <option value="25" <?php echo ((isset($_GET['show'])) && ($_GET['show'] == '25'))?'selected':''; ?>>25</option>
                                         <option value="50" <?php echo ((isset($_GET['show'])) && ($_GET['show'] == '50'))?'selected':''; ?>>50</option>
@@ -41,10 +42,13 @@
 
                     <div class="products cat-pro-mob">
                         <div class="row gx-0 row-cols-1 row-cols-sm-2 row-cols-md-3 h-100 " id="grid-view" >
-                            <?php if (!empty($products)){foreach ($products as $pro){ ?>
+                            <?php
+                                $modules = modules_access(); $symbol = get_lebel_by_value_in_settings('currency_symbol');
+                                if (!empty($products)){foreach ($products as $pro){
+                            ?>
                                 <div class="col border p-2">
                                     <div class="product-grid h-100 d-flex align-items-stretch flex-column position-relative">
-                                        <?php if (modules_key_by_access('wishlist') == 1) { ?>
+                                        <?php if ($modules['wishlist'] == 1) { ?>
                                             <?php if (!isset(newSession()->isLoggedInCustomer)){ ?>
                                                 <a href="<?php echo base_url('login');?>" class="btn-wishlist position-absolute  mt-2 ms-2"><i class="fa-solid fa-heart"></i>
                                                     <span class="btn-wishlist-text position-absolute  mt-5 ms-2">Favorite</span>
@@ -55,7 +59,7 @@
                                                 </a>
                                             <?php } ?>
                                         <?php } ?>
-                                        <?php if (modules_key_by_access('compare') == 1) { ?>
+                                        <?php if ($modules['compare'] == 1) { ?>
 
                                             <a href="javascript:void(0)" onclick="addToCompare(<?php echo $pro->product_id ?>)" class="btn-compare position-absolute  mt-5 ms-2"><i class="fa-solid fa-code-compare"></i>
                                                 <span class="btn-compare-text position-absolute  mt-5 ms-2">Compare</span>
@@ -75,9 +79,9 @@
                                             </div>
                                             <div class="price mb-3">
                                                 <?php $spPric = get_data_by_id('special_price','cc_product_special','product_id',$pro->product_id);  if (empty($spPric)){ ?>
-                                                    <?php echo currency_symbol($pro->price);?>
+                                                    <?php echo currency_symbol_with_symbol($pro->price,$symbol);?>
                                                 <?php }else{ ?>
-                                                    <small class="off-price" > <del><?php echo currency_symbol($pro->price);?></del></small> <?php echo currency_symbol($spPric);?>
+                                                    <small class="off-price" > <del><?php echo currency_symbol_with_symbol($pro->price,$symbol);?></del></small> <?php echo currency_symbol_with_symbol($spPric,$symbol);?>
                                                 <?php } ?>
                                             </div>
                                             <?php echo addToCartBtn($pro->product_id);?>
@@ -92,7 +96,7 @@
                             <?php foreach ($products as $pro){ ?>
                                 <div class="col-md-12 border p-2 ">
                                     <div class="product-grid h-100 d-flex align-items-stretch  position-relative">
-                                        <?php if (modules_key_by_access('wishlist') == 1) { ?>
+                                        <?php if ($modules['wishlist'] == 1) { ?>
                                             <?php if (!isset(newSession()->isLoggedInCustomer)){ ?>
 
                                                 <a href="<?php echo base_url('login');?>" class="btn-wishlist position-absolute  mt-2 ms-2" style="bottom:58%;"><i class="fa-solid fa-heart"></i>
@@ -107,7 +111,7 @@
 
                                             <?php } ?>
                                         <?php } ?>
-                                        <?php if (modules_key_by_access('compare') == 1) { ?>
+                                        <?php if ($modules['compare'] == 1) { ?>
 
                                             <a href="javascript:void(0)" onclick="addToCompare(<?php echo $pro->product_id ?>)" class="btn-compare position-absolute  mt-5 ms-2"><i class="fa-solid fa-code-compare"></i>
                                                 <span class="btn-compare-text position-absolute  mt-5 ms-2">Compare</span>
@@ -117,7 +121,6 @@
 
                                         <div class="product-top text-center" style="width:40%;float:left; " >
                                             <a href="<?php echo base_url('detail/'.$pro->product_id)?>"><?php echo image_view('uploads/products',$pro->product_id,'198_'.$pro->image,'noimage.png','img-fluid ')?></a>
-
                                         </div>
 
 
@@ -133,9 +136,9 @@
 
                                             <div class="price mb-3">
                                                 <?php $spPric = get_data_by_id('special_price','cc_product_special','product_id',$pro->product_id);  if (empty($spPric)){ ?>
-                                                    <?php echo currency_symbol($pro->price);?>
+                                                    <?php echo currency_symbol_with_symbol($pro->price,$symbol);?>
                                                 <?php }else{ ?>
-                                                    <small class="off-price" > <del><?php echo currency_symbol($pro->price);?></del></small> <?php echo currency_symbol($spPric);?>
+                                                    <small class="off-price" > <del><?php echo currency_symbol_with_symbol($pro->price,$symbol);?></del></small> <?php echo currency_symbol_with_symbol($spPric,$symbol);?>
                                                 <?php } ?>
                                             </div>
                                             <?php echo addToCartBtn($pro->product_id);?>
@@ -171,10 +174,11 @@
                                     <div class="card p-3 rounded-0 ">
                                     <?php if (empty($keywordSearch)){ ?>
                                         <div class="product-filter">
+                                        <input type="hidden" name="cat" value="<?php echo $prod_cat_id?>">
                                             <?php if(!empty($parent_Cat)){ ?>
                                             <p class="mb-2">Sub Category</p>
                                             <input type="hidden" name="prod_cat_id" value="<?php echo $prod_cat_id?>">
-                                                <input type="hidden" name="cat" value="<?php echo $prod_cat_id?>">
+
                                                     <ul class="list-unstyled lh-lg">
                                                         <?php $i=1;$j=1; foreach ($parent_Cat as $cat){ ?>
                                                         <li>
@@ -215,7 +219,7 @@
 
                                        <?php echo $brandView;?>
 
-                                        <?php if(modules_key_by_access('review') == '1' ){ echo $ratingView; }?>
+                                        <?php if($modules['review'] == '1' ){ echo $ratingView; }?>
 
                                     </div>
                                 </div>`;
@@ -246,10 +250,11 @@
                                         <div class="card p-3 rounded-0 ">
                                         <?php if (empty($keywordSearch)){ ?>
                                             <div class="product-filter">
+                                            <input type="hidden" name="cat" value="<?php echo $prod_cat_id?>">
                                                 <?php if(!empty($parent_Cat)){ ?>
                                                 <p class="mb-2">Sub Category</p>
                                                 <input type="hidden" name="prod_cat_id" value="<?php echo $prod_cat_id?>">
-                                                <input type="hidden" name="cat" value="<?php echo $prod_cat_id?>">
+
                                                 <ul class="list-unstyled lh-lg">
                                                     <?php $i=1;$j=1; foreach ($parent_Cat as $cat){ ?>
                                                     <li>
@@ -290,7 +295,7 @@
 
                                         <?php echo $brandView;?>
 
-                                        <?php if(modules_key_by_access('review') == '1' ){ echo $ratingView; }?>
+                                        <?php if($modules['review'] == '1' ){ echo $ratingView; }?>
                                         </div>
                                     </div>
                                 </div>

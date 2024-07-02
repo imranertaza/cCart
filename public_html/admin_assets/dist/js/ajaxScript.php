@@ -580,7 +580,7 @@ function optionViewPro(option_id, name,nameTitle) {
     var n = "'" + name + "_op'";
     var rl = "'" + name + "_remove'";
     var nr = "'" + name + "'";
-    var link = '<a class="nav-link active text-dark" id="' + name + '_remove"  data-toggle="pill" href="javascript:void(0)' + name +
+    var link = '<a class="nav-link active text-dark" id="' + name + '_remove"  data-toggle="pill" href="#' + name +
         '" role="tab" aria-controls="vert-tabs-home" aria-selected="true">' + nameTitle +
         '<button type="button" class="btn btn-sm" onclick="remove_option_new_ajax(' + rl + ',' + nr +
         ')"><i class="fa fa-trash text-danger"></i></button></a>';
@@ -789,7 +789,7 @@ function submitFormBulk(formID) {
 
 function checkShowHideRow() {
 
-    var fields = ['id', 'name','image', 'model', 'quantity', 'category', 'price', 'status', 'featured','option','meta_title','meta_keyword','meta_description', 'action'];
+    var fields = ['id', 'name','image', 'model', 'quantity', 'category', 'price', 'status', 'featured','optionrow','meta_title','meta_keyword','meta_description', 'action'];
 
     for (let i = 0; i < fields.length; ++i) {
         if ($('input[name="' + fields[i] + '"]').is(':checked')) {
@@ -1031,6 +1031,14 @@ function product_delete(id){
             }
 
         });
+    }
+}
+
+function allCheckedDemo(source) {
+    var checkboxes = document.querySelectorAll('#productBulkEdit input[type="checkbox"]');
+    for (var i = 0; i < checkboxes.length; i++) {
+        if (checkboxes[i] != source)
+            checkboxes[i].checked = source.checked;
     }
 }
 

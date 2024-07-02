@@ -45,11 +45,11 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <?php $i=1; foreach ($order as $val){ ?>
+                    <?php $symbol = get_lebel_by_value_in_settings('currency_symbol'); $i=1; foreach ($order as $val){ ?>
                         <tr>
                             <td><?php echo $val->order_id;?></td>
                             <td><?php echo $val->payment_firstname .' '. $val->payment_lastname;?></td>
-                            <td><?php echo currency_symbol($val->final_amount) ;?></td>
+                            <td><?php echo currency_symbol_with_symbol($val->final_amount,$symbol) ;?></td>
                             <td><?php echo order_id_by_status($val->order_id) ;?></td>
                             <td><?php echo invoiceDateFormat($val->createdDtm);?></td>
                             <td width="180">

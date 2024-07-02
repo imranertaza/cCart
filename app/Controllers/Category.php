@@ -21,6 +21,7 @@ class Category extends BaseController {
     }
 
     public function index($cat_id){
+        $settings = get_settings();
         $categoryWhere = !empty($this->request->getGetPost('category'))? 'category_id = '.$this->request->getGetPost('category'): 'category_id = '.$cat_id;
 
         $data['optionval'] = array();
@@ -28,7 +29,7 @@ class Category extends BaseController {
         $data['ratingval'] = array();
         $data['keywordSearch'] = '';
 
-        $limit = get_lebel_by_value_in_settings('category_product_limit');
+        $limit = $settings['category_product_limit'];
 
         $where = "$categoryWhere ";
         $data['products'] = $this->categoryproductsModel->where($where)->orderBy('cc_products.product_id','DESC')->query()->paginate($limit);
@@ -41,11 +42,13 @@ class Category extends BaseController {
         $data['prod_cat_id'] = $cat_id;
 
 
-        $data['keywords'] = get_lebel_by_value_in_settings('meta_keyword');
-        $data['description'] = get_lebel_by_value_in_settings('meta_description');
+        $data['keywords'] = $settings['meta_keyword'];
+        $data['description'] = $settings['meta_description'];
         $data['title'] = get_data_by_id('category_name','cc_product_category','prod_cat_id',$cat_id);
 
         $productsArr = $this->categoryproductsModel->where($where)->orderBy('cc_products.product_id','DESC')->query()->findAll();
+
+
         $filter = $this->filter->getSettings($productsArr);
         $data['price'] = $filter->product_array_by_price_range();
         $data['optionView'] = $filter->product_array_by_options($data['optionval']);
@@ -53,12 +56,15 @@ class Category extends BaseController {
         $data['ratingView'] = $filter->product_array_by_rating_view($data['ratingval']);
         $data['productsArr'] = $productsArr;
 
+//        print_r($data['optionView']);
+//
+//        die();
         setcookie('category_cookie',$cat_id,time()+86400, "/");
 
         $data['page_title'] = 'Category products';
-        echo view('Theme/'.get_lebel_by_value_in_settings('Theme').'/header',$data);
-        echo view('Theme/'.get_lebel_by_value_in_settings('Theme').'/Category/index',$data);
-        echo view('Theme/'.get_lebel_by_value_in_settings('Theme').'/footer', $data);
+        echo view('Theme/'.$settings['Theme'].'/header',$data);
+        echo view('Theme/'.$settings['Theme'].'/Category/index',$data);
+        echo view('Theme/'.$settings['Theme'].'/footer', $data);
     }
 
     public function url_generate(){

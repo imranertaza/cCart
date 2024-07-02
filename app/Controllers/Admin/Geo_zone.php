@@ -97,15 +97,16 @@ class Geo_zone extends BaseController
                 $table->insert($data);
                 $geo_zone_id = DB()->insertID();
 
-
+                $zoneData = [];
                 foreach ($country_id as $key => $val) {
-                    $zoneData['geo_zone_id'] = $geo_zone_id;
-                    $zoneData['country_id'] = $val;
-                    $zoneData['zone_id'] = $zone_id[$key];
-
-                    $tableZone = DB()->table('cc_geo_zone_details');
-                    $tableZone->insert($zoneData);
+                    $zoneData[$key] = [
+                        'geo_zone_id' => $geo_zone_id,
+                        'country_id' => $val,
+                        'zone_id' => $zone_id[$key],
+                    ];
                 }
+                $tableZone = DB()->table('cc_geo_zone_details');
+                $tableZone->insert($zoneData);
 
 
                 $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Create Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');

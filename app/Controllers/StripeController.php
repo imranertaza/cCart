@@ -22,7 +22,6 @@ class StripeController extends BaseController {
 
     public function __construct()
     {
-
         $this->validation = \Config\Services::validation();
         $this->session = \Config\Services::session();
         $this->productsModel = new ProductsModel();
@@ -30,19 +29,19 @@ class StripeController extends BaseController {
         $this->flat_shipping = new Flat_shipping();
         $this->weight_shipping = new Weight_shipping();
         $this->cart = new Mycart();
-
     }
 
     public function payment_stripe(){
+        $settings = get_settings();
         $array = $this->session_data();
         $this->session->set($array);
         
-        $data['keywords'] = get_lebel_by_value_in_settings('meta_keyword');
-        $data['description'] = get_lebel_by_value_in_settings('meta_description');
+        $data['keywords'] = $settings['meta_keyword'];
+        $data['description'] = $settings['meta_description'];
         $data['title'] = 'Stripe payment';
-        echo view('Theme/'.get_lebel_by_value_in_settings('Theme').'/header',$data);
-        echo view('Theme/'.get_lebel_by_value_in_settings('Theme').'/Checkout/stripe');
-        echo view('Theme/'.get_lebel_by_value_in_settings('Theme').'/footer');
+        echo view('Theme/'.$settings['Theme'].'/header',$data);
+        echo view('Theme/'.$settings['Theme'].'/Checkout/stripe');
+        echo view('Theme/'.$settings['Theme'].'/footer');
     }
 
     public function stripe_create_charge(){
@@ -69,16 +68,6 @@ class StripeController extends BaseController {
 
 
     public function stripe_action(){
-//        print $this->session->charge_id;
-//        $secret_key = get_all_row_data_by_id('cc_payment_settings', 'label', 'secret_key');
-//        Stripe\Stripe::setApiKey($secret_key->value);
-//        Stripe\Charge::update (
-//            $this->session->charge_id,
-//            ['billing_details' => ['email' => 'ddddd']]
-//        );
-//
-//
-//        die();
 
         $data['payment_firstname'] = $this->session->payment_firstname;
         $data['payment_lastname'] = $this->session->payment_lastname;

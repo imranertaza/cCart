@@ -25,13 +25,14 @@ class Products extends BaseController {
     }
 
     public function search(){
+        $settings = get_settings();
         $cat_id = $this->request->getGetPost('cat');
         $keyword = $this->request->getGetPost('keywordTop');
         $data['top_category'] = $cat_id;
         $data['keywordTop'] = $keyword;
         $data['keywordSearch'] = $keyword;
 
-        $lemit = !empty($this->request->getGetPost('show'))?$this->request->getGetPost('show'):get_lebel_by_value_in_settings('category_product_limit');
+        $lemit = !empty($this->request->getGetPost('show'))?$this->request->getGetPost('show'):$settings['category_product_limit'];
 
         $shortBy = !empty($this->request->getGetPost('shortBy'))?$this->request->getGetPost('shortBy'):'';
         if ($shortBy == 'price_asc'){
@@ -152,13 +153,13 @@ class Products extends BaseController {
 
         $data['prod_cat_id'] = $cat_id;
         $data['page_title'] = 'Category products';
-        $data['keywords'] = get_lebel_by_value_in_settings('meta_keyword');
-        $data['description'] = get_lebel_by_value_in_settings('meta_description');
+        $data['keywords'] = $settings['meta_keyword'];
+        $data['description'] = $settings['meta_description'];
         $data['title'] = (!empty($cat_id))?get_data_by_id('category_name','cc_product_category','prod_cat_id',$cat_id):'Search';
 
-        echo view('Theme/'.get_lebel_by_value_in_settings('Theme').'/header',$data);
-        echo view('Theme/'.get_lebel_by_value_in_settings('Theme').'/Category/index',$data);
-        echo view('Theme/'.get_lebel_by_value_in_settings('Theme').'/footer', $data);
+        echo view('Theme/'.$settings['Theme'].'/header',$data);
+        echo view('Theme/'.$settings['Theme'].'/Category/index',$data);
+        echo view('Theme/'.$settings['Theme'].'/footer', $data);
     }
 
 
