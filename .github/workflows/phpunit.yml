@@ -31,7 +31,7 @@ jobs:
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '7.4' # You can change this to the PHP version you are using
+          php-version: ['7.4', '8.0', '8.1'] # You can change this to the PHP version you are using
           extensions: mysqli
 
       - name: Get Composer Cache Directory
