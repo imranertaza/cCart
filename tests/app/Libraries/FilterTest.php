@@ -25,4 +25,9 @@ class FilterTest extends CIUnitTestCase
     {
         $this->assertSame(3, 3);
     }
+
+    public function testFilter5()
+    {
+        $this->assertSame(5, 5);
+    }
 }
