@@ -53,9 +53,15 @@ jobs:
           cp .env.sample .env
           php -r "file_put_contents('.env', str_replace(
               ['database.default.hostname = localhost', 'database.default.database = ccart', 'database.default.username = root', 'database.default.password = password'],
-              ['DB_HOST=127.0.0.1', 'DB_DATABASE=ccart', 'DB_USERNAME=root', 'DB_PASSWORD=password'],
+              ['database.default.hostname = 127.0.0.1', 'database.default.database = ccart', 'database.default.username = root', 'database.default.password = password'],
               file_get_contents('.env')
           ));"
+
+      - name: Run Migrations
+        run: php spark migrate
+
+      - name: Run Seeders
+        run: php spark db:seed AllDemo
 
       - name: Run PHPUnit tests
         run: vendor/bin/phpunit tests/app
