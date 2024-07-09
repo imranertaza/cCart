@@ -58,10 +58,10 @@ jobs:
           ));"
 
       - name: Run Migrations
-          run: php spark migrate
+        run: php spark migrate
 
       - name: Run Seeders
-          run: php spark db:seed AllDemo
+        run: php spark db:seed AllDemo
 
       - name: Run PHPUnit tests
         run: vendor/bin/phpunit tests/app
