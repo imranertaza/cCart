@@ -1,0 +1,61 @@
+name: PHPUnit Tests
+
+on:
+  push:
+    branches: [ master, develop ]
+  pull_request:
+    branches: [ master, develop ]
+
+jobs:
+  phpunit:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:5.7
+        ports:
+          - 3306:3306
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: codeigniter
+        options: >-
+          --health-cmd "mysqladmin ping --silent"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 3
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4' # You can change this to the PHP version you are using
+          extensions: mysqli
+
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache Composer Dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: Install Composer Dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
+
+      - name: Create .env file
+        run: |
+          cp .env.sample .env
+#          php -r "file_put_contents('.env', str_replace(
+#              ['database.default.hostname=localhost', 'database.default.database=homestead', 'database.default.username=homestead', 'database.default.password=secret'],
+#              ['DB_HOST=127.0.0.1', 'DB_DATABASE=codeigniter', 'DB_USERNAME=root', 'DB_PASSWORD=root'],
+#              file_get_contents('.env')
+#          ));"
+
+      - name: Run PHPUnit tests
+        run: vendor/bin/phpunit
