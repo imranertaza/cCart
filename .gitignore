@@ -4,3 +4,5 @@ error.log
 composer.lock
 .idea
 /vendor
+.phpunit.result.cache
+/build/logs/
