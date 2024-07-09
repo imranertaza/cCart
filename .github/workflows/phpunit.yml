@@ -9,6 +9,9 @@ on:
 jobs:
   phpunit:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-version: [ 7.4, 8.0, 8.1 ]
 
     services:
       mysql:
@@ -31,7 +34,7 @@ jobs:
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '7.4' # You can change this to the PHP version you are using
+          php-version: ${{ matrix.php-version }} # You can change this to the PHP version you are using
           extensions: mysqli
 
       - name: Get Composer Cache Directory
@@ -52,16 +55,16 @@ jobs:
         run: |
           cp .env.sample .env
           php -r "file_put_contents('.env', str_replace(
-              ['database.default.hostname = localhost', 'database.default.database = ccart', 'database.default.username = root', 'database.default.password = password'],
-              ['database.default.hostname = 127.0.0.1', 'database.default.database = ccart', 'database.default.username = root', 'database.default.password = password'],
+              ['database.tests.hostname = localhost', 'database.tests.database = ccart_test', 'database.tests.username = root', 'database.tests.password = password'],
+              ['database.tests.hostname = 127.0.0.1', 'database.tests.database = ccart', 'database.tests.username = root', 'database.tests.password = password'],
               file_get_contents('.env')
           ));"
 
-      - name: Run Migrations
-        run: php spark migrate
-
-      - name: Run Seeders
-        run: php spark db:seed AllDemo
+#      - name: Run Migrations
+#        run: php spark migrate
+#
+#      - name: Run Seeders
+#        run: php spark db:seed AllDemo
 
       - name: Run PHPUnit tests
         run: vendor/bin/phpunit tests/app
