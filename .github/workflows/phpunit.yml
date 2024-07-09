@@ -1,10 +1,10 @@
 name: PHPUnit Tests
 
 on:
-  push:
-    branches: [ master ]
+#  push:
+#    branches: [ master, develop ]
   pull_request:
-    branches: [ develop ]
+    branches: [ master, develop ]
 
 jobs:
   phpunit:
@@ -16,8 +16,8 @@ jobs:
         ports:
           - 3306:3306
         env:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: codeigniter
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: ccart
         options: >-
           --health-cmd "mysqladmin ping --silent"
           --health-interval 10s
@@ -51,11 +51,11 @@ jobs:
       - name: Create .env file
         run: |
           cp .env.sample .env
-#          php -r "file_put_contents('.env', str_replace(
-#              ['database.default.hostname=localhost', 'database.default.database=homestead', 'database.default.username=homestead', 'database.default.password=secret'],
-#              ['DB_HOST=127.0.0.1', 'DB_DATABASE=codeigniter', 'DB_USERNAME=root', 'DB_PASSWORD=root'],
-#              file_get_contents('.env')
-#          ));"
+          php -r "file_put_contents('.env', str_replace(
+              ['database.default.hostname = localhost', 'database.default.database = ccart', 'database.default.username = root', 'database.default.password = password'],
+              ['DB_HOST=127.0.0.1', 'DB_DATABASE=ccart', 'DB_USERNAME=root', 'DB_PASSWORD=password'],
+              file_get_contents('.env')
+          ));"
 
       - name: Run PHPUnit tests
         run: vendor/bin/phpunit tests/app
