@@ -1072,7 +1072,7 @@ class Products extends BaseController
                     ];
                 }
                 $proBothtable = DB()->table('cc_product_bought_together');
-                $proBothtable->insert($proBothData);
+                $proBothtable->insertBatch($proBothData);
             }else{
                 $boughtTogetherDel = DB()->table('cc_product_bought_together');
                 $boughtTogetherDel->where('product_id',$product_id)->delete();
