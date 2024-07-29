@@ -4,6 +4,7 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Libraries\Permission;
+use App\Models\ProductsModel;
 
 class Advanced_products extends BaseController
 {
@@ -12,6 +13,7 @@ class Advanced_products extends BaseController
     protected $session;
     protected $permission;
     protected $crop;
+    protected $productsModel;
     private $module_name = 'Advanced_products';
 
     public function __construct()
@@ -20,9 +22,10 @@ class Advanced_products extends BaseController
         $this->session = \Config\Services::session();
         $this->permission = new Permission();
         $this->crop = \Config\Services::image();
+        $this->productsModel = new ProductsModel();
     }
 
-    public function index()
+    public function old_index()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId = $this->session->adRoleId;
@@ -48,6 +51,55 @@ class Advanced_products extends BaseController
             echo view('Admin/sidebar');
             if (isset($data['mod_access']) and $data['mod_access'] == 1) {
                 echo view('Admin/Advanced_products/index', $data);
+            } else {
+                echo view('Admin/no_permission');
+            }
+            echo view('Admin/footer');
+        }
+    }
+
+    public function index()
+    {
+        $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
+        $adRoleId = $this->session->adRoleId;
+        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != TRUE) {
+            return redirect()->to(site_url('admin'));
+        } else {
+
+            $uri = service('uri');
+            $urlString = $uri->getPath() . '?' . $this->request->getServer('QUERY_STRING');
+            setcookie('bulk_url_path',$urlString,time()+86400, "/");
+
+            $length = $this->request->getGet('length');
+            $keyWord = $this->request->getGet('keyWord');
+            $pageNum = $this->request->getGet('page');
+
+            $perPage = !empty($length)?$length:10;
+            if (empty($keyWord)) {
+                $data['product'] = $this->productsModel->bulk_product_list()->paginate($perPage);
+            }else{
+                $data['product'] = $this->productsModel->search_data_bulk($keyWord)->paginate($perPage);
+            }
+
+            $data['pager'] = $this->productsModel->pager;
+            $data['links'] = $data['pager']->links('default','custom_pagination');
+
+
+
+            $data['keyWord'] = $keyWord;
+            $data['length'] = $length;
+
+
+
+            //$perm = array('create','read','update','delete','mod_access');
+            $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
+            foreach ($perm as $key => $val) {
+                $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
+            }
+            echo view('Admin/header');
+            echo view('Admin/sidebar');
+            if (isset($data['mod_access']) and $data['mod_access'] == 1) {
+                echo view('Admin/Advanced_products/list', $data);
             } else {
                 echo view('Admin/no_permission');
             }
@@ -256,10 +308,11 @@ class Advanced_products extends BaseController
             echo view('Admin/footer');
         }else{
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Please select any product <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            return redirect()->to('admin/bulk_edit_products');
+            return redirect()->back();
         }
     }
     public function multi_option_action(){
+        $redirect_url = isset($_COOKIE['bulk_url_path']) ? $_COOKIE['bulk_url_path'] : '';
         $all_product = $this->request->getPost('productId[]');
 
         $option = $this->request->getPost('option[]');
@@ -290,11 +343,11 @@ class Advanced_products extends BaseController
                 $optionTable->insertBatch($optionData);
             }
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Update Successfully <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            return redirect()->to('admin/bulk_edit_products');
+            return redirect()->to($redirect_url);
 
         }else{
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Invalid input! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            return redirect()->to('admin/bulk_edit_products');
+            return redirect()->to($redirect_url);
         }
 
     }
@@ -316,10 +369,12 @@ class Advanced_products extends BaseController
             echo view('Admin/footer');
         }else{
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Please select any product <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            return redirect()->to('admin/bulk_edit_products');
+            return redirect()->back();
         }
     }
     public function multi_attribute_action(){
+        $redirect_url = isset($_COOKIE['bulk_url_path']) ? $_COOKIE['bulk_url_path'] : '';
+
         $all_product = $this->request->getPost('productId[]');
 
         $attribute_group_id = $this->request->getPost('attribute_group_id[]');
@@ -343,14 +398,63 @@ class Advanced_products extends BaseController
             }
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Update Successfully <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            return redirect()->to('admin/bulk_edit_products');
+            return redirect()->to($redirect_url);
         }else{
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Invalid input! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            return redirect()->to('admin/bulk_edit_products');
+            return redirect()->to($redirect_url);
         }
 
     }
 
+    public function multi_category_edit(){
+        $allProductId =  $this->request->getPost('productId[]');
+        if (!empty($allProductId)){
+
+            $data['all_product'] = $allProductId;
+
+            $table = DB()->table('cc_product_category');
+            $data['prodCat'] = $table->get()->getResult();
+
+
+            echo view('Admin/header');
+            echo view('Admin/sidebar');
+            echo view('Admin/Advanced_products/category_edit', $data);
+            echo view('Admin/footer');
+        }else{
+            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Please select any product <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            return redirect()->back();
+        }
+    }
+
+    public function multi_category_action(){
+        $redirect_url = isset($_COOKIE['bulk_url_path']) ? $_COOKIE['bulk_url_path'] : '';
+
+        $all_product = $this->request->getPost('productId[]');
+        $categorys = $this->request->getPost('categorys[]');
+
+        if (!empty($categorys)) {
+            $arrayData = [];
+            $catTable = DB()->table('cc_product_to_category');
+            foreach ($all_product as $pro) {
+                $catTable->where('product_id', $pro)->delete();
+                foreach ($categorys as $cat) {
+                    $arrayData[] = ['product_id' => $pro, 'category_id' => $cat];
+                }
+            }
+
+            $catTable->insertBatch($arrayData);
+
+            $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Update Successfully <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            return redirect()->to($redirect_url);
+        }else{
+            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Please select any category <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            return redirect()->to($redirect_url);
+        }
+
+
+
+
+    }
 
 
 

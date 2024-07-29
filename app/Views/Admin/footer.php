@@ -175,6 +175,18 @@
         }
     }
 
+    //form submit code (start)
+    var timeout = null;
+    function table_form_submit(){
+        if (timeout !== null) {
+            clearTimeout(timeout);
+        }
+        timeout = setTimeout(function () {
+            $('#tableForm').submit();
+        }, 1000);
+        // $('#tableForm').submit();
+    }
+
 </script>
 <?php require_once(FCPATH .'admin_assets/dist/js/ajaxScript.php'); ?>
 

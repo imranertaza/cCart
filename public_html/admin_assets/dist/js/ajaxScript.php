@@ -34,18 +34,18 @@ $(function() {
         }
     });
 
-    $('#productBulkEdit').DataTable({
-        "paging": true,
-        "responsive": true,
-        "lengthChange": true,
-        "autoWidth": false,
-        "stateSave": true,
-        "targets": 'no-sort',
-        "bSort": false,
-        "drawCallback": function( settings ) {
-            checkShowHideRow();
-        }
-    });
+    // $('#productBulkEdit').DataTable({
+    //     "paging": true,
+    //     "responsive": true,
+    //     "lengthChange": true,
+    //     "autoWidth": false,
+    //     "stateSave": true,
+    //     "targets": 'no-sort',
+    //     "bSort": false,
+    //     "drawCallback": function( settings ) {
+    //         checkShowHideRow();
+    //     }
+    // });
 
 
 
@@ -70,17 +70,17 @@ $(function() {
 
     <?php } if (isset($_GET['page'])){  ?>
     $('#productListData').DataTable().page(<?= $_GET['page']-1;?>).draw('page');
-    $('#productBulkEdit').DataTable().page(<?= $_GET['page']-1;?>).draw('page');
+    //$('#productBulkEdit').DataTable().page(<?php //= $_GET['page']-1;?>//).draw('page');
     <?php } ?>
 
-    if(sessionStorage.getItem("bulkDataTableReset") == '1'){
-        var table = $("#productBulkEdit").DataTable();
-        // Reset search query
-        table.search('').draw();
-        table.page('first').draw('page');
-        table.page.len(10).draw();
-    }
-    sessionStorage.removeItem("bulkDataTableReset");
+    // if(sessionStorage.getItem("bulkDataTableReset") == '1'){
+    //     var table = $("#productBulkEdit").DataTable();
+    //     // Reset search query
+    //     table.search('').draw();
+    //     table.page('first').draw('page');
+    //     table.page.len(10).draw();
+    // }
+    // sessionStorage.removeItem("bulkDataTableReset");
 
 });
 // This is for DataTable -- End --
@@ -736,7 +736,7 @@ function bulk_status(label) {
 function updateFunction(proId, input, value, viewId, formName,updateRow) {
     var formID = "'" + formName + "'"
     var data = '<form id="' + formName +
-        '" action="<?php echo base_url('admin/bulk_data_update') ?>" data-row="'+updateRow+'" method="post"><input type="text" name="' +
+        '" action="<?php echo base_url('admin/bulk_data_update') ?>" onkeydown="if(event.keyCode === 13) {return false;}" data-row="'+updateRow+'" method="post"><input type="text" name="' +
         input +
         '" class="form-control mb-2" value="' + value +
         '" ><input type="hidden" name="product_id" class="form-control mb-2" value="' + proId +
@@ -749,7 +749,7 @@ function updateFunction(proId, input, value, viewId, formName,updateRow) {
 function descriptionTableDataUpdateFunction(proId, input, value, viewId, formName,updateRow) {
     var formID = "'" + formName + "'"
     var data = '<form id="' + formName +
-        '" action="<?php echo base_url('admin/description_data_update') ?>" data-row="'+updateRow+'" method="post"><input type="text" name="' +
+        '" action="<?php echo base_url('admin/description_data_update') ?>" onkeydown="if(event.keyCode === 13) {return false;}" data-row="'+updateRow+'" method="post"><input type="text" name="' +
         input +
         '" class="form-control mb-2" value="' + value +
         '" ><input type="hidden" name="product_desc_id" class="form-control mb-2" value="' + proId +

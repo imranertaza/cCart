@@ -3,10 +3,12 @@
 namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
+use App\Libraries\Image_processing;
 use App\Libraries\Permission;
 use App\Libraries\Theme_2;
 use App\Libraries\Theme_3;
 use App\Libraries\Theme_default;
+use App\Models\ProductsModel;
 
 class Products extends BaseController
 {
@@ -17,6 +19,8 @@ class Products extends BaseController
     protected $theme_3;
     protected $theme_2;
     protected $theme_default;
+    protected $productsModel;
+    protected $imageProcessing;
     protected $crop;
     private $module_name = 'Products';
 
@@ -29,9 +33,11 @@ class Products extends BaseController
         $this->theme_3 = new Theme_3();
         $this->theme_2 = new Theme_2();
         $this->theme_default = new Theme_default();
+        $this->productsModel = new ProductsModel();
+        $this->imageProcessing = new Image_processing();
     }
 
-    public function index()
+    public function old_index()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId = $this->session->adRoleId;
@@ -50,6 +56,55 @@ class Products extends BaseController
             echo view('Admin/sidebar');
             if (isset($data['mod_access']) and $data['mod_access'] == 1) {
                 echo view('Admin/Products/index',$data);
+            } else {
+                echo view('Admin/no_permission');
+            }
+            echo view('Admin/footer');
+
+            if (isset(newSession()->resetDatatable)){unset($_SESSION['resetDatatable']);}
+        }
+    }
+
+    public function index()
+    {
+        $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
+        $adRoleId = $this->session->adRoleId;
+        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != TRUE) {
+            return redirect()->to(site_url('admin'));
+        } else {
+            $uri = service('uri');
+            $urlString = $uri->getPath() . '?' . $this->request->getServer('QUERY_STRING');
+            setcookie('product_url_path',$urlString,time()+86400, "/");
+
+            $length = $this->request->getGet('length');
+            $keyWord = $this->request->getGet('keyWord');
+            $pageNum = $this->request->getGet('page');
+
+            $perPage = !empty($length)?$length:10;
+            if (empty($keyWord)) {
+                $data['product'] = $this->productsModel->orderBy('product_id', 'desc')->paginate($perPage);
+            }else{
+                $data['product'] = $this->productsModel->search_data($keyWord)->orderBy('product_id', 'desc')->paginate($perPage);
+            }
+
+
+            $data['pager'] = $this->productsModel->pager;
+            $data['links'] = $data['pager']->links('default','custom_pagination');
+
+
+
+            $data['keyWord'] = $keyWord;
+            $data['length'] = $length;
+
+            //$perm = array('create','read','update','delete','mod_access');
+            $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
+            foreach ($perm as $key => $val) {
+                $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
+            }
+            echo view('Admin/header');
+            echo view('Admin/sidebar');
+            if (isset($data['mod_access']) and $data['mod_access'] == 1) {
+                echo view('Admin/Products/list',$data);
             } else {
                 echo view('Admin/no_permission');
             }
@@ -89,16 +144,6 @@ class Products extends BaseController
     }
 
     public function create_action() {
-        $theme = get_lebel_by_value_in_settings('Theme');
-        if($theme == 'Theme_3'){
-            $theme_libraries = $this->theme_3;
-        }
-        if($theme == 'Default'){
-            $theme_libraries = $this->theme_default;
-        }
-        if($theme == 'Theme_2'){
-            $theme_libraries = $this->theme_2;
-        }
 
         $adUserId = $this->session->adUserId;
 
@@ -151,22 +196,12 @@ class Products extends BaseController
 
             if (!empty($_FILES['image']['name'])) {
                 $target_dir = FCPATH . '/uploads/products/'.$productId.'/';
-                if (!file_exists($target_dir)) {
-                    mkdir($target_dir, 0777);
-                }
+                $this->imageProcessing->directory_create($target_dir);
 
                 //new image upload
                 $pic = $this->request->getFile('image');
-                $namePic = $pic->getRandomName();
-                $pic->move($target_dir, $namePic);
-                $news_img = 'pro_' . $pic->getName();
-                // $this->crop->withFile($target_dir . '' . $namePic)->fit(191, 191, 'center')->save($target_dir . '191_'.$news_img);
-                // $this->crop->withFile($target_dir . '' . $namePic)->fit(198, 198, 'center')->save($target_dir . '198_'.$news_img);
-                // $this->crop->withFile($target_dir . '' . $namePic)->fit(100, 100, 'center')->save($target_dir . '100_'.$news_img);
-                // $this->crop->withFile($target_dir . '' . $namePic)->fit(437, 400, 'center')->save($target_dir . '437_'.$news_img);
-                foreach($theme_libraries->product_image as $pro_img){
-                    $this->crop->withFile($target_dir . '' . $namePic)->fit($pro_img['width'], $pro_img['height'], 'center')->save($target_dir . $pro_img['width'].'_'.$news_img);
-                } 
+                $news_img = $this->imageProcessing->product_image_upload_and_crop_all_size($pic,$target_dir);
+
                 $dataImg['image'] = $news_img;
 
                 $proUpTable = DB()->table('cc_products');
@@ -179,9 +214,7 @@ class Products extends BaseController
             if($this->request->getFileMultiple('multiImage')){
 
                 $target_dir = FCPATH . '/uploads/products/'.$productId.'/';
-                if (!file_exists($target_dir)) {
-                    mkdir($target_dir, 0777);
-                }
+                $this->imageProcessing->directory_create($target_dir);
 
                 $files = $this->request->getFileMultiple('multiImage');
                 foreach ($files as $file) {
@@ -194,17 +227,9 @@ class Products extends BaseController
                         $proImgId = DB()->insertID();
 
                         $target_dir2 = FCPATH . '/uploads/products/'.$productId.'/'.$proImgId.'/';
-                        if (!file_exists($target_dir2)) {
-                            mkdir($target_dir2, 0777);
-                        }
+                        $this->imageProcessing->directory_create($target_dir2);
 
-                        $nameMulPic = $file->getRandomName();
-                        $file->move($target_dir2, $nameMulPic);
-                        $news_img2 = 'pro_' . $file->getName();
-                        
-                        foreach($theme_libraries->product_image as $pro_img){
-                            $this->crop->withFile($target_dir2 . '' . $nameMulPic)->fit($pro_img['width'], $pro_img['height'], 'center')->save($target_dir2 . $pro_img['width'].'_'.$news_img2);
-                        } 
+                        $news_img2 = $this->imageProcessing->product_image_upload_and_crop_all_size($file,$target_dir2);
 
                         $dataMultiImg2['image'] = $news_img2;
 
@@ -602,7 +627,7 @@ class Products extends BaseController
             return redirect()->to('admin/products?page=1');
         }else{
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Please select any product! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            return redirect()->to('admin/products');
+            return redirect()->back();
         }
 
     }
@@ -664,16 +689,6 @@ class Products extends BaseController
     }
 
     public function update_action(){
-        $theme = get_lebel_by_value_in_settings('Theme');
-        if($theme == 'Theme_3'){
-            $theme_libraries = $this->theme_3;
-        }
-        if($theme == 'Default'){
-            $theme_libraries = $this->theme_default;
-        }
-        if($theme == 'Theme_2'){
-            $theme_libraries = $this->theme_2;
-        }
 
         $adUserId = $this->session->adUserId;
 
@@ -728,40 +743,11 @@ class Products extends BaseController
             if (!empty($_FILES['image']['name'])) {
                 $target_dir = FCPATH . '/uploads/products/'.$product_id.'/';
 
-                //un link
+                //unlink
                 $oldImg = get_data_by_id('image','cc_products','product_id',$product_id);
-                if ((!empty($oldImg)) && (file_exists($target_dir))) {
-                    $mainImg = str_replace('pro_', '', $oldImg);
-                    if (file_exists($target_dir . '/' . $mainImg)) {
-                        unlink($target_dir . '' . $mainImg);
-                    }
-                    if (file_exists($target_dir . '/191_' . $oldImg)) {
-                        unlink($target_dir . '191_' . $oldImg);
-                    }
-                    if (file_exists($target_dir . '/198_' . $oldImg)) {
-                        unlink($target_dir . '198_' . $oldImg);
-                    }
-                    if (file_exists($target_dir . '/100_' . $oldImg)) {
-                        unlink($target_dir . '100_' . $oldImg);
-                    }
-                    if (file_exists($target_dir . '/437_' . $oldImg)) {
-                        unlink($target_dir . '437_' . $oldImg);
-                    }
-                }
-
-
-                if (!file_exists($target_dir)) {
-                    mkdir($target_dir, 0777);
-                }
-
-                //new image upload
                 $pic = $this->request->getFile('image');
-                $namePic = $pic->getRandomName();
-                $pic->move($target_dir, $namePic);
-                $news_img = 'pro_' . $pic->getName();
-                foreach($theme_libraries->product_image as $pro_img){
-                    $this->crop->withFile($target_dir . '' . $namePic)->fit($pro_img['width'], $pro_img['height'], 'center')->save($target_dir . $pro_img['width'].'_'.$news_img);
-                } 
+                $news_img = $this->imageProcessing->single_product_image_unlink($target_dir,$oldImg)->directory_create($target_dir)->product_image_upload_and_crop_all_size($pic,$target_dir);
+
                 $dataImg['image'] = $news_img;
 
                 $proUpTable = DB()->table('cc_products');
@@ -774,9 +760,7 @@ class Products extends BaseController
             if($this->request->getFileMultiple('multiImage')){
 
                 $target_dir = FCPATH . '/uploads/products/'.$product_id.'/';
-                if (!file_exists($target_dir)) {
-                    mkdir($target_dir, 0777);
-                }
+                $this->imageProcessing->directory_create($target_dir);
 
                 $files = $this->request->getFileMultiple('multiImage');
                 foreach ($files as $key => $file) {
@@ -789,17 +773,7 @@ class Products extends BaseController
                         $proImgId = DB()->insertID();
 
                         $target_dir2 = FCPATH . '/uploads/products/'.$product_id.'/'.$proImgId.'/';
-                        if (!file_exists($target_dir2)) {
-                            mkdir($target_dir2, 0777);
-                        }
-
-                        $nameMulPic = $file->getRandomName();
-                        $file->move($target_dir2, $nameMulPic);
-                        $news_img2 = 'pro_' . $file->getName();
-
-                        foreach($theme_libraries->product_image as $pro_img){
-                            $this->crop->withFile($target_dir2 . '' . $nameMulPic)->fit($pro_img['width'], $pro_img['height'], 'center')->save($target_dir2 . $pro_img['width'].'_'.$news_img2);
-                        } 
+                        $news_img2 = $this->imageProcessing->directory_create($target_dir2)->product_image_upload_and_crop_all_size($file,$target_dir2);
 
                         $dataMultiImg2['image'] = $news_img2;
 
@@ -1219,18 +1193,8 @@ class Products extends BaseController
     public function image_crop(){
 
         $allProductId =  $this->request->getPost('productId[]');
-
+        $modules = modules_access();
         if (!empty($allProductId)) {
-            $theme = get_lebel_by_value_in_settings('Theme');
-            if ($theme == 'Theme_3') {
-                $theme_libraries = $this->theme_3;
-            }
-            if ($theme == 'Default') {
-                $theme_libraries = $this->theme_default;
-            }
-            if ($theme == 'Theme_2') {
-                $theme_libraries = $this->theme_2;
-            }
 
             foreach ($allProductId as $productId) {
 
@@ -1240,11 +1204,16 @@ class Products extends BaseController
                 if ((!empty($oldImg)) && (file_exists($target_dir))) {
                     $mainImg = str_replace('pro_', '', $oldImg);
                     if (file_exists($target_dir . '/' . $mainImg)) {
-                        foreach ($theme_libraries->product_image as $pro_img) {
-                            if (!file_exists($target_dir . '/' . $pro_img['width'] . '_pro_' . $oldImg)) {
-                                $this->crop->withFile($target_dir . '' . $mainImg)->fit($pro_img['width'], $pro_img['height'], 'center')->save($target_dir . $pro_img['width'] . '_pro_' . $mainImg,'100');
-                            }
+
+                        $this->imageProcessing->image_crop($target_dir,$mainImg,$oldImg);
+
+                        if ($modules['watermark'] == '1') {
+                            $this->imageProcessing->watermark_main_image($target_dir, $mainImg);
+
+                            $this->imageProcessing->watermark_on_resized_image($target_dir, $mainImg);
+                            $this->imageProcessing->image_crop($target_dir, '600_wm_' . $mainImg, 'wm_' . $oldImg);
                         }
+
                     }
                 }
                 //product main image crop end
@@ -1259,10 +1228,13 @@ class Products extends BaseController
                         if ((!empty($oldImgMul)) && (file_exists($target_dir_mult))) {
                             $mainImgMul = str_replace('pro_', '', $oldImgMul);
                             if (file_exists($target_dir_mult . '/' . $mainImgMul)) {
-                                foreach ($theme_libraries->product_image as $pro_img) {
-                                    if (!file_exists($target_dir_mult . '/' . $pro_img['width'] . '_pro_' . $oldImgMul)) {
-                                        $this->crop->withFile($target_dir_mult . '' . $mainImgMul)->fit($pro_img['width'], $pro_img['height'], 'center')->save($target_dir_mult . $pro_img['width'] . '_pro_' . $mainImgMul,'100');
-                                    }
+                                $this->imageProcessing->image_crop($target_dir_mult,$mainImgMul,$oldImgMul);
+
+                                if ($modules['watermark'] == '1') {
+                                    $this->imageProcessing->watermark_main_image($target_dir_mult, $mainImgMul);
+
+                                    $this->imageProcessing->watermark_on_resized_image($target_dir_mult, $mainImgMul);
+                                    $this->imageProcessing->image_crop($target_dir_mult, '600_wm_' . $mainImgMul, 'wm_' . $oldImgMul);
                                 }
                             }
                         }
@@ -1271,10 +1243,10 @@ class Products extends BaseController
             }
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Update Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            return redirect()->to('admin/products');
+            return redirect()->back();
         }else{
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Please select any product <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            return redirect()->to('admin/products');
+            return redirect()->back();
         }
     }
 
@@ -1333,10 +1305,10 @@ class Products extends BaseController
             DB()->transComplete();
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Delete Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            return redirect()->to('admin/products');
+            return redirect()->back();
         }else{
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Please select any product <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            return redirect()->to('admin/products');
+            return redirect()->back();
         }
     }
 
