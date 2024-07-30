@@ -75,6 +75,10 @@
                                 </div>
                             </form>
                         </div>
+                        <?php
+                        $modules = modules_access();
+                        $img_size_100 = ($modules['watermark'] == '1')?'100_wm_':'100_';
+                        ?>
                         <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
                             <center><h4 class="ti-or-n">Recent Order</h4></center>
                             <table class="table table-borderless table-responsive">
@@ -83,7 +87,7 @@
                                     <tr>
                                         <td><?php
                                             $img = get_data_by_id('image','cc_products','product_id',$item->product_id);
-                                            echo image_view('uploads/products',$item->product_id,'100_'.$img,'noimage.png','');
+                                            echo image_view('uploads/products',$item->product_id,$img_size_100 .$img,'noimage.png','');
                                             ?>
 
                                         </td>

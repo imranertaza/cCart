@@ -3,6 +3,11 @@
         <h1 class="page-title mb-3">Compare Products</h1>
         <div class="card p-3 rounded-0">
 <!--            <p class="text-end"><a href="#">Print This Page</a></p>-->
+            <?php
+            $modules = modules_access();
+            $symbol = get_lebel_by_value_in_settings('currency_symbol');
+            $img_size = ($modules['watermark'] == '1')?'191_wm_':'191_';
+            ?>
             <?php if (!empty($products)){ ?>
                 <div class="table-responsive">
             <table class="table table-bordered table-hover" id="compReload">
@@ -19,13 +24,13 @@
                     <th></th>
                     <?php foreach ($products as $pro){ ?>
                     <td>
-                        <p><?php echo image_view('uploads/products',$pro->product_id,'191_'.$pro->image,'noimage.png','img-fluid')?></p>
+                        <p><?php echo image_view('uploads/products',$pro->product_id,$img_size.$pro->image,'noimage.png','img-fluid')?></p>
                         <p><a href="<?php echo base_url('detail/'.$pro->product_id)?>"><?php echo $pro->name;?></a></p>
                         <div class="">
                             <span><?php $spPric = get_data_by_id('special_price','cc_product_special','product_id',$pro->product_id);  if (empty($spPric)){ ?>
-                                    <?php echo currency_symbol($pro->price);?>
+                                    <?php echo currency_symbol_with_symbol($pro->price,$symbol);?>
                                 <?php }else{ ?>
-                                    <small class="off-price" > <del><?php echo currency_symbol($pro->price);?></del></small> <?php echo currency_symbol($spPric);?>
+                                    <small class="off-price" > <del><?php echo currency_symbol_with_symbol($pro->price,$symbol);?></del></small> <?php echo currency_symbol_with_symbol($spPric,$symbol);?>
                                                 <?php } ?></span><br>
                             <span>
                                     <?php echo product_id_by_rating($pro->product_id,'1');?>

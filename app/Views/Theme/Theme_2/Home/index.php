@@ -24,7 +24,13 @@
         </div>
     </div>
 </section>
-
+<?php
+    $theme_settings = get_theme_settings();
+    $modules = modules_access();
+    $symbol = get_lebel_by_value_in_settings('currency_symbol');
+    $img_size_100 = ($modules['watermark'] == '1')?'100_wm_':'100_';
+    $img_size = ($modules['watermark'] == '1')?'191_wm_':'191_';
+?>
 <section class="main-container my-5">
     <div class="container">
 
@@ -50,7 +56,7 @@
                                         <div class="swiper-slide">
                                             <div class="product-grid d-flex align-items-stretch flex-column position-relative text-center">
                                                 <div class="product-top">
-                                                    <a href="<?php echo base_url('detail/' . $pro->product_id) ?>"><?php echo image_view('uploads/products', $pro->product_id, '100_' . $pro->image, 'noimage.png', 'img-fluid') ?></a>
+                                                    <a href="<?php echo base_url('detail/' . $pro->product_id) ?>"><?php echo image_view('uploads/products', $pro->product_id, $img_size_100 . $pro->image, 'noimage.png', 'img-fluid') ?></a>
                                                     <div class="rating text-center my-2">
                                                         <?php echo product_id_by_rating($pro->product_id); ?>
                                                     </div>
@@ -62,11 +68,11 @@
                                                     <div class="price-hot mb-md-3">
                                                         <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id);
                                                         if (empty($spPric)) { ?>
-                                                            <?php echo currency_symbol($pro->price); ?>
+                                                            <?php echo currency_symbol_with_symbol($pro->price,$symbol); ?>
                                                         <?php } else { ?>
                                                             <small class="off-price">
-                                                                <del><?php echo currency_symbol($pro->price); ?></del>
-                                                            </small> <?php echo currency_symbol($spPric); ?>
+                                                                <del><?php echo currency_symbol_with_symbol($pro->price,$symbol); ?></del>
+                                                            </small> <?php echo currency_symbol_with_symbol($spPric,$symbol); ?>
                                                         <?php } ?>
                                                     </div>
 
@@ -97,7 +103,7 @@
                                 <?php foreach ($hotProlimit as $pro) { ?>
                                     <div class="swiper-slide h-auto pe-3 each_pro mo-p-r-0">
                                         <div class="border p-3 product-grid h-100 d-flex align-items-stretch flex-column position-relative">
-                                            <?php if (modules_key_by_access('wishlist') == 1) { ?>
+                                            <?php if ($modules['wishlist'] == 1) { ?>
                                                 <?php if (!isset(newSession()->isLoggedInCustomer)) { ?>
                                                     <a href="<?php echo base_url('login'); ?>" class="btn-wishlist position-absolute  mt-2 ms-2"><i class="fa-solid fa-heart"></i>
                                                         <span class="btn-wishlist-text position-absolute  mt-5 ms-2">Favorite</span>
@@ -108,13 +114,13 @@
                                                     </a>
                                                 <?php } ?>
                                             <?php } ?>
-                                            <?php if (modules_key_by_access('compare') == 1) { ?>
+                                            <?php if ($modules['compare'] == 1) { ?>
                                                 <a href="javascript:void(0)" onclick="addToCompare(<?php echo $pro->product_id ?>)" class="btn-compare position-absolute  mt-5 ms-2"><i class="fa-solid fa-code-compare"></i>
                                                     <span class="btn-compare-text position-absolute  mt-5 ms-2">Compare</span>
                                                 </a>
                                             <?php } ?>
                                             <div class="product-top text-center">
-                                                <a href="<?php echo base_url('detail/' . $pro->product_id) ?>"><?php echo image_view('uploads/products', $pro->product_id, '191_' . $pro->image, 'noimage.png', 'img-fluid ') ?></a>
+                                                <a href="<?php echo base_url('detail/' . $pro->product_id) ?>"><?php echo image_view('uploads/products', $pro->product_id, $img_size . $pro->image, 'noimage.png', 'img-fluid ') ?></a>
                                                 <div class="rating text-center my-2">
                                                     <?php echo product_id_by_rating($pro->product_id); ?>
                                                 </div>
@@ -126,11 +132,11 @@
                                                 <div class="price-new mb-md-3">
                                                     <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id);
                                                     if (empty($spPric)) { ?>
-                                                        <?php echo currency_symbol($pro->price); ?>
+                                                        <?php echo currency_symbol_with_symbol($pro->price,$symbol); ?>
                                                     <?php } else { ?>
                                                         <small class="off-price">
-                                                            <del><?php echo currency_symbol($pro->price); ?></del>
-                                                        </small> <?php echo currency_symbol($spPric); ?>
+                                                            <del><?php echo currency_symbol_with_symbol($pro->price,$symbol); ?></del>
+                                                        </small> <?php echo currency_symbol_with_symbol($spPric,$symbol); ?>
                                                     <?php } ?>
                                                 </div>
 
@@ -169,7 +175,7 @@
                                         <div class="swiper-slide">
                                             <div class="product-grid d-flex align-items-stretch flex-column position-relative text-center">
                                                 <div class="product-top">
-                                                    <a href="<?php echo base_url('detail/' . $pro->product_id) ?>"><?php echo image_view('uploads/products', $pro->product_id, '100_' . $pro->image, 'noimage.png', 'img-fluid') ?></a>
+                                                    <a href="<?php echo base_url('detail/' . $pro->product_id) ?>"><?php echo image_view('uploads/products', $pro->product_id, $img_size_100 . $pro->image, 'noimage.png', 'img-fluid') ?></a>
                                                     <div class="rating text-center my-2">
                                                         <?php echo product_id_by_rating($pro->product_id); ?>
                                                     </div>
@@ -181,11 +187,11 @@
                                                     <div class="price-hot mb-3">
                                                         <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id);
                                                         if (empty($spPric)) { ?>
-                                                            <?php echo currency_symbol($pro->price); ?>
+                                                            <?php echo currency_symbol_with_symbol($pro->price,$symbol); ?>
                                                         <?php } else { ?>
                                                             <small class="off-price">
-                                                                <del><?php echo currency_symbol($pro->price); ?></del>
-                                                            </small> <?php echo currency_symbol($spPric); ?>
+                                                                <del><?php echo currency_symbol_with_symbol($pro->price,$symbol); ?></del>
+                                                            </small> <?php echo currency_symbol_with_symbol($spPric,$symbol); ?>
                                                         <?php } ?>
                                                     </div>
                                                     <?php echo addToCartBtnIcon($pro->product_id); ?>
@@ -200,7 +206,7 @@
                 </div>
                 <div class="col-md-9 col-12">
                     <div class="video h-100">
-                        <iframe class="h-100 w-100" src="<?php echo get_lebel_by_value_in_theme_settings('trending_youtube_video'); ?>" title="My sunconure flock flewed high in sky for more then 5min||sunconure freefly training in india||" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        <iframe class="h-100 w-100" src="<?php echo $theme_settings['trending_youtube_video']; ?>" title="My sunconure flock flewed high in sky for more then 5min||sunconure freefly training in india||" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                     </div>
                 </div>
             </div>
@@ -220,7 +226,7 @@
                             <?php foreach ($specialPro as $pro) { ?>
                                 <div class="row border-top mt-3 pt-1 pb-1" style="margin-left: -8px !important;margin-right: -8px !important;margin-top: -8px !important;">
                                     <div class="col-2 col-md-4 p-2">
-                                        <a href="<?php echo base_url('detail/' . $pro->product_id) ?>"><?php echo image_view('uploads/products', $pro->product_id, '191_' . $pro->image, 'noimage.png', 'img-fluid  ') ?></a>
+                                        <a href="<?php echo base_url('detail/' . $pro->product_id) ?>"><?php echo image_view('uploads/products', $pro->product_id, $img_size . $pro->image, 'noimage.png', 'img-fluid  ') ?></a>
                                     </div>
                                     <div class="col-10 col-md-8 p-2">
                                         <div class="product-title-special mb-2 text-capitalize">
@@ -229,11 +235,11 @@
                                         <div class="price-special mb-3">
                                             <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id);
                                             if (empty($spPric)) { ?>
-                                                <?php echo currency_symbol($pro->price); ?>
+                                                <?php echo currency_symbol_with_symbol($pro->price,$symbol); ?>
                                             <?php } else { ?>
                                                 <small class="off-price">
-                                                    <del><?php echo currency_symbol($pro->price); ?></del>
-                                                </small> <?php echo currency_symbol($spPric); ?>
+                                                    <del><?php echo currency_symbol_with_symbol($pro->price,$symbol); ?></del>
+                                                </small> <?php echo currency_symbol_with_symbol($spPric,$symbol); ?>
                                             <?php } ?>
                                         </div>
                                     </div>
@@ -246,7 +252,7 @@
                     <div class="h-100">
                         <div class="banner">
                             <?php
-                            $special_banner_1 = get_lebel_by_value_in_theme_settings('special_banner');
+                            $special_banner_1 = $theme_settings['special_banner'];
                             echo image_view('uploads/special_banner', '', $special_banner_1, 'noimage.png', 'w-100');
                             ?>
                         </div>
@@ -270,7 +276,7 @@
                                         <?php foreach ($special_category_onePro as $key => $pro) { ?>
                                             <div class="col item  ">
                                                 <div class="border pro-s-height p-3 product-grid  d-flex align-items-stretch flex-column position-relative">
-                                                    <?php if (modules_key_by_access('wishlist') == 1) { ?>
+                                                    <?php if ($modules['wishlist'] == 1) { ?>
                                                         <?php if (!isset(newSession()->isLoggedInCustomer)) { ?>
 
                                                             <a href="<?php echo base_url('login'); ?>" class="btn-wishlist position-absolute  mt-2 ms-2"><i class="fa-solid fa-heart"></i>
@@ -285,7 +291,7 @@
 
                                                         <?php } ?>
                                                     <?php } ?>
-                                                    <?php if (modules_key_by_access('compare') == 1) { ?>
+                                                    <?php if ($modules['compare'] == 1) { ?>
 
                                                         <a href="javascript:void(0)" onclick="addToCompare(<?php echo $pro->product_id ?>)" class="btn-compare position-absolute  mt-5 ms-2"><i class="fa-solid fa-code-compare"></i>
                                                             <span class="btn-compare-text position-absolute  mt-5 ms-2">Compare</span>
@@ -293,7 +299,7 @@
 
                                                     <?php } ?>
                                                     <div class="product-top text-center">
-                                                        <a href="<?php echo base_url('detail/' . $pro->product_id) ?>"><?php echo image_view('uploads/products', $pro->product_id, '191_' . $pro->image, 'noimage.png', 'img-fluid ') ?></a>
+                                                        <a href="<?php echo base_url('detail/' . $pro->product_id) ?>"><?php echo image_view('uploads/products', $pro->product_id, $img_size . $pro->image, 'noimage.png', 'img-fluid ') ?></a>
                                                         <div class="rating text-center my-2">
                                                             <?php echo product_id_by_rating($pro->product_id); ?>
                                                         </div>
@@ -305,11 +311,11 @@
                                                         <div class="price-new ">
                                                             <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id);
                                                             if (empty($spPric)) { ?>
-                                                                <?php echo currency_symbol($pro->price); ?>
+                                                                <?php echo currency_symbol_with_symbol($pro->price,$symbol); ?>
                                                             <?php } else { ?>
                                                                 <small class="off-price">
-                                                                    <del><?php echo currency_symbol($pro->price); ?></del>
-                                                                </small> <?php echo currency_symbol($spPric); ?>
+                                                                    <del><?php echo currency_symbol_with_symbol($pro->price,$symbol); ?></del>
+                                                                </small> <?php echo currency_symbol_with_symbol($spPric,$symbol); ?>
                                                             <?php } ?>
                                                         </div>
                                                         <?php echo addToCartBtn($pro->product_id); ?>
@@ -326,7 +332,7 @@
                                         <?php foreach ($special_category_twoPro as $key => $pro) { ?>
                                             <div class="col item ">
                                                 <div class="border pro-s-height p-3 product-grid  d-flex align-items-stretch flex-column position-relative">
-                                                    <?php if (modules_key_by_access('wishlist') == 1) { ?>
+                                                    <?php if ($modules['wishlist'] == 1) { ?>
                                                         <?php if (!isset(newSession()->isLoggedInCustomer)) { ?>
 
                                                             <a href="<?php echo base_url('login'); ?>" class="btn-wishlist position-absolute  mt-2 ms-2"><i class="fa-solid fa-heart"></i>
@@ -341,7 +347,7 @@
 
                                                         <?php } ?>
                                                     <?php } ?>
-                                                    <?php if (modules_key_by_access('compare') == 1) { ?>
+                                                    <?php if ($modules['compare'] == 1) { ?>
 
                                                         <a href="javascript:void(0)" onclick="addToCompare(<?php echo $pro->product_id ?>)" class="btn-compare position-absolute  mt-5 ms-2"><i class="fa-solid fa-code-compare"></i>
                                                             <span class="btn-compare-text position-absolute  mt-5 ms-2">Compare</span>
@@ -349,7 +355,7 @@
 
                                                     <?php } ?>
                                                     <div class="product-top text-center">
-                                                        <a href="<?php echo base_url('detail/' . $pro->product_id) ?>"><?php echo image_view('uploads/products', $pro->product_id, '191_' . $pro->image, 'noimage.png', 'img-fluid ') ?></a>
+                                                        <a href="<?php echo base_url('detail/' . $pro->product_id) ?>"><?php echo image_view('uploads/products', $pro->product_id, $img_size . $pro->image, 'noimage.png', 'img-fluid ') ?></a>
                                                         <div class="rating text-center my-2">
                                                             <?php echo product_id_by_rating($pro->product_id); ?>
                                                         </div>
@@ -361,11 +367,11 @@
                                                         <div class="price-new ">
                                                             <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id);
                                                             if (empty($spPric)) { ?>
-                                                                <?php echo currency_symbol($pro->price); ?>
+                                                                <?php echo currency_symbol_with_symbol($pro->price,$symbol); ?>
                                                             <?php } else { ?>
                                                                 <small class="off-price">
-                                                                    <del><?php echo currency_symbol($pro->price); ?></del>
-                                                                </small> <?php echo currency_symbol($spPric); ?>
+                                                                    <del><?php echo currency_symbol_with_symbol($pro->price,$symbol); ?></del>
+                                                                </small> <?php echo currency_symbol_with_symbol($spPric,$symbol); ?>
                                                             <?php } ?>
                                                         </div>
                                                         <?php echo addToCartBtn($pro->product_id); ?>
@@ -382,7 +388,7 @@
                                         <?php foreach ($special_category_threePro as $key => $pro) { ?>
                                             <div class="col item  ">
                                                 <div class="border pro-s-height p-3 product-grid  d-flex align-items-stretch flex-column position-relative">
-                                                    <?php if (modules_key_by_access('wishlist') == 1) { ?>
+                                                    <?php if ($modules['wishlist'] == 1) { ?>
                                                         <?php if (!isset(newSession()->isLoggedInCustomer)) { ?>
 
                                                             <a href="<?php echo base_url('login'); ?>" class="btn-wishlist position-absolute  mt-2 ms-2"><i class="fa-solid fa-heart"></i>
@@ -397,7 +403,7 @@
 
                                                         <?php } ?>
                                                     <?php } ?>
-                                                    <?php if (modules_key_by_access('compare') == 1) { ?>
+                                                    <?php if ($modules['compare'] == 1) { ?>
 
                                                         <a href="javascript:void(0)" onclick="addToCompare(<?php echo $pro->product_id ?>)" class="btn-compare position-absolute  mt-5 ms-2"><i class="fa-solid fa-code-compare"></i>
                                                             <span class="btn-compare-text position-absolute  mt-5 ms-2">Compare</span>
@@ -405,7 +411,7 @@
 
                                                     <?php } ?>
                                                     <div class="product-top text-center">
-                                                        <a href="<?php echo base_url('detail/' . $pro->product_id) ?>"><?php echo image_view('uploads/products', $pro->product_id, '191_' . $pro->image, 'noimage.png', 'img-fluid ') ?></a>
+                                                        <a href="<?php echo base_url('detail/' . $pro->product_id) ?>"><?php echo image_view('uploads/products', $pro->product_id, $img_size . $pro->image, 'noimage.png', 'img-fluid ') ?></a>
                                                         <div class="rating text-center my-2">
                                                             <?php echo product_id_by_rating($pro->product_id); ?>
                                                         </div>
@@ -417,11 +423,11 @@
                                                         <div class="price-new ">
                                                             <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id);
                                                             if (empty($spPric)) { ?>
-                                                                <?php echo currency_symbol($pro->price); ?>
+                                                                <?php echo currency_symbol_with_symbol($pro->price,$symbol); ?>
                                                             <?php } else { ?>
                                                                 <small class="off-price">
-                                                                    <del><?php echo currency_symbol($pro->price); ?></del>
-                                                                </small> <?php echo currency_symbol($spPric); ?>
+                                                                    <del><?php echo currency_symbol_with_symbol($pro->price,$symbol); ?></del>
+                                                                </small> <?php echo currency_symbol_with_symbol($spPric,$symbol); ?>
                                                             <?php } ?>
                                                         </div>
                                                         <?php echo addToCartBtn($pro->product_id); ?>
@@ -447,19 +453,19 @@
                         <div class="regular-4 w-100">
                             <div class="carousel-item w-100">
                                 <?php
-                                $special_banner_1 = get_lebel_by_value_in_theme_settings('left_side_banner_one');
+                                $special_banner_1 = $theme_settings['left_side_banner_one'];
                                 echo image_view('uploads/left_side_banner', '', $special_banner_1, 'noimage.png', 'w-100 h-100');
                                 ?>
                             </div>
                             <div class="carousel-item w-100">
                                 <?php
-                                $banner_two = get_lebel_by_value_in_theme_settings('left_side_banner_two');
+                                $banner_two = $theme_settings['left_side_banner_two'];
                                 echo image_view('uploads/left_side_banner', '', $banner_two, 'noimage.png', 'w-100 h-100');
                                 ?>
                             </div>
                             <div class="carousel-item w-100">
                                 <?php
-                                $banner_three = get_lebel_by_value_in_theme_settings('left_side_banner_three');
+                                $banner_three = $theme_settings['left_side_banner_three'];
                                 echo image_view('uploads/left_side_banner', '', $banner_three, 'noimage.png', 'w-100 h-100');
                                 ?>
                             </div>
@@ -482,7 +488,7 @@
                                 <?php foreach ($productsetc as $pro) { ?>
                                     <div class="swiper-slide h-auto pe-3 each_pro mo-p-r-0">
                                         <div class="border p-3 product-grid h-100 d-flex align-items-stretch flex-column position-relative">
-                                            <?php if (modules_key_by_access('wishlist') == 1) { ?>
+                                            <?php if ($modules['wishlist'] == 1) { ?>
                                                 <?php if (!isset(newSession()->isLoggedInCustomer)) { ?>
 
                                                     <a href="<?php echo base_url('login'); ?>" class="btn-wishlist position-absolute  mt-2 ms-2"><i class="fa-solid fa-heart"></i>
@@ -497,7 +503,7 @@
 
                                                 <?php } ?>
                                             <?php } ?>
-                                            <?php if (modules_key_by_access('compare') == 1) { ?>
+                                            <?php if ($modules['compare'] == 1) { ?>
 
                                                 <a href="javascript:void(0)" onclick="addToCompare(<?php echo $pro->product_id ?>)" class="btn-compare position-absolute  mt-5 ms-2"><i class="fa-solid fa-code-compare"></i>
                                                     <span class="btn-compare-text position-absolute  mt-5 ms-2">Compare</span>
@@ -505,7 +511,7 @@
 
                                             <?php } ?>
                                             <div class="product-top text-center">
-                                                <a href="<?php echo base_url('detail/' . $pro->product_id) ?>"><?php echo image_view('uploads/products', $pro->product_id, '191_' . $pro->image, 'noimage.png', 'img-fluid ') ?></a>
+                                                <a href="<?php echo base_url('detail/' . $pro->product_id) ?>"><?php echo image_view('uploads/products', $pro->product_id, $img_size . $pro->image, 'noimage.png', 'img-fluid ') ?></a>
                                                 <div class="rating text-center my-2">
                                                     <?php echo product_id_by_rating($pro->product_id); ?>
                                                 </div>
@@ -517,11 +523,11 @@
                                                 <div class="price-new mb-md-3">
                                                     <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id);
                                                     if (empty($spPric)) { ?>
-                                                        <?php echo currency_symbol($pro->price); ?>
+                                                        <?php echo currency_symbol_with_symbol($pro->price,$symbol); ?>
                                                     <?php } else { ?>
                                                         <small class="off-price">
-                                                            <del><?php echo currency_symbol($pro->price); ?></del>
-                                                        </small> <?php echo currency_symbol($spPric); ?>
+                                                            <del><?php echo currency_symbol_with_symbol($pro->price,$symbol); ?></del>
+                                                        </small> <?php echo currency_symbol_with_symbol($spPric,$symbol); ?>
                                                     <?php } ?>
                                                 </div>
                                                 <?php echo addToCartBtn($pro->product_id); ?>
@@ -603,7 +609,7 @@
                 </div>
                 <div class="col-md-9 col-12">
                     <div class="video h-100">
-                        <iframe class="h-100 w-100" style="min-height:370px;" src="<?php echo get_lebel_by_value_in_theme_settings('brands_youtube_video'); ?>" title="My sunconure flock flewed high in sky for more then 5min||sunconure freefly training in india||" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        <iframe class="h-100 w-100" style="min-height:370px;" src="<?php echo $theme_settings['brands_youtube_video']; ?>" title="My sunconure flock flewed high in sky for more then 5min||sunconure freefly training in india||" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                     </div>
                 </div>
             </div>
