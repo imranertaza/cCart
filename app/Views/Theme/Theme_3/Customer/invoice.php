@@ -6,7 +6,10 @@
                     <div class="d-flex justify-content-between">
                         <div class="logo">
                             <?php $logoImg = get_lebel_by_value_in_theme_settings('side_logo');
-                            echo image_view('uploads/logo','',$logoImg,'noimage.png','img-fluid');?>
+                            echo image_view('uploads/logo','',$logoImg,'noimage.png','img-fluid');
+                            $modules = modules_access();
+                            $img_size = ($modules['watermark'] == '1')?'100_wm_':'100_';
+                            ?>
                         </div>
                         <div class="address">
                             <div class="icon float-start">
@@ -78,7 +81,7 @@
                                         <div class="img-table" style="width:12%; float:left;">
                                         <?php
                                         $img = get_data_by_id('image','cc_products','product_id',$item->product_id);
-                                        echo image_view('uploads/products',$item->product_id,'100_'.$img,'noimage.png','');
+                                        echo image_view('uploads/products',$item->product_id,$img_size.$img,'noimage.png','');
                                         ?>
                                         </div>
                                         <div class="img-text" style="width:88%;float:left;">

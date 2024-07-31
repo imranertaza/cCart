@@ -43,6 +43,13 @@
                 </div>
             </div>
         </div>
+        <?php
+        $theme_settings = get_theme_settings();
+        $modules = modules_access();
+        $symbol = get_lebel_by_value_in_settings('currency_symbol');
+        $img_size_198 = ($modules['watermark'] == '1')?'198_wm_':'198_';
+        $img_size = ($modules['watermark'] == '1')?'191_wm_':'191_';
+        ?>
         <div class="product-category mb-5">
             <div class="card rounded-0 p-5">
                 <div class="card-header py-3 bg-white border-0">
@@ -96,7 +103,7 @@
 
                                 <?php echo $brandView;?>
 
-                                <?php if(modules_key_by_access('review') == '1' ){ echo $ratingView; }?>
+                                <?php if($modules['review'] == '1' ){ echo $ratingView; }?>
                             </div>
                         </div>
                         <div class="col-lg-8">
@@ -139,19 +146,19 @@
                                     <?php if (!empty($products)){foreach ($products as $pro){ ?>
                                         <div class="col border p-2">
                                             <div class="product-grid h-100 d-flex align-items-stretch flex-column position-relative">
-                                                <?php if (modules_key_by_access('wishlist') == 1) { ?>
+                                                <?php if ($modules['wishlist'] == 1) { ?>
                                                 <?php if (!isset(newSession()->isLoggedInCustomer)){ ?>
                                                     <a href="<?php echo base_url('login');?>" class="btn-wishlist position-absolute start-0 top-0 mt-2 ms-2"><i class="fa-solid fa-heart"></i></a>
                                                 <?php }else{ ?>
                                                     <a href="javascript:void(0)" class="btn-wishlist position-absolute start-0 top-0 mt-2 ms-2" onclick="addToWishlist(<?php echo $pro->product_id ?>)"><i class="fa-solid fa-heart"></i></a>
                                                 <?php } ?>
                                                 <?php } ?>
-                                                <?php if (modules_key_by_access('compare') == 1) { ?>
+                                                <?php if ($modules['compare'] == 1) { ?>
                                                 <a href="javascript:void(0)" onclick="addToCompare(<?php echo $pro->product_id ?>)" class="btn-compare position-absolute start-0 top-0 mt-5 ms-2"><i class="fa-solid fa-code-compare"></i></a>
                                                 <?php } ?>
 
                                                 <div class="product-top">
-                                                    <?php echo image_view('uploads/products',$pro->product_id,'191_'.$pro->image,'noimage.png','img-fluid w-100')?>
+                                                    <?php echo image_view('uploads/products',$pro->product_id,$img_size .$pro->image,'noimage.png','img-fluid w-100')?>
                                                     <div class="rating text-center my-2">
                                                         <?php echo product_id_by_rating($pro->product_id);?>
                                                     </div>
@@ -165,9 +172,9 @@
                                                     </div>
                                                     <div class="price mb-3">
                                                         <?php $spPric = get_data_by_id('special_price','cc_product_special','product_id',$pro->product_id);  if (empty($spPric)){ ?>
-                                                            <?php echo currency_symbol($pro->price);?>
+                                                            <?php echo currency_symbol_with_symbol($pro->price,$symbol);?>
                                                         <?php }else{ ?>
-                                                            <small> <del><?php echo currency_symbol($pro->price);?></del></small>/<?php echo currency_symbol($spPric);?>
+                                                            <small> <del><?php echo currency_symbol_with_symbol($pro->price,$symbol);?></del></small>/<?php echo currency_symbol_with_symbol($spPric,$symbol);?>
                                                         <?php } ?>
                                                     </div>
                                                     <a href="javascript:void(0)" onclick="addToCart(<?php echo $pro->product_id ?>)" class="btn btn-cart w-100 rounded-0 mt-3">Add to Cart</a>
@@ -182,19 +189,19 @@
                                     <?php foreach ($products as $pro){ ?>
                                         <div class="col-md-12 border p-2 ">
                                             <div class="product-grid h-100 d-flex align-items-stretch  position-relative">
-                                                <?php if (modules_key_by_access('wishlist') == 1) { ?>
+                                                <?php if ($modules['wishlist'] == 1) { ?>
                                                     <?php if (!isset(newSession()->isLoggedInCustomer)){ ?>
                                                         <a href="<?php echo base_url('login');?>" class="btn-wishlist position-absolute start-0 top-0 mt-2 ms-2"><i class="fa-solid fa-heart"></i></a>
                                                     <?php }else{ ?>
                                                         <a href="javascript:void(0)" class="btn-wishlist position-absolute start-0 top-0 mt-2 ms-2" onclick="addToWishlist(<?php echo $pro->product_id ?>)"><i class="fa-solid fa-heart"></i></a>
                                                     <?php } ?>
                                                 <?php } ?>
-                                                <?php if (modules_key_by_access('compare') == 1) { ?>
+                                                <?php if ($modules['compare'] == 1) { ?>
                                                     <a href="javascript:void(0)" onclick="addToCompare(<?php echo $pro->product_id ?>)" class="btn-compare position-absolute start-0 top-0 mt-5 ms-2"><i class="fa-solid fa-code-compare"></i></a>
                                                 <?php } ?>
 
                                                 <div class="product-top" style="width:40%;float:left; " >
-                                                    <?php echo image_view('uploads/products',$pro->product_id,'198_'.$pro->image,'noimage.png','img-fluid w-100')?>
+                                                    <?php echo image_view('uploads/products',$pro->product_id,$img_size_198 .$pro->image,'noimage.png','img-fluid w-100')?>
 
                                                 </div>
 
@@ -214,9 +221,9 @@
 
                                                     <div class="price mb-3">
                                                         <?php $spPric = get_data_by_id('special_price','cc_product_special','product_id',$pro->product_id);  if (empty($spPric)){ ?>
-                                                            <?php echo currency_symbol($pro->price);?>
+                                                            <?php echo currency_symbol_with_symbol($pro->price,$symbol);?>
                                                         <?php }else{ ?>
-                                                            <small> <del><?php echo currency_symbol($pro->price);?></del></small>/<?php echo currency_symbol($spPric);?>
+                                                            <small> <del><?php echo currency_symbol_with_symbol($pro->price,$symbol);?></del></small>/<?php echo currency_symbol_with_symbol($spPric,$symbol);?>
                                                         <?php } ?>
                                                     </div>
                                                     <a href="javascript:void(0)" onclick="addToCart(<?php echo $pro->product_id ?>)" class="btn btn-cart w-100 rounded-0 mt-3">Add to Cart</a>

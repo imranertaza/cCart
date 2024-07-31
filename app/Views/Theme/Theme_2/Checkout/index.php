@@ -257,7 +257,11 @@
                             </svg> <span class="text-label">Order Summary</span></label>
                     </div>
                     <div class="checkout-items mb-4">
-
+                        <?php
+                        $modules = modules_access();
+                        $symbol = get_lebel_by_value_in_settings('currency_symbol');
+                        $img_size_100 = ($modules['watermark'] == '1')?'100_wm_':'100_';
+                        ?>
                         <?php foreach (Cart()->contents() as $val) { ?>
                         <div class="list-item d-flex gap-2 mb-2">
                             <div class="d-flex gap-2 bg-gray p-2 rounded-2 pro-bg-check">
@@ -265,7 +269,7 @@
                                     $img = get_data_by_id('image', 'cc_products', 'product_id', $val['id']);
                                     $des = get_data_by_id('description', 'cc_product_description', 'product_id', $val['id']);
                                     ?>
-                                <?php echo image_view('uploads/products', $val['id'], '100_' . $img, 'noimage.png', 'img-fluid w-h-100') ?>
+                                <?php echo image_view('uploads/products', $val['id'], $img_size_100 . $img, 'noimage.png', 'img-fluid w-h-100') ?>
                                 <div>
                                     <p class="fw-semibold mb-2"><?php echo $val['name']; ?></p>
                                     <p class="lh-sm">
@@ -304,7 +308,7 @@
                         <div class="group-check mb-4">
                             <div class="d-flex justify-content-between mb-2">
                                 <span>Price</span>
-                                <span id="check_total" ><?php echo currency_symbol(Cart()->total()) ?></span>
+                                <span id="check_total" ><?php echo currency_symbol_with_symbol(Cart()->total(),$symbol) ?></span>
                             </div>
 
                             <div class="d-flex justify-content-between mb-2">
@@ -312,9 +316,9 @@
                                 <?php $disc = 0;
                                 if (isset(newSession()->coupon_discount)) {
                                     $disc = round((Cart()->total() * newSession()->coupon_discount) / 100); ?>
-                                <span><?php echo currency_symbol($disc) ?></span>
+                                <span><?php echo currency_symbol_with_symbol($disc,$symbol) ?></span>
                                 <?php } else {
-                                    echo '<span>' . currency_symbol($disc) . '</span>';
+                                    echo '<span>' . currency_symbol_with_symbol($disc,$symbol) . '</span>';
                                 }
                                 $total = (isset(newSession()->coupon_discount)) ? Cart()->total() - $disc : Cart()->total(); ?>
                             </div>
@@ -393,7 +397,7 @@
 
                             <div class="d-flex justify-content-between mt-3">
                                 <span>Shipping charge</span>
-                                <span id="chargeShip"><?php echo currency_symbol(0) ?></span>
+                                <span id="chargeShip"><?php echo currency_symbol_with_symbol(0,$symbol) ?></span>
                                 <input type="hidden" name="shipping_charge" id="shipping_charge">
                             </div>
                         </div>
@@ -401,7 +405,7 @@
                         <div class="total py-3 group-check mb-4" style="border-top: unset !important;">
                             <div class="d-flex justify-content-between fw-bold">
                                 <span>Total</span>
-                                <span id="total"><?php echo currency_symbol($total) ?></span>
+                                <span id="total"><?php echo currency_symbol_with_symbol($total,$symbol) ?></span>
                                 <input type="hidden" id="totalamo" value="<?php echo $total ?>">
                             </div>
                         </div>

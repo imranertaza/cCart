@@ -182,6 +182,10 @@
                         </div>
                     </div>
                 </div>
+                <?php
+                $modules = modules_access();
+                $img_size_100 = ($modules['watermark'] == '1')?'100_wm_':'100_';
+                ?>
                 <div class="col-lg-6">
                     <div class="checkout-items mb-4">
                         <?php foreach (Cart()->contents() as $val) { ?>
@@ -191,7 +195,7 @@
                                     $img = get_data_by_id('image', 'cc_products', 'product_id', $val['id']);
                                     $des = get_data_by_id('description', 'cc_product_description', 'product_id', $val['id']);
                                     ?>
-                                    <?php echo image_view('uploads/products', $val['id'], '100_' . $img, 'noimage.png', 'img-fluid') ?>
+                                    <?php echo image_view('uploads/products', $val['id'], $img_size_100 . $img, 'noimage.png', 'img-fluid') ?>
                                     <div>
                                         <p class="fw-semibold mb-2"><?php echo $val['name']; ?></p>
                                         <p class="lh-sm"><small><?php echo substr($des, 0, 80) ?></small></p>

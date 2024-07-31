@@ -1067,6 +1067,7 @@ function get_category_id_by_product_show_home_slide($category_id)
     $result = $table->where('cc_product_to_category.category_id', $category_id)->orderBy('cc_products.product_id','DESC')->limit(20)->get()->getResult();
     $modules = modules_access();
     $symbol = get_lebel_by_value_in_settings('currency_symbol');
+    $img_size = ($modules['watermark'] == '1')?'191_wm_':'191_';
     $view = '';
     $count = 0;
     foreach ($result as $pro) {
@@ -1093,7 +1094,7 @@ function get_category_id_by_product_show_home_slide($category_id)
         }
 
         $view .= '<div class="product-top mb-2">
-                    ' . image_view('uploads/products', $pro->product_id, '191_' . $pro->image, 'noimage.png', 'img-fluid w-100') . '                    
+                    ' . image_view('uploads/products', $pro->product_id, $img_size . $pro->image, 'noimage.png', 'img-fluid w-100') . '                    
                 </div>
                 <div class="product-bottom mt-auto">
                     <div class="product-title product_title_area mb-2">

@@ -87,7 +87,8 @@ class Products extends BaseController {
 
         $totalOptionPrice = 0;
         foreach(get_all_data_array('cc_option') as $vl) {
-            $data[strtolower($vl->name)] = $this->request->getPost(strtolower($vl->name));
+            $fildName = str_replace(' ','',$vl->name);
+            $data[strtolower($vl->name)] = $this->request->getPost(strtolower($fildName));
 
             $table = DB()->table('cc_product_option');
             $option = $table->where('option_value_id',$data[strtolower($vl->name)])->where('product_id',$product_id)->get()->getRow();
