@@ -8,6 +8,10 @@ class Theme_default{
     public $logo_width ='261';
     public $logo_height ='70';
 
+    /**
+     * @description This method provides product all image size.
+     * @var array[]
+     */
     public $product_image = array(
         array(
             'width'=>'191',

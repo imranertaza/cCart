@@ -20,6 +20,10 @@ class Dashboard extends BaseController
         $this->permission = new Permission();
     }
 
+    /**
+     * @description This method provides dashboard page view
+     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     */
     public function index()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;

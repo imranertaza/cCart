@@ -22,6 +22,10 @@ class Theme_settings_3 extends BaseController
         $this->permission = new Permission();
     }
 
+    /**
+     * @description This method provides theme settings page view
+     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     */
     public function index()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
@@ -50,6 +54,10 @@ class Theme_settings_3 extends BaseController
         }
     }
 
+    /**
+     * @description This method provides data update
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function header_section_one_update(){
         $data['head_side_title_1'] = $this->request->getPost('head_side_title_1');
         $data['head_side_category_1'] = $this->request->getPost('head_side_category_1');
@@ -80,6 +88,10 @@ class Theme_settings_3 extends BaseController
         return redirect()->to('admin/theme_settings?sel=home_settings');
     }
 
+    /**
+     * @description This method provides data update
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function header_section_two_update(){
         $data['head_side_title_2'] = $this->request->getPost('head_side_title_2');
         $data['head_side_category_2'] = $this->request->getPost('head_side_category_2');
@@ -110,7 +122,10 @@ class Theme_settings_3 extends BaseController
         return redirect()->to('admin/theme_settings?sel=home_settings');
     }
 
-
+    /**
+     * @description This method provides data update
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function home_category_update(){
         $prefix = $this->request->getPost('prefix');
         $data['home_category_'.$prefix] = $this->request->getPost('home_category_'.$prefix);
@@ -142,6 +157,10 @@ class Theme_settings_3 extends BaseController
         return redirect()->to('admin/theme_settings?sel=home_settings');
     }
 
+    /**
+     * @description This method provides data update
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function banner_bottom_update(){
         if (!empty($_FILES['banner_bottom']['name'])) {
             $target_dir = FCPATH . '/uploads/banner_bottom/';
@@ -171,13 +190,10 @@ class Theme_settings_3 extends BaseController
         }
     }
 
-
-
-
-
-
-    // old code
-
+    /**
+     * @description This method provides data update
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function slider_update()
     {
         $nameslider = $this->request->getPost('nameslider');
@@ -210,6 +226,10 @@ class Theme_settings_3 extends BaseController
 
     }
 
+    /**
+     * @description This method provides data update
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function logo_update()
     {
 
@@ -242,6 +262,10 @@ class Theme_settings_3 extends BaseController
 
     }
 
+    /**
+     * @description This method provides data update
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function home_category_banner()
     {
 
@@ -273,6 +297,10 @@ class Theme_settings_3 extends BaseController
 
     }
 
+    /**
+     * @description This method provides data update
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function home_category()
     {
 
@@ -298,6 +326,10 @@ class Theme_settings_3 extends BaseController
 
     }
 
+    /**
+     * @description This method provides data update
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function settings_update()
     {
 
@@ -321,6 +353,10 @@ class Theme_settings_3 extends BaseController
 
     }
 
+    /**
+     * @description This method provides data update
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function home_special_banner()
     {
         if (!empty($_FILES['special_banner']['name'])) {
@@ -349,6 +385,10 @@ class Theme_settings_3 extends BaseController
         }
     }
 
+    /**
+     * @description This method provides data update
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function home_left_side_banner()
     {
         $label = $this->request->getPost('label');

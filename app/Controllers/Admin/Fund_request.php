@@ -22,6 +22,10 @@ class Fund_request extends BaseController
         $this->permission = new Permission();
     }
 
+    /**
+     * @description This method provides Fund request page view
+     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     */
     public function index()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
@@ -49,6 +53,10 @@ class Fund_request extends BaseController
         }
     }
 
+    /**
+     * @description This method provides fund request update
+     * @return void
+     */
     public function fund_action() {
         $fund_request_id = $this->request->getPost('fund_request_id');
         $data['status'] = $this->request->getPost('status');

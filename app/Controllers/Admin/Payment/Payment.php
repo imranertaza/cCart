@@ -22,6 +22,10 @@ class Payment extends BaseController
         $this->permission = new Permission();
     }
 
+    /**
+     * @description This method provides Payment page view
+     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     */
     public function index()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
@@ -50,6 +54,10 @@ class Payment extends BaseController
         }
     }
 
+    /**
+     * @description This method provides status update
+     * @return void
+     */
     public function status_update(){
         $payment_method_id = $this->request->getPost('id');
         $oldStatus = get_data_by_id('status','cc_payment_method','payment_method_id',$payment_method_id);

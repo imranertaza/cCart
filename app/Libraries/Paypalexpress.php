@@ -20,8 +20,6 @@ class Paypalexpress
      * @nvpStr is nvp string.
      * returns an associtive array containing the response from the server.
      */
-
-
     public function hash_call($method_name, $nvpstr)
     {
         $settings = $this->pex_settings;
@@ -66,7 +64,6 @@ class Paypalexpress
     /** This function will take nvpstring and convert it to an Associative Array and it will decode the response.
      * It is usefull to search for a particular key and displaying arrays.
      */
-
     function deformat_nvp($nvpstr)
     {
         $intial = 0;

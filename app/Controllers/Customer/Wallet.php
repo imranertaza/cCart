@@ -17,6 +17,10 @@ class Wallet extends BaseController
         $this->session = \Config\Services::session();
     }
 
+    /**
+     * @description This method provides wallet page view
+     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     */
     public function index()
     {
         $isLoggedInCustomer = $this->session->isLoggedInCustomer;
@@ -45,6 +49,10 @@ class Wallet extends BaseController
         }
     }
 
+    /**
+     * @description This method provides add funds page view
+     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     */
     public function add_funds()
     {
         $isLoggedInCustomer = $this->session->isLoggedInCustomer;
@@ -71,6 +79,10 @@ class Wallet extends BaseController
         }
     }
 
+    /**
+     * @description This method provides fund action execute
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function fund_action(){
         $data['amount'] = $this->request->getPost('amount');
         $data['payment_method_id'] = $this->request->getPost('payment_method_id');

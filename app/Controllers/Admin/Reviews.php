@@ -22,6 +22,10 @@ class Reviews extends BaseController
         $this->permission = new Permission();
     }
 
+    /**
+     * @description This method provides Reviews page view
+     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     */
     public function index()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
@@ -50,6 +54,10 @@ class Reviews extends BaseController
         }
     }
 
+    /**
+     * @description This method provides reviews status update
+     * @return void
+     */
     public function reviews_status_update(){
         $feedback_id = $this->request->getPost('feedback_id');
         $data['status'] = $this->request->getPost('status');
@@ -60,6 +68,11 @@ class Reviews extends BaseController
         print '<div class="alert alert-success alert-dismissible" role="alert">Update Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
     }
 
+    /**
+     * @description This method provides data delete
+     * @param int $feedback_id
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function delete($feedback_id){
 
         $table = DB()->table('cc_product_feedback');

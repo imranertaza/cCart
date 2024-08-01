@@ -17,6 +17,10 @@ class Customer_ledger extends BaseController
         $this->session = \Config\Services::session();
     }
 
+    /**
+     * @description This method provides customer ledger page view
+     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     */
     public function index()
     {
         $isLoggedInCustomer = $this->session->isLoggedInCustomer;

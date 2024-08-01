@@ -36,7 +36,6 @@ class Products extends BaseController
         $this->productsModel = new ProductsModel();
         $this->imageProcessing = new Image_processing();
     }
-
     public function old_index()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
@@ -65,6 +64,10 @@ class Products extends BaseController
         }
     }
 
+    /**
+     * @description This method provides Products page view
+     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     */
     public function index()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
@@ -114,6 +117,10 @@ class Products extends BaseController
         }
     }
 
+    /**
+     * @description This method provides create page view
+     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     */
     public function create(){
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId = $this->session->adRoleId;
@@ -143,6 +150,10 @@ class Products extends BaseController
         }
     }
 
+    /**
+     * @description This method provides data store
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function create_action() {
 
         $adUserId = $this->session->adUserId;
@@ -451,6 +462,10 @@ class Products extends BaseController
         }
     }
 
+    /**
+     * @description This method provides data copy
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function copy_action() {
         $allProductId =  $this->request->getPost('productId[]');
 
@@ -632,6 +647,11 @@ class Products extends BaseController
 
     }
 
+    /**
+     * @description This method provides update page view
+     * @param int $product_id
+     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     */
     public function update($product_id)
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
@@ -688,6 +708,10 @@ class Products extends BaseController
         }
     }
 
+    /**
+     * @description This method provides data update
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function update_action(){
 
         $adUserId = $this->session->adUserId;
@@ -1062,6 +1086,10 @@ class Products extends BaseController
         }
     }
 
+    /**
+     * @description This method provides data delete
+     * @return void
+     */
     public function delete(){
         $product_id = $this->request->getPost('product_id');
 
@@ -1116,6 +1144,10 @@ class Products extends BaseController
         print '<div class="alert alert-success alert-dismissible" role="alert">Delete Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
     }
 
+    /**
+     * @description This method provides subCategory view
+     * @return void
+     */
     public function get_subCategory(){
         $categoryID = $this->request->getPost('cat_id');
         $table = DB()->table('cc_product_category');
@@ -1132,6 +1164,10 @@ class Products extends BaseController
         print $view;
     }
 
+    /**
+     * @description This method provides related product view
+     * @return \CodeIgniter\HTTP\ResponseInterface
+     */
     public function related_product(){
         $product = [];
         $keyword = $this->request->getGet('q');
@@ -1141,6 +1177,10 @@ class Products extends BaseController
         return $this->response->setJSON($product);
     }
 
+    /**
+     * @description This method provides data delete
+     * @return void
+     */
     public function image_delete(){
         helper('filesystem');
 
@@ -1158,6 +1198,10 @@ class Products extends BaseController
         print '<div class="alert alert-success alert-dismissible" role="alert">Delete Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
     }
 
+    /**
+     * @description This method provides product option search
+     * @return void
+     */
     public function product_option_search(){
         $keyword = $this->request->getPost('key');
         $table = DB()->table('cc_option');
@@ -1174,6 +1218,10 @@ class Products extends BaseController
         print $view;
     }
 
+    /**
+     * @description This method provides product option value search
+     * @return void
+     */
     public function product_option_value_search(){
         $option_id = $this->request->getPost('option_id');
         $table = DB()->table('cc_option_value');
@@ -1186,10 +1234,10 @@ class Products extends BaseController
         print $view;
     }
 
-
-
-
-
+    /**
+     * @description This method provides product image crop
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function image_crop(){
 
         $allProductId =  $this->request->getPost('productId[]');
@@ -1250,6 +1298,10 @@ class Products extends BaseController
         }
     }
 
+    /**
+     * @description This method provides data delete
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function multi_delete_action(){
         $allProductId =  $this->request->getPost('productId[]');
         if (!empty($allProductId)) {

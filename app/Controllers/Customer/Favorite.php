@@ -20,6 +20,10 @@ class Favorite extends BaseController
         $this->favoriteModel = new FavoriteModel();
     }
 
+    /**
+     * @description This method provides favorite page view
+     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     */
     public function index()
     {
         $isLoggedInCustomer = $this->session->isLoggedInCustomer;
@@ -45,6 +49,10 @@ class Favorite extends BaseController
         }
     }
 
+    /**
+     * @description This method provides wishlist data remove.
+     * @return void
+     */
     public function removeToWishlist(){
         $product_id = $this->request->getPost('product_id');
         $table = DB()->table('cc_customer_wishlist');
