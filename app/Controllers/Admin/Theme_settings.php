@@ -31,6 +31,10 @@ class Theme_settings extends BaseController
         $this->theme_default = new Theme_default();
     }
 
+    /**
+     * @description This method provides theme settings page view
+     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     */
     public function index()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
@@ -74,6 +78,10 @@ class Theme_settings extends BaseController
         }
     }
 
+    /**
+     * @description This method provides data update
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function slider_update()
     {
         $nameslider = $this->request->getPost('nameslider');
@@ -118,6 +126,10 @@ class Theme_settings extends BaseController
 
     }
 
+    /**
+     * @description This method provides data update
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function logo_update()
     {
         $theme = get_lebel_by_value_in_settings('Theme');
@@ -160,6 +172,10 @@ class Theme_settings extends BaseController
 
     }
 
+    /**
+     * @description This method provides data update
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function favicon_update()
     {
 
@@ -193,7 +209,10 @@ class Theme_settings extends BaseController
 
     }
 
-
+    /**
+     * @description This method provides data update
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function home_category_banner()
     {
 
@@ -225,6 +244,10 @@ class Theme_settings extends BaseController
 
     }
 
+    /**
+     * @description This method provides data update
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function home_category()
     {
 
@@ -250,6 +273,10 @@ class Theme_settings extends BaseController
 
     }
 
+    /**
+     * @description This method provides data update
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function settings_update()
     {
 
@@ -273,6 +300,10 @@ class Theme_settings extends BaseController
 
     }
 
+    /**
+     * @description This method provides data update
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function home_special_banner()
     {
         if (!empty($_FILES['special_banner']['name'])) {
@@ -301,6 +332,10 @@ class Theme_settings extends BaseController
         }
     }
 
+    /**
+     * @description This method provides data update
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function home_left_side_banner()
     {
         $label = $this->request->getPost('label');

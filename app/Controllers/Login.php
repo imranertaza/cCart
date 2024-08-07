@@ -11,6 +11,10 @@ class Login extends BaseController {
         $this->session = \Config\Services::session();
     }
 
+    /**
+     * @description This method login page view
+     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     */
     public function index()
     {
         $isLoggedInCustomer = $this->session->isLoggedInCustomer;
@@ -31,6 +35,10 @@ class Login extends BaseController {
 
     }
 
+    /**
+     * @description This method login action execute
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function login_action(){
         $this->validation->setRule('email', 'Email', 'required|valid_email|trim');
         $this->validation->setRule('password', 'Password', 'required|max_length[32]');
@@ -81,6 +89,12 @@ class Login extends BaseController {
         }
     }
 
+    /**
+     * @description This method login data check
+     * @param $email
+     * @param $password
+     * @return array|mixed|object
+     */
     private function loginMe($email,$password){
         $table = DB()->table('cc_customer');
         $user = $table->where('email',$email)->get()->getRow();
@@ -96,6 +110,10 @@ class Login extends BaseController {
         }
     }
 
+    /**
+     * @description This method register page view
+     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     */
     public function register(){
         $isLoggedInCustomer = $this->session->isLoggedInCustomer;
         if (!isset($isLoggedInCustomer) || $isLoggedInCustomer != TRUE) {
@@ -114,6 +132,10 @@ class Login extends BaseController {
         }
     }
 
+    /**
+     * @description This method register action execute
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function register_action(){
         $this->validation->setRule('firstname', 'First Name', 'required|max_length[12]|trim');
         $this->validation->setRule('lastname', 'Last Name', 'required|max_length[12]|trim');
@@ -157,6 +179,10 @@ class Login extends BaseController {
         }
     }
 
+    /**
+     * @description This method logout action execute
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function logout()
     {
 
@@ -168,6 +194,10 @@ class Login extends BaseController {
         return redirect()->to('/login');
     }
 
+    /**
+     * @description This method forgot password page view
+     * @return void
+     */
     public function forgotPassword(){
         $settings = get_settings();
         $data['title'] = 'Forgot password';
@@ -180,6 +210,10 @@ class Login extends BaseController {
         echo view('Theme/'.$settings['Theme'].'/footer');
     }
 
+    /**
+     * @description This method password action execute and send otp
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function password_action(){
         $email = $this->request->getPost('email');
         $check = is_exists('cc_customer','email',$email);
@@ -211,6 +245,10 @@ class Login extends BaseController {
 
     }
 
+    /**
+     * @description This method otp submit page view
+     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     */
     public function otp_submit(){
         if ($this->session->forgetPassword == true) {
             $settings = get_settings();
@@ -228,6 +266,10 @@ class Login extends BaseController {
         }
     }
 
+    /**
+     * @description This method otp match and redirect password reset page
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function otp_action(){
         $otp = $this->request->getPost('otp');
         $sesOtp = $this->session->otp;
@@ -243,6 +285,10 @@ class Login extends BaseController {
         }
     }
 
+    /**
+     * @description This method password reset page view
+     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     */
     public function password_reset(){
         $pass = $this->session->password_reset_able;
         if (isset($pass)) {
@@ -261,6 +307,10 @@ class Login extends BaseController {
         }
     }
 
+    /**
+     * @description This method password reset action execute
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function reset_action(){
         $this->validation->setRule('password', 'Password', 'required|max_length[32]');
         $this->validation->setRule('confirm_password', 'Confirm Password', 'required|matches[password]|max_length[32]');

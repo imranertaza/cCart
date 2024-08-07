@@ -22,6 +22,10 @@ class Color_family extends BaseController
         $this->permission = new Permission();
     }
 
+    /**
+     * @description This method provides color family page view
+     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     */
     public function index()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
@@ -50,6 +54,10 @@ class Color_family extends BaseController
         }
     }
 
+    /**
+     * @description This method provides create page view
+     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     */
     public function create(){
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId = $this->session->adRoleId;
@@ -73,6 +81,10 @@ class Color_family extends BaseController
         }
     }
 
+    /**
+     * @description This method provides data store
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function create_action()
     {
         $data['color_name'] = $this->request->getPost('color_name');
@@ -97,6 +109,11 @@ class Color_family extends BaseController
         }
     }
 
+    /**
+     * @description This method provides update page view
+     * @param int $color_family_id
+     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     */
     public function update($color_family_id)
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
@@ -125,6 +142,10 @@ class Color_family extends BaseController
         }
     }
 
+    /**
+     * @description This method provides data update
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function update_action()
     {
         $color_family_id = $this->request->getPost('color_family_id');
@@ -151,6 +172,11 @@ class Color_family extends BaseController
         }
     }
 
+    /**
+     * @description This method provides data delete
+     * @param int $color_family_id
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function delete($color_family_id){
 
 

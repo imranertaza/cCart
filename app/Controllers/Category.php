@@ -20,6 +20,11 @@ class Category extends BaseController {
         $this->filter = new Filter();
     }
 
+    /**
+     * @description This method provides category page view.
+     * @param int $cat_id
+     * @return void
+     */
     public function index($cat_id){
         $settings = get_settings();
         $categoryWhere = !empty($this->request->getGetPost('category'))? 'category_id = '.$this->request->getGetPost('category'): 'category_id = '.$cat_id;
@@ -67,6 +72,10 @@ class Category extends BaseController {
         echo view('Theme/'.$settings['Theme'].'/footer', $data);
     }
 
+    /**
+     * @description This method provides search url generate and redirect.
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function url_generate(){
 
         $prod_cat_id = $this->request->getPost('prod_cat_id');

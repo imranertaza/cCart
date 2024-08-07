@@ -22,6 +22,10 @@ class Page_settings extends BaseController
         $this->permission = new Permission();
     }
 
+    /**
+     * @description This method provides brand page view
+     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     */
     public function index()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
@@ -50,6 +54,10 @@ class Page_settings extends BaseController
         }
     }
 
+    /**
+     * @description This method provides create page view
+     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     */
     public function create(){
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId = $this->session->adRoleId;
@@ -73,6 +81,10 @@ class Page_settings extends BaseController
         }
     }
 
+    /**
+     * @description This method provides data store
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function create_action()
     {
         $data['page_title'] = $this->request->getPost('page_title');
@@ -117,6 +129,11 @@ class Page_settings extends BaseController
         }
     }
 
+    /**
+     * @description This method provides update page view
+     * @param int $page_id
+     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     */
     public function update($page_id)
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
@@ -145,6 +162,10 @@ class Page_settings extends BaseController
         }
     }
 
+    /**
+     * @description This method provides data update
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function update_action()
     {
         $page_id = $this->request->getPost('page_id');
@@ -177,6 +198,11 @@ class Page_settings extends BaseController
         }
     }
 
+    /**
+     * @description This method provides data delete
+     * @param int $page_id
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function delete($page_id){
 
         $table = DB()->table('cc_pages');

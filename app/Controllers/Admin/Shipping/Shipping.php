@@ -22,6 +22,10 @@ class Shipping extends BaseController
         $this->permission = new Permission();
     }
 
+    /**
+     * @description This method provides Shipping page view
+     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     */
     public function index()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
@@ -50,6 +54,11 @@ class Shipping extends BaseController
         }
     }
 
+    /**
+     * @description This method provides shipping settings page view
+     * @param int $shipping_method_id
+     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     */
     public function shipping_settings($shipping_method_id) {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId = $this->session->adRoleId;
@@ -96,6 +105,10 @@ class Shipping extends BaseController
         }
     }
 
+    /**
+     * @description This method provides data update
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function update_action()
     {
         $shipping_method_id = $this->request->getPost('shipping_method_id');
@@ -144,6 +157,10 @@ class Shipping extends BaseController
 
     }
 
+    /**
+     * @description This method provides data store
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function zone_rate_update_action()
     {
         $shipping_method_id = $this->request->getPost('shipping_method_id');
@@ -188,6 +205,10 @@ class Shipping extends BaseController
 
     }
 
+    /**
+     * @description This method provides data delete
+     * @return void
+     */
     function zone_rate_delete(){
         $cc_geo_zone_shipping_rate_id = $this->request->getPost('cc_geo_zone_shipping_rate_id');
         $table = DB()->table('cc_geo_zone_shipping_rate');
@@ -196,6 +217,10 @@ class Shipping extends BaseController
         print '<div class="alert alert-success alert-dismissible" role="alert">Delete Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
     }
 
+    /**
+     * @description This method provides data update
+     * @return void
+     */
     public function update_status(){
         $shipping_method_id = $this->request->getPost('id');
         $oldStatus = get_data_by_id('status','cc_shipping_method','shipping_method_id',$shipping_method_id);
@@ -210,6 +235,10 @@ class Shipping extends BaseController
         print '<div class="alert alert-success alert-dismissible" role="alert">Update Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
     }
 
+    /**
+     * @description This method provides data remove
+     * @return void
+     */
     public function remove_settings_weight(){
         $settings_id = $this->request->getPost('settings_id');
         $table = DB()->table('cc_weight_shipping_settings');

@@ -22,6 +22,10 @@ class Module extends BaseController
         $this->permission = new Permission();
     }
 
+    /**
+     * @description This method provides module page view
+     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     */
     public function index()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
@@ -50,6 +54,11 @@ class Module extends BaseController
         }
     }
 
+    /**
+     * @description This method provides module settings page view
+     * @param $id
+     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     */
     public function module_settings($id)
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
@@ -79,6 +88,10 @@ class Module extends BaseController
         }
     }
 
+    /**
+     * @description This method provides data store
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function module_settings_action()
     {
 

@@ -22,6 +22,10 @@ class Option extends BaseController
         $this->permission = new Permission();
     }
 
+    /**
+     * @description This method provides option page view
+     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     */
     public function index()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
@@ -50,6 +54,10 @@ class Option extends BaseController
         }
     }
 
+    /**
+     * @description This method provides create page view
+     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     */
     public function create(){
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId = $this->session->adRoleId;
@@ -73,6 +81,10 @@ class Option extends BaseController
         }
     }
 
+    /**
+     * @description This method provides data store
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function create_action()
     {
         $data['name'] = $this->request->getPost('name');
@@ -108,6 +120,11 @@ class Option extends BaseController
         }
     }
 
+    /**
+     * @description This method provides update page view
+     * @param int $option_id
+     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     */
     public function update($option_id)
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
@@ -139,6 +156,10 @@ class Option extends BaseController
         }
     }
 
+    /**
+     * @description This method provides data update
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function update_action()
     {
         $option_id = $this->request->getPost('option_id');
@@ -185,6 +206,11 @@ class Option extends BaseController
         }
     }
 
+    /**
+     * @description This method provides data delete
+     * @param int $option_id
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function delete($option_id){
 
         $tabOp = DB()->table('cc_product_option');
@@ -201,6 +227,10 @@ class Option extends BaseController
         return redirect()->to('admin/option');
     }
 
+    /**
+     * @description This method provides data remove
+     * @return void
+     */
     public function option_remove_action(){
         $option_value_id = $this->request->getPost('id');
 

@@ -17,6 +17,10 @@ class Featuredproducts extends BaseController {
         $this->productsModel = new ProductsModel();
     }
 
+    /**
+     * @description This method provides feature products page view
+     * @return void
+     */
     public function index(){
         $settings = get_settings();
         $table = DB()->table('cc_products');

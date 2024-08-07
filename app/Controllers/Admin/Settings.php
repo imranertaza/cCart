@@ -22,6 +22,10 @@ class Settings extends BaseController
         $this->permission = new Permission();
     }
 
+    /**
+     * @description This method provides settings page view
+     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     */
     public function index()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
@@ -50,6 +54,10 @@ class Settings extends BaseController
         }
     }
 
+    /**
+     * @description This method provides data update
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function update_action()
     {
         $data['store_name'] = $this->request->getPost('store_name');

@@ -22,6 +22,10 @@ class Email_send extends BaseController
         $this->permission = new Permission();
     }
 
+    /**
+     * @description This method provides email page view
+     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     */
     public function index()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
@@ -49,6 +53,10 @@ class Email_send extends BaseController
         }
     }
 
+    /**
+     * @description This method provides email send
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function email_send_action(){
         $data['subject'] = $this->request->getPost('subject');
         $data['message'] = $this->request->getPost('message');
@@ -64,12 +72,6 @@ class Email_send extends BaseController
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/email_send');
         } else {
-
-//            $to= 'dnationsoftbd5@gmail.com';
-//            $to= 'dnationsoftdm8@gmail.com';
-//            $subject = $data['subject'];
-//            $message= $data['message'];
-//            email_send($to,$subject,$message);
 
             if ($data['user'] == 'subscribe'){
                 $subscrib = get_all_data_array('cc_newsletter');

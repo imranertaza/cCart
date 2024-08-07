@@ -1,13 +1,15 @@
 <?php namespace App\Libraries;
 
 class Theme_2{
-
     public $slider_width ='837';
     public $slider_height ='394';
-
     public $logo_width ='261';
     public $logo_height ='70';
 
+    /**
+     * @description This method provides product all image size.
+     * @var array[]
+     */
     public $product_image = array(
         array(
             'width'=>'191',

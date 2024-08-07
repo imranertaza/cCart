@@ -22,6 +22,10 @@ class Attribute_group extends BaseController
         $this->permission = new Permission();
     }
 
+    /**
+     * @description This method provides attribute page view
+     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     */
     public function index()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
@@ -50,6 +54,10 @@ class Attribute_group extends BaseController
         }
     }
 
+    /**
+     * @description This method provides create page view
+     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     */
     public function create(){
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId = $this->session->adRoleId;
@@ -73,6 +81,10 @@ class Attribute_group extends BaseController
         }
     }
 
+    /**
+     * @description This method provides data store
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function create_action()
     {
         $data['name'] = $this->request->getPost('name');
@@ -94,6 +106,11 @@ class Attribute_group extends BaseController
         }
     }
 
+    /**
+     * @description This method provides update page view
+     * @param int $attribute_group_id
+     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     */
     public function update($attribute_group_id)
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
@@ -122,6 +139,10 @@ class Attribute_group extends BaseController
         }
     }
 
+    /**
+     * @description This method provides data update
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function update_action()
     {
         $attribute_group_id = $this->request->getPost('attribute_group_id');
@@ -146,6 +167,11 @@ class Attribute_group extends BaseController
         }
     }
 
+    /**
+     * @description This method provides data delete
+     * @param $attribute_group_id
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function delete($attribute_group_id){
 
         $check = is_exists('cc_product_attribute','attribute_group_id',$attribute_group_id);

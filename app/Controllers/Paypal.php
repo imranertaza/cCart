@@ -33,6 +33,10 @@ class Paypal extends BaseController
         $this->cart = new Mycart();
     }
 
+    /**
+     * @description This method provides paypal api page view
+     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     */
     public function index()
     {
         $amount = $this->request->getGet('amount');
@@ -72,6 +76,11 @@ class Paypal extends BaseController
             }
         }
     }
+
+    /**
+     * @description This method provides all data store session array.
+     * @return array
+     */
     private function session_data()
     {
         $data['payment_firstname'] = $this->request->getGet('payment_firstname');
@@ -109,6 +118,10 @@ class Paypal extends BaseController
         return $data;
     }
 
+    /**
+     * @description This method provides paypal checkout action execute
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function paypal_checkout_action()
     {
 
@@ -264,6 +277,10 @@ class Paypal extends BaseController
         }
     }
 
+    /**
+     * @description This method provides all data remove session array.
+     * @return void
+     */
     private function sessionDestry()
     {
         unset($_SESSION['payment_firstname']);

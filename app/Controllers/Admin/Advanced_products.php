@@ -58,6 +58,10 @@ class Advanced_products extends BaseController
         }
     }
 
+    /**
+     * @description This method provides bulk edit page view
+     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     */
     public function index()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
@@ -107,6 +111,10 @@ class Advanced_products extends BaseController
         }
     }
 
+    /**
+     * @description This method provides bulk status update
+     * @return void
+     */
     public function bulk_status_update()
 {
     $module_settings_id = $this->request->getPost('module_settings_id');
@@ -123,6 +131,10 @@ class Advanced_products extends BaseController
     print '<div class="alert alert-success alert-dismissible" role="alert">Update Successfully <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
 }
 
+    /**
+     * @description This method provides bulk data update
+     * @return void
+     */
     public function bulk_data_update()
     {
 
@@ -156,6 +168,10 @@ class Advanced_products extends BaseController
 
     }
 
+    /**
+     * @description This method provides bulk description update
+     * @return void
+     */
     public function description_data_update(){
         $product_desc_id = $this->request->getPost('product_desc_id');
         $meta_title = $this->request->getPost('meta_title');
@@ -185,6 +201,10 @@ class Advanced_products extends BaseController
         echo view('Admin/Advanced_products/row', $data);
     }
 
+    /**
+     * @description This method provides bulk all status update
+     * @return void
+     */
     public function bulk_all_status_update()
     {
         $product_id = $this->request->getPost('product_id');
@@ -202,6 +222,10 @@ class Advanced_products extends BaseController
         echo view('Admin/Advanced_products/row', $data);
     }
 
+    /**
+     * @description This method provides bulk category view
+     * @return void
+     */
     public function bulk_category_view()
     {
         $product_id = $this->request->getPost('product_id');
@@ -218,6 +242,10 @@ class Advanced_products extends BaseController
         echo view('Admin/Advanced_products/category', $data);
     }
 
+    /**
+     * @description This method provides bulk category update
+     * @return void
+     */
     public function bulk_category_update()
     {
         $product_id = $this->request->getPost('product_id');
@@ -245,7 +273,10 @@ class Advanced_products extends BaseController
         echo view('Admin/Advanced_products/row', $data);
     }
 
-
+    /**
+     * @description This method provides bulk option view
+     * @return void
+     */
     public function bulk_option_view(){
         $product_id = $this->request->getPost('product_id');
         $data['product_id'] = $product_id;
@@ -255,6 +286,10 @@ class Advanced_products extends BaseController
         echo view('Admin/Advanced_products/option', $data);
     }
 
+    /**
+     * @description This method provides bulk option update
+     * @return void
+     */
     public function bulk_option_update(){
         $product_id = $this->request->getPost('product_id');
 
@@ -291,6 +326,10 @@ class Advanced_products extends BaseController
         echo view('Admin/Advanced_products/row', $data);
     }
 
+    /**
+     * @description This method provides bulk multi option edit
+     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     */
     public function multi_option_edit(){
         $allProductId =  $this->request->getPost('productId[]');
         if (!empty($allProductId)){
@@ -311,6 +350,11 @@ class Advanced_products extends BaseController
             return redirect()->back();
         }
     }
+
+    /**
+     * @description This method provides bulk multi option update
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function multi_option_action(){
         $redirect_url = isset($_COOKIE['bulk_url_path']) ? $_COOKIE['bulk_url_path'] : '';
         $all_product = $this->request->getPost('productId[]');
@@ -352,6 +396,10 @@ class Advanced_products extends BaseController
 
     }
 
+    /**
+     * @description This method provides bulk multi attribute view
+     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     */
     public function multi_attribute_edit(){
         $allProductId =  $this->request->getPost('productId[]');
         if (!empty($allProductId)){
@@ -372,6 +420,11 @@ class Advanced_products extends BaseController
             return redirect()->back();
         }
     }
+
+    /**
+     * @description This method provides bulk multi attribute update
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function multi_attribute_action(){
         $redirect_url = isset($_COOKIE['bulk_url_path']) ? $_COOKIE['bulk_url_path'] : '';
 
@@ -406,6 +459,10 @@ class Advanced_products extends BaseController
 
     }
 
+    /**
+     * @description This method provides bulk multi category view
+     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     */
     public function multi_category_edit(){
         $allProductId =  $this->request->getPost('productId[]');
         if (!empty($allProductId)){
@@ -426,6 +483,10 @@ class Advanced_products extends BaseController
         }
     }
 
+    /**
+     * @description This method provides bulk multi category update
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function multi_category_action(){
         $redirect_url = isset($_COOKIE['bulk_url_path']) ? $_COOKIE['bulk_url_path'] : '';
 

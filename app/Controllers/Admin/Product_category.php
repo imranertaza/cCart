@@ -22,6 +22,10 @@ class Product_category extends BaseController
         $this->permission = new Permission();
     }
 
+    /**
+     * @description This method provides Product category page view
+     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     */
     public function index()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
@@ -50,6 +54,10 @@ class Product_category extends BaseController
         }
     }
 
+    /**
+     * @description This method provides create page view
+     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     */
     public function create()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
@@ -77,6 +85,10 @@ class Product_category extends BaseController
         }
     }
 
+    /**
+     * @description This method provides data store
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function create_action()
     {
         $data['category_name'] = $this->request->getPost('category_name');
@@ -116,6 +128,11 @@ class Product_category extends BaseController
         }
     }
 
+    /**
+     * @description This method provides update page view
+     * @param int $prod_cat_id
+     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     */
     public function update($prod_cat_id)
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
@@ -146,6 +163,10 @@ class Product_category extends BaseController
         }
     }
 
+    /**
+     * @description This method provides data update
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function update_action()
     {
         $prod_cat_id = $this->request->getPost('prod_cat_id');
@@ -228,6 +249,10 @@ class Product_category extends BaseController
         }
     }
 
+    /**
+     * @description This method provides data update
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function update_action_others()
     {
         $prod_cat_id = $this->request->getPost('prod_cat_id');
@@ -258,6 +283,11 @@ class Product_category extends BaseController
         }
     }
 
+    /**
+     * @description This method provides data delete
+     * @param int $prod_cat_id
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function delete($prod_cat_id)
     {
 
@@ -291,6 +321,10 @@ class Product_category extends BaseController
         return redirect()->to('admin/product_category');
     }
 
+    /**
+     * @description This method provides data store
+     * @return void
+     */
     public function sort_update_action()
     {
         $prod_cat_id = $this->request->getPost('prod_cat_id');

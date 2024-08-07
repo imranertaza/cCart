@@ -12,6 +12,11 @@ class Home extends BaseController {
         $this->validation = \Config\Services::validation();
         $this->session = \Config\Services::session();
     }
+
+    /**
+     * @description This method provides home page view
+     * @return void
+     */
     public function index(){
         $settings = get_settings();
         $theme = $settings['Theme'];
@@ -35,6 +40,11 @@ class Home extends BaseController {
         echo view('Theme/'.$settings['Theme'].'/Home/index',$data);
         echo view('Theme/'.$settings['Theme'].'/footer');
     }
+
+    /**
+     * @description This method provides default theme function
+     * @return array
+     */
     private function Default(){
         $theme_settings = get_theme_settings();
         $category = $theme_settings['home_category'];
@@ -47,6 +57,11 @@ class Home extends BaseController {
 
         return $data;
     }
+
+    /**
+     * @description This method provides theme 2 function
+     * @return array
+     */
     private function Theme_2(){
         $theme_settings = get_theme_settings();
         $hot_deals_category = $theme_settings['hot_deals_category'];
@@ -90,6 +105,11 @@ class Home extends BaseController {
 
         return $data;
     }
+
+    /**
+     * @description This method provides theme 3 function
+     * @return array
+     */
     private function Theme_3(){
         $tabShopBy = DB()->table('cc_product_category_shop_by');
         $tabShopBy->join('cc_product_category','cc_product_category.prod_cat_id = cc_product_category_shop_by.prod_cat_id')->join('cc_icons','cc_icons.icon_id = cc_product_category.icon_id');
@@ -97,6 +117,10 @@ class Home extends BaseController {
         return $data;
     }
 
+    /**
+     * @description This method provides user subscription store
+     * @return void
+     */
     public function user_subscribe(){
         $email = $this->request->getPost('email');
 

@@ -20,6 +20,10 @@ class Order extends BaseController
         $this->favoriteModel = new FavoriteModel();
     }
 
+    /**
+     * @description This method provides order page view
+     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     */
     public function index()
     {
         $isLoggedInCustomer = $this->session->isLoggedInCustomer;
@@ -43,6 +47,11 @@ class Order extends BaseController
         }
     }
 
+    /**
+     * @description This method provides invoice page view
+     * @param int $order_id
+     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     */
     public function invoice($order_id){
         $isLoggedInCustomer = $this->session->isLoggedInCustomer;
         if (!isset($isLoggedInCustomer) || $isLoggedInCustomer != TRUE) {

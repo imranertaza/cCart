@@ -17,6 +17,10 @@ class Dashboard extends BaseController
         $this->session = \Config\Services::session();
     }
 
+    /**
+     * @description This method provides dashboard page view
+     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     */
     public function index()
     {
         $isLoggedInCustomer = $this->session->isLoggedInCustomer;
@@ -47,6 +51,10 @@ class Dashboard extends BaseController
         }
     }
 
+    /**
+     * @description This method provides wishlist data store.
+     * @return void
+     */
     public function addtoWishlist(){
         $data['product_id'] = $this->request->getPost('product_id');
         $data['customer_id'] = $this->session->cusUserId;

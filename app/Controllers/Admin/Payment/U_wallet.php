@@ -22,6 +22,11 @@ class U_wallet extends BaseController
         $this->permission = new Permission();
     }
 
+    /**
+     * @description This method provides E wallet page view
+     * @param $payment_method_id
+     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     */
     public function settings($payment_method_id) {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId = $this->session->adRoleId;
@@ -53,6 +58,10 @@ class U_wallet extends BaseController
         }
     }
 
+    /**
+     * @description This method provides data update
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function update_action()
     {
         $payment_method_id = $this->request->getPost('payment_method_id');
