@@ -1,6 +1,7 @@
 <?php namespace App\Controllers\Products;
 
 use App\Controllers\BaseController;
+use CodeIgniter\HTTP\RedirectResponse;
 
 class Products extends BaseController {
 
@@ -122,7 +123,7 @@ class Products extends BaseController {
 
     /**
      * @description This method provides review action execute
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @return RedirectResponse
      */
     public function review(){
         $data['product_id'] = $this->request->getPost('product_id');

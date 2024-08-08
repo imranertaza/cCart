@@ -4,6 +4,7 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Libraries\Permission;
+use CodeIgniter\HTTP\RedirectResponse;
 
 class Geo_zone extends BaseController
 {
@@ -24,7 +25,7 @@ class Geo_zone extends BaseController
 
     /**
      * @description This method provides zone page view
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function index()
     {
@@ -56,7 +57,7 @@ class Geo_zone extends BaseController
 
     /**
      * @description This method provides create page view
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function create(){
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
@@ -82,8 +83,8 @@ class Geo_zone extends BaseController
     }
 
     /**
-     * @description This method provides data store
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @description This method store geo zone
+     * @return RedirectResponse
      */
     public function create_action()
     {
@@ -135,7 +136,7 @@ class Geo_zone extends BaseController
     /**
      * @description This method provides update page view
      * @param int $geo_zone_id
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function update($geo_zone_id)
     {
@@ -169,8 +170,8 @@ class Geo_zone extends BaseController
     }
 
     /**
-     * @description This method provides data update
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @description This method update geo zone
+     * @return RedirectResponse
      */
     public function update_action()
     {
@@ -223,9 +224,9 @@ class Geo_zone extends BaseController
     }
 
     /**
-     * @description This method provides data delete
+     * @description This method delete geo zone
      * @param int $geo_zone_id
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @return RedirectResponse
      */
     public function delete($geo_zone_id){
 
@@ -240,7 +241,7 @@ class Geo_zone extends BaseController
     }
 
     /**
-     * @description This method provides data delete
+     * @description This method delete geo zone
      * @return void
      */
     public function geo_zone_detail_delete(){

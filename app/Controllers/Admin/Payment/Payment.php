@@ -4,6 +4,7 @@ namespace App\Controllers\Admin\Payment;
 
 use App\Controllers\BaseController;
 use App\Libraries\Permission;
+use CodeIgniter\HTTP\RedirectResponse;
 
 class Payment extends BaseController
 {
@@ -24,7 +25,7 @@ class Payment extends BaseController
 
     /**
      * @description This method provides Payment page view
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function index()
     {

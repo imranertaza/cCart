@@ -1,6 +1,7 @@
 <?php namespace App\Controllers\Cart;
 use App\Controllers\BaseController;
 use App\Libraries\Mycart;
+use CodeIgniter\HTTP\ResponseInterface;
 
 class Cart extends BaseController {
 
@@ -167,7 +168,7 @@ class Cart extends BaseController {
 
     /**
      * @description This method provides cart data update.
-     * @return \CodeIgniter\HTTP\ResponseInterface
+     * @return ResponseInterface
      */
     public function updateToCart(){
         $rowid = $this->request->getPost('rowid');
@@ -211,8 +212,8 @@ class Cart extends BaseController {
 
     /**
      * @description This method provides product qty check
-     * @param $productID
-     * @param $qty
+     * @param int $productID
+     * @param int $qty
      * @return bool
      */
     private function check_qty($productID , $qty){

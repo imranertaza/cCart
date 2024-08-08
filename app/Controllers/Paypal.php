@@ -8,6 +8,7 @@ use App\Libraries\Weight_shipping;
 use App\Libraries\Zone_shipping;
 use App\Libraries\Flat_shipping;
 use App\Models\ProductsModel;
+use CodeIgniter\HTTP\RedirectResponse;
 
 class Paypal extends BaseController
 {
@@ -35,7 +36,7 @@ class Paypal extends BaseController
 
     /**
      * @description This method provides paypal api page view
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function index()
     {
@@ -120,7 +121,7 @@ class Paypal extends BaseController
 
     /**
      * @description This method provides paypal checkout action execute
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @return RedirectResponse
      */
     public function paypal_checkout_action()
     {

@@ -4,6 +4,7 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Libraries\Permission;
+use CodeIgniter\HTTP\RedirectResponse;
 
 class Customers extends BaseController
 {
@@ -24,7 +25,7 @@ class Customers extends BaseController
 
     /**
      * @description This method provides customer page view
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function index()
     {
@@ -56,7 +57,7 @@ class Customers extends BaseController
 
     /**
      * @description This method provides create page view
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function create(){
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
@@ -82,8 +83,8 @@ class Customers extends BaseController
     }
 
     /**
-     * @description This method provides data store
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @description This method store customer
+     * @return RedirectResponse
      */
     public function create_action()
     {
@@ -133,7 +134,7 @@ class Customers extends BaseController
     /**
      * @description This method provides update page view
      * @param int $customer_id
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function update($customer_id)
     {
@@ -164,8 +165,8 @@ class Customers extends BaseController
     }
 
     /**
-     * @description This method provides data update
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @description This method update customer
+     * @return RedirectResponse
      */
     public function update_action()
     {
@@ -212,8 +213,8 @@ class Customers extends BaseController
     }
 
     /**
-     * @description This method provides data update
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @description This method update customer general data
+     * @return RedirectResponse
      */
     public function general_action()
     {
@@ -244,8 +245,8 @@ class Customers extends BaseController
     }
 
     /**
-     * @description This method provides data update
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @description This method update customer image
+     * @return RedirectResponse
      */
     public function image_action(){
         $customer_id = $this->request->getPost('customer_id');
@@ -287,9 +288,9 @@ class Customers extends BaseController
     }
 
     /**
-     * @description This method provides data delete
+     * @description This method delete customer
      * @param int $customer_id
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @return RedirectResponse
      */
     public function delete($customer_id){
 
@@ -303,7 +304,7 @@ class Customers extends BaseController
     /**
      * @description This method provides ledger page view
      * @param int $customer_id
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function ledger($customer_id)
     {

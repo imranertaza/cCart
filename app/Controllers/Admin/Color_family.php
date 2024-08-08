@@ -4,6 +4,7 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Libraries\Permission;
+use CodeIgniter\HTTP\RedirectResponse;
 
 class Color_family extends BaseController
 {
@@ -24,7 +25,7 @@ class Color_family extends BaseController
 
     /**
      * @description This method provides color family page view
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function index()
     {
@@ -56,7 +57,7 @@ class Color_family extends BaseController
 
     /**
      * @description This method provides create page view
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function create(){
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
@@ -82,8 +83,8 @@ class Color_family extends BaseController
     }
 
     /**
-     * @description This method provides data store
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @description This method store color family
+     * @return RedirectResponse
      */
     public function create_action()
     {
@@ -112,7 +113,7 @@ class Color_family extends BaseController
     /**
      * @description This method provides update page view
      * @param int $color_family_id
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function update($color_family_id)
     {
@@ -143,8 +144,8 @@ class Color_family extends BaseController
     }
 
     /**
-     * @description This method provides data update
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @description This method update color family
+     * @return RedirectResponse
      */
     public function update_action()
     {
@@ -173,9 +174,9 @@ class Color_family extends BaseController
     }
 
     /**
-     * @description This method provides data delete
+     * @description This method delete color family
      * @param int $color_family_id
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @return RedirectResponse
      */
     public function delete($color_family_id){
 

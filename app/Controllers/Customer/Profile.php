@@ -5,6 +5,7 @@ namespace App\Controllers\Customer;
 use App\Controllers\BaseController;
 use App\Libraries\Permission;
 use App\Models\FavoriteModel;
+use CodeIgniter\HTTP\RedirectResponse;
 
 class Profile extends BaseController
 {
@@ -22,7 +23,7 @@ class Profile extends BaseController
 
     /**
      * @description This method provides profile page view
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function index()
     {
@@ -52,7 +53,7 @@ class Profile extends BaseController
 
     /**
      * @description This method provides profile data update
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @return RedirectResponse
      */
     public function update_action(){
         $data['firstname'] = $this->request->getPost('firstname');
@@ -155,7 +156,7 @@ class Profile extends BaseController
 
     /**
      * @description This method provides profile password update
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @return RedirectResponse
      */
     public function password_action(){
 

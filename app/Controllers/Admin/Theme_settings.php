@@ -7,6 +7,7 @@ use App\Libraries\Permission;
 use App\Libraries\Theme_2;
 use App\Libraries\Theme_3;
 use App\Libraries\Theme_default;
+use CodeIgniter\HTTP\RedirectResponse;
 
 class Theme_settings extends BaseController
 {
@@ -33,7 +34,7 @@ class Theme_settings extends BaseController
 
     /**
      * @description This method provides theme settings page view
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function index()
     {
@@ -79,8 +80,8 @@ class Theme_settings extends BaseController
     }
 
     /**
-     * @description This method provides data update
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @description This method update slider
+     * @return RedirectResponse
      */
     public function slider_update()
     {
@@ -127,8 +128,8 @@ class Theme_settings extends BaseController
     }
 
     /**
-     * @description This method provides data update
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @description This method update logo
+     * @return RedirectResponse
      */
     public function logo_update()
     {
@@ -173,8 +174,8 @@ class Theme_settings extends BaseController
     }
 
     /**
-     * @description This method provides data update
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @description This method update favicon
+     * @return RedirectResponse
      */
     public function favicon_update()
     {
@@ -210,8 +211,8 @@ class Theme_settings extends BaseController
     }
 
     /**
-     * @description This method provides data update
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @description This method update home category banner
+     * @return RedirectResponse
      */
     public function home_category_banner()
     {
@@ -245,8 +246,8 @@ class Theme_settings extends BaseController
     }
 
     /**
-     * @description This method provides data update
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @description This method update home category
+     * @return RedirectResponse
      */
     public function home_category()
     {
@@ -274,8 +275,8 @@ class Theme_settings extends BaseController
     }
 
     /**
-     * @description This method provides data update
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @description This method update settings
+     * @return RedirectResponse
      */
     public function settings_update()
     {
@@ -301,8 +302,8 @@ class Theme_settings extends BaseController
     }
 
     /**
-     * @description This method provides data update
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @description This method update home special banner
+     * @return RedirectResponse
      */
     public function home_special_banner()
     {
@@ -333,8 +334,8 @@ class Theme_settings extends BaseController
     }
 
     /**
-     * @description This method provides data update
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @description This method update home left side banner
+     * @return RedirectResponse
      */
     public function home_left_side_banner()
     {

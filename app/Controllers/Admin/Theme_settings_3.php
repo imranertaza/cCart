@@ -4,6 +4,7 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Libraries\Permission;
+use CodeIgniter\HTTP\RedirectResponse;
 
 class Theme_settings_3 extends BaseController
 {
@@ -24,7 +25,7 @@ class Theme_settings_3 extends BaseController
 
     /**
      * @description This method provides theme settings page view
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function index()
     {
@@ -55,8 +56,8 @@ class Theme_settings_3 extends BaseController
     }
 
     /**
-     * @description This method provides data update
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @description This method update header section one update
+     * @return RedirectResponse
      */
     public function header_section_one_update(){
         $data['head_side_title_1'] = $this->request->getPost('head_side_title_1');
@@ -89,8 +90,8 @@ class Theme_settings_3 extends BaseController
     }
 
     /**
-     * @description This method provides data update
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @description This method update header section two update
+     * @return RedirectResponse
      */
     public function header_section_two_update(){
         $data['head_side_title_2'] = $this->request->getPost('head_side_title_2');
@@ -123,8 +124,8 @@ class Theme_settings_3 extends BaseController
     }
 
     /**
-     * @description This method provides data update
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @description This method update home category update
+     * @return RedirectResponse
      */
     public function home_category_update(){
         $prefix = $this->request->getPost('prefix');
@@ -158,8 +159,8 @@ class Theme_settings_3 extends BaseController
     }
 
     /**
-     * @description This method provides data update
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @description This method update banner bottom update
+     * @return RedirectResponse
      */
     public function banner_bottom_update(){
         if (!empty($_FILES['banner_bottom']['name'])) {
@@ -191,8 +192,8 @@ class Theme_settings_3 extends BaseController
     }
 
     /**
-     * @description This method provides data update
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @description This method update slider
+     * @return RedirectResponse
      */
     public function slider_update()
     {
@@ -227,8 +228,8 @@ class Theme_settings_3 extends BaseController
     }
 
     /**
-     * @description This method provides data update
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @description This method update logo
+     * @return RedirectResponse
      */
     public function logo_update()
     {
@@ -243,10 +244,6 @@ class Theme_settings_3 extends BaseController
             $pic = $this->request->getFile('side_logo');
             $namePic = 'logo_' . $pic->getRandomName();
             $pic->move($target_dir, $namePic);
-//            $news_img = 'logo_' . $pic->getName();
-//            $this->crop->withFile($target_dir . '' . $namePic)->fit(150, 90, 'center')->save($target_dir . '' . $news_img);
-//            unlink($target_dir . '' . $namePic);
-//            $data['value'] = $news_img;
             $data['value'] = $namePic;
 
             $table = DB()->table('cc_theme_settings');
@@ -263,8 +260,8 @@ class Theme_settings_3 extends BaseController
     }
 
     /**
-     * @description This method provides data update
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @description This method update home category banner
+     * @return RedirectResponse
      */
     public function home_category_banner()
     {
@@ -298,8 +295,8 @@ class Theme_settings_3 extends BaseController
     }
 
     /**
-     * @description This method provides data update
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @description This method update home category
+     * @return RedirectResponse
      */
     public function home_category()
     {
@@ -327,8 +324,8 @@ class Theme_settings_3 extends BaseController
     }
 
     /**
-     * @description This method provides data update
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @description This method update settings
+     * @return RedirectResponse
      */
     public function settings_update()
     {
@@ -354,8 +351,8 @@ class Theme_settings_3 extends BaseController
     }
 
     /**
-     * @description This method provides data update
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @description This method update home special banner
+     * @return RedirectResponse
      */
     public function home_special_banner()
     {
@@ -386,8 +383,8 @@ class Theme_settings_3 extends BaseController
     }
 
     /**
-     * @description This method provides data update
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @description This method update home left side banner
+     * @return RedirectResponse
      */
     public function home_left_side_banner()
     {

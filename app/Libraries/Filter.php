@@ -234,7 +234,7 @@ class Filter{
 
     /**
      * @description This method not empty check.
-     * @param $array
+     * @param array $array
      * @return bool
      */
     private  function allValuesNotEmpty($array) {

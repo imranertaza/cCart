@@ -4,6 +4,7 @@ namespace App\Controllers\Customer;
 
 use App\Controllers\BaseController;
 use App\Libraries\Permission;
+use CodeIgniter\HTTP\RedirectResponse;
 
 class Customer_ledger extends BaseController
 {
@@ -19,7 +20,7 @@ class Customer_ledger extends BaseController
 
     /**
      * @description This method provides customer ledger page view
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function index()
     {

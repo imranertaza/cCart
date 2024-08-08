@@ -5,6 +5,7 @@ namespace App\Controllers\Admin;
 use App\Controllers\BaseController;
 use App\Libraries\Permission;
 use App\Models\ProductsModel;
+use CodeIgniter\HTTP\RedirectResponse;
 
 class Advanced_products extends BaseController
 {
@@ -60,7 +61,7 @@ class Advanced_products extends BaseController
 
     /**
      * @description This method provides bulk edit page view
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function index()
     {
@@ -190,10 +191,12 @@ class Advanced_products extends BaseController
             $data2['meta_keyword'] = !empty($meta_keyword)?$meta_keyword:null;
         }
 
-
+        //update date
         $table = DB()->table('cc_product_description');
         $table->where('product_desc_id', $product_desc_id)->update($data2);
 
+
+        //data view query
         $product_id = get_data_by_id('product_id','cc_product_description','product_desc_id',$product_desc_id);
         $table2 = DB()->table('cc_products');
         $data['val'] = $table2->join('cc_product_description', 'cc_product_description.product_id = cc_products.product_id')->where('cc_products.product_id', $product_id)->get()->getRow();
@@ -212,10 +215,11 @@ class Advanced_products extends BaseController
         $value = $this->request->getPost('value');
 
         $data[$field] = $value;
-
+        //update data
         $table = DB()->table('cc_products');
         $table->where('product_id', $product_id)->update($data);
 
+        //data view query
         $table2 = DB()->table('cc_products');
         $data['val'] = $table2->join('cc_product_description', 'cc_product_description.product_id = cc_products.product_id')->where('cc_products.product_id', $product_id)->get()->getRow();
 
@@ -328,7 +332,7 @@ class Advanced_products extends BaseController
 
     /**
      * @description This method provides bulk multi option edit
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function multi_option_edit(){
         $allProductId =  $this->request->getPost('productId[]');
@@ -353,7 +357,7 @@ class Advanced_products extends BaseController
 
     /**
      * @description This method provides bulk multi option update
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @return RedirectResponse
      */
     public function multi_option_action(){
         $redirect_url = isset($_COOKIE['bulk_url_path']) ? $_COOKIE['bulk_url_path'] : '';
@@ -398,7 +402,7 @@ class Advanced_products extends BaseController
 
     /**
      * @description This method provides bulk multi attribute view
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function multi_attribute_edit(){
         $allProductId =  $this->request->getPost('productId[]');
@@ -423,7 +427,7 @@ class Advanced_products extends BaseController
 
     /**
      * @description This method provides bulk multi attribute update
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @return RedirectResponse
      */
     public function multi_attribute_action(){
         $redirect_url = isset($_COOKIE['bulk_url_path']) ? $_COOKIE['bulk_url_path'] : '';
@@ -461,7 +465,7 @@ class Advanced_products extends BaseController
 
     /**
      * @description This method provides bulk multi category view
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function multi_category_edit(){
         $allProductId =  $this->request->getPost('productId[]');
@@ -485,7 +489,7 @@ class Advanced_products extends BaseController
 
     /**
      * @description This method provides bulk multi category update
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @return RedirectResponse
      */
     public function multi_category_action(){
         $redirect_url = isset($_COOKIE['bulk_url_path']) ? $_COOKIE['bulk_url_path'] : '';

@@ -4,6 +4,7 @@ namespace App\Controllers\Admin\Shipping;
 
 use App\Controllers\BaseController;
 use App\Libraries\Permission;
+use CodeIgniter\HTTP\RedirectResponse;
 
 class Shipping extends BaseController
 {
@@ -24,7 +25,7 @@ class Shipping extends BaseController
 
     /**
      * @description This method provides Shipping page view
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function index()
     {
@@ -57,7 +58,7 @@ class Shipping extends BaseController
     /**
      * @description This method provides shipping settings page view
      * @param int $shipping_method_id
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function shipping_settings($shipping_method_id) {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
@@ -107,7 +108,7 @@ class Shipping extends BaseController
 
     /**
      * @description This method provides data update
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @return RedirectResponse
      */
     public function update_action()
     {
@@ -159,7 +160,7 @@ class Shipping extends BaseController
 
     /**
      * @description This method provides data store
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @return RedirectResponse
      */
     public function zone_rate_update_action()
     {

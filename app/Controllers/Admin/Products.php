@@ -9,6 +9,8 @@ use App\Libraries\Theme_2;
 use App\Libraries\Theme_3;
 use App\Libraries\Theme_default;
 use App\Models\ProductsModel;
+use CodeIgniter\HTTP\RedirectResponse;
+use CodeIgniter\HTTP\ResponseInterface;
 
 class Products extends BaseController
 {
@@ -66,7 +68,7 @@ class Products extends BaseController
 
     /**
      * @description This method provides Products page view
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function index()
     {
@@ -119,7 +121,7 @@ class Products extends BaseController
 
     /**
      * @description This method provides create page view
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function create(){
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
@@ -151,8 +153,8 @@ class Products extends BaseController
     }
 
     /**
-     * @description This method provides data store
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @description This method store product
+     * @return RedirectResponse
      */
     public function create_action() {
 
@@ -463,8 +465,8 @@ class Products extends BaseController
     }
 
     /**
-     * @description This method provides data copy
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @description This method product copy
+     * @return RedirectResponse
      */
     public function copy_action() {
         $allProductId =  $this->request->getPost('productId[]');
@@ -650,7 +652,7 @@ class Products extends BaseController
     /**
      * @description This method provides update page view
      * @param int $product_id
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function update($product_id)
     {
@@ -709,8 +711,8 @@ class Products extends BaseController
     }
 
     /**
-     * @description This method provides data update
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @description This method update product
+     * @return RedirectResponse
      */
     public function update_action(){
 
@@ -1087,7 +1089,7 @@ class Products extends BaseController
     }
 
     /**
-     * @description This method provides data delete
+     * @description This method delete product
      * @return void
      */
     public function delete(){
@@ -1166,7 +1168,7 @@ class Products extends BaseController
 
     /**
      * @description This method provides related product view
-     * @return \CodeIgniter\HTTP\ResponseInterface
+     * @return ResponseInterface
      */
     public function related_product(){
         $product = [];
@@ -1178,7 +1180,7 @@ class Products extends BaseController
     }
 
     /**
-     * @description This method provides data delete
+     * @description This method delete product image
      * @return void
      */
     public function image_delete(){
@@ -1230,13 +1232,12 @@ class Products extends BaseController
         foreach ($data as $item) {
             $view .= '<option value="'.$item->option_value_id.'">'.$item->name.'</option>';
         }
-//        print_r($data);
         print $view;
     }
 
     /**
      * @description This method provides product image crop
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @return RedirectResponse
      */
     public function image_crop(){
 
@@ -1299,8 +1300,8 @@ class Products extends BaseController
     }
 
     /**
-     * @description This method provides data delete
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @description This method delete product image
+     * @return RedirectResponse
      */
     public function multi_delete_action(){
         $allProductId =  $this->request->getPost('productId[]');

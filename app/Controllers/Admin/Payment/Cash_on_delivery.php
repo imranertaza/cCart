@@ -4,6 +4,7 @@ namespace App\Controllers\Admin\Payment;
 
 use App\Controllers\BaseController;
 use App\Libraries\Permission;
+use CodeIgniter\HTTP\RedirectResponse;
 
 class Cash_on_delivery extends BaseController
 {
@@ -24,8 +25,8 @@ class Cash_on_delivery extends BaseController
 
     /**
      * @description This method provides Cash on delivery page view
-     * @param $payment_method_id
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @param int $payment_method_id
+     * @return RedirectResponse|void
      */
     public function settings($payment_method_id) {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
@@ -60,7 +61,7 @@ class Cash_on_delivery extends BaseController
 
     /**
      * @description This method provides data update
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @return RedirectResponse
      */
     public function update_action()
     {
