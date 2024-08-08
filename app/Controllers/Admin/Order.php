@@ -4,6 +4,7 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Libraries\Permission;
+use CodeIgniter\HTTP\RedirectResponse;
 
 class Order extends BaseController
 {
@@ -24,7 +25,7 @@ class Order extends BaseController
 
     /**
      * @description This method provides order page view
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function index()
     {
@@ -57,7 +58,7 @@ class Order extends BaseController
     /**
      * @description This method provides order page view
      * @param $order_id
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function order_view($order_id)
     {
@@ -96,7 +97,7 @@ class Order extends BaseController
 
     /**
      * @description This method provides history action
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @return RedirectResponse
      */
     public function history_action()
     {

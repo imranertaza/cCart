@@ -1,10 +1,12 @@
 <?php
 
 use App\Libraries\Permission;
+use CodeIgniter\Database\BaseConnection;
+use CodeIgniter\Session\Session;
 
 /**
  * @description This function provides database connection
- * @return \CodeIgniter\Database\BaseConnection
+ * @return BaseConnection
  */
 function DB()
 {
@@ -14,7 +16,7 @@ function DB()
 
 /**
  * @description This function provides session
- * @return \CodeIgniter\Session\Session
+ * @return Session
  */
 function newSession()
 {
@@ -34,7 +36,7 @@ function Cart()
 
 /**
  * @description This function provides date time view
- * @param $datetime
+ * @param string $datetime
  * @return false|string
  */
 function invoiceDateFormat($datetime = '0000-00-00 00:00:00')
@@ -47,7 +49,7 @@ function invoiceDateFormat($datetime = '0000-00-00 00:00:00')
 
 /**
  * @description This function provides date time view
- * @param $datetime
+ * @param string $datetime
  * @return string
  */
 function saleDate($datetime = '0000-00-00 00:00:00')
@@ -490,8 +492,7 @@ function getListInParentCategory($selected)
 function getParentCategoryArray()
 {
     $table = DB()->table('cc_product_category');
-    $query = $table->where('parent_id', null)->get()->getResult();
-    return $query;
+    return $table->where('parent_id', null)->get()->getResult();
 }
 
 /**
@@ -502,13 +503,12 @@ function getParentCategoryArray()
 function getCategoryBySubArray($cat_id)
 {
     $table = DB()->table('cc_product_category');
-    $query = $table->where('parent_id', $cat_id)->orderBy('sort_order', 'ASC')->get()->getResult();
-    return $query;
+    return $table->where('parent_id', $cat_id)->orderBy('sort_order', 'ASC')->get()->getResult();
 }
 
 /**
  * @description This function provides checks if the given product_category_id exists and return data.
- * @param $product_category_id
+ * @param int $product_category_id
  * @return integer
  */
 function check_is_parent_category($product_category_id)
@@ -520,7 +520,7 @@ function check_is_parent_category($product_category_id)
 
 /**
  * @description This function provides checks if the given product_category_id exists and return data.
- * @param $product_category_id
+ * @param int $product_category_id
  * @return bool
  */
 function check_is_sub_category($product_category_id)
@@ -711,7 +711,7 @@ function product_id_by_average_rating($productId)
 
 /**
  * @description This function provides available template and selected.
- * @param $sel
+ * @param string $sel
  * @return string
  */
 function available_template($sel = '')

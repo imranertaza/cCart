@@ -4,6 +4,7 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Libraries\Permission;
+use CodeIgniter\HTTP\RedirectResponse;
 
 class User extends BaseController
 {
@@ -24,7 +25,7 @@ class User extends BaseController
 
     /**
      * @description This method provides user page view
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function index()
     {
@@ -56,7 +57,7 @@ class User extends BaseController
 
     /**
      * @description This method provides create page view
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function create(){
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
@@ -82,8 +83,8 @@ class User extends BaseController
     }
 
     /**
-     * @description This method provides data store
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @description This method store user
+     * @return RedirectResponse
      */
     public function create_action()
     {
@@ -131,7 +132,7 @@ class User extends BaseController
     /**
      * @description This method provides update page view
      * @param int $user_id
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function update($user_id)
     {
@@ -162,8 +163,8 @@ class User extends BaseController
     }
 
     /**
-     * @description This method provides data update
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @description This method update user
+     * @return RedirectResponse
      */
     public function update_action()
     {
@@ -204,8 +205,8 @@ class User extends BaseController
     }
 
     /**
-     * @description This method provides data update
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @description This method update user general data
+     * @return RedirectResponse
      */
     public function general_action()
     {
@@ -234,8 +235,8 @@ class User extends BaseController
     }
 
     /**
-     * @description This method provides data update
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @description This method update image
+     * @return RedirectResponse
      */
     public function image_action(){
         $user_id = $this->request->getPost('user_id');
@@ -277,9 +278,9 @@ class User extends BaseController
     }
 
     /**
-     * @description This method provides data delete
+     * @description This method delete user
      * @param int $user_id
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @return RedirectResponse
      */
     public function delete($user_id){
 

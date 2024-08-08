@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Libraries\Filter;
 use App\Models\CategoryproductsModel;
+use CodeIgniter\HTTP\RedirectResponse;
 
 class Category extends BaseController {
 
@@ -74,7 +75,7 @@ class Category extends BaseController {
 
     /**
      * @description This method provides search url generate and redirect.
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @return RedirectResponse
      */
     public function url_generate(){
 

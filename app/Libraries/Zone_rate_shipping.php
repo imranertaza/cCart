@@ -171,8 +171,8 @@ class Zone_rate_shipping{
 
     /**
      * @description This method provides calculate shipping zone rate.
-     * @param $country_id
-     * @param $zone_id
+     * @param int $country_id
+     * @param int $zone_id
      * @return int
      */
     private function zone_id($country_id,$zone_id){

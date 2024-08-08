@@ -5,6 +5,7 @@ namespace App\Controllers\Customer;
 use App\Controllers\BaseController;
 use App\Libraries\Permission;
 use App\Models\FavoriteModel;
+use CodeIgniter\HTTP\RedirectResponse;
 
 class Favorite extends BaseController
 {
@@ -22,7 +23,7 @@ class Favorite extends BaseController
 
     /**
      * @description This method provides favorite page view
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function index()
     {

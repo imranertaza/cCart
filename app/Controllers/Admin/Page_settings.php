@@ -4,6 +4,7 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Libraries\Permission;
+use CodeIgniter\HTTP\RedirectResponse;
 
 class Page_settings extends BaseController
 {
@@ -24,7 +25,7 @@ class Page_settings extends BaseController
 
     /**
      * @description This method provides brand page view
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function index()
     {
@@ -56,7 +57,7 @@ class Page_settings extends BaseController
 
     /**
      * @description This method provides create page view
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function create(){
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
@@ -82,8 +83,8 @@ class Page_settings extends BaseController
     }
 
     /**
-     * @description This method provides data store
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @description This method store page settings
+     * @return RedirectResponse
      */
     public function create_action()
     {
@@ -132,7 +133,7 @@ class Page_settings extends BaseController
     /**
      * @description This method provides update page view
      * @param int $page_id
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function update($page_id)
     {
@@ -163,8 +164,8 @@ class Page_settings extends BaseController
     }
 
     /**
-     * @description This method provides data update
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @description This method update page settings
+     * @return RedirectResponse
      */
     public function update_action()
     {
@@ -199,9 +200,9 @@ class Page_settings extends BaseController
     }
 
     /**
-     * @description This method provides data delete
+     * @description This method delete page settings
      * @param int $page_id
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @return RedirectResponse
      */
     public function delete($page_id){
 

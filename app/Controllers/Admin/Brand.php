@@ -4,6 +4,7 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Libraries\Permission;
+use CodeIgniter\HTTP\RedirectResponse;
 
 class Brand extends BaseController
 {
@@ -24,7 +25,7 @@ class Brand extends BaseController
 
     /**
      * @description This method provides brand page view
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function index()
     {
@@ -56,7 +57,7 @@ class Brand extends BaseController
 
     /**
      * @description This method provides create page view
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function create(){
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
@@ -82,8 +83,8 @@ class Brand extends BaseController
     }
 
     /**
-     * @description This method provides data store
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @description This method store brand
+     * @return RedirectResponse
      */
     public function create_action()
     {
@@ -125,7 +126,7 @@ class Brand extends BaseController
     /**
      * @description This method provides update page view
      * @param int $brand_id
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function update($brand_id)
     {
@@ -156,8 +157,8 @@ class Brand extends BaseController
     }
 
     /**
-     * @description This method provides data update
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @description This method update brand
+     * @return RedirectResponse
      */
     public function update_action()
     {
@@ -209,9 +210,9 @@ class Brand extends BaseController
     }
 
     /**
-     * @description This method provides data delete
+     * @description This method delete brand
      * @param int $brand_id
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @return RedirectResponse
      */
     public function delete($brand_id){
 

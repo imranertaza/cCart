@@ -4,6 +4,7 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Libraries\Permission;
+use CodeIgniter\HTTP\RedirectResponse;
 
 class Option extends BaseController
 {
@@ -24,7 +25,7 @@ class Option extends BaseController
 
     /**
      * @description This method provides option page view
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function index()
     {
@@ -56,7 +57,7 @@ class Option extends BaseController
 
     /**
      * @description This method provides create page view
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function create(){
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
@@ -82,8 +83,8 @@ class Option extends BaseController
     }
 
     /**
-     * @description This method provides data store
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @description This method store option
+     * @return RedirectResponse
      */
     public function create_action()
     {
@@ -123,7 +124,7 @@ class Option extends BaseController
     /**
      * @description This method provides update page view
      * @param int $option_id
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function update($option_id)
     {
@@ -157,8 +158,8 @@ class Option extends BaseController
     }
 
     /**
-     * @description This method provides data update
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @description This method update option
+     * @return RedirectResponse
      */
     public function update_action()
     {
@@ -207,9 +208,9 @@ class Option extends BaseController
     }
 
     /**
-     * @description This method provides data delete
+     * @description This method delete option
      * @param int $option_id
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @return RedirectResponse
      */
     public function delete($option_id){
 

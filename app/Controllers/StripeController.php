@@ -7,6 +7,7 @@ use App\Libraries\Mycart;
 use App\Libraries\Weight_shipping;
 use App\Libraries\Zone_shipping;
 use App\Models\ProductsModel;
+use CodeIgniter\HTTP\RedirectResponse;
 use Stripe;
 
 class StripeController extends BaseController {
@@ -50,7 +51,7 @@ class StripeController extends BaseController {
 
     /**
      * @description This method provides stripe api page view
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @return RedirectResponse
      * @throws Stripe\Exception\ApiErrorException
      */
     public function stripe_create_charge(){
@@ -77,7 +78,7 @@ class StripeController extends BaseController {
 
     /**
      * @description This method provides stripe checkout action execute
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @return RedirectResponse
      */
     public function stripe_action(){
 

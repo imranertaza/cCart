@@ -3,6 +3,7 @@
 namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
+use CodeIgniter\HTTP\RedirectResponse;
 
 class Login extends BaseController {
 
@@ -17,7 +18,7 @@ class Login extends BaseController {
 
     /**
      * @description This method provides login page view
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function index() {
 
@@ -31,7 +32,7 @@ class Login extends BaseController {
 
     /**
      * @description This method provides login action execute
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @return RedirectResponse
      */
     public function login_action(){
         $this->validation->setRule('email', 'Email', 'required|valid_email|max_length[128]|trim');
@@ -109,7 +110,7 @@ class Login extends BaseController {
 
     /**
      * @description This method provides login data remove
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @return RedirectResponse
      */
     public function logout()
     {

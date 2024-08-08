@@ -4,6 +4,7 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Libraries\Permission;
+use CodeIgniter\HTTP\RedirectResponse;
 
 class Module extends BaseController
 {
@@ -24,7 +25,7 @@ class Module extends BaseController
 
     /**
      * @description This method provides module page view
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function index()
     {
@@ -57,7 +58,7 @@ class Module extends BaseController
     /**
      * @description This method provides module settings page view
      * @param $id
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function module_settings($id)
     {
@@ -89,8 +90,8 @@ class Module extends BaseController
     }
 
     /**
-     * @description This method provides data store
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @description This method store module
+     * @return RedirectResponse
      */
     public function module_settings_action()
     {

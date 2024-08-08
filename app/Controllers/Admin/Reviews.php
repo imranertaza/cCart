@@ -4,6 +4,7 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Libraries\Permission;
+use CodeIgniter\HTTP\RedirectResponse;
 
 class Reviews extends BaseController
 {
@@ -24,7 +25,7 @@ class Reviews extends BaseController
 
     /**
      * @description This method provides Reviews page view
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function index()
     {
@@ -55,7 +56,7 @@ class Reviews extends BaseController
     }
 
     /**
-     * @description This method provides reviews status update
+     * @description This method update reviews status
      * @return void
      */
     public function reviews_status_update(){
@@ -69,9 +70,9 @@ class Reviews extends BaseController
     }
 
     /**
-     * @description This method provides data delete
+     * @description This method delete reviews status
      * @param int $feedback_id
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @return RedirectResponse
      */
     public function delete($feedback_id){
 

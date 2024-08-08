@@ -4,6 +4,7 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Libraries\Permission;
+use CodeIgniter\HTTP\RedirectResponse;
 
 class Coupon extends BaseController
 {
@@ -24,7 +25,7 @@ class Coupon extends BaseController
 
     /**
      * @description This method provides coupon page view
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function index()
     {
@@ -56,7 +57,7 @@ class Coupon extends BaseController
 
     /**
      * @description This method provides create page view
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function create(){
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
@@ -82,8 +83,8 @@ class Coupon extends BaseController
     }
 
     /**
-     * @description This method provides data store
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @description This method store coupon
+     * @return RedirectResponse
      */
     public function create_action()
     {
@@ -123,8 +124,8 @@ class Coupon extends BaseController
 
     /**
      * @description This method provides update page view
-     * @param $coupon_id
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @param int $coupon_id
+     * @return RedirectResponse|void
      */
     public function update($coupon_id)
     {
@@ -155,8 +156,8 @@ class Coupon extends BaseController
     }
 
     /**
-     * @description This method provides data update
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @description This method update coupon
+     * @return RedirectResponse
      */
     public function update_action()
     {
@@ -197,9 +198,9 @@ class Coupon extends BaseController
     }
 
     /**
-     * @description This method provides data delete
-     * @param $coupon_id
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @description This method delete coupon
+     * @param int $coupon_id
+     * @return RedirectResponse
      */
     public function delete($coupon_id){
 

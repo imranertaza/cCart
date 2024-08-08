@@ -8,7 +8,8 @@ use App\Libraries\Zone_rate_shipping;
 use App\Libraries\Zone_shipping;
 use App\Libraries\Flat_shipping;
 use App\Models\ProductsModel;
-
+use CodeIgniter\HTTP\RedirectResponse;
+use CodeIgniter\HTTP\ResponseInterface;
 
 
 class Checkout extends BaseController
@@ -37,7 +38,7 @@ class Checkout extends BaseController
 
     /**
      * @description This method provides checkout page view
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function index()
     {
@@ -65,7 +66,7 @@ class Checkout extends BaseController
 
     /**
      * @description This method provides coupon discount action execute
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function coupon_action()
     {
@@ -160,7 +161,7 @@ class Checkout extends BaseController
 
     /**
      * @description This method provides checkout action execute
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @return RedirectResponse
      */
     public function checkout_action() {
 
@@ -382,7 +383,7 @@ class Checkout extends BaseController
 
     /**
      * @description This method provides shipping rate
-     * @return \CodeIgniter\HTTP\ResponseInterface
+     * @return ResponseInterface
      */
     public function shipping_rate()
     {

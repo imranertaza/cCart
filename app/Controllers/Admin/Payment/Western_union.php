@@ -4,6 +4,7 @@ namespace App\Controllers\Admin\Payment;
 
 use App\Controllers\BaseController;
 use App\Libraries\Permission;
+use CodeIgniter\HTTP\RedirectResponse;
 
 class Western_union extends BaseController
 {
@@ -25,7 +26,7 @@ class Western_union extends BaseController
     /**
      * @description This method provides Western union page view
      * @param int $payment_method_id
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function settings($payment_method_id)
     {
@@ -61,7 +62,7 @@ class Western_union extends BaseController
 
     /**
      * @description This method provides data update
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @return RedirectResponse
      */
     public function update_action()
     {

@@ -4,6 +4,7 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Libraries\Permission;
+use CodeIgniter\HTTP\RedirectResponse;
 
 class Email_send extends BaseController
 {
@@ -24,7 +25,7 @@ class Email_send extends BaseController
 
     /**
      * @description This method provides email page view
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function index()
     {
@@ -55,7 +56,7 @@ class Email_send extends BaseController
 
     /**
      * @description This method provides email send
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @return RedirectResponse
      */
     public function email_send_action(){
         $data['subject'] = $this->request->getPost('subject');

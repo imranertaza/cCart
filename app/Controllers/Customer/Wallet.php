@@ -4,6 +4,7 @@ namespace App\Controllers\Customer;
 
 use App\Controllers\BaseController;
 use App\Libraries\Permission;
+use CodeIgniter\HTTP\RedirectResponse;
 
 class Wallet extends BaseController
 {
@@ -19,7 +20,7 @@ class Wallet extends BaseController
 
     /**
      * @description This method provides wallet page view
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function index()
     {
@@ -51,7 +52,7 @@ class Wallet extends BaseController
 
     /**
      * @description This method provides add funds page view
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function add_funds()
     {
@@ -81,7 +82,7 @@ class Wallet extends BaseController
 
     /**
      * @description This method provides fund action execute
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @return RedirectResponse
      */
     public function fund_action(){
         $data['amount'] = $this->request->getPost('amount');

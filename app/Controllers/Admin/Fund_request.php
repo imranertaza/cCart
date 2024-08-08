@@ -4,6 +4,7 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Libraries\Permission;
+use CodeIgniter\HTTP\RedirectResponse;
 
 class Fund_request extends BaseController
 {
@@ -24,7 +25,7 @@ class Fund_request extends BaseController
 
     /**
      * @description This method provides Fund request page view
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function index()
     {
@@ -54,7 +55,7 @@ class Fund_request extends BaseController
     }
 
     /**
-     * @description This method provides fund request update
+     * @description This method fund request update
      * @return void
      */
     public function fund_action() {

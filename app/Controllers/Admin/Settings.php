@@ -4,6 +4,7 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Libraries\Permission;
+use CodeIgniter\HTTP\RedirectResponse;
 
 class Settings extends BaseController
 {
@@ -24,7 +25,7 @@ class Settings extends BaseController
 
     /**
      * @description This method provides settings page view
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function index()
     {
@@ -55,8 +56,8 @@ class Settings extends BaseController
     }
 
     /**
-     * @description This method provides data update
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @description This method update role
+     * @return RedirectResponse
      */
     public function update_action()
     {

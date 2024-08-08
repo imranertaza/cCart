@@ -4,6 +4,7 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Libraries\Permission;
+use CodeIgniter\HTTP\RedirectResponse;
 
 class Product_category extends BaseController
 {
@@ -24,7 +25,7 @@ class Product_category extends BaseController
 
     /**
      * @description This method provides Product category page view
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function index()
     {
@@ -56,7 +57,7 @@ class Product_category extends BaseController
 
     /**
      * @description This method provides create page view
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function create()
     {
@@ -86,8 +87,8 @@ class Product_category extends BaseController
     }
 
     /**
-     * @description This method provides data store
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @description This method store product category
+     * @return RedirectResponse
      */
     public function create_action()
     {
@@ -131,7 +132,7 @@ class Product_category extends BaseController
     /**
      * @description This method provides update page view
      * @param int $prod_cat_id
-     * @return \CodeIgniter\HTTP\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function update($prod_cat_id)
     {
@@ -164,8 +165,8 @@ class Product_category extends BaseController
     }
 
     /**
-     * @description This method provides data update
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @description This method update product category
+     * @return RedirectResponse
      */
     public function update_action()
     {
@@ -250,8 +251,8 @@ class Product_category extends BaseController
     }
 
     /**
-     * @description This method provides data update
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @description This method update product category
+     * @return RedirectResponse
      */
     public function update_action_others()
     {
@@ -284,9 +285,9 @@ class Product_category extends BaseController
     }
 
     /**
-     * @description This method provides data delete
+     * @description This method delete product category
      * @param int $prod_cat_id
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @return RedirectResponse
      */
     public function delete($prod_cat_id)
     {
@@ -322,7 +323,7 @@ class Product_category extends BaseController
     }
 
     /**
-     * @description This method provides data store
+     * @description This method update product category
      * @return void
      */
     public function sort_update_action()
