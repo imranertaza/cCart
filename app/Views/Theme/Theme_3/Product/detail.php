@@ -4,16 +4,23 @@
             <div class="setting_for_chackOut">
                 <div class="row ">
                     <!--image showing -->
+                    <?php
+                    $symbol = get_lebel_by_value_in_settings('currency_symbol');
+                    $modules = modules_access();
+                    $img_size_437 = ($modules['watermark'] == '1')?'437_wm_':'437_';
+                    $img_size_191 = ($modules['watermark'] == '1')?'191_wm_':'191_';
+                    ?>
                     <div class="col-md-6">
                         <div class="showing_image_area">
                             <div class="showing_image position-relative overflow-hidden" id="coverIMg">
-                                <?php echo image_view('uploads/products', $products->product_id, '437_' . $products->image, 'noimage.png', 'img-fluid' ,'cover') ?>
+                                <?php echo image_view('uploads/products', $products->product_id, $img_size_437 . $products->image, 'noimage.png', 'img-fluid' ,'cover') ?>
                                 <span class="lanse" leance id="lance" style="background: url('<?php echo base_url()?>/assets/assets_fl/tile._CB483369110_.gif');"></span>
                             </div>
                         </div>
 
                         <div class="position-relative">
-                            <div class="provious" id="provious"><svg width="23px" height="28px"
+                            <div class="provious" id="provious">
+                                <svg width="23px" height="28px"
                                                                      viewBox="0 0 1024 1024" class="icon" version="1.1"
                                                                      xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -29,14 +36,14 @@
 
                                 <div class="sub_img">
                                     <div class="other-image">
-                                        <?php echo image_view('uploads/products', $products->product_id, '437_' . $products->image, 'noimage.png', 'img-opt') ?>
+                                        <?php echo image_view('uploads/products', $products->product_id, $img_size_437 . $products->image, 'noimage.png', 'img-opt') ?>
                                     </div>
                                 </div>
 
                                 <?php
                                 if (!empty($proImg)) {
                                     foreach ($proImg as $imgval) {
-                                        echo '<div class="sub_img"><div class="other-image">' . multi_image_view('uploads/products', $imgval->product_id, $imgval->product_image_id, '437_' . $imgval->image, 'noimage.png', 'img-opt') . '</div></div>';
+                                        echo '<div class="sub_img"><div class="other-image">' . multi_image_view('uploads/products', $imgval->product_id, $imgval->product_image_id, $img_size_437 . $imgval->image, 'noimage.png', 'img-opt') . '</div></div>';
                                     }
                                 }
                                 ?>
@@ -109,10 +116,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <?php
-                                                $symbol = get_lebel_by_value_in_settings('currency_symbol');
-                                                $modules = modules_access();
-                                            ?>
+
                                             <div class="col-6">
                                                 <div class="product-price text-end" id="priceVal">
                                                     <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $products->product_id);
@@ -226,7 +230,7 @@
                     </div>
                     <div class="col-sm-5">
                         <div class="image-contant">
-                            <?php echo image_view('uploads/products', $products->product_id, '437_' . $products->image, 'noimage.png', 'img-fluid w-100') ?>
+                            <?php echo image_view('uploads/products', $products->product_id, $img_size_437 . $products->image, 'noimage.png', 'img-fluid w-100') ?>
                         </div>
                     </div>
                 </div>
@@ -244,7 +248,7 @@
                         <div class="col-6 col-lg-2 col-sm-4">
                             <div class="card rounded-0">
                                 <div class="r-product">
-                                    <a href="<?php echo base_url('detail/' . $rPro->product_id) ?>"><?php echo image_view('uploads/products', $rPro->product_id, '191_' . $rPro->image, 'noimage.png', 'card-img-top rounded-0') ?></a>
+                                    <a href="<?php echo base_url('detail/' . $rPro->product_id) ?>"><?php echo image_view('uploads/products', $rPro->product_id, $img_size_191 . $rPro->image, 'noimage.png', 'card-img-top rounded-0') ?></a>
 
 
                                     <h5 class="card-title"><?php echo substr($rPro->name, 0, 60); ?></h5>

@@ -24,6 +24,10 @@ class Products extends BaseController {
         $this->filter = new Filter();
     }
 
+    /**
+     * @description This method provides search page view
+     * @return void
+     */
     public function search(){
         $settings = get_settings();
         $cat_id = $this->request->getGetPost('cat');
@@ -42,6 +46,8 @@ class Products extends BaseController {
         }else{
             $shortBy = "`cc_products.product_id` DESC";
         }
+
+        $categoryId = !empty($this->request->getGetPost('category'))? $this->request->getGetPost('category'): $cat_id;
         $categoryWhere = !empty($this->request->getGetPost('category'))? 'category_id = '.$this->request->getGetPost('category'): 'category_id = '.$cat_id;
 
         $brand = explode(',', $this->request->getGetPost('manufacturer'));
@@ -70,6 +76,7 @@ class Products extends BaseController {
         }
 
         $data['brandval'] = array();
+        $manufacturer = $this->request->getGetPost('manufacturer');
         if(empty($this->request->getGetPost('manufacturer'))){
             $allbrand ='1=1';
         }else {
@@ -110,10 +117,15 @@ class Products extends BaseController {
 
         $searchModel = empty($cat_id) ? 'productsSearchModel' : 'categoryproductsModel';
 
-        if(empty($this->request->getGetPost('option'))) {
-            $data['products'] = $this->$searchModel->where($where)->query()->orderBy($shortBy)->paginate($lemit);
-        }else{
-            $data['products'] = $this->$searchModel->where($where)->all_join()->having('COUNT(cc_products.product_id) >=', count(array_unique($countOption)))->orderBy($shortBy)->paginate($lemit);
+        $productsArr = array();
+        $data['products'] = array();
+
+        if (!empty($categoryId)) {
+            if (empty($this->request->getGetPost('option'))) {
+                $data['products'] = $this->$searchModel->where($where)->query()->orderBy($shortBy)->paginate($lemit);
+            } else {
+                $data['products'] = $this->$searchModel->where($where)->all_join()->having('COUNT(cc_products.product_id) >=', count(array_unique($countOption)))->orderBy($shortBy)->paginate($lemit);
+            }
         }
 
         if (!empty($keyword)){
@@ -124,14 +136,27 @@ class Products extends BaseController {
             }
         }
 
-        $data['pager'] = $this->$searchModel->pager;
-        $data['links'] = $data['pager']->links('default','custome_link');
+        if (!empty($data['products'])) {
+            $data['pager'] = $this->$searchModel->pager;
+            $data['links'] = $data['pager']->links('default', 'custome_link');
+        }else {
+            $data['pager'] = '';
+            $data['links'] = '';
+        }
 
 
         if (!empty($cat_id)) {
             $productsArr = $this->$searchModel->where($categoryWhere)->query()->findAll();
         }else{
-            $productsArr = $this->$searchModel->like('cc_products.name', $keyword)->query()->findAll();
+            if (empty($manufacturer)) {
+                if(!empty($keyword)) {
+                    $productsArr = $this->$searchModel->like('cc_products.name', $keyword)->query()->findAll();
+                }
+            }else{
+                $productsArr = $this->$searchModel->where($allbrand)->like('cc_products.name', $keyword)->query()->findAll();
+                //make search base query
+                $productsBas = $this->$searchModel->like('cc_products.name', $keyword)->query()->findAll();
+            }
         }
 
         $filter = $this->filter->getSettings($productsArr);
@@ -140,6 +165,10 @@ class Products extends BaseController {
         $data['brandView'] = $filter->product_array_by_brand($data['brandval']);
         $data['ratingView'] = $filter->product_array_by_rating_view($data['ratingval']);
         $data['productsArr'] = $productsArr;
+
+        if (!empty($manufacturer) && !empty($keyword)) {
+            $data['brandView'] = $filter->getSettings($productsBas)->product_array_by_brand($data['brandval']);
+        }
 
         $data['fstprice'] = !empty($price[0]) ? $price[0] : $data['price']['minPrice'];
         $data['lstPrice'] = !empty($price[1]) ? $price[1] : $data['price']['maxPrice'];

@@ -4,6 +4,7 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Libraries\Permission;
+use CodeIgniter\HTTP\RedirectResponse;
 
 class Newsletter extends BaseController
 {
@@ -22,6 +23,10 @@ class Newsletter extends BaseController
         $this->permission = new Permission();
     }
 
+    /**
+     * @description This method provides newsletter page view
+     * @return RedirectResponse|void
+     */
     public function index()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;

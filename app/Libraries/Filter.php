@@ -5,31 +5,47 @@ class Filter{
 
     private $productArray;
 
+    /**
+     * @description This method provides product array.
+     * @param array $products
+     * @return $this
+     */
     public function getSettings($products){
         $this->productArray = $products;
         return $this;
     }
+
+    /**
+     * @description This method provides product price range.
+     * @return array
+     */
     public function product_array_by_price_range(){
         $priceArray = array_column($this->productArray, 'price');
         $data['minPrice'] = empty($priceArray) ? '0' : floor(min($priceArray));
         $data['maxPrice'] = empty($priceArray) ? '0' : floor(max($priceArray));
         return $data;
     }
+
+    /**
+     * @description This method provides product option view and selected.
+     * @param int $optionSel
+     * @return string
+     */
     public function product_array_by_options($optionSel){
-
-        $table = DB()->table('cc_product_option');
-        $table->join('cc_option','cc_option.option_id = cc_product_option.option_id');
-        foreach ($this->productArray as $val){
-            $table->orWhere('cc_product_option.product_id', $val->product_id);
-        }
-        $table->groupBy('cc_option.option_id');
-        $option = $table->get()->getResult();
-
         $view = '';
-        if (!empty($option)) {
-            foreach ($option as $valOption) {
-                $view .= '<div class="product-filter">
-                <p class="mb-2">' . $valOption->name. '</p>
+        if (!empty($this->productArray)) {
+            $table = DB()->table('cc_product_option');
+            $table->join('cc_option', 'cc_option.option_id = cc_product_option.option_id');
+            foreach ($this->productArray as $val) {
+                $table->orWhere('cc_product_option.product_id', $val->product_id);
+            }
+            $table->groupBy('cc_option.option_id');
+            $option = $table->get()->getResult();
+
+            if (!empty($option)) {
+                foreach ($option as $valOption) {
+                    $view .= '<div class="product-filter">
+                <p class="mb-2">' . $valOption->name . '</p>
                 <ul class="list-unstyled filter-items">';
                     foreach ($this->option_value_return($valOption->option_id) as $value) {
                         $nameVal = $value->name;
@@ -40,15 +56,21 @@ class Filter{
                         $style = empty($isColor) ? "background-color: $nameVal !important;padding: 15px; border: unset;" : "";
 
                         $view .= '<li class="mt-2"><input type="checkbox" onclick="formSubmit()"';
-                        $view .= (in_array($value->option_value_id, $optionSel))?'checked ':'';
+                        $view .= (in_array($value->option_value_id, $optionSel)) ? 'checked ' : '';
                         $view .= 'class="btn-check" name="options[]" id="option_' . $value->option_value_id . '" value="' . $value->option_value_id . '"  autocomplete="off"><label class="btn btn-outline-secondary rounded-0"  style="' . $style . '" for="option_' . $value->option_value_id . '">' . $nameOp . '</label></li>';
                     }
-                $view .= '</ul></div>';
+                    $view .= '</ul></div>';
+                }
             }
         }
         return $view;
     }
 
+    /**
+     * @description This method provides product option value.
+     * @param int $optionId
+     * @return array
+     */
     private function option_value_return($optionId){
 
         $table = DB()->table('cc_product_option');
@@ -59,9 +81,14 @@ class Filter{
             $table->groupEnd();
         }
         $table->groupBy('cc_option_value.option_value_id');
-        $option = $table->get()->getResult();
-        return $option;
+        return $table->get()->getResult();
     }
+
+    /**
+     * @description This method provides product brand and selected.
+     * @param int $brandSel
+     * @return string
+     */
     public function product_array_by_brand($brandSel){
         $brandArray = array_column($this->productArray, 'brand_id');
         $view = '';
@@ -87,6 +114,11 @@ class Filter{
         return $view;
     }
 
+    /**
+     * @description This method provides product rating and selected.
+     * @param int $ratingSel
+     * @return string
+     */
     public function product_array_by_rating_view($ratingSel){
         $ratingArray = array_column($this->productArray, 'average_feedback');
         $view = '';
@@ -109,9 +141,15 @@ class Filter{
         }
         return $view;
     }
+
+    /**
+     * @description This method provides rating view and selected.
+     * @param int $ratingSel
+     * @return string
+     */
     private function rating_1($ratingSel){
         $sel = (in_array('1', $ratingSel))?'checked ':'';
-        $view ='<label class="w-100 mb-2">
+        return '<label class="w-100 mb-2">
                 <input type="checkbox" onclick="formSubmit()" '.$sel.' name="rating[]" id="" value="1">
                     <i class="fa-solid fa-star"></i>
                     <i class="fa-regular fa-star"></i>
@@ -120,11 +158,16 @@ class Filter{
                     <i class="fa-regular fa-star"></i>
                     <span class="count">1 Rating</span>
             </label>';
-        return $view;
     }
+
+    /**
+     * @description This method provides rating view and selected.
+     * @param int $ratingSel
+     * @return string
+     */
     private function rating_2($ratingSel){
         $sel = (in_array('2', $ratingSel))?'checked ':'';
-        $view ='<label class="w-100 mb-2">
+        return '<label class="w-100 mb-2">
                 <input type="checkbox" onclick="formSubmit()" '.$sel.'  name="rating[]" id="" value="2">
                     <i class="fa-solid fa-star"></i>
                     <i class="fa-solid fa-star"></i>
@@ -133,11 +176,16 @@ class Filter{
                     <i class="fa-regular fa-star"></i>
                     <span class="count">2 Rating</span>
             </label>';
-        return $view;
     }
+
+    /**
+     * @description This method provides rating view and selected.
+     * @param int $ratingSel
+     * @return string
+     */
     private function rating_3($ratingSel){
         $sel = (in_array('3', $ratingSel))?'checked ':'';
-        $view ='<label class="w-100 mb-2">
+        return '<label class="w-100 mb-2">
                 <input type="checkbox" onclick="formSubmit()" '.$sel.'  name="rating[]" id="" value="3">
                     <i class="fa-solid fa-star"></i>
                     <i class="fa-solid fa-star"></i>
@@ -146,11 +194,16 @@ class Filter{
                     <i class="fa-regular fa-star"></i>
                     <span class="count">3 Rating</span>
             </label>';
-        return $view;
     }
+
+    /**
+     * @description This method provides rating view and selected.
+     * @param int $ratingSel
+     * @return string
+     */
     private function rating_4($ratingSel){
         $sel = (in_array('4', $ratingSel))?'checked ':'';
-        $view ='<label class="w-100 mb-2">
+        return '<label class="w-100 mb-2">
                 <input type="checkbox" onclick="formSubmit()" '.$sel.' name="rating[]" id="" value="4">
                     <i class="fa-solid fa-star"></i>
                     <i class="fa-solid fa-star"></i>
@@ -159,11 +212,16 @@ class Filter{
                     <i class="fa-regular fa-star"></i>
                     <span class="count">4 Rating</span>
             </label>';
-        return $view;
     }
+
+    /**
+     * @description This method provides rating view and selected.
+     * @param int $ratingSel
+     * @return string
+     */
     private function rating_5($ratingSel){
         $sel = (in_array('5', $ratingSel))?'checked ':'';
-        $view ='<label class="w-100 mb-2">
+        return '<label class="w-100 mb-2">
                 <input type="checkbox" onclick="formSubmit()" '.$sel.' name="rating[]" id="" value="5">
                     <i class="fa-solid fa-star"></i>
                     <i class="fa-solid fa-star"></i>
@@ -172,9 +230,13 @@ class Filter{
                     <i class="fa-solid fa-star"></i>
                     <span class="count">5 Rating</span>
             </label>';
-        return $view;
     }
 
+    /**
+     * @description This method not empty check.
+     * @param array $array
+     * @return bool
+     */
     private  function allValuesNotEmpty($array) {
         $data = false;
         foreach ($array as $value){

@@ -1,49 +1,57 @@
 <?php
 
 use App\Libraries\Permission;
+use CodeIgniter\Database\BaseConnection;
+use CodeIgniter\Session\Session;
 
+/**
+ * @description This function provides database connection
+ * @return BaseConnection
+ */
 function DB()
 {
     $db = \Config\Database::connect();
     return $db;
 }
 
+/**
+ * @description This function provides session
+ * @return Session
+ */
 function newSession()
 {
     $session = \Config\Services::session();
     return $session;
 }
 
+/**
+ * @description This function provides cart
+ * @return mixed
+ */
 function Cart()
 {
     $cart = \Config\Services::cart();
     return $cart;
 }
 
-function bdDateFormat($data = '0000-00-00')
-{
-    return ($data == '0000-00-00') ? 'Unknown' : date('d/m/y', strtotime($data));
-}
-
-function globalDateTimeFormat($datetime = '0000-00-00 00:00:00')
-{
-
-    if ($datetime == '0000-00-00 00:00:00' or $datetime == '0000-00-00' or $datetime == '') {
-        return 'Unknown';
-    }
-    return date('h:i A d/m/y', strtotime($datetime));
-}
-
+/**
+ * @description This function provides date time view
+ * @param string $datetime
+ * @return false|string
+ */
 function invoiceDateFormat($datetime = '0000-00-00 00:00:00')
 {
-
     if ($datetime == '0000-00-00 00:00:00' or $datetime == '0000-00-00' or $datetime == '') {
         return 'Unknown';
     }
-    //    return date('d M Y h:i A ', strtotime($datetime));
     return date('d M Y', strtotime($datetime));
 }
 
+/**
+ * @description This function provides date time view
+ * @param string $datetime
+ * @return string
+ */
 function saleDate($datetime = '0000-00-00 00:00:00')
 {
 
@@ -57,6 +65,14 @@ function saleDate($datetime = '0000-00-00 00:00:00')
     return $date . ' ' . $time;
 }
 
+/**
+ * @description This function provides Retrieve specific data from a table based on a condition.
+ * @param int|float|string|double $needCol
+ * @param string $table
+ * @param string $whereCol
+ * @param int|float|string|double $whereInfo
+ * @return false|null
+ */
 function get_data_by_id($needCol, $table, $whereCol, $whereInfo)
 {
     $table = DB()->table($table);
@@ -71,16 +87,11 @@ function get_data_by_id($needCol, $table, $whereCol, $whereInfo)
     return $col;
 }
 
-function showWithCurrencySymbol($money)
-{
-    //    $table = DB()->table('gen_settings');
-    //    $currency_before_symbol = $table->where('sch_id',$_SESSION['shopId'])->where('label','currency_before_symbol')->get()->getRow();
-    //    $currency_after_symbol = $table->where('sch_id',$_SESSION['shopId'])->where('label','currency_after_symbol')->get()->getRow();
-    //    $result = $currency_before_symbol->value." ".number_format($money, 2, '.', ',')." ".$currency_after_symbol->value;
-    //    return $result;
-    return '৳ ' . number_format($money, 2, '.', ',') . ' /-';
-}
-
+/**
+ * @description This function provides that likely displays or processes a status based on the selected value
+ * @param $selected
+ * @return string
+ */
 function statusView($selected = '1')
 {
     $status = [
@@ -95,6 +106,11 @@ function statusView($selected = '1')
     return $row;
 }
 
+/**
+ * @description This function provides that likely displays or processes a status based on the selected value
+ * @param $selected
+ * @return string
+ */
 function globalStatus($selected = 'sel')
 {
     $status = [
@@ -111,41 +127,14 @@ function globalStatus($selected = 'sel')
     return $row;
 }
 
-function get_package_other_db($selected = 'sel')
-{
-
-    $db2 = \Config\Database::connect('custom');
-    $newDb = $db2->database;
-    DB()->query('use ' . $newDb);
-    $packageTable = $db2->table('package');
-    $pack = $packageTable->get()->getResult();
-
-    $row = '';
-    foreach ($pack as $key => $option) {
-        $row .= '<option value="' . $option->package_id . '"';
-        $row .= ($selected == $option->package_id) ? ' selected' : '';
-        $row .= '>' . $option->package_name . '</option>';
-    }
-    return $row;
-}
-
-function package_expiry($shop_id)
-{
-
-    $db2 = \Config\Database::connect('custom');
-    $newDb = $db2->database;
-    $db2->query('use ' . $newDb);
-
-    $tab = $db2->table('license');
-    $pack = $tab->where('sch_id', $shop_id)->get()->getRow();
-
-    $end_date = '';
-    if (!empty($pack)) {
-        $end_date = $pack->end_date;
-    }
-    return $end_date;
-}
-
+/**
+ * @description This function provides fetch the required column from the specified table.
+ * @param int|float|string|double $selected
+ * @param string $tblId
+ * @param int|float|string|double $needCol
+ * @param string $table
+ * @return string
+ */
 function getListInOption($selected, $tblId, $needCol, $table)
 {
     $table = DB()->table($table);
@@ -159,6 +148,16 @@ function getListInOption($selected, $tblId, $needCol, $table)
     return $options;
 }
 
+/**
+ * @description This function provides fetch the required column from the specified table based on the selected value.
+ * @param int|float|string|double $selected
+ * @param int $tblId
+ * @param int|float|string|double $needCol
+ * @param string $table
+ * @param int|float|string $where
+ * @param int|float|string|double $needwhere
+ * @return string
+ */
 function getIdByListInOption($selected, $tblId, $needCol, $table, $where, $needwhere)
 {
     $table = DB()->table($table);
@@ -172,6 +171,16 @@ function getIdByListInOption($selected, $tblId, $needCol, $table, $where, $needw
     return $options;
 }
 
+/**
+ * @description This function provides fetch image.
+ * @param string $url
+ * @param int|string $slug
+ * @param string $image
+ * @param string $no_image
+ * @param string $class
+ * @param int $id
+ * @return string
+ */
 function image_view($url, $slug, $image, $no_image, $class = '', $id = '')
 {
     $bas_url = base_url();
@@ -201,6 +210,16 @@ function image_view($url, $slug, $image, $no_image, $class = '', $id = '')
     return $result;
 }
 
+/**
+ * @description This function provides fetch multi image.
+ * @param string $url
+ * @param int|string $slug
+ * @param int|string $slug2
+ * @param string $image
+ * @param string $no_image
+ * @param string $class
+ * @return string
+ */
 function multi_image_view($url, $slug, $slug2, $image, $no_image, $class = '')
 {
     $bas_url = base_url();
@@ -227,52 +246,66 @@ function multi_image_view($url, $slug, $slug2, $image, $no_image, $class = '')
     return $result;
 }
 
+/**
+ * @description This function provides typically checks if a specific record exists in a database table based on certain conditions.
+ * @param string $table
+ * @param string $whereCol
+ * @param int|float|string|double $whereInfo
+ * @return bool
+ */
 function is_exists($table, $whereCol, $whereInfo)
 {
     $table = DB()->table($table);
     $query = $table->where($whereCol, $whereInfo)->countAllResults();
-    if (!empty($query)) {
-        $col = false;
-    } else {
-        $col = true;
-    }
-    return $col;
+    return !empty($query) ? false : true;
 }
 
+/**
+ * @description This function provides typically checks if a specific record exists in a database table based on certain conditions.
+ * @param string $table
+ * @param string $whereCol
+ * @param int|float|string|double $whereInfo
+ * @param string $orWhereCol
+ * @param int|float|string|double $orWhereInfo
+ * @return bool
+ */
 function is_exists_double_condition($table, $whereCol, $whereInfo, $orWhereCol, $orWhereInfo)
 {
     $table = DB()->table($table);
     $query = $table->where($whereCol, $whereInfo)->where($orWhereCol, $orWhereInfo)->countAllResults();
-    if (!empty($query)) {
-        $col = false;
-    } else {
-        $col = true;
-    }
-    return $col;
+    return !empty($query)?false:true;
 }
 
+/**
+ * @description This function provides typically checks if a specific record exists in a database table based on certain conditions.
+ * @param string $table
+ * @param string $whereCol
+ * @param int|float|string|double $whereInfo
+ * @param string $whereId
+ * @param int|float|string|double $id
+ * @return bool
+ */
 function is_exists_update($table, $whereCol, $whereInfo, $whereId, $id)
 {
     $table = DB()->table($table);
     $query = $table->where($whereCol, $whereInfo)->where($whereId . ' !=', $id)->countAllResults();
-    if (!empty($query)) {
-        $col = false;
-    } else {
-        $col = true;
-    }
-    return $col;
+    return !empty($query)?false:true;
 }
 
-function add_main_based_menu_with_permission($title, $url, $roleId, $icon, $module_name)
-{
-
+/**
+ * @description This function provides adds a menu item with specific permissions based on the role id.
+ * @param string $title
+ * @param string $url
+ * @param int $roleId
+ * @param string $icon
+ * @param string $module_name
+ * @return string|void
+ */
+function add_main_based_menu_with_permission($title, $url, $roleId, $icon, $module_name){
     $active_url = current_url(true);
-
     $permission = new Permission();
 
-    // $module_name = ucfirst($url);
     $menu = '';
-
     $access = $permission->have_access($roleId, $module_name, 'mod_access');
     if ($access == 1) {
         $class_active = ($active_url === $url) ? 'active' : '';
@@ -285,30 +318,36 @@ function add_main_based_menu_with_permission($title, $url, $roleId, $icon, $modu
     }
 }
 
+/**
+ * @description This function provides adds a menu item with all permissions based on the role id.
+ * @param array $module_name_array
+ * @param int $role_id
+ * @return bool
+ */
 function all_menu_permission_check($module_name_array, $role_id)
 {
     $permission = new Permission();
-
     foreach ($module_name_array as $module_name) {
         $access[] = $permission->have_access($role_id, $module_name, 'mod_access');
     }
-
-    if (empty(array_filter($access))) {
-        $result = false;
-    } else {
-        $result = true;
-    }
-
-    return $result;
+    return empty(array_filter($access)) ? false : true;
 }
 
+/**
+ * @description This function provides admin username.
+ * @return string
+ */
 function admin_user_name()
 {
     $userId = newSession()->adUserId;
     $table = DB()->table('cc_users');
-    $query = $table->where('user_id', $userId)->get()->getRow()->name;
-    return $query;
+    return $table->where('user_id', $userId)->get()->getRow()->name;
 }
+
+/**
+ * @description This function provides settings value data.
+ * @return array
+ */
 function get_settings(){
     $table = DB()->table('cc_settings');
     $data = $table->get()->getResult();
@@ -323,6 +362,11 @@ function get_settings(){
     }
     return $settings;
 }
+
+/**
+ * @description This function provides settings title data.
+ * @return array
+ */
 function get_settings_title(){
     $table = DB()->table('cc_settings');
     $data = $table->get()->getResult();
@@ -338,6 +382,10 @@ function get_settings_title(){
     return $settings;
 }
 
+/**
+ * @description This function provides theme settings value data.
+ * @return array
+ */
 function get_theme_settings(){
 
     $settings = get_settings();
@@ -354,6 +402,11 @@ function get_theme_settings(){
     }
     return $settings;
 }
+
+/**
+ * @description This function provides theme settings title data.
+ * @return array
+ */
 function get_theme_title_settings(){
 
     $settings = get_settings();
@@ -371,6 +424,10 @@ function get_theme_title_settings(){
     return $settings;
 }
 
+/**
+ * @description This function provides modules data.
+ * @return array
+ */
 function modules_access()
 {
     $table = DB()->table('cc_modules');
@@ -386,30 +443,35 @@ function modules_access()
     return $settings;
 }
 
+/**
+ * @description This function provides label by settings data.
+ * @param string $lable
+ * @return string
+ */
 function get_lebel_by_value_in_settings($lable)
 {
     $table = DB()->table('cc_settings');
     $data = $table->where('label', $lable)->get()->getRow();
-    if (!empty($data)) {
-        $result = $data->value;
-    } else {
-        $result = '';
-    }
-    return $result;
+    return !empty($data)?$data->value:'';
 }
 
+/**
+ * @description This function provides label by settings data.
+ * @param string $lable
+ * @return string
+ */
 function get_lebel_by_title_in_settings($lable)
 {
     $table = DB()->table('cc_settings');
     $data = $table->where('label', $lable)->get()->getRow();
-    if (!empty($data)) {
-        $result = $data->title;
-    } else {
-        $result = '';
-    }
-    return $result;
+    return !empty($data)?$data->title:'';
 }
 
+/**
+ * @description This function provides a list of items or records that belong to a parent category based on a selected category
+ * @param int $selected
+ * @return string
+ */
 function getListInParentCategory($selected)
 {
     $table = DB()->table('cc_product_category');
@@ -423,44 +485,56 @@ function getListInParentCategory($selected)
     return $options;
 }
 
+/**
+ * @description This function provides array of parent categories
+ * @return array
+ */
 function getParentCategoryArray()
 {
     $table = DB()->table('cc_product_category');
-    $query = $table->where('parent_id', null)->get()->getResult();
-    return $query;
+    return $table->where('parent_id', null)->get()->getResult();
 }
 
+/**
+ * @description This function provides the given subcategory array by category id.
+ * @param int $cat_id
+ * @return array
+ */
 function getCategoryBySubArray($cat_id)
 {
     $table = DB()->table('cc_product_category');
-    $query = $table->where('parent_id', $cat_id)->orderBy('sort_order', 'ASC')->get()->getResult();
-    return $query;
+    return $table->where('parent_id', $cat_id)->orderBy('sort_order', 'ASC')->get()->getResult();
 }
 
+/**
+ * @description This function provides checks if the given product_category_id exists and return data.
+ * @param int $product_category_id
+ * @return integer
+ */
 function check_is_parent_category($product_category_id)
 {
     $table = DB()->table('cc_product_category');
     $cat = $table->where('prod_cat_id', $product_category_id)->get()->getRow();
-    if (!empty($cat->parent_id)) {
-        $result = $cat->parent_id;
-    } else {
-        $result = $cat->prod_cat_id;
-    }
-    return $result;
+    return !empty($cat->parent_id)?$cat->parent_id:$cat->prod_cat_id;
 }
 
+/**
+ * @description This function provides checks if the given product_category_id exists and return data.
+ * @param int $product_category_id
+ * @return bool
+ */
 function check_is_sub_category($product_category_id)
 {
     $table = DB()->table('cc_product_category');
     $cat = $table->where('prod_cat_id', $product_category_id)->get()->getRow();
-    if (!empty($cat->parent_id)) {
-        $result = false;
-    } else {
-        $result = true;
-    }
-    return $result;
+    return !empty($cat->parent_id)? false : true;
 }
 
+/**
+ * @description This function provides available theme and selected.
+ * @param string $sel
+ * @return string
+ */
 function available_theme($sel = '')
 {
     helper('filesystem');
@@ -473,6 +547,11 @@ function available_theme($sel = '')
     return $view;
 }
 
+/**
+ * @description This function provides all country and selected.
+ * @param int $sel
+ * @return string
+ */
 function country($sel = '')
 {
     $table = DB()->table('cc_country');
@@ -486,6 +565,12 @@ function country($sel = '')
     return $options;
 }
 
+/**
+ * @description This function provides all country and selected state.
+ * @param int $country
+ * @param int $sel
+ * @return string
+ */
 function state_with_country($country, $sel = '')
 {
     $table = DB()->table('cc_zone');
@@ -499,30 +584,49 @@ function state_with_country($country, $sel = '')
     return $options;
 }
 
+/**
+ * @description This function provides all attribute by product id.
+ * @param int $productId
+ * @return array
+ */
 function attribute_array_by_product_id($productId)
 {
     $table = DB()->table('cc_product_attribute');
     $query = $table->where('product_id', $productId)->get()->getResult();
-
     return $query;
 }
 
+/**
+ * @description This function provides all data from a database table by table name.
+ * @param string $table
+ * @return array
+ */
 function get_all_data_array($table)
 {
     $tableSel = DB()->table($table);
     $query = $tableSel->get()->getResult();
-
     return $query;
 }
 
+/**
+ * @description This function provides all data from a database table by condition.
+ * @param string $table
+ * @param string $whereInfo
+ * @param int|float|string $whereId
+ * @return array
+ */
 function get_array_data_by_id($table, $whereInfo, $whereId)
 {
     $tableSel = DB()->table($table);
     $query = $tableSel->where($whereInfo, $whereId)->get()->getResult();
-
     return $query;
 }
 
+/**
+ * @description This function provides counting product by category id.
+ * @param int $category_id
+ * @return int|string
+ */
 function category_id_by_product_count($category_id)
 {
     $table = DB()->table('cc_product_to_category');
@@ -530,6 +634,11 @@ function category_id_by_product_count($category_id)
     return $count;
 }
 
+/**
+ * @description This function provides counting review by product id.
+ * @param int $productId
+ * @return int|string
+ */
 function check_review($productId)
 {
     $table = DB()->table('cc_product_feedback');
@@ -537,6 +646,12 @@ function check_review($productId)
     return $count;
 }
 
+/**
+ * @description This function provides rating by product id.
+ * @param int $productId
+ * @param int $ratingCount
+ * @return string
+ */
 function product_id_by_rating($productId, $ratingCount = 0)
 {
 
@@ -572,6 +687,11 @@ function product_id_by_rating($productId, $ratingCount = 0)
     return $view;
 }
 
+/**
+ * @description This function provides rating average by product id.
+ * @param int $productId
+ * @return float|int
+ */
 function product_id_by_average_rating($productId)
 {
     $table = DB()->table('cc_product_feedback');
@@ -589,6 +709,11 @@ function product_id_by_average_rating($productId)
     return $average;
 }
 
+/**
+ * @description This function provides available template and selected.
+ * @param string $sel
+ * @return string
+ */
 function available_template($sel = '')
 {
     helper('filesystem');
@@ -602,6 +727,10 @@ function available_template($sel = '')
     return $view;
 }
 
+/**
+ * @description This function provides top menu.
+ * @return string
+ */
 function top_menu()
 {
     $table = DB()->table('cc_product_category');
@@ -614,68 +743,76 @@ function top_menu()
     return $view;
 }
 
+/**
+ * @description This function provides modules access by key.
+ * @param string $key
+ * @return string
+ */
 function modules_key_by_access($key)
 {
     $table = DB()->table('cc_modules');
     $data = $table->where('module_key', $key)->get()->getRow();
-    if (!empty($data)) {
-        $result = $data->status;
-    } else {
-        $result = '';
-    }
-    return $result;
+    return !empty($data)?$data->status:'';
 }
 
+/**
+ * @description This function provides theme settings value by label.
+ * @param string $lable
+ * @return string
+ */
 function get_lebel_by_value_in_theme_settings($lable)
 {
     $table = DB()->table('cc_theme_settings');
     $data = $table->where('label', $lable)->get()->getRow();
-    if (!empty($data)) {
-        $result = $data->value;
-    } else {
-        $result = '';
-    }
-    return $result;
+    return !empty($data)?$data->value:'';
 }
 
+/**
+ * @description This function provides theme settings title by label.
+ * @param string $lable
+ * @return string
+ */
 function get_lebel_by_title_in_theme_settings($lable)
 {
     $table = DB()->table('cc_theme_settings');
     $data = $table->where('label', $lable)->get()->getRow();
-    if (!empty($data)) {
-        $result = $data->title;
-    } else {
-        $result = '';
-    }
-    return $result;
+    return !empty($data)?$data->title:'';
 }
 
+/**
+ * @description This function provides theme settings title with theme by label.
+ * @param string $lable
+ * @param string $theme
+ * @return string
+ */
 function get_lebel_by_title_in_theme_settings_with_theme($lable, $theme)
 {
     $table = DB()->table('cc_theme_settings');
     $data = $table->where('label', $lable)->where('theme', $theme)->get()->getRow();
-    if (!empty($data)) {
-        $result = $data->title;
-    } else {
-        $result = '';
-    }
-    return $result;
+    return !empty($data)?$data->title:'';
 }
 
+/**
+ * @description This function provides theme settings value with theme by label.
+ * @param string $lable
+ * @param string $theme
+ * @return string
+ */
 function get_lebel_by_value_in_theme_settings_with_theme($lable, $theme)
 {
     $table = DB()->table('cc_theme_settings');
     $data = $table->where('label', $lable)->where('theme', $theme)->get()->getRow();
-    if (!empty($data)) {
-        $result = $data->value;
-    } else {
-        $result = '';
-    }
-    return $result;
+    return !empty($data)? $data->value :'';
 }
 
-
-
+/**
+ * @description This function provides email configuration and send.
+ * @param string $to
+ * @param string $subject
+ * @param string $message
+ * @param string $replyTo
+ * @return void
+ */
 function email_send($to, $subject, $message,$replyTo='')
 {
 
@@ -714,6 +851,11 @@ function email_send($to, $subject, $message,$replyTo='')
     }
 }
 
+/**
+ * @description This function provides Return the formatted money with the currency symbol
+ * @param int|float $amount
+ * @return string
+ */
 function currency_symbol($amount) // Deprecated
 {
     $symbol = get_lebel_by_value_in_settings('currency_symbol');
@@ -725,6 +867,12 @@ function currency_symbol($amount) // Deprecated
     return $result;
 }
 
+/**
+ * @description This function provides Return the formatted money with the currency symbol
+ * @param int|float $amount
+ * @param string $symbol
+ * @return string
+ */
 function currency_symbol_with_symbol($amount,$symbol) {
     $cur = !empty($amount) ? $amount : 0;
     $split = explode('.', $cur);
@@ -734,6 +882,11 @@ function currency_symbol_with_symbol($amount,$symbol) {
     return $result;
 }
 
+/**
+ * @description This function provides order email template
+ * @param int $orderId
+ * @return string
+ */
 function order_email_template($orderId)
 {
     $table = DB()->table('cc_order');
@@ -906,6 +1059,13 @@ function order_email_template($orderId)
     return $view;
 }
 
+/**
+ * @description This function provides success email template
+ * @param string $title
+ * @param string $message
+ * @param string $url
+ * @return string
+ */
 function success_email_template($title, $message, $url)
 {
     $address = get_lebel_by_value_in_settings('address');
@@ -948,24 +1108,35 @@ function success_email_template($title, $message, $url)
     return $view;
 }
 
+/**
+ * @description This function provides order status by order id.
+ * @param int $order_id
+ * @return false|null
+ */
 function order_id_by_status($order_id)
 {
     $table = DB()->table('cc_order_history');
     $order = $table->where('order_id', $order_id)->get()->getLastRow();
-
-    $status = get_data_by_id('name', 'cc_order_status', 'order_status_id', $order->order_status_id);
-
-    return $status;
+    return get_data_by_id('name', 'cc_order_status', 'order_status_id', $order->order_status_id);
 }
 
+/**
+ * @description This function provides all side menu.
+ * @return array
+ */
 function getSideMenuArray()
 {
     $table = DB()->table('cc_product_category');
     $table->join('cc_icons','cc_icons.icon_id = cc_product_category.icon_id');
-    $query = $table->where('cc_product_category.side_menu', 1)->orderBy('cc_product_category.sort_order', 'ASC')->get()->getResult();
-    return $query;
+    return $table->where('cc_product_category.side_menu', 1)->orderBy('cc_product_category.sort_order', 'ASC')->get()->getResult();
+
 }
 
+/**
+ * @description This function provides add to cart button by product id.
+ * @param int $product_id
+ * @return string
+ */
 function addToCartBtn($product_id)
 {
     $qtyCheck = get_data_by_id('quantity', 'cc_products', 'product_id', $product_id);
@@ -984,6 +1155,11 @@ function addToCartBtn($product_id)
     return $btn;
 }
 
+/**
+ * @description This function provides add to cart icon button by product id.
+ * @param int $product_id
+ * @return string
+ */
 function addToCartBtnIcon($product_id)
 {
     $qtyCheck = get_data_by_id('quantity', 'cc_products', 'product_id', $product_id);
@@ -1003,40 +1179,61 @@ function addToCartBtnIcon($product_id)
     return $btn;
 }
 
+/**
+ * @description This function provides option value by product id or option id.
+ * @param int $option_id
+ * @param int $product_id
+ * @return array
+ */
 function option_id_or_product_id_by_option_value($option_id, $product_id)
 {
     $table = DB()->table('cc_product_option');
-    $data = $table->where('option_id', $option_id)->where('product_id', $product_id)->get()->getResult();
-    return $data;
+    return $table->where('option_id', $option_id)->where('product_id', $product_id)->get()->getResult();
+
 }
 
+/**
+ * @description This function provides order option by order item id.
+ * @param int $order_item_id
+ * @return array
+ */
 function order_iten_id_by_order_options($order_item_id)
 {
     $table = DB()->table('cc_order_option');
-    $data = $table->where('order_item_id', $order_item_id)->get()->getResult();
-    return $data;
+    return $table->where('order_item_id', $order_item_id)->get()->getResult();
 }
 
+/**
+ * @description This function provides row data from a database table where a specific column matches a given value.
+ * @param string $table
+ * @param string $whereCol
+ * @param int|float|string $whereInfo
+ * @return array
+ */
 function get_all_row_data_by_id($table, $whereCol, $whereInfo)
 {
     $db = \Config\Database::connect();
     $tabledta = $db->table($table);
-    $result = $tabledta->where($whereCol, $whereInfo)->get()->getRow();
-    return $result;
+    return $tabledta->where($whereCol, $whereInfo)->get()->getRow();
 }
 
+/**
+ * @description This function provides model settings value by modelId or label.
+ * @param int $modelId
+ * @param string $label
+ * @return int
+ */
 function get_model_settings_value_by_modelId_or_label($modelId, $label)
 {
     $table = DB()->table('cc_module_settings');
     $row = $table->where('module_id', $modelId)->where('label', $label)->get()->getRow();
-    $data = 0;
-    if (!empty($row)) {
-        $data = $row->value;
-    }
-    return $data;
+    return !empty($row)?$row->value:0;
 }
 
-
+/**
+ * @description This function provides paypal settings.
+ * @return array
+ */
 function paypal_settings()
 {
     $rowApi = get_all_row_data_by_id('cc_payment_settings', 'label', 'api_url');
@@ -1059,7 +1256,12 @@ function paypal_settings()
     return $settings;
 }
 
-//this function only in used Theme 3
+/**
+ * @description This function provides all product by category id.
+ * @description this function only in used Theme 3.
+ * @param int $category_id
+ * @return string
+ */
 function get_category_id_by_product_show_home_slide($category_id)
 {
     $table = DB()->table('cc_products');
@@ -1067,6 +1269,7 @@ function get_category_id_by_product_show_home_slide($category_id)
     $result = $table->where('cc_product_to_category.category_id', $category_id)->orderBy('cc_products.product_id','DESC')->limit(20)->get()->getResult();
     $modules = modules_access();
     $symbol = get_lebel_by_value_in_settings('currency_symbol');
+    $img_size = ($modules['watermark'] == '1')?'191_wm_':'191_';
     $view = '';
     $count = 0;
     foreach ($result as $pro) {
@@ -1093,7 +1296,7 @@ function get_category_id_by_product_show_home_slide($category_id)
         }
 
         $view .= '<div class="product-top mb-2">
-                    ' . image_view('uploads/products', $pro->product_id, '191_' . $pro->image, 'noimage.png', 'img-fluid w-100') . '                    
+                    ' . image_view('uploads/products', $pro->product_id, $img_size . $pro->image, 'noimage.png', 'img-fluid w-100') . '                    
                 </div>
                 <div class="product-bottom mt-auto">
                     <div class="product-title product_title_area mb-2">
@@ -1120,14 +1323,22 @@ function get_category_id_by_product_show_home_slide($category_id)
 
 }
 
-
-
+/**
+ * @description This function provides category name by category id.
+ * @param int $cate_id
+ * @return mixed
+ */
 function get_category_name_by_id($cate_id){
     $table = DB()->table('cc_product_category');
     $cat = $table->where('prod_cat_id', $cate_id)->get()->getRow();
     return $cat->category_name;
 }
 
+/**
+ * @description This function provides counting parent category by category id.
+ * @param int $cate_id
+ * @return int|void|null
+ */
 function category_parent_count($cate_id){
     $table = DB()->table('cc_product_category');
     $cat = $table->where('prod_cat_id', $cate_id)->get()->getRow();
@@ -1136,7 +1347,11 @@ function category_parent_count($cate_id){
     }
 }
 
-
+/**
+ * @description This function provides category show with parent category by category id.
+ * @param int $cate_id
+ * @return void
+ */
 function display_category_with_parent($cate_id)
 {
     $catName = array();
@@ -1163,6 +1378,10 @@ function display_category_with_parent($cate_id)
 
 }
 
+/**
+ * @description This function provides rate type zone base.
+ * @return string[]
+ */
 function zone_rate_type(){
     $status = [
         '1' => 'Weight',
@@ -1171,9 +1390,14 @@ function zone_rate_type(){
     ];
     return $status;
 }
+
+/**
+ * @description This function provides all category by category id.
+ * @param int $cat_id
+ * @return array
+ */
 function category_id_by_get_category_all_data($cat_id){
     $table = DB()->table('cc_product_category');
-    $data = $table->join('cc_icons','cc_icons.icon_id = cc_product_category.icon_id')->where('cc_product_category.prod_cat_id',$cat_id)->get()->getRow();
-    return $data;
+    return $table->join('cc_icons','cc_icons.icon_id = cc_product_category.icon_id')->where('cc_product_category.prod_cat_id',$cat_id)->get()->getRow();
 }
 

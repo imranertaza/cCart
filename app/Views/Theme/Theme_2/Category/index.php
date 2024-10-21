@@ -46,12 +46,19 @@
                                 </div>
                             </div>
 
+                            <?php
+                            $modules = modules_access();
+                            $symbol = get_lebel_by_value_in_settings('currency_symbol');
+                            $img_size_198 = ($modules['watermark'] == '1')?'198_wm_':'198_';
+                            $img_size = ($modules['watermark'] == '1')?'191_wm_':'191_';
+                            ?>
+
                             <div class="products cat-pro-mob">
                                 <div class="row gx-0 row-cols-1 row-cols-sm-2 row-cols-md-3 h-100 " id="grid-view" >
                                     <?php if (!empty($products)){foreach ($products as $pro){ ?>
                                         <div class="col border p-2">
                                             <div class="product-grid h-100 d-flex align-items-stretch flex-column position-relative">
-                                                <?php if (modules_key_by_access('wishlist') == 1) { ?>
+                                                <?php if ($modules['wishlist'] == 1) { ?>
                                                     <?php if (!isset(newSession()->isLoggedInCustomer)){ ?>
 
                                                         <a href="<?php echo base_url('login');?>" class="btn-wishlist position-absolute  mt-2 ms-2"><i class="fa-solid fa-heart"></i>
@@ -66,7 +73,7 @@
 
                                                     <?php } ?>
                                                 <?php } ?>
-                                                <?php if (modules_key_by_access('compare') == 1) { ?>
+                                                <?php if ($modules['compare'] == 1) { ?>
 
                                                     <a href="javascript:void(0)" onclick="addToCompare(<?php echo $pro->product_id ?>)" class="btn-compare position-absolute  mt-5 ms-2"><i class="fa-solid fa-code-compare"></i>
                                                         <span class="btn-compare-text position-absolute  mt-5 ms-2">Compare</span>
@@ -75,7 +82,7 @@
                                                 <?php } ?>
 
                                                 <div class="product-top text-center">
-                                                    <a href="<?php echo base_url('detail/'.$pro->product_id)?>"><?php echo image_view('uploads/products',$pro->product_id,'191_'.$pro->image,'noimage.png','img-fluid ')?></a>
+                                                    <a href="<?php echo base_url('detail/'.$pro->product_id)?>"><?php echo image_view('uploads/products',$pro->product_id,$img_size .$pro->image,'noimage.png','img-fluid ')?></a>
                                                     <div class="rating text-center my-2">
                                                         <?php echo product_id_by_rating($pro->product_id);?>
                                                     </div>
@@ -86,9 +93,9 @@
                                                     </div>
                                                     <div class="price mb-3">
                                                         <?php $spPric = get_data_by_id('special_price','cc_product_special','product_id',$pro->product_id);  if (empty($spPric)){ ?>
-                                                            <?php echo currency_symbol($pro->price);?>
+                                                            <?php echo currency_symbol_with_symbol($pro->price,$symbol);?>
                                                         <?php }else{ ?>
-                                                            <small class="off-price" > <del><?php echo currency_symbol($pro->price);?></del></small> <?php echo currency_symbol($spPric);?>
+                                                            <small class="off-price" > <del><?php echo currency_symbol_with_symbol($pro->price,$symbol);?></del></small> <?php echo currency_symbol_with_symbol($spPric,$symbol);?>
                                                         <?php } ?>
                                                     </div>
                                                     <?php echo addToCartBtn($pro->product_id);?>
@@ -103,7 +110,7 @@
                                     <?php foreach ($products as $pro){ ?>
                                         <div class="col-md-12 border p-2 ">
                                             <div class="product-grid h-100 d-flex align-items-stretch  position-relative">
-                                                <?php if (modules_key_by_access('wishlist') == 1) { ?>
+                                                <?php if ($modules['wishlist'] == 1) { ?>
                                                     <?php if (!isset(newSession()->isLoggedInCustomer)){ ?>
 
                                                         <a href="<?php echo base_url('login');?>" class="btn-wishlist position-absolute  mt-2 ms-2" style="bottom:58%;"><i class="fa-solid fa-heart"></i>
@@ -118,7 +125,7 @@
 
                                                     <?php } ?>
                                                 <?php } ?>
-                                                <?php if (modules_key_by_access('compare') == 1) { ?>
+                                                <?php if ($modules['compare'] == 1) { ?>
 
                                                     <a href="javascript:void(0)" onclick="addToCompare(<?php echo $pro->product_id ?>)" class="btn-compare position-absolute  mt-5 ms-2"><i class="fa-solid fa-code-compare"></i>
                                                         <span class="btn-compare-text position-absolute  mt-5 ms-2">Compare</span>
@@ -127,7 +134,7 @@
                                                 <?php } ?>
 
                                                 <div class="product-top text-center" style="width:40%;float:left; " >
-                                                    <a href="<?php echo base_url('detail/'.$pro->product_id)?>"><?php echo image_view('uploads/products',$pro->product_id,'198_'.$pro->image,'noimage.png','img-fluid ')?></a>
+                                                    <a href="<?php echo base_url('detail/'.$pro->product_id)?>"><?php echo image_view('uploads/products',$pro->product_id,$img_size_198 .$pro->image,'noimage.png','img-fluid ')?></a>
 
                                                 </div>
 
@@ -144,9 +151,9 @@
 
                                                     <div class="price mb-3">
                                                         <?php $spPric = get_data_by_id('special_price','cc_product_special','product_id',$pro->product_id);  if (empty($spPric)){ ?>
-                                                            <?php echo currency_symbol($pro->price);?>
+                                                            <?php echo currency_symbol_with_symbol($pro->price,$symbol);?>
                                                         <?php }else{ ?>
-                                                            <small class="off-price" > <del><?php echo currency_symbol($pro->price);?></del></small> <?php echo currency_symbol($spPric);?>
+                                                            <small class="off-price" > <del><?php echo currency_symbol_with_symbol($pro->price,$symbol);?></del></small> <?php echo currency_symbol_with_symbol($spPric,$symbol);?>
                                                         <?php } ?>
                                                     </div>
                                                     <?php echo addToCartBtn($pro->product_id);?>
@@ -233,7 +240,7 @@
 
                                        <?php echo $brandView;?>
 
-                                        <?php if(modules_key_by_access('review') == '1' ){ echo $ratingView; }?>
+                                        <?php if($modules['review'] == '1' ){ echo $ratingView; }?>
 
                                     </div>
                                 </div>`;
@@ -308,7 +315,7 @@
 
                                         <?php echo $brandView;?>
 
-                                        <?php if(modules_key_by_access('review') == '1' ){ echo $ratingView; }?>
+                                        <?php if($modules['review'] == '1' ){ echo $ratingView; }?>
                                         </div>
                                     </div>
                                 </div>

@@ -13,6 +13,7 @@
                             <?php
                             $symbol = get_lebel_by_value_in_settings('currency_symbol');
                             $modules = modules_access();
+                            $img_size = ($modules['watermark'] == '1')?'191_wm_':'191_';
                             foreach ($allProd as $pro){ ?>
                                 <div class="col border p-2">
                                     <div class="product-grid h-100 d-flex align-items-stretch flex-column position-relative">
@@ -43,7 +44,7 @@
 
 
                                         <div class="product-top">
-                                            <a href="<?php echo base_url('detail/'.$pro['product_id'])?>"><?php echo image_view('uploads/products',$pro['product_id'],'191_'.$pro['image'],'noimage.png','img-fluid w-100')?></a>
+                                            <a href="<?php echo base_url('detail/'.$pro['product_id'])?>"><?php echo image_view('uploads/products',$pro['product_id'],$img_size.$pro['image'],'noimage.png','img-fluid w-100')?></a>
                                             <div class="rating text-center my-2">
                                                 <?php echo product_id_by_rating($pro['product_id']);?>
                                             </div>

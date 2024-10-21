@@ -4,6 +4,7 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Libraries\Permission;
+use CodeIgniter\HTTP\RedirectResponse;
 
 class Theme_settings_3 extends BaseController
 {
@@ -22,6 +23,10 @@ class Theme_settings_3 extends BaseController
         $this->permission = new Permission();
     }
 
+    /**
+     * @description This method provides theme settings page view
+     * @return RedirectResponse|void
+     */
     public function index()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
@@ -50,6 +55,10 @@ class Theme_settings_3 extends BaseController
         }
     }
 
+    /**
+     * @description This method update header section one update
+     * @return RedirectResponse
+     */
     public function header_section_one_update(){
         $data['head_side_title_1'] = $this->request->getPost('head_side_title_1');
         $data['head_side_category_1'] = $this->request->getPost('head_side_category_1');
@@ -80,6 +89,10 @@ class Theme_settings_3 extends BaseController
         return redirect()->to('admin/theme_settings?sel=home_settings');
     }
 
+    /**
+     * @description This method update header section two update
+     * @return RedirectResponse
+     */
     public function header_section_two_update(){
         $data['head_side_title_2'] = $this->request->getPost('head_side_title_2');
         $data['head_side_category_2'] = $this->request->getPost('head_side_category_2');
@@ -110,7 +123,10 @@ class Theme_settings_3 extends BaseController
         return redirect()->to('admin/theme_settings?sel=home_settings');
     }
 
-
+    /**
+     * @description This method update home category update
+     * @return RedirectResponse
+     */
     public function home_category_update(){
         $prefix = $this->request->getPost('prefix');
         $data['home_category_'.$prefix] = $this->request->getPost('home_category_'.$prefix);
@@ -142,6 +158,10 @@ class Theme_settings_3 extends BaseController
         return redirect()->to('admin/theme_settings?sel=home_settings');
     }
 
+    /**
+     * @description This method update banner bottom update
+     * @return RedirectResponse
+     */
     public function banner_bottom_update(){
         if (!empty($_FILES['banner_bottom']['name'])) {
             $target_dir = FCPATH . '/uploads/banner_bottom/';
@@ -157,24 +177,24 @@ class Theme_settings_3 extends BaseController
             $this->crop->withFile($target_dir . '' . $namePic)->fit(1116, 211, 'center')->save($target_dir . '' . $news_img);
             unlink($target_dir . '' . $namePic);
             $data['value'] = $news_img;
-        }
-        
-        
+
+
             $table = DB()->table('cc_theme_settings');
             $table->where('label', 'banner_bottom')->update($data);
-        
 
-        $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Update Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-        return redirect()->to('admin/theme_settings?sel=home_settings');
+
+            $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Update Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            return redirect()->to('admin/theme_settings?sel=home_settings');
+        }else{
+            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Image field is required! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            return redirect()->to('admin/theme_settings?sel=home_settings');
+        }
     }
 
-
-
-
-
-
-    // old code
-
+    /**
+     * @description This method update slider
+     * @return RedirectResponse
+     */
     public function slider_update()
     {
         $nameslider = $this->request->getPost('nameslider');
@@ -207,6 +227,10 @@ class Theme_settings_3 extends BaseController
 
     }
 
+    /**
+     * @description This method update logo
+     * @return RedirectResponse
+     */
     public function logo_update()
     {
 
@@ -220,10 +244,6 @@ class Theme_settings_3 extends BaseController
             $pic = $this->request->getFile('side_logo');
             $namePic = 'logo_' . $pic->getRandomName();
             $pic->move($target_dir, $namePic);
-//            $news_img = 'logo_' . $pic->getName();
-//            $this->crop->withFile($target_dir . '' . $namePic)->fit(150, 90, 'center')->save($target_dir . '' . $news_img);
-//            unlink($target_dir . '' . $namePic);
-//            $data['value'] = $news_img;
             $data['value'] = $namePic;
 
             $table = DB()->table('cc_theme_settings');
@@ -239,6 +259,10 @@ class Theme_settings_3 extends BaseController
 
     }
 
+    /**
+     * @description This method update home category banner
+     * @return RedirectResponse
+     */
     public function home_category_banner()
     {
 
@@ -270,6 +294,10 @@ class Theme_settings_3 extends BaseController
 
     }
 
+    /**
+     * @description This method update home category
+     * @return RedirectResponse
+     */
     public function home_category()
     {
 
@@ -295,6 +323,10 @@ class Theme_settings_3 extends BaseController
 
     }
 
+    /**
+     * @description This method update settings
+     * @return RedirectResponse
+     */
     public function settings_update()
     {
 
@@ -318,6 +350,10 @@ class Theme_settings_3 extends BaseController
 
     }
 
+    /**
+     * @description This method update home special banner
+     * @return RedirectResponse
+     */
     public function home_special_banner()
     {
         if (!empty($_FILES['special_banner']['name'])) {
@@ -346,6 +382,10 @@ class Theme_settings_3 extends BaseController
         }
     }
 
+    /**
+     * @description This method update home left side banner
+     * @return RedirectResponse
+     */
     public function home_left_side_banner()
     {
         $label = $this->request->getPost('label');

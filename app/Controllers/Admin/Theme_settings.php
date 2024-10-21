@@ -7,6 +7,7 @@ use App\Libraries\Permission;
 use App\Libraries\Theme_2;
 use App\Libraries\Theme_3;
 use App\Libraries\Theme_default;
+use CodeIgniter\HTTP\RedirectResponse;
 
 class Theme_settings extends BaseController
 {
@@ -31,6 +32,10 @@ class Theme_settings extends BaseController
         $this->theme_default = new Theme_default();
     }
 
+    /**
+     * @description This method provides theme settings page view
+     * @return RedirectResponse|void
+     */
     public function index()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
@@ -74,6 +79,10 @@ class Theme_settings extends BaseController
         }
     }
 
+    /**
+     * @description This method update slider
+     * @return RedirectResponse
+     */
     public function slider_update()
     {
         $nameslider = $this->request->getPost('nameslider');
@@ -118,6 +127,10 @@ class Theme_settings extends BaseController
 
     }
 
+    /**
+     * @description This method update logo
+     * @return RedirectResponse
+     */
     public function logo_update()
     {
         $theme = get_lebel_by_value_in_settings('Theme');
@@ -160,6 +173,10 @@ class Theme_settings extends BaseController
 
     }
 
+    /**
+     * @description This method update favicon
+     * @return RedirectResponse
+     */
     public function favicon_update()
     {
 
@@ -193,7 +210,10 @@ class Theme_settings extends BaseController
 
     }
 
-
+    /**
+     * @description This method update home category banner
+     * @return RedirectResponse
+     */
     public function home_category_banner()
     {
 
@@ -225,6 +245,10 @@ class Theme_settings extends BaseController
 
     }
 
+    /**
+     * @description This method update home category
+     * @return RedirectResponse
+     */
     public function home_category()
     {
 
@@ -250,6 +274,10 @@ class Theme_settings extends BaseController
 
     }
 
+    /**
+     * @description This method update settings
+     * @return RedirectResponse
+     */
     public function settings_update()
     {
 
@@ -273,6 +301,10 @@ class Theme_settings extends BaseController
 
     }
 
+    /**
+     * @description This method update home special banner
+     * @return RedirectResponse
+     */
     public function home_special_banner()
     {
         if (!empty($_FILES['special_banner']['name'])) {
@@ -301,6 +333,10 @@ class Theme_settings extends BaseController
         }
     }
 
+    /**
+     * @description This method update home left side banner
+     * @return RedirectResponse
+     */
     public function home_left_side_banner()
     {
         $label = $this->request->getPost('label');

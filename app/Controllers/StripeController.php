@@ -7,6 +7,7 @@ use App\Libraries\Mycart;
 use App\Libraries\Weight_shipping;
 use App\Libraries\Zone_shipping;
 use App\Models\ProductsModel;
+use CodeIgniter\HTTP\RedirectResponse;
 use Stripe;
 
 class StripeController extends BaseController {
@@ -31,6 +32,10 @@ class StripeController extends BaseController {
         $this->cart = new Mycart();
     }
 
+    /**
+     * @description This method provides stripe page view
+     * @return void
+     */
     public function payment_stripe(){
         $settings = get_settings();
         $array = $this->session_data();
@@ -44,6 +49,11 @@ class StripeController extends BaseController {
         echo view('Theme/'.$settings['Theme'].'/footer');
     }
 
+    /**
+     * @description This method provides stripe api page view
+     * @return RedirectResponse
+     * @throws Stripe\Exception\ApiErrorException
+     */
     public function stripe_create_charge(){
         $secret_key = get_all_row_data_by_id('cc_payment_settings', 'label', 'secret_key');
         Stripe\Stripe::setApiKey($secret_key->value);
@@ -66,7 +76,10 @@ class StripeController extends BaseController {
 
     }
 
-
+    /**
+     * @description This method provides stripe checkout action execute
+     * @return RedirectResponse
+     */
     public function stripe_action(){
 
         $data['payment_firstname'] = $this->session->payment_firstname;
@@ -213,6 +226,10 @@ class StripeController extends BaseController {
         return redirect()->to('checkout_success');
     }
 
+    /**
+     * @description This method provides all data store session array.
+     * @return array
+     */
     private function session_data()
     {
         $data['payment_firstname'] = $this->request->getPost('payment_firstname');
@@ -252,6 +269,10 @@ class StripeController extends BaseController {
         return $data;
     }
 
+    /**
+     * @description This method provides all data remove session array.
+     * @return void
+     */
     private function sessionDestry()
     {
         unset($_SESSION['payment_firstname']);

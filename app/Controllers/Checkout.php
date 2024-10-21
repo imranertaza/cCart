@@ -8,7 +8,8 @@ use App\Libraries\Zone_rate_shipping;
 use App\Libraries\Zone_shipping;
 use App\Libraries\Flat_shipping;
 use App\Models\ProductsModel;
-
+use CodeIgniter\HTTP\RedirectResponse;
+use CodeIgniter\HTTP\ResponseInterface;
 
 
 class Checkout extends BaseController
@@ -35,6 +36,10 @@ class Checkout extends BaseController
         $this->cart = new Mycart();
     }
 
+    /**
+     * @description This method provides checkout page view
+     * @return RedirectResponse|void
+     */
     public function index()
     {
 
@@ -59,6 +64,10 @@ class Checkout extends BaseController
         }
     }
 
+    /**
+     * @description This method provides coupon discount action execute
+     * @return RedirectResponse|void
+     */
     public function coupon_action()
     {
         $coupon_code = $this->request->getPost('coupon');
@@ -132,6 +141,10 @@ class Checkout extends BaseController
         }
     }
 
+    /**
+     * @description This method provides country list
+     * @return void
+     */
     public function country_zoon()
     {
         $country_id = $this->request->getPost('country_id');
@@ -146,6 +159,10 @@ class Checkout extends BaseController
         print $options;
     }
 
+    /**
+     * @description This method provides checkout action execute
+     * @return RedirectResponse
+     */
     public function checkout_action() {
 
         if (!empty($this->cart->contents())) {
@@ -364,8 +381,10 @@ class Checkout extends BaseController
         }
     }
 
-
-
+    /**
+     * @description This method provides shipping rate
+     * @return ResponseInterface
+     */
     public function shipping_rate()
     {
 
@@ -392,6 +411,10 @@ class Checkout extends BaseController
         return $this->response->setJSON($data);
     }
 
+    /**
+     * @description This method provides checkout success page view
+     * @return void
+     */
     public function success()
     {
         $settings = get_settings();
@@ -405,6 +428,10 @@ class Checkout extends BaseController
         echo view('Theme/' . $settings['Theme'] . '/footer');
     }
 
+    /**
+     * @description This method provides checkout failed page view
+     * @return void
+     */
     public function failed()
     {
         $settings = get_settings();
@@ -418,6 +445,10 @@ class Checkout extends BaseController
         echo view('Theme/' . $settings['Theme'] . '/footer');
     }
 
+    /**
+     * @description This method provides checkout canceled page view
+     * @return void
+     */
     public function canceled()
     {
         $settings = get_settings();
@@ -431,7 +462,10 @@ class Checkout extends BaseController
         echo view('Theme/' . $settings['Theme'] . '/footer');
     }
 
-
+    /**
+     * @description This method provides payment instruction view
+     * @return void
+     */
     public function payment_instruction()
     {
         $payment_method_id = $this->request->getPost('id');
@@ -450,6 +484,13 @@ class Checkout extends BaseController
         print $view;
     }
 
+    /**
+     * @description This method provides shipping charge view
+     * @param int $city_id
+     * @param int $shipCityId
+     * @param string $shipping_method
+     * @return int|string
+     */
     private function shipping_charge($city_id,$shipCityId,$shipping_method)
     {
 
