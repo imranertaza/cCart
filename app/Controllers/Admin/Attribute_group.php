@@ -4,6 +4,7 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Libraries\Permission;
+use CodeIgniter\HTTP\RedirectResponse;
 
 class Attribute_group extends BaseController
 {
@@ -22,6 +23,10 @@ class Attribute_group extends BaseController
         $this->permission = new Permission();
     }
 
+    /**
+     * @description This method provides attribute page view
+     * @return RedirectResponse|void
+     */
     public function index()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
@@ -50,6 +55,10 @@ class Attribute_group extends BaseController
         }
     }
 
+    /**
+     * @description This method provides create page view
+     * @return RedirectResponse|void
+     */
     public function create(){
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId = $this->session->adRoleId;
@@ -73,6 +82,10 @@ class Attribute_group extends BaseController
         }
     }
 
+    /**
+     * @description This method store attribute group
+     * @return RedirectResponse
+     */
     public function create_action()
     {
         $data['name'] = $this->request->getPost('name');
@@ -94,6 +107,11 @@ class Attribute_group extends BaseController
         }
     }
 
+    /**
+     * @description This method provides update page view
+     * @param int $attribute_group_id
+     * @return RedirectResponse|void
+     */
     public function update($attribute_group_id)
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
@@ -122,6 +140,10 @@ class Attribute_group extends BaseController
         }
     }
 
+    /**
+     * @description This method update attribute group
+     * @return RedirectResponse
+     */
     public function update_action()
     {
         $attribute_group_id = $this->request->getPost('attribute_group_id');
@@ -146,6 +168,11 @@ class Attribute_group extends BaseController
         }
     }
 
+    /**
+     * @description This method delete attribute group
+     * @param int $attribute_group_id
+     * @return RedirectResponse
+     */
     public function delete($attribute_group_id){
 
         $check = is_exists('cc_product_attribute','attribute_group_id',$attribute_group_id);

@@ -8,6 +8,10 @@
                             <?php $logoImg = get_lebel_by_value_in_theme_settings('side_logo');
                             echo image_view('uploads/logo','',$logoImg,'noimage.png','img-fluid');?>
                         </div>
+                        <?php
+                        $modules = modules_access();
+                        $img_size_100 = ($modules['watermark'] == '1')?'100_wm_':'100_';
+                        ?>
                         <div class="address">
                             <div class="icon float-start">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="20" viewBox="0 0 16 20" fill="none">
@@ -78,7 +82,7 @@
                                         <div class="img-table" style="width:12%; float:left;">
                                         <?php
                                         $img = get_data_by_id('image','cc_products','product_id',$item->product_id);
-                                        echo image_view('uploads/products',$item->product_id,'100_'.$img,'noimage.png','');
+                                        echo image_view('uploads/products',$item->product_id,$img_size_100 .$img,'noimage.png','');
                                         ?>
                                         </div>
                                         <div class="img-text" style="width:88%;float:left;">

@@ -3,6 +3,11 @@
 class Weight_shipping{
 
     private $shippingData;
+
+    /**
+     * @description This method provides shipping method.
+     * @return $this
+     */
     public function getSettings(){
         $shipping_method_id = get_data_by_id('shipping_method_id','cc_shipping_method','code','weight');
 
@@ -12,6 +17,10 @@ class Weight_shipping{
         return $this;
     }
 
+    /**
+     * @description This method provides calculate shipping rate.
+     * @return string
+     */
     public function calculateShipping() {
         $weight = 0;
         $value = 0;
@@ -36,6 +45,10 @@ class Weight_shipping{
         return $value;
     }
 
+    /**
+     * @description This method provides product shipping eligible.
+     * @return array
+     */
     public function get_shipping_eligible_product(): array
     {
         $eligible_product = array();

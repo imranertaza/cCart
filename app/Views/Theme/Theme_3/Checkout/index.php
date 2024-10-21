@@ -4,7 +4,10 @@
         <form id="checkout-form" onsubmit="return onchackoutsubmit()" action="<?php echo base_url('checkout_action')  ?>" method="post">
             <div class="row">
                 <div class="col-lg-12 ">
-                    <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message'); endif; ?>
+                    <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message'); endif;
+                    $modules = modules_access();
+                    $img_size = ($modules['watermark'] == '1')?'100_wm_':'100_';
+                    ?>
                 </div>
                 <div class="col-lg-6">
                     <?php $isLoggedInCustomer = newSession()->isLoggedInCustomer;
@@ -264,7 +267,7 @@
                                     $img = get_data_by_id('image', 'cc_products', 'product_id', $val['id']);
                                     $des = get_data_by_id('description', 'cc_product_description', 'product_id', $val['id']);
                                     ?>
-                                <?php echo image_view('uploads/products', $val['id'], '100_' . $img, 'noimage.png', 'img-fluid w-h-100') ?>
+                                <?php echo image_view('uploads/products', $val['id'], $img_size . $img, 'noimage.png', 'img-fluid w-h-100') ?>
                                 <div>
                                     <p class="fw-semibold mb-2"><?php echo $val['name']; ?></p>
                                     <p class="lh-sm">

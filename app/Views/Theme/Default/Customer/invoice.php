@@ -60,6 +60,10 @@
                         </div>
                     </div>
                 </div>
+                <?php
+                $modules = modules_access();
+                $img_size_100 = ($modules['watermark'] == '1')?'100_wm_':'100_';
+                ?>
                 <div class="col-md-12 mt-5">
                     <table class="table table-borderless table-responsive">
                         <thead>
@@ -75,7 +79,7 @@
                             <tr>
                                 <td><?php
                                     $img = get_data_by_id('image','cc_products','product_id',$item->product_id);
-                                    echo image_view('uploads/products',$item->product_id,'100_'.$img,'noimage.png','');
+                                    echo image_view('uploads/products',$item->product_id,$img_size_100 .$img,'noimage.png','');
                                 ?>
                                     <?php echo get_data_by_id('name','cc_products','product_id',$item->product_id) ;?>
                                 </td>

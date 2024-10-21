@@ -10,18 +10,26 @@
                                     <div class="banner-slider">
                                         <div class="thumb_plus_video">
                                             <div class="row">
+                                                <?php
+                                                $modules = modules_access();
+                                                $symbol = get_lebel_by_value_in_settings('currency_symbol');
+                                                $img_size_100 = ($modules['watermark'] == '1')?'100_wm_':'100_';
+                                                $img_size_198 = ($modules['watermark'] == '1')?'198_wm_':'198_';
+                                                $img_size = ($modules['watermark'] == '1')?'191_wm_':'191_';
+                                                $img_size_437 = ($modules['watermark'] == '1')?'437_wm_':'437_';
+                                                ?>
                                                 <div class="col-2 col-sm-3 col-md-2 col-lg-3 px-0">
                                                     <div class="slider slider-nav thumb-image">
                                                         <div class="thumbnail-image">
                                                             <div class="thumbImg">
-                                                                <?php echo image_view('uploads/products', $products->product_id, '100_' . $products->image, 'noimage.png', 'img-fluid') ?>
+                                                                <?php echo image_view('uploads/products', $products->product_id, $img_size_100 . $products->image, 'noimage.png', 'img-fluid') ?>
                                                             </div>
                                                         </div>
 
                                                         <?php
                                                         if (!empty($proImg)) {
                                                             foreach ($proImg as $imgval) {
-                                                                echo '<div class="thumbnail-image"><div class="thumbImg">' . multi_image_view('uploads/products', $imgval->product_id, $imgval->product_image_id, '100_' . $imgval->image, 'noimage.png', 'img-fluid') . '</div></div>';
+                                                                echo '<div class="thumbnail-image"><div class="thumbImg">' . multi_image_view('uploads/products', $imgval->product_id, $imgval->product_image_id, $img_size_100 . $imgval->image, 'noimage.png', 'img-fluid') . '</div></div>';
                                                             }
                                                         }
                                                         ?>
@@ -30,7 +38,7 @@
                                                             <div class="thumbImg video-thum">
                                                                 <a href="javascript:void(0)" data-bs-toggle="modal"
                                                                     data-bs-target="#videoeModal">
-                                                                    <?php echo image_view('uploads/products', $products->product_id, '100_' . $products->image, 'noimage.png', 'img-fluid') ?>
+                                                                    <?php echo image_view('uploads/products', $products->product_id, $img_size_100 . $products->image, 'noimage.png', 'img-fluid') ?>
                                                                     <img src="<?php echo base_url('uploads/play.png') ?>"
                                                                         alt="" class="play-image">
                                                                 </a>
@@ -43,13 +51,13 @@
                                                 <div class="col-10 col-sm-9 col-md-10 col-lg-9">
                                                     <div class="slider slider-for slider-cus-css">
                                                         <div class="slider-banner-image">
-                                                            <?php echo image_view('uploads/products', $products->product_id, '437_' . $products->image, 'noimage.png', 'img-fluid') ?>
+                                                            <?php echo image_view('uploads/products', $products->product_id, $img_size_437 . $products->image, 'noimage.png', 'img-fluid') ?>
                                                         </div>
 
                                                         <?php
                                                         if (!empty($proImg)) {
                                                             foreach ($proImg as $imgval) {
-                                                                echo '<div class="slider-banner-image">' . multi_image_view('uploads/products', $imgval->product_id, $imgval->product_image_id, '437_' . $imgval->image, 'noimage.png', 'img-fluid') . '</div>';
+                                                                echo '<div class="slider-banner-image">' . multi_image_view('uploads/products', $imgval->product_id, $imgval->product_image_id, $img_size_437 . $imgval->image, 'noimage.png', 'img-fluid') . '</div>';
                                                             }
                                                         }
                                                         ?>
@@ -459,7 +467,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4 mb-3">
-                    <?php echo image_view('uploads/products', $products->product_id, '437_' . $products->image, 'noimage.png', 'img-fluid w-100') ?>
+                    <?php echo image_view('uploads/products', $products->product_id, $img_size_437 . $products->image, 'noimage.png', 'img-fluid w-100') ?>
                 </div>
             </div>
         </div>
@@ -494,7 +502,7 @@
                                                 <div
                                                     class="product-grid h-100 d-flex align-items-stretch flex-column position-relative">
                                                     <div class="product-top border p-2">
-                                                        <?php echo image_view('uploads/products', $both->product_id, '191_' . $both->image, 'noimage.png', 'img-fluid w-100') ?>
+                                                        <?php echo image_view('uploads/products', $both->product_id, $img_size . $both->image, 'noimage.png', 'img-fluid w-100') ?>
                                                         <input type="checkbox" name="both_product[]"
                                                             onchange="bothPriceCalculat()"
                                                             class="form-check-input check-input"
@@ -601,7 +609,7 @@
                                     <?php } ?>
                                     <div class="product-top text-center">
                                         <a
-                                            href="<?php echo base_url('detail/' . $rPro->product_id) ?>"><?php echo image_view('uploads/products', $rPro->product_id, '191_' . $rPro->image, 'noimage.png', 'img-fluid ') ?></a>
+                                            href="<?php echo base_url('detail/' . $rPro->product_id) ?>"><?php echo image_view('uploads/products', $rPro->product_id, $img_size . $rPro->image, 'noimage.png', 'img-fluid ') ?></a>
                                         <div class="rating text-center my-2">
                                             <?php echo product_id_by_rating($rPro->product_id); ?>
                                         </div>
@@ -697,7 +705,7 @@
                                     <?php } ?>
                                     <div class="product-top text-center">
                                         <a
-                                            href="<?php echo base_url('detail/' . $rPro->product_id) ?>"><?php echo image_view('uploads/products', $rPro->product_id, '191_' . $rPro->image, 'noimage.png', 'img-fluid ') ?></a>
+                                            href="<?php echo base_url('detail/' . $rPro->product_id) ?>"><?php echo image_view('uploads/products', $rPro->product_id, $img_size . $rPro->image, 'noimage.png', 'img-fluid ') ?></a>
                                         <div class="rating text-center my-2">
                                             <?php echo product_id_by_rating($rPro->product_id); ?>
                                         </div>

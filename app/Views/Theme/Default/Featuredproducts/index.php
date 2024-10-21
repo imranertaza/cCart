@@ -9,7 +9,10 @@
                 <div class="card-body">
                     <div class="products h-100">
                         <div class="row gx-0 row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-5 h-100">
-
+                            <?php
+                            $modules = modules_access();
+                            $img_size_191 = ($modules['watermark'] == '1')?'191_wm_':'191_';
+                            ?>
                             <?php foreach ($products as $pro){ ?>
                                 <div class="col border p-2">
                                     <div class="product-grid h-100 d-flex align-items-stretch flex-column position-relative">
@@ -24,7 +27,7 @@
                                         <a href="javascript:void(0)" onclick="addToCompare(<?php echo $pro->product_id ?>)" class="btn-compare position-absolute start-0 top-0 mt-5 ms-2"><i class="fa-solid fa-code-compare"></i></a>
                                         <?php } ?>
                                         <div class="product-top">
-                                            <?php echo image_view('uploads/products',$pro->product_id,'191_'.$pro->image,'noimage.png','img-fluid w-100')?>
+                                            <?php echo image_view('uploads/products',$pro->product_id,$img_size_191 .$pro->image,'noimage.png','img-fluid w-100')?>
                                             <div class="rating text-center my-2">
                                                 <?php echo product_id_by_rating($pro->product_id);?>
                                             </div>

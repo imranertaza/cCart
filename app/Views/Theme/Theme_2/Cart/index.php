@@ -7,6 +7,10 @@
                     endif; ?>
                 </div>
             </div>
+            <?php
+            $modules = modules_access();
+            $img_size_100 = ($modules['watermark'] == '1')?'100_wm_':'100_';
+            ?>
             <div class="table-responsive">
                 <table class="cart-table w-100 text-center ">
                     <thead>
@@ -28,7 +32,7 @@
                                 <td class="product-thumbnail mo-text-center">
                                     <a href="#">
                                         <?php $img = get_data_by_id('image', 'cc_products', 'product_id', $val['id']); ?>
-                                        <?php echo image_view('uploads/products', $val['id'], '100_' . $img, 'noimage.png', 'img-fluid') ?>
+                                        <?php echo image_view('uploads/products', $val['id'], $img_size_100 . $img, 'noimage.png', 'img-fluid') ?>
                                     </a>
                                 </td>
                                 <td class="product-name text-start mo-text-center">

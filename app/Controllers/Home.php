@@ -12,6 +12,11 @@ class Home extends BaseController {
         $this->validation = \Config\Services::validation();
         $this->session = \Config\Services::session();
     }
+
+    /**
+     * @description This method provides home page view
+     * @return void
+     */
     public function index(){
         $settings = get_settings();
         $theme = $settings['Theme'];
@@ -35,61 +40,76 @@ class Home extends BaseController {
         echo view('Theme/'.$settings['Theme'].'/Home/index',$data);
         echo view('Theme/'.$settings['Theme'].'/footer');
     }
+
+    /**
+     * @description This method provides default theme function
+     * @return array
+     */
     private function Default(){
-        $settings = get_settings();
-        $category = $settings['home_category'];
+        $theme_settings = get_theme_settings();
+        $category = $theme_settings['home_category'];
         $table = DB()->table('cc_products');
         $table->join('cc_product_to_category', 'cc_product_to_category.product_id = cc_products.product_id')->where('cc_products.status', 'Active');
         $data['products'] = $table->where('cc_product_to_category.category_id', $category)->limit(4)->get()->getResult();
 
-        $featLimit = $settings['featured_products_limit'];
+        $featLimit = $theme_settings['featured_products_limit'];
         $data['prodFeat'] = $table->where('status', 'Active')->where('featured', '1')->orderBy('product_id', 'DESC')->limit($featLimit)->get()->getResult();
 
         return $data;
     }
+
+    /**
+     * @description This method provides theme 2 function
+     * @return array
+     */
     private function Theme_2(){
-        $settings = get_settings();
-        $hot_deals_category = $settings['hot_deals_category'];
+        $theme_settings = get_theme_settings();
+        $hot_deals_category = $theme_settings['hot_deals_category'];
         $table = DB()->table('cc_products');
         $table->join('cc_product_to_category', 'cc_product_to_category.product_id = cc_products.product_id')->where('cc_products.status', 'Active');
-        $data['hotProSide'] = $table->where('cc_product_to_category.category_id', $hot_deals_category)->get()->getResult();
+        $data['hotProSide'] = $table->where('cc_product_to_category.category_id', $hot_deals_category)->limit(20)->get()->getResult();
 
         $table->join('cc_product_to_category', 'cc_product_to_category.product_id = cc_products.product_id')->where('cc_products.status', 'Active');
         $data['hotProlimit'] = $table->where('cc_product_to_category.category_id', $hot_deals_category)->limit(3)->get()->getResult();
 
         //trending_collection_category
-        $tr_col_category = $settings['trending_collection_category'];
+        $tr_col_category = $theme_settings['trending_collection_category'];
         $table = DB()->table('cc_products');
         $table->join('cc_product_to_category', 'cc_product_to_category.product_id = cc_products.product_id')->where('cc_products.status', 'Active');
-        $data['tranPro'] = $table->where('cc_product_to_category.category_id', $tr_col_category)->get()->getResult();
+        $data['tranPro'] = $table->where('cc_product_to_category.category_id', $tr_col_category)->limit(20)->get()->getResult();
 
         // product special
         $table = DB()->table('cc_products');
         $table->join('cc_product_special', 'cc_product_special.product_id = cc_products.product_id')->where('cc_products.status', 'Active');
         $data['specialPro'] = $table->limit(7)->get()->getResult();
 
-        $spc_category = $settings['special_category_one'];
+        $spc_category = $theme_settings['special_category_one'];
         $table = DB()->table('cc_products');
         $table->join('cc_product_to_category', 'cc_product_to_category.product_id = cc_products.product_id')->where('cc_products.status', 'Active');
-        $data['special_category_onePro'] = $table->where('cc_product_to_category.category_id', $spc_category)->get()->getResult();
+        $data['special_category_onePro'] = $table->where('cc_product_to_category.category_id', $spc_category)->limit(20)->get()->getResult();
         $data['special_category_one_name'] = get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $spc_category);
 
-        $spc_category = $settings['special_category_two'];
+        $spc_category = $theme_settings['special_category_two'];
         $table = DB()->table('cc_products');
         $table->join('cc_product_to_category', 'cc_product_to_category.product_id = cc_products.product_id')->where('cc_products.status', 'Active');
-        $data['special_category_twoPro'] = $table->where('cc_product_to_category.category_id', $spc_category)->get()->getResult();
+        $data['special_category_twoPro'] = $table->where('cc_product_to_category.category_id', $spc_category)->limit(20)->get()->getResult();
         $data['special_category_two_name'] = get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $spc_category);
 
-        $spc_category = $settings['special_category_three'];
+        $spc_category = $theme_settings['special_category_three'];
         $table = DB()->table('cc_products');
         $table->join('cc_product_to_category', 'cc_product_to_category.product_id = cc_products.product_id')->where('cc_products.status', 'Active');
-        $data['special_category_threePro'] = $table->where('cc_product_to_category.category_id', $spc_category)->get()->getResult();
+        $data['special_category_threePro'] = $table->where('cc_product_to_category.category_id', $spc_category)->limit(20)->get()->getResult();
         $data['special_category_three_name'] = get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $spc_category);
 
         $data['productsetc'] = $table->where('status', 'Active')->limit(3)->get()->getResult();
 
         return $data;
     }
+
+    /**
+     * @description This method provides theme 3 function
+     * @return array
+     */
     private function Theme_3(){
         $tabShopBy = DB()->table('cc_product_category_shop_by');
         $tabShopBy->join('cc_product_category','cc_product_category.prod_cat_id = cc_product_category_shop_by.prod_cat_id')->join('cc_icons','cc_icons.icon_id = cc_product_category.icon_id');
@@ -97,6 +117,10 @@ class Home extends BaseController {
         return $data;
     }
 
+    /**
+     * @description This method provides user subscription store
+     * @return void
+     */
     public function user_subscribe(){
         $email = $this->request->getPost('email');
 
