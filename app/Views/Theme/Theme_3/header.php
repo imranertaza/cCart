@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
     <link rel="stylesheet" href="<?php echo base_url() ?>/assets/assets_fl/style.css">
     <link rel="stylesheet" href="<?php echo base_url() ?>/assets/assets_fl/details.css">
-    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/assets_fl/lightbox.min.css">
+<!--    <link rel="stylesheet" href="--><?php //echo base_url() ?><!--/assets/assets_fl/lightbox.min.css">-->
 
     <script src="<?php echo base_url() ?>/assets/assets_fl/jquery.min.js"></script>
     <script src="<?php echo base_url() ?>/assets/assets_fl/bootstrap.bundle.min.js"></script>
@@ -129,9 +129,9 @@
                                     <a class="nav-link" aria-current="page" href="<?php echo base_url() ?>">Home</a>
                                   </li>
                                   <?php echo top_menu(); ?>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="<?php echo base_url('qc_picture') ?>">Qc Picture</a>
-                                    </li>
+<!--                                    <li class="nav-item">-->
+<!--                                        <a class="nav-link" href="--><?php //echo base_url('qc_picture') ?><!--">Qc Picture</a>-->
+<!--                                    </li>-->
                                   <li class="nav-item">
                                     <a class="nav-link" href="<?php echo base_url('page/about-us') ?>">About Us</a>
                                   </li>
