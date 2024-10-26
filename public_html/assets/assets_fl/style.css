@@ -2393,3 +2393,6 @@ li div {
 ul > li:last-child {
     border-left: 2px solid transparent;
 }
+.display_block{
+    display: block !important;
+}
