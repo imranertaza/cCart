@@ -84,8 +84,6 @@ const sliderParent = document.querySelector("#sliderIMG"),
   sub_img = document.querySelectorAll("#sliderIMG .sub_img"),
   sliderParentWidth = coverIMg.getBoundingClientRect().width;
 const singleItem = sub_img[0].offsetWidth; // sliderParent.offsetWidth / sub_img.length;
-console.log(sliderParent.offsetWidth);
-console.log(sub_img.length);
 let inc = 0;
 let prv;
 next.addEventListener("click", () => {
