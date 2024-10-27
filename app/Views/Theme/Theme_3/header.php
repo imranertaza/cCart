@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
     <link rel="stylesheet" href="<?php echo base_url() ?>/assets/assets_fl/style.css">
     <link rel="stylesheet" href="<?php echo base_url() ?>/assets/assets_fl/details.css">
+<!--    <link rel="stylesheet" href="--><?php //echo base_url() ?><!--/assets/assets_fl/lightbox.min.css">-->
 
     <script src="<?php echo base_url() ?>/assets/assets_fl/jquery.min.js"></script>
     <script src="<?php echo base_url() ?>/assets/assets_fl/bootstrap.bundle.min.js"></script>
@@ -33,9 +34,10 @@
 
 </head>
 <body>
-    <div class="message_alert" id="messAlt">
+    <div class="message_alert <?php echo (session()->getFlashdata('message') !== NULL) ? "display_block":''; ?>"  id="messAlt">
         <div class="alert-success_web py-2 px-3 border-0 text-white fs-5 text-capitalize" id="mesVal">
-            <?php print 'Successfully update to cart'; ?> </div>
+            <?php echo (session()->getFlashdata('message') !== NULL) ?  session()->getFlashdata('message'):'Successfully update to cart';  ?>
+        </div>
     </div>
     <?php $settings = get_settings();?>
     <header class="header bg-white">
@@ -127,6 +129,9 @@
                                     <a class="nav-link" aria-current="page" href="<?php echo base_url() ?>">Home</a>
                                   </li>
                                   <?php echo top_menu(); ?>
+<!--                                    <li class="nav-item">-->
+<!--                                        <a class="nav-link" href="--><?php //echo base_url('qc_picture') ?><!--">Qc Picture</a>-->
+<!--                                    </li>-->
                                   <li class="nav-item">
                                     <a class="nav-link" href="<?php echo base_url('page/about-us') ?>">About Us</a>
                                   </li>

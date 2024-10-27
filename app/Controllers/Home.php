@@ -11,6 +11,7 @@ class Home extends BaseController {
     {
         $this->validation = \Config\Services::validation();
         $this->session = \Config\Services::session();
+        $this->encrypter = \Config\Services::encrypter();
     }
 
     /**
@@ -125,22 +126,58 @@ class Home extends BaseController {
         $email = $this->request->getPost('email');
 
         if (!empty($email)){
-            if(is_exists('cc_newsletter','email',$email) == true) {
-                $newData['email'] = $email;
-                $newAd = DB()->table('cc_newsletter');
-                $newAd->insert($newData);
 
-                print "Thank you.Your subscription has been successfully completed";
+            $name = get_lebel_by_value_in_settings('store_name');
+            $otp = rand(100000,999999);
+            $url = base_url('user_subscribe_verify?email='.urlencode($this->encrypter->encrypt($email)).'&code='.urlencode($this->encrypter->encrypt($otp)));
+            $subject = 'Please Verify Your Email Address to Complete Your Subscription!';
+            $message = "Thank you for subscribing to ".$name."! Before we can start sending you our updates, we just need to confirm your email address.<br>                    
+                Please verify your email by clicking the link below: <a href='".$url."'>Verify My Email Address</a><br>                    
+                If you did not sign up for this subscription, please disregard this email.<br>                    
+                Thank you for choosing ".$name."!";
 
-                $subject = 'Subscription';
-                $message = "Thank you.Your subscription has been successfully completed";
-//            email_send($email,$subject,$message);
-            }else{
-                print 'Your email already exists';
-            }
+            $sessionArray = [
+                'otp' => $otp,
+                'email' => $email,
+            ];
+            $this->session->set($sessionArray);
+
+            email_send($email,$subject,$message);
+            print "Please Verify Your Email Address to Complete Your Subscription!";
+
         }else{
             print 'Email required';
         }
+    }
+
+    public function verify(){
+
+        $email = $this->request->getGetPost('email');
+        $code = $this->request->getGetPost('code');
+        if(!empty($email)) {
+            $email_decrypt = $this->encrypter->decrypt($email);
+            $otp_decrypt = $this->encrypter->decrypt($code);
+
+            if (($email_decrypt == $this->session->email) && ($otp_decrypt == $this->session->otp)) {
+                $newData['email'] = $email_decrypt;
+
+                if(is_exists('cc_newsletter','email',$email_decrypt) == false) {
+                    $newAd = DB()->table('cc_newsletter');
+                    $newAd->insert($newData);
+                }
+
+                setcookie('download_image', $email_decrypt, time() + (86400 * 365), "/");
+                $this->session->setFlashdata('message', '<div class="alert-success_web py-2 px-3 border-0 text-white fs-5 text-capitalize" role="alert">Subscribe successfully completed </div>');
+                return redirect()->to('/');
+            } else {
+                $this->session->setFlashdata('message', '<div class="alert-success_web py-2 px-3 border-0 text-white fs-5 text-capitalize" role="alert">Information not matching </div>');
+                return redirect()->to('/');
+            }
+        }else{
+            $this->session->setFlashdata('message', '<div class="alert-success_web py-2 px-3 border-0 text-white fs-5 text-capitalize" role="alert">Information not matching </div>');
+            return redirect()->to('/');
+        }
+
     }
 
 

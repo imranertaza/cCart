@@ -1401,3 +1401,18 @@ function category_id_by_get_category_all_data($cat_id){
     return $table->join('cc_icons','cc_icons.icon_id = cc_product_category.icon_id')->where('cc_product_category.prod_cat_id',$cat_id)->get()->getRow();
 }
 
+/**
+ * @description This function provides brand product count.
+ * @param int $brand_id
+ * @param array $products
+ * @return int
+ */
+function product_count_by_brand_id($brand_id,$products){
+    $count = 0;
+    foreach ($products as $v){
+        if($v->brand_id == $brand_id){
+            $count++;
+        }
+    }
+    return $count;
+}

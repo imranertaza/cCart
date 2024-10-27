@@ -276,3 +276,5 @@
     </div>
 
 </main>
+
+<script src="<?php echo base_url() ?>/assets/assets_fl/details.js"></script>
