@@ -88,7 +88,7 @@
                                     </svg>
                                     Contact us
                                 </a></li>
-                                <li><a href="#">
+                                <li><a href="<?php echo base_url('page/site-map') ?>">
                                     <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M5.11523 2.68945L4.32422 3.49805L9.82617 9L4.32422 14.502L5.11523 15.3105L11.4258 9L5.11523 2.68945ZM9.05273 2.68945L8.26172 3.49805L13.7637 9L8.26172 14.502L9.05273 15.3105L15.3633 9L9.05273 2.68945Z" fill="white"/>
                                     </svg>
@@ -247,7 +247,7 @@
     </section>
 
 <script src="<?php echo base_url() ?>/assets/assets_fl/script.js"></script>
-<script src="<?php echo base_url() ?>/assets/assets_fl/details.js"></script>
+
 <script src="<?php echo base_url() ?>/assets/assets_fl/slick/slick.js" type="text/javascript" charset="utf-8"> </script>
 
 <script>
@@ -874,7 +874,7 @@
 
 
     $(document).ready(function() {
-        shippingCharge();
+        // shippingCharge();
         $('.toggleButton').click(function() {
             $(this).toggleClass('active');
             $(this).siblings('.elementToToggle').slideToggle();
@@ -966,44 +966,7 @@
     }
 
 
-    (function(){
-        const fonts = ["cursive"];
-        let captchaValue = "";
-        function gencaptcha()
-        {
-            let value = btoa(Math.random()*1000000000);
-            value = value.substr(0,5 + Math.random()*5);
-            captchaValue = value;
-        }
 
-        function setcaptcha()
-        {
-            let html = captchaValue.split("").map((char)=>{
-                const rotate = -20 + Math.trunc(Math.random()*30);
-                const font = Math.trunc(Math.random()*fonts.length);
-                return`<span
-		            style="
-		            transform:rotate(${rotate}deg);
-		            font-family:${font[font]};
-		            "
-		           >${char} </span>`;
-            }).join("");
-            document.querySelector(".login_form #captcha .preview").innerHTML = html;
-            document.querySelector(".login_form #genaretCapt").value = captchaValue;
-        }
-
-        function initCaptcha(){
-            document.querySelector(".login_form #captcha .captcha_refersh").addEventListener("click",function(){
-                gencaptcha();
-                setcaptcha();
-            });
-
-            gencaptcha();
-            setcaptcha();
-        }
-        initCaptcha();
-
-    })();
 
 </script>
 <script src="<?php echo base_url() ?>/assets/assets_fl/validation.js" type="text/javascript" ></script>
