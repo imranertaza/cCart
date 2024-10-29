@@ -75,6 +75,18 @@ class Modules extends Seeder
                 'module_key' => 'multi_attribute',
                 'status' => 1,
             ],
+            [
+                'module_id' => 12,
+                'module_name' => 'Watermark Image attribute',
+                'module_key' => 'watermark',
+                'status' => 1,
+            ],
+            [
+                'module_id' => 13,
+                'module_name' => 'Multi Category',
+                'module_key' => 'multi_category',
+                'status' => 1,
+            ],
         ];
 
         // Using Query Builder

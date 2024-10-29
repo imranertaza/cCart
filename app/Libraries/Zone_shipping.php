@@ -26,6 +26,7 @@ class Zone_shipping{
 
     /**
      * @description This method provides calculate shipping rate.
+     * @param int $city
      * @return string
      */
     public function calculateShipping($city){

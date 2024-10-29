@@ -1,3 +1,7 @@
+
+<?= $this->extend('Admin/layout') ?>
+
+<?= $this->section('content') ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -34,7 +38,7 @@
                         <div class="icon">
                             <i class="ion ion-bag"></i>
                         </div>
-                      
+
                         <a href="<?php echo base_url('admin/order_list');?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
 
                     </div>
@@ -69,7 +73,7 @@
                         <div class="icon">
                             <i class="ion ion-bag"></i>
                         </div>
-                      
+
                         <a href="<?php echo base_url('admin/order_list');?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
 
                     </div>
@@ -86,7 +90,7 @@
                         <div class="icon">
                             <i class="ion ion-bag"></i>
                         </div>
-                      
+
                         <a href="<?php echo base_url('admin/order_list');?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
 
                     </div>
@@ -159,7 +163,7 @@
                     <div class="row ">
                         <div class="col-md-3 col-sm-6 col-12">
                             <div class="description-block border-right">
-<!--                                <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 17%</span>-->
+                                <!--                                <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 17%</span>-->
                                 <h5 class="description-header"><?php echo $order;?></h5>
                                 <span class="description-text">TOTAL SALE</span>
                             </div>
@@ -169,7 +173,7 @@
                         <!-- /.col -->
                         <div class="col-md-3 col-sm-6 col-12">
                             <div class="description-block border-right">
-<!--                                <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 20%</span>-->
+                                <!--                                <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 20%</span>-->
                                 <h5 class="description-header"><?php echo $orderYear;?></h5>
                                 <span class="description-text">TOTAL SALE THIS YEAR</span>
 
@@ -180,7 +184,7 @@
                         <!-- /.col -->
                         <div class="col-md-3 col-sm-6 col-12">
                             <div class="description-block border-right">
-<!--                                <span class="description-percentage text-warning"><i class="fas fa-caret-left"></i> 0%</span>-->
+                                <!--                                <span class="description-percentage text-warning"><i class="fas fa-caret-left"></i> 0%</span>-->
                                 <h5 class="description-header"><?php echo currency_symbol_with_symbol($orderAmo,$symbol); ?></h5>
                                 <span class="description-text">SALE AMOUNT</span>
                             </div>
@@ -189,7 +193,7 @@
                         <!-- /.col -->
                         <div class="col-md-3 col-sm-6 col-12">
                             <div class="description-block">
-<!--                                <span class="description-percentage text-danger"><i class="fas fa-caret-down"></i> 18%</span>-->
+                                <!--                                <span class="description-percentage text-danger"><i class="fas fa-caret-down"></i> 18%</span>-->
                                 <h5 class="description-header"><?php echo currency_symbol_with_symbol($orderAmoYear,$symbol); ?></h5>
                                 <span class="description-text">SALE AMOUNT THIS YEAR</span>
 
@@ -317,3 +321,11 @@
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+<?= $this->endSection() ?>
+
+<?= $this->section('java_script') ?>
+<script>
+
+</script>
+<?= $this->endSection() ?>
+
