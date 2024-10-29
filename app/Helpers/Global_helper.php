@@ -89,7 +89,7 @@ function get_data_by_id($needCol, $table, $whereCol, $whereInfo)
 
 /**
  * @description This function provides that likely displays or processes a status based on the selected value
- * @param $selected
+ * @param int $selected
  * @return string
  */
 function statusView($selected = '1')
@@ -108,7 +108,7 @@ function statusView($selected = '1')
 
 /**
  * @description This function provides that likely displays or processes a status based on the selected value
- * @param $selected
+ * @param int $selected
  * @return string
  */
 function globalStatus($selected = 'sel')
