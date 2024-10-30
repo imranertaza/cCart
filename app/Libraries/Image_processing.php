@@ -19,6 +19,7 @@ class Image_processing {
         $this->sx = imagesx($this->wm);
         $this->sy = imagesy($this->wm);
         $this->crop = Services::image();
+        $this->sizeArray = $this->selected_theme_libraries();
     }
 
     /**
@@ -26,6 +27,7 @@ class Image_processing {
      * @return Theme_2|Theme_3|Theme_default
      */
     public function selected_theme_libraries(){
+        helper('Global');
         $theme = get_lebel_by_value_in_settings('Theme');
         if($theme == 'Theme_3'){
             $libraries = new Theme_3();
@@ -36,8 +38,7 @@ class Image_processing {
         if($theme == 'Theme_2'){
             $libraries = new Theme_2();
         }
-        $this->sizeArray = $libraries->product_image;
-        return $libraries;
+        return $libraries->product_image;
     }
 
     /**
