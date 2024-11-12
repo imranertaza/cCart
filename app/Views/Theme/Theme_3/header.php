@@ -129,9 +129,11 @@
                                     <a class="nav-link" aria-current="page" href="<?php echo base_url() ?>">Home</a>
                                   </li>
                                   <?php echo top_menu(); ?>
+                                    <?php if ($modules['album'] == 1) { ?>
                                     <li class="nav-item">
                                         <a class="nav-link" href="<?php echo base_url('qc_picture') ?>">Qc Picture</a>
                                     </li>
+                                    <?php } ?>
                                   <li class="nav-item">
                                     <a class="nav-link" href="<?php echo base_url('page/about-us') ?>">About Us</a>
                                   </li>
