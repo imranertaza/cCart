@@ -218,7 +218,7 @@ class Products extends BaseController {
         $table = DB()->table('cc_product_option');
         $data = $table->where('option_id',$option_id)->where('product_id',$product_id)->get()->getResult();
         $view = '<ul class="list-unstyled filter-items mb-3">';
-        foreach($data as $key=> $opVal){
+        foreach($data as  $opVal){
             $fildName = str_replace(' ','',$name);
             $view .='<li class="mt-2"><input type="radio" class="btn-check" oninput="optionPriceCalculate('.$product_id.')"  name="'.strtolower($fildName).'" id="option_'.$opVal->option_value_id.'" value="'.$opVal->option_value_id.'"  autocomplete="off" required>';
 
@@ -247,7 +247,7 @@ class Products extends BaseController {
         $data = $table->where('option_id',$option_id)->where('product_id',$product_id)->get()->getResult();
         $fildName = str_replace(' ','',$name);
         $view = '<select name="'.strtolower($fildName).'"  onchange="optionPriceCalculate('.$product_id.')" class="form-control detail-select my-2" required><option value="" >Please select</option>';
-        foreach($data as $key=> $opVal){
+        foreach($data as $opVal){
             $nameVal = get_data_by_id('name','cc_option_value','option_value_id',$opVal->option_value_id);
             $firstCar =  mb_substr($nameVal, 0, 1); $length = strlen($nameVal);
             $isColor = (($firstCar == '#') && ($length == 7))?'':$nameVal;

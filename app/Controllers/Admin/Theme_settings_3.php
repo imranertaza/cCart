@@ -71,8 +71,8 @@ class Theme_settings_3 extends BaseController
             $namePic = $pic->getRandomName();
             $pic->move($target_dir, $namePic);
             $news_img = 'head_side_baner_' . $pic->getName();
-            $this->crop->withFile($target_dir . '' . $namePic)->fit(228, 199, 'center')->save($target_dir . '' . $news_img);
-            unlink($target_dir . '' . $namePic);
+            $this->crop->withFile($target_dir . $namePic)->fit(228, 199, 'center')->save($target_dir . $news_img);
+            unlink($target_dir . $namePic);
             $data['head_side_baner_1'] = $news_img;
         }
         
@@ -105,8 +105,8 @@ class Theme_settings_3 extends BaseController
             $namePic = $pic->getRandomName();
             $pic->move($target_dir, $namePic);
             $news_img = 'head_side_baner_' . $pic->getName();
-            $this->crop->withFile($target_dir . '' . $namePic)->fit(228, 199, 'center')->save($target_dir . '' . $news_img);
-            unlink($target_dir . '' . $namePic);
+            $this->crop->withFile($target_dir . $namePic)->fit(228, 199, 'center')->save($target_dir . $news_img);
+            unlink($target_dir . $namePic);
             $data['head_side_baner_2'] = $news_img;
         }
         
@@ -140,8 +140,8 @@ class Theme_settings_3 extends BaseController
             $namePic = $pic->getRandomName();
             $pic->move($target_dir, $namePic);
             $news_img = 'home_category_' . $pic->getName();
-            $this->crop->withFile($target_dir . '' . $namePic)->fit(271, 590, 'center')->save($target_dir . '' . $news_img,100);
-            unlink($target_dir . '' . $namePic);
+            $this->crop->withFile($target_dir . $namePic)->fit(271, 590, 'center')->save($target_dir . $news_img,100);
+            unlink($target_dir . $namePic);
             $data['home_category_baner_'.$prefix] = $news_img;
         }
         
@@ -171,8 +171,8 @@ class Theme_settings_3 extends BaseController
             $namePic = $pic->getRandomName();
             $pic->move($target_dir, $namePic);
             $news_img = 'banner_bottom_' . $pic->getName();
-            $this->crop->withFile($target_dir . '' . $namePic)->fit(1116, 211, 'center')->save($target_dir . '' . $news_img);
-            unlink($target_dir . '' . $namePic);
+            $this->crop->withFile($target_dir . $namePic)->fit(1116, 211, 'center')->save($target_dir . $news_img);
+            unlink($target_dir . $namePic);
             $data['value'] = $news_img;
 
 
@@ -207,8 +207,8 @@ class Theme_settings_3 extends BaseController
             $namePic = $pic->getRandomName();
             $pic->move($target_dir, $namePic);
             $news_img = 'slider_' . $pic->getName();
-            $this->crop->withFile($target_dir . '' . $namePic)->fit(837, 394, 'center')->save($target_dir . '' . $news_img);
-            unlink($target_dir . '' . $namePic);
+            $this->crop->withFile($target_dir . $namePic)->fit(837, 394, 'center')->save($target_dir . $news_img);
+            unlink($target_dir . $namePic);
             $data['value'] = $news_img;
 
             $table = DB()->table('cc_theme_settings');
@@ -274,8 +274,8 @@ class Theme_settings_3 extends BaseController
             $namePic = $pic->getRandomName();
             $pic->move($target_dir, $namePic);
             $news_img = 'banner_' . $pic->getName();
-            $this->crop->withFile($target_dir . '' . $namePic)->fit(280, 440, 'center')->save($target_dir . '' . $news_img);
-            unlink($target_dir . '' . $namePic);
+            $this->crop->withFile($target_dir . $namePic)->fit(280, 440, 'center')->save($target_dir .  $news_img);
+            unlink($target_dir .  $namePic);
             $data['value'] = $news_img;
 
             $table = DB()->table('cc_theme_settings');
@@ -341,8 +341,8 @@ class Theme_settings_3 extends BaseController
         $namePic = $pic->getRandomName();
         $pic->move($target_dir, $namePic);
         $news_img = 'sp_banner_' . $pic->getName();
-        $this->crop->withFile($target_dir . '' . $namePic)->fit(837, 190, 'center')->save($target_dir . '' . $news_img);
-        unlink($target_dir . '' . $namePic);
+        $this->crop->withFile($target_dir .  $namePic)->fit(837, 190, 'center')->save($target_dir . $news_img);
+        unlink($target_dir .  $namePic);
         $data['value'] = $news_img;
 
     }
@@ -364,8 +364,8 @@ class Theme_settings_3 extends BaseController
             $namePic = $pic->getRandomName();
             $pic->move($target_dir, $namePic);
             $news_img = 'sp_banner_' . $pic->getName();
-            $this->crop->withFile($target_dir . '' . $namePic)->fit(837, 190, 'center')->save($target_dir . '' . $news_img);
-            unlink($target_dir . '' . $namePic);
+            $this->crop->withFile($target_dir . $namePic)->fit(837, 190, 'center')->save($target_dir .  $news_img);
+            unlink($target_dir . $namePic);
             $data['value'] = $news_img;
 
             $table = DB()->table('cc_theme_settings');
@@ -397,8 +397,8 @@ class Theme_settings_3 extends BaseController
             $namePic = $pic->getRandomName();
             $pic->move($target_dir, $namePic);
             $news_img = 'left_banner_' . $pic->getName();
-            $this->crop->withFile($target_dir . '' . $namePic)->fit(262, 420, 'center')->save($target_dir . '' . $news_img);
-            unlink($target_dir . '' . $namePic);
+            $this->crop->withFile($target_dir . $namePic)->fit(262, 420, 'center')->save($target_dir . $news_img);
+            unlink($target_dir . $namePic);
             $data['value'] = $news_img;
 
             $table = DB()->table('cc_theme_settings');
