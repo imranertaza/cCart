@@ -1,3 +1,6 @@
+<?= $this->extend('Admin/layout') ?>
+
+<?= $this->section('content') ?>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -95,7 +98,7 @@
                                                             foreach ($icons as $valic) { ?>
                                                                 <div class="col-md-2  custom-control custom-radio">
                                                                     <input class="custom-control-input" <?php echo ($category->icon_id == $valic->icon_id) ? 'checked' : ''; ?> type="radio" id="customRadio_<?php echo $i++ ?>" name="icon_id" value="<?php echo $valic->icon_id; ?>">
-                                                                    <label for="customRadio_<?php echo $j++ ?>" class="custom-control-label"><?php echo $valic->code;//image_view('icons', '', $valic->name, 'no_image', '') ?></label>
+                                                                    <label for="customRadio_<?php echo $j++ ?>" class="custom-control-label"><?php echo $valic->code; ?></label>
                                                                 </div>
                                                             <?php } ?>
 
@@ -207,3 +210,11 @@
     </section>
     <!-- /.content -->
 </div>
+<?= $this->endSection() ?>
+
+
+<?= $this->section('java_script') ?>
+    <script>
+
+    </script>
+<?= $this->endSection() ?>

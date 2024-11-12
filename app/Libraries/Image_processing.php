@@ -6,24 +6,28 @@ use Config\Services;
 class Image_processing {
 
     private $wm;
-    private $marge_right = 50;
-    private $marge_bottom = 60;
+    private $marge_right = 30;
+    private $marge_bottom = 30;
     private $sx;
     private $sy;
     private $crop;
+    public $sizeArray;
+    private $quality = 100;
 
     public function __construct(){
         $this->wm = imagecreatefrompng(FCPATH . '/uploads/products/wm.png');
         $this->sx = imagesx($this->wm);
         $this->sy = imagesy($this->wm);
         $this->crop = Services::image();
+        $this->sizeArray = $this->selected_theme_libraries();
     }
 
     /**
-     * @description This method provides selected theme.
-     * @return string
+     * @description This function provides selected theme libraries
+     * @return Theme_2|Theme_3|Theme_default
      */
     public function selected_theme_libraries(){
+        helper('Global');
         $theme = get_lebel_by_value_in_settings('Theme');
         if($theme == 'Theme_3'){
             $libraries = new Theme_3();
@@ -34,11 +38,11 @@ class Image_processing {
         if($theme == 'Theme_2'){
             $libraries = new Theme_2();
         }
-        return $libraries;
+        return $libraries->product_image;
     }
 
     /**
-     * @description This method provides image unlink.
+     * @description This function provides image unlink
      * @param string $dir
      * @return $this
      */
@@ -50,7 +54,7 @@ class Image_processing {
     }
 
     /**
-     * @description This method provides product image upload.
+     * @description This function provides product image upload
      * @param string $file
      * @param string $dir
      * @return string
@@ -62,14 +66,19 @@ class Image_processing {
     }
 
     /**
-     * @description This method provides main image  watermark.
+     * @description This function provides watermark main image
      * @param string $dir
      * @param string $image
      * @return $this
      */
     public function watermark_main_image($dir,$image){
         if (!file_exists($dir . '/wm_' . $image)) {
-            $mainImg = imagecreatefromjpeg($dir . $image);
+
+            if (pathinfo($image, PATHINFO_EXTENSION) == 'png'){
+                $mainImg = imagecreatefrompng($dir . $image);
+            }else {
+                $mainImg = imagecreatefromjpeg($dir . $image);
+            }
             imagecopy($mainImg, $this->wm, imagesx($mainImg) - $this->sx - $this->marge_right, imagesy($mainImg) - $this->sy - $this->marge_bottom, 0, 0, imagesx($this->wm), imagesy($this->wm));
             imagePng($mainImg, $dir . 'wm_' . $image);
         }
@@ -77,16 +86,20 @@ class Image_processing {
     }
 
     /**
-     * @description This method provides watermark on image resize.
+     * @description This function provides watermark on resized image
      * @param string $dir
      * @param string $image
      * @return $this
      */
     public function watermark_on_resized_image($dir,$image){
         if (!file_exists($dir . '/600_wm_' . $image)) {
-            $this->crop->withFile($dir . '' . $image)->fit(600, 600, 'center')->save($dir . '600_' . $image);
+            $this->crop->withFile($dir . $image)->fit(600, 600, 'center')->save($dir . '600_' . $image ,$this->quality);
 
-            $mImg = imagecreatefromjpeg($dir . '600_' . $image);
+            if (pathinfo($image, PATHINFO_EXTENSION) == 'png'){
+                $mImg = imagecreatefrompng($dir . $image);
+            }else {
+                $mImg = imagecreatefromjpeg($dir . '600_' . $image);
+            }
             imagecopy($mImg, $this->wm, imagesx($mImg) - $this->sx - $this->marge_right, imagesy($mImg) - $this->sy - $this->marge_bottom, 0, 0, imagesx($this->wm), imagesy($this->wm));
             imagePng($mImg, $dir . '600_wm_' . $image);
 
@@ -96,23 +109,23 @@ class Image_processing {
     }
 
     /**
-     * @description This method provides all size image crop.
+     * @description This function provides image crop
      * @param string $dir
      * @param string $image
      * @param string $image_name
      * @return $this
      */
     public function image_crop($dir,$image,$image_name){
-        foreach($this->selected_theme_libraries()->product_image as $pro_img){
+        foreach($this->sizeArray as $pro_img){
             if (!file_exists($dir . '/' . $pro_img['width'] .'_' . $image_name)) {
-                $this->crop->withFile($dir . '' . $image)->fit($pro_img['width'], $pro_img['height'], 'center')->save($dir . $pro_img['width'] . '_' . $image_name,'100');
+                $this->crop->withFile($dir . '' . $image)->fit($pro_img['width'], $pro_img['height'], 'center')->save($dir . $pro_img['width'] . '_' . $image_name,$this->quality);
             }
         }
         return $this;
     }
 
     /**
-     * @description This method provides image unlink.
+     * @description This function provides single product image unlink
      * @param string $dir
      * @param string $image
      * @return $this
@@ -125,7 +138,7 @@ class Image_processing {
             $this->image_unlink($dir . '/wm_' . $mainImg);
             $this->image_unlink($dir . '/600_wm_' . $mainImg);
 
-            foreach($this->selected_theme_libraries()->product_image as $pro_img){
+            foreach($this->sizeArray as $pro_img){
                 $this->image_unlink($dir . '/' . $pro_img['width'] .'_' . $image);
                 $this->image_unlink($dir . '/' . $pro_img['width'] .'_wm_' . $image);
             }
@@ -134,7 +147,7 @@ class Image_processing {
     }
 
     /**
-     * @description This method provides image directory create.
+     * @description This function provides directory create
      * @param string $dir
      * @return $this
      */
@@ -146,7 +159,7 @@ class Image_processing {
     }
 
     /**
-     * @description This method provides image upload and crop all size with watermark.
+     * @description This function provides product image upload and crop all size
      * @param string $img
      * @param string $dir
      * @return string
@@ -157,7 +170,6 @@ class Image_processing {
         //image crop
         $image = str_replace('pro_', '', $news_img);
         $this->image_crop($dir,$image, $news_img);
-
         if ($modules['watermark'] == '1') {
             //image watermark
             $this->watermark_main_image($dir, $image);
@@ -165,6 +177,7 @@ class Image_processing {
             //image watermark crop
             $this->image_crop($dir, '600_wm_' . $image, 'wm_' . $news_img);
         }
+
         return $news_img;
     }
 

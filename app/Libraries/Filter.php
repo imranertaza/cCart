@@ -28,7 +28,7 @@ class Filter{
 
     /**
      * @description This method provides product option view and selected.
-     * @param int $optionSel
+     * @param array $optionSel
      * @return string
      */
     public function product_array_by_options($optionSel){
@@ -101,7 +101,7 @@ class Filter{
 
     /**
      * @description This method provides product brand and selected.
-     * @param int $brandSel
+     * @param array $brandSel
      * @return string
      */
     public function product_array_by_brand($brandSel){

@@ -1,3 +1,6 @@
+<?= $this->extend('Admin/layout') ?>
+
+<?= $this->section('content') ?>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -123,4 +126,36 @@
     </section>
     <!-- /.content -->
 </div>
+<?= $this->endSection() ?>
+
+<?= $this->section('java_script') ?>
+<script>
+    function allchecked(source) {
+        var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i] != source)
+                checkboxes[i].checked = source.checked;
+        }
+    }
+
+    function product_delete(id){
+        if (confirm('Do you want to delete it?')) {
+            $.ajax({
+                method: "POST",
+                url: "<?php echo base_url('admin/product_delete') ?>",
+                data: {product_id: id},
+                beforeSend: function () {
+                    $("#loading-image").show();
+                },
+                success: function (data) {
+                    $("#message").html(data);
+                    $('#hide_' + id).hide('slow');
+                }
+
+            });
+        }
+    }
+
+</script>
+<?= $this->endSection() ?>
 
