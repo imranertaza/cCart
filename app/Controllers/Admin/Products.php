@@ -453,8 +453,9 @@ class Products extends BaseController
 
 
             DB()->transComplete();
-            $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Create Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            return redirect()->to('admin/product_create');
+//            $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Create Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+//            return redirect()->to('admin/product_create');
+            echo '<div class="alert alert-success alert-dismissible" role="alert">Create Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
         }
     }
 
@@ -780,7 +781,7 @@ class Products extends BaseController
                 $this->imageProcessing->directory_create($target_dir);
 
                 $files = $this->request->getFileMultiple('multiImage');
-                foreach ($files as $key => $file) {
+                foreach ($files as  $file) {
 
                     if ($file->isValid() && ! $file->hasMoved())
                     {
@@ -863,7 +864,7 @@ class Products extends BaseController
                 $oldImg = get_data_by_id('description_image','cc_product_description','product_id',$product_id);
                 if ((!empty($oldImg)) && (file_exists($target_dir))) {
                     if (file_exists($target_dir . '/' . $oldImg)) {
-                        unlink($target_dir . '' . $oldImg);
+                        unlink($target_dir . $oldImg);
                     }
                 }
 
@@ -886,7 +887,7 @@ class Products extends BaseController
                 $oldImg = get_data_by_id('documentation_pdf','cc_product_description','product_id',$product_id);
                 if ((!empty($oldImg)) && (file_exists($target_dir))) {
                     if (file_exists($target_dir . '/' . $oldImg)) {
-                        unlink($target_dir . '' . $oldImg);
+                        unlink($target_dir . $oldImg);
                     }
                 }
 
@@ -908,7 +909,7 @@ class Products extends BaseController
                 $oldImg = get_data_by_id('safety_pdf','cc_product_description','product_id',$product_id);
                 if ((!empty($oldImg)) && (file_exists($target_dir))) {
                     if (file_exists($target_dir . '/' . $oldImg)) {
-                        unlink($target_dir . '' . $oldImg);
+                        unlink($target_dir . $oldImg);
                     }
                 }
 
@@ -930,7 +931,7 @@ class Products extends BaseController
                 $oldImg = get_data_by_id('instructions_pdf','cc_product_description','product_id',$product_id);
                 if ((!empty($oldImg)) && (file_exists($target_dir))) {
                     if (file_exists($target_dir . '/' . $oldImg)) {
-                        unlink($target_dir . '' . $oldImg);
+                        unlink($target_dir . $oldImg);
                     }
                 }
 
@@ -1291,6 +1292,7 @@ class Products extends BaseController
 //    }
 
     public function image_crop(){
+
         $allProductId =  $this->request->getPost('productId[]');
 
         if (!empty($allProductId)) {
@@ -1301,8 +1303,7 @@ class Products extends BaseController
 
             //multi image
             $allImage = $this->multi_image($allProductId);
-
-
+            
             foreach ($allProductId as $k => $productId) {
                 $single = $oldProArr[$k];
 
@@ -1333,7 +1334,6 @@ class Products extends BaseController
 
 
                 // ob_start();
-
                 echo "Starting process...<br>";
                 flush(); // Send the output to the browser
 
@@ -1341,7 +1341,7 @@ class Products extends BaseController
                 //multi image crop
                 if (!empty($allImage)) {
                     $i=0;
-                    foreach ($allImage as $key => $val) {
+                    foreach ($allImage as  $val) {
                         if ($val->product_id == $single->product_id) {
                             $target_dir_mult = FCPATH . '/uploads/products/' . $val->product_id . '/' . $val->product_image_id . "/";
                             $oldImgMul = $val->image;
@@ -1359,6 +1359,8 @@ class Products extends BaseController
                             }
 
                             echo "Processing step ".$i++." ...<br>";
+//                            sleep(3);                            
+
                             // ob_flush();
                             flush(); // Send the output to the browser
                             // sleep(1); // Simulate delay
@@ -1367,10 +1369,14 @@ class Products extends BaseController
 
                     }
                 }
+
+
             }
 
 
+
             echo "Process completed!<br>";
+//            echo view('Admin/Products/progress',$data);
             flush(); // Send the final output
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Update Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
@@ -1379,6 +1385,7 @@ class Products extends BaseController
                     window.location.href = '" . site_url($redirect_url) . "';
               </script>";
             flush(); // Ensure the redirect script is sent
+
 
 
         }else{

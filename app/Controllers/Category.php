@@ -98,7 +98,7 @@ class Category extends BaseController {
 
             if (!empty($brand)) {
                 $menu = '';
-                foreach ($brand as $key => $brVal) {
+                foreach ($brand as  $brVal) {
                     $menu .= $brVal . ',';
                 }
                 $vars ['manufacturer'] = rtrim($menu, ',');
@@ -106,7 +106,7 @@ class Category extends BaseController {
 
             if (!empty($options)) {
                 $option = '';
-                foreach ($options as $key => $optVal) {
+                foreach ($options as  $optVal) {
                     $option .= $optVal . ',';
                 }
                 $vars ['option'] = rtrim($option, ',');
@@ -118,7 +118,7 @@ class Category extends BaseController {
 
             if (!empty($rating)) {
                 $rat = '';
-                foreach ($rating as $key => $ratVal) {
+                foreach ($rating as $ratVal) {
                     $rat .= $ratVal . ',';
                 }
                 $vars ['rating'] = rtrim($rat, ',');

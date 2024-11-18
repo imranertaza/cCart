@@ -239,7 +239,7 @@ class Album extends BaseController
                 $this->imageProcessing->directory_create($target_dir);
 
                 $files = $this->request->getFileMultiple('multiImage');
-                foreach ($files as $key => $file) {
+                foreach ($files as  $file) {
 
                     if ($file->isValid() && ! $file->hasMoved())
                     {

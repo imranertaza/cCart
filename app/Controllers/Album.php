@@ -2,19 +2,19 @@
 
 namespace App\Controllers;
 
-use App\Models\QcpictureModel;
+use App\Models\AlbumModel;
 
-class Qc_picture extends BaseController {
+class Album extends BaseController {
 
     protected $validation;
     protected $session;
-    protected $qcpicture;
+    protected $albumModel;
 
     public function __construct()
     {
         $this->validation = \Config\Services::validation();
         $this->session = \Config\Services::session();
-        $this->qcpicture = new QcpictureModel();
+        $this->albumModel = new AlbumModel();
     }
 
     /**
@@ -24,8 +24,8 @@ class Qc_picture extends BaseController {
     public function index(){
         $settings = get_settings();
 
-        $data['qcpicture'] = $this->qcpicture->orderBy('sort_order','ASC')->paginate(20);
-        $data['pager'] = $this->qcpicture->pager;
+        $data['qcpicture'] = $this->albumModel->orderBy('sort_order','ASC')->paginate(20);
+        $data['pager'] = $this->albumModel->pager;
         $data['links'] = $data['pager']->links('default','custome_link');
 
 
@@ -35,7 +35,7 @@ class Qc_picture extends BaseController {
         $data['title'] = !empty($settings['meta_title'])?$settings['meta_title']:$settings['store_name'];
 
         echo view('Theme/'.$settings['Theme'].'/header',$data);
-        echo view('Theme/'.$settings['Theme'].'/Qc_picture/index',$data);
+        echo view('Theme/'.$settings['Theme'].'/Album/index',$data);
         echo view('Theme/'.$settings['Theme'].'/footer');
     }
 
@@ -58,7 +58,7 @@ class Qc_picture extends BaseController {
         $data['title'] = !empty($settings['meta_title'])?$settings['meta_title']:$settings['store_name'];
 
         echo view('Theme/'.$settings['Theme'].'/header',$data);
-        echo view('Theme/'.$settings['Theme'].'/Qc_picture/view',$data);
+        echo view('Theme/'.$settings['Theme'].'/Album/view',$data);
         echo view('Theme/'.$settings['Theme'].'/footer');
     }
 
