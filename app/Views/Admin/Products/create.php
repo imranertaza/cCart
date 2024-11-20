@@ -21,8 +21,7 @@
 
     <!-- Main content -->
     <section class="content">
-        <form action="<?php echo base_url('admin/product_create_action') ?>" method="post"
-              enctype="multipart/form-data">
+        <form id="sample_form" action="<?php echo base_url('admin/product_create_action') ?>" method="post" enctype="multipart/form-data">
             <!-- Default box -->
             <div class="card">
                 <div class="card-header">
@@ -31,11 +30,17 @@
                             <h3 class="card-title">Product create</h3>
                         </div>
                         <div class="col-md-4" style="text-align: right;">
-                            <button type="submit" class="btn btn-primary float-right mr-2">Save</button>
+                            <button type="submit" class="btn btn-primary float-right mr-2" id="save" >Save</button>
                             <a href="<?php echo base_url('admin/products') ?>" class="btn btn-danger float-right mr-2 " >Back</a>
                         </div>
                         <div class="col-md-12" style="margin-top: 10px">
                             <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message'); endif; ?>
+                            <div class="form-group" id="process" style="display:none;">
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped active bg-success" role="progressbar" aria-valuemin="0" aria-valuemax="100" style=""></div>
+                                </div>
+                            </div>
+                            <p id="success_message"></p>
                         </div>
                     </div>
                 </div>
@@ -400,6 +405,57 @@
 
 <?= $this->section('java_script') ?>
 <script>
+
+    $(document).ready(function(){
+        $('#sample_form').on('submit', function(event){
+            event.preventDefault();
+            var fd = new FormData(this);
+
+                $.ajax({
+                    method:"POST",
+                    url:$(this).prop('action'),
+                    data:fd,
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    beforeSend:function()
+                    {
+                        $('#save').attr('disabled', 'disabled');
+                        $('#process').css('display', 'block');
+                    },
+                    success:function(data){
+                        var percentage = 0;
+                        var timer = setInterval(function(){
+                            percentage = percentage + 20;
+                            progress_bar_process(percentage, timer,data);
+                        }, 1000);
+                    }
+                })
+
+
+        });
+
+        function progress_bar_process(percentage, timer,data){
+            $('.progress-bar').css('width', percentage + '%');
+            if(percentage > 100)
+            {
+                clearInterval(timer);
+                $('#sample_form')[0].reset();
+                $('#process').css('display', 'none');
+                $('.progress-bar').css('width', '0%');
+                $('#save').attr('disabled', false);
+                $('#success_message').html(data);
+                setTimeout(function(){
+                    $('#success_message').html('');
+                    window.location.reload();
+                }, 1000);
+            }
+        }
+
+    });
+
+
+
     function searchOptionUp(key) {
         $.ajax({
             method: "POST",
