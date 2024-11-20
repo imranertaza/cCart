@@ -64,7 +64,7 @@ class Products extends BaseController {
                 $optionWhere .= 'option_value_id = '.$valOp. ' OR ';
             }
             $countOption = array();
-            foreach ($options as  $key => $valOp){
+            foreach ($options as $valOp){
                 $optId = get_data_by_id('option_id','cc_product_option','option_value_id',$valOp);
                 $arr = $optId;
                 array_push($countOption,$arr);

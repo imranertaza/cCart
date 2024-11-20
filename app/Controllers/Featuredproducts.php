@@ -23,7 +23,6 @@ class Featuredproducts extends BaseController {
      */
     public function index(){
         $settings = get_settings();
-        $table = DB()->table('cc_products');
         $data['products'] = $this->productsModel->where('status','Active')->where('featured','1')->paginate(10);
         $data['pager'] = $this->productsModel->pager;
         $data['links'] = $data['pager']->links('default','custome_link');
