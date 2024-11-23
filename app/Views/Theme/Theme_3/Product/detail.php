@@ -13,7 +13,7 @@
                     <div class="col-md-6">
                         <div class="showing_image_area">
                             <div class="showing_image position-relative overflow-hidden" id="coverIMg">
-                                <?php echo image_view('uploads/products', $products->product_id, $img_size_437 . $products->image, 'noimage.png', 'img-fluid' ,'cover') ?>
+                                <?php echo image_view('uploads/products', $products->product_id, $img_size_437 . $products->image, 'noimage.png', 'img-fluid' ,'cover','leance') ?>
                                 <span class="lanse" leance id="lance" style="background: url('<?php echo base_url()?>/assets/assets_fl/tile._CB483369110_.gif');"></span>
                             </div>
                         </div>

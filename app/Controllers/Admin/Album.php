@@ -102,7 +102,7 @@ class Album extends BaseController
             $albumId = DB()->insertID();
 
             //image size array
-            $this->imageProcessing->sizeArray = array( array( 'width'=>'498', 'height'=>'498', ), array( 'width'=>'198', 'height'=>'198', ),array( 'width'=>'50', 'height'=>'50', ),);
+            $this->imageProcessing->sizeArray = array( array( 'width'=>'498', 'height'=>'498', ), array( 'width'=>'261', 'height'=>'261', ), array( 'width'=>'198', 'height'=>'198', ),array( 'width'=>'50', 'height'=>'50', ),);
 
             if (!empty($_FILES['thumb']['name'])) {
                 $target_dir = FCPATH . '/uploads/album/'.$albumId.'/';
@@ -216,7 +216,7 @@ class Album extends BaseController
             $table->where('album_id', $album_id)->update($data);
 
             //image size array
-            $this->imageProcessing->sizeArray = array( array( 'width'=>'498', 'height'=>'498', ), array( 'width'=>'198', 'height'=>'198', ),array( 'width'=>'50', 'height'=>'50', ),);
+            $this->imageProcessing->sizeArray = array( array( 'width'=>'498', 'height'=>'498', ),array( 'width'=>'261', 'height'=>'261', ), array( 'width'=>'198', 'height'=>'198', ),array( 'width'=>'50', 'height'=>'50', ),);
 
             if (!empty($_FILES['thumb']['name'])) {
                 $target_dir = FCPATH . '/uploads/album/'.$album_id.'/';
