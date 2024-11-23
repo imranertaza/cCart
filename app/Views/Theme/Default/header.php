@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="<?php echo base_url() ?>/assets/swiper-bundle.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
     <link rel="stylesheet" href="<?php echo base_url() ?>/assets/style.css">
+    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/assets_fl/lightbox.min.css">
 
     <script src="<?php echo base_url() ?>/assets/jquery.min.js"></script>
     <script src="<?php echo base_url() ?>/assets/bootstrap.bundle.min.js"></script>
@@ -29,6 +30,7 @@
     <script src="<?php echo base_url() ?>/assets/jquery-3.6.0.js"></script>
     <script src="<?php echo base_url() ?>/assets/jquery-ui.js"></script>
     <script src="<?php echo base_url() ?>/assets/jquery.star-rating.js"></script>
+    <script src="<?php echo base_url() ?>/assets/assets_fl/lightbox-plus-jquery.min.js"></script>
 </head>
 <body>
 <div class="message_alert" id="messAlt" >
@@ -163,7 +165,7 @@
                             <i class="fa fa-angle-right mx-2"></i>
                             <?php echo (isset($page_title))?$page_title:'';?>
                         </div>
-                    <?php } ?>
+                    <?php } $modules = modules_access(); ?>
                 </div>
                 <div class="col-xl-9 col-lg-8 col-md-6 col-4 d-flex align-items-center">
                     <nav class="navbar-primary navbar navbar-expand-xl">
@@ -179,7 +181,11 @@
                                     </li>
 
                                     <?php echo top_menu();?>
-
+                                    <?php if ($modules['album'] == 1) { ?>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="<?php echo base_url('qc_picture') ?>">QC Picture</a>
+                                        </li>
+                                    <?php } ?>
                                     <li class="nav-item">
                                         <a class="nav-link" href="<?php echo base_url('page/contact-us')?>">Contact</a>
                                     </li>

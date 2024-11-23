@@ -321,6 +321,7 @@
 
 <script src="<?php echo base_url() ?>/assets/amazing_gadgets/slick/slick.js" type="text/javascript" charset="utf-8"> </script>
 <script src="<?php echo base_url() ?>/assets/amazing_gadgets/owl.carousel.js"></script>
+<script src="<?php echo base_url() ?>/assets/assets_fl/lightbox-plus-jquery.min.js"></script>
 <script>
     function myFunction() {
         var dots = document.getElementById("dots");

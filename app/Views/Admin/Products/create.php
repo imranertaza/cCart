@@ -422,9 +422,14 @@
                     {
                         $('#save').attr('disabled', 'disabled');
                         $('#process').css('display', 'block');
+                        var percentage = 0;
+                        var timer = setInterval(function(){
+                            percentage = percentage + 20;
+                            progress_bar_process_before(percentage, timer);
+                        }, 1000);
                     },
                     success:function(data){
-                        var percentage = 0;
+                        var percentage = 50;
                         var timer = setInterval(function(){
                             percentage = percentage + 20;
                             progress_bar_process(percentage, timer,data);
@@ -435,6 +440,10 @@
 
         });
 
+        function progress_bar_process_before(percentage, timer){
+            $('.progress-bar').css('width', percentage + '%');
+            if(percentage > 50){clearInterval(timer);}
+        }
         function progress_bar_process(percentage, timer,data){
             $('.progress-bar').css('width', percentage + '%');
             if(percentage > 100)
@@ -448,7 +457,7 @@
                 setTimeout(function(){
                     $('#success_message').html('');
                     window.location.reload();
-                }, 1000);
+                }, 2000);
             }
         }
 
@@ -548,6 +557,61 @@
     function remove_attribute(data) {
         $(data).parent().remove();
     }
+
+
+
+    function startProgressBar() {
+        const progressBar = document.getElementById('progressBar');
+        progressBar.style.width = '0%'; // Reset progress bar
+
+        let width = 0;
+
+        // Simulate progress increase
+        const interval = setInterval(() => {
+            if (width >= 90) {
+                clearInterval(interval); // Stop at 90%, let the fetch finish it
+            } else {
+                width += 5; // Adjust increment speed
+                progressBar.style.width = width + '%';
+            }
+        }, 100);
+    }
+
+    function completeProgressBar() {
+        const progressBar = document.getElementById('progressBar');
+        progressBar.style.width = '100%';
+        setTimeout(() => {
+            progressBar.style.width = '0%'; // Hide after completion
+        }, 500); // Adjust timeout for visibility after completion
+    }
+
+    async function submitFormData() {
+        startProgressBar();
+
+        const formData = new FormData();
+        formData.append('file', document.getElementById('fileInput').files[0]);
+
+        try {
+            const response = await fetch('/upload-endpoint', {
+                method: 'POST',
+                body: formData,
+            });
+
+            if (response.ok) {
+                completeProgressBar(); // Progress reaches 100%
+                console.log('Upload successful!');
+            } else {
+                console.error('Upload failed!');
+            }
+        } catch (error) {
+            console.error('An error occurred!', error);
+        }
+    }
+
+    document.getElementById('myForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        submitFormData();
+    });
 
 </script>
 <?= $this->endSection() ?>

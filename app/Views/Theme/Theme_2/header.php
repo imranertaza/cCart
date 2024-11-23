@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
         crossorigin="anonymous" referrerpolicy="no-referrer">
     <link rel="stylesheet" href="<?php echo base_url() ?>/assets/amazing_gadgets/style.css">
+    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/assets_fl/lightbox.min.css">
 
     <script src="<?php echo base_url() ?>/assets/amazing_gadgets/jquery.min.js"></script>
     <script src="<?php echo base_url() ?>/assets/amazing_gadgets/bootstrap.bundle.min.js"></script>
@@ -192,7 +193,7 @@
             <div class="container">
                 <div class="row gx-0">
                     <div class="col-md-3">
-                        <?php if (isset($home_menu)) {  ?>
+                        <?php $modules = modules_access(); if (isset($home_menu)) {  ?>
                         <div class="allcategory h-100 me-md-3">
                             <button
                                 class="cat-btn-h d-flex d-md-inline justify-content-between justify-content-md-start gap-1 btn bg-custom-color text-white text-uppercase show fw-semibold dropdown-toggle rounded-0 h-100  border-0 text-center w-100 btn-click "
@@ -266,7 +267,11 @@
 
                                         <?php echo top_menu(); ?>
 
-
+                                        <?php if ($modules['album'] == 1) { ?>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="<?php echo base_url('qc_picture') ?>">QC Picture</a>
+                                            </li>
+                                        <?php } ?>
                                         <li class="nav-item">
                                             <a class="cl" href="<?php echo base_url('page/about-us') ?>">About Us</a>
                                         </li>
