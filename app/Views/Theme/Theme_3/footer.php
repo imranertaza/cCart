@@ -95,7 +95,7 @@
                                     Site Map</a></li>
                             </ul>
                             <div class="footer-logo">
-                                <img src="<?php echo base_url() ?>/assets/assets_fl/img/logo-footer.png" class="img-fluid" alt="Logo">
+                                <img src="<?php echo base_url() ?>/assets/theme_2/img/logo-footer.png" class="img-fluid" alt="Logo">
                             </div>
                         </div>
                     </div>
@@ -246,10 +246,10 @@
         </div>
     </section>
 
-<script src="<?php echo base_url() ?>/assets/assets_fl/script.js"></script>
+<script src="<?php echo base_url() ?>/assets/theme_2/script.js"></script>
 
-<script src="<?php echo base_url() ?>/assets/assets_fl/slick/slick.js" type="text/javascript" charset="utf-8"> </script>
-<script src="<?php echo base_url() ?>/assets/assets_fl/lightbox-plus-jquery.min.js"></script>
+<script src="<?php echo base_url() ?>/assets/theme_2/slick/slick.js" type="text/javascript" charset="utf-8"> </script>
+<script src="<?php echo base_url() ?>/assets/theme_2/lightbox-plus-jquery.min.js"></script>
 
 <script>
     function myFunction() {

@@ -12,16 +12,16 @@
 
     <link rel="shortcut icon" href="<?php echo base_url() ?>/uploads/logo/<?php echo get_lebel_by_value_in_theme_settings('favicon');?>">
 
-    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/amazing_gadgets/bootstrap.min.css">
-    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/amazing_gadgets/swiper-bundle.min.css">
+    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/theme_1/bootstrap.min.css">
+    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/theme_1/swiper-bundle.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
         crossorigin="anonymous" referrerpolicy="no-referrer">
-    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/amazing_gadgets/style.css">
-    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/assets_fl/lightbox.min.css">
+    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/theme_1/style.css">
+    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/theme_2/lightbox.min.css">
 
-    <script src="<?php echo base_url() ?>/assets/amazing_gadgets/jquery.min.js"></script>
-    <script src="<?php echo base_url() ?>/assets/amazing_gadgets/bootstrap.bundle.min.js"></script>
-    <script src="<?php echo base_url() ?>/assets/amazing_gadgets/swiper-bundle.min.js"></script>
+    <script src="<?php echo base_url() ?>/assets/theme_1/jquery.min.js"></script>
+    <script src="<?php echo base_url() ?>/assets/theme_1/bootstrap.bundle.min.js"></script>
+    <script src="<?php echo base_url() ?>/assets/theme_1/swiper-bundle.min.js"></script>
 
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,16 +30,16 @@
 
     <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
 
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>/assets/amazing_gadgets/slick/slick.css">
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>/assets/amazing_gadgets/slick/slick-theme.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>/assets/theme_1/slick/slick.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>/assets/theme_1/slick/slick-theme.css">
 
     <!-- Owl Stylesheets -->
-    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/amazing_gadgets/owl.carousel.min.css">
-    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/amazing_gadgets/owl.theme.default.min.css">
+    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/theme_1/owl.carousel.min.css">
+    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/theme_1/owl.theme.default.min.css">
 
-    <script src="<?php echo base_url() ?>/assets/amazing_gadgets/jquery-3.6.0.js"></script>
-    <script src="<?php echo base_url() ?>/assets/amazing_gadgets/jquery-ui.js"></script>
-    <script src="<?php echo base_url() ?>/assets/amazing_gadgets/jquery.star-rating.js"></script>
+    <script src="<?php echo base_url() ?>/assets/theme_1/jquery-3.6.0.js"></script>
+    <script src="<?php echo base_url() ?>/assets/theme_1/jquery-ui.js"></script>
+    <script src="<?php echo base_url() ?>/assets/theme_1/jquery.star-rating.js"></script>
 </head>
 
 <body>
@@ -177,7 +177,7 @@
                                 </div>
 
                                 <div class="cart-icon rounded-5 align-items-center justify-content-center p-3 me-3">
-                                    <img src="<?php echo base_url() ?>/assets/amazing_gadgets/img/cart.png" alt=""
+                                    <img src="<?php echo base_url() ?>/assets/theme_1/img/cart.png" alt=""
                                         class="img-fluid">
                                 </div>
                                 <span
@@ -346,7 +346,7 @@
                                     </div>
 
                                     <div class="cart-icon rounded-5 align-items-center justify-content-center p-3 me-3">
-                                        <img src="<?php echo base_url() ?>/assets/amazing_gadgets/img/cart.png" alt=""
+                                        <img src="<?php echo base_url() ?>/assets/theme_1/img/cart.png" alt=""
                                             class="img-fluid">
                                     </div>
                                     <span
