@@ -319,9 +319,9 @@
 
 
 
-<script src="<?php echo base_url() ?>/assets/amazing_gadgets/slick/slick.js" type="text/javascript" charset="utf-8"> </script>
-<script src="<?php echo base_url() ?>/assets/amazing_gadgets/owl.carousel.js"></script>
-<script src="<?php echo base_url() ?>/assets/assets_fl/lightbox-plus-jquery.min.js"></script>
+<script src="<?php echo base_url() ?>/assets/theme_1/slick/slick.js" type="text/javascript" charset="utf-8"> </script>
+<script src="<?php echo base_url() ?>/assets/theme_1/owl.carousel.js"></script>
+<script src="<?php echo base_url() ?>/assets/theme_2/lightbox-plus-jquery.min.js"></script>
 <script>
     function myFunction() {
         var dots = document.getElementById("dots");
@@ -1335,7 +1335,7 @@
         }
     }
 </script>
-<script src="<?php echo base_url() ?>/assets/assets_fl/validation.js" type="text/javascript" ></script>
+<script src="<?php echo base_url() ?>/assets/theme_2/validation.js" type="text/javascript" ></script>
 </body>
 
 </html>
