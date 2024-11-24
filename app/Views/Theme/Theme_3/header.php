@@ -12,20 +12,20 @@
 
     <link rel="shortcut icon" href="<?php echo base_url() ?>/uploads/logo/<?php echo get_lebel_by_value_in_theme_settings('favicon');?>">
 
-    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/theme_2/bootstrap.min.css">
-    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/theme_2/swiper-bundle.min.css">
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>/assets/theme_2/slick/slick.css">
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>/assets/theme_2/slick/slick-theme.css">
+    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/theme_3/bootstrap.min.css">
+    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/theme_3/swiper-bundle.min.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>/assets/theme_3/slick/slick.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>/assets/theme_3/slick/slick-theme.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
-    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/theme_2/style.css">
-    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/theme_2/details.css">
-    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/theme_2/lightbox.min.css">
+    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/theme_3/style.css">
+    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/theme_3/details.css">
+    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/theme_3/lightbox.min.css">
 
-    <script src="<?php echo base_url() ?>/assets/theme_2/jquery.min.js"></script>
-    <script src="<?php echo base_url() ?>/assets/theme_2/bootstrap.bundle.min.js"></script>
-    <script src="<?php echo base_url() ?>/assets/theme_2/swiper-bundle.min.js"></script>
-    <script src="<?php echo base_url() ?>/assets/theme_2/jquery.star-rating.js"></script>
-    <script src="<?php echo base_url() ?>/assets/theme_2/jquery-ui.js"></script>
+    <script src="<?php echo base_url() ?>/assets/theme_3/jquery.min.js"></script>
+    <script src="<?php echo base_url() ?>/assets/theme_3/bootstrap.bundle.min.js"></script>
+    <script src="<?php echo base_url() ?>/assets/theme_3/swiper-bundle.min.js"></script>
+    <script src="<?php echo base_url() ?>/assets/theme_3/jquery.star-rating.js"></script>
+    <script src="<?php echo base_url() ?>/assets/theme_3/jquery-ui.js"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

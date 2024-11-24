@@ -11,15 +11,16 @@
 
     <link rel="shortcut icon" href="<?php echo base_url() ?>/uploads/logo/<?php echo get_lebel_by_value_in_theme_settings('favicon');?>">
 
-    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/default/bootstrap.min.css">
-    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/default/swiper-bundle.min.css">
+    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/theme_1/bootstrap.min.css">
+    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/theme_1/swiper-bundle.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
-    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/default/style.css">
-    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/theme_2/lightbox.min.css">
+    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/theme_1/style.css">
+    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/theme_3/lightbox.min.css">
+    <script src="<?php echo base_url() ?>/assets/theme_3/lightbox-plus-jquery.min.js"></script>
 
-    <script src="<?php echo base_url() ?>/assets/default/jquery.min.js"></script>
-    <script src="<?php echo base_url() ?>/assets/default/bootstrap.bundle.min.js"></script>
-    <script src="<?php echo base_url() ?>/assets/default/swiper-bundle.min.js"></script>
+    <script src="<?php echo base_url() ?>/assets/theme_1/jquery.min.js"></script>
+    <script src="<?php echo base_url() ?>/assets/theme_1/bootstrap.bundle.min.js"></script>
+    <script src="<?php echo base_url() ?>/assets/theme_1/swiper-bundle.min.js"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin >
@@ -27,10 +28,10 @@
 
     <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
 
-    <script src="<?php echo base_url() ?>/assets/default/jquery-3.6.0.js"></script>
-    <script src="<?php echo base_url() ?>/assets/default/jquery-ui.js"></script>
-    <script src="<?php echo base_url() ?>/assets/default/jquery.star-rating.js"></script>
-    <script src="<?php echo base_url() ?>/assets/theme_2/lightbox-plus-jquery.min.js"></script>
+    <script src="<?php echo base_url() ?>/assets/theme_1/jquery-3.6.0.js"></script>
+    <script src="<?php echo base_url() ?>/assets/theme_1/jquery-ui.js"></script>
+    <script src="<?php echo base_url() ?>/assets/theme_1/jquery.star-rating.js"></script>
+
 </head>
 <body>
 <div class="message_alert" id="messAlt" >
@@ -112,7 +113,7 @@
                     <div class="mini-cart d-flex position-relative" id="cartReload">
 
                         <div class="cart-icon rounded-5 align-items-center justify-content-center p-3 me-3">
-                            <img src="<?php echo base_url() ?>/assets/default/img/cart.png" alt="" class="img-fluid">
+                            <img src="<?php echo base_url() ?>/assets/theme_1/img/cart.png" alt="" class="img-fluid">
                         </div>
                         <span class="cart-item position-absolute rounded-5 d-flex align-items-center justify-content-center"><?php echo count(Cart()->contents()); ?></span>
                         <div class="cart-content d-flex flex-column">
@@ -198,7 +199,7 @@
                     </nav>
                     <div class="help-center">
                         <a class="d-flex" href="#">
-                            <span><img src="<?php echo base_url()?>/assets/default/img/info.png" alt="" class="img-fluid"></span>
+                            <span><img src="<?php echo base_url()?>/assets/theme_1/img/info.png" alt="" class="img-fluid"></span>
                             <span class="d-none d-md-block">Help Center</span>
                         </a>
                     </div>

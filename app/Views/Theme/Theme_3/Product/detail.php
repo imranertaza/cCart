@@ -277,4 +277,4 @@
 
 </main>
 
-<script src="<?php echo base_url() ?>/assets/assets_fl/details.js"></script>
+<script src="<?php echo base_url() ?>/assets/theme_3/details.js"></script>

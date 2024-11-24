@@ -319,9 +319,9 @@
 
 
 
-<script src="<?php echo base_url() ?>/assets/theme_1/slick/slick.js" type="text/javascript" charset="utf-8"> </script>
-<script src="<?php echo base_url() ?>/assets/theme_1/owl.carousel.js"></script>
-<script src="<?php echo base_url() ?>/assets/theme_2/lightbox-plus-jquery.min.js"></script>
+<script src="<?php echo base_url() ?>/assets/theme_2/slick/slick.js" type="text/javascript" charset="utf-8"> </script>
+<script src="<?php echo base_url() ?>/assets/theme_2/owl.carousel.js"></script>
+
 <script>
     function myFunction() {
         var dots = document.getElementById("dots");
