@@ -186,6 +186,10 @@ $routes->group('admin', static function ($routes) {
     $routes->get('payment/stripe/(:num)', 'Admin\Payment\Stripe::settings/$1');
     $routes->post('stripe_update_action', 'Admin\Payment\Stripe::update_action');
 
+    $routes->get('payment/oisbizcraft/(:num)', 'Admin\Payment\Oisbizcraft::settings/$1');
+    $routes->post('oisbizcraft_update_action', 'Admin\Payment\Oisbizcraft::update_action');
+
+
     //Ajax
     $routes->get('page_list', 'Admin\Page_settings::index');
     $routes->get('page_create', 'Admin\Page_settings::create');
@@ -354,6 +358,12 @@ $routes->get('/payment_paypal_checkout_action', 'Paypal::paypal_checkout_action'
 $routes->post('/payment_stripe', 'StripeController::payment_stripe');
 $routes->post('/payment_stripe_checkout_action', 'StripeController::stripe_create_charge');
 $routes->get('/stripe_action', 'StripeController::stripe_action');
+
+$routes->post('/payment_oisbizcraft', 'OisbizcraftController::payment_oisbizcraft');
+$routes->get('/oisbizcraft_payment_status', 'OisbizcraftController::payment_status');
+$routes->get('/oisbizcraft_action', 'OisbizcraftController::oisbizcraft_action');
+$routes->get('/oisbizcraft_notification', 'OisbizcraftController::notification');
+
 
 //pages routes
 $routes->get('/about', 'Pages\Pages::about');

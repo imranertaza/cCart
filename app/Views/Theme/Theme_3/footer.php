@@ -906,6 +906,9 @@
         }else if(code == 'stripe'){
             $('#checkout-form').attr('action', '<?php echo base_url('payment_stripe'); ?>');
             $('#checkout-form').attr('method', 'POST');
+        }else if(code == 'oisbizcraft'){
+            $('#checkout-form').attr('action', '<?php echo base_url('payment_oisbizcraft'); ?>');
+            $('#checkout-form').attr('method', 'POST');
         } else {
             $('#checkout-form').attr('action', '<?php echo base_url('checkout_action'); ?>');
             $('#checkout-form').attr('method', 'POST');
