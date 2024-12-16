@@ -1,14 +1,14 @@
 <footer class="footer py-5">
     <div class="container">
         <div class="footer-logo mb-5">
-            <img src="<?php echo base_url() ?>/assets/default/img/logo-footer.png" alt="Amazing Gadgets" class="img-fluid">
+            <img src="<?php echo base_url() ?>/assets/theme_1/img/logo-footer.png" alt="Amazing Gadgets" class="img-fluid">
         </div>
         <div class="row gx-5">
             <div class="col-sm-6 col-xl-4 mb-4 mb-xl-0 pe-5">
                 <h3>Find It Fast</h3>
                 <div class="d-flex mb-3 mb-md-5">
                     <div class="icon me-3">
-                        <img src="<?php echo base_url() ?>/assets/default/img/icon-map.png" alt="Maps">
+                        <img src="<?php echo base_url() ?>/assets/theme_1/img/icon-map.png" alt="Maps">
                     </div>
                     <div class="address">
                         <?php echo get_lebel_by_value_in_settings('address');?>
@@ -16,7 +16,7 @@
                 </div>
                 <div class="d-flex mb-3 mb-md-5">
                     <div class="icon me-3">
-                        <img src="<?php echo base_url() ?>/assets/default/img/icon-phone.png" alt="Phone">
+                        <img src="<?php echo base_url() ?>/assets/theme_1/img/icon-phone.png" alt="Phone">
                     </div>
                     <div class="phone">
                         <a href="tel:<?php echo get_lebel_by_value_in_settings('phone');?>"><?php echo get_lebel_by_value_in_settings('phone');?></a>
@@ -24,7 +24,7 @@
                 </div>
                 <div class="d-flex">
                     <div class="icon me-3">
-                        <img src="<?php echo base_url() ?>/assets/default/img/icon-email.png" alt="Email">
+                        <img src="<?php echo base_url() ?>/assets/theme_1/img/icon-email.png" alt="Email">
                     </div>
                     <div class="email">
                         <a href="mailto:<?php echo get_lebel_by_value_in_settings('email');?>"><?php echo get_lebel_by_value_in_settings('email');?></a>
@@ -44,7 +44,7 @@
             </div>
             <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
                 <h3>We Accept</h3>
-                <img src="<?php echo base_url() ?>/assets/default/img/card-logo.png" alt="Cart" class="img-fluid">
+                <img src="<?php echo base_url() ?>/assets/theme_1/img/card-logo.png" alt="Cart" class="img-fluid">
             </div>
             <div class="col-sm-6 col-xl-2">
                 <h3>Social Media</h3>
