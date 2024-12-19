@@ -362,7 +362,7 @@ $routes->get('/stripe_action', 'StripeController::stripe_action');
 $routes->post('/payment_oisbizcraft', 'OisbizcraftController::payment_oisbizcraft');
 $routes->get('/oisbizcraft_payment_status', 'OisbizcraftController::payment_status');
 $routes->get('/oisbizcraft_action', 'OisbizcraftController::oisbizcraft_action');
-$routes->get('/oisbizcraft_notification', 'OisbizcraftController::notification');
+$routes->post('/oisbizcraft_notification', 'OisbizcraftController::notification');
 
 
 //pages routes
