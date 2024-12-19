@@ -46,30 +46,40 @@ class OisbizcraftController extends BaseController {
         $api_u = get_all_row_data_by_id('cc_payment_settings', 'label', 'ois_bizcraft_api_url');
         // OIS Bizcraft API endpoint
         $api_url = $api_u->value; // Example URL, replace with actual API URL
+        $api_k = get_all_row_data_by_id('cc_payment_settings', 'label', 'api_key');
+        $api_key = $api_k->value;
+
+
 
         // Payment request data
         $data = array(
             'amount' => $amount,
-            'merchant_outlet_id' => '13',
-            'terminal_id' => '001',
-            'cust_code' => '001243',
+            'merchant_outlet_id' => "13",
+            'terminal_id' => "001",
+            'cust_code' => "001095",
             'user_fullname' => 'murad',
             'user_email' => 'murad@gmail.com',
             'description' => 'sdfjsdfksjd',
             'currency' => $currency,
             'merchant_return_url' => base_url('oisbizcraft_notification'), // Callback URL after payment
-            'order_id' => uniqid(), // Generate a unique transaction ID
+            'order_id' => "234234", // Generate a unique transaction ID
         );
-        $api_k = get_all_row_data_by_id('cc_payment_settings', 'label', 'api_key');
+
+
         // Set API key and other required headers
-        $api_key = $api_k->value;
+        $string = $data['cust_code'].$data['merchant_outlet_id'].$data['terminal_id'].$data['merchant_return_url'].$data['description'].$data['currency'].$data['amount'].$data['order_id'].$data['user_fullname'];
+        $data['hash'] = strtoupper(hash_hmac('SHA256', $string, $api_key));
+
         $headers = array(
             'Content-Type: application/json',
             'Authorization: Bearer ' . $api_key,
         );
 
+
+
         // Initialize cURL session
         $ch = curl_init($api_url);
+        curl_setopt($ch, CURLOPT_URL, $api_url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
@@ -77,39 +87,34 @@ class OisbizcraftController extends BaseController {
 
         // Execute the request
         $response = curl_exec($ch);
-        echo var_dump($response);
-        die();
+        curl_close($ch);
+        $response_data = json_decode($response);
+
+
+//        print "<pre>";
+//        var_dump(json_decode($response));
+//        die();
+
         // Check if the request was successful
-        if ($response === false) {
+        if ($response_data->status === 200) {
+            return redirect()->to($response_data->data->url);
+        }else{
             $error = curl_error($ch);
             curl_close($ch);
             echo "Payment initialization failed: " . $error;
             return redirect()->to('checkout_failed');
         }
-
-        // Close the cURL session
-        curl_close($ch);
-
-        // Decode the JSON response from OIS Bizcraft
-        $response_data = json_decode($response, true);
-
-        // Check the response for success or failure
-        if (isset($response_data['status']) && $response_data['status'] === 'success') {
-            // Redirect to payment gateway
-            $payment_url = $response_data['payment_url']; // URL for redirecting user to payment page
-            redirect($payment_url);
-        } else {
-            return redirect()->to('checkout_failed');
-        }
-
     }
 
     public function notification(){
-        $api_k = get_all_row_data_by_id('cc_payment_settings', 'label', 'api_key');
-        $secret_key = $api_k->value;  // Replace with your actual secret key
+
+//        $api_k = get_all_row_data_by_id('cc_payment_settings', 'label', 'api_key');
+//        $secret_key = $api_k->value;  // Replace with your actual secret key
 
         $input = file_get_contents('php://input');
         $data = json_decode($input);
+        var_dump($data);
+        die();
         /*$data = [
             'order_id' => '585a6sd2ASD65',
             'status' => 'A',
