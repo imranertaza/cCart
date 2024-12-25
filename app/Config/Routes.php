@@ -363,6 +363,7 @@ $routes->post('/payment_oisbizcraft', 'OisbizcraftController::payment_oisbizcraf
 $routes->get('/oisbizcraft_payment_status', 'OisbizcraftController::payment_status');
 $routes->get('/oisbizcraft_action', 'OisbizcraftController::oisbizcraft_action');
 $routes->post('/oisbizcraft_notification', 'OisbizcraftController::notification');
+$routes->get('/oisbizcraft-success', 'OisbizcraftController::success');
 
 
 //pages routes

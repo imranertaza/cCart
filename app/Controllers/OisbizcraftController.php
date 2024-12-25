@@ -53,15 +53,16 @@ class OisbizcraftController extends BaseController {
 
         // Payment request data
         $data = array(
-            'amount' => $amount,
+            'amount' => 50000,
             'merchant_outlet_id' => "13",
             'terminal_id' => "001",
             'cust_code' => "001095",
             'user_fullname' => 'murad',
             'user_email' => 'murad@gmail.com',
             'description' => 'sdfjsdfksjd',
-            'currency' => $currency,
-            'merchant_return_url' => base_url('oisbizcraft_notification'), // Callback URL after payment
+            'currency' => 'SGD',
+            'optional_currency' => 'USD',
+            'merchant_return_url' => base_url('oisbizcraft-success'), // Callback URL after payment
             'order_id' => "234234", // Generate a unique transaction ID
         );
 
@@ -104,6 +105,14 @@ class OisbizcraftController extends BaseController {
             echo "Payment initialization failed: " . $error;
             return redirect()->to('checkout_failed');
         }
+    }
+
+    public function success() {
+        $message = $this->request->getGet('message');
+        $order_id = $this->request->getGet('order_id');
+        $return_code = $this->request->getGet('return_code');
+        $ref_order_id = $this->request->getGet('ref_order_id');
+        print "Success";
     }
 
     public function notification(){
