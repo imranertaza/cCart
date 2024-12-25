@@ -53,15 +53,16 @@ class OisbizcraftController extends BaseController {
 
         // Payment request data
         $data = array(
-            'amount' => $amount,
+            'amount' => 50000,
             'merchant_outlet_id' => "13",
             'terminal_id' => "001",
             'cust_code' => "001095",
             'user_fullname' => 'murad',
             'user_email' => 'murad@gmail.com',
             'description' => 'sdfjsdfksjd',
-            'currency' => $currency,
-            'merchant_return_url' => base_url('oisbizcraft_notification'), // Callback URL after payment
+            'currency' => 'SGD',
+            'optional_currency' => 'USD',
+            'merchant_return_url' => base_url('oisbizcraft-success'), // Callback URL after payment
             'order_id' => "234234", // Generate a unique transaction ID
         );
 
@@ -106,35 +107,36 @@ class OisbizcraftController extends BaseController {
         }
     }
 
+    public function success() {
+        $message = $this->request->getGet('message');
+        $order_id = $this->request->getGet('order_id');
+        $return_code = $this->request->getGet('return_code');
+        $ref_order_id = $this->request->getGet('ref_order_id');
+        print "Success";
+    }
+
     public function notification(){
 
-//        $api_k = get_all_row_data_by_id('cc_payment_settings', 'label', 'api_key');
-//        $secret_key = $api_k->value;  // Replace with your actual secret key
+        $api_k = get_all_row_data_by_id('cc_payment_settings', 'label', 'api_key');
+        $secret_key = $api_k->value;  // Replace with your actual secret key
 
         $input = file_get_contents('php://input');
-        $data = json_decode($input);
-        var_dump($data);
-        die();
-        /*$data = [
-            'order_id' => '585a6sd2ASD65',
-            'status' => 'A',
-            'timestamp' => '1669179575',
-            'amount_cent' => 10000,
-            'currency' => 'SGD',
-            'raw_response' => [ / raw response data / ],
-            'hash' => 'D488ACB1B1D4568EC1F4312AF427B5996DB816E703941B9E22FE579E36860316'  // Provided hash
-        ];*/
+        $data = json_decode($input, true);
+//        var_dump($data);
+//        die();
 
 
         $hash_string = $data['order_id'] . $data['status'] . $data['amount_cent'] . $data['currency'];
-
         $generated_hash = strtoupper(hash_hmac('SHA1', $hash_string, $secret_key));
 
         if ($generated_hash === $data['hash']) {
-            return redirect()->to('oisbizcraft_payment_status');
+//            return redirect()->to('oisbizcraft_payment_status');
+            print "Success";
         } else {
+            print "Failed";
             http_response_code(400);  // Respond with 400 Bad Request
-            return redirect()->to('checkout_failed');
+            die();
+//            return redirect()->to('checkout_failed');
         }
     }
 
