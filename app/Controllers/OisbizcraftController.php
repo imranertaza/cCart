@@ -58,8 +58,8 @@ class OisbizcraftController extends BaseController {
 
 
         //convert sgd
-        $sgd = 1.36;
-        $totalAm = $sgd * $amount;
+        $sgdRates = $this->usdToSgdRates();
+        $totalAm = $sgdRates * $amount;
         $total = $totalAm * 100;
         //convert sgd
 
@@ -128,6 +128,37 @@ class OisbizcraftController extends BaseController {
         $return_code = $this->request->getGet('return_code');
         $ref_order_id = $this->request->getGet('ref_order_id');
         print "Success";
+    }
+
+    public function usdToSgdRates(){
+        $exchange_rates_api = get_all_row_data_by_id('cc_payment_settings', 'label', 'exchange_rates_api');
+        $apiKey = $exchange_rates_api->value;
+        $url = "https://openexchangerates.org/api/latest.json?app_id=$apiKey";
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response = curl_exec($ch);
+
+        if(curl_errno($ch)) {
+            echo 'Error:' . curl_error($ch);
+        } else {
+            // Decode the JSON response into a PHP array
+            $data = json_decode($response, true);
+
+            // Check if the request was successful
+            if (isset($data['rates']['SGD'])) {
+                $usdToSgd = $data['rates']['SGD']; // Extract USD to SGD exchange rate
+                //echo "1 USD is equal to " . $usdToSgd . " SGD";
+            } else {
+                $usdToSgd = 0;
+                //echo "Error: Unable to fetch the exchange rate.";
+            }
+        }
+
+        curl_close($ch);
+
+        return $usdToSgd;
     }
 
     public function notification(){
