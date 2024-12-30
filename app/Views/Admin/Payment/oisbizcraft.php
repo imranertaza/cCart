@@ -7,12 +7,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Stripe Settings</h1>
+                    <h1>OIS Bizcraft Settings</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="<?php echo base_url('admin/dashboard')?>">Home</a></li>
-                        <li class="breadcrumb-item active">Stripe Settings</li>
+                        <li class="breadcrumb-item active">OIS Bizcraft Settings</li>
                     </ol>
                 </div>
             </div>
@@ -27,7 +27,7 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col-md-8">
-                        <h3 class="card-title">Stripe Settings</h3>
+                        <h3 class="card-title">OIS Bizcraft Settings</h3>
                     </div>
                     <div class="col-md-4"></div>
                     <div class="col-md-12" style="margin-top: 10px">

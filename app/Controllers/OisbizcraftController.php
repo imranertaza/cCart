@@ -41,10 +41,6 @@ class OisbizcraftController extends BaseController {
 
         $this->oisbizcraft_action();
 
-        // Payment details (these should come from user input or form submission)
-        $amount = $this->request->getPost('amount');
-        $currency = 'USD'; // Currency can be dynamic based on your needs
-
         $api_u = get_all_row_data_by_id('cc_payment_settings', 'label', 'ois_bizcraft_api_url');
         // OIS Bizcraft API endpoint
         $api_url = $api_u->value; // Example URL, replace with actual API URL
@@ -210,7 +206,7 @@ class OisbizcraftController extends BaseController {
 
             unset($_SESSION['order_id']);
 
-            $this->session->setFlashdata('message', '<div class="alert-success-m alert-success alert-dismissible" role="alert">Your order has been successfully placed </div>');
+            $this->session->setFlashdata('message', 'Your order has been successfully placed');
             return redirect()->to('checkout_success');
 //            return redirect()->to('oisbizcraft_action');
         } else {
