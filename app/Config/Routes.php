@@ -227,6 +227,7 @@ $routes->group('admin', static function ($routes) {
     //Coupon
     $routes->get('order_list', 'Admin\Order::index');
     $routes->post('order_history_action', 'Admin\Order::history_action');
+    $routes->post('order_payment_status_action', 'Admin\Order::payment_status_action');
     $routes->get('order_view/(:num)', 'Admin\Order::order_view/$1');
     
     //Theme Settings

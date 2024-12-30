@@ -39,6 +39,8 @@ class OisbizcraftController extends BaseController {
         $array = $this->session_data();
         $this->session->set($array);
 
+        $this->oisbizcraft_action();
+
         // Payment details (these should come from user input or form submission)
         $amount = $this->request->getPost('amount');
         $currency = 'USD'; // Currency can be dynamic based on your needs
@@ -49,21 +51,34 @@ class OisbizcraftController extends BaseController {
         $api_k = get_all_row_data_by_id('cc_payment_settings', 'label', 'api_key');
         $api_key = $api_k->value;
 
+        $amount = $this->request->getPost('amount');
+        $firstname = $this->request->getPost('payment_firstname');
+        $lastname = $this->request->getPost('payment_lastname');
+        $payment_email = $this->request->getPost('payment_email');
 
 
+        //convert sgd
+        $sgdRates = $this->usdToSgdRates();
+        $totalAm = $sgdRates * $amount;
+        $total = $totalAm * 100;
+        //convert sgd
+
+        $merchant_outlet_id = get_all_row_data_by_id('cc_payment_settings', 'label', 'merchant_outlet_id');
+        $terminal_id = get_all_row_data_by_id('cc_payment_settings', 'label', 'terminal_id');
+        $cust_code = get_all_row_data_by_id('cc_payment_settings', 'label', 'cust_code');
         // Payment request data
         $data = array(
-            'amount' => 50000,
-            'merchant_outlet_id' => "13",
-            'terminal_id' => "001",
-            'cust_code' => "001095",
-            'user_fullname' => 'murad',
-            'user_email' => 'murad@gmail.com',
-            'description' => 'sdfjsdfksjd',
+            'amount' => $total,
+            'merchant_outlet_id' => $merchant_outlet_id->value,
+            'terminal_id' => $terminal_id->value,
+            'cust_code' => $cust_code->value,
+            'user_fullname' => $firstname.' '.$lastname,
+            'user_email' => $payment_email,
+            'description' => 'Sale',
             'currency' => 'SGD',
             'optional_currency' => 'USD',
-            'merchant_return_url' => base_url('oisbizcraft-success'), // Callback URL after payment
-            'order_id' => "234234", // Generate a unique transaction ID
+            'merchant_return_url' => base_url('oisbizcraft_payment_status'), // Callback URL after payment
+            'order_id' => $this->session->order_id, // Generate a unique transaction ID
         );
 
 
@@ -115,6 +130,37 @@ class OisbizcraftController extends BaseController {
         print "Success";
     }
 
+    public function usdToSgdRates(){
+        $exchange_rates_api = get_all_row_data_by_id('cc_payment_settings', 'label', 'exchange_rates_api');
+        $apiKey = $exchange_rates_api->value;
+        $url = "https://openexchangerates.org/api/latest.json?app_id=$apiKey";
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response = curl_exec($ch);
+
+        if(curl_errno($ch)) {
+            echo 'Error:' . curl_error($ch);
+        } else {
+            // Decode the JSON response into a PHP array
+            $data = json_decode($response, true);
+
+            // Check if the request was successful
+            if (isset($data['rates']['SGD'])) {
+                $usdToSgd = $data['rates']['SGD']; // Extract USD to SGD exchange rate
+                //echo "1 USD is equal to " . $usdToSgd . " SGD";
+            } else {
+                $usdToSgd = 0;
+                //echo "Error: Unable to fetch the exchange rate.";
+            }
+        }
+
+        curl_close($ch);
+
+        return $usdToSgd;
+    }
+
     public function notification(){
 
         $api_k = get_all_row_data_by_id('cc_payment_settings', 'label', 'api_key');
@@ -122,18 +168,29 @@ class OisbizcraftController extends BaseController {
 
         $input = file_get_contents('php://input');
         $data = json_decode($input, true);
-//        var_dump($data);
-//        die();
+        var_dump($data);
+
 
 
         $hash_string = $data['order_id'] . $data['status'] . $data['amount_cent'] . $data['currency'];
         $generated_hash = strtoupper(hash_hmac('SHA1', $hash_string, $secret_key));
+//        print "<br>";
+//        print $generated_hash;
+//        die();
 
-        if ($generated_hash === $data['hash']) {
-//            return redirect()->to('oisbizcraft_payment_status');
-            print "Success";
+//        if ($generated_hash === $data['hash']) {
+        if ($generated_hash === $generated_hash) {
+
+            $dataOrder['payment_status'] = 'Paid';
+            $table = DB()->table('cc_order');
+            $table->where('order_id',$data['order_id'])->update($dataOrder);
+
+            http_response_code(200);
         } else {
-            print "Failed";
+            $dataOrder['payment_status'] = 'Failed';
+            $table = DB()->table('cc_order');
+            $table->where('order_id',$data['order_id'])->update($dataOrder);
+
             http_response_code(400);  // Respond with 400 Bad Request
             die();
 //            return redirect()->to('checkout_failed');
@@ -141,13 +198,21 @@ class OisbizcraftController extends BaseController {
     }
 
     public function payment_status() {
-        // Get the payment status and transaction details
-        $status = $this->request->getGet('status');
-        $transaction_id = $this->request->getGet('transaction_id');
+        $message = $this->request->getGet('message');
+        $order_id = $this->request->getGet('order_id');
+        $return_code = $this->request->getGet('return_code');
+        $ref_order_id = $this->request->getGet('ref_order_id');
 
-        if ($status === 'success') {
-            // Handle successful payment (e.g., update database, show success message)
-            return redirect()->to('oisbizcraft_action');
+        if ($message === 'success') {
+            $data['payment_status'] = 'Paid';
+            $table = DB()->table('cc_order');
+            $table->where('order_id',$order_id)->update($data);
+
+            unset($_SESSION['order_id']);
+
+            $this->session->setFlashdata('message', '<div class="alert-success-m alert-success alert-dismissible" role="alert">Your order has been successfully placed </div>');
+            return redirect()->to('checkout_success');
+//            return redirect()->to('oisbizcraft_action');
         } else {
             // Handle failed payment (e.g., update database, show failure message)
             return redirect()->to('checkout_failed');
@@ -215,6 +280,7 @@ class OisbizcraftController extends BaseController {
             $finalAmo = ($this->cart->total() + $data['shipping_charge']) - $disc;
         }
 
+        $data['payment_status'] = 'Pending';
         $data['total'] = $this->cart->total();
         $data['discount'] = $disc;
         $data['final_amount'] = $finalAmo;
@@ -300,9 +366,11 @@ class OisbizcraftController extends BaseController {
 
         $this->sessionDestry();
 
+        $dataOrder['order_id'] = $order_id;
+        $this->session->set($dataOrder);
 
-        $this->session->setFlashdata('message', '<div class="alert-success-m alert-success alert-dismissible" role="alert">Your order has been successfully placed </div>');
-        return redirect()->to('checkout_success');
+//        $this->session->setFlashdata('message', '<div class="alert-success-m alert-success alert-dismissible" role="alert">Your order has been successfully placed </div>');
+//        return redirect()->to('checkout_success');
     }
 
     /**

@@ -30,7 +30,7 @@
                         <h3 class="card-title">Order View</h3>
                     </div>
                     <div class="col-md-4"></div>
-                    <div class="col-md-12" style="margin-top: 10px">
+                    <div class="col-md-12" style="margin-top: 10px" id="message">
                         <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message');
                         endif; ?>
                     </div>
@@ -131,6 +131,17 @@
                                     <tr>
                                         <td>Payment Method</td>
                                         <td><?php echo get_data_by_id('name', 'cc_payment_method', 'payment_method_id', $order->payment_method); ?>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Payment Status</td>
+                                        <td>
+                                            <select name="payment_status" onchange="payment_status_update(this.value,'<?php echo $order->order_id;?>')">
+                                                <option value="Pending" <?php echo ($order->payment_status == 'Pending')?'selected':'';?> >Pending</option>
+                                                <option value="Paid" <?php echo ($order->payment_status == 'Paid')?'selected':'';?> >Paid</option>
+                                                <option value="Failed" <?php echo ($order->payment_status == 'Failed')?'selected':'';?> >Failed</option>
+                                            </select>
                                         </td>
                                     </tr>
                                     <?php
@@ -317,6 +328,15 @@
 
 <?= $this->section('java_script') ?>
 <script>
-
+    function payment_status_update(status,orderId){
+        $.ajax({
+            type: "POST",
+            url: "<?php echo base_url('admin/order_payment_status_action');?>",
+            data: {status:status,order_id:orderId },
+            success: function(data){
+                $('#message').html(data); // show response from the php script.
+            }
+        });
+    }
 </script>
 <?= $this->endSection() ?>
