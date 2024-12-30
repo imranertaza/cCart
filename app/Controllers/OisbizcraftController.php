@@ -157,26 +157,23 @@ class OisbizcraftController extends BaseController {
         return $usdToSgd;
     }
 
-    public function notification(){
+    public function notification_webhook(){
 
         $api_k = get_all_row_data_by_id('cc_payment_settings', 'label', 'api_key');
         $secret_key = $api_k->value;  // Replace with your actual secret key
 
         $input = file_get_contents('php://input');
         $data = json_decode($input, true);
-        var_dump($data);
+//        var_dump($data);
 
-
-
+        
         $hash_string = $data['order_id'] . $data['status'] . $data['amount_cent'] . $data['currency'];
         $generated_hash = strtoupper(hash_hmac('SHA1', $hash_string, $secret_key));
 //        print "<br>";
 //        print $generated_hash;
 //        die();
 
-//        if ($generated_hash === $data['hash']) {
-        if ($generated_hash === $generated_hash) {
-
+        if ($generated_hash === $data['hash']) {
             $dataOrder['payment_status'] = 'Paid';
             $table = DB()->table('cc_order');
             $table->where('order_id',$data['order_id'])->update($dataOrder);
@@ -188,8 +185,6 @@ class OisbizcraftController extends BaseController {
             $table->where('order_id',$data['order_id'])->update($dataOrder);
 
             http_response_code(400);  // Respond with 400 Bad Request
-            die();
-//            return redirect()->to('checkout_failed');
         }
     }
 
