@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-md-6 text-center mb-4 mb-md-0">
-                <img src="<?php echo base_url()?>/assets/img/sing-up.png" alt="Sing In" class="img-fluid">
+                <img src="<?php echo base_url()?>/assets/theme_2/img/sing-up.png" alt="Sing In" class="img-fluid">
             </div>
             <div class="col-md-6 mb-4 mb-md-0">
                 <form action="<?php echo base_url('login_action')?>" method="post" class="sing-up" onsubmit="return onsubmitHendler()">

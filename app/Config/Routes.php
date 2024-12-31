@@ -186,6 +186,10 @@ $routes->group('admin', static function ($routes) {
     $routes->get('payment/stripe/(:num)', 'Admin\Payment\Stripe::settings/$1');
     $routes->post('stripe_update_action', 'Admin\Payment\Stripe::update_action');
 
+    $routes->get('payment/oisbizcraft/(:num)', 'Admin\Payment\Oisbizcraft::settings/$1');
+    $routes->post('oisbizcraft_update_action', 'Admin\Payment\Oisbizcraft::update_action');
+
+
     //Ajax
     $routes->get('page_list', 'Admin\Page_settings::index');
     $routes->get('page_create', 'Admin\Page_settings::create');
@@ -223,6 +227,7 @@ $routes->group('admin', static function ($routes) {
     //Coupon
     $routes->get('order_list', 'Admin\Order::index');
     $routes->post('order_history_action', 'Admin\Order::history_action');
+    $routes->post('order_payment_status_action', 'Admin\Order::payment_status_action');
     $routes->get('order_view/(:num)', 'Admin\Order::order_view/$1');
     
     //Theme Settings
@@ -355,6 +360,13 @@ $routes->post('/payment_stripe', 'StripeController::payment_stripe');
 $routes->post('/payment_stripe_checkout_action', 'StripeController::stripe_create_charge');
 $routes->get('/stripe_action', 'StripeController::stripe_action');
 
+$routes->post('/payment_oisbizcraft', 'OisbizcraftController::payment_oisbizcraft');
+$routes->get('/oisbizcraft_payment_status', 'OisbizcraftController::payment_status');
+$routes->get('/oisbizcraft_action', 'OisbizcraftController::oisbizcraft_action');
+$routes->post('/oisbizcraft-notification', 'OisbizcraftController::notification_webhook');
+$routes->get('/oisbizcraft-success', 'OisbizcraftController::success');
+
+
 //pages routes
 $routes->get('/about', 'Pages\Pages::about');
 $routes->get('/contact', 'Pages\Pages::contact');
@@ -363,6 +375,7 @@ $routes->get('/page/(:any)', 'Pages\Pages::page/$1');
 
 //products routes
 $routes->get('/detail/(:num)', 'Products\Products::detail/$1');
+$routes->get('/product_not_found', 'Products\Products::product_not_found');
 $routes->post('/review', 'Products\Products::review');
 $routes->post('/both_product_price', 'Products\Products::both_product_price');
 $routes->post('/optionPriceCalculate', 'Products\Products::optionPriceCalculate');

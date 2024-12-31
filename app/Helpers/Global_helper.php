@@ -181,7 +181,7 @@ function getIdByListInOption($selected, $tblId, $needCol, $table, $where, $needw
  * @param int $id
  * @return string
  */
-function image_view($url, $slug, $image, $no_image, $class = '', $id = '')
+function image_view($url, $slug, $image, $no_image, $class = '', $id = '', $attr = '' )
 {
     $bas_url = base_url();
 
@@ -199,7 +199,7 @@ function image_view($url, $slug, $image, $no_image, $class = '', $id = '')
         } else {
             $imgPath = $dir . '/' . $image;
             if (file_exists($imgPath)) {
-                $result = '<img data-sizes="auto" leance id="' . $id . '" src="' . $img . '" class="' . $class . '" loading="lazy">';
+                $result = '<img data-sizes="auto" '.$attr.' id="' . $id . '" src="' . $img . '" class="' . $class . '" loading="lazy">';
             } else {
                 $result = '<img data-sizes="auto" id="' . $id . '" src="' . $no_img . '" class="' . $class . '" loading="lazy">';
             }

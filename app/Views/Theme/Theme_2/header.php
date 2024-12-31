@@ -12,15 +12,17 @@
 
     <link rel="shortcut icon" href="<?php echo base_url() ?>/uploads/logo/<?php echo get_lebel_by_value_in_theme_settings('favicon');?>">
 
-    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/amazing_gadgets/bootstrap.min.css">
-    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/amazing_gadgets/swiper-bundle.min.css">
+    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/theme_2/bootstrap.min.css">
+    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/theme_2/swiper-bundle.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
         crossorigin="anonymous" referrerpolicy="no-referrer">
-    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/amazing_gadgets/style.css">
+    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/theme_2/style.css">
+    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/theme_3/lightbox.min.css">
+    <script src="<?php echo base_url() ?>/assets/theme_3/lightbox-plus-jquery.min.js"></script>
 
-    <script src="<?php echo base_url() ?>/assets/amazing_gadgets/jquery.min.js"></script>
-    <script src="<?php echo base_url() ?>/assets/amazing_gadgets/bootstrap.bundle.min.js"></script>
-    <script src="<?php echo base_url() ?>/assets/amazing_gadgets/swiper-bundle.min.js"></script>
+    <script src="<?php echo base_url() ?>/assets/theme_2/jquery.min.js"></script>
+    <script src="<?php echo base_url() ?>/assets/theme_2/bootstrap.bundle.min.js"></script>
+    <script src="<?php echo base_url() ?>/assets/theme_2/swiper-bundle.min.js"></script>
 
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,16 +31,16 @@
 
     <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
 
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>/assets/amazing_gadgets/slick/slick.css">
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>/assets/amazing_gadgets/slick/slick-theme.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>/assets/theme_2/slick/slick.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>/assets/theme_2/slick/slick-theme.css">
 
     <!-- Owl Stylesheets -->
-    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/amazing_gadgets/owl.carousel.min.css">
-    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/amazing_gadgets/owl.theme.default.min.css">
+    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/theme_2/owl.carousel.min.css">
+    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/theme_2/owl.theme.default.min.css">
 
-    <script src="<?php echo base_url() ?>/assets/amazing_gadgets/jquery-3.6.0.js"></script>
-    <script src="<?php echo base_url() ?>/assets/amazing_gadgets/jquery-ui.js"></script>
-    <script src="<?php echo base_url() ?>/assets/amazing_gadgets/jquery.star-rating.js"></script>
+    <script src="<?php echo base_url() ?>/assets/theme_2/jquery-3.6.0.js"></script>
+    <script src="<?php echo base_url() ?>/assets/theme_2/jquery-ui.js"></script>
+    <script src="<?php echo base_url() ?>/assets/theme_2/jquery.star-rating.js"></script>
 </head>
 
 <body>
@@ -176,7 +178,7 @@
                                 </div>
 
                                 <div class="cart-icon rounded-5 align-items-center justify-content-center p-3 me-3">
-                                    <img src="<?php echo base_url() ?>/assets/amazing_gadgets/img/cart.png" alt=""
+                                    <img src="<?php echo base_url() ?>/assets/theme_2/img/cart.png" alt=""
                                         class="img-fluid">
                                 </div>
                                 <span
@@ -192,7 +194,7 @@
             <div class="container">
                 <div class="row gx-0">
                     <div class="col-md-3">
-                        <?php if (isset($home_menu)) {  ?>
+                        <?php $modules = modules_access(); if (isset($home_menu)) {  ?>
                         <div class="allcategory h-100 me-md-3">
                             <button
                                 class="cat-btn-h d-flex d-md-inline justify-content-between justify-content-md-start gap-1 btn bg-custom-color text-white text-uppercase show fw-semibold dropdown-toggle rounded-0 h-100  border-0 text-center w-100 btn-click "
@@ -266,7 +268,11 @@
 
                                         <?php echo top_menu(); ?>
 
-
+                                        <?php if ($modules['album'] == 1) { ?>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="<?php echo base_url('qc_picture') ?>">QC Picture</a>
+                                            </li>
+                                        <?php } ?>
                                         <li class="nav-item">
                                             <a class="cl" href="<?php echo base_url('page/about-us') ?>">About Us</a>
                                         </li>
@@ -341,7 +347,7 @@
                                     </div>
 
                                     <div class="cart-icon rounded-5 align-items-center justify-content-center p-3 me-3">
-                                        <img src="<?php echo base_url() ?>/assets/amazing_gadgets/img/cart.png" alt=""
+                                        <img src="<?php echo base_url() ?>/assets/theme_2/img/cart.png" alt=""
                                             class="img-fluid">
                                     </div>
                                     <span
