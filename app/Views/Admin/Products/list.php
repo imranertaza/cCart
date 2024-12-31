@@ -37,13 +37,20 @@
                             <?php } ?>
                             <button type="submit" class="btn btn-secondary btn-xs float-right mr-2"><i class="nav-icon fas fa-copy"></i> Copy</button>
                             <?php if(modules_key_by_access('image_crop') == '1' ){?>
-                            <button type="submit"  formaction="<?php echo base_url('admin/product_image_crop_action'); ?>" class="btn btn-info btn-xs float-right mr-2"><i class="fas fa-file"></i> Crop image</button>
+                            <button type="submit" id="save"  formaction="<?php echo base_url('admin/product_image_crop_action'); ?>" class="btn btn-info btn-xs float-right mr-2"><i class="fas fa-file"></i> Crop image</button>
                             <?php } ?>
-                            <button type="submit"  formaction="<?php echo base_url('/admin/product_multi_delete_action'); ?>" class="btn btn-danger btn-xs float-right mr-2"><i class="fas fa-trash"></i> Multi delete</button>
+                            <button type="submit"  formaction="<?php echo base_url('admin/product_multi_delete_action'); ?>" class="btn btn-danger btn-xs float-right mr-2"><i class="fas fa-trash"></i> Multi delete</button>
                         </form>
                     </div>
                     <div class="col-md-12" style="margin-top: 10px" id="message">
                         <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message'); endif; ?>
+
+                        <div class="form-group" id="process" style="display:none;">
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped active bg-success" role="progressbar" aria-valuemin="0" aria-valuemax="100" style=""></div>
+                            </div>
+                        </div>
+                        <p id="success_message"></p>
                     </div>
                 </div>
             </div>
@@ -68,7 +75,7 @@
                         <div class="col-md-3 mx-auto">
                             <div class="input-group ">
                                 <lable class="tab-lab">Search:</lable>
-                                <input name="keyWord" class="form-control form-control-sm border-end-0 border search-tab ml-2" onkeyup="table_form_submit()"  type="search" value="<?= $keyWord?>" id="example-search-input">
+                                <input name="keyWord" class="form-control form-control-sm border-end-0 border search-tab ml-2" oninput="table_form_submit()"  type="search" value="<?= $keyWord?>" id="example-search-input">
                             </div>
                         </div>
                     </div>
@@ -130,6 +137,65 @@
 
 <?= $this->section('java_script') ?>
 <script>
+    // $(document).ready(function(){
+    //     $('#multisubmitform').on('submit', function(event){
+    //         event.preventDefault();
+    //         var fd = new FormData(this);
+    //
+    //         $.ajax({
+    //             method:"POST",
+    //             url:$(this).prop('action'),
+    //             data:fd,
+    //             contentType: false,
+    //             cache: false,
+    //             processData: false,
+    //             beforeSend:function()
+    //             {
+    //                 $('#save').attr('disabled', 'disabled');
+    //                 $('#process').css('display', 'block');
+    //                 var percentage = 0;
+    //                 var timer = setInterval(function(){
+    //                     percentage = percentage + 20;
+    //                     progress_bar_process_before(percentage, timer);
+    //                 }, 1000);
+    //             },
+    //             success:function(data){
+    //
+    //                 var percentage = 50;
+    //                 var timer = setInterval(function(){
+    //                     percentage = percentage + 20;
+    //                     progress_bar_process(percentage, timer,data);
+    //                 }, 1000);
+    //             }
+    //         })
+    //
+    //
+    //     });
+    //
+    //     function progress_bar_process_before(percentage, timer){
+    //         $('.progress-bar').css('width', percentage + '%');
+    //         if(percentage > 50){clearInterval(timer);}
+    //     }
+    //     function progress_bar_process(percentage, timer,data){
+    //         $('.progress-bar').css('width', percentage + '%');
+    //         if(percentage > 100)
+    //         {
+    //             clearInterval(timer);
+    //             $('#sample_form')[0].reset();
+    //             $('#process').css('display', 'none');
+    //             $('.progress-bar').css('width', '0%');
+    //             $('#save').attr('disabled', false);
+    //             $('#success_message').html(data);
+    //             setTimeout(function(){
+    //                 $('#success_message').html('');
+    //                 window.location.reload();
+    //                 alert("ok");
+    //             }, 2000);
+    //         }
+    //     }
+    //
+    // });
+
     function allchecked(source) {
         var checkboxes = document.querySelectorAll('input[type="checkbox"]');
         for (var i = 0; i < checkboxes.length; i++) {
@@ -155,6 +221,10 @@
             });
         }
     }
+
+
+
+
 
 </script>
 <?= $this->endSection() ?>

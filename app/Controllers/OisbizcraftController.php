@@ -8,9 +8,8 @@ use App\Libraries\Weight_shipping;
 use App\Libraries\Zone_shipping;
 use App\Models\ProductsModel;
 use CodeIgniter\HTTP\RedirectResponse;
-use Stripe;
 
-class StripeController extends BaseController {
+class OisbizcraftController extends BaseController {
 
     protected $validation;
     protected $session;
@@ -33,54 +32,194 @@ class StripeController extends BaseController {
     }
 
     /**
-     * @description This method provides stripe page view
+     * @description This method provides oisbizcraft page view
      * @return void
      */
-    public function payment_stripe(){
-        $settings = get_settings();
+    public function payment_oisbizcraft(){
         $array = $this->session_data();
         $this->session->set($array);
-        
-        $data['keywords'] = $settings['meta_keyword'];
-        $data['description'] = $settings['meta_description'];
-        $data['title'] = 'Stripe payment';
-        echo view('Theme/'.$settings['Theme'].'/header',$data);
-        echo view('Theme/'.$settings['Theme'].'/Checkout/stripe');
-        echo view('Theme/'.$settings['Theme'].'/footer');
-    }
 
-    /**
-     * @description This method provides stripe api page view
-     * @return RedirectResponse
-     * @throws Stripe\Exception\ApiErrorException
-     */
-    public function stripe_create_charge(){
-        $secret_key = get_all_row_data_by_id('cc_payment_settings', 'label', 'secret_key');
-        Stripe\Stripe::setApiKey($secret_key->value);
-        $charge = Stripe\Charge::create ([
-            "amount" => $this->session->t_amount * 100,
-            "currency" => "usd",
-            "source" => $this->request->getVar('stripeToken'),
-            "description" => get_lebel_by_value_in_settings('meta_keyword')." Payment "
-        ]);
+        $this->oisbizcraft_action();
+
+        // Payment details (these should come from user input or form submission)
+        $amount = $this->request->getPost('amount');
+        $currency = 'USD'; // Currency can be dynamic based on your needs
+
+        $api_u = get_all_row_data_by_id('cc_payment_settings', 'label', 'ois_bizcraft_api_url');
+        // OIS Bizcraft API endpoint
+        $api_url = $api_u->value; // Example URL, replace with actual API URL
+        $api_k = get_all_row_data_by_id('cc_payment_settings', 'label', 'api_key');
+        $api_key = $api_k->value;
+
+        $amount = $this->request->getPost('amount');
+        $firstname = $this->request->getPost('payment_firstname');
+        $lastname = $this->request->getPost('payment_lastname');
+        $payment_email = $this->request->getPost('payment_email');
 
 
-        if ($charge->status == 'succeeded') {
-            $sess = array( 'charge_id' => $charge->id );
-            $this->session->set($sess);
-            return redirect()->to('stripe_action');
+        //convert sgd
+        $sgdRates = $this->usdToSgdRates();
+        $totalAm = $sgdRates * $amount;
+        $total = $totalAm * 100;
+        //convert sgd
 
+        $merchant_outlet_id = get_all_row_data_by_id('cc_payment_settings', 'label', 'merchant_outlet_id');
+        $terminal_id = get_all_row_data_by_id('cc_payment_settings', 'label', 'terminal_id');
+        $cust_code = get_all_row_data_by_id('cc_payment_settings', 'label', 'cust_code');
+        // Payment request data
+        $data = array(
+            'amount' => $total,
+            'merchant_outlet_id' => $merchant_outlet_id->value,
+            'terminal_id' => $terminal_id->value,
+            'cust_code' => $cust_code->value,
+            'user_fullname' => $firstname.' '.$lastname,
+            'user_email' => $payment_email,
+            'description' => 'Sale',
+            'currency' => 'SGD',
+            'optional_currency' => 'USD',
+            'merchant_return_url' => base_url('oisbizcraft_payment_status'), // Callback URL after payment
+            'order_id' => $this->session->order_id, // Generate a unique transaction ID
+        );
+
+
+        // Set API key and other required headers
+        $string = $data['cust_code'].$data['merchant_outlet_id'].$data['terminal_id'].$data['merchant_return_url'].$data['description'].$data['currency'].$data['amount'].$data['order_id'].$data['user_fullname'];
+        $data['hash'] = strtoupper(hash_hmac('SHA256', $string, $api_key));
+
+        $headers = array(
+            'Content-Type: application/json',
+            'Authorization: Bearer ' . $api_key,
+        );
+
+
+
+        // Initialize cURL session
+        $ch = curl_init($api_url);
+        curl_setopt($ch, CURLOPT_URL, $api_url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+        // Execute the request
+        $response = curl_exec($ch);
+        curl_close($ch);
+        $response_data = json_decode($response);
+
+
+//        print "<pre>";
+//        var_dump(json_decode($response));
+//        die();
+
+        // Check if the request was successful
+        if ($response_data->status === 200) {
+            return redirect()->to($response_data->data->url);
         }else{
+            $error = curl_error($ch);
+            curl_close($ch);
+            echo "Payment initialization failed: " . $error;
             return redirect()->to('checkout_failed');
         }
-
     }
 
+    public function success() {
+        $message = $this->request->getGet('message');
+        $order_id = $this->request->getGet('order_id');
+        $return_code = $this->request->getGet('return_code');
+        $ref_order_id = $this->request->getGet('ref_order_id');
+        print "Success";
+    }
+
+    public function usdToSgdRates(){
+        $exchange_rates_api = get_all_row_data_by_id('cc_payment_settings', 'label', 'exchange_rates_api');
+        $apiKey = $exchange_rates_api->value;
+        $url = "https://openexchangerates.org/api/latest.json?app_id=$apiKey";
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response = curl_exec($ch);
+
+        if(curl_errno($ch)) {
+            echo 'Error:' . curl_error($ch);
+        } else {
+            // Decode the JSON response into a PHP array
+            $data = json_decode($response, true);
+
+            // Check if the request was successful
+            if (isset($data['rates']['SGD'])) {
+                $usdToSgd = $data['rates']['SGD']; // Extract USD to SGD exchange rate
+                //echo "1 USD is equal to " . $usdToSgd . " SGD";
+            } else {
+                $usdToSgd = 0;
+                //echo "Error: Unable to fetch the exchange rate.";
+            }
+        }
+
+        curl_close($ch);
+
+        return $usdToSgd;
+    }
+
+    public function notification_webhook(){
+
+        $api_k = get_all_row_data_by_id('cc_payment_settings', 'label', 'api_key');
+        $secret_key = $api_k->value;  // Replace with your actual secret key
+
+        $input = file_get_contents('php://input');
+        $data = json_decode($input, true);
+//        var_dump($data);
+
+        
+        $hash_string = $data['order_id'] . $data['status'] . $data['amount_cent'] . $data['currency'];
+        $generated_hash = strtoupper(hash_hmac('SHA1', $hash_string, $secret_key));
+//        print "<br>";
+//        print $generated_hash;
+//        die();
+
+        if ($generated_hash === $data['hash']) {
+            $dataOrder['payment_status'] = 'Paid';
+            $table = DB()->table('cc_order');
+            $table->where('order_id',$data['order_id'])->update($dataOrder);
+
+            http_response_code(200);
+        } else {
+            $dataOrder['payment_status'] = 'Failed';
+            $table = DB()->table('cc_order');
+            $table->where('order_id',$data['order_id'])->update($dataOrder);
+
+            http_response_code(400);  // Respond with 400 Bad Request
+        }
+    }
+
+    public function payment_status() {
+        $message = $this->request->getGet('message');
+        $order_id = $this->request->getGet('order_id');
+        $return_code = $this->request->getGet('return_code');
+        $ref_order_id = $this->request->getGet('ref_order_id');
+
+        if ($message === 'success') {
+            $data['payment_status'] = 'Paid';
+            $table = DB()->table('cc_order');
+            $table->where('order_id',$order_id)->update($data);
+
+            unset($_SESSION['order_id']);
+
+            $this->session->setFlashdata('message', '<div class="alert-success-m alert-success alert-dismissible" role="alert">Your order has been successfully placed </div>');
+            return redirect()->to('checkout_success');
+//            return redirect()->to('oisbizcraft_action');
+        } else {
+            // Handle failed payment (e.g., update database, show failure message)
+            return redirect()->to('checkout_failed');
+        }
+    }
+
+
     /**
-     * @description This method provides stripe checkout action execute
+     * @description This method provides oisbizcraft checkout action execute
      * @return RedirectResponse
      */
-    public function stripe_action(){
+    public function oisbizcraft_action(){
 
         $data['payment_firstname'] = $this->session->payment_firstname;
         $data['payment_lastname'] = $this->session->payment_lastname;
@@ -136,7 +275,7 @@ class StripeController extends BaseController {
             $finalAmo = ($this->cart->total() + $data['shipping_charge']) - $disc;
         }
 
-        $data['payment_status'] = 'Paid';
+        $data['payment_status'] = 'Pending';
         $data['total'] = $this->cart->total();
         $data['discount'] = $disc;
         $data['final_amount'] = $finalAmo;
@@ -222,9 +361,11 @@ class StripeController extends BaseController {
 
         $this->sessionDestry();
 
+        $dataOrder['order_id'] = $order_id;
+        $this->session->set($dataOrder);
 
-        $this->session->setFlashdata('message', '<div class="alert-success-m alert-success alert-dismissible" role="alert">Your order has been successfully placed </div>');
-        return redirect()->to('checkout_success');
+//        $this->session->setFlashdata('message', '<div class="alert-success-m alert-success alert-dismissible" role="alert">Your order has been successfully placed </div>');
+//        return redirect()->to('checkout_success');
     }
 
     /**

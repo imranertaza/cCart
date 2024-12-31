@@ -87,6 +87,12 @@ class Modules extends Seeder
                 'module_key' => 'multi_category',
                 'status' => 1,
             ],
+            [
+                'module_id' => 14,
+                'module_name' => 'Album',
+                'module_key' => 'album',
+                'status' => 1,
+            ],
         ];
 
         // Using Query Builder

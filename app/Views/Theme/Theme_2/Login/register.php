@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-md-6 text-center mb-4 mb-md-0">
-                <img src="<?php echo base_url()?>/assets/img/sing-up.png" alt="Sing Up" class="img-fluid">
+                <img src="<?php echo base_url()?>/assets/theme_2/img/sing-up.png" alt="Sing Up" class="img-fluid">
             </div>
             <div class="col-md-6">
                 <form action="<?php echo base_url('register_action')?>" method="post" class="sing-up" onsubmit="return onRegistration()">
