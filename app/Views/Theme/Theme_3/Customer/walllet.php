@@ -10,7 +10,7 @@
                         </div>
                         <div class="col-md-12 px-5 text-center">
 
-                            <a href="<?php echo base_url('add_funds');?>" class="btn btn-primary" style="float: right;">Add funds</a>
+                            <a href="<?php echo base_url('add-funds');?>" class="btn btn-primary" style="float: right;">Add funds</a>
                             <div class="card" style="width: 10rem;">
                                 <div class="card-body text-center">
                                     <h5 class="card-title">My Balance</h5>

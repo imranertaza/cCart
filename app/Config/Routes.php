@@ -311,7 +311,7 @@ $routes->post('/addtoWishlist', 'Customer\Dashboard::addtoWishlist');
 
 $routes->get('/favorite', 'Customer\Favorite::index');
 $routes->post('/removeToWishlist', 'Customer\Favorite::removeToWishlist');
-$routes->get('/my_order', 'Customer\Order::index');
+$routes->get('/my-order', 'Customer\Order::index');
 $routes->get('/invoice/(:num)', 'Customer\Order::invoice/$1');
 
 $routes->get('/profile', 'Customer\Profile::index');
@@ -320,8 +320,8 @@ $routes->post('/password_action_update', 'Customer\Profile::password_action');
 $routes->post('/newsletter_action', 'Customer\Profile::newsletter_action');
 
 
-$routes->get('/my_wallet', 'Customer\Wallet::index');
-$routes->get('/add_funds', 'Customer\Wallet::add_funds');
+$routes->get('/my-wallet', 'Customer\Wallet::index');
+$routes->get('/add-funds', 'Customer\Wallet::add_funds');
 $routes->post('/add_funds_action', 'Customer\Wallet::fund_action');
 
 $routes->get('/ledger', 'Customer\Customer_ledger::index');
@@ -361,7 +361,7 @@ $routes->post('/payment_stripe_checkout_action', 'StripeController::stripe_creat
 $routes->get('/stripe_action', 'StripeController::stripe_action');
 
 $routes->post('/payment_oisbizcraft', 'OisbizcraftController::payment_oisbizcraft');
-$routes->get('/oisbizcraft_payment_status', 'OisbizcraftController::payment_status');
+$routes->get('/oisbizcraft-return-url', 'OisbizcraftController::return_url');
 $routes->get('/oisbizcraft_action', 'OisbizcraftController::oisbizcraft_action');
 $routes->post('/oisbizcraft-notification', 'OisbizcraftController::notification_webhook');
 $routes->get('/oisbizcraft-success', 'OisbizcraftController::success');
@@ -395,8 +395,8 @@ $routes->Post('/category_url_generate', 'Category::url_generate');
 $routes->post('/top_search', 'Search::search_action');
 
 //Qc picture
-$routes->get('/qc_picture', 'Album::index');
-$routes->get('/qc_picture_view/(:num)', 'Album::view/$1');
+$routes->get('/qc-picture', 'Album::index');
+$routes->get('/qc-picture-view/(:num)', 'Album::view/$1');
 
 //ajax controller
 $routes->post('get_state', 'Admin\Ajax::get_state');
