@@ -7,7 +7,7 @@
                 </div>
                 <?php foreach ($qcpicture as $val){ ?>
                 <div class="col-3 col-md-3 mt-4 text-center">
-                    <a href="<?= base_url('qc_picture_view/'.$val->album_id);?>">
+                    <a href="<?= base_url('qc-picture-view/'.$val->album_id);?>">
                         <?php echo image_view('uploads/album',$val->album_id,'198_wm_'.$val->thumb,'noimage.png','');?>
                         <h5 class="text-capitalize text-black"><?php echo $val->name; ?></h5>
                     </a>
