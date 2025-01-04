@@ -184,7 +184,7 @@
                                     <?php echo top_menu();?>
                                     <?php if ($modules['album'] == 1) { ?>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="<?php echo base_url('qc_picture') ?>">QC Picture</a>
+                                            <a class="nav-link" href="<?php echo base_url('qc-picture') ?>">QC Picture</a>
                                         </li>
                                     <?php } ?>
                                     <li class="nav-item">

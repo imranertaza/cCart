@@ -41,10 +41,6 @@ class OisbizcraftController extends BaseController {
 
         $this->oisbizcraft_action();
 
-        // Payment details (these should come from user input or form submission)
-        $amount = $this->request->getPost('amount');
-        $currency = 'USD'; // Currency can be dynamic based on your needs
-
         $api_u = get_all_row_data_by_id('cc_payment_settings', 'label', 'ois_bizcraft_api_url');
         // OIS Bizcraft API endpoint
         $api_url = $api_u->value; // Example URL, replace with actual API URL
@@ -77,7 +73,7 @@ class OisbizcraftController extends BaseController {
             'description' => 'Sale',
             'currency' => 'SGD',
             'optional_currency' => 'USD',
-            'merchant_return_url' => base_url('oisbizcraft_payment_status'), // Callback URL after payment
+            'merchant_return_url' => base_url('oisbizcraft-return-url'), // Callback URL after payment
             'order_id' => $this->session->order_id, // Generate a unique transaction ID
         );
 
@@ -107,28 +103,22 @@ class OisbizcraftController extends BaseController {
         $response_data = json_decode($response);
 
 
-//        print "<pre>";
-//        var_dump(json_decode($response));
-//        die();
-
         // Check if the request was successful
         if ($response_data->status === 200) {
             return redirect()->to($response_data->data->url);
         }else{
             $error = curl_error($ch);
             curl_close($ch);
-            echo "Payment initialization failed: " . $error;
+
+            $data['payment_status'] = 'Failed';
+            $table = DB()->table('cc_order');
+            $table->where('order_id',$this->session->order_id)->update($data);
+            unset($_SESSION['order_id']);
+
             return redirect()->to('checkout_failed');
         }
     }
 
-    public function success() {
-        $message = $this->request->getGet('message');
-        $order_id = $this->request->getGet('order_id');
-        $return_code = $this->request->getGet('return_code');
-        $ref_order_id = $this->request->getGet('ref_order_id');
-        print "Success";
-    }
 
     public function usdToSgdRates(){
         $exchange_rates_api = get_all_row_data_by_id('cc_payment_settings', 'label', 'exchange_rates_api');
@@ -173,11 +163,8 @@ class OisbizcraftController extends BaseController {
         
         $hash_string = $data['order_id'] . $data['status'] . $data['amount_cent'] . $data['currency'];
         $generated_hash = strtoupper(hash_hmac('SHA1', $hash_string, $secret_key));
-//        print "<br>";
-//        print $generated_hash;
-//        die();
 
-        if ($generated_hash === $data['hash']) {
+        if ($generated_hash === $data['hash'] && $data['status'] == "A") {
             $dataOrder['payment_status'] = 'Paid';
             $table = DB()->table('cc_order');
             $table->where('order_id',$data['order_id'])->update($dataOrder);
@@ -192,7 +179,7 @@ class OisbizcraftController extends BaseController {
         }
     }
 
-    public function payment_status() {
+    public function return_url() {
         $message = $this->request->getGet('message');
         $order_id = $this->request->getGet('order_id');
         $return_code = $this->request->getGet('return_code');
@@ -200,16 +187,21 @@ class OisbizcraftController extends BaseController {
 
         if ($message === 'success') {
             $data['payment_status'] = 'Paid';
+            $data['PM_transaction_id'] = $ref_order_id;
             $table = DB()->table('cc_order');
             $table->where('order_id',$order_id)->update($data);
 
             unset($_SESSION['order_id']);
 
-            $this->session->setFlashdata('message', '<div class="alert-success-m alert-success alert-dismissible" role="alert">Your order has been successfully placed </div>');
+            $this->session->setFlashdata('message', 'Your order has been successfully placed');
             return redirect()->to('checkout_success');
-//            return redirect()->to('oisbizcraft_action');
         } else {
             // Handle failed payment (e.g., update database, show failure message)
+            $data['payment_status'] = 'Failed';
+            $table = DB()->table('cc_order');
+            $table->where('order_id',$this->session->order_id)->update($data);
+            unset($_SESSION['order_id']);
+
             return redirect()->to('checkout_failed');
         }
     }
