@@ -201,6 +201,17 @@ class Order extends Migration
             'status' => [
                 'type' => 'tinyint'
             ],
+            'payment_status' => [
+                'type' => 'ENUM',
+                'constraint' => ['Pending', 'Paid','Failed'],
+                'default' => 'Pending',
+            ],
+            'PM_transaction_id' => [
+                'type' => 'VARCHAR',
+                'constraint' => 100,
+                'null' => true,
+                'default' => null,
+            ],
             'ip' => [
                 'type' => 'VARCHAR',
                 'constraint' => 40,
