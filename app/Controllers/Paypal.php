@@ -313,4 +313,98 @@ class Paypal extends BaseController
         unset($_SESSION['shipping_address_1']);
         unset($_SESSION['shipping_address_2']);
     }
+
+    public function wallet_paypal(){
+
+
+        $dataSession['amount'] = $this->request->getGet('amount');
+        $dataSession['payment_method_id'] = $this->request->getGet('payment_method_id');
+        $this->session->set($dataSession);
+
+        $name = $this->session->cusAll->firstname.' '.$this->session->cusAll->lastname;
+
+        $settings = paypal_settings();
+        $paypalexpress = new Paypalexpress($settings);
+
+        if (!isset($_GET['token'])) {
+            // Setting up your intial variable to send payment process.
+            $url = dirname('http://' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . $_SERVER['REQUEST_URI']);
+            $personName  = $name;
+            $L_NAME0   = $name;
+            $L_AMT0  = $dataSession['amount'];
+            $L_QTY0  =    '1';
+            $returnURL =  base_url('payment_paypal_wallet_action');
+            $cancelURL =  base_url('my-wallet-canceled');
+            $itemamt = 0.00;
+            $itemamt = $L_QTY0 * $L_AMT0;
+            $amt = $dataSession['amount'];
+            $nvpstr = "&L_NAME0=" . $L_NAME0 . "&L_AMT0=" . $L_AMT0 . "&L_QTY0=" . $L_QTY0 . "&AMT=" . (string)$amt . "&ITEMAMT=" . (string)$itemamt . "&L_NUMBER0=1000&L_DESC0=Size: 8.8-oz&ReturnUrl=" . $returnURL . "&CANCELURL=" . $cancelURL . "&CURRENCYCODE=" . $settings['currency'] . "&PAYMENTACTION=" . $settings['payment_type'];
+            // calling initial api.
+            $initresult = $paypalexpress->process_payment($nvpstr);
+
+            $ack = strtoupper($initresult["ACK"]);
+            if ($ack == "SUCCESS") {
+                $token = trim($initresult["TOKEN"]);
+                $payurl = $settings['api_url'] . $token;
+
+                return redirect()->to($payurl);
+            } else {
+                if (isset($initresult) && $initresult['ACK'] == 'Failure') {
+                    $this->session->setFlashdata('message', 'Please check your details and try again');
+                    return redirect()->to('my-wallet-failed');
+                }
+            }
+        }
+    }
+
+    public function paypal_wallet_action(){
+        $paypalexpress = new Paypalexpress(paypal_settings());
+        $token = urlencode($_GET['token']);
+        $result = $paypalexpress->make_payment($token);
+
+        if (isset($result) && $result['ACK'] == 'Failure') {
+            $this->session->setFlashdata('message', 'Please check your details and try again ');
+            return redirect()->to('my-wallet-failed');
+        } else {
+            DB()->transStart();
+                //fund request data insert
+                $data['amount'] = $this->session->amount;
+                $data['payment_method_id'] = $this->session->payment_method_id;
+                $data['customer_id'] = $this->session->cusUserId;
+                $data['status'] = 'Complete';
+
+                $table = DB()->table('cc_fund_request');
+                $table->insert($data);
+                $fund_request_id = DB()->insertID();
+
+
+                //customer balance update
+                $oldBalance = get_data_by_id('balance','cc_customer','customer_id',$this->session->cusUserId);
+                $newBalance = $oldBalance + $this->session->amount;
+
+                $cusData['balance'] = $newBalance;
+                $tableCus = DB()->table('cc_customer');
+                $tableCus->where('customer_id',$this->session->cusUserId)->update($cusData);
+
+
+                //customer ledger insert
+                $cusLedg['customer_id'] = $this->session->cusUserId;
+                $cusLedg['fund_request_id'] = $fund_request_id;
+                $cusLedg['payment_method_id'] = $this->session->payment_method_id;
+                $cusLedg['particulars'] = 'Deposit balance';
+                $cusLedg['trangaction_type'] = 'Cr.';
+                $cusLedg['amount'] = $this->session->amount;
+                $cusLedg['rest_balance'] = $newBalance;
+
+                $tableCusLedg = DB()->table('cc_customer_ledger');
+                $tableCusLedg->insert($cusLedg);
+            DB()->transComplete();
+
+            unset($_SESSION['payment_method_id']);
+            unset($_SESSION['amount']);
+
+            $this->session->setFlashdata('message', 'Create successfully');
+            return redirect()->to('my-wallet-success');
+        }
+    }
 }

@@ -324,6 +324,11 @@ $routes->get('/my-wallet', 'Customer\Wallet::index');
 $routes->get('/add-funds', 'Customer\Wallet::add_funds');
 $routes->post('/add_funds_action', 'Customer\Wallet::fund_action');
 
+$routes->get('/my-wallet-success', 'Customer\Wallet::wallet_success');
+$routes->get('/my-wallet-canceled', 'Customer\Wallet::wallet_canceled');
+$routes->get('/my-wallet-failed', 'Customer\Wallet::wallet_failed');
+
+
 $routes->get('/ledger', 'Customer\Customer_ledger::index');
 
 
@@ -366,6 +371,16 @@ $routes->get('/oisbizcraft_action', 'OisbizcraftController::oisbizcraft_action')
 $routes->post('/oisbizcraft-notification', 'OisbizcraftController::notification_webhook');
 $routes->get('/oisbizcraft-success', 'OisbizcraftController::success');
 
+//wallet
+$routes->get('/payment_paypal_wallet', 'Paypal::wallet_paypal');
+$routes->get('/payment_paypal_wallet_action', 'Paypal::paypal_wallet_action');
+
+$routes->post('/payment_stripe_wallet', 'StripeController::payment_stripe_wallet');
+$routes->post('/payment_stripe_wallet_action', 'StripeController::stripe_create_charge_wallet');
+$routes->get('/stripe_wallet_action', 'StripeController::stripe_wallet_action');
+
+$routes->post('/payment_oisbizcraft_wallet', 'OisbizcraftController::payment_oisbizcraft_wallet');
+$routes->get('/oisbizcraft-wallet-return-url', 'OisbizcraftController::return_url_wallet');
 
 //pages routes
 $routes->get('/about', 'Pages\Pages::about');
