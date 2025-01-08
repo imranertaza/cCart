@@ -307,5 +307,83 @@ class StripeController extends BaseController {
         unset($_SESSION['t_amount']);
     }
 
+    public function payment_stripe_wallet(){
+        $settings = get_settings();
+        $dataSession['amount'] = $this->request->getPost('amount');
+        $dataSession['payment_method_id'] = $this->request->getPost('payment_method_id');
+        $this->session->set($dataSession);
+
+        $data['keywords'] = $settings['meta_keyword'];
+        $data['description'] = $settings['meta_description'];
+        $data['title'] = 'Stripe payment';
+        echo view('Theme/'.$settings['Theme'].'/header',$data);
+        echo view('Theme/'.$settings['Theme'].'/Customer/stripe');
+        echo view('Theme/'.$settings['Theme'].'/footer');
+    }
+
+    public function stripe_create_charge_wallet(){
+        $secret_key = get_all_row_data_by_id('cc_payment_settings', 'label', 'secret_key');
+        Stripe\Stripe::setApiKey($secret_key->value);
+        $charge = Stripe\Charge::create ([
+            "amount" => $this->session->amount * 100,
+            "currency" => "usd",
+            "source" => $this->request->getVar('stripeToken'),
+            "description" => get_lebel_by_value_in_settings('meta_keyword')." Payment "
+        ]);
+
+
+        if ($charge->status == 'succeeded') {
+            $sess = array( 'charge_id' => $charge->id );
+            $this->session->set($sess);
+            return redirect()->to('stripe_wallet_action');
+
+        }else{
+            return redirect()->to('my-wallet-failed');
+        }
+
+    }
+
+    public function stripe_wallet_action(){
+
+        DB()->transStart();
+            //fund request data insert
+            $data['amount'] = $this->session->amount;
+            $data['payment_method_id'] = $this->session->payment_method_id;
+            $data['customer_id'] = $this->session->cusUserId;
+            $data['status'] = 'Complete';
+
+            $table = DB()->table('cc_fund_request');
+            $table->insert($data);
+            $fund_request_id = DB()->insertID();
+
+
+            //customer balance update
+            $oldBalance = get_data_by_id('balance','cc_customer','customer_id',$this->session->cusUserId);
+            $newBalance = $oldBalance + $this->session->amount;
+
+            $cusData['balance'] = $newBalance;
+            $tableCus = DB()->table('cc_customer');
+            $tableCus->where('customer_id',$this->session->cusUserId)->update($cusData);
+
+
+            //customer ledger insert
+            $cusLedg['customer_id'] = $this->session->cusUserId;
+            $cusLedg['fund_request_id'] = $fund_request_id;
+            $cusLedg['payment_method_id'] = $this->session->payment_method_id;
+            $cusLedg['particulars'] = 'Deposit balance';
+            $cusLedg['trangaction_type'] = 'Cr.';
+            $cusLedg['amount'] = $this->session->amount;
+            $cusLedg['rest_balance'] = $newBalance;
+
+            $tableCusLedg = DB()->table('cc_customer_ledger');
+            $tableCusLedg->insert($cusLedg);
+        DB()->transComplete();
+
+        unset($_SESSION['payment_method_id']);
+        unset($_SESSION['amount']);
+
+        $this->session->setFlashdata('message', 'Create successfully ');
+        return redirect()->to('my-wallet-success');
+    }
 
 }

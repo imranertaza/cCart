@@ -440,5 +440,157 @@ class OisbizcraftController extends BaseController {
         unset($_SESSION['t_amount']);
     }
 
+    public function payment_oisbizcraft_wallet(){
+
+
+        $data['amount'] = $this->request->getPost('amount');
+        $data['payment_method_id'] = $this->request->getPost('payment_method_id');
+        $data['customer_id'] = $this->session->cusUserId;
+        $data['status'] = 'Pending';
+
+        $table = DB()->table('cc_fund_request');
+        $table->insert($data);
+        $fund_request_id = DB()->insertID();
+
+
+        $dataSession['amount'] = $this->request->getPost('amount');
+        $dataSession['payment_method_id'] = $this->request->getPost('payment_method_id');
+        $dataSession['fund_request_id'] = $fund_request_id;
+        $this->session->set($dataSession);
+
+
+        $api_u = get_all_row_data_by_id('cc_payment_settings', 'label', 'ois_bizcraft_api_url');
+        // OIS Bizcraft API endpoint
+        $api_url = $api_u->value; // Example URL, replace with actual API URL
+        $api_k = get_all_row_data_by_id('cc_payment_settings', 'label', 'api_key');
+        $api_key = $api_k->value;
+
+        $amount = $this->request->getPost('amount');
+        $name = $this->session->cusAll->firstname.' '.$this->session->cusAll->lastname;
+        $payment_email = $this->session->cusAll->email;
+
+
+        //convert sgd
+        $sgdRates = $this->usdToSgdRates();
+        $totalAm = $sgdRates * $amount;
+        $total = $totalAm * 100;
+        //convert sgd
+
+        $merchant_outlet_id = get_all_row_data_by_id('cc_payment_settings', 'label', 'merchant_outlet_id');
+        $terminal_id = get_all_row_data_by_id('cc_payment_settings', 'label', 'terminal_id');
+        $cust_code = get_all_row_data_by_id('cc_payment_settings', 'label', 'cust_code');
+        // Payment request data
+        $data = array(
+            'amount' => $total,
+            'merchant_outlet_id' => $merchant_outlet_id->value,
+            'terminal_id' => $terminal_id->value,
+            'cust_code' => $cust_code->value,
+            'user_fullname' => $name,
+            'user_email' => $payment_email,
+            'description' => 'Sale',
+            'currency' => 'SGD',
+            'optional_currency' => 'USD',
+            'merchant_return_url' => base_url('oisbizcraft-wallet-return-url'), // Callback URL after payment
+            'order_id' => $this->session->fund_request_id, // Generate a unique transaction ID
+        );
+
+
+        // Set API key and other required headers
+        $string = $data['cust_code'].$data['merchant_outlet_id'].$data['terminal_id'].$data['merchant_return_url'].$data['description'].$data['currency'].$data['amount'].$data['order_id'].$data['user_fullname'];
+        $data['hash'] = strtoupper(hash_hmac('SHA256', $string, $api_key));
+
+        $headers = array(
+            'Content-Type: application/json',
+            'Authorization: Bearer ' . $api_key,
+        );
+
+
+
+        // Initialize cURL session
+        $ch = curl_init($api_url);
+        curl_setopt($ch, CURLOPT_URL, $api_url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+        // Execute the request
+        $response = curl_exec($ch);
+        curl_close($ch);
+        $response_data = json_decode($response);
+
+
+        // Check if the request was successful
+        if ($response_data->status === 200) {
+            return redirect()->to($response_data->data->url);
+        }else{
+            $error = curl_error($ch);
+            curl_close($ch);
+
+            $data['status'] = 'Canceled';
+            $table = DB()->table('cc_fund_request');
+            $table->where('fund_request_id',$this->session->fund_request_id)->update($data);
+            unset($_SESSION['fund_request_id']);
+
+            return redirect()->to('my-wallet-failed');
+        }
+    }
+
+    public function return_url_wallet(){
+        $message = $this->request->getGet('message');
+        $order_id = $this->request->getGet('order_id');
+        $return_code = $this->request->getGet('return_code');
+        $ref_order_id = $this->request->getGet('ref_order_id');
+
+        if ($message === 'success') {
+            $this->wallet_action();
+            $this->session->setFlashdata('message', 'Your order has been successfully placed');
+            return redirect()->to('my-wallet-success');
+        } else {
+            // Handle failed payment (e.g., update database, show failure message)
+            $data['status'] = 'Canceled';
+            $table = DB()->table('cc_fund_request');
+            $table->where('fund_request_id',$this->session->fund_request_id)->update($data);
+            unset($_SESSION['fund_request_id']);
+
+            return redirect()->to('my-wallet-failed');
+        }
+    }
+
+    public function wallet_action(){
+        DB()->transStart();
+        $data['status'] = 'Complete';
+        $table = DB()->table('cc_fund_request');
+        $table->where('fund_request_id',$this->session->fund_request_id)->update($data);
+
+        //customer balance update
+        $oldBalance = get_data_by_id('balance','cc_customer','customer_id',$this->session->cusUserId);
+        $newBalance = $oldBalance + $this->session->amount;
+
+        $cusData['balance'] = $newBalance;
+        $tableCus = DB()->table('cc_customer');
+        $tableCus->where('customer_id',$this->session->cusUserId)->update($cusData);
+
+
+        //customer ledger insert
+        $cusLedg['customer_id'] = $this->session->cusUserId;
+        $cusLedg['fund_request_id'] = $this->session->fund_request_id;
+        $cusLedg['payment_method_id'] = $this->session->payment_method_id;
+        $cusLedg['particulars'] = 'Deposit balance';
+        $cusLedg['trangaction_type'] = 'Cr.';
+        $cusLedg['amount'] = $this->session->amount;
+        $cusLedg['rest_balance'] = $newBalance;
+
+        $tableCusLedg = DB()->table('cc_customer_ledger');
+        $tableCusLedg->insert($cusLedg);
+        DB()->transComplete();
+
+        unset($_SESSION['fund_request_id']);
+        unset($_SESSION['amount']);
+        unset($_SESSION['payment_method_id']);
+    }
+
+
+
 
 }
