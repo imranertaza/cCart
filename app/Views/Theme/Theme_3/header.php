@@ -89,7 +89,7 @@
                                             href="<?php echo base_url('dashboard') ?>">Dashboard</a></li>
                                     <li><a href="<?php echo base_url('profile'); ?>"
                                             class="dropdown-item mt-2 mb-2">Profile</a></li>
-                                    <li><a href="<?php echo base_url('my_order'); ?>" class="dropdown-item mt-2 mb-2">My
+                                    <li><a href="<?php echo base_url('my-order'); ?>" class="dropdown-item mt-2 mb-2">My
                                             order</a></li>
                                     <?php if ($modules['wishlist'] == 1) { ?>
                                     <li><a href="<?php echo base_url('favorite'); ?>" class="dropdown-item mt-2 mb-2">My

@@ -448,6 +448,22 @@
         });
     }
 
+    function add_fund_instruction_view(id, code) {
+        if (code == 'paypal') {
+            $('#add-fund-form').attr('action', '<?php echo base_url('payment_paypal_wallet'); ?>');
+            $('#add-fund-form').attr('method', 'GET');
+        } else if (code == 'stripe') {
+            $('#add-fund-form').attr('action', '<?php echo base_url('payment_stripe_wallet'); ?>');
+            $('#add-fund-form').attr('method', 'POST');
+        } else if (code == 'oisbizcraft') {
+            $('#add-fund-form').attr('action', '<?php echo base_url('payment_oisbizcraft_wallet'); ?>');
+            $('#add-fund-form').attr('method', 'POST');
+        } else {
+            $('#add-fund-form').attr('action', '<?php echo base_url('add_funds_action'); ?>');
+            $('#add-fund-form').attr('method', 'POST');
+        }
+    }
+
 </script>
 <script src="<?php echo base_url() ?>/assets/assets_fl/validation.js" type="text/javascript" ></script>
 </body>
