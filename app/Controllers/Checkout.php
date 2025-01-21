@@ -84,14 +84,14 @@ class Checkout extends BaseController
                             'coupon_discount' => $query->discount
                         );
                         $this->session->set($couponArray);
-                        $this->session->setFlashdata('message', '<div class="alert-success-m alert-success alert-dismissible" role="alert">Coupon code applied successfully </div>');
+                        $this->session->setFlashdata('message', 'Coupon code applied successfully ');
                         return redirect()->to('cart');
                     } else {
-                        $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible text-white" role="alert">your cart is currently empty </div>');
+                        $this->session->setFlashdata('message', 'your cart is currently empty ');
                         return redirect()->to('cart');
                     }
                 } else {
-                    $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Coupon code not working </div>');
+                    $this->session->setFlashdata('message', 'Coupon code not working ');
                     return redirect()->to('cart');
                 }
             }
@@ -106,18 +106,18 @@ class Checkout extends BaseController
                                 'coupon_discount' => $query->discount
                             );
                             $this->session->set($couponArray);
-                            $this->session->setFlashdata('message', '<div class="alert-success-m alert-success alert-dismissible" role="alert">Coupon code applied successfully </div>');
+                            $this->session->setFlashdata('message', 'Coupon code applied successfully ');
                             return redirect()->to('cart');
                         } else {
-                            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible text-white" role="alert">your cart is currently empty </div>');
+                            $this->session->setFlashdata('message', 'your cart is currently empty ');
                             return redirect()->to('cart');
                         }
                     } else {
-                        $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Coupon code not working </div>');
+                        $this->session->setFlashdata('message', 'Coupon code not working ');
                         return redirect()->to('cart');
                     }
                 } else {
-                    $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Coupon code not working </div>');
+                    $this->session->setFlashdata('message', 'Coupon code not working ');
                     return redirect()->to('cart');
                 }
             }
@@ -128,15 +128,15 @@ class Checkout extends BaseController
                         'coupon_discount' => $query->discount
                     );
                     $this->session->set($couponArray);
-                    $this->session->setFlashdata('message', '<div class="alert-success-m alert-success alert-dismissible" role="alert">Coupon code applied successfully </div>');
+                    $this->session->setFlashdata('message', 'Coupon code applied successfully ');
                     return redirect()->to('cart');
                 } else {
-                    $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible text-white" role="alert">your cart is currently empty </div>');
+                    $this->session->setFlashdata('message', 'your cart is currently empty ');
                     return redirect()->to('cart');
                 }
             }
         } else {
-            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible text-white" role="alert">Coupon code not working </div>');
+            $this->session->setFlashdata('message', 'Coupon code not working ');
             return redirect()->to('cart');
         }
     }
@@ -208,7 +208,7 @@ class Checkout extends BaseController
             }
 
             if ($this->validation->run($data) == FALSE) {
-                $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert" style="color: #fff;" >' . $this->validation->listErrors() . ' </div>');
+                $this->session->setFlashdata('message', '' . $this->validation->listErrors() . '');
                 return redirect()->to('checkout');
             } else {
 
@@ -230,7 +230,7 @@ class Checkout extends BaseController
                 if ($data['payment_method'] == '8') {
                     $balCus = get_data_by_id('balance', 'cc_customer', 'customer_id', $this->session->cusUserId);
                     if ($balCus < $finalAmo) {
-                        $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert" style="color: #fff;" >Not enough balance </div>');
+                        $this->session->setFlashdata('message', 'Not enough balance');
                         return redirect()->to('checkout');
                     }
                 }
@@ -372,11 +372,11 @@ class Checkout extends BaseController
                 unset($_SESSION['coupon_discount']);
                 $this->cart->destroy();
 
-                $this->session->setFlashdata('message', '<div class="alert-success-m alert-success alert-dismissible" role="alert">Your order has been successfully placed </div>');
+                $this->session->setFlashdata('message', 'Your order has been successfully placed ');
                 return redirect()->to('checkout_success');
             }
         }else {
-            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert" style="color: #fff;" >Your cart is empty!</div>');
+            $this->session->setFlashdata('message', 'Your cart is empty!');
             return redirect()->to('checkout');
         }
     }

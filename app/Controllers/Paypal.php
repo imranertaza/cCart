@@ -131,7 +131,7 @@ class Paypal extends BaseController
         $result = $paypalexpress->make_payment($token);
 
         if (isset($result) && $result['ACK'] == 'Failure') {
-            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Please check your details and try again </div>');
+            $this->session->setFlashdata('message', 'Please check your details and try again ');
             return redirect()->to('checkout_failed');
         } else {
 
@@ -274,7 +274,7 @@ class Paypal extends BaseController
             $this->sessionDestry();
 
 
-            $this->session->setFlashdata('message', '<div class="alert-success-m alert-success alert-dismissible" role="alert">Your order has been successfully placed </div>');
+            $this->session->setFlashdata('message', 'Your order has been successfully placed ');
             return redirect()->to('checkout_success');
         }
     }
