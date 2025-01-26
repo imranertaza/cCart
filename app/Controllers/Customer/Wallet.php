@@ -110,7 +110,7 @@ class Wallet extends BaseController
             $table = DB()->table('cc_fund_request');
             $table->insert($data);
             
-            $this->session->setFlashdata('message', '<div class="alert-success-m alert-success alert-dismissible" role="alert">Update successfully </div>');
+            $this->session->setFlashdata('message', '<div class="alert-success-m alert-success alert-dismissible" role="alert">Fund Update successfully </div>');
             return redirect()->to('my-wallet');
         }
     }
