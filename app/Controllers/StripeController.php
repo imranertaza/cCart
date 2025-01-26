@@ -223,7 +223,7 @@ class StripeController extends BaseController {
         $this->sessionDestry();
 
 
-        $this->session->setFlashdata('message', '<div class="alert-success-m alert-success alert-dismissible" role="alert">Your order has been successfully placed </div>');
+        $this->session->setFlashdata('message', 'Your order has been successfully placed ');
         return redirect()->to('checkout_success');
     }
 
