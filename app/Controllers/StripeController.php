@@ -129,8 +129,21 @@ class StripeController extends BaseController {
         }
         $disc = null;
         if (isset($this->session->coupon_discount)) {
-            $disc = round(($this->cart->total() * $this->session->coupon_discount) / 100);
+            $disc = ($this->cart->total() * $this->session->coupon_discount) / 100;
         }
+        if (!empty($data['shipping_charge'])) {
+            if (isset($this->session->coupon_discount_shipping)) {
+                $disc = $this->session->shipping_discount_charge;
+            }
+        }
+
+        if (!empty($disc)){
+            $oldQtyCup = get_data_by_id('total_used','cc_coupon','coupon_id',$this->session->coupon_id);
+            $newQtyCupUsed['total_used'] = $oldQtyCup + 1;
+            $table = DB()->table('cc_coupon');
+            $table->where('coupon_id',$this->session->coupon_id)->update($newQtyCupUsed);
+        }
+
         $finalAmo = $this->cart->total() - $disc;
         if (!empty($data['shipping_charge'])) {
             $finalAmo = ($this->cart->total() + $data['shipping_charge']) - $disc;
@@ -245,6 +258,7 @@ class StripeController extends BaseController {
 
         $data['shipping_method'] = $this->request->getPost('shipping_method');
         $data['shipping_charge'] = $this->request->getPost('shipping_charge');
+        $data['shipping_discount_charge'] = $this->request->getPost('shipping_discount_charge');
         $data['payment_method'] = $this->request->getPost('payment_method');
 
 
@@ -288,6 +302,7 @@ class StripeController extends BaseController {
 
         unset($_SESSION['shipping_method']);
         unset($_SESSION['shipping_charge']);
+        unset($_SESSION['shipping_discount_charge']);
         unset($_SESSION['payment_method']);
 
         unset($_SESSION['store_id']);
@@ -303,6 +318,10 @@ class StripeController extends BaseController {
         unset($_SESSION['shipping_postcode']);
         unset($_SESSION['shipping_address_1']);
         unset($_SESSION['shipping_address_2']);
+
+        unset($_SESSION['coupon_discount_shipping']);
+        unset($_SESSION['coupon_discount']);
+        unset($_SESSION['coupon_id']);
 
         unset($_SESSION['t_amount']);
     }

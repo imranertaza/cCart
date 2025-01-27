@@ -142,7 +142,7 @@
                                             <div class="form-group">
                                                 <label>Price <span class="requi">*</span></label>
                                                 <input type="number" name="price" class="form-control"
-                                                       placeholder="Price"
+                                                       placeholder="Price" step="any"
                                                        required>
                                             </div>
                                             <div class="form-group">

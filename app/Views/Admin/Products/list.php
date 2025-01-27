@@ -39,6 +39,9 @@
                             <?php if(modules_key_by_access('image_crop') == '1' ){?>
                             <button type="submit" id="save"  formaction="<?php echo base_url('admin/product_image_crop_action'); ?>" class="btn btn-info btn-xs float-right mr-2"><i class="fas fa-file"></i> Crop image</button>
                             <?php } ?>
+                            <?php if(modules_key_by_access('multi_status_update') == '1' ){?>
+                            <button type="submit" id="save"  formaction="<?php echo base_url('admin/product_status_update'); ?>" class="btn btn-primary btn-xs float-right mr-2"><i class="fas fa-file"></i> Status update</button>
+                            <?php } ?>
                             <button type="submit"  formaction="<?php echo base_url('admin/product_multi_delete_action'); ?>" class="btn btn-danger btn-xs float-right mr-2"><i class="fas fa-trash"></i> Multi delete</button>
                         </form>
                     </div>
