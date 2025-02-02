@@ -406,15 +406,19 @@
             dataType: 'json',
             success: function(data) {
                 var charge = Number(data.charge);
-                var total = Number(totalAmount);
-                var amount = Number(total) + Number(charge);
+                var dis = Number(data.discount);
 
+                var total = Number(totalAmount);
+                var amount = Number(total) + Number(charge) - dis;
+
+                $('#discount_charge').val(dis);
+                $('#chargeDisSh').html('<?php echo $symbol; ?> ' + dis);
                 $('#chargeShip').html('<?php echo $symbol; ?> ' + data.charge);
-                $('#total').html('<?php echo $symbol; ?> ' + amount);
+                $('#total').html('<?php echo $symbol; ?> ' + parseFloat(amount.toFixed(2)));
                 $('#totalamo').val(total);
                 $('#check_total').html('<?php echo $symbol; ?> ' + total);
                 $('#shipping_charge').val(charge);
-                $('#shipping_tot').val(amount);
+                $('#shipping_tot').val(parseFloat(amount.toFixed(2)));
             }
         });
     }

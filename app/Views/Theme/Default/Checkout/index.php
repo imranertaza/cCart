@@ -238,7 +238,7 @@
                                 $disc = round((Cart()->total() * newSession()->coupon_discount) / 100); ?>
                                 <span><?php echo currency_symbol($disc) ?></span>
                             <?php }else{echo currency_symbol($disc); }
-                            $total = (isset(newSession()->coupon_discount)) ? Cart()->total() - $disc : Cart()->total(); ?>
+                            $total = (isset(newSession()->coupon_discount)) ? number_format(Cart()->total() - $disc,2) : Cart()->total(); ?>
                         </div>
                         <div class="d-flex justify-content-between mb-2">
                             <span>Shipping Method</span>
@@ -252,6 +252,11 @@
                             <span>Shipping charge</span>
                             <span id="chargeShip"><?php echo currency_symbol(0)?></span>
                             <input type="hidden" name="shipping_charge" id="shipping_charge" >
+                        </div>
+                        <div class="d-flex justify-content-between mt-3">
+                            <span>Shipping Discount</span>
+                            <span><span id="chargeDisSh"><?php echo currency_symbol(0)?></span></span>
+                            <input type="hidden" name="shipping_discount_charge" id="discount_charge">
                         </div>
                         <div class="total py-3 ">
                             <div class="d-flex justify-content-between fw-bold">

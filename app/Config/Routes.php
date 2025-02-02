@@ -98,6 +98,9 @@ $routes->group('admin', static function ($routes) {
     $routes->post('product_image_crop_action', 'Admin\Products::image_crop');
     $routes->post('product_multi_delete_action', 'Admin\Products::multi_delete_action');
 
+    $routes->post('product_status_update', 'Admin\Products::status_update');
+    $routes->post('product_status_update_action', 'Admin\Products::status_update_action');
+
     //Album
     $routes->get('album', 'Admin\Album::index');
     $routes->get('album_create', 'Admin\Album::create');
