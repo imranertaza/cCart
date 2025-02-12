@@ -90,7 +90,7 @@
                             </td>
                             <td class="mo-text-center mo-amount" style="text-align:left; width: 170px">
                                 <?php if (isset(newSession()->coupon_discount)) {
-                                    $disc = round((Cart()->total() * newSession()->coupon_discount) / 100); ?>
+                                    $disc = number_format((Cart()->total() * newSession()->coupon_discount) / 100,2); ?>
                                     <span class=" fs-4"><?php echo currency_symbol_with_symbol(Cart()->total(),$symbol) ?></span><br>
                                     <span class=" fs-4"><?php echo currency_symbol($disc) ?></span><br>
                                 <?php }
