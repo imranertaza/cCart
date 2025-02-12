@@ -141,8 +141,7 @@
                                             <div class="form-group">
                                                 <label>Price <span class="requi">*</span></label>
                                                 <input type="number" name="price" class="form-control"
-                                                       placeholder="Price" value="<?php echo $prod->price;?>"
-                                                       required>
+                                                       placeholder="Price" value="<?php echo $prod->price;?>" step="any" required>
                                             </div>
                                             <div class="form-group">
                                                 <label>Quantity <span class="requi">*</span></label>

@@ -20,9 +20,7 @@
                             <p class="mb-0"><label><input type="checkbox" onclick="user_create()" name="new_acc_create"
                                         id="createNew" value="0"> Check Mark the box
                                     for create an account</label></p>
-                            <p class="ms-3 lh-sm"><small>By creating an account you will be able to make quick
-                                    purchases
-                                    later and see details about all orders</small></p>
+                            <p class="ms-3 lh-sm"><small>Create Your Account Now</small></p>
                         </div>
                     </div>
                     <?php } ?>
@@ -306,7 +304,7 @@
                         <div class="group-check mb-4">
                             <div class="d-flex justify-content-between mb-2">
                                 <span>Price</span>
-                                <span id="check_total"><?php echo $cSymbol .Cart()->total() ?></span>
+                                <span id="check_total"><?php echo $cSymbol .number_format(Cart()->total(),2) ?></span>
                             </div>
 
                             <div class="d-flex justify-content-between mb-2">
@@ -314,12 +312,12 @@
                                 <?php $disc = 0;
 
                                 if (isset(newSession()->coupon_discount)) {
-                                    $disc = round((Cart()->total() * newSession()->coupon_discount) / 100); ?>
+                                    $disc = number_format((Cart()->total() * newSession()->coupon_discount) / 100,2); ?>
                                 <span><?php echo $cSymbol .$disc ?></span>
                                 <?php } else {
                                     echo '<span>' . $cSymbol .$disc . '</span>';
                                 }
-                                $total = (isset(newSession()->coupon_discount)) ? Cart()->total() - $disc : Cart()->total(); ?>
+                                $total = (isset(newSession()->coupon_discount)) ? number_format(Cart()->total() - $disc,2) : Cart()->total(); ?>
                             </div>
                         </div>
 
@@ -401,6 +399,12 @@
                                 <span>Shipping charge</span>
                                 <span id="chargeShip"><?php echo $cSymbol .'0' ?></span>
                                 <input type="hidden" name="shipping_charge" id="shipping_charge">
+                            </div>
+
+                            <div class="d-flex justify-content-between mt-3">
+                                <span>Shipping Discount</span>
+                                <span>(-) <span id="chargeDisSh"><?php echo $cSymbol .'0' ?></span></span>
+                                <input type="hidden" name="shipping_discount_charge" id="discount_charge">
                             </div>
                         </div>
 
