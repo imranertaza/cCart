@@ -266,6 +266,37 @@ class Paypal extends BaseController
                 }
             }
 
+            if (isset($this->session->cusUserId)) {
+                $tableModule = DB()->table('cc_modules');
+                $query = $tableModule->join('cc_module_settings', 'cc_module_settings.module_id = cc_modules.module_id')->where('cc_modules.module_key','point')->get()->getRow();
+                if($query->status == '1') {
+                    $oldPoint = get_data_by_id('point', 'cc_customer', 'customer_id', $this->session->cusUserId);
+                    $point = $this->cart->total() * $query->value;
+                    $restPoint = $oldPoint + $point;
+
+                    //customer point update
+                    $cusPointData['point'] = $restPoint;
+                    $tableCus = DB()->table('cc_customer');
+                    $tableCus->where('customer_id', $this->session->cusUserId)->update($cusPointData);
+
+
+                    //point history add
+                    $cusPointHistory['customer_id'] = $this->session->cusUserId;
+                    $cusPointHistory['order_id'] = $order_id;
+                    $cusPointHistory['particulars'] = 'product purchase point';
+                    $cusPointHistory['trangaction_type'] = 'Cr.';
+                    $cusPointHistory['point'] = $point;
+                    $cusPointHistory['rest_point'] = $restPoint;
+                    $tablePoint = DB()->table('cc_customer_point_history');
+                    $tablePoint->insert($cusPointHistory);
+
+                    //order point update
+                    $orPointData['total_point'] = $point;
+                    $tabOrder = DB()->table('cc_order');
+                    $tabOrder->where('order_id',$order_id)->update($orPointData);
+                }
+            }
+
 
             DB()->transComplete();
 

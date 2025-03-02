@@ -101,6 +101,12 @@ class Album extends BaseController
             $table->insert($data);
             $albumId = DB()->insertID();
 
+            //php ini set
+            ini_set ( 'max_execution_time', '30000' );
+            ini_set ( 'post_max_size', '3200M' );
+            ini_set ( 'upload_max_filesize', '3200M' );
+
+
             //image size array
             $this->imageProcessing->sizeArray = array( array( 'width'=>'498', 'height'=>'498', ), array( 'width'=>'261', 'height'=>'261', ), array( 'width'=>'198', 'height'=>'198', ),array( 'width'=>'50', 'height'=>'50', ),);
 
@@ -214,6 +220,11 @@ class Album extends BaseController
 
             $table = DB()->table('cc_album');
             $table->where('album_id', $album_id)->update($data);
+
+            //php ini set
+            ini_set ( 'max_execution_time', '30000' );
+            ini_set ( 'post_max_size', '3200M' );
+            ini_set ( 'upload_max_filesize', '3200M' );
 
             //image size array
             $this->imageProcessing->sizeArray = array( array( 'width'=>'498', 'height'=>'498', ),array( 'width'=>'261', 'height'=>'261', ), array( 'width'=>'198', 'height'=>'198', ),array( 'width'=>'50', 'height'=>'50', ),);

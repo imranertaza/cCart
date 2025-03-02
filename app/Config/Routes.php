@@ -138,7 +138,8 @@ $routes->group('admin', static function ($routes) {
     $routes->get('customers_update/(:num)', 'Admin\Customers::update/$1');
     $routes->get('customers_delete/(:num)', 'Admin\Customers::delete/$1');
     $routes->get('customers_ledger/(:num)', 'Admin\Customers::ledger/$1');
-    
+    $routes->get('customers_point/(:num)', 'Admin\Customers::point/$1');
+
     // founds request
     $routes->get('fund_request', 'Admin\Fund_request::index');
     $routes->post('fund_request_action', 'Admin\Fund_request::fund_action');
@@ -232,6 +233,7 @@ $routes->group('admin', static function ($routes) {
     $routes->post('order_history_action', 'Admin\Order::history_action');
     $routes->post('order_payment_status_action', 'Admin\Order::payment_status_action');
     $routes->get('order_view/(:num)', 'Admin\Order::order_view/$1');
+    $routes->post('order_point_action', 'Admin\Order::point_action');
     
     //Theme Settings
     
@@ -289,6 +291,23 @@ $routes->group('admin', static function ($routes) {
     $routes->post('bulk_multi_category_edit', 'Admin\Advanced_products::multi_category_edit');
     $routes->post('bulk_multi_category_action', 'Admin\Advanced_products::multi_category_action');
 
+
+    $routes->get('blog_category', 'Admin\Blog_category::index');
+    $routes->get('blog_category_create', 'Admin\Blog_category::create');
+    $routes->post('blog_category_create_action', 'Admin\Blog_category::create_action');
+    $routes->post('blog_category_update_action', 'Admin\Blog_category::update_action');
+    $routes->post('blog_category_update_action_others', 'Admin\Blog_category::update_action_others');
+    $routes->get('blog_category_update/(:num)', 'Admin\Blog_category::update/$1');
+    $routes->get('blog_category_delete/(:num)', 'Admin\Blog_category::delete/$1');
+    $routes->post('blog_category_sort_update_action', 'Admin\Blog_category::sort_update_action');
+
+    $routes->get('blog', 'Admin\Blog::index');
+    $routes->get('blog_create', 'Admin\Blog::create');
+    $routes->post('blog_create_action', 'Admin\Blog::create_action');
+    $routes->post('blog_update_action', 'Admin\Blog::update_action');
+    $routes->get('blog_update/(:num)', 'Admin\Blog::update/$1');
+    $routes->get('blog_delete/(:num)', 'Admin\Blog::delete/$1');
+
 });
 
 
@@ -333,6 +352,7 @@ $routes->get('/my-wallet-failed', 'Customer\Wallet::wallet_failed');
 
 
 $routes->get('/ledger', 'Customer\Customer_ledger::index');
+$routes->get('/point-history', 'Customer\Customer_point_history::index');
 
 
 
@@ -415,6 +435,10 @@ $routes->post('/top_search', 'Search::search_action');
 //Qc picture
 $routes->get('/qc-picture', 'Album::index');
 $routes->get('/qc-picture-view/(:num)', 'Album::view/$1');
+
+//Blog
+$routes->get('/blog', 'Blog::index');
+$routes->get('/blog-view/(:num)', 'Blog::view/$1');
 
 //ajax controller
 $routes->post('get_state', 'Admin\Ajax::get_state');

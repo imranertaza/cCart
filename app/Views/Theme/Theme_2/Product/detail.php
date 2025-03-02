@@ -472,7 +472,7 @@
             </div>
         </div>
 
-        <?php if (!empty($bothProducts)) { ?>
+        <?php if($modules['both_products'] == '1' ){ if (!empty($bothProducts)) { ?>
         <div class="row mb-4 ">
             <div class="col-lg-12 border-bottom p-3">
                 <ul class="nav nav-tabs list-unstyled mb-5 border-0 border-bottom custom-tab-up" id="myTab"
@@ -569,7 +569,7 @@
                 </div>
             </div>
         </div>
-        <?php } ?>
+        <?php } } ?>
 
 
         <div class="row mb-4 related-products-oth">
@@ -649,7 +649,7 @@
             </div>
         </div>
         <?php } ?>
-
+        <?php if($modules['product_guides'] == '1' ){ ?>
         <div class="row mb-4">
             <div class="col-lg-12 p-3 product-guides mo-text-center">
                 <p class="product-guides-title text-uppercase">Product guides and Documents</p><br>
@@ -667,7 +667,8 @@
                 <?php } ?>
             </div>
         </div>
-
+        <?php } ?>
+        <?php if($modules['other_products'] == '1' ){ ?>
         <div class="row mb-4 ">
             <div class="col-lg-12  p-4 rounded-0 border-bottom border-top">
                 <div class="px-2 py-3 mb-3 bg-white">
@@ -737,7 +738,7 @@
                 </div>
             </div>
         </div>
-
+        <?php } ?>
     </div>
 </section>
 
