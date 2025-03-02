@@ -631,7 +631,9 @@ a {
     .container, .container-md, .container-sm {
          max-width: unset !important;
     }
-
+    .pad-detail{
+        padding: 10px !important;
+    }
 }
 
 @media (max-width: 576px) {
@@ -2301,4 +2303,41 @@ input[type='radio']:checked{
 }
 .img-payment{
     margin-top: -5px !important;
+}
+
+/*new css*/
+.blog-list-title{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 23px;
+    color: #000000 !important;
+}
+.blog-list-text{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #000000 !important;
+}
+.blog-title{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 26px;
+    color: #000000 !important;
+}
+.pad-detail p{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+    color: #000000 !important;
+}
+.pad-detail{
+    padding: 10px 170px;
 }

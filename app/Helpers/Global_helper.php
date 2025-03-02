@@ -1416,3 +1416,57 @@ function product_count_by_brand_id($brand_id,$products){
     }
     return $count;
 }
+
+/**
+ * @description This function provides display blog category with parent.
+ * @param $cate_id
+ * @return void
+ */
+function display_blog_category_with_parent($cate_id)
+{
+    $catName = array();
+    if (!empty($cate_id)) {
+        $totalParent = blog_category_parent_count($cate_id);
+        for ($i=0; $i<=$totalParent; $i++) {
+            $catName[] = get_blog_category_name_by_id($cate_id);
+            $table = DB()->table('cc_category');
+            $cat = $table->where('cat_id', $cate_id)->get()->getRow();
+            $cate_id = $cat->parent_id;
+        }
+    }
+
+    krsort($catName);
+
+    foreach ($catName as $key => $val){
+        if ($key == 0) {
+            print $val;
+        }else {
+            print $val." > ";
+        }
+    }
+
+}
+
+/**
+ * @description This function provides blog category parent count.
+ * @param $cate_id
+ * @return int|void|null
+ */
+function blog_category_parent_count($cate_id){
+    $table = DB()->table('cc_category');
+    $cat = $table->where('cat_id', $cate_id)->get()->getRow();
+    if ($cat->parent_id) {
+        return blog_category_parent_count($cat->parent_id) + 1;
+    }
+}
+
+/**
+ * @description This function provides get blog category name by id.
+ * @param $cate_id
+ * @return mixed
+ */
+function get_blog_category_name_by_id($cate_id){
+    $table = DB()->table('cc_category');
+    $cat = $table->where('cat_id', $cate_id)->get()->getRow();
+    return $cat->category_name;
+}

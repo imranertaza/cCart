@@ -11,19 +11,12 @@
                         <div class="col-md-12 px-5 text-center">
 
                             <a href="<?php echo base_url('add-funds');?>" class="btn btn-primary" style="float: right;">Add funds</a>
-                            <div class="card" style="width: 10rem;">
+                            <div class="card" style="width: 10rem; float: left; ">
                                 <div class="card-body text-center">
                                     <h5 class="card-title">My Balance</h5>
                                     <p><?php echo currency_symbol($cust->balance);?></p>
                                 </div>
                             </div>
-                            <!-- <div class="card " style="width: 18rem; float:left;margin-left: 15px;">
-                                <div class="card-body text-center">
-                                    <h5 class="card-title">Pending request</h5>
-                                    <p>100</p>
-                                </div>
-                            </div> -->
-                            
 
                         </div>
 
