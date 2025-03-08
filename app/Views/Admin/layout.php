@@ -20,6 +20,8 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="<?php echo base_url() ?>/admin_assets/dist/css/adminlte.min.css">
     <link rel="stylesheet" href="<?php echo base_url() ?>/admin_assets/dist/css/custome.css">
+
+    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/theme_3/lightbox.min.css">
     <!-- overlayScrollbars -->
     <link rel="stylesheet"
           href="<?php echo base_url() ?>/admin_assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
@@ -145,7 +147,7 @@
     <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
-
+<script src="<?php echo base_url() ?>/assets/theme_3/lightbox-plus-jquery.min.js"></script>
 <!-- jQuery -->
 <script src="<?php echo base_url() ?>/admin_assets/plugins/jquery/jquery.min.js"></script>
 
@@ -283,7 +285,9 @@
 
     $(function () {
         // Summernote
-        $('#editor').summernote()
+        $('#editor').summernote({
+            height: 150,
+        })
     })
 
     $(function() {
@@ -293,7 +297,6 @@
         $('.select2_pro').select2({
             multiple: true,
             theme: 'bootstrap4',
-            tags: true,
             ajax: {
                 url: "<?php echo base_url('admin/related_product') ?>",
                 dataType: 'json',
