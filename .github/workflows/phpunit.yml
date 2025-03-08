@@ -1,8 +1,6 @@
 name: PHPUnit Tests
 
 on:
-#  push:
-#    branches: [ master, develop ]
   pull_request:
     branches: [ master, develop ]
 
@@ -34,18 +32,18 @@ jobs:
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php-version }} # You can change this to the PHP version you are using
+          php-version: ${{ matrix.php-version }}
           extensions: mysqli
 
       - name: Get Composer Cache Directory
         id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+        run: echo "CACHE_DIR=$(composer config cache-files-dir)" >> $GITHUB_ENV
 
       - name: Cache Composer Dependencies
         uses: actions/cache@v2
         with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          path: ${{ env.CACHE_DIR }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}-${{ matrix.php-version }}
           restore-keys: ${{ runner.os }}-composer-
 
       - name: Install Composer Dependencies
@@ -59,12 +57,6 @@ jobs:
               ['database.tests.hostname = 127.0.0.1', 'database.tests.database = ccart', 'database.tests.username = root', 'database.tests.password = password'],
               file_get_contents('.env')
           ));"
-
-#      - name: Run Migrations
-#        run: php spark migrate
-#
-#      - name: Run Seeders
-#        run: php spark db:seed AllDemo
 
       - name: Run PHPUnit tests
         run: vendor/bin/phpunit tests/app
