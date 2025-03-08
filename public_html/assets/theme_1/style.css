@@ -457,6 +457,9 @@ a {
     .title-shadow {
         font-size: 6rem;
     }
+    .pad-detail{
+        padding: 10px !important;
+    }
 }
 @media (max-width: 480px) {
     .title-shadow {
@@ -829,4 +832,36 @@ a {
     color: #F10909;
 }
 
-
+.blog-list-title{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 24px;
+    text-transform: capitalize;
+    color: #000000;
+}
+.blog-list-text{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    color: #000000;
+}
+.blog-title{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 28px;
+    text-transform: capitalize;
+    color: #000000;
+}
+.pad-detail p{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #000000;
+}
+.pad-detail{
+    padding: 10px 170px;
+}

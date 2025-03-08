@@ -200,7 +200,6 @@ class Products extends BaseController
             $productId = DB()->insertID();
 
 
-
             if (!empty($_FILES['image']['name'])) {
                 $target_dir = FCPATH . '/uploads/products/'.$productId.'/';
                 $this->imageProcessing->directory_create($target_dir);
@@ -754,7 +753,6 @@ class Products extends BaseController
 
             $proTable = DB()->table('cc_products');
             $proTable->where('product_id',$product_id)->update($proData);
-
 
 
 

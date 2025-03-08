@@ -97,12 +97,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $i=1; foreach ($product as $val){ ?>
+                        <?php $i=1; foreach ($product as $val){ $img = str_replace("pro_", "", $val->image); $url = (!empty($val->image)) ? base_url('uploads/products/' . $val->product_id . '/' . $img):base_url('uploads/products/noimage.png' ); ?>
                         <tr id="hide_<?php echo $val->product_id;?>">
                             <td>
                                 <input type="checkbox" name="productId[]" value="<?php echo $val->product_id;?>" form="multisubmitform" >
                             </td>
-                            <td><?php echo image_view('uploads/products',$val->product_id,'50_'.$val->image,'50_noimage.png','');?></td>
+                            <td>
+                                <a class="product-image-link" href="<?= $url;?>" data-lightbox="product-set-<?= $val->product_id;?>">
+                                <?php echo image_view('uploads/products',$val->product_id,'50_'.$val->image,'50_noimage.png','');?>
+                                </a>
+                            </td>
                             <td><?php echo $val->name;?></td>
                             <td><?php echo $val->model;?></td>
                             <td> <?php echo $val->quantity;?></td>

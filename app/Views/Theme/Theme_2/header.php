@@ -270,7 +270,12 @@
 
                                         <?php if ($modules['album'] == 1) { ?>
                                             <li class="nav-item">
-                                                <a class="nav-link" href="<?php echo base_url('qc-picture') ?>">QC Picture</a>
+                                                <a class="nav-link" href="<?php echo base_url('qc-picture') ?>">Album</a>
+                                            </li>
+                                        <?php } ?>
+                                        <?php if ($modules['blog'] == 1) { ?>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="<?php echo base_url('blog') ?>">Blog</a>
                                             </li>
                                         <?php } ?>
                                         <li class="nav-item">

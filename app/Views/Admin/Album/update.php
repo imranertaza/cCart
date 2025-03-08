@@ -63,7 +63,7 @@
                             </div>
                             <div id="framesdef"></div><br>
                             <input type="file" id="defimage" name="thumb" accept="image/*" class="form-control" >
-
+                            <span>Recommended Size (800x800)</span>
                         </div>
                         <div class="col-md-12">
                             <hr>
@@ -85,7 +85,7 @@
 
                             <div id="frames"></div><br>
                             <input type="file" class="form-control" id="image" accept="image/*" name="multiImage[]" multiple />
-
+                            <span>Recommended Size (800x800)</span>
 
                         </div>
                         <div class="col-md-12">
