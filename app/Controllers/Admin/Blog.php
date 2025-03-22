@@ -114,7 +114,7 @@ class Blog extends BaseController
             $blogId = DB()->insertID();
 
             //image size array
-            $this->imageProcessing->sizeArray = [ ['width'=>'100', 'height'=>'100', ], ['width'=>'300', 'height'=>'300',['width'=>'880', 'height'=>'400', ], ],];
+            $this->imageProcessing->sizeArray = [ ['width'=>'100', 'height'=>'100', ],['width'=>'300', 'height'=>'300', ],['width'=>'880', 'height'=>'400', ],];
 
             if (!empty($_FILES['image']['name'])) {
                 $target_dir = FCPATH . '/uploads/blog/'.$blogId.'/';
