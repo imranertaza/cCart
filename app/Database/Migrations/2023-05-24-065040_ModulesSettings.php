@@ -20,10 +20,6 @@ class ModulesSettings extends Migration
                 'type'           => 'INT',
                 'constraint'     => 11,
             ],
-            'label' => [
-                'type'           => 'VARCHAR',
-                'constraint'     => 255,
-            ],
             'title' => [
                 'type'       => 'VARCHAR',
                 'constraint' => 255,
