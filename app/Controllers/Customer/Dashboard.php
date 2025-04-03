@@ -32,7 +32,7 @@ class Dashboard extends BaseController
 
             $data['order'] = $table->where('customer_id', $this->session->cusUserId)->get()->getResult();
 
-            $data['orderItem'] = array();
+            $data['orderItem'] = [];
             if (!empty($order->order_id)) {
                 $tableItem = DB()->table('cc_order_item');
                 $data['orderItem'] = $tableItem->where('order_id', $order->order_id)->get()->getResult();

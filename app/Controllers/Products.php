@@ -56,7 +56,7 @@ class Products extends BaseController
         $price = explode(',', $this->request->getGetPost('price'));
         $rating = explode(',', $this->request->getGetPost('rating'));
 
-        $data['optionval'] = array();
+        $data['optionval'] = [];
         if (empty($this->request->getGetPost('option'))) {
             $allOption = '1=1';
         } else {
@@ -64,7 +64,7 @@ class Products extends BaseController
             foreach ($options as $valOp) {
                 $optionWhere .= 'option_value_id = '.$valOp. ' OR ';
             }
-            $countOption = array();
+            $countOption = [];
             foreach ($options as $valOp) {
                 $optId = get_data_by_id('option_id', 'cc_product_option', 'option_value_id', $valOp);
                 $arr = $optId;
@@ -76,7 +76,7 @@ class Products extends BaseController
 
         }
 
-        $data['brandval'] = array();
+        $data['brandval'] = [];
         $manufacturer = $this->request->getGetPost('manufacturer');
         if (empty($this->request->getGetPost('manufacturer'))) {
             $allbrand = '1=1';
@@ -98,7 +98,7 @@ class Products extends BaseController
         }
 
 
-        $data['ratingval'] = array();
+        $data['ratingval'] = [];
         if (empty($this->request->getGetPost('rating'))) {
             $allrating = '1=1';
         } else {
@@ -118,8 +118,8 @@ class Products extends BaseController
 
         $searchModel = empty($cat_id) ? 'productsSearchModel' : 'categoryproductsModel';
 
-        $productsArr = array();
-        $data['products'] = array();
+        $productsArr = [];
+        $data['products'] = [];
 
         if (!empty($categoryId)) {
             if (empty($this->request->getGetPost('option'))) {

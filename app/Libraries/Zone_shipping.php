@@ -54,7 +54,7 @@ class Zone_shipping
      */
     public function get_shipping_eligible_product(): array
     {
-        $eligible_product = array();
+        $eligible_product = [];
 
         foreach (Cart()->contents() as $val) {
             $table = DB()->table('cc_product_free_delivery');

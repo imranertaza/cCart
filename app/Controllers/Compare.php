@@ -21,7 +21,7 @@ class Compare extends BaseController
     {
         $settings = get_settings();
         $arrayCom = $this->session->compare_session;
-        $proArray = array();
+        $proArray = [];
         if (isset($arrayCom)) {
             foreach ($arrayCom as $key => $val) {
                 $table = DB()->table('cc_products');
@@ -48,7 +48,7 @@ class Compare extends BaseController
     public function addtoCompare()
     {
         $product_id = $this->request->getPost('product_id');
-        (empty($this->session->compare_session)) ? $compareArray = array() : $compareArray = $this->session->compare_session;
+        (empty($this->session->compare_session)) ? $compareArray = [] : $compareArray = $this->session->compare_session;
         array_push($compareArray, $product_id);
 
         if (empty($this->session->compare_session)) {

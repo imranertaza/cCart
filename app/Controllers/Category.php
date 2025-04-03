@@ -31,9 +31,9 @@ class Category extends BaseController
         $settings = get_settings();
         $categoryWhere = !empty($this->request->getGetPost('category')) ? 'category_id = '.$this->request->getGetPost('category') : 'category_id = '.$cat_id;
 
-        $data['optionval'] = array();
-        $data['brandval'] = array();
-        $data['ratingval'] = array();
+        $data['optionval'] = [];
+        $data['brandval'] = [];
+        $data['ratingval'] = [];
         $data['keywordSearch'] = '';
 
         $limit = $settings['category_product_limit'];
@@ -96,7 +96,7 @@ class Category extends BaseController
 
         $category_cookie = isset($_COOKIE['category_cookie']) ? $_COOKIE['category_cookie'] : '';
         $selCategory = !empty($category) ? $category : $cat;
-        $vars = array();
+        $vars = [];
 
         if (($category_cookie == $selCategory) || (!empty($global_search))) {
 
