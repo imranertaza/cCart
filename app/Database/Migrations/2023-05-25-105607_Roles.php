@@ -17,32 +17,32 @@ class Roles extends Migration
                 'auto_increment' => true,
             ],
             'role' => [
-                'type' => 'VARCHAR',
+                'type'       => 'VARCHAR',
                 'constraint' => 30,
             ],
             'permission' => [
                 'type' => 'text',
             ],
             'is_default' => [
-                'type' => 'ENUM',
+                'type'       => 'ENUM',
                 'constraint' => ['1', '0'],
-                'default' => '0',
+                'default'    => '0',
             ],
             'createdDtm' => [
-                'type' => 'DATETIME',
+                'type'    => 'DATETIME',
                 'default' => new RawSql('CURRENT_TIMESTAMP'),
             ],
             'createdBy' => [
-                'type' => 'INT',
+                'type'       => 'INT',
                 'constraint' => 11,
-                'null' => true,
-                'default' => null,
+                'null'       => true,
+                'default'    => null,
             ],
             'updatedBy' => [
-                'type' => 'INT',
+                'type'       => 'INT',
                 'constraint' => 11,
-                'null' => true,
-                'default' => null,
+                'null'       => true,
+                'default'    => null,
             ],
             'updatedDtm DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP',
         ]);

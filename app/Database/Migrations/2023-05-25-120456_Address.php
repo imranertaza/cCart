@@ -20,40 +20,40 @@ class Address extends Migration
                 'constraint'     => 11,
             ],
             'firstname' => [
-                'type' => 'VARCHAR',
+                'type'       => 'VARCHAR',
                 'constraint' => 32,
             ],
             'lastname' => [
-                'type' => 'VARCHAR',
+                'type'       => 'VARCHAR',
                 'constraint' => 32,
             ],
             'address_1' => [
-                'type' => 'VARCHAR',
+                'type'       => 'VARCHAR',
                 'constraint' => 128,
             ],
             'address_2' => [
-                'type' => 'VARCHAR',
+                'type'       => 'VARCHAR',
                 'constraint' => 128,
             ],
             'city' => [
-                'type' => 'VARCHAR',
+                'type'       => 'VARCHAR',
                 'constraint' => 128,
-                'null' => true,
-                'default' => null,
+                'null'       => true,
+                'default'    => null,
             ],
             'postcode' => [
-                'type' => 'VARCHAR',
+                'type'       => 'VARCHAR',
                 'constraint' => 10,
             ],
             'country_id' => [
-                'type' => 'INT',
+                'type'       => 'INT',
                 'constraint' => 11,
-                'default' => '0',
+                'default'    => '0',
             ],
             'zone_id' => [
-                'type' => 'INT',
+                'type'       => 'INT',
                 'constraint' => 11,
-                'default' => '0',
+                'default'    => '0',
             ],
             'custom_field' => [
                 'type' => 'TEXT',

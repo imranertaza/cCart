@@ -16,7 +16,7 @@ class OrderStatus extends Migration
                 'auto_increment' => true,
             ],
             'name' => [
-                'type' => 'VARCHAR',
+                'type'       => 'VARCHAR',
                 'constraint' => 32,
             ],
         ]);

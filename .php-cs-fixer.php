@@ -12,7 +12,7 @@ return (new PhpCsFixer\Config())
     ->setRules([
         '@PSR12' => true, // Apply PSR-12 standards
         'array_syntax' => ['syntax' => 'short'], // Convert arrays to short syntax []
-//        'binary_operator_spaces' => ['default' => 'align_single_space'], // Align operators
+        'binary_operator_spaces' => ['default' => 'align_single_space'], // Align operators
 //        'blank_line_before_statement' => [
 //            'statements' => ['return', 'try', 'if', 'switch', 'for', 'foreach', 'while']
 //        ], // Improve readability

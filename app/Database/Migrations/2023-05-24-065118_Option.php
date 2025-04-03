@@ -20,11 +20,11 @@ class Option extends Migration
                 'constraint' => 155,
             ],
             'type' => [
-                'type' => 'VARCHAR',
+                'type'       => 'VARCHAR',
                 'constraint' => 32,
             ],
             'sort_order' => [
-                'type' => 'INT',
+                'type'       => 'INT',
                 'constraint' => 3,
             ],
         ]);

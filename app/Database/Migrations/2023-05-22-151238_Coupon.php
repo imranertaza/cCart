@@ -20,39 +20,39 @@ class Coupon extends Migration
                 'constraint' => 255,
             ],
             'code' => [
-                'type' => 'VARCHAR',
+                'type'       => 'VARCHAR',
                 'constraint' => 255,
             ],
             'discount_on' => [
-                'type' => 'ENUM',
+                'type'       => 'ENUM',
                 'constraint' => ['Product', 'Shipping'],
-                'default' => 'Product',
+                'default'    => 'Product',
             ],
             'discount' => [
-                'type' => 'decimal',
+                'type'       => 'decimal',
                 'constraint' => '7,5',
             ],
             'for_subscribed_user' => [
-                'type' => 'ENUM',
+                'type'       => 'ENUM',
                 'constraint' => ['0', '1'],
-                'default' => '0',
+                'default'    => '0',
             ],
             'for_registered_user' => [
-                'type' => 'ENUM',
+                'type'       => 'ENUM',
                 'constraint' => ['0', '1'],
-                'default' => '0',
+                'default'    => '0',
             ],
             'total_useable' => [
-                'type' => 'INT',
+                'type'       => 'INT',
                 'constraint' => 11,
-                'default' => null,
-                'null' => true,
+                'default'    => null,
+                'null'       => true,
             ],
             'total_used' => [
-                'type' => 'INT',
+                'type'       => 'INT',
                 'constraint' => 11,
-                'default' => null,
-                'null' => true,
+                'default'    => null,
+                'null'       => true,
             ],
             'date_start' => [
                 'type' => 'DATE',
@@ -61,9 +61,9 @@ class Coupon extends Migration
                 'type' => 'DATE',
             ],
             'status' => [
-                'type' => 'ENUM',
+                'type'       => 'ENUM',
                 'constraint' => ['Active', 'Inactive'],
-                'default' => 'Active',
+                'default'    => 'Active',
             ],
         ]);
 

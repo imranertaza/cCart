@@ -10,11 +10,11 @@ class CreatLabelColumInModuleSettings extends Migration
     {
         $fields = [
             'label' => [
-                'type' => 'VARCHAR',
+                'type'       => 'VARCHAR',
                 'constraint' => 255,
-                'null' => true,
-                'default' => null,
-                'after' => 'module_id',
+                'null'       => true,
+                'default'    => null,
+                'after'      => 'module_id',
             ],
         ];
         $this->forge->addColumn('cc_module_settings', $fields);
