@@ -130,7 +130,6 @@ class Products extends BaseController
      */
     public function optionPriceCalculate()
     {
-
         $product_id = $this->request->getPost('product_id');
 
         $totalOptionPrice = 0;
@@ -180,7 +179,6 @@ class Products extends BaseController
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . '</div>');
             return redirect()->to('detail/' . $data['product_id']);
         } else {
-
             $table = DB()->table('cc_product_feedback');
             $table->insert($data);
 
@@ -246,7 +244,6 @@ class Products extends BaseController
         if ($type == 'select') {
             return $this->typeSelect($option_id, $product_id, $name);
         }
-
     }
 
     /**
@@ -304,6 +301,4 @@ class Products extends BaseController
         $view .= '</select>';
         return $view;
     }
-
-
 }

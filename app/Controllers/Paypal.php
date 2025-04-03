@@ -58,7 +58,7 @@ class Paypal extends BaseController
             $itemamt = 0.00;
             $itemamt = $L_QTY0 * $L_AMT0;
             $amt = $amount;
-            $nvpstr = "&L_NAME0=" . $L_NAME0 . "&L_AMT0=" . $L_AMT0 . "&L_QTY0=" . $L_QTY0 . "&AMT=" . (string)$amt . "&ITEMAMT=" . (string)$itemamt . "&L_NUMBER0=1000&L_DESC0=Size: 8.8-oz&ReturnUrl=" . $returnURL . "&CANCELURL=" . $cancelURL . "&CURRENCYCODE=" . $settings['currency'] . "&PAYMENTACTION=" . $settings['payment_type'];
+            $nvpstr = "&L_NAME0=" . $L_NAME0 . "&L_AMT0=" . $L_AMT0 . "&L_QTY0=" . $L_QTY0 . "&AMT=" . (string) $amt . "&ITEMAMT=" . (string) $itemamt . "&L_NUMBER0=1000&L_DESC0=Size: 8.8-oz&ReturnUrl=" . $returnURL . "&CANCELURL=" . $cancelURL . "&CURRENCYCODE=" . $settings['currency'] . "&PAYMENTACTION=" . $settings['payment_type'];
             // calling initial api.
             $initresult = $paypalexpress->process_payment($nvpstr);
 
@@ -125,7 +125,6 @@ class Paypal extends BaseController
      */
     public function paypal_checkout_action()
     {
-
         $paypalexpress = new Paypalexpress(paypal_settings());
         $token = urlencode($_GET['token']);
         $result = $paypalexpress->make_payment($token);
@@ -134,7 +133,6 @@ class Paypal extends BaseController
             $this->session->setFlashdata('message', 'Please check your details and try again ');
             return redirect()->to('checkout_failed');
         } else {
-
             $data['payment_firstname'] = $this->session->payment_firstname;
             $data['payment_lastname'] = $this->session->payment_lastname;
             $data['payment_phone'] = $this->session->payment_phone;
@@ -365,8 +363,6 @@ class Paypal extends BaseController
 
     public function wallet_paypal()
     {
-
-
         $dataSession['amount'] = $this->request->getGet('amount');
         $dataSession['payment_method_id'] = $this->request->getGet('payment_method_id');
         $this->session->set($dataSession);
@@ -388,7 +384,7 @@ class Paypal extends BaseController
             $itemamt = 0.00;
             $itemamt = $L_QTY0 * $L_AMT0;
             $amt = $dataSession['amount'];
-            $nvpstr = "&L_NAME0=" . $L_NAME0 . "&L_AMT0=" . $L_AMT0 . "&L_QTY0=" . $L_QTY0 . "&AMT=" . (string)$amt . "&ITEMAMT=" . (string)$itemamt . "&L_NUMBER0=1000&L_DESC0=Size: 8.8-oz&ReturnUrl=" . $returnURL . "&CANCELURL=" . $cancelURL . "&CURRENCYCODE=" . $settings['currency'] . "&PAYMENTACTION=" . $settings['payment_type'];
+            $nvpstr = "&L_NAME0=" . $L_NAME0 . "&L_AMT0=" . $L_AMT0 . "&L_QTY0=" . $L_QTY0 . "&AMT=" . (string) $amt . "&ITEMAMT=" . (string) $itemamt . "&L_NUMBER0=1000&L_DESC0=Size: 8.8-oz&ReturnUrl=" . $returnURL . "&CANCELURL=" . $cancelURL . "&CURRENCYCODE=" . $settings['currency'] . "&PAYMENTACTION=" . $settings['payment_type'];
             // calling initial api.
             $initresult = $paypalexpress->process_payment($nvpstr);
 

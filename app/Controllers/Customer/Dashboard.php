@@ -67,5 +67,4 @@ class Dashboard extends BaseController
             print 'Already exists';
         }
     }
-
 }

@@ -33,7 +33,6 @@ class Brand extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             $table = DB()->table('cc_brand');
             $data['brand'] = $table->get()->getResult();
 
@@ -62,7 +61,6 @@ class Brand extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
             foreach ($perm as $key => $val) {
@@ -129,7 +127,6 @@ class Brand extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             $table = DB()->table('cc_brand');
             $data['brand'] = $table->where('brand_id', $brand_id)->get()->getRow();
 
@@ -196,7 +193,6 @@ class Brand extends BaseController
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Brand Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/brand_update/' . $brand_id);
-
         }
     }
 
@@ -207,7 +203,6 @@ class Brand extends BaseController
      */
     public function delete($brand_id)
     {
-
         $target_dir = FCPATH . '/uploads/brand/';
         //old image unlink
         $old_img = get_data_by_id('image', 'cc_brand', 'brand_id', $brand_id);
@@ -228,5 +223,4 @@ class Brand extends BaseController
         $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Brand Delete Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
         return redirect()->to('admin/brand');
     }
-
 }

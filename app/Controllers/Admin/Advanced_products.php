@@ -32,7 +32,6 @@ class Advanced_products extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             $module_id = get_data_by_id('module_id', 'cc_modules', 'module_key', 'bulk_edit_products');
             $data['moduleSettings'] = get_array_data_by_id('cc_module_settings', 'module_id', $module_id);
             $data['module_id'] = $module_id;
@@ -69,7 +68,6 @@ class Advanced_products extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             $uri = service('uri');
             $urlString = $uri->getPath() . '?' . $this->request->getServer('QUERY_STRING');
             setcookie('bulk_url_path', $urlString, time() + 86400, "/");
@@ -134,7 +132,6 @@ class Advanced_products extends BaseController
      */
     public function bulk_data_update()
     {
-
         $product_id = $this->request->getPost('product_id');
         $name = $this->request->getPost('name');
         $model = $this->request->getPost('model');
@@ -161,8 +158,6 @@ class Advanced_products extends BaseController
         $data['val'] = $table2->join('cc_product_description', 'cc_product_description.product_id = cc_products.product_id')->where('cc_products.product_id', $product_id)->get()->getRow();
 
         echo view('Admin/Advanced_products/row', $data);
-
-
     }
 
     /**
@@ -337,7 +332,6 @@ class Advanced_products extends BaseController
     {
         $allProductId =  $this->request->getPost('productId[]');
         if (!empty($allProductId)) {
-
             $data['all_product'] = $allProductId;
 
             $table = DB()->table('cc_product_option');
@@ -389,12 +383,10 @@ class Advanced_products extends BaseController
             }
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Multi Option Update Successfully <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to($redirect_url);
-
         } else {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Invalid input! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to($redirect_url);
         }
-
     }
 
     /**
@@ -405,7 +397,6 @@ class Advanced_products extends BaseController
     {
         $allProductId =  $this->request->getPost('productId[]');
         if (!empty($allProductId)) {
-
             $data['all_product'] = $allProductId;
 
             $table = DB()->table('cc_product_option');
@@ -455,7 +446,6 @@ class Advanced_products extends BaseController
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Invalid input! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to($redirect_url);
         }
-
     }
 
     /**
@@ -466,7 +456,6 @@ class Advanced_products extends BaseController
     {
         $allProductId =  $this->request->getPost('productId[]');
         if (!empty($allProductId)) {
-
             $data['all_product'] = $allProductId;
 
             $table = DB()->table('cc_product_category');
@@ -509,16 +498,5 @@ class Advanced_products extends BaseController
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Please select any category <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to($redirect_url);
         }
-
-
-
-
     }
-
-
-
-
-
-
-
 }

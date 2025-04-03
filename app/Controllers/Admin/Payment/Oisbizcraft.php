@@ -34,7 +34,6 @@ class Oisbizcraft extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             $table = DB()->table('cc_payment_method');
             $data['payment'] = $table->where('payment_method_id', $payment_method_id)->get()->getFirstRow();
 
@@ -99,10 +98,5 @@ class Oisbizcraft extends BaseController
 
         $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Ois Bizcraft Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
         return redirect()->to('admin/payment/oisbizcraft/' . $payment_method_id);
-
-
     }
-
-
-
 }

@@ -87,7 +87,6 @@ class Profile extends BaseController
             $this->session->setFlashdata('message', '<div class="alert text-white alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . '</div>');
             return redirect()->to('profile');
         } else {
-
             if (!empty($this->request->getPost('subscription'))) {
                 $newData['customer_id'] = $this->session->cusUserId;
                 $newData['email'] = $data['email'];
@@ -149,7 +148,6 @@ class Profile extends BaseController
 
             $this->session->setFlashdata('message', '<div class="alert-success-m alert-success alert-dismissible" role="alert">Profile Update successfully </div>');
             return redirect()->to('profile');
-
         }
     }
 
@@ -159,8 +157,6 @@ class Profile extends BaseController
      */
     public function password_action()
     {
-
-
         $data['current_password'] = $this->request->getPost('current_password');
         $data['new_password'] = $this->request->getPost('new_password');
         $data['confirm_password'] = $this->request->getPost('confirm_password');
@@ -175,7 +171,6 @@ class Profile extends BaseController
             $this->session->setFlashdata('message', '<div class="alert text-white  alert-dismissible" role="alert">' . $this->validation->listErrors() . '</div>');
             return redirect()->to('dashboard');
         } else {
-
             if (!empty($data['current_password'])) {
                 $check = is_exists_double_condition('cc_customer', 'customer_id', $this->session->cusUserId, 'password', SHA1($data['current_password']));
                 if ($check == false) {
@@ -192,7 +187,6 @@ class Profile extends BaseController
 
             $this->session->setFlashdata('message', '<div class="alert-success-m alert-success alert-dismissible" role="alert">Update successfully </div>');
             return redirect()->to('dashboard');
-
         }
     }
 
@@ -224,8 +218,5 @@ class Profile extends BaseController
         } else {
             print '<div class="alert alert-danger alert-dismissible text-white " role="alert">Your email already exists</div>';
         }
-
-
     }
-
 }

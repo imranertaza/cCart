@@ -66,5 +66,4 @@ class Zone_shipping
 
         return $eligible_product;
     }
-
 }

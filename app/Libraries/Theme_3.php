@@ -36,7 +36,4 @@ class Theme_3
             'height' => '50',
         ],
     ];
-
-
-
 }

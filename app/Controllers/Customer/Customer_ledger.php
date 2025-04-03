@@ -42,7 +42,4 @@ class Customer_ledger extends BaseController
             echo view('Theme/' . $settings['Theme'] . '/footer');
         }
     }
-
-
-
 }

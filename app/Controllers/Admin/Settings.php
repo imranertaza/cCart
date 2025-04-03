@@ -33,7 +33,6 @@ class Settings extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             $table = DB()->table('cc_settings');
             $data['settings'] = $table->get()->getResult();
 
@@ -119,10 +118,5 @@ class Settings extends BaseController
 
         $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Settings Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
         return redirect()->to('admin/settings');
-
-
     }
-
-
-
 }

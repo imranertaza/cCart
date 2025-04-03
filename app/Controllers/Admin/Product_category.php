@@ -33,7 +33,6 @@ class Product_category extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             $table = DB()->table('cc_product_category');
             $data['category'] = $table->get()->getResult();
 
@@ -62,7 +61,6 @@ class Product_category extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             $table = DB()->table('cc_product_category');
             $data['category'] = $table->get()->getResult();
 
@@ -134,7 +132,6 @@ class Product_category extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             $table = DB()->table('cc_product_category');
             $data['category'] = $table->where('prod_cat_id', $prod_cat_id)->get()->getRow();
 
@@ -177,7 +174,6 @@ class Product_category extends BaseController
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/product_category_update/' . $prod_cat_id);
         } else {
-
             $checkPop = is_exists('cc_product_category_popular', 'prod_cat_id', $prod_cat_id);
             if ($popular == 'on') {
                 if ($checkPop == true) {
@@ -265,7 +261,6 @@ class Product_category extends BaseController
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/product_category_update/' . $prod_cat_id);
         } else {
-
             $table = DB()->table('cc_product_category');
             $table->where('prod_cat_id', $prod_cat_id)->update($data);
 
@@ -281,7 +276,6 @@ class Product_category extends BaseController
      */
     public function delete($prod_cat_id)
     {
-
         $target_dir = FCPATH . '/uploads/category/';
         //old image unlink
         $old_img = get_data_by_id('image', 'cc_product_category', 'prod_cat_id', $prod_cat_id);
@@ -327,6 +321,4 @@ class Product_category extends BaseController
         $table->where('prod_cat_id', $prod_cat_id)->update($data);
         print '<div class="alert alert-success alert-dismissible" role="alert">Sort Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
     }
-
-
 }

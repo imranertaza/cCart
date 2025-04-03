@@ -31,7 +31,4 @@ class ProductsModel extends Model
     {
         return $this->join('cc_product_description', 'cc_product_description.product_id = cc_products.product_id')->orLike('cc_products.product_id', $keyWord)->orLike('cc_products.name', $keyWord)->orLike('cc_products.model', $keyWord)->orderBy('cc_products.product_id', 'desc');
     }
-
-
-
 }

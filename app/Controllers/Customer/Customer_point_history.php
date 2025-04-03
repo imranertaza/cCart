@@ -44,7 +44,4 @@ class Customer_point_history extends BaseController
             echo view('Theme/' . $settings['Theme'] . '/footer');
         }
     }
-
-
-
 }

@@ -33,7 +33,6 @@ class Page_settings extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             $table = DB()->table('cc_pages');
             $data['pages'] = $table->get()->getResult();
 
@@ -62,7 +61,6 @@ class Page_settings extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
             foreach ($perm as $key => $val) {
@@ -136,7 +134,6 @@ class Page_settings extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             $table = DB()->table('cc_pages');
             $data['page'] = $table->where('page_id', $page_id)->get()->getRow();
 
@@ -180,13 +177,11 @@ class Page_settings extends BaseController
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/page_update/' . $page_id);
         } else {
-
             $table = DB()->table('cc_pages');
             $table->where('page_id', $page_id)->update($data);
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Page Settings Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/page_update/' . $page_id);
-
         }
     }
 
@@ -197,12 +192,10 @@ class Page_settings extends BaseController
      */
     public function delete($page_id)
     {
-
         $table = DB()->table('cc_pages');
         $table->where('page_id', $page_id)->delete();
 
         $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Page Settings Delete Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
         return redirect()->to('admin/page_list');
     }
-
 }

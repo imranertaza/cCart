@@ -63,8 +63,6 @@ class Cart extends BaseController
      */
     public function addToCart()
     {
-
-
         $product_id = $this->request->getPost('product_id');
         $qty = $this->request->getPost('qtyall');
 
@@ -153,7 +151,6 @@ class Cart extends BaseController
      */
     public function addToCartGroup()
     {
-
         $productId = $this->request->getPost('both_product[]');
 
         foreach ($productId as $product_id) {
@@ -234,6 +231,4 @@ class Cart extends BaseController
         $data = $table->where('product_id', $productID)->get()->getRow();
         return ($data->quantity >= $qty) ? true : false;
     }
-
-
 }

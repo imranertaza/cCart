@@ -54,7 +54,6 @@ function invoiceDateFormat($datetime = '0000-00-00 00:00:00')
  */
 function saleDate($datetime = '0000-00-00 00:00:00')
 {
-
     if ($datetime == '0000-00-00 00:00:00' or $datetime == '0000-00-00' or $datetime == '') {
         return 'Unknown';
     }
@@ -391,7 +390,6 @@ function get_settings_title()
  */
 function get_theme_settings()
 {
-
     $settings = get_settings();
     $theme = $settings['Theme'];
     $table = DB()->table('cc_theme_settings');
@@ -413,7 +411,6 @@ function get_theme_settings()
  */
 function get_theme_title_settings()
 {
-
     $settings = get_settings();
     $theme = $settings['Theme'];
     $table = DB()->table('cc_theme_settings');
@@ -659,7 +656,6 @@ function check_review($productId)
  */
 function product_id_by_rating($productId, $ratingCount = 0)
 {
-
     $table = DB()->table('cc_product_feedback');
     $pro = $table->where('product_id', $productId)->get()->getResult();
 
@@ -820,7 +816,6 @@ function get_lebel_by_value_in_theme_settings_with_theme($lable, $theme)
  */
 function email_send($to, $subject, $message, $replyTo = '')
 {
-
     $email = \Config\Services::email();
 
     $config['protocol'] = get_lebel_by_value_in_settings('mail_protocol');
@@ -1135,7 +1130,6 @@ function getSideMenuArray()
     $table = DB()->table('cc_product_category');
     $table->join('cc_icons', 'cc_icons.icon_id = cc_product_category.icon_id');
     return $table->where('cc_product_category.side_menu', 1)->orderBy('cc_product_category.sort_order', 'ASC')->get()->getResult();
-
 }
 
 /**
@@ -1195,7 +1189,6 @@ function option_id_or_product_id_by_option_value($option_id, $product_id)
 {
     $table = DB()->table('cc_product_option');
     return $table->where('option_id', $option_id)->where('product_id', $product_id)->get()->getResult();
-
 }
 
 /**
@@ -1294,7 +1287,6 @@ function get_category_id_by_product_show_home_slide($category_id)
                     <span class="btn-wishlist-text position-absolute  mt-5 ms-2">Favorite</span>
                     </a>';
             }
-
         }
 
         if ($modules['compare'] == 1) {
@@ -1330,7 +1322,6 @@ function get_category_id_by_product_show_home_slide($category_id)
 
 
     return $view;
-
 }
 
 /**
@@ -1386,8 +1377,6 @@ function display_category_with_parent($cate_id)
             print $val . " > ";
         }
     }
-
-
 }
 
 /**
@@ -1459,7 +1448,6 @@ function display_blog_category_with_parent($cate_id)
             print $val . " > ";
         }
     }
-
 }
 
 /**

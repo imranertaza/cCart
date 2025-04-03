@@ -33,7 +33,6 @@ class Reviews extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             $table = DB()->table('cc_product_feedback');
             $data['reviews'] = $table->get()->getResult();
 
@@ -73,12 +72,10 @@ class Reviews extends BaseController
      */
     public function delete($feedback_id)
     {
-
         $table = DB()->table('cc_product_feedback');
         $table->where('product_feedback_id', $feedback_id)->delete();
 
         $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert"> Reviews Delete Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
         return redirect()->to('admin/reviews');
     }
-
 }

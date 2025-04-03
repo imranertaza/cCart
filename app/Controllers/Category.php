@@ -82,7 +82,6 @@ class Category extends BaseController
      */
     public function url_generate()
     {
-
         $prod_cat_id = $this->request->getPost('prod_cat_id');
         $cat = $this->request->getPost('cat');
         $shortBy = $this->request->getPost('shortBy');
@@ -99,7 +98,6 @@ class Category extends BaseController
         $vars = [];
 
         if (($category_cookie == $selCategory) || (!empty($global_search))) {
-
             if (!empty($brand)) {
                 $menu = '';
                 foreach ($brand as $brVal) {
@@ -149,8 +147,5 @@ class Category extends BaseController
 
         $querystring = http_build_query($vars);
         return redirect()->to('products/search?cat=' . $cat . '&' . $querystring);
-
     }
-
-
 }

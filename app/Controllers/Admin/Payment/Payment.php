@@ -33,7 +33,6 @@ class Payment extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             $table = DB()->table('cc_payment_method');
             $data['payment'] = $table->get()->getResult();
 
@@ -69,7 +68,4 @@ class Payment extends BaseController
 
         print '<div class="alert alert-success alert-dismissible" role="alert">Payment Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
     }
-
-
-
 }

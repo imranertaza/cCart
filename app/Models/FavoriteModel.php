@@ -16,5 +16,4 @@ class FavoriteModel extends Model
     {
         return $this->select()->join('cc_products', 'cc_products.product_id = cc_customer_wishlist.product_id');
     }
-
 }

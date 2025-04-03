@@ -73,8 +73,6 @@ class Ajax extends BaseController
             $options .= '>' . $value->name . '</option>';
         }
         print $options;
-
-
     }
 
     /**
@@ -93,8 +91,5 @@ class Ajax extends BaseController
             $options .= '>' . $value->name . '</option>';
         }
         print $options;
-
-
     }
-
 }

@@ -36,7 +36,6 @@ class Blog extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             $table = DB()->table('cc_blog');
             $data['blog'] = $table->get()->getResult();
 
@@ -65,7 +64,6 @@ class Blog extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             $table = DB()->table('cc_category');
             $data['category'] = $table->get()->getResult();
 
@@ -108,7 +106,6 @@ class Blog extends BaseController
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/blog_create');
         } else {
-
             $table = DB()->table('cc_blog');
             $table->insert($data);
             $blogId = DB()->insertID();
@@ -198,7 +195,6 @@ class Blog extends BaseController
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/blog_update/' . $blog_id);
         } else {
-
             $table = DB()->table('cc_blog');
             $table->where('blog_id', $blog_id)->update($data);
 
@@ -223,7 +219,6 @@ class Blog extends BaseController
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Update Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/blog_update/' . $blog_id);
-
         }
     }
 
@@ -234,7 +229,6 @@ class Blog extends BaseController
      */
     public function delete($blog_id)
     {
-
         helper('filesystem');
 
         DB()->transStart();
@@ -253,9 +247,4 @@ class Blog extends BaseController
         $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Delete Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
         return redirect()->to('admin/blog');
     }
-
-
-
-
-
 }

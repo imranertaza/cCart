@@ -33,7 +33,6 @@ class Newsletter extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             $table = DB()->table('cc_newsletter');
             $data['newsletter'] = $table->get()->getResult();
 
@@ -50,7 +49,4 @@ class Newsletter extends BaseController
             }
         }
     }
-
-
-
 }

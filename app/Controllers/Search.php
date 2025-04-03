@@ -18,7 +18,6 @@ class Search extends BaseController
         $this->session = \Config\Services::session();
         $this->categoryproductsModel = new CategoryproductsModel();
         $this->productsModel = new ProductsModel();
-
     }
 
     /**
@@ -78,8 +77,5 @@ class Search extends BaseController
         echo view('Theme/' . $settings['Theme'] . '/header', $data);
         echo view('Theme/' . $settings['Theme'] . '/Search/index', $data);
         echo view('Theme/' . $settings['Theme'] . '/footer');
-
     }
-
-
 }

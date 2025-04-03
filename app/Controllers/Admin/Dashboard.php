@@ -31,7 +31,6 @@ class Dashboard extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             $tableOrderStatus = DB()->table('cc_order_status');
             $orStatus = $tableOrderStatus->get()->getResult();
             foreach ($orStatus as $val) {
@@ -86,5 +85,4 @@ class Dashboard extends BaseController
             //            echo view('Admin/footer');
         }
     }
-
 }

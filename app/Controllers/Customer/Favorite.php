@@ -59,5 +59,4 @@ class Favorite extends BaseController
         $table->where('customer_id', $this->session->cusUserId)->where('product_id', $product_id)->delete();
         print 'Successfully removed to wishlist';
     }
-
 }

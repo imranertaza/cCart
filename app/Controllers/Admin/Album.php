@@ -36,7 +36,6 @@ class Album extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             $table = DB()->table('cc_album');
             $data['album'] = $table->get()->getResult();
 
@@ -65,7 +64,6 @@ class Album extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
             foreach ($perm as $key => $val) {
@@ -96,7 +94,6 @@ class Album extends BaseController
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/album_create');
         } else {
-
             $table = DB()->table('cc_album');
             $table->insert($data);
             $albumId = DB()->insertID();
@@ -124,13 +121,11 @@ class Album extends BaseController
 
             //multi image upload(start)
             if ($this->request->getFileMultiple('multiImage')) {
-
                 $target_dir = FCPATH . '/uploads/album/' . $albumId . '/';
                 $this->imageProcessing->directory_create($target_dir);
 
                 $files = $this->request->getFileMultiple('multiImage');
                 foreach ($files as $file) {
-
                     if ($file->isValid() && ! $file->hasMoved()) {
                         $dataMultiImg['album_id'] = $albumId;
                         $albumImgTable = DB()->table('cc_album_details');
@@ -147,9 +142,7 @@ class Album extends BaseController
                         $proImgUpTable = DB()->table('cc_album_details');
                         $proImgUpTable->where('album_details_id', $albumImgId)->update($dataMultiImg2);
                     }
-
                 }
-
             }
             //multi image upload(start)
 
@@ -173,7 +166,6 @@ class Album extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             $table = DB()->table('cc_album');
             $data['album'] = $table->where('album_id', $album_id)->get()->getRow();
 
@@ -212,7 +204,6 @@ class Album extends BaseController
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/album_update/' . $album_id);
         } else {
-
             $table = DB()->table('cc_album');
             $table->where('album_id', $album_id)->update($data);
 
@@ -237,13 +228,11 @@ class Album extends BaseController
 
             //multi image upload(start)
             if ($this->request->getFileMultiple('multiImage')) {
-
                 $target_dir = FCPATH . '/uploads/album/' . $album_id . '/';
                 $this->imageProcessing->directory_create($target_dir);
 
                 $files = $this->request->getFileMultiple('multiImage');
                 foreach ($files as $file) {
-
                     if ($file->isValid() && ! $file->hasMoved()) {
                         $dataMultiImg['album_id'] = $album_id;
                         $proImgTable = DB()->table('cc_album_details');
@@ -258,15 +247,12 @@ class Album extends BaseController
                         $proImgUpTable = DB()->table('cc_album_details');
                         $proImgUpTable->where('album_details_id', $albumImgId)->update($dataMultiImg2);
                     }
-
                 }
-
             }
             //multi image upload(start)
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Album Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/album_update/' . $album_id);
-
         }
     }
 
@@ -277,7 +263,6 @@ class Album extends BaseController
      */
     public function delete($album_id)
     {
-
         helper('filesystem');
 
         DB()->transStart();
@@ -335,5 +320,4 @@ class Album extends BaseController
         $table->where('album_details_id', $album_details_id)->delete();
         print '<div class="alert alert-success alert-dismissible" role="alert">Album Image Delete Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
     }
-
 }

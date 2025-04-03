@@ -33,7 +33,6 @@ class Order extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             $table = DB()->table('cc_order');
             $data['order'] = $table->orderBy('order_id', 'DESC')->get()->getResult();
 
@@ -63,7 +62,6 @@ class Order extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             $table = DB()->table('cc_order');
             $data['order'] = $table->where('order_id', $order_id)->get()->getRow();
 
@@ -151,7 +149,6 @@ class Order extends BaseController
                         DB()->transComplete();
                     }
                 }
-
             }
 
 
@@ -173,7 +170,6 @@ class Order extends BaseController
             $ord = $tabOrder->where('order_id', $order_id)->get()->getRow();
 
             if (!empty($ord->customer_id)) {
-
                 $tableModule = DB()->table('cc_modules');
                 $query = $tableModule->join('cc_module_settings', 'cc_module_settings.module_id = cc_modules.module_id')->where('cc_modules.module_key', 'point')->get()->getRow();
                 if ($query->status == '1') {
@@ -205,12 +201,10 @@ class Order extends BaseController
                     DB()->transComplete();
                 }
             }
-
         }
 
 
         print '<div class="alert alert-success alert-dismissible" role="alert"> Payment status update success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
-
     }
 
     public function point_action()
@@ -228,12 +222,10 @@ class Order extends BaseController
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/order_view/' . $data['order_id'] . '?selTab=point');
         } else {
-
             $tabOrder = DB()->table('cc_order');
             $ord = $tabOrder->where('order_id', $data['order_id'])->get()->getRow();
 
             if ($data['status'] == 'add') {
-
                 $tableModule = DB()->table('cc_modules');
                 $query = $tableModule->join('cc_module_settings', 'cc_module_settings.module_id = cc_modules.module_id')->where('cc_modules.module_key', 'point')->get()->getRow();
                 if ($query->status == '1') {

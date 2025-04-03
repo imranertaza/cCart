@@ -33,7 +33,6 @@ class Coupon extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             $table = DB()->table('cc_coupon');
             $data['coupon'] = $table->get()->getResult();
 
@@ -146,7 +145,6 @@ class Coupon extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             $table = DB()->table('cc_coupon');
             $data['coupon'] = $table->where('coupon_id', $coupon_id)->get()->getRow();
 
@@ -224,7 +222,6 @@ class Coupon extends BaseController
             DB()->transComplete();
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Coupon Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/coupon_update/' . $coupon_id);
-
         }
     }
 
@@ -235,7 +232,6 @@ class Coupon extends BaseController
      */
     public function delete($coupon_id)
     {
-
         $table = DB()->table('cc_coupon_shipping');
         $table->where('coupon_id', $coupon_id)->delete();
 
@@ -245,5 +241,4 @@ class Coupon extends BaseController
         $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Coupon Delete Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
         return redirect()->to('admin/coupon');
     }
-
 }

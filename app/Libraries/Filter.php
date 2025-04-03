@@ -280,23 +280,4 @@ class Filter
         }
         return $data;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

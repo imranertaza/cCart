@@ -33,7 +33,6 @@ class Geo_zone extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             $table = DB()->table('cc_geo_zone');
             $data['geo_zone'] = $table->get()->getResult();
 
@@ -62,7 +61,6 @@ class Geo_zone extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
             foreach ($perm as $key => $val) {
@@ -96,7 +94,6 @@ class Geo_zone extends BaseController
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/geo_zone_create');
         } else {
-
             $exist = $this->check_exist_to_create($country_id, $zone_id);
 
             if ($exist == true) {
@@ -122,8 +119,6 @@ class Geo_zone extends BaseController
                 $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert"> Zone already exist ! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                 return redirect()->to('admin/geo_zone_create');
             }
-
-
         }
     }
 
@@ -139,7 +134,6 @@ class Geo_zone extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             $table = DB()->table('cc_geo_zone');
             $data['geo_zone'] = $table->where('geo_zone_id', $geo_zone_id)->get()->getRow();
 
@@ -210,7 +204,6 @@ class Geo_zone extends BaseController
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Geo Zone Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/geo_zone_update/' . $geo_zone_id);
-
         }
     }
 
@@ -221,7 +214,6 @@ class Geo_zone extends BaseController
      */
     public function delete($geo_zone_id)
     {
-
         $tableZone = DB()->table('cc_geo_zone_details');
         $tableZone->where('geo_zone_id', $geo_zone_id)->delete();
 
@@ -238,14 +230,12 @@ class Geo_zone extends BaseController
      */
     public function geo_zone_detail_delete()
     {
-
         $geo_zone_details_id = $this->request->getPost('geo_zone_details_id');
 
         $table = DB()->table('cc_geo_zone_details');
         $table->where('geo_zone_details_id', $geo_zone_details_id)->delete();
 
         print '<div class="alert alert-success alert-dismissible" role="alert">Delete Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
-
     }
 
     /**
@@ -284,5 +274,4 @@ class Geo_zone extends BaseController
 
         return $result;
     }
-
 }

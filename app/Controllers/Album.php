@@ -65,6 +65,4 @@ class Album extends BaseController
         echo view('Theme/' . $settings['Theme'] . '/Album/view', $data);
         echo view('Theme/' . $settings['Theme'] . '/footer');
     }
-
-
 }

@@ -155,7 +155,6 @@ class OisbizcraftController extends BaseController
 
     public function notification_webhook()
     {
-
         $api_k = get_all_row_data_by_id('cc_payment_settings', 'label', 'api_key');
         $secret_key = $api_k->value;  // Replace with your actual secret key
 
@@ -217,7 +216,6 @@ class OisbizcraftController extends BaseController
      */
     public function oisbizcraft_action()
     {
-
         $data['payment_firstname'] = $this->session->payment_firstname;
         $data['payment_lastname'] = $this->session->payment_lastname;
         $data['payment_phone'] = $this->session->payment_phone;
@@ -497,8 +495,6 @@ class OisbizcraftController extends BaseController
 
     public function payment_oisbizcraft_wallet()
     {
-
-
         $data['amount'] = $this->request->getPost('amount');
         $data['payment_method_id'] = $this->request->getPost('payment_method_id');
         $data['customer_id'] = $this->session->cusUserId;
@@ -647,8 +643,4 @@ class OisbizcraftController extends BaseController
         unset($_SESSION['amount']);
         unset($_SESSION['payment_method_id']);
     }
-
-
-
-
 }

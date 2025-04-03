@@ -33,7 +33,6 @@ class Customers extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             $table = DB()->table('cc_customer');
             $data['customer'] = $table->get()->getResult();
 
@@ -62,7 +61,6 @@ class Customers extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
             foreach ($perm as $key => $val) {
@@ -137,7 +135,6 @@ class Customers extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             $table = DB()->table('cc_customer');
             $data['customers'] = $table->where('customer_id', $customer_id)->get()->getRow();
 
@@ -199,7 +196,6 @@ class Customers extends BaseController
                 $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Email Or Phone already exists <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                 return redirect()->to('admin/customers_update/' . $customer_id);
             }
-
         }
     }
 
@@ -225,13 +221,11 @@ class Customers extends BaseController
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/customers_update/' . $customer_id);
         } else {
-
             $table = DB()->table('cc_customer');
             $table->where('customer_id', $customer_id)->update($data);
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Customers General Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/customers_update/' . $customer_id);
-
         }
     }
 
@@ -276,7 +270,6 @@ class Customers extends BaseController
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">No image selected!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/customers_update/' . $customer_id);
         }
-
     }
 
     /**
@@ -286,7 +279,6 @@ class Customers extends BaseController
      */
     public function delete($customer_id)
     {
-
         $table = DB()->table('cc_customer');
         $table->where('customer_id', $customer_id)->delete();
 
@@ -306,7 +298,6 @@ class Customers extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             $table = DB()->table('cc_customer_ledger');
             $data['ledger'] = $table->where('customer_id', $customer_id)->get()->getResult();
 
@@ -330,7 +321,6 @@ class Customers extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             $table = DB()->table('cc_customer_point_history');
             $data['point'] = $table->where('customer_id', $customer_id)->get()->getResult();
 
@@ -347,5 +337,4 @@ class Customers extends BaseController
             }
         }
     }
-
 }

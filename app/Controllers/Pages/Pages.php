@@ -48,7 +48,6 @@ class Pages extends BaseController
      */
     public function contact_action()
     {
-
         $data['email'] = $this->request->getPost('email');
         $data['message'] = $this->request->getPost('message');
         $subject = 'Contact form';
@@ -72,6 +71,4 @@ class Pages extends BaseController
             //            print 'Your message was successfully submitted';
         }
     }
-
-
 }

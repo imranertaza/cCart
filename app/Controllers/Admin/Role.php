@@ -33,7 +33,6 @@ class Role extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             $table = DB()->table('cc_roles');
             $data['roles'] = $table->get()->getResult();
 
@@ -62,7 +61,6 @@ class Role extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             $table = DB()->table('cc_roles');
             $adminRole = $table->where('is_default', '1')->get()->getRow();
             $data['permission'] = json_decode($adminRole->permission);
@@ -98,7 +96,6 @@ class Role extends BaseController
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/role_create');
         } else {
-
             $roleTable = DB()->table('cc_roles');
             $roleTable->insert($data);
 
@@ -119,8 +116,6 @@ class Role extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
-
             $rolesTable = DB()->table('cc_roles');
 
             $table = DB()->table('cc_roles');
@@ -161,13 +156,11 @@ class Role extends BaseController
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/role_update/' . $role_id);
         } else {
-
             $table = DB()->table('cc_roles');
             $table->where('role_id', $role_id)->update($data);
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Role Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/role_update/' . $role_id);
-
         }
     }
 
@@ -178,15 +171,10 @@ class Role extends BaseController
      */
     public function delete($role_id)
     {
-
-
         $table = DB()->table('cc_roles');
         $table->where('role_id', $role_id)->delete();
 
         $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Role Delete Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
         return redirect()->to('admin/role');
     }
-
-
-
 }

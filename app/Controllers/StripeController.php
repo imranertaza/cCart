@@ -71,11 +71,9 @@ class StripeController extends BaseController
             $sess = [ 'charge_id' => $charge->id ];
             $this->session->set($sess);
             return redirect()->to('stripe_action');
-
         } else {
             return redirect()->to('checkout_failed');
         }
-
     }
 
     /**
@@ -84,7 +82,6 @@ class StripeController extends BaseController
      */
     public function stripe_action()
     {
-
         $data['payment_firstname'] = $this->session->payment_firstname;
         $data['payment_lastname'] = $this->session->payment_lastname;
         $data['payment_phone'] = $this->session->payment_phone;
@@ -392,16 +389,13 @@ class StripeController extends BaseController
             $sess = [ 'charge_id' => $charge->id ];
             $this->session->set($sess);
             return redirect()->to('stripe_wallet_action');
-
         } else {
             return redirect()->to('my-wallet-failed');
         }
-
     }
 
     public function stripe_wallet_action()
     {
-
         DB()->transStart();
         //fund request data insert
         $data['amount'] = $this->session->amount;
@@ -442,5 +436,4 @@ class StripeController extends BaseController
         $this->session->setFlashdata('message', 'Create successfully ');
         return redirect()->to('my-wallet-success');
     }
-
 }

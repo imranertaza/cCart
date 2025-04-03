@@ -33,7 +33,6 @@ class User extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             $table = DB()->table('cc_users');
             $data['users'] = $table->get()->getResult();
 
@@ -62,7 +61,6 @@ class User extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
             foreach ($perm as $key => $val) {
@@ -135,7 +133,6 @@ class User extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             $table = DB()->table('cc_users');
             $data['user'] = $table->where('user_id', $user_id)->get()->getRow();
 
@@ -191,7 +188,6 @@ class User extends BaseController
                 $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Email already exists <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                 return redirect()->to('admin/user_update/' . $user_id);
             }
-
         }
     }
 
@@ -215,13 +211,11 @@ class User extends BaseController
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/user_update/' . $user_id);
         } else {
-
             $table = DB()->table('cc_users');
             $table->where('user_id', $user_id)->update($data);
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">General Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/user_update/' . $user_id);
-
         }
     }
 
@@ -266,7 +260,6 @@ class User extends BaseController
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">No image selected!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/user_update/' . $user_id);
         }
-
     }
 
     /**
@@ -276,7 +269,6 @@ class User extends BaseController
      */
     public function delete($user_id)
     {
-
         $target_dir = FCPATH . '/uploads/user/';
         //old image unlink
         $old_img = get_data_by_id('pic', 'cc_users', 'user_id', $user_id);
@@ -294,5 +286,4 @@ class User extends BaseController
         $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">User Delete Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
         return redirect()->to('admin/user');
     }
-
 }

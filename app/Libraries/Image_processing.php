@@ -79,7 +79,6 @@ class Image_processing
     public function watermark_main_image($dir, $image)
     {
         if (!file_exists($dir . '/wm_' . $image)) {
-
             if (pathinfo($image, PATHINFO_EXTENSION) == 'png') {
                 $mainImg = imagecreatefrompng($dir . $image);
             } else {
@@ -228,5 +227,4 @@ class Image_processing
 
         return $news_img;
     }
-
 }

@@ -17,5 +17,4 @@ class AlbumModel extends Model
     protected $validationRules    = [];
     protected $validationMessages = [];
     protected $skipValidation     = true;
-
 }

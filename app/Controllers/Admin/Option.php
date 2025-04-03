@@ -33,7 +33,6 @@ class Option extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             $table = DB()->table('cc_option');
             $data['option'] = $table->get()->getResult();
 
@@ -62,7 +61,6 @@ class Option extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
             foreach ($perm as $key => $val) {
@@ -95,7 +93,6 @@ class Option extends BaseController
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/option');
         } else {
-
             $table = DB()->table('cc_option');
             $table->insert($data);
             $optionID = DB()->insertID();
@@ -127,7 +124,6 @@ class Option extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             $table = DB()->table('cc_option');
             $data['option'] = $table->where('option_id', $option_id)->get()->getRow();
 
@@ -169,7 +165,6 @@ class Option extends BaseController
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/option_update/' . $option_id);
         } else {
-
             if (!empty($value)) {
                 $table = DB()->table('cc_option');
                 $table->where('option_id', $option_id)->update($data);
@@ -194,7 +189,6 @@ class Option extends BaseController
                 $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert"> Please Add Value ! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                 return redirect()->to('admin/option_update/' . $option_id);
             }
-
         }
     }
 
@@ -205,7 +199,6 @@ class Option extends BaseController
      */
     public function delete($option_id)
     {
-
         $tabOp = DB()->table('cc_product_option');
         $tabOp->where('option_id', $option_id)->delete();
 
@@ -234,5 +227,4 @@ class Option extends BaseController
         $tableValDel = DB()->table('cc_option_value');
         $tableValDel->where('option_value_id', $option_value_id)->delete();
     }
-
 }

@@ -22,7 +22,6 @@ class Login extends BaseController
      */
     public function index()
     {
-
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             echo view('Admin/login');
@@ -41,18 +40,15 @@ class Login extends BaseController
         $this->validation->setRule('password', 'Password', 'required|max_length[32]');
 
         if ($this->validation->withRequest($this->request)->run() == false) {
-
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">All field is required <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to(site_url('admin'));
         } else {
-
             $email = strtolower($this->request->getPost('email'));
             $password = $this->request->getPost('password');
 
             $result = $this->loginMe($email, $password);
 
             if (!empty($result)) {
-
                 // Remember me (Remembering the user email and password) Start
                 if (!empty($this->request->getPost("remember"))) {
                     setcookie('login_email', $email, time() + (86400 * 30), "/");
@@ -79,13 +75,10 @@ class Login extends BaseController
                 $this->session->set($sessionArray);
 
                 return redirect()->to(site_url('admin/dashboard'));
-
-
             } else {
                 $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Your login detail not match <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                 return redirect()->to(site_url('admin'));
             }
-
         }
     }
 
@@ -117,7 +110,6 @@ class Login extends BaseController
      */
     public function logout()
     {
-
         unset($_SESSION['adUserId']);
         unset($_SESSION['adName']);
         unset($_SESSION['adminAll']);

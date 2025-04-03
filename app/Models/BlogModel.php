@@ -17,5 +17,4 @@ class BlogModel extends Model
     protected $validationRules    = [];
     protected $validationMessages = [];
     protected $skipValidation     = true;
-
 }

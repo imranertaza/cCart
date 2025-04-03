@@ -60,7 +60,4 @@ class Blog extends BaseController
         echo view('Theme/' . $settings['Theme'] . '/Blog/view', $data);
         echo view('Theme/' . $settings['Theme'] . '/footer');
     }
-
-
-
 }

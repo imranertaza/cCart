@@ -35,5 +35,4 @@ class Theme_2
             'height' => '50',
         ],
     ];
-
 }

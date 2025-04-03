@@ -33,7 +33,6 @@ class Attribute_group extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             $table = DB()->table('cc_product_attribute_group');
             $data['attribute'] = $table->get()->getResult();
 
@@ -62,7 +61,6 @@ class Attribute_group extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
             foreach ($perm as $key => $val) {
@@ -92,7 +90,6 @@ class Attribute_group extends BaseController
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/attribute_create');
         } else {
-
             $table = DB()->table('cc_product_attribute_group');
             $table->insert($data);
 
@@ -113,7 +110,6 @@ class Attribute_group extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             $table = DB()->table('cc_product_attribute_group');
             $data['attribute'] = $table->where('attribute_group_id', $attribute_group_id)->get()->getRow();
 
@@ -149,13 +145,11 @@ class Attribute_group extends BaseController
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/attribute_update/' . $attribute_group_id);
         } else {
-
             $table = DB()->table('cc_product_attribute_group');
             $table->where('attribute_group_id', $attribute_group_id)->update($data);
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Attribute Group Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/attribute_update/' . $attribute_group_id);
-
         }
     }
 
@@ -166,7 +160,6 @@ class Attribute_group extends BaseController
      */
     public function delete($attribute_group_id)
     {
-
         $check = is_exists('cc_product_attribute', 'attribute_group_id', $attribute_group_id);
 
         if ($check == true) {
@@ -180,5 +173,4 @@ class Attribute_group extends BaseController
             return redirect()->to('admin/attribute_group');
         }
     }
-
 }

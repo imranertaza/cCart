@@ -130,7 +130,6 @@ class Products extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             $protable = DB()->table('cc_products');
             $data['products'] = $protable->get()->getResult();
 
@@ -156,7 +155,6 @@ class Products extends BaseController
      */
     public function create_action()
     {
-
         $adUserId = $this->session->adUserId;
 
         $data['pro_name'] = $this->request->getPost('pro_name');
@@ -223,13 +221,11 @@ class Products extends BaseController
 
             //multi image upload(start)
             if ($this->request->getFileMultiple('multiImage')) {
-
                 $target_dir = FCPATH . '/uploads/products/' . $productId . '/';
                 $this->imageProcessing->directory_create($target_dir);
 
                 $files = $this->request->getFileMultiple('multiImage');
                 foreach ($files as $file) {
-
                     if ($file->isValid() && ! $file->hasMoved()) {
                         $dataMultiImg['product_id'] = $productId;
                         $proImgTable = DB()->table('cc_product_image');
@@ -246,9 +242,7 @@ class Products extends BaseController
                         $proImgUpTable = DB()->table('cc_product_image');
                         $proImgUpTable->where('product_image_id', $proImgId)->update($dataMultiImg2);
                     }
-
                 }
-
             }
             //multi image upload(start)
 
@@ -474,7 +468,6 @@ class Products extends BaseController
         $adUserId = $this->session->adUserId;
 
         if (!empty($allProductId)) {
-
             DB()->transStart();
             foreach ($allProductId as $p) {
                 $tablePro = DB()->table('cc_products');
@@ -645,7 +638,6 @@ class Products extends BaseController
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Please select any product! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->back();
         }
-
     }
 
     /**
@@ -660,7 +652,6 @@ class Products extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             $table = DB()->table('cc_products');
             $table->join('cc_product_description', 'cc_product_description.product_id = cc_products.product_id ');
             $data['prod'] = $table->where('cc_products.product_id', $product_id)->get()->getRow();
@@ -712,7 +703,6 @@ class Products extends BaseController
      */
     public function update_action()
     {
-
         $adUserId = $this->session->adUserId;
 
         $product_id = $this->request->getPost('product_id');
@@ -780,13 +770,11 @@ class Products extends BaseController
 
             //multi image upload(start)
             if ($this->request->getFileMultiple('multiImage')) {
-
                 $target_dir = FCPATH . '/uploads/products/' . $product_id . '/';
                 $this->imageProcessing->directory_create($target_dir);
 
                 $files = $this->request->getFileMultiple('multiImage');
                 foreach ($files as $file) {
-
                     if ($file->isValid() && ! $file->hasMoved()) {
                         $dataMultiImg['product_id'] = $product_id;
                         $proImgTable = DB()->table('cc_product_image');
@@ -801,9 +789,7 @@ class Products extends BaseController
                         $proImgUpTable = DB()->table('cc_product_image');
                         $proImgUpTable->where('product_image_id', $proImgId)->update($dataMultiImg2);
                     }
-
                 }
-
             }
             //multi image upload(start)
 
@@ -1079,7 +1065,6 @@ class Products extends BaseController
             DB()->transComplete();
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Products Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/product_update/' . $product_id);
-
         }
     }
 
@@ -1302,7 +1287,6 @@ class Products extends BaseController
 
     public function image_crop()
     {
-
         $allProductId =  $this->request->getPost('productId[]');
 
         if (!empty($allProductId)) {
@@ -1322,7 +1306,6 @@ class Products extends BaseController
                 if ((!empty($single->image)) && (file_exists($target_dir))) {
                     $mainImg = str_replace('pro_', '', $single->image);
                     if (file_exists($target_dir . '/' . $mainImg)) {
-
                         $this->imageProcessing->image_crop($target_dir, $mainImg, $single->image);
                         if ($modules['watermark'] == '1') {
                             $this->imageProcessing->watermark_main_image($target_dir, $mainImg);
@@ -1330,7 +1313,6 @@ class Products extends BaseController
                             $this->imageProcessing->watermark_on_resized_image($target_dir, $mainImg);
                             $this->imageProcessing->image_crop($target_dir, '600_wm_' . $mainImg, 'wm_' . $single->image);
                         }
-
                     }
                 }
                 //product main image crop end
@@ -1375,12 +1357,8 @@ class Products extends BaseController
                             flush(); // Send the output to the browser
                             // sleep(1); // Simulate delay
                         }
-
-
                     }
                 }
-
-
             }
 
 
@@ -1395,14 +1373,10 @@ class Products extends BaseController
                     window.location.href = '" . site_url($redirect_url) . "';
               </script>";
             flush(); // Ensure the redirect script is sent
-
-
-
         } else {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Please select any product <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->back();
         }
-
     }
 
     /**
@@ -1447,8 +1421,6 @@ class Products extends BaseController
 
             DB()->transStart();
             foreach ($allProductId as $product_id) {
-
-
                 $target_dir = FCPATH . '/uploads/products/' . $product_id;
                 if (file_exists($target_dir)) {
                     delete_files($target_dir, true);
@@ -1490,7 +1462,6 @@ class Products extends BaseController
 
                 $bothTableDel = DB()->table('cc_product_bought_together');
                 $bothTableDel->where('related_id', $product_id)->delete();
-
             }
             DB()->transComplete();
 
@@ -1504,7 +1475,6 @@ class Products extends BaseController
 
     public function status_update()
     {
-
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId = $this->session->adRoleId;
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
@@ -1514,7 +1484,6 @@ class Products extends BaseController
 
             $allProductId =  $this->request->getPost('productId[]');
             if (!empty($allProductId)) {
-
                 $data['all_product'] = $allProductId;
 
                 //$perm = array('create','read','update','delete','mod_access');
@@ -1551,10 +1520,4 @@ class Products extends BaseController
         $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Product status update successfully <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
         return redirect()->to($redirect_url);
     }
-
-
-
-
-
-
 }

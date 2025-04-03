@@ -33,10 +33,6 @@ class Email_send extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
-
-
-
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
             foreach ($perm as $key => $val) {
@@ -70,7 +66,6 @@ class Email_send extends BaseController
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/email_send');
         } else {
-
             if ($data['user'] == 'subscribe') {
                 $subscrib = get_all_data_array('cc_newsletter');
                 foreach ($subscrib as $sub) {
@@ -96,8 +91,4 @@ class Email_send extends BaseController
             return redirect()->to('admin/email_send');
         }
     }
-
-
-
-
 }

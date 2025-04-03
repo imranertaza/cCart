@@ -13,7 +13,6 @@ class Zone_rate_shipping
      */
     public function getSettings($city)
     {
-
         $shipping_method_id = get_data_by_id('shipping_method_id', 'cc_shipping_method', 'code', 'zone_rate');
         $table = DB()->table('cc_shipping_settings');
         $this->zone_rate_method = $table->where('shipping_method_id', $shipping_method_id)->where('label', 'zone_rate_method')->get()->getRow();
@@ -21,7 +20,6 @@ class Zone_rate_shipping
             $country_id = get_data_by_id('country_id', 'cc_zone', 'zone_id', $city);
 
             $this->geo_zone_id = $this->zone_id($country_id, $city);
-
         } else {
             $this->geo_zone_id = 0;
         }
@@ -37,7 +35,6 @@ class Zone_rate_shipping
     {
         $charge = 0;
         if (!empty($this->geo_zone_id)) {
-
             if (!empty($this->geo_zone_id)) {
                 if ($this->zone_rate_method->value == '1') {
                     $charge = $this->weight_rate_calculation($this->geo_zone_id);
@@ -51,7 +48,6 @@ class Zone_rate_shipping
             } else {
                 $charge = $this->others_rate_calculation('0');
             }
-
         } else {
             $charge = $this->others_rate_calculation('0');
         }
@@ -139,10 +135,8 @@ class Zone_rate_shipping
             if (!empty($allZoneRate)) {
                 $charge = $allZoneRate->cost;
             }
-
         }
         return $charge;
-
     }
 
     /**
@@ -171,7 +165,6 @@ class Zone_rate_shipping
             if (!empty($allZoneRate)) {
                 $charge = $allZoneRate->cost;
             }
-
         }
         return $charge;
     }
@@ -198,7 +191,6 @@ class Zone_rate_shipping
             }
         }
         return $result;
-
     }
 
     /**
@@ -217,6 +209,4 @@ class Zone_rate_shipping
         }
         return $eligible_product;
     }
-
-
 }

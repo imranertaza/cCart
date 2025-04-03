@@ -73,7 +73,6 @@ class Products extends BaseController
 
             $allOption = '(' . rtrim($optionWhere, ' OR ') . ')';
             $data['optionval'] = $options;
-
         }
 
         $data['brandval'] = [];
@@ -203,6 +202,4 @@ class Products extends BaseController
         echo view('Theme/' . $settings['Theme'] . '/Category/index', $data);
         echo view('Theme/' . $settings['Theme'] . '/footer', $data);
     }
-
-
 }

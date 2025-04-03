@@ -49,9 +49,4 @@ class Flat_shipping
         }
         return $eligible_product;
     }
-
-
-
-
-
 }

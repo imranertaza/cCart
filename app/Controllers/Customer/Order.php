@@ -76,5 +76,4 @@ class Order extends BaseController
             echo view('Theme/' . $settings['Theme'] . '/footer');
         }
     }
-
 }

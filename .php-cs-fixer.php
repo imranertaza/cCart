@@ -16,8 +16,8 @@ return (new PhpCsFixer\Config())
 //        'blank_line_before_statement' => [
 //            'statements' => ['return', 'try', 'if', 'switch', 'for', 'foreach', 'while']
 //        ], // Improve readability
-//        'braces' => ['position_after_functions_and_oop_constructs' => 'next'], // Braces style
-//        'cast_spaces' => ['space' => 'single'], // Space in casting
+        'braces' => ['position_after_functions_and_oop_constructs' => 'next'], // Braces style
+        'cast_spaces' => ['space' => 'single'], // Space in casting
         'concat_space' => ['spacing' => 'one'], // Spaces around concatenation
         'no_unused_imports' => true, // Remove unused use statements
         'ordered_imports' => ['sort_algorithm' => 'alpha'], // Sort use statements alphabetically

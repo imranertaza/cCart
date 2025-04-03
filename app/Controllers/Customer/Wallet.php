@@ -99,7 +99,6 @@ class Wallet extends BaseController
             $this->session->setFlashdata('message', '<div class="alert text-white alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . '</div>');
             return redirect()->to('add-funds');
         } else {
-
             if ($data['payment_method_id'] == '7') {
                 $data['card_name'] = $this->request->getPost('card_name');
                 $data['card_number'] = $this->request->getPost('card_number');

@@ -33,7 +33,6 @@ class Blog_category extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             $table = DB()->table('cc_category');
             $data['category'] = $table->get()->getResult();
 
@@ -62,7 +61,6 @@ class Blog_category extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             $table = DB()->table('cc_category');
             $data['category'] = $table->get()->getResult();
 
@@ -134,7 +132,6 @@ class Blog_category extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             $table = DB()->table('cc_category');
             $data['category'] = $table->where('cat_id', $cat_id)->get()->getRow();
 
@@ -175,8 +172,6 @@ class Blog_category extends BaseController
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/blog_category_update/' . $cat_id);
         } else {
-
-
             if (!empty($_FILES['image']['name'])) {
                 $target_dir = FCPATH . '/uploads/blog_category/';
                 if (!file_exists($target_dir)) {
@@ -235,7 +230,6 @@ class Blog_category extends BaseController
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/blog_category_update/' . $cat_id);
         } else {
-
             $table = DB()->table('cc_category');
             $table->where('cat_id', $cat_id)->update($data);
 
@@ -251,7 +245,6 @@ class Blog_category extends BaseController
      */
     public function delete($cat_id)
     {
-
         $target_dir = FCPATH . '/uploads/blog_category/';
         //old image unlink
         $old_img = get_data_by_id('image', 'cc_category', 'cat_id', $cat_id);
@@ -305,6 +298,4 @@ class Blog_category extends BaseController
         $table->where('cat_id', $cat_id)->update($data);
         print '<div class="alert alert-success alert-dismissible" role="alert">Update Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
     }
-
-
 }

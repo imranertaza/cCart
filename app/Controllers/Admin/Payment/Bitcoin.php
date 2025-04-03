@@ -34,7 +34,6 @@ class Bitcoin extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             $table = DB()->table('cc_payment_method');
             $data['payment'] = $table->where('payment_method_id', $payment_method_id)->get()->getFirstRow();
 

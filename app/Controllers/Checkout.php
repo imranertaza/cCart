@@ -40,7 +40,6 @@ class Checkout extends BaseController
      */
     public function index()
     {
-
         if (!empty($this->cart->contents())) {
             $settings = get_settings();
             $table = DB()->table('cc_customer');
@@ -74,7 +73,6 @@ class Checkout extends BaseController
         $query = $table->where('code', $coupon_code)->where('status', 'Active')->where('total_useable >', 'total_used')->where('date_start <', date('Y-m-d'))->where('date_end >', date('Y-m-d'))->get()->getRow();
 
         if (!empty($query)) {
-
             if (isset(newSession()->coupon_id)) {
                 unset($_SESSION['coupon_id']);
                 unset($_SESSION['coupon_discount']);
@@ -146,7 +144,6 @@ class Checkout extends BaseController
                     }
                 }
             } else {
-
                 if ($query->for_registered_user == '1') {
                     $isLoggedInCustomer = $this->session->isLoggedInCustomer;
                     if (isset($isLoggedInCustomer) || $isLoggedInCustomer == true) {
@@ -210,12 +207,10 @@ class Checkout extends BaseController
                     }
                 }
             }
-
         } else {
             $this->session->setFlashdata('message', 'Coupon code not working ');
             return redirect()->to('cart');
         }
-
     }
 
     /**
@@ -242,7 +237,6 @@ class Checkout extends BaseController
      */
     public function checkout_action()
     {
-
         if (!empty($this->cart->contents())) {
             $data['payment_firstname'] = $this->request->getPost('payment_firstname');
             $data['payment_lastname'] = $this->request->getPost('payment_lastname');
@@ -289,7 +283,6 @@ class Checkout extends BaseController
                 $this->session->setFlashdata('message', '' . $this->validation->listErrors() . '');
                 return redirect()->to('checkout');
             } else {
-
                 $shipping_charge = $this->shipping_charge($data['payment_city'], $this->request->getPost('shipping_city'), $data['shipping_method']);
 
                 if (isset($this->session->cusUserId)) {
@@ -299,7 +292,6 @@ class Checkout extends BaseController
                 $disc = null;
                 if (isset($this->session->coupon_discount)) {
                     $disc = ($this->cart->total() * $this->session->coupon_discount) / 100;
-
                 }
 
                 if (!empty($shipping_charge)) {
@@ -484,7 +476,6 @@ class Checkout extends BaseController
      */
     public function shipping_rate()
     {
-
         $city_id = $this->request->getPost('city_id');
         $shipCityId = $this->request->getPost('shipCityId');
         $paymethod = $this->request->getPost('paymethod');
@@ -619,7 +610,6 @@ class Checkout extends BaseController
      */
     private function shipping_charge($city_id, $shipCityId, $shipping_method)
     {
-
         if (!empty($shipCityId)) {
             $city_id = $shipCityId;
         }
@@ -639,5 +629,4 @@ class Checkout extends BaseController
 
         return $charge;
     }
-
 }

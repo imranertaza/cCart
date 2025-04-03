@@ -80,5 +80,4 @@ class Compare extends BaseController
             print 'Successfully remove to compare';
         }
     }
-
 }

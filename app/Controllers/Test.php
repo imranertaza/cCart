@@ -37,6 +37,4 @@ class Test extends BaseController
         }
         print $output;
     }
-
-
 }

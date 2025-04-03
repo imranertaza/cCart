@@ -54,5 +54,4 @@ class CreateGeoZoneDetailsTable extends Migration
     {
         $this->forge->dropTable('cc_geo_zone_details');
     }
-
 }

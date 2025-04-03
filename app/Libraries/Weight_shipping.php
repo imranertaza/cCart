@@ -67,6 +67,4 @@ class Weight_shipping
 
         return $eligible_product;
     }
-
-
 }

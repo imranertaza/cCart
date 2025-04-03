@@ -33,7 +33,6 @@ class Fund_request extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             $table = DB()->table('cc_fund_request');
             $data['fund_request'] = $table->get()->getResult();
 
@@ -83,15 +82,10 @@ class Fund_request extends BaseController
 
             $tableCusLedg = DB()->table('cc_customer_ledger');
             $tableCusLedg->insert($cusLedg);
-
         }
 
 
 
         print  '<div class="alert alert-success alert-dismissible" role="alert">Fund Request Update Successfully <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
-
     }
-
-
-
 }

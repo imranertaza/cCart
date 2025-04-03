@@ -36,5 +36,4 @@ class Theme_default
             'height' => '50',
         ],
     ];
-
 }

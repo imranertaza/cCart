@@ -119,7 +119,6 @@ class Paypalexpress
      */
     public function process_payment($nvpstr)
     {
-
         // Getting settings.
         $settings = $this->pex_settings;
         // call api with nvp string andset checkout request.

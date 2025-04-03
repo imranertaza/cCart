@@ -33,7 +33,6 @@ class Color_family extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             $table = DB()->table('cc_color_family');
             $data['color'] = $table->get()->getResult();
 
@@ -62,7 +61,6 @@ class Color_family extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
             foreach ($perm as $key => $val) {
@@ -95,7 +93,6 @@ class Color_family extends BaseController
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('color_family_create');
         } else {
-
             $table = DB()->table('cc_color_family');
             $table->insert($data);
 
@@ -116,7 +113,6 @@ class Color_family extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             $table = DB()->table('cc_color_family');
             $data['color'] = $table->where('color_family_id', $color_family_id)->get()->getRow();
 
@@ -154,13 +150,11 @@ class Color_family extends BaseController
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('color_family_update/' . $color_family_id);
         } else {
-
             $table = DB()->table('cc_color_family');
             $table->where('color_family_id', $color_family_id)->update($data);
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Color Family Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('color_family_update/' . $color_family_id);
-
         }
     }
 
@@ -171,13 +165,10 @@ class Color_family extends BaseController
      */
     public function delete($color_family_id)
     {
-
-
         $table = DB()->table('cc_color_family');
         $table->where('color_family_id', $color_family_id)->delete();
 
         $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Color Family Delete Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
         return redirect()->to('color_family');
     }
-
 }

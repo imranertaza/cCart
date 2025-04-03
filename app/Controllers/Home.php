@@ -131,7 +131,6 @@ class Home extends BaseController
         $email = $this->request->getPost('email');
 
         if (!empty($email)) {
-
             $name = get_lebel_by_value_in_settings('store_name');
             $otp = rand(100000, 999999);
             $url = base_url('user_subscribe_verify?email=' . urlencode($this->encrypter->encrypt($email)) . '&code=' . urlencode($this->encrypter->encrypt($otp)));
@@ -149,7 +148,6 @@ class Home extends BaseController
 
             email_send($email, $subject, $message);
             print "Please Verify Your Email Address to Complete Your Subscription!";
-
         } else {
             print 'Email required';
         }
@@ -157,7 +155,6 @@ class Home extends BaseController
 
     public function verify()
     {
-
         $email = $this->request->getGetPost('email');
         $code = $this->request->getGetPost('code');
         if (!empty($email)) {
@@ -183,8 +180,5 @@ class Home extends BaseController
             $this->session->setFlashdata('message', '<div class="alert-success_web py-2 px-3 border-0 text-white fs-5 text-capitalize" role="alert">Information not matching </div>');
             return redirect()->to('/');
         }
-
     }
-
-
 }
