@@ -17,8 +17,8 @@ class Reviews extends BaseController
     public function __construct()
     {
         $this->validation = \Config\Services::validation();
-        $this->session = \Config\Services::session();
-        $this->crop = \Config\Services::image();
+        $this->session    = \Config\Services::session();
+        $this->crop       = \Config\Services::image();
         $this->permission = new Permission();
     }
 
@@ -29,11 +29,11 @@ class Reviews extends BaseController
     public function index()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
-        $adRoleId = $this->session->adRoleId;
+        $adRoleId          = $this->session->adRoleId;
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-            $table = DB()->table('cc_product_feedback');
+            $table           = DB()->table('cc_product_feedback');
             $data['reviews'] = $table->get()->getResult();
 
 
@@ -56,7 +56,7 @@ class Reviews extends BaseController
      */
     public function reviews_status_update()
     {
-        $feedback_id = $this->request->getPost('feedback_id');
+        $feedback_id    = $this->request->getPost('feedback_id');
         $data['status'] = $this->request->getPost('status');
 
         $table = DB()->table('cc_product_feedback');
