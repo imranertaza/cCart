@@ -69,13 +69,13 @@ class Login extends BaseController
 
 
 
-                $sessionArray = array('adUserId' => $result->user_id,
+                $sessionArray = ['adUserId' => $result->user_id,
                     'adName' => $result->name,
                     'adRoleId' => $result->role_id,
                     'adminAll' => $result,
                     'isLoggedInEcAdmin' => true,
                     'resetDatatable' => true
-                );
+                ];
                 $this->session->set($sessionArray);
 
                 return redirect()->to(site_url('admin/dashboard'));
@@ -104,10 +104,10 @@ class Login extends BaseController
             if (SHA1($password) == $user->password) {
                 return $user;
             } else {
-                return array();
+                return [];
             }
         } else {
-            return array();
+            return [];
         }
     }
 

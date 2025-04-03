@@ -14,27 +14,27 @@ class Theme_default
      * @description This method provides product all image size.
      * @var array[]
      */
-    public $product_image = array(
-        array(
+    public $product_image = [
+        [
             'width' => '191',
             'height' => '191',
-        ),
-        array(
+        ],
+        [
             'width' => '198',
             'height' => '198',
-        ),
-        array(
+        ],
+        [
             'width' => '100',
             'height' => '100',
-        ),
-        array(
+        ],
+        [
             'width' => '437',
             'height' => '400',
-        ),
-        array(
+        ],
+        [
             'width' => '50',
             'height' => '50',
-        ),
-    );
+        ],
+    ];
 
 }

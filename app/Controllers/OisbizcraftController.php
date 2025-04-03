@@ -64,7 +64,7 @@ class OisbizcraftController extends BaseController
         $terminal_id = get_all_row_data_by_id('cc_payment_settings', 'label', 'terminal_id');
         $cust_code = get_all_row_data_by_id('cc_payment_settings', 'label', 'cust_code');
         // Payment request data
-        $data = array(
+        $data = [
             'amount' => $total,
             'merchant_outlet_id' => $merchant_outlet_id->value,
             'terminal_id' => $terminal_id->value,
@@ -76,17 +76,17 @@ class OisbizcraftController extends BaseController
             'optional_currency' => 'USD',
             'merchant_return_url' => base_url('oisbizcraft-return-url'), // Callback URL after payment
             'order_id' => $this->session->order_id, // Generate a unique transaction ID
-        );
+        ];
 
 
         // Set API key and other required headers
         $string = $data['cust_code'].$data['merchant_outlet_id'].$data['terminal_id'].$data['merchant_return_url'].$data['description'].$data['currency'].$data['amount'].$data['order_id'].$data['user_fullname'];
         $data['hash'] = strtoupper(hash_hmac('SHA256', $string, $api_key));
 
-        $headers = array(
+        $headers = [
             'Content-Type: application/json',
             'Authorization: Bearer ' . $api_key,
-        );
+        ];
 
 
 
@@ -536,7 +536,7 @@ class OisbizcraftController extends BaseController
         $terminal_id = get_all_row_data_by_id('cc_payment_settings', 'label', 'terminal_id');
         $cust_code = get_all_row_data_by_id('cc_payment_settings', 'label', 'cust_code');
         // Payment request data
-        $data = array(
+        $data = [
             'amount' => $total,
             'merchant_outlet_id' => $merchant_outlet_id->value,
             'terminal_id' => $terminal_id->value,
@@ -548,17 +548,17 @@ class OisbizcraftController extends BaseController
             'optional_currency' => 'USD',
             'merchant_return_url' => base_url('oisbizcraft-wallet-return-url'), // Callback URL after payment
             'order_id' => $this->session->fund_request_id, // Generate a unique transaction ID
-        );
+        ];
 
 
         // Set API key and other required headers
         $string = $data['cust_code'].$data['merchant_outlet_id'].$data['terminal_id'].$data['merchant_return_url'].$data['description'].$data['currency'].$data['amount'].$data['order_id'].$data['user_fullname'];
         $data['hash'] = strtoupper(hash_hmac('SHA256', $string, $api_key));
 
-        $headers = array(
+        $headers = [
             'Content-Type: application/json',
             'Authorization: Bearer ' . $api_key,
-        );
+        ];
 
 
 

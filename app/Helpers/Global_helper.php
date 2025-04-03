@@ -354,7 +354,7 @@ function get_settings()
     $table = DB()->table('cc_settings');
     $data = $table->get()->getResult();
 
-    $settings = array();
+    $settings = [];
     foreach ($data as $key => $val) {
         foreach ($val as $k => $v) {
             if ($k == 'label') {
@@ -374,7 +374,7 @@ function get_settings_title()
     $table = DB()->table('cc_settings');
     $data = $table->get()->getResult();
 
-    $settings = array();
+    $settings = [];
     foreach ($data as $key => $val) {
         foreach ($val as $k => $v) {
             if ($k == 'label') {
@@ -396,7 +396,7 @@ function get_theme_settings()
     $theme = $settings['Theme'];
     $table = DB()->table('cc_theme_settings');
     $data = $table->where('theme', $theme)->get()->getResult();
-    $settings = array();
+    $settings = [];
     foreach ($data as $key => $val) {
         foreach ($val as $k => $v) {
             if ($k == 'label') {
@@ -418,7 +418,7 @@ function get_theme_title_settings()
     $theme = $settings['Theme'];
     $table = DB()->table('cc_theme_settings');
     $data = $table->where('theme', $theme)->get()->getResult();
-    $settings = array();
+    $settings = [];
     foreach ($data as $key => $val) {
         foreach ($val as $k => $v) {
             if ($k == 'label') {
@@ -437,7 +437,7 @@ function modules_access()
 {
     $table = DB()->table('cc_modules');
     $data = $table->get()->getResult();
-    $settings = array();
+    $settings = [];
     foreach ($data as $key => $val) {
         foreach ($val as $k => $v) {
             if ($k == 'module_key') {
@@ -1248,7 +1248,7 @@ function paypal_settings()
     $api_signature = get_all_row_data_by_id('cc_payment_settings', 'label', 'api_signature');
     $url_ex = ($rowApi->value == 'sandbox') ? 'sandbox.' : '';
 
-    $settings = array(
+    $settings = [
         'api_username' => $api_username->value,
         'api_password' => $api_password->value,
         'api_signature' => $api_signature->value,
@@ -1257,7 +1257,7 @@ function paypal_settings()
         'api_version' => '65.1',
         'payment_type' => 'Sale',
         'currency' => 'USD',
-    );
+    ];
 
     return $settings;
 }
@@ -1366,7 +1366,7 @@ function category_parent_count($cate_id)
  */
 function display_category_with_parent($cate_id)
 {
-    $catName = array();
+    $catName = [];
     if (!empty($cate_id)) {
         $totalParent = category_parent_count($cate_id);
         for ($i = 0; $i <= $totalParent; $i++) {
@@ -1439,7 +1439,7 @@ function product_count_by_brand_id($brand_id, $products)
  */
 function display_blog_category_with_parent($cate_id)
 {
-    $catName = array();
+    $catName = [];
     if (!empty($cate_id)) {
         $totalParent = blog_category_parent_count($cate_id);
         for ($i = 0; $i <= $totalParent; $i++) {

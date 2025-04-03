@@ -66,7 +66,7 @@ class Paypalexpress
     public function deformat_nvp($nvpstr)
     {
         $intial = 0;
-        $nvparray = array();
+        $nvparray = [];
         while (strlen($nvpstr)) {
             //postion of Key
             $keypos = strpos($nvpstr, '=');

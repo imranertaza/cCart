@@ -45,7 +45,7 @@ class Products extends BaseController
         $data['proImg'] = $imgTable->where('product_id', $product_id)->where('Product_option_id', null)->get()->getResult();
 
         //related product
-        $relatedProduct = array();
+        $relatedProduct = [];
         $relTable = DB()->table('cc_product_related');
         $relPro = $relTable->where('product_id', $product_id)->limit(5)->get()->getResult();
         foreach ($relPro as $rVal) {
@@ -60,7 +60,7 @@ class Products extends BaseController
 
 
         //related product  2 products view
-        $relatedProduct2 = array();
+        $relatedProduct2 = [];
         $relTable = DB()->table('cc_product_related');
         $relPro2 = $relTable->where('product_id', $product_id)->orderBy('product_id', 'DESC')->limit(2)->get()->getResult();
         foreach ($relPro2 as $rVal2) {
@@ -79,7 +79,7 @@ class Products extends BaseController
 
 
         //bought together products view
-        $bothProduct = array();
+        $bothProduct = [];
         $bothTable = DB()->table('cc_product_bought_together');
         $bothPro = $bothTable->where('product_id', $product_id)->orderBy('product_id', 'DESC')->get()->getResult();
         foreach ($bothPro as $bVal) {

@@ -79,14 +79,14 @@ class Cart extends BaseController
         }
         $check = $this->check_qty($product_id, $qty);
         if ($check == true) {
-            $data = array(
+            $data = [
                 'id' => $product_id,
                 'name' => strval($name),
                 'qty' => $qty,
                 'price' => $price,
                 'color' => $color,
                 'size' => $size,
-            );
+            ];
             $this->cart->insert($data);
             print 'Successfully add to cart';
         } else {
@@ -127,12 +127,12 @@ class Cart extends BaseController
         }
 
         $totalPrice = $price + $totalOptionPrice;
-        $data = array(
+        $data = [
             'id' => $product_id,
             'name' => strval($name),
             'qty' => $qty,
             'price' => $totalPrice,
-        );
+        ];
 
         foreach (get_all_data_array('cc_option') as $v) {
             $data['op_'.strtolower($v->name)] = $this->request->getPost(strtolower($v->name));
@@ -163,12 +163,12 @@ class Cart extends BaseController
             if (!empty($specialprice)) {
                 $price = $specialprice;
             }
-            $data = array(
+            $data = [
                 'id' => $product_id,
                 'name' => strval($name),
                 'qty' => 1,
                 'price' => $price
-            );
+            ];
             $this->cart->insert($data);
         }
         print 'Successfully add to cart';
@@ -182,10 +182,10 @@ class Cart extends BaseController
     {
         $rowid = $this->request->getPost('rowid');
         $qty = $this->request->getPost('qty');
-        $data = array(
+        $data = [
             'rowid' => $rowid,
             'qty'   => $qty
-        );
+        ];
 
 
         foreach ($this->cart->contents() as $row) {

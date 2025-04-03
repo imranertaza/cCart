@@ -2,11 +2,11 @@
 
 namespace App\Controllers;
 
+use App\Libraries\Flat_shipping;
 use App\Libraries\Mycart;
 use App\Libraries\Weight_shipping;
 use App\Libraries\Zone_rate_shipping;
 use App\Libraries\Zone_shipping;
-use App\Libraries\Flat_shipping;
 use App\Models\ProductsModel;
 use CodeIgniter\HTTP\RedirectResponse;
 use CodeIgniter\HTTP\ResponseInterface;
@@ -87,10 +87,10 @@ class Checkout extends BaseController
                     $isLoggedInCustomer = $this->session->isLoggedInCustomer;
                     if (isset($isLoggedInCustomer) || $isLoggedInCustomer == true) {
                         if (!empty($this->cart->contents())) {
-                            $couponArray = array(
+                            $couponArray = [
                                 'coupon_id' => $query->coupon_id,
                                 'coupon_discount' => $query->discount
-                            );
+                            ];
                             $this->session->set($couponArray);
                             $this->session->setFlashdata('message', 'Coupon code applied successfully ');
                             return redirect()->to('cart');
@@ -110,10 +110,10 @@ class Checkout extends BaseController
                         $checkSub = is_exists('cc_newsletter', 'customer_id', $this->session->cusUserId);
                         if ($checkSub == false) {
                             if (!empty($this->cart->contents())) {
-                                $couponArray = array(
+                                $couponArray = [
                                     'coupon_id' => $query->coupon_id,
                                     'coupon_discount' => $query->discount
-                                );
+                                ];
                                 $this->session->set($couponArray);
                                 $this->session->setFlashdata('message', 'Coupon code applied successfully ');
                                 return redirect()->to('cart');
@@ -133,10 +133,10 @@ class Checkout extends BaseController
 
                 if (($query->for_registered_user == '0') && ($query->for_subscribed_user == '0')) {
                     if (!empty($this->cart->contents())) {
-                        $couponArray = array(
+                        $couponArray = [
                             'coupon_id' => $query->coupon_id,
                             'coupon_discount' => $query->discount
-                        );
+                        ];
                         $this->session->set($couponArray);
                         $this->session->setFlashdata('message', 'Coupon code applied successfully ');
                         return redirect()->to('cart');
@@ -151,10 +151,10 @@ class Checkout extends BaseController
                     $isLoggedInCustomer = $this->session->isLoggedInCustomer;
                     if (isset($isLoggedInCustomer) || $isLoggedInCustomer == true) {
                         if (!empty($this->cart->contents())) {
-                            $couponArray = array(
+                            $couponArray = [
                                 'coupon_id' => $query->coupon_id,
                                 'coupon_discount_shipping' => $query->discount
-                            );
+                            ];
                             $this->session->set($couponArray);
                             $this->session->setFlashdata('message', 'Coupon code applied successfully ');
                             return redirect()->to('cart');
@@ -174,10 +174,10 @@ class Checkout extends BaseController
                         $checkSub = is_exists('cc_newsletter', 'customer_id', $this->session->cusUserId);
                         if ($checkSub == false) {
                             if (!empty($this->cart->contents())) {
-                                $couponArray = array(
+                                $couponArray = [
                                     'coupon_id' => $query->coupon_id,
                                     'coupon_discount_shipping' => $query->discount
-                                );
+                                ];
                                 $this->session->set($couponArray);
                                 $this->session->setFlashdata('message', 'Coupon code applied successfully ');
                                 return redirect()->to('cart');
@@ -197,10 +197,10 @@ class Checkout extends BaseController
 
                 if (($query->for_registered_user == '0') && ($query->for_subscribed_user == '0')) {
                     if (!empty($this->cart->contents())) {
-                        $couponArray = array(
+                        $couponArray = [
                             'coupon_id' => $query->coupon_id,
                             'coupon_discount_shipping' => $query->discount
-                        );
+                        ];
                         $this->session->set($couponArray);
                         $this->session->setFlashdata('message', 'Coupon code applied successfully ');
                         return redirect()->to('cart');

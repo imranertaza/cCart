@@ -118,7 +118,7 @@ class Coupon extends BaseController
 
             //multi shipping charge discount
             if (!empty($shipping_method)) {
-                $shipData = array();
+                $shipData = [];
                 foreach ($shipping_method as $v) {
                     $shData['shipping_method_id'] = $v;
                     $shData['coupon_id'] = $coupon_id;
@@ -212,7 +212,7 @@ class Coupon extends BaseController
 
             //multi shipping charge discount
             if (!empty($shipping_method)) {
-                $shipData = array();
+                $shipData = [];
                 foreach ($shipping_method as $v) {
                     $shData['shipping_method_id'] = $v;
                     $shData['coupon_id'] = $coupon_id;

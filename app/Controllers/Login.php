@@ -77,10 +77,10 @@ class Login extends BaseController
 
 
 
-                $sessionArray = array('cusUserId' => $result->customer_id,
+                $sessionArray = ['cusUserId' => $result->customer_id,
                     'cusAll' => $result,
                     'isLoggedInCustomer' => true
-                );
+                ];
                 $this->session->set($sessionArray);
 
                 return redirect()->to(site_url('dashboard'));
@@ -109,10 +109,10 @@ class Login extends BaseController
             if (SHA1($password) == $user->password) {
                 return $user;
             } else {
-                return array();
+                return [];
             }
         } else {
-            return array();
+            return [];
         }
     }
 
@@ -230,11 +230,11 @@ class Login extends BaseController
         if ($check == false) {
             $otp = rand(1000, 9999);
 
-            $sessionArray = array(
+            $sessionArray = [
                 'forgot_email' => $email,
                 'otp' => $otp,
                 'forgetPassword' => true
-            );
+            ];
             $this->session->set($sessionArray);
 
             //email send
@@ -286,9 +286,9 @@ class Login extends BaseController
         $otp = $this->request->getPost('otp');
         $sesOtp = $this->session->otp;
         if ($otp == $sesOtp) {
-            $sessionArray = array(
+            $sessionArray = [
                 'password_reset_able' => true,
-            );
+            ];
 
             return redirect()->to(site_url('password_reset'));
         } else {

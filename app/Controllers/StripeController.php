@@ -68,7 +68,7 @@ class StripeController extends BaseController
 
 
         if ($charge->status == 'succeeded') {
-            $sess = array( 'charge_id' => $charge->id );
+            $sess = [ 'charge_id' => $charge->id ];
             $this->session->set($sess);
             return redirect()->to('stripe_action');
 
@@ -389,7 +389,7 @@ class StripeController extends BaseController
 
 
         if ($charge->status == 'succeeded') {
-            $sess = array( 'charge_id' => $charge->id );
+            $sess = [ 'charge_id' => $charge->id ];
             $this->session->set($sess);
             return redirect()->to('stripe_wallet_action');
 
