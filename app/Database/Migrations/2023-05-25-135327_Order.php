@@ -203,7 +203,7 @@ class Order extends Migration
             ],
             'payment_status' => [
                 'type' => 'ENUM',
-                'constraint' => ['Pending', 'Paid','Failed'],
+                'constraint' => ['Pending', 'Paid', 'Failed'],
                 'default' => 'Pending',
             ],
             'PM_transaction_id' => [

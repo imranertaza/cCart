@@ -12,7 +12,7 @@ class BlogModel extends Model
     protected $primaryKey = 'blog_id';
     protected $returnType = 'object';
     protected $useSoftDeletes = false;
-    protected $allowedFields = ['blog_id','blog_title', 'slug','short_des','description','meta_title','meta_keyword','meta_description','cat_id','image','publish_date','status','createdBy', 'createdDtm', 'updatedBy', 'updatedDtm'];
+    protected $allowedFields = ['blog_id', 'blog_title', 'slug', 'short_des', 'description', 'meta_title', 'meta_keyword', 'meta_description', 'cat_id', 'image', 'publish_date', 'status', 'createdBy', 'createdDtm', 'updatedBy', 'updatedDtm'];
     protected $useTimestamps = false;
     protected $validationRules    = [];
     protected $validationMessages = [];

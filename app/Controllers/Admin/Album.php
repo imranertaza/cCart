@@ -104,7 +104,7 @@ class Album extends BaseController
 
 
             //image size array
-            $this->imageProcessing->sizeArray = [ [ 'width' => '498', 'height' => '498', ], [ 'width' => '261', 'height' => '261', ], [ 'width' => '198', 'height' => '198', ],[ 'width' => '50', 'height' => '50', ],];
+            $this->imageProcessing->sizeArray = [ [ 'width' => '498', 'height' => '498', ], [ 'width' => '261', 'height' => '261', ], [ 'width' => '198', 'height' => '198', ], [ 'width' => '50', 'height' => '50', ], ];
 
             if (!empty($_FILES['thumb']['name'])) {
                 $target_dir = FCPATH . '/uploads/album/'.$albumId.'/';
@@ -219,7 +219,7 @@ class Album extends BaseController
 
 
             //image size array
-            $this->imageProcessing->sizeArray = [ [ 'width' => '498', 'height' => '498', ],[ 'width' => '261', 'height' => '261', ], [ 'width' => '198', 'height' => '198', ],[ 'width' => '50', 'height' => '50', ],];
+            $this->imageProcessing->sizeArray = [ [ 'width' => '498', 'height' => '498', ], [ 'width' => '261', 'height' => '261', ], [ 'width' => '198', 'height' => '198', ], [ 'width' => '50', 'height' => '50', ], ];
 
             if (!empty($_FILES['thumb']['name'])) {
                 $target_dir = FCPATH . '/uploads/album/'.$album_id.'/';
