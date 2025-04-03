@@ -31,7 +31,7 @@
                     </div>
                     <div class="col-md-4"></div>
                     <div class="col-md-12" style="margin-top: 10px">
-                        <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message'); endif; ?>
+                        <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
                     </div>
                 </div>
             </div>
@@ -41,19 +41,19 @@
                     <div class="card-header p-0 border-bottom-0">
                         <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link <?php echo ((isset($_GET['sel']) && $_GET['sel']=='slider') || !isset($_GET['sel']))?'active':''; ?>" id="custom-tabs-four-home-tab" data-toggle="pill"
+                                <a class="nav-link <?php echo ((isset($_GET['sel']) && $_GET['sel'] == 'slider') || !isset($_GET['sel'])) ? 'active' : ''; ?>" id="custom-tabs-four-home-tab" data-toggle="pill"
                                    href="#custom-tabs-four-home" role="tab" aria-controls="custom-tabs-four-home"
                                    aria-selected="true">Slider</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link <?php echo (isset($_GET['sel']) && $_GET['sel']=='logo')?'active':''; ?>" id="custom-tabs-four-profile-tab" data-toggle="pill"
+                                <a class="nav-link <?php echo (isset($_GET['sel']) && $_GET['sel'] == 'logo') ? 'active' : ''; ?>" id="custom-tabs-four-profile-tab" data-toggle="pill"
                                    href="#custom-tabs-four-profile" role="tab" aria-controls="custom-tabs-four-profile"
                                    aria-selected="false">Logo</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link <?php echo (isset($_GET['sel']) && $_GET['sel']=='home_settings')?'active':''; ?>" id="custom-tabs-four-messages-tab" data-toggle="pill"
+                                <a class="nav-link <?php echo (isset($_GET['sel']) && $_GET['sel'] == 'home_settings') ? 'active' : ''; ?>" id="custom-tabs-four-messages-tab" data-toggle="pill"
                                    href="#custom-tabs-four-messages" role="tab"
                                    aria-controls="custom-tabs-four-messages" aria-selected="false">Home Page Settings</a>
                             </li>
@@ -62,7 +62,7 @@
                     </div>
                     <div class="card-body">
                         <div class="tab-content" id="custom-tabs-four-tabContent">
-                            <div class="tab-pane fade <?php echo ((isset($_GET['sel']) && $_GET['sel']=='slider') || !isset($_GET['sel']))?'active show':''; ?>" id="custom-tabs-four-home" role="tabpanel"
+                            <div class="tab-pane fade <?php echo ((isset($_GET['sel']) && $_GET['sel'] == 'slider') || !isset($_GET['sel'])) ? 'active show' : ''; ?>" id="custom-tabs-four-home" role="tabpanel"
                                  aria-labelledby="custom-tabs-four-home-tab">
                                 <div class="row">
                                     <div class="col-md-6">
@@ -71,8 +71,8 @@
                                             <div class="form-group mt-5">
                                                 <?php
                                                 $sli_1 = get_lebel_by_value_in_theme_settings('slider_1');
-                                                echo image_view('uploads/slider', '', $sli_1, 'noimage.png', 'width-full-100');
-                                                ?>
+echo image_view('uploads/slider', '', $sli_1, 'noimage.png', 'width-full-100');
+?>
                                             </div>
                                             <div class="form-group">
                                                 <label>Slider 1</label>
@@ -89,9 +89,9 @@
                                               enctype="multipart/form-data">
                                             <div class="form-group mt-5">
                                                 <?php
-                                                $sli_3 = get_lebel_by_value_in_theme_settings('slider_3');
-                                                echo image_view('uploads/slider', '', $sli_3, 'noimage.png', 'width-full-100');
-                                                ?>
+$sli_3 = get_lebel_by_value_in_theme_settings('slider_3');
+echo image_view('uploads/slider', '', $sli_3, 'noimage.png', 'width-full-100');
+?>
                                             </div>
                                             <div class="form-group">
                                                 <label>Slider 3</label>
@@ -108,9 +108,9 @@
                                               enctype="multipart/form-data">
                                             <div class="form-group mt-5">
                                                 <?php
-                                                $sli_2 = get_lebel_by_value_in_theme_settings('slider_2');
-                                                echo image_view('uploads/slider', '', $sli_2, 'noimage.png', 'width-full-100');
-                                                ?>
+$sli_2 = get_lebel_by_value_in_theme_settings('slider_2');
+echo image_view('uploads/slider', '', $sli_2, 'noimage.png', 'width-full-100');
+?>
                                             </div>
                                             <div class="form-group">
                                                 <label>Slider 2</label>
@@ -125,7 +125,7 @@
                                 </div>
 
                             </div>
-                            <div class="tab-pane fade <?php echo (isset($_GET['sel']) && $_GET['sel']=='logo')?'active show':''; ?>" id="custom-tabs-four-profile" role="tabpanel"
+                            <div class="tab-pane fade <?php echo (isset($_GET['sel']) && $_GET['sel'] == 'logo') ? 'active show' : ''; ?>" id="custom-tabs-four-profile" role="tabpanel"
                                  aria-labelledby="custom-tabs-four-profile-tab">
                                 <div class="row">
                                     <div class="col-md-6">
@@ -133,9 +133,9 @@
                                               enctype="multipart/form-data">
                                             <div class="form-group mt-5">
                                                 <?php
-                                                $side_logo = get_lebel_by_value_in_theme_settings('side_logo');
-                                                echo image_view('uploads/logo', '', $side_logo, 'noimage.png', '');
-                                                ?>
+$side_logo = get_lebel_by_value_in_theme_settings('side_logo');
+echo image_view('uploads/logo', '', $side_logo, 'noimage.png', '');
+?>
                                             </div>
                                             <div class="form-group">
                                                 <label>Logo</label>
@@ -152,9 +152,9 @@
                                               enctype="multipart/form-data">
                                             <div class="form-group mt-5">
                                                 <?php
-                                                $favicon = get_lebel_by_value_in_theme_settings('favicon');
-                                                echo image_view('uploads/logo', '', $favicon, 'noimage.png', '');
-                                                ?>
+$favicon = get_lebel_by_value_in_theme_settings('favicon');
+echo image_view('uploads/logo', '', $favicon, 'noimage.png', '');
+?>
                                             </div>
                                             <div class="form-group">
                                                 <label>Favicon</label>
@@ -168,7 +168,7 @@
                                 </div>
                             </div>                           
 
-                            <div class="tab-pane fade <?php echo (isset($_GET['sel']) && $_GET['sel']=='home_settings')?'active show':''; ?>" id="custom-tabs-four-messages" role="tabpanel"
+                            <div class="tab-pane fade <?php echo (isset($_GET['sel']) && $_GET['sel'] == 'home_settings') ? 'active show' : ''; ?>" id="custom-tabs-four-messages" role="tabpanel"
                                  aria-labelledby="custom-tabs-four-messages-tab">
                                 <?php echo $theme_view;?>
                             </div>

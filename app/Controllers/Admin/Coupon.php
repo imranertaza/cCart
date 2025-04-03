@@ -8,7 +8,6 @@ use CodeIgniter\HTTP\RedirectResponse;
 
 class Coupon extends BaseController
 {
-
     protected $validation;
     protected $session;
     protected $crop;
@@ -31,7 +30,7 @@ class Coupon extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId = $this->session->adRoleId;
-        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != TRUE) {
+        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
 
@@ -56,14 +55,15 @@ class Coupon extends BaseController
      * @description This method provides create page view
      * @return RedirectResponse|void
      */
-    public function create(){
+    public function create()
+    {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId = $this->session->adRoleId;
-        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != TRUE) {
+        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
             $table = DB()->table('cc_shipping_method');
-            $data['shipping_method'] = $table->where('status',1)->get()->getResult();
+            $data['shipping_method'] = $table->where('status', 1)->get()->getResult();
 
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
@@ -71,7 +71,7 @@ class Coupon extends BaseController
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
             if (isset($data['create']) and $data['create'] == 1) {
-                echo view('Admin/Coupon/create',$data);
+                echo view('Admin/Coupon/create', $data);
             } else {
                 echo view('Admin/no_permission');
             }
@@ -106,27 +106,27 @@ class Coupon extends BaseController
             'date_end' => ['label' => 'End Date', 'rules' => 'required'],
         ]);
 
-        if ($this->validation->run($data) == FALSE) {
+        if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/coupon_create');
         } else {
             DB()->transStart();
-                $table = DB()->table('cc_coupon');
-                $table->insert($data);
-                $coupon_id = DB()->insertID();
+            $table = DB()->table('cc_coupon');
+            $table->insert($data);
+            $coupon_id = DB()->insertID();
 
 
-                //multi shipping charge discount
-                if (!empty($shipping_method)){
-                    $shipData = array();
-                    foreach ($shipping_method as $v) {
-                        $shData['shipping_method_id'] = $v;
-                        $shData['coupon_id'] = $coupon_id;
-                        array_push($shipData,$shData);
-                    }
-                    $tableShip = DB()->table('cc_coupon_shipping');
-                    $tableShip->insertBatch($shipData);
+            //multi shipping charge discount
+            if (!empty($shipping_method)) {
+                $shipData = array();
+                foreach ($shipping_method as $v) {
+                    $shData['shipping_method_id'] = $v;
+                    $shData['coupon_id'] = $coupon_id;
+                    array_push($shipData, $shData);
                 }
+                $tableShip = DB()->table('cc_coupon_shipping');
+                $tableShip->insertBatch($shipData);
+            }
             DB()->transComplete();
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Coupon Create Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
@@ -143,7 +143,7 @@ class Coupon extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId = $this->session->adRoleId;
-        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != TRUE) {
+        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
 
@@ -151,7 +151,7 @@ class Coupon extends BaseController
             $data['coupon'] = $table->where('coupon_id', $coupon_id)->get()->getRow();
 
             $table = DB()->table('cc_shipping_method');
-            $data['shipping_method'] = $table->where('status',1)->get()->getResult();
+            $data['shipping_method'] = $table->where('status', 1)->get()->getResult();
 
             $tableCoup = DB()->table('cc_coupon_shipping');
             $data['coupon_ship'] = $tableCoup->where('coupon_id', $coupon_id)->get()->getResult();
@@ -198,29 +198,29 @@ class Coupon extends BaseController
             'date_end' => ['label' => 'End Date', 'rules' => 'required'],
         ]);
 
-        if ($this->validation->run($data) == FALSE) {
+        if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/coupon_update/' . $coupon_id);
         } else {
             DB()->transStart();
-                $table = DB()->table('cc_coupon');
-                $table->where('coupon_id', $coupon_id)->update($data);
+            $table = DB()->table('cc_coupon');
+            $table->where('coupon_id', $coupon_id)->update($data);
 
-                //multi shipping charge discount delete
-                $table = DB()->table('cc_coupon_shipping');
-                $table->where('coupon_id', $coupon_id)->delete();
+            //multi shipping charge discount delete
+            $table = DB()->table('cc_coupon_shipping');
+            $table->where('coupon_id', $coupon_id)->delete();
 
-                //multi shipping charge discount
-                if (!empty($shipping_method)){
-                    $shipData = array();
-                    foreach ($shipping_method as $v) {
-                        $shData['shipping_method_id'] = $v;
-                        $shData['coupon_id'] = $coupon_id;
-                        array_push($shipData,$shData);
-                    }
-                    $tableShip = DB()->table('cc_coupon_shipping');
-                    $tableShip->insertBatch($shipData);
+            //multi shipping charge discount
+            if (!empty($shipping_method)) {
+                $shipData = array();
+                foreach ($shipping_method as $v) {
+                    $shData['shipping_method_id'] = $v;
+                    $shData['coupon_id'] = $coupon_id;
+                    array_push($shipData, $shData);
                 }
+                $tableShip = DB()->table('cc_coupon_shipping');
+                $tableShip->insertBatch($shipData);
+            }
             DB()->transComplete();
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Coupon Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/coupon_update/' . $coupon_id);
@@ -233,7 +233,8 @@ class Coupon extends BaseController
      * @param int $coupon_id
      * @return RedirectResponse
      */
-    public function delete($coupon_id){
+    public function delete($coupon_id)
+    {
 
         $table = DB()->table('cc_coupon_shipping');
         $table->where('coupon_id', $coupon_id)->delete();

@@ -25,21 +25,21 @@
                                         <div class="form-group float-end">
                                             <label class="d-none d-sm-inline">Sort By</label>
                                             <select name="shortBy" onchange="formSubmit()" class="shortBy border">
-                                                <option value="" <?php echo ((isset($_GET['shortBy'])) && ($_GET['shortBy'] == ''))?'selected':''; ?>>Position</option>
-                                                <option value="name" <?php echo ((isset($_GET['shortBy'])) && ($_GET['shortBy'] == 'name'))?'selected':''; ?> >Product Name</option>
-                                                <option value="price_asc" <?php echo ((isset($_GET['shortBy'])) && ($_GET['shortBy'] == 'price_asc'))?'selected':''; ?>>Price(Low to High)</option>
-                                                <option value="price_desc" <?php echo ((isset($_GET['shortBy'])) && ($_GET['shortBy'] == 'price_desc'))?'selected':''; ?>>Price(High to Low)</option>
+                                                <option value="" <?php echo ((isset($_GET['shortBy'])) && ($_GET['shortBy'] == '')) ? 'selected' : ''; ?>>Position</option>
+                                                <option value="name" <?php echo ((isset($_GET['shortBy'])) && ($_GET['shortBy'] == 'name')) ? 'selected' : ''; ?> >Product Name</option>
+                                                <option value="price_asc" <?php echo ((isset($_GET['shortBy'])) && ($_GET['shortBy'] == 'price_asc')) ? 'selected' : ''; ?>>Price(Low to High)</option>
+                                                <option value="price_desc" <?php echo ((isset($_GET['shortBy'])) && ($_GET['shortBy'] == 'price_desc')) ? 'selected' : ''; ?>>Price(High to Low)</option>
                                             </select>
                                         </div>
                                         <div class="form-group float-end me-2">
                                             <label class="d-none d-sm-inline">Show</label>
                                             <select name="show" onchange="formSubmit()" class="shortBy border">
-                                                <option value="<?php echo get_lebel_by_value_in_settings('category_product_limit');?>" <?php echo ((isset($_GET['show'])) && ($_GET['show'] == get_lebel_by_value_in_settings('category_product_limit')))?'selected':''; ?>><?php echo get_lebel_by_value_in_settings('category_product_limit');?></option>
-                                                <option value="20" <?php echo ((isset($_GET['show'])) && ($_GET['show'] == '20'))?'selected':''; ?>>20</option>
-                                                <option value="25" <?php echo ((isset($_GET['show'])) && ($_GET['show'] == '25'))?'selected':''; ?>>25</option>
-                                                <option value="50" <?php echo ((isset($_GET['show'])) && ($_GET['show'] == '50'))?'selected':''; ?>>50</option>
-                                                <option value="75" <?php echo ((isset($_GET['show'])) && ($_GET['show'] == '75'))?'selected':''; ?>>75</option>
-                                                <option value="100" <?php echo ((isset($_GET['show'])) && ($_GET['show'] == '100'))?'selected':''; ?>>100</option>
+                                                <option value="<?php echo get_lebel_by_value_in_settings('category_product_limit');?>" <?php echo ((isset($_GET['show'])) && ($_GET['show'] == get_lebel_by_value_in_settings('category_product_limit'))) ? 'selected' : ''; ?>><?php echo get_lebel_by_value_in_settings('category_product_limit');?></option>
+                                                <option value="20" <?php echo ((isset($_GET['show'])) && ($_GET['show'] == '20')) ? 'selected' : ''; ?>>20</option>
+                                                <option value="25" <?php echo ((isset($_GET['show'])) && ($_GET['show'] == '25')) ? 'selected' : ''; ?>>25</option>
+                                                <option value="50" <?php echo ((isset($_GET['show'])) && ($_GET['show'] == '50')) ? 'selected' : ''; ?>>50</option>
+                                                <option value="75" <?php echo ((isset($_GET['show'])) && ($_GET['show'] == '75')) ? 'selected' : ''; ?>>75</option>
+                                                <option value="100" <?php echo ((isset($_GET['show'])) && ($_GET['show'] == '100')) ? 'selected' : ''; ?>>100</option>
                                             </select>
                                         </div>
                                     </div>
@@ -48,24 +48,25 @@
 
                             <?php
                             $modules = modules_access();
-                            $symbol = get_lebel_by_value_in_settings('currency_symbol');
-                            $img_size_198 = ($modules['watermark'] == '1')?'198_wm_':'198_';
-                            $img_size = ($modules['watermark'] == '1')?'191_wm_':'191_';
-                            ?>
+                    $symbol = get_lebel_by_value_in_settings('currency_symbol');
+                    $img_size_198 = ($modules['watermark'] == '1') ? '198_wm_' : '198_';
+                    $img_size = ($modules['watermark'] == '1') ? '191_wm_' : '191_';
+                    ?>
 
                             <div class="products cat-pro-mob">
                                 <div class="row gx-0 row-cols-1 row-cols-sm-2 row-cols-md-3 h-100 " id="grid-view" >
-                                    <?php if (!empty($products)){foreach ($products as $pro){ ?>
+                                    <?php if (!empty($products)) {
+                                        foreach ($products as $pro) { ?>
                                         <div class="col border p-2">
                                             <div class="product-grid h-100 d-flex align-items-stretch flex-column position-relative">
                                                 <?php if ($modules['wishlist'] == 1) { ?>
-                                                    <?php if (!isset(newSession()->isLoggedInCustomer)){ ?>
+                                                    <?php if (!isset(newSession()->isLoggedInCustomer)) { ?>
 
                                                         <a href="<?php echo base_url('login');?>" class="btn-wishlist position-absolute  mt-2 ms-2"><i class="fa-solid fa-heart"></i>
                                                             <span class="btn-wishlist-text position-absolute  mt-5 ms-2">Favorite</span>
                                                         </a>
 
-                                                    <?php }else{ ?>
+                                                    <?php } else { ?>
 
                                                         <a href="javascript:void(0)" class="btn-wishlist position-absolute mt-2 ms-2" onclick="addToWishlist(<?php echo $pro->product_id ?>)"><i class="fa-solid fa-heart"></i>
                                                             <span class="btn-wishlist-text position-absolute  mt-5 ms-2">Favorite</span>
@@ -82,42 +83,46 @@
                                                 <?php } ?>
 
                                                 <div class="product-top text-center">
-                                                    <a href="<?php echo base_url('detail/'.$pro->product_id)?>"><?php echo image_view('uploads/products',$pro->product_id,$img_size .$pro->image,'noimage.png','img-fluid ')?></a>
+                                                    <a href="<?php echo base_url('detail/'.$pro->product_id)?>"><?php echo image_view('uploads/products', $pro->product_id, $img_size .$pro->image, 'noimage.png', 'img-fluid ')?></a>
                                                     <div class="rating text-center my-2">
                                                         <?php echo product_id_by_rating($pro->product_id);?>
                                                     </div>
                                                 </div>
                                                 <div class="product-bottom mt-auto">
                                                     <div class="product-title mb-2">
-                                                        <a href="<?php echo base_url('detail/'.$pro->product_id)?>"><?php echo substr($pro->name,0,60);?></a>
+                                                        <a href="<?php echo base_url('detail/'.$pro->product_id)?>"><?php echo substr($pro->name, 0, 60);?></a>
                                                     </div>
                                                     <div class="price mb-3">
-                                                        <?php $spPric = get_data_by_id('special_price','cc_product_special','product_id',$pro->product_id);  if (empty($spPric)){ ?>
-                                                            <?php echo currency_symbol_with_symbol($pro->price,$symbol);?>
-                                                        <?php }else{ ?>
-                                                            <small class="off-price" > <del><?php echo currency_symbol_with_symbol($pro->price,$symbol);?></del></small> <?php echo currency_symbol_with_symbol($spPric,$symbol);?>
+                                                        <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id);
+                                            if (empty($spPric)) { ?>
+                                                            <?php echo currency_symbol_with_symbol($pro->price, $symbol);?>
+                                                        <?php } else { ?>
+                                                            <small class="off-price" > <del><?php echo currency_symbol_with_symbol($pro->price, $symbol);?></del></small> <?php echo currency_symbol_with_symbol($spPric, $symbol);?>
                                                         <?php } ?>
                                                     </div>
                                                     <?php echo addToCartBtn($pro->product_id);?>
                                                 </div>
                                             </div>
                                         </div>
-                                    <?php } }else{ echo 'No product available';} ?>
+                                    <?php }
+                                        } else {
+                                            echo 'No product available';
+                                        } ?>
                                 </div>
 
 
                                 <div class="row gx-0 row-cols-1 row-cols-sm-2 row-cols-md-3 h-100 " id="list-view" style="display: none;" >
-                                    <?php foreach ($products as $pro){ ?>
+                                    <?php foreach ($products as $pro) { ?>
                                         <div class="col-md-12 border p-2 ">
                                             <div class="product-grid h-100 d-flex align-items-stretch  position-relative">
                                                 <?php if ($modules['wishlist'] == 1) { ?>
-                                                    <?php if (!isset(newSession()->isLoggedInCustomer)){ ?>
+                                                    <?php if (!isset(newSession()->isLoggedInCustomer)) { ?>
 
                                                         <a href="<?php echo base_url('login');?>" class="btn-wishlist position-absolute  mt-2 ms-2" style="bottom:58%;"><i class="fa-solid fa-heart"></i>
                                                             <span class="btn-wishlist-text position-absolute  mt-5 ms-2">Favorite</span>
                                                         </a>
 
-                                                    <?php }else{ ?>
+                                                    <?php } else { ?>
 
                                                         <a href="javascript:void(0)" class="btn-wishlist position-absolute mt-2 ms-2" style="bottom:57%;" onclick="addToWishlist(<?php echo $pro->product_id ?>)"><i class="fa-solid fa-heart"></i>
                                                             <span class="btn-wishlist-text position-absolute  mt-5 ms-2">Favorite</span>
@@ -134,7 +139,7 @@
                                                 <?php } ?>
 
                                                 <div class="product-top text-center" style="width:40%;float:left; " >
-                                                    <a href="<?php echo base_url('detail/'.$pro->product_id)?>"><?php echo image_view('uploads/products',$pro->product_id,$img_size_198 .$pro->image,'noimage.png','img-fluid ')?></a>
+                                                    <a href="<?php echo base_url('detail/'.$pro->product_id)?>"><?php echo image_view('uploads/products', $pro->product_id, $img_size_198 .$pro->image, 'noimage.png', 'img-fluid ')?></a>
 
                                                 </div>
 
@@ -143,17 +148,18 @@
                                                     <div class="product-title mb-2">
                                                         <a href="<?php echo base_url('detail/'.$pro->product_id)?>"><?php echo $pro->name;?></a>
                                                     </div>
-                                                    <div class="brand mb-3"><strong>Brand:</strong> <?php echo get_data_by_id('name','cc_brand','brand_id',$pro->brand_id);?></div>
+                                                    <div class="brand mb-3"><strong>Brand:</strong> <?php echo get_data_by_id('name', 'cc_brand', 'brand_id', $pro->brand_id);?></div>
 
                                                     <div class="rating my-2">
                                                         <?php echo product_id_by_rating($pro->product_id);?>
                                                     </div>
 
                                                     <div class="price mb-3">
-                                                        <?php $spPric = get_data_by_id('special_price','cc_product_special','product_id',$pro->product_id);  if (empty($spPric)){ ?>
-                                                            <?php echo currency_symbol_with_symbol($pro->price,$symbol);?>
-                                                        <?php }else{ ?>
-                                                            <small class="off-price" > <del><?php echo currency_symbol_with_symbol($pro->price,$symbol);?></del></small> <?php echo currency_symbol_with_symbol($spPric,$symbol);?>
+                                                        <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id);
+                                        if (empty($spPric)) { ?>
+                                                            <?php echo currency_symbol_with_symbol($pro->price, $symbol);?>
+                                                        <?php } else { ?>
+                                                            <small class="off-price" > <del><?php echo currency_symbol_with_symbol($pro->price, $symbol);?></del></small> <?php echo currency_symbol_with_symbol($spPric, $symbol);?>
                                                         <?php } ?>
                                                     </div>
                                                     <?php echo addToCartBtn($pro->product_id);?>
@@ -185,26 +191,30 @@
         var sidebarDesktop = `<div class="d-none d-md-block">
                                         <div class="title bg-custom-color text-white">
                                         <span class="title-hot category"><?php
-        if (!empty($prod_cat_id)){
-        $par_id = get_data_by_id('parent_id','cc_product_category','prod_cat_id',$prod_cat_id);
-        if (!empty($par_id)){
-            $url = base_url('category/'.$par_id);
-            echo '<a href="'.$url.'">'.get_data_by_id('category_name','cc_product_category','prod_cat_id',$par_id).'</a> <i class="fa-solid fa-angle-right"></i>';
-        } $url2 = base_url('category/' . $prod_cat_id);
-        ?> <a href="<?php echo $url2;?>" ><?php echo get_data_by_id('category_name','cc_product_category','prod_cat_id',$prod_cat_id);?> </a><?php }else{ echo 'Search Result';} ?></span>
+        if (!empty($prod_cat_id)) {
+            $par_id = get_data_by_id('parent_id', 'cc_product_category', 'prod_cat_id', $prod_cat_id);
+            if (!empty($par_id)) {
+                $url = base_url('category/'.$par_id);
+                echo '<a href="'.$url.'">'.get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $par_id).'</a> <i class="fa-solid fa-angle-right"></i>';
+            } $url2 = base_url('category/' . $prod_cat_id);
+            ?> <a href="<?php echo $url2;?>" ><?php echo get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $prod_cat_id);?> </a><?php } else {
+                echo 'Search Result';
+            } ?></span>
                                 </div>
                                     <div class="card p-3 rounded-0 ">
-                                    <?php if (empty($keywordSearch)){ ?>
+                                    <?php if (empty($keywordSearch)) { ?>
                                         <div class="product-filter">
-                                            <?php if(!empty($parent_Cat)){ ?>
+                                            <?php if (!empty($parent_Cat)) { ?>
                                             <p class="mb-2">Sub Category</p>
                                             <input type="hidden" name="prod_cat_id" value="<?php echo $prod_cat_id?>">
                                                 <input type="hidden" name="cat" value="<?php echo $prod_cat_id?>">
                                                     <ul class="list-unstyled lh-lg">
-                                                        <?php $i=1;$j=1; foreach ($parent_Cat as $cat){ ?>
+                                                        <?php $i = 1;
+                                                $j = 1;
+                                                foreach ($parent_Cat as $cat) { ?>
                                                         <li>
                                                             <div class="form-check d-flex flex-row align-items-center gap-1">
-                                                                <input class="form-check-input" onclick="formSubmit()" <?php echo ((isset($_GET['category'])) && ($_GET['category'] == $cat->prod_cat_id))?'checked':''; ?>  name="category" type="radio" value="<?php echo $cat->prod_cat_id;?>" id="flexCheck_<?php echo $i++;?>">
+                                                                <input class="form-check-input" onclick="formSubmit()" <?php echo ((isset($_GET['category'])) && ($_GET['category'] == $cat->prod_cat_id)) ? 'checked' : ''; ?>  name="category" type="radio" value="<?php echo $cat->prod_cat_id;?>" id="flexCheck_<?php echo $i++;?>">
                                                                     <label class="form-check-label w-100 mb-0" for="flexCheck_<?php echo $j++;?>">
                                                                         <?php echo $cat->category_name;?> <span class="count"><?php echo category_id_by_product_count($cat->prod_cat_id)?></span>
                                                                     </label>
@@ -214,7 +224,8 @@
                                                         </li>
                                                         <?php } ?>
                                                     </ul>
-                                                    <?php } else{ if (!empty($main_Cat)){?>
+                                                    <?php } else {
+                                                        if (!empty($main_Cat)) {?>
                                                     <p class="mb-2">Category</p>
                                                     <ul class="lh-lg text-capitalize">
                                                         <?php  foreach ($main_Cat as $cat) { ?>
@@ -222,10 +233,11 @@
                                                         <?php } ?>
                                                     </ul>
 
-                                            <?php } }?>
+                                            <?php }
+                                                        }?>
                                         </div>
                                     <?php } ?>
-                                    <?php if (!empty($productsArr)){ ?>
+                                    <?php if (!empty($productsArr)) { ?>
                                         <div class="product-filter">
                                             <p class="mb-2">Filter Price</p>
                                             <p>
@@ -240,7 +252,9 @@
 
                                        <?php echo $brandView;?>
 
-                                        <?php if($modules['review'] == '1' ){ echo $ratingView; }?>
+                                        <?php if ($modules['review'] == '1') {
+                                            echo $ratingView;
+                                        }?>
 
                                     </div>
                                 </div>`;
@@ -260,26 +274,30 @@
                                         </div>
                                         <div class="title bg-custom-color text-white">
                                             <span class="title-hot"><?php
-        if (!empty($prod_cat_id)){
-        $par_id = get_data_by_id('parent_id','cc_product_category','prod_cat_id',$prod_cat_id);
-        if (!empty($par_id)){
-            $url = base_url('category/'.$par_id);
-            echo '<a href="'.$url.'">'.get_data_by_id('category_name','cc_product_category','prod_cat_id',$par_id).'</a> <i class="fa-solid fa-angle-right"></i>';
-        } $url2 = base_url('category/' . $prod_cat_id);
-        ?> <a href="<?php echo $url2;?>" ><?php echo get_data_by_id('category_name','cc_product_category','prod_cat_id',$prod_cat_id);?> </a><?php }else{ echo 'Search Result';} ?></span>
+        if (!empty($prod_cat_id)) {
+            $par_id = get_data_by_id('parent_id', 'cc_product_category', 'prod_cat_id', $prod_cat_id);
+            if (!empty($par_id)) {
+                $url = base_url('category/'.$par_id);
+                echo '<a href="'.$url.'">'.get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $par_id).'</a> <i class="fa-solid fa-angle-right"></i>';
+            } $url2 = base_url('category/' . $prod_cat_id);
+            ?> <a href="<?php echo $url2;?>" ><?php echo get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $prod_cat_id);?> </a><?php } else {
+                echo 'Search Result';
+            } ?></span>
                                         </div>
                                         <div class="card p-3 rounded-0 ">
-                                        <?php if (empty($keywordSearch)){ ?>
+                                        <?php if (empty($keywordSearch)) { ?>
                                             <div class="product-filter">
-                                                <?php if(!empty($parent_Cat)){ ?>
+                                                <?php if (!empty($parent_Cat)) { ?>
                                                 <p class="mb-2">Sub Category</p>
                                                 <input type="hidden" name="prod_cat_id" value="<?php echo $prod_cat_id?>">
                                                 <input type="hidden" name="cat" value="<?php echo $prod_cat_id?>">
                                                 <ul class="list-unstyled lh-lg">
-                                                    <?php $i=1;$j=1; foreach ($parent_Cat as $cat){ ?>
+                                                    <?php $i = 1;
+                                                    $j = 1;
+                                                    foreach ($parent_Cat as $cat) { ?>
                                                     <li>
                                                         <div class="form-check d-flex flex-row align-items-center gap-1">
-                                                            <input class="form-check-input" onclick="formSubmit()" <?php echo ((isset($_GET['category'])) && ($_GET['category'] == $cat->prod_cat_id))?'checked':''; ?>  name="category" type="radio" value="<?php echo $cat->prod_cat_id;?>" id="flexCheck_<?php echo $i++;?>">
+                                                            <input class="form-check-input" onclick="formSubmit()" <?php echo ((isset($_GET['category'])) && ($_GET['category'] == $cat->prod_cat_id)) ? 'checked' : ''; ?>  name="category" type="radio" value="<?php echo $cat->prod_cat_id;?>" id="flexCheck_<?php echo $i++;?>">
                                                             <label class="form-check-label w-100 mb-0" for="flexCheck_<?php echo $j++;?>">
                                                                 <?php echo $cat->category_name;?> <span class="count"><?php echo category_id_by_product_count($cat->prod_cat_id)?></span>
                                                             </label>
@@ -289,7 +307,8 @@
                                                     </li>
                                                     <?php } ?>
                                                 </ul>
-                                                <?php } else{ if (!empty($main_Cat)){?>
+                                                <?php } else {
+                                                    if (!empty($main_Cat)) {?>
                                                     <p class="mb-2">Category</p>
                                                     <ul class="lh-lg text-capitalize">
                                                         <?php  foreach ($main_Cat as $cat) { ?>
@@ -297,10 +316,11 @@
                                                         <?php } ?>
                                                     </ul>
 
-                                                <?php } }?>
+                                                <?php }
+                                                    }?>
                                             </div>
                                         <?php } ?>
-                                        <?php if (!empty($productsArr)){ ?>
+                                        <?php if (!empty($productsArr)) { ?>
                                         <div class="product-filter">
                                             <p class="mb-2">Filter Price</p>
                                             <p>
@@ -315,7 +335,9 @@
 
                                         <?php echo $brandView;?>
 
-                                        <?php if($modules['review'] == '1' ){ echo $ratingView; }?>
+                                        <?php if ($modules['review'] == '1') {
+                                            echo $ratingView;
+                                        }?>
                                         </div>
                                     </div>
                                 </div>

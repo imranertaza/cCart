@@ -31,7 +31,7 @@
                     </div>
                     <div class="col-md-4"> </div>
                     <div class="col-md-12" style="margin-top: 10px">
-                        <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message'); endif; ?>
+                        <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
                     </div>
                 </div>
             </div>
@@ -55,14 +55,14 @@
                                 <select class="select2bs4" name="cat_id" data-placeholder="Select a Category" style="width: 100%;" required>
                                     <option value="">Please Select</option>
                                     <?php foreach ($category as $cat) { ?>
-                                        <option value="<?php echo $cat->cat_id; ?>" <?php echo ($cat->cat_id == $blog->cat_id)?'selected':'';?> ><?php echo display_blog_category_with_parent($cat->cat_id); ?></option>
+                                        <option value="<?php echo $cat->cat_id; ?>" <?php echo ($cat->cat_id == $blog->cat_id) ? 'selected' : '';?> ><?php echo display_blog_category_with_parent($cat->cat_id); ?></option>
                                     <?php } ?>
 
                                 </select>
                             </div>
 
                             <div class="form-group">
-                                <?php echo image_view('uploads/blog',$blog->blog_id,'100_'.$blog->image,'50_noimage.png','');?><br>
+                                <?php echo image_view('uploads/blog', $blog->blog_id, '100_'.$blog->image, '50_noimage.png', '');?><br>
                                 <label>Image </label>
                                 <input type="file" name="image"  class="form-control" placeholder="Image" >
                                 <span>Recommended Size (900x500)</span>

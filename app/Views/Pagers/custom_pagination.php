@@ -1,11 +1,11 @@
 <?php
-    $pager->setSurroundCount(5);
+$pager->setSurroundCount(5);
 ?>
 
 <!--<nav aria-label="Page navigation example" class="mt-3 d-flex  justify-content-end">-->
 <nav aria-label="Page navigation example" class="mt-3 d-flex  justify-content-between">
     <ul class="pagination mb-0">
-<!--        <li>Total data: --><?php //=  ?><!--</li>-->
+<!--        <li>Total data: --><?php //=?><!--</li>-->
     </ul>
     <ul class="pagination mb-0">
         <?php if ($pager->hasPrevious()) : ?>

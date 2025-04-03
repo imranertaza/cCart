@@ -8,7 +8,6 @@ use CodeIgniter\HTTP\RedirectResponse;
 
 class Option extends BaseController
 {
-
     protected $validation;
     protected $session;
     protected $crop;
@@ -31,7 +30,7 @@ class Option extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId = $this->session->adRoleId;
-        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != TRUE) {
+        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
 
@@ -56,10 +55,11 @@ class Option extends BaseController
      * @description This method provides create page view
      * @return RedirectResponse|void
      */
-    public function create(){
+    public function create()
+    {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId = $this->session->adRoleId;
-        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != TRUE) {
+        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
 
@@ -91,7 +91,7 @@ class Option extends BaseController
             'type' => ['label' => 'Type', 'rules' => 'required'],
         ]);
 
-        if ($this->validation->run($data) == FALSE) {
+        if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/option');
         } else {
@@ -101,7 +101,7 @@ class Option extends BaseController
             $optionID = DB()->insertID();
 
             $dataval = [];
-            foreach ($value as $key => $val){
+            foreach ($value as $key => $val) {
                 $dataval[$key] = [
                     'option_id' => $optionID,
                     'name' => $val,
@@ -124,7 +124,7 @@ class Option extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId = $this->session->adRoleId;
-        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != TRUE) {
+        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
 
@@ -165,7 +165,7 @@ class Option extends BaseController
             'type' => ['label' => 'Type', 'rules' => 'required'],
         ]);
 
-        if ($this->validation->run($data) == FALSE) {
+        if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/option_update/' . $option_id);
         } else {
@@ -190,7 +190,7 @@ class Option extends BaseController
 
                 $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Option Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                 return redirect()->to('admin/option_update/' . $option_id);
-            }else{
+            } else {
                 $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert"> Please Add Value ! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                 return redirect()->to('admin/option_update/' . $option_id);
             }
@@ -203,7 +203,8 @@ class Option extends BaseController
      * @param int $option_id
      * @return RedirectResponse
      */
-    public function delete($option_id){
+    public function delete($option_id)
+    {
 
         $tabOp = DB()->table('cc_product_option');
         $tabOp->where('option_id', $option_id)->delete();
@@ -223,7 +224,8 @@ class Option extends BaseController
      * @description This method provides data remove
      * @return void
      */
-    public function option_remove_action(){
+    public function option_remove_action()
+    {
         $option_value_id = $this->request->getPost('id');
 
         $tabOp = DB()->table('cc_product_option');

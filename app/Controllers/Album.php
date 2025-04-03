@@ -6,7 +6,6 @@ use App\Models\AlbumModel;
 
 class Album extends BaseController
 {
-
     protected $validation;
     protected $session;
     protected $albumModel;

@@ -8,7 +8,7 @@
             </div>
             <div class="col-lg-6 mb-4 mb-lg-0"><?php //echo newSession()->otp;?>
                 <form action="<?php echo base_url('otp_action')?>" method="post" class="sing-up" onsubmit="return otpValidetion()">
-                    <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message'); endif; ?>
+                    <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
                     <div class="form-group">
                         <div class="input-group d-flex align-items-center bg-white border px-3 rounded-2 in_err">
                             <input class="form-control border-0" id="otp" name="otp" type="number" placeholder="Otp" required>

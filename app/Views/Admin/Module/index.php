@@ -30,7 +30,7 @@
                     </div>
                     <div class="col-md-4 text-right"></div>
                     <div class="col-md-12" style="margin-top: 10px" id="message">
-                        <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message');
+                        <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message');
                         endif; ?>
                     </div>
                 </div>
@@ -59,7 +59,7 @@
                                 </div>
                                 <?php
                                     $check = is_exists('cc_module_settings', 'module_id', $rows->module_id);
-                                    if ($check == false) {
+                            if ($check == false) {
                                 ?>
                                 <a href="<?php echo base_url('admin/module_settings/' . $rows->module_id) ?>" class="btn btn-primary btn-xs"><i class="fas fa-cogs"></i> </a>
                                 <?php } ?>

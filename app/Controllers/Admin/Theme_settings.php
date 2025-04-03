@@ -11,7 +11,6 @@ use CodeIgniter\HTTP\RedirectResponse;
 
 class Theme_settings extends BaseController
 {
-
     protected $validation;
     protected $session;
     protected $crop;
@@ -40,24 +39,24 @@ class Theme_settings extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId = $this->session->adRoleId;
-        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != TRUE) {
+        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-           
+
             $table = DB()->table('cc_theme_settings');
             $data['theme_settings'] = $table->get()->getResult();
 
             $theme = get_lebel_by_value_in_settings('Theme');
-            if($theme == 'Theme_3'){
+            if ($theme == 'Theme_3') {
                 $data['theme_libraries'] = $this->theme_3;
                 $data['theme_view'] = view('Admin/Theme_settings/theme_3', $data);
             }
 
-            if($theme == 'Default'){
+            if ($theme == 'Default') {
                 $data['theme_libraries'] = $this->theme_default;
                 $data['theme_view'] = view('Admin/Theme_settings/default', $data);
             }
-            if($theme == 'Theme_2'){
+            if ($theme == 'Theme_2') {
                 $data['theme_libraries'] = $this->theme_2;
                 $data['theme_view'] = view('Admin/Theme_settings/theme_2', $data);
             }
@@ -85,13 +84,13 @@ class Theme_settings extends BaseController
         $nameslider = $this->request->getPost('nameslider');
 
         $theme = get_lebel_by_value_in_settings('Theme');
-        if($theme == 'Theme_3'){
+        if ($theme == 'Theme_3') {
             $theme_libraries = $this->theme_3;
         }
-        if($theme == 'Default'){
+        if ($theme == 'Default') {
             $theme_libraries = $this->theme_default;
         }
-        if($theme == 'Theme_2'){
+        if ($theme == 'Theme_2') {
             $theme_libraries = $this->theme_2;
         }
 
@@ -131,13 +130,13 @@ class Theme_settings extends BaseController
     public function logo_update()
     {
         $theme = get_lebel_by_value_in_settings('Theme');
-        if($theme == 'Theme_3'){
+        if ($theme == 'Theme_3') {
             $theme_libraries = $this->theme_3;
         }
-        if($theme == 'Default'){
+        if ($theme == 'Default') {
             $theme_libraries = $this->theme_default;
         }
-        if($theme == 'Theme_2'){
+        if ($theme == 'Theme_2') {
             $theme_libraries = $this->theme_2;
         }
 
@@ -151,10 +150,10 @@ class Theme_settings extends BaseController
             $pic = $this->request->getFile('side_logo');
             $namePic = 'logo_' . $pic->getRandomName();
             $pic->move($target_dir, $namePic);
-//            $news_img = 'logo_' . $pic->getName();
-//            $this->crop->withFile($target_dir . '' . $namePic)->fit(150, 90, 'center')->save($target_dir . '' . $news_img);
-//            unlink($target_dir . '' . $namePic);
-//            $data['value'] = $news_img;
+            //            $news_img = 'logo_' . $pic->getName();
+            //            $this->crop->withFile($target_dir . '' . $namePic)->fit(150, 90, 'center')->save($target_dir . '' . $news_img);
+            //            unlink($target_dir . '' . $namePic);
+            //            $data['value'] = $news_img;
             $data['value'] = $namePic;
 
             $table = DB()->table('cc_theme_settings');
@@ -255,7 +254,7 @@ class Theme_settings extends BaseController
             'value' => ['label' => 'Category', 'rules' => 'required'],
         ]);
 
-        if ($this->validation->run($data) == FALSE) {
+        if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/theme_settings?sel=home_settings');
         } else {
@@ -364,4 +363,3 @@ class Theme_settings extends BaseController
     }
 
 }
-

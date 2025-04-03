@@ -8,7 +8,6 @@ use CodeIgniter\HTTP\RedirectResponse;
 
 class Order extends BaseController
 {
-
     protected $validation;
     protected $session;
     protected $crop;
@@ -31,7 +30,7 @@ class Order extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId = $this->session->adRoleId;
-        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != TRUE) {
+        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
 
@@ -61,7 +60,7 @@ class Order extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId = $this->session->adRoleId;
-        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != TRUE) {
+        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
 
@@ -104,7 +103,7 @@ class Order extends BaseController
             'comment' => ['label' => 'Comments', 'rules' => 'required'],
         ]);
 
-        if ($this->validation->run($data) == FALSE) {
+        if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/order_view/' . $data['order_id'] . '?selTab=history');
         } else {
@@ -114,16 +113,16 @@ class Order extends BaseController
 
             $dataOrder['status'] = $data['order_status_id'];
             $tableOrder = DB()->table('cc_order');
-            $tableOrder->where('order_id',$data['order_id'])->update($dataOrder);
+            $tableOrder->where('order_id', $data['order_id'])->update($dataOrder);
 
-            if($data['order_status_id'] == '7'){
+            if ($data['order_status_id'] == '7') {
                 $tabOrder = DB()->table('cc_order');
-                $ord = $tabOrder->where('order_id',$data['order_id'])->get()->getRow();
+                $ord = $tabOrder->where('order_id', $data['order_id'])->get()->getRow();
 
                 if (!empty($ord->customer_id)) {
                     $tableModule = DB()->table('cc_modules');
-                    $query = $tableModule->join('cc_module_settings', 'cc_module_settings.module_id = cc_modules.module_id')->where('cc_modules.module_key','point')->get()->getRow();
-                    if($query->status == '1') {
+                    $query = $tableModule->join('cc_module_settings', 'cc_module_settings.module_id = cc_modules.module_id')->where('cc_modules.module_key', 'point')->get()->getRow();
+                    if ($query->status == '1') {
                         DB()->transStart();
                         $oldPoint = get_data_by_id('point', 'cc_customer', 'customer_id', $ord->customer_id);
                         $point = $ord->total_point;
@@ -148,7 +147,7 @@ class Order extends BaseController
                         //order point update
                         $orPointData['total_point'] = 0;
                         $tabOrder = DB()->table('cc_order');
-                        $tabOrder->where('order_id',$data['order_id'])->update($orPointData);
+                        $tabOrder->where('order_id', $data['order_id'])->update($orPointData);
                         DB()->transComplete();
                     }
                 }
@@ -161,22 +160,23 @@ class Order extends BaseController
         }
     }
 
-    public function payment_status_action() {
+    public function payment_status_action()
+    {
         $order_id = $this->request->getPost('order_id');
         $data['payment_status'] = $this->request->getPost('status');
 
         $tableOrder = DB()->table('cc_order');
-        $tableOrder->where('order_id',$order_id)->update($data);
+        $tableOrder->where('order_id', $order_id)->update($data);
 
-        if($data['payment_status'] == 'Paid'){
+        if ($data['payment_status'] == 'Paid') {
             $tabOrder = DB()->table('cc_order');
-            $ord = $tabOrder->where('order_id',$order_id)->get()->getRow();
+            $ord = $tabOrder->where('order_id', $order_id)->get()->getRow();
 
             if (!empty($ord->customer_id)) {
 
                 $tableModule = DB()->table('cc_modules');
-                $query = $tableModule->join('cc_module_settings', 'cc_module_settings.module_id = cc_modules.module_id')->where('cc_modules.module_key','point')->get()->getRow();
-                if($query->status == '1') {
+                $query = $tableModule->join('cc_module_settings', 'cc_module_settings.module_id = cc_modules.module_id')->where('cc_modules.module_key', 'point')->get()->getRow();
+                if ($query->status == '1') {
                     DB()->transStart();
                     $oldPoint = get_data_by_id('point', 'cc_customer', 'customer_id', $ord->customer_id);
                     $point = $ord->total * $query->value;
@@ -201,7 +201,7 @@ class Order extends BaseController
                     //order point update
                     $orPointData['total_point'] = $point;
                     $tabOrder = DB()->table('cc_order');
-                    $tabOrder->where('order_id',$order_id)->update($orPointData);
+                    $tabOrder->where('order_id', $order_id)->update($orPointData);
                     DB()->transComplete();
                 }
             }
@@ -213,7 +213,8 @@ class Order extends BaseController
 
     }
 
-    public function point_action(){
+    public function point_action()
+    {
         $data['order_id'] = $this->request->getPost('order_id');
         $data['status'] = $this->request->getPost('status');
         $data['amount'] = $this->request->getPost('amount');
@@ -223,19 +224,19 @@ class Order extends BaseController
             'amount' => ['label' => 'Amount', 'rules' => 'required'],
         ]);
 
-        if ($this->validation->run($data) == FALSE) {
+        if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/order_view/' . $data['order_id'] . '?selTab=point');
         } else {
 
             $tabOrder = DB()->table('cc_order');
-            $ord = $tabOrder->where('order_id',$data['order_id'])->get()->getRow();
+            $ord = $tabOrder->where('order_id', $data['order_id'])->get()->getRow();
 
             if ($data['status'] == 'add') {
 
                 $tableModule = DB()->table('cc_modules');
-                $query = $tableModule->join('cc_module_settings', 'cc_module_settings.module_id = cc_modules.module_id')->where('cc_modules.module_key','point')->get()->getRow();
-                if($query->status == '1') {
+                $query = $tableModule->join('cc_module_settings', 'cc_module_settings.module_id = cc_modules.module_id')->where('cc_modules.module_key', 'point')->get()->getRow();
+                if ($query->status == '1') {
                     $oldPoint = get_data_by_id('point', 'cc_customer', 'customer_id', $ord->customer_id);
                     $point = $data['amount'] ;
                     $restPoint = $oldPoint + $point;
@@ -259,16 +260,16 @@ class Order extends BaseController
                     //order point update
                     $orPointData['total_point'] = $ord->total_point + $point;
                     $tabOrder = DB()->table('cc_order');
-                    $tabOrder->where('order_id',$data['order_id'])->update($orPointData);
+                    $tabOrder->where('order_id', $data['order_id'])->update($orPointData);
                 }
-            }else{
+            } else {
                 $tabOrder = DB()->table('cc_order');
-                $ord = $tabOrder->where('order_id',$data['order_id'])->get()->getRow();
+                $ord = $tabOrder->where('order_id', $data['order_id'])->get()->getRow();
 
                 if (!empty($ord->customer_id)) {
                     $tableModule = DB()->table('cc_modules');
-                    $query = $tableModule->join('cc_module_settings', 'cc_module_settings.module_id = cc_modules.module_id')->where('cc_modules.module_key','point')->get()->getRow();
-                    if($query->status == '1') {
+                    $query = $tableModule->join('cc_module_settings', 'cc_module_settings.module_id = cc_modules.module_id')->where('cc_modules.module_key', 'point')->get()->getRow();
+                    if ($query->status == '1') {
                         $oldPoint = get_data_by_id('point', 'cc_customer', 'customer_id', $ord->customer_id);
                         $point = $data['amount'];
                         $restPoint = $oldPoint - $point;
@@ -292,7 +293,7 @@ class Order extends BaseController
                         //order point update
                         $orPointData['total_point'] = $ord->total_point - $point;
                         $tabOrder = DB()->table('cc_order');
-                        $tabOrder->where('order_id',$data['order_id'])->update($orPointData);
+                        $tabOrder->where('order_id', $data['order_id'])->update($orPointData);
                     }
                 }
             }

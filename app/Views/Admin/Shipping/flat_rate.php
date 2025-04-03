@@ -31,7 +31,7 @@
                     </div>
                     <div class="col-md-4"></div>
                     <div class="col-md-12" style="margin-top: 10px">
-                        <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message'); endif; ?>
+                        <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
                     </div>
                 </div>
             </div>
@@ -42,12 +42,12 @@
                             <div class="form-group">
                                 <label>Status</label>
                                 <select class="form-control" name="status">
-                                    <option value="1" <?php echo ($shipping_status == '1')?'selected':'';?> >Active</option>
-                                    <option value="0" <?php echo ($shipping_status == '0')?'selected':'';?> >Inactive</option>
+                                    <option value="1" <?php echo ($shipping_status == '1') ? 'selected' : '';?> >Active</option>
+                                    <option value="0" <?php echo ($shipping_status == '0') ? 'selected' : '';?> >Inactive</option>
                                 </select>
                             </div>
                         </div>
-                        <?php foreach ($shipping as $val){ ?>
+                        <?php foreach ($shipping as $val) { ?>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label><?php echo $val->title;?></label>

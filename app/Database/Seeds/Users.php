@@ -22,7 +22,7 @@ class Users extends Seeder
                 'status' => '1',
                 'is_default' => 1,
                 'createdBy' => '1',
-            ],            
+            ],
             [
                 'user_id' => '2',
                 'email' => 'maneger@gmail.com',

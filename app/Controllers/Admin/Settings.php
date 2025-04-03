@@ -8,7 +8,6 @@ use CodeIgniter\HTTP\RedirectResponse;
 
 class Settings extends BaseController
 {
-
     protected $validation;
     protected $session;
     protected $crop;
@@ -31,7 +30,7 @@ class Settings extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId = $this->session->adRoleId;
-        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != TRUE) {
+        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
 
@@ -96,23 +95,23 @@ class Settings extends BaseController
         $data['meta_keyword'] = $this->request->getPost('meta_keyword');
         $data['meta_description'] = $this->request->getPost('meta_description');
 
-//        if (!empty($_FILES['store_logo']['name'])) {
-//            $target_dir = FCPATH . '/uploads/store/';
-//            if (!file_exists($target_dir)) {
-//                mkdir($target_dir, 0777);
-//            }
-//
-//            //new image upload
-//            $pic = $this->request->getFile('store_logo');
-//            $namePic = $pic->getRandomName();
-//            $pic->move($target_dir, $namePic);
-//            $news_img = 'logo_' . $pic->getName();
-//            $this->crop->withFile($target_dir . '' . $namePic)->fit(200, 100, 'center')->save($target_dir . $news_img);
-//            unlink($target_dir . '' . $namePic);
-//            $data['store_logo'] = $news_img;
-//        }
+        //        if (!empty($_FILES['store_logo']['name'])) {
+        //            $target_dir = FCPATH . '/uploads/store/';
+        //            if (!file_exists($target_dir)) {
+        //                mkdir($target_dir, 0777);
+        //            }
+        //
+        //            //new image upload
+        //            $pic = $this->request->getFile('store_logo');
+        //            $namePic = $pic->getRandomName();
+        //            $pic->move($target_dir, $namePic);
+        //            $news_img = 'logo_' . $pic->getName();
+        //            $this->crop->withFile($target_dir . '' . $namePic)->fit(200, 100, 'center')->save($target_dir . $news_img);
+        //            unlink($target_dir . '' . $namePic);
+        //            $data['store_logo'] = $news_img;
+        //        }
 
-        foreach($data as $key=>$val){
+        foreach ($data as $key => $val) {
             $table = DB()->table('cc_settings');
             $table->set('value', $val)->where('label', $key)->update();
         }

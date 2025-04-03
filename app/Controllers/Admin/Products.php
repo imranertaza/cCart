@@ -14,7 +14,6 @@ use CodeIgniter\HTTP\ResponseInterface;
 
 class Products extends BaseController
 {
-
     protected $validation;
     protected $session;
     protected $permission;
@@ -42,11 +41,11 @@ class Products extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId = $this->session->adRoleId;
-        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != TRUE) {
+        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
             $table = DB()->table('cc_products');
-            $data['product'] = $table->orderBy('product_id','desc')->get()->getResult();
+            $data['product'] = $table->orderBy('product_id', 'desc')->get()->getResult();
 
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
@@ -56,13 +55,15 @@ class Products extends BaseController
             echo view('Admin/header');
             echo view('Admin/sidebar');
             if (isset($data['mod_access']) and $data['mod_access'] == 1) {
-                echo view('Admin/Products/index',$data);
+                echo view('Admin/Products/index', $data);
             } else {
                 echo view('Admin/no_permission');
             }
             echo view('Admin/footer');
 
-            if (isset(newSession()->resetDatatable)){unset($_SESSION['resetDatatable']);}
+            if (isset(newSession()->resetDatatable)) {
+                unset($_SESSION['resetDatatable']);
+            }
         }
     }
 
@@ -74,27 +75,27 @@ class Products extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId = $this->session->adRoleId;
-        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != TRUE) {
+        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
             $uri = service('uri');
             $urlString = $uri->getPath() . '?' . $this->request->getServer('QUERY_STRING');
-            setcookie('product_url_path',$urlString,time()+86400, "/");
+            setcookie('product_url_path', $urlString, time() + 86400, "/");
 
             $length = $this->request->getGet('length');
             $keyWord = $this->request->getGet('keyWord');
             $pageNum = $this->request->getGet('page');
 
-            $perPage = !empty($length)?$length:10;
+            $perPage = !empty($length) ? $length : 10;
             if (empty($keyWord)) {
                 $data['product'] = $this->productsModel->orderBy('product_id', 'desc')->paginate($perPage);
-            }else{
+            } else {
                 $data['product'] = $this->productsModel->search_data($keyWord)->orderBy('product_id', 'desc')->paginate($perPage);
             }
 
 
             $data['pager'] = $this->productsModel->pager;
-            $data['links'] = $data['pager']->links('default','custom_pagination');
+            $data['links'] = $data['pager']->links('default', 'custom_pagination');
 
 
 
@@ -107,12 +108,14 @@ class Products extends BaseController
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
             if (isset($data['mod_access']) and $data['mod_access'] == 1) {
-                echo view('Admin/Products/list',$data);
+                echo view('Admin/Products/list', $data);
             } else {
                 echo view('Admin/no_permission');
             }
 
-            if (isset(newSession()->resetDatatable)){unset($_SESSION['resetDatatable']);}
+            if (isset(newSession()->resetDatatable)) {
+                unset($_SESSION['resetDatatable']);
+            }
         }
     }
 
@@ -120,10 +123,11 @@ class Products extends BaseController
      * @description This method provides create page view
      * @return RedirectResponse|void
      */
-    public function create(){
+    public function create()
+    {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId = $this->session->adRoleId;
-        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != TRUE) {
+        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
 
@@ -139,7 +143,7 @@ class Products extends BaseController
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
             if (isset($data['create']) and $data['create'] == 1) {
-                echo view('Admin/Products/create',$data);
+                echo view('Admin/Products/create', $data);
             } else {
                 echo view('Admin/no_permission');
             }
@@ -150,7 +154,8 @@ class Products extends BaseController
      * @description This method store product
      * @return RedirectResponse
      */
-    public function create_action() {
+    public function create_action()
+    {
 
         $adUserId = $this->session->adUserId;
 
@@ -168,18 +173,18 @@ class Products extends BaseController
             'quantity' => ['label' => 'Quantity', 'rules' => 'required'],
         ]);
 
-        if ($this->validation->run($data) == FALSE) {
+        if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/product_create');
         } else {
             DB()->transStart();
 
             //product table data insert(start)
-            $storeId = get_data_by_id('store_id','cc_stores','is_default','1');
+            $storeId = get_data_by_id('store_id', 'cc_stores', 'is_default', '1');
             $proData['store_id'] = $storeId;
             $proData['name'] = $data['pro_name'];
             $proData['model'] = $data['model'];
-            $proData['brand_id'] = !empty($this->request->getPost('brand_id'))?$this->request->getPost('brand_id'):null;
+            $proData['brand_id'] = !empty($this->request->getPost('brand_id')) ? $this->request->getPost('brand_id') : null;
             $proData['price'] = $data['price'];
             $proData['weight'] = $this->request->getPost('weight');
             $proData['length'] = $this->request->getPost('length');
@@ -191,7 +196,7 @@ class Products extends BaseController
             $proData['createdBy'] = $adUserId;
 
             $product_featured = $this->request->getPost('product_featured');
-            if ($product_featured == 'on'){
+            if ($product_featured == 'on') {
                 $proData['featured'] = '1';
             }
 
@@ -206,18 +211,18 @@ class Products extends BaseController
 
                 //new image upload
                 $pic = $this->request->getFile('image');
-                $news_img = $this->imageProcessing->product_image_upload_and_crop_all_size($pic,$target_dir);
+                $news_img = $this->imageProcessing->product_image_upload_and_crop_all_size($pic, $target_dir);
 
                 $dataImg['image'] = $news_img;
 
                 $proUpTable = DB()->table('cc_products');
-                $proUpTable->where('product_id',$productId)->update($dataImg);
+                $proUpTable->where('product_id', $productId)->update($dataImg);
             }
             //product table data insert(end)
 
 
             //multi image upload(start)
-            if($this->request->getFileMultiple('multiImage')){
+            if ($this->request->getFileMultiple('multiImage')) {
 
                 $target_dir = FCPATH . '/uploads/products/'.$productId.'/';
                 $this->imageProcessing->directory_create($target_dir);
@@ -225,8 +230,7 @@ class Products extends BaseController
                 $files = $this->request->getFileMultiple('multiImage');
                 foreach ($files as $file) {
 
-                    if ($file->isValid() && ! $file->hasMoved())
-                    {
+                    if ($file->isValid() && ! $file->hasMoved()) {
                         $dataMultiImg['product_id'] = $productId;
                         $proImgTable = DB()->table('cc_product_image');
                         $proImgTable->insert($dataMultiImg);
@@ -235,12 +239,12 @@ class Products extends BaseController
                         $target_dir2 = FCPATH . '/uploads/products/'.$productId.'/'.$proImgId.'/';
                         $this->imageProcessing->directory_create($target_dir2);
 
-                        $news_img2 = $this->imageProcessing->product_image_upload_and_crop_all_size($file,$target_dir2);
+                        $news_img2 = $this->imageProcessing->product_image_upload_and_crop_all_size($file, $target_dir2);
 
                         $dataMultiImg2['image'] = $news_img2;
 
                         $proImgUpTable = DB()->table('cc_product_image');
-                        $proImgUpTable->where('product_image_id',$proImgId)->update($dataMultiImg2);
+                        $proImgUpTable->where('product_image_id', $proImgId)->update($dataMultiImg2);
                     }
 
                 }
@@ -254,7 +258,7 @@ class Products extends BaseController
 
             //product category insert(start)
             $catData = [];
-            foreach ($data['categorys'] as $key => $cat){
+            foreach ($data['categorys'] as $key => $cat) {
                 $catData[$key] = [
                     'product_id' => $productId,
                     'category_id' => $cat,
@@ -270,7 +274,7 @@ class Products extends BaseController
 
             //product_free_delivery data insert(start)
             $free_delivery = $this->request->getPost('product_free_delivery');
-            if ($free_delivery == 'on'){
+            if ($free_delivery == 'on') {
                 $proFreeData['product_id'] = $productId;
                 $proFreetable = DB()->table('cc_product_free_delivery');
                 $proFreetable->insert($proFreeData);
@@ -281,12 +285,12 @@ class Products extends BaseController
 
             //product description table data insert(start)
             $proDescData['product_id'] = $productId;
-            $proDescData['description'] = !empty($this->request->getPost('description'))?$this->request->getPost('description'):null;
-            $proDescData['tag'] = !empty($this->request->getPost('tag'))?$this->request->getPost('tag'):null;
-            $proDescData['meta_title'] = !empty($this->request->getPost('meta_title'))?$this->request->getPost('meta_title'):null;
-            $proDescData['meta_description'] = !empty($this->request->getPost('meta_description'))?$this->request->getPost('meta_description'):null;
-            $proDescData['meta_keyword'] = !empty($this->request->getPost('meta_keyword'))?$this->request->getPost('meta_keyword'):null;
-            $proDescData['video'] = !empty($this->request->getPost('video'))?$this->request->getPost('video'):null;
+            $proDescData['description'] = !empty($this->request->getPost('description')) ? $this->request->getPost('description') : null;
+            $proDescData['tag'] = !empty($this->request->getPost('tag')) ? $this->request->getPost('tag') : null;
+            $proDescData['meta_title'] = !empty($this->request->getPost('meta_title')) ? $this->request->getPost('meta_title') : null;
+            $proDescData['meta_description'] = !empty($this->request->getPost('meta_description')) ? $this->request->getPost('meta_description') : null;
+            $proDescData['meta_keyword'] = !empty($this->request->getPost('meta_keyword')) ? $this->request->getPost('meta_keyword') : null;
+            $proDescData['video'] = !empty($this->request->getPost('video')) ? $this->request->getPost('video') : null;
             $proDescData['createdBy'] = $adUserId;
 
 
@@ -350,22 +354,22 @@ class Products extends BaseController
             $proDescTable = DB()->table('cc_product_description');
             $proDescTable->insert($proDescData);
             //product description table data insert(end)
-            
+
 
             $option = $this->request->getPost('option[]');
             $opValue = $this->request->getPost('opValue[]');
             $qty = $this->request->getPost('qty[]');
             $subtract = $this->request->getPost('subtract[]');
             $price_op = $this->request->getPost('price_op[]');
-            if (!empty($qty)){
+            if (!empty($qty)) {
                 $optionData = [];
-                foreach ($qty as $key => $val){
+                foreach ($qty as $key => $val) {
                     $optionData[$key] = [
                         'product_id' => $productId,
                         'option_id' => $option[$key],
                         'option_value_id' => $opValue[$key],
                         'quantity' => $qty[$key],
-                        'subtract' => ($subtract[$key] == 'plus')?null:1,
+                        'subtract' => ($subtract[$key] == 'plus') ? null : 1,
                         'price' => $price_op[$key],
                     ];
                 }
@@ -381,9 +385,9 @@ class Products extends BaseController
             $name = $this->request->getPost('name[]');
             $details = $this->request->getPost('details[]');
 
-            if (!empty($attribute_group_id)){
+            if (!empty($attribute_group_id)) {
                 $attributeData = [];
-                foreach ($attribute_group_id as $key => $val){
+                foreach ($attribute_group_id as $key => $val) {
                     $attributeData[$key] = [
                         'product_id' => $productId,
                         'attribute_group_id' => $attribute_group_id[$key],
@@ -403,7 +407,7 @@ class Products extends BaseController
             $start_date = $this->request->getPost('start_date');
             $end_date = $this->request->getPost('end_date');
 
-            if (!empty($special_price)){
+            if (!empty($special_price)) {
                 $specialData['product_id'] = $productId;
                 $specialData['special_price'] = $special_price;
                 $specialData['start_date'] = $start_date;
@@ -418,7 +422,7 @@ class Products extends BaseController
 
             //product_related table data insert(start)
             $product_related = $this->request->getPost('product_related[]');
-            if (!empty($product_related)){
+            if (!empty($product_related)) {
                 $proRelData = [];
                 foreach ($product_related as $key => $relp) {
                     $proRelData[$key] = [
@@ -436,7 +440,7 @@ class Products extends BaseController
 
             // product_bought_together table data insert(start)
             $bought_together = $this->request->getPost('bought_together[]');
-            if (!empty($bought_together)){
+            if (!empty($bought_together)) {
                 $proBothData = [];
                 foreach ($bought_together as $key => $bothp) {
                     $proBothData[$key] = [
@@ -452,8 +456,8 @@ class Products extends BaseController
 
 
             DB()->transComplete();
-//            $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Create Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-//            return redirect()->to('admin/product_create');
+            //            $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Create Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            //            return redirect()->to('admin/product_create');
             echo '<div class="alert alert-success alert-dismissible" role="alert">Products Create Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
         }
     }
@@ -462,13 +466,14 @@ class Products extends BaseController
      * @description This method product copy
      * @return RedirectResponse
      */
-    public function copy_action() {
+    public function copy_action()
+    {
         $allProductId =  $this->request->getPost('productId[]');
 
 
         $adUserId = $this->session->adUserId;
 
-        if(!empty($allProductId)) {
+        if (!empty($allProductId)) {
 
             DB()->transStart();
             foreach ($allProductId as $p) {
@@ -636,7 +641,7 @@ class Products extends BaseController
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Products Copy Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/products?page=1');
-        }else{
+        } else {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Please select any product! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->back();
         }
@@ -652,7 +657,7 @@ class Products extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId = $this->session->adRoleId;
-        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != TRUE) {
+        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
 
@@ -705,7 +710,8 @@ class Products extends BaseController
      * @description This method update product
      * @return RedirectResponse
      */
-    public function update_action(){
+    public function update_action()
+    {
 
         $adUserId = $this->session->adUserId;
 
@@ -725,7 +731,7 @@ class Products extends BaseController
             'quantity' => ['label' => 'Quantity', 'rules' => 'required'],
         ]);
 
-        if ($this->validation->run($data) == FALSE) {
+        if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/product_update/'.$product_id);
         } else {
@@ -734,7 +740,7 @@ class Products extends BaseController
             //product table data insert(start)
             $proData['name'] = $data['pro_name'];
             $proData['model'] = $data['model'];
-            $proData['brand_id'] = !empty($this->request->getPost('brand_id'))?$this->request->getPost('brand_id'):null;
+            $proData['brand_id'] = !empty($this->request->getPost('brand_id')) ? $this->request->getPost('brand_id') : null;
             $proData['price'] = $data['price'];
             $proData['weight'] = $this->request->getPost('weight');
             $proData['length'] = $this->request->getPost('length');
@@ -745,14 +751,14 @@ class Products extends BaseController
             $proData['quantity'] = $this->request->getPost('quantity');
 
             $product_featured = $this->request->getPost('product_featured');
-            if ($product_featured == 'on'){
+            if ($product_featured == 'on') {
                 $proData['featured'] = '1';
-            }else{
+            } else {
                 $proData['featured'] = '0';
             }
 
             $proTable = DB()->table('cc_products');
-            $proTable->where('product_id',$product_id)->update($proData);
+            $proTable->where('product_id', $product_id)->update($proData);
 
 
 
@@ -760,41 +766,40 @@ class Products extends BaseController
                 $target_dir = FCPATH . '/uploads/products/'.$product_id.'/';
 
                 //unlink
-                $oldImg = get_data_by_id('image','cc_products','product_id',$product_id);
+                $oldImg = get_data_by_id('image', 'cc_products', 'product_id', $product_id);
                 $pic = $this->request->getFile('image');
-                $news_img = $this->imageProcessing->single_product_image_unlink($target_dir,$oldImg)->directory_create($target_dir)->product_image_upload_and_crop_all_size($pic,$target_dir);
+                $news_img = $this->imageProcessing->single_product_image_unlink($target_dir, $oldImg)->directory_create($target_dir)->product_image_upload_and_crop_all_size($pic, $target_dir);
 
                 $dataImg['image'] = $news_img;
 
                 $proUpTable = DB()->table('cc_products');
-                $proUpTable->where('product_id',$product_id)->update($dataImg);
+                $proUpTable->where('product_id', $product_id)->update($dataImg);
             }
             //product table data insert(end)
 
 
             //multi image upload(start)
-            if($this->request->getFileMultiple('multiImage')){
+            if ($this->request->getFileMultiple('multiImage')) {
 
                 $target_dir = FCPATH . '/uploads/products/'.$product_id.'/';
                 $this->imageProcessing->directory_create($target_dir);
 
                 $files = $this->request->getFileMultiple('multiImage');
-                foreach ($files as  $file) {
+                foreach ($files as $file) {
 
-                    if ($file->isValid() && ! $file->hasMoved())
-                    {
+                    if ($file->isValid() && ! $file->hasMoved()) {
                         $dataMultiImg['product_id'] = $product_id;
                         $proImgTable = DB()->table('cc_product_image');
                         $proImgTable->insert($dataMultiImg);
                         $proImgId = DB()->insertID();
 
                         $target_dir2 = FCPATH . '/uploads/products/'.$product_id.'/'.$proImgId.'/';
-                        $news_img2 = $this->imageProcessing->directory_create($target_dir2)->product_image_upload_and_crop_all_size($file,$target_dir2);
+                        $news_img2 = $this->imageProcessing->directory_create($target_dir2)->product_image_upload_and_crop_all_size($file, $target_dir2);
 
                         $dataMultiImg2['image'] = $news_img2;
 
                         $proImgUpTable = DB()->table('cc_product_image');
-                        $proImgUpTable->where('product_image_id',$proImgId)->update($dataMultiImg2);
+                        $proImgUpTable->where('product_image_id', $proImgId)->update($dataMultiImg2);
                     }
 
                 }
@@ -808,9 +813,9 @@ class Products extends BaseController
 
             //product category insert(start)
             $catTableDel = DB()->table('cc_product_to_category');
-            $catTableDel->where('product_id',$product_id)->delete();
+            $catTableDel->where('product_id', $product_id)->delete();
             $catData = [];
-            foreach ($data['categorys'] as $key => $cat){
+            foreach ($data['categorys'] as $key => $cat) {
                 $catData[$key] = [
                     'product_id' => $product_id,
                     'category_id' => $cat,
@@ -826,14 +831,14 @@ class Products extends BaseController
 
             //product_free_delivery data insert(start)
             $free_delivery = $this->request->getPost('product_free_delivery');
-            if ($free_delivery == 'on'){
-                if (is_exists('cc_product_free_delivery','product_id',$product_id) == true) {
+            if ($free_delivery == 'on') {
+                if (is_exists('cc_product_free_delivery', 'product_id', $product_id) == true) {
                     $proFreeData['product_id'] = $product_id;
                     $proFreetable = DB()->table('cc_product_free_delivery');
                     $proFreetable->insert($proFreeData);
                 }
-            }else{
-                if (is_exists('cc_product_free_delivery','product_id',$product_id) == false) {
+            } else {
+                if (is_exists('cc_product_free_delivery', 'product_id', $product_id) == false) {
                     $proFreetable = DB()->table('cc_product_free_delivery');
                     $proFreetable->where('product_id', $product_id)->delete();
                 }
@@ -844,12 +849,12 @@ class Products extends BaseController
 
             //product description table data insert(start)
             $proDescData['product_id'] = $product_id;
-            $proDescData['description'] = !empty($this->request->getPost('description'))?$this->request->getPost('description'):null;
-            $proDescData['tag'] = !empty($this->request->getPost('tag'))?$this->request->getPost('tag'):null;
-            $proDescData['meta_title'] = !empty($this->request->getPost('meta_title'))?$this->request->getPost('meta_title'):null;
-            $proDescData['meta_description'] = !empty($this->request->getPost('meta_description'))?$this->request->getPost('meta_description'):null;
-            $proDescData['meta_keyword'] = !empty($this->request->getPost('meta_keyword'))?$this->request->getPost('meta_keyword'):null;
-            $proDescData['video'] = !empty($this->request->getPost('video'))?$this->request->getPost('video'):null;
+            $proDescData['description'] = !empty($this->request->getPost('description')) ? $this->request->getPost('description') : null;
+            $proDescData['tag'] = !empty($this->request->getPost('tag')) ? $this->request->getPost('tag') : null;
+            $proDescData['meta_title'] = !empty($this->request->getPost('meta_title')) ? $this->request->getPost('meta_title') : null;
+            $proDescData['meta_description'] = !empty($this->request->getPost('meta_description')) ? $this->request->getPost('meta_description') : null;
+            $proDescData['meta_keyword'] = !empty($this->request->getPost('meta_keyword')) ? $this->request->getPost('meta_keyword') : null;
+            $proDescData['video'] = !empty($this->request->getPost('video')) ? $this->request->getPost('video') : null;
 
 
             if (!empty($_FILES['description_image']['name'])) {
@@ -859,7 +864,7 @@ class Products extends BaseController
                 }
 
                 //unlink
-                $oldImg = get_data_by_id('description_image','cc_product_description','product_id',$product_id);
+                $oldImg = get_data_by_id('description_image', 'cc_product_description', 'product_id', $product_id);
                 if ((!empty($oldImg)) && (file_exists($target_dir))) {
                     if (file_exists($target_dir . '/' . $oldImg)) {
                         unlink($target_dir . $oldImg);
@@ -882,7 +887,7 @@ class Products extends BaseController
                 }
 
                 //unlink
-                $oldImg = get_data_by_id('documentation_pdf','cc_product_description','product_id',$product_id);
+                $oldImg = get_data_by_id('documentation_pdf', 'cc_product_description', 'product_id', $product_id);
                 if ((!empty($oldImg)) && (file_exists($target_dir))) {
                     if (file_exists($target_dir . '/' . $oldImg)) {
                         unlink($target_dir . $oldImg);
@@ -904,7 +909,7 @@ class Products extends BaseController
                 }
 
                 //unlink
-                $oldImg = get_data_by_id('safety_pdf','cc_product_description','product_id',$product_id);
+                $oldImg = get_data_by_id('safety_pdf', 'cc_product_description', 'product_id', $product_id);
                 if ((!empty($oldImg)) && (file_exists($target_dir))) {
                     if (file_exists($target_dir . '/' . $oldImg)) {
                         unlink($target_dir . $oldImg);
@@ -926,7 +931,7 @@ class Products extends BaseController
                 }
 
                 //unlink
-                $oldImg = get_data_by_id('instructions_pdf','cc_product_description','product_id',$product_id);
+                $oldImg = get_data_by_id('instructions_pdf', 'cc_product_description', 'product_id', $product_id);
                 if ((!empty($oldImg)) && (file_exists($target_dir))) {
                     if (file_exists($target_dir . '/' . $oldImg)) {
                         unlink($target_dir . $oldImg);
@@ -942,7 +947,7 @@ class Products extends BaseController
             }
 
             $proDescTable = DB()->table('cc_product_description');
-            $proDescTable->where('product_id',$product_id)->update($proDescData);
+            $proDescTable->where('product_id', $product_id)->update($proDescData);
             //product description table data insert(end)
 
 
@@ -956,17 +961,17 @@ class Products extends BaseController
             $price_op = $this->request->getPost('price_op[]');
 
             $optionTableDel = DB()->table('cc_product_option');
-            $optionTableDel->where('product_id',$product_id)->delete();
+            $optionTableDel->where('product_id', $product_id)->delete();
 
-            if (!empty($qty)){
+            if (!empty($qty)) {
                 $optionData = [];
-                foreach ($qty as $key => $val){
+                foreach ($qty as $key => $val) {
                     $optionData[$key] = [
                         'product_id' => $product_id,
                         'option_id' => $option[$key],
                         'option_value_id' => $opValue[$key],
                         'quantity' => $qty[$key],
-                        'subtract' => ($subtract[$key] == 'plus')?null:1,
+                        'subtract' => ($subtract[$key] == 'plus') ? null : 1,
                         'price' => $price_op[$key],
                     ];
                 }
@@ -983,11 +988,11 @@ class Products extends BaseController
             $details = $this->request->getPost('details[]');
 
             $attributeTableDel = DB()->table('cc_product_attribute');
-            $attributeTableDel->where('product_id',$product_id)->delete();
+            $attributeTableDel->where('product_id', $product_id)->delete();
 
-            if (!empty($attribute_group_id)){
+            if (!empty($attribute_group_id)) {
                 $attributeData = [];
-                foreach ($attribute_group_id as $key => $val){
+                foreach ($attribute_group_id as $key => $val) {
                     $attributeData[$key] = [
                         'product_id' => $product_id,
                         'attribute_group_id' => $attribute_group_id[$key],
@@ -1007,22 +1012,22 @@ class Products extends BaseController
             $start_date = $this->request->getPost('start_date');
             $end_date = $this->request->getPost('end_date');
 
-            if (!empty($special_price)){
+            if (!empty($special_price)) {
                 $specialData['product_id'] = $product_id;
                 $specialData['special_price'] = $special_price;
                 $specialData['start_date'] = $start_date;
                 $specialData['end_date'] = $end_date;
 
                 $specialTable = DB()->table('cc_product_special');
-                $checkSpec = $specialTable->where('product_id',$product_id)->countAllResults();
+                $checkSpec = $specialTable->where('product_id', $product_id)->countAllResults();
                 if (empty($checkSpec)) {
                     $specialTable->insert($specialData);
-                }else{
-                    $specialTable->where('product_id',$product_id)->update($specialData);
+                } else {
+                    $specialTable->where('product_id', $product_id)->update($specialData);
                 }
-            }else{
+            } else {
                 $specialTable = DB()->table('cc_product_special');
-                $specialTable->where('product_id',$product_id)->delete();
+                $specialTable->where('product_id', $product_id)->delete();
             }
             //product product_special table data insert(end)
 
@@ -1030,9 +1035,9 @@ class Products extends BaseController
 
             //product_related table data insert(start)
             $product_related = $this->request->getPost('product_related[]');
-            if (!empty($product_related)){
+            if (!empty($product_related)) {
                 $proReltableDel = DB()->table('cc_product_related');
-                $proReltableDel->where('product_id',$product_id)->delete();
+                $proReltableDel->where('product_id', $product_id)->delete();
                 $proRelData = [];
                 foreach ($product_related as $key => $relp) {
                     $proRelData[$key] = [
@@ -1042,18 +1047,18 @@ class Products extends BaseController
                 }
                 $proReltable = DB()->table('cc_product_related');
                 $proReltable->insertBatch($proRelData);
-            }else{
+            } else {
                 $proReltableDel = DB()->table('cc_product_related');
-                $proReltableDel->where('product_id',$product_id)->delete();
+                $proReltableDel->where('product_id', $product_id)->delete();
             }
             //product_related table data insert(end)
 
 
             // product_bought_together table data insert(start)
             $bought_together = $this->request->getPost('bought_together[]');
-            if (!empty($bought_together)){
+            if (!empty($bought_together)) {
                 $boughtTogetherDel = DB()->table('cc_product_bought_together');
-                $boughtTogetherDel->where('product_id',$product_id)->delete();
+                $boughtTogetherDel->where('product_id', $product_id)->delete();
                 $proBothData = [];
                 foreach ($bought_together as $key => $bothp) {
                     $proBothData[$key] = [
@@ -1063,9 +1068,9 @@ class Products extends BaseController
                 }
                 $proBothtable = DB()->table('cc_product_bought_together');
                 $proBothtable->insertBatch($proBothData);
-            }else{
+            } else {
                 $boughtTogetherDel = DB()->table('cc_product_bought_together');
-                $boughtTogetherDel->where('product_id',$product_id)->delete();
+                $boughtTogetherDel->where('product_id', $product_id)->delete();
             }
             //product_bought_together table data insert(end)
 
@@ -1082,7 +1087,8 @@ class Products extends BaseController
      * @description This method delete product
      * @return void
      */
-    public function delete(){
+    public function delete()
+    {
         $product_id = $this->request->getPost('product_id');
 
         helper('filesystem');
@@ -1091,42 +1097,42 @@ class Products extends BaseController
 
         $target_dir = FCPATH . '/uploads/products/'.$product_id;
         if (file_exists($target_dir)) {
-            delete_files($target_dir, TRUE);
+            delete_files($target_dir, true);
             rmdir($target_dir);
         }
 
         $proTable = DB()->table('cc_products');
-        $proTable->where('product_id',$product_id)->delete();
+        $proTable->where('product_id', $product_id)->delete();
 
         $proImgTable = DB()->table('cc_product_image');
-        $proImgTable->where('product_id',$product_id)->delete();
+        $proImgTable->where('product_id', $product_id)->delete();
 
         $catTableDel = DB()->table('cc_product_to_category');
-        $catTableDel->where('product_id',$product_id)->delete();
+        $catTableDel->where('product_id', $product_id)->delete();
 
         $proFreetable = DB()->table('cc_product_free_delivery');
         $proFreetable->where('product_id', $product_id)->delete();
 
         $proDescTable = DB()->table('cc_product_description');
-        $proDescTable->where('product_id',$product_id)->delete();
+        $proDescTable->where('product_id', $product_id)->delete();
 
         $optionTableDel = DB()->table('cc_product_option');
-        $optionTableDel->where('product_id',$product_id)->delete();
+        $optionTableDel->where('product_id', $product_id)->delete();
 
         $attributeTableDel = DB()->table('cc_product_attribute');
-        $attributeTableDel->where('product_id',$product_id)->delete();
+        $attributeTableDel->where('product_id', $product_id)->delete();
 
         $specialTable = DB()->table('cc_product_special');
-        $specialTable->where('product_id',$product_id)->delete();
+        $specialTable->where('product_id', $product_id)->delete();
 
         $proReltableDel = DB()->table('cc_product_related');
-        $proReltableDel->where('product_id',$product_id)->delete();
+        $proReltableDel->where('product_id', $product_id)->delete();
 
         $relProTableDel = DB()->table('cc_product_related');
         $relProTableDel->where('related_id', $product_id)->delete();
 
         $proBotTableDel = DB()->table('cc_product_bought_together');
-        $proBotTableDel->where('product_id',$product_id)->delete();
+        $proBotTableDel->where('product_id', $product_id)->delete();
 
         $bothTableDel = DB()->table('cc_product_bought_together');
         $bothTableDel->where('related_id', $product_id)->delete();
@@ -1140,11 +1146,12 @@ class Products extends BaseController
      * @description This method provides subCategory view
      * @return void
      */
-    public function get_subCategory(){
+    public function get_subCategory()
+    {
         $categoryID = $this->request->getPost('cat_id');
         $table = DB()->table('cc_product_category');
-        $data = $table->where('parent_id',$categoryID)->get()->getResult();
-        $view ='';
+        $data = $table->where('parent_id', $categoryID)->get()->getResult();
+        $view = '';
         if (!empty($data)) {
             $view .= '<label>Sub Category</label><select name="sub_category" class="form-control" ><option value="">Please select</option>';
             foreach ($data as $val) {
@@ -1160,7 +1167,8 @@ class Products extends BaseController
      * @description This method provides related product view
      * @return ResponseInterface
      */
-    public function related_product(){
+    public function related_product()
+    {
         $product = [];
         $keyword = $this->request->getGet('q');
         $table = DB()->table('cc_products');
@@ -1173,7 +1181,8 @@ class Products extends BaseController
      * @description This method delete product image
      * @return void
      */
-    public function image_delete(){
+    public function image_delete()
+    {
         helper('filesystem');
 
         $product_image_id = $this->request->getPost('product_image_id');
@@ -1182,7 +1191,7 @@ class Products extends BaseController
 
         $target_dir = FCPATH . '/uploads/products/'.$data->product_id.'/'.$product_image_id;
         if (file_exists($target_dir)) {
-            delete_files($target_dir, TRUE);
+            delete_files($target_dir, true);
             rmdir($target_dir);
         }
 
@@ -1194,15 +1203,16 @@ class Products extends BaseController
      * @description This method provides product option search
      * @return void
      */
-    public function product_option_search(){
+    public function product_option_search()
+    {
         $keyword = $this->request->getPost('key');
         $table = DB()->table('cc_option');
         $option = $table->like('name', $keyword)->get()->getResult();
 
         $view = '<ul class="list-unstyled list-op-aj" >';
-        foreach ($option as $op){
+        foreach ($option as $op) {
             $optionname = "'$op->name'";
-            $optionname2 = "'".strtolower(str_replace(' ','',$op->name))."'";
+            $optionname2 = "'".strtolower(str_replace(' ', '', $op->name))."'";
             $view .= '<li><a href="javascript:void(0)" onclick="optionViewPro('.$op->option_id.','.$optionname2.','.$optionname.')" >'.$op->name.'</a></li>';
         }
         $view .= '</ul>';
@@ -1214,10 +1224,11 @@ class Products extends BaseController
      * @description This method provides product option value search
      * @return void
      */
-    public function product_option_value_search(){
+    public function product_option_value_search()
+    {
         $option_id = $this->request->getPost('option_id');
         $table = DB()->table('cc_option_value');
-        $data = $table->where('option_id',$option_id)->get()->getResult();
+        $data = $table->where('option_id', $option_id)->get()->getResult();
         $view = '';
         foreach ($data as $item) {
             $view .= '<option value="'.$item->option_value_id.'">'.$item->name.'</option>';
@@ -1229,67 +1240,68 @@ class Products extends BaseController
      * @description This method provides product image crop
      * @return RedirectResponse
      */
-//    public function image_crop(){
-//
-//        $allProductId =  $this->request->getPost('productId[]');
-//        $modules = modules_access();
-//        if (!empty($allProductId)) {
-//
-//            foreach ($allProductId as $productId) {
-//
-//                //product main image crop
-//                $target_dir = FCPATH . '/uploads/products/' . $productId . '/';
-//                $oldImg = get_data_by_id('image', 'cc_products', 'product_id', $productId);
-//                if ((!empty($oldImg)) && (file_exists($target_dir))) {
-//                    $mainImg = str_replace('pro_', '', $oldImg);
-//                    if (file_exists($target_dir . '/' . $mainImg)) {
-//
-//                        $this->imageProcessing->image_crop($target_dir,$mainImg,$oldImg);
-//
-//                        if ($modules['watermark'] == '1') {
-//                            $this->imageProcessing->watermark_main_image($target_dir, $mainImg);
-//
-//                            $this->imageProcessing->watermark_on_resized_image($target_dir, $mainImg);
-//                            $this->imageProcessing->image_crop($target_dir, '600_wm_' . $mainImg, 'wm_' . $oldImg);
-//                        }
-//
-//                    }
-//                }
-//                //product main image crop end
-//
-//
-//                //multi image crop
-//                $allImage = get_array_data_by_id('cc_product_image', 'product_id', $productId);
-//                if (!empty($allImage)) {
-//                    foreach ($allImage as $val) {
-//                        $target_dir_mult = FCPATH . '/uploads/products/' . $productId . '/' . $val->product_image_id . "/";
-//                        $oldImgMul = $val->image;
-//                        if ((!empty($oldImgMul)) && (file_exists($target_dir_mult))) {
-//                            $mainImgMul = str_replace('pro_', '', $oldImgMul);
-//                            if (file_exists($target_dir_mult . '/' . $mainImgMul)) {
-//                                $this->imageProcessing->image_crop($target_dir_mult,$mainImgMul,$oldImgMul);
-//
-//                                if ($modules['watermark'] == '1') {
-//                                    $this->imageProcessing->watermark_main_image($target_dir_mult, $mainImgMul);
-//
-//                                    $this->imageProcessing->watermark_on_resized_image($target_dir_mult, $mainImgMul);
-//                                    $this->imageProcessing->image_crop($target_dir_mult, '600_wm_' . $mainImgMul, 'wm_' . $oldImgMul);
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//
-//            $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Update Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-//            return redirect()->back();
-//        }else{
-//            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Please select any product <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-//            return redirect()->back();
-//        }
-//    }
+    //    public function image_crop(){
+    //
+    //        $allProductId =  $this->request->getPost('productId[]');
+    //        $modules = modules_access();
+    //        if (!empty($allProductId)) {
+    //
+    //            foreach ($allProductId as $productId) {
+    //
+    //                //product main image crop
+    //                $target_dir = FCPATH . '/uploads/products/' . $productId . '/';
+    //                $oldImg = get_data_by_id('image', 'cc_products', 'product_id', $productId);
+    //                if ((!empty($oldImg)) && (file_exists($target_dir))) {
+    //                    $mainImg = str_replace('pro_', '', $oldImg);
+    //                    if (file_exists($target_dir . '/' . $mainImg)) {
+    //
+    //                        $this->imageProcessing->image_crop($target_dir,$mainImg,$oldImg);
+    //
+    //                        if ($modules['watermark'] == '1') {
+    //                            $this->imageProcessing->watermark_main_image($target_dir, $mainImg);
+    //
+    //                            $this->imageProcessing->watermark_on_resized_image($target_dir, $mainImg);
+    //                            $this->imageProcessing->image_crop($target_dir, '600_wm_' . $mainImg, 'wm_' . $oldImg);
+    //                        }
+    //
+    //                    }
+    //                }
+    //                //product main image crop end
+    //
+    //
+    //                //multi image crop
+    //                $allImage = get_array_data_by_id('cc_product_image', 'product_id', $productId);
+    //                if (!empty($allImage)) {
+    //                    foreach ($allImage as $val) {
+    //                        $target_dir_mult = FCPATH . '/uploads/products/' . $productId . '/' . $val->product_image_id . "/";
+    //                        $oldImgMul = $val->image;
+    //                        if ((!empty($oldImgMul)) && (file_exists($target_dir_mult))) {
+    //                            $mainImgMul = str_replace('pro_', '', $oldImgMul);
+    //                            if (file_exists($target_dir_mult . '/' . $mainImgMul)) {
+    //                                $this->imageProcessing->image_crop($target_dir_mult,$mainImgMul,$oldImgMul);
+    //
+    //                                if ($modules['watermark'] == '1') {
+    //                                    $this->imageProcessing->watermark_main_image($target_dir_mult, $mainImgMul);
+    //
+    //                                    $this->imageProcessing->watermark_on_resized_image($target_dir_mult, $mainImgMul);
+    //                                    $this->imageProcessing->image_crop($target_dir_mult, '600_wm_' . $mainImgMul, 'wm_' . $oldImgMul);
+    //                                }
+    //                            }
+    //                        }
+    //                    }
+    //                }
+    //            }
+    //
+    //            $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Update Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+    //            return redirect()->back();
+    //        }else{
+    //            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Please select any product <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+    //            return redirect()->back();
+    //        }
+    //    }
 
-    public function image_crop(){
+    public function image_crop()
+    {
 
         $allProductId =  $this->request->getPost('productId[]');
 
@@ -1301,7 +1313,7 @@ class Products extends BaseController
 
             //multi image
             $allImage = $this->multi_image($allProductId);
-            
+
             foreach ($allProductId as $k => $productId) {
                 $single = $oldProArr[$k];
 
@@ -1311,7 +1323,7 @@ class Products extends BaseController
                     $mainImg = str_replace('pro_', '', $single->image);
                     if (file_exists($target_dir . '/' . $mainImg)) {
 
-                        $this->imageProcessing->image_crop($target_dir,$mainImg,$single->image);
+                        $this->imageProcessing->image_crop($target_dir, $mainImg, $single->image);
                         if ($modules['watermark'] == '1') {
                             $this->imageProcessing->watermark_main_image($target_dir, $mainImg);
 
@@ -1338,8 +1350,8 @@ class Products extends BaseController
 
                 //multi image crop
                 if (!empty($allImage)) {
-                    $i=0;
-                    foreach ($allImage as  $val) {
+                    $i = 0;
+                    foreach ($allImage as $val) {
                         if ($val->product_id == $single->product_id) {
                             $target_dir_mult = FCPATH . '/uploads/products/' . $val->product_id . '/' . $val->product_image_id . "/";
                             $oldImgMul = $val->image;
@@ -1357,7 +1369,7 @@ class Products extends BaseController
                             }
 
                             echo "Processing step ".$i++." ...<br>";
-//                            sleep(3);                            
+                            //                            sleep(3);
 
                             // ob_flush();
                             flush(); // Send the output to the browser
@@ -1374,7 +1386,7 @@ class Products extends BaseController
 
 
             echo "Process completed!<br>";
-//            echo view('Admin/Products/progress',$data);
+            //            echo view('Admin/Products/progress',$data);
             flush(); // Send the final output
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Update Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
@@ -1386,7 +1398,7 @@ class Products extends BaseController
 
 
 
-        }else{
+        } else {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Please select any product <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->back();
         }
@@ -1398,7 +1410,8 @@ class Products extends BaseController
      * @param array $productarray
      * @return array
      */
-    private function old_image($productarray){
+    private function old_image($productarray)
+    {
         $table = DB()->table('cc_products');
         $table->select('product_id, image');
         foreach ($productarray as $productId) {
@@ -1412,7 +1425,8 @@ class Products extends BaseController
      * @param array $productarray
      * @return array
      */
-    private function multi_image($productarray){
+    private function multi_image($productarray)
+    {
         $table = DB()->table('cc_product_image');
         $table->select('product_image_id,product_id, image');
         foreach ($productarray as $productId) {
@@ -1425,7 +1439,8 @@ class Products extends BaseController
      * @description This method delete product image
      * @return RedirectResponse
      */
-    public function multi_delete_action(){
+    public function multi_delete_action()
+    {
         $allProductId =  $this->request->getPost('productId[]');
         if (!empty($allProductId)) {
             helper('filesystem');
@@ -1436,7 +1451,7 @@ class Products extends BaseController
 
                 $target_dir = FCPATH . '/uploads/products/' . $product_id;
                 if (file_exists($target_dir)) {
-                    delete_files($target_dir, TRUE);
+                    delete_files($target_dir, true);
                     rmdir($target_dir);
                 }
 
@@ -1466,12 +1481,12 @@ class Products extends BaseController
 
                 $proReltableDel = DB()->table('cc_product_related');
                 $proReltableDel->where('product_id', $product_id)->delete();
-                
+
                 $relProTableDel = DB()->table('cc_product_related');
                 $relProTableDel->where('related_id', $product_id)->delete();
 
                 $proBotTableDel = DB()->table('cc_product_bought_together');
-                $proBotTableDel->where('product_id',$product_id)->delete();
+                $proBotTableDel->where('product_id', $product_id)->delete();
 
                 $bothTableDel = DB()->table('cc_product_bought_together');
                 $bothTableDel->where('related_id', $product_id)->delete();
@@ -1481,17 +1496,18 @@ class Products extends BaseController
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Products Delete Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->back();
-        }else{
+        } else {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Please select any product <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->back();
         }
     }
 
-    public function status_update(){
+    public function status_update()
+    {
 
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId = $this->session->adRoleId;
-        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != TRUE) {
+        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
             $redirect_url = isset($_COOKIE['product_url_path']) ? $_COOKIE['product_url_path'] : 'admin/products';
@@ -1511,14 +1527,15 @@ class Products extends BaseController
                 } else {
                     echo view('Admin/no_permission');
                 }
-            }else{
+            } else {
                 $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Please select any product <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                 return redirect()->to($redirect_url);
             }
         }
     }
 
-    public function status_update_action(){
+    public function status_update_action()
+    {
         $redirect_url = isset($_COOKIE['product_url_path']) ? $_COOKIE['product_url_path'] : 'admin/products';
         $all_product = $this->request->getPost('productId[]');
         $status = $this->request->getPost('status');
@@ -1527,7 +1544,7 @@ class Products extends BaseController
 
         foreach ($all_product as $product_id) {
             $table = DB()->table('cc_products');
-            $table->where('product_id',$product_id);
+            $table->where('product_id', $product_id);
             $table->update($data);
         }
 

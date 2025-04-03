@@ -11,10 +11,8 @@ use App\Models\ProductsModel;
 use CodeIgniter\HTTP\RedirectResponse;
 use CodeIgniter\HTTP\ResponseInterface;
 
-
 class Checkout extends BaseController
 {
-
     protected $validation;
     protected $session;
     protected $productsModel;
@@ -77,7 +75,7 @@ class Checkout extends BaseController
 
         if (!empty($query)) {
 
-            if (isset(newSession()->coupon_id)){
+            if (isset(newSession()->coupon_id)) {
                 unset($_SESSION['coupon_id']);
                 unset($_SESSION['coupon_discount']);
                 unset($_SESSION['coupon_discount_shipping']);
@@ -87,7 +85,7 @@ class Checkout extends BaseController
             if ($query->discount_on == 'Product') {
                 if ($query->for_registered_user == '1') {
                     $isLoggedInCustomer = $this->session->isLoggedInCustomer;
-                    if (isset($isLoggedInCustomer) || $isLoggedInCustomer == TRUE) {
+                    if (isset($isLoggedInCustomer) || $isLoggedInCustomer == true) {
                         if (!empty($this->cart->contents())) {
                             $couponArray = array(
                                 'coupon_id' => $query->coupon_id,
@@ -108,7 +106,7 @@ class Checkout extends BaseController
 
                 if ($query->for_subscribed_user == '1') {
                     $isLoggedInCustomer = $this->session->isLoggedInCustomer;
-                    if (isset($isLoggedInCustomer) || $isLoggedInCustomer == TRUE) {
+                    if (isset($isLoggedInCustomer) || $isLoggedInCustomer == true) {
                         $checkSub = is_exists('cc_newsletter', 'customer_id', $this->session->cusUserId);
                         if ($checkSub == false) {
                             if (!empty($this->cart->contents())) {
@@ -147,11 +145,11 @@ class Checkout extends BaseController
                         return redirect()->to('cart');
                     }
                 }
-            }else{
+            } else {
 
                 if ($query->for_registered_user == '1') {
                     $isLoggedInCustomer = $this->session->isLoggedInCustomer;
-                    if (isset($isLoggedInCustomer) || $isLoggedInCustomer == TRUE) {
+                    if (isset($isLoggedInCustomer) || $isLoggedInCustomer == true) {
                         if (!empty($this->cart->contents())) {
                             $couponArray = array(
                                 'coupon_id' => $query->coupon_id,
@@ -172,7 +170,7 @@ class Checkout extends BaseController
 
                 if ($query->for_subscribed_user == '1') {
                     $isLoggedInCustomer = $this->session->isLoggedInCustomer;
-                    if (isset($isLoggedInCustomer) || $isLoggedInCustomer == TRUE) {
+                    if (isset($isLoggedInCustomer) || $isLoggedInCustomer == true) {
                         $checkSub = is_exists('cc_newsletter', 'customer_id', $this->session->cusUserId);
                         if ($checkSub == false) {
                             if (!empty($this->cart->contents())) {
@@ -242,7 +240,8 @@ class Checkout extends BaseController
      * @description This method provides checkout action execute
      * @return RedirectResponse
      */
-    public function checkout_action() {
+    public function checkout_action()
+    {
 
         if (!empty($this->cart->contents())) {
             $data['payment_firstname'] = $this->request->getPost('payment_firstname');
@@ -286,7 +285,7 @@ class Checkout extends BaseController
                 ]);
             }
 
-            if ($this->validation->run($data) == FALSE) {
+            if ($this->validation->run($data) == false) {
                 $this->session->setFlashdata('message', '' . $this->validation->listErrors() . '');
                 return redirect()->to('checkout');
             } else {
@@ -305,20 +304,20 @@ class Checkout extends BaseController
 
                 if (!empty($shipping_charge)) {
                     if (isset($this->session->coupon_discount_shipping)) {
-                        $disc = $this->shipping_discount_calculate($shipping_charge,$data['shipping_method']);
+                        $disc = $this->shipping_discount_calculate($shipping_charge, $data['shipping_method']);
                     }
                 }
 
-                if (!empty($disc)){
-                    $oldQtyCup = get_data_by_id('total_used','cc_coupon','coupon_id',$this->session->coupon_id);
+                if (!empty($disc)) {
+                    $oldQtyCup = get_data_by_id('total_used', 'cc_coupon', 'coupon_id', $this->session->coupon_id);
                     $newQtyCupUsed['total_used'] = $oldQtyCup + 1;
                     $table = DB()->table('cc_coupon');
-                    $table->where('coupon_id',$this->session->coupon_id)->update($newQtyCupUsed);
+                    $table->where('coupon_id', $this->session->coupon_id)->update($newQtyCupUsed);
                 }
 
                 $finalAmo = $this->cart->total() - $disc;
                 if (!empty($shipping_charge)) {
-                    $finalAmo = number_format(($this->cart->total() + $shipping_charge) - $disc,2);
+                    $finalAmo = number_format(($this->cart->total() + $shipping_charge) - $disc, 2);
                 }
 
                 if ($data['payment_method'] == '8') {
@@ -473,7 +472,7 @@ class Checkout extends BaseController
                 $this->session->setFlashdata('message', 'Your order has been successfully placed ');
                 return redirect()->to('checkout_success');
             }
-        }else {
+        } else {
             $this->session->setFlashdata('message', 'Your cart is empty!');
             return redirect()->to('checkout');
         }
@@ -516,22 +515,23 @@ class Checkout extends BaseController
         return $this->response->setJSON($data);
     }
 
-    public function shipping_discount_calculate($charge,$shippingCode){
-        $shipping_method_id = get_data_by_id('shipping_method_id','cc_shipping_method','code',$shippingCode);
+    public function shipping_discount_calculate($charge, $shippingCode)
+    {
+        $shipping_method_id = get_data_by_id('shipping_method_id', 'cc_shipping_method', 'code', $shippingCode);
 
         $table = DB()->table('cc_coupon_shipping');
-        $check = $table->where('coupon_id',newSession()->coupon_id)->countAllResults();
+        $check = $table->where('coupon_id', newSession()->coupon_id)->countAllResults();
 
-        if (!empty($check)){
+        if (!empty($check)) {
             $table2 = DB()->table('cc_coupon_shipping');
-            $checkShipping = $table2->where('coupon_id',newSession()->coupon_id)->where('shipping_method_id',$shipping_method_id)->countAllResults();
+            $checkShipping = $table2->where('coupon_id', newSession()->coupon_id)->where('shipping_method_id', $shipping_method_id)->countAllResults();
             if (!empty($checkShipping)) {
                 $dis = ($charge * newSession()->coupon_discount_shipping) / 100;
-            }else{
+            } else {
                 $dis =  0;
             }
-        }else{
-            $dis = ($charge * newSession()->coupon_discount_shipping)/100;
+        } else {
+            $dis = ($charge * newSession()->coupon_discount_shipping) / 100;
         }
 
         return $dis;
@@ -617,7 +617,7 @@ class Checkout extends BaseController
      * @param string $shipping_method
      * @return int|string
      */
-    private function shipping_charge($city_id,$shipCityId,$shipping_method)
+    private function shipping_charge($city_id, $shipCityId, $shipping_method)
     {
 
         if (!empty($shipCityId)) {

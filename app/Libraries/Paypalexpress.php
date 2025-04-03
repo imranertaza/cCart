@@ -4,7 +4,6 @@ namespace App\Libraries;
 
 class Paypalexpress
 {
-
     public $pex_settings;
     public $session;
 
@@ -29,8 +28,8 @@ class Paypalexpress
         curl_setopt($ch, CURLOPT_URL, $settings['api_endpoint']);
         curl_setopt($ch, CURLOPT_VERBOSE, 1);
         //turning off the server and peer verification(TrustManager Concept).
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_POST, 1);
         $nvpstr = $nvpheader . $nvpstr;
@@ -64,7 +63,7 @@ class Paypalexpress
     /** This function will take nvpstring and convert it to an Associative Array and it will decode the response.
      * It is usefull to search for a particular key and displaying arrays.
      */
-    function deformat_nvp($nvpstr)
+    public function deformat_nvp($nvpstr)
     {
         $intial = 0;
         $nvparray = array();
@@ -83,7 +82,7 @@ class Paypalexpress
         return $nvparray;
     }
 
-    /** 
+    /**
      * This function will take token and processing actual payment with token.
      */
     public function make_payment($token)
@@ -115,7 +114,7 @@ class Paypalexpress
         }
     }
 
-    /** 
+    /**
      * This function will take NVP string and setting up express checkout call and sending user to paypal url.
      */
     public function process_payment($nvpstr)

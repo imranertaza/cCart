@@ -8,7 +8,6 @@ use CodeIgniter\HTTP\RedirectResponse;
 
 class Page_settings extends BaseController
 {
-
     protected $validation;
     protected $session;
     protected $crop;
@@ -31,7 +30,7 @@ class Page_settings extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId = $this->session->adRoleId;
-        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != TRUE) {
+        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
 
@@ -56,10 +55,11 @@ class Page_settings extends BaseController
      * @description This method provides create page view
      * @return RedirectResponse|void
      */
-    public function create(){
+    public function create()
+    {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId = $this->session->adRoleId;
-        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != TRUE) {
+        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
 
@@ -84,9 +84,9 @@ class Page_settings extends BaseController
     {
         $data['page_title'] = $this->request->getPost('page_title');
         $data['slug'] = $this->request->getPost('slug');
-        $data['temp'] = !empty($this->request->getPost('temp'))?$this->request->getPost('temp'):null;
-        $data['short_des'] = !empty($this->request->getPost('short_des'))?$this->request->getPost('short_des'):null;
-        $data['page_description'] = !empty($this->request->getPost('page_description'))?$this->request->getPost('page_description'):null;
+        $data['temp'] = !empty($this->request->getPost('temp')) ? $this->request->getPost('temp') : null;
+        $data['short_des'] = !empty($this->request->getPost('short_des')) ? $this->request->getPost('short_des') : null;
+        $data['page_description'] = !empty($this->request->getPost('page_description')) ? $this->request->getPost('page_description') : null;
         $data['meta_title'] = $this->request->getPost('meta_title');
         $data['meta_keyword'] = $this->request->getPost('meta_keyword');
         $data['meta_description'] = $this->request->getPost('meta_description');
@@ -96,25 +96,25 @@ class Page_settings extends BaseController
             'slug' => ['label' => 'Slug', 'rules' => 'required'],
         ]);
 
-        if ($this->validation->run($data) == FALSE) {
+        if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/page_create');
         } else {
-//            if (!empty($_FILES['f_image']['name'])) {
-//                $target_dir = FCPATH . '/uploads/page/';
-//                if (!file_exists($target_dir)) {
-//                    mkdir($target_dir, 0777);
-//                }
-//
-//                //new image uplode
-//                $pic = $this->request->getFile('f_image');
-//                $namePic = $pic->getRandomName();
-//                $pic->move($target_dir, $namePic);
-//                $news_img = 'page_' . $pic->getName();
-//                $this->crop->withFile($target_dir . '' . $namePic)->fit(250, 150, 'center')->save($target_dir . '' . $news_img);
-//                unlink($target_dir . '' . $namePic);
-//                $data['f_image'] = $news_img;
-//            }
+            //            if (!empty($_FILES['f_image']['name'])) {
+            //                $target_dir = FCPATH . '/uploads/page/';
+            //                if (!file_exists($target_dir)) {
+            //                    mkdir($target_dir, 0777);
+            //                }
+            //
+            //                //new image uplode
+            //                $pic = $this->request->getFile('f_image');
+            //                $namePic = $pic->getRandomName();
+            //                $pic->move($target_dir, $namePic);
+            //                $news_img = 'page_' . $pic->getName();
+            //                $this->crop->withFile($target_dir . '' . $namePic)->fit(250, 150, 'center')->save($target_dir . '' . $news_img);
+            //                unlink($target_dir . '' . $namePic);
+            //                $data['f_image'] = $news_img;
+            //            }
 
             $table = DB()->table('cc_pages');
             $table->insert($data);
@@ -133,7 +133,7 @@ class Page_settings extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId = $this->session->adRoleId;
-        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != TRUE) {
+        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
 
@@ -163,9 +163,9 @@ class Page_settings extends BaseController
         $page_id = $this->request->getPost('page_id');
         $data['page_title'] = $this->request->getPost('page_title');
         $data['slug'] = $this->request->getPost('slug');
-        $data['temp'] = !empty($this->request->getPost('temp'))?$this->request->getPost('temp'):null;
-        $data['short_des'] = !empty($this->request->getPost('short_des'))?$this->request->getPost('short_des'):null;
-        $data['page_description'] = !empty($this->request->getPost('page_description'))?$this->request->getPost('page_description'):null;
+        $data['temp'] = !empty($this->request->getPost('temp')) ? $this->request->getPost('temp') : null;
+        $data['short_des'] = !empty($this->request->getPost('short_des')) ? $this->request->getPost('short_des') : null;
+        $data['page_description'] = !empty($this->request->getPost('page_description')) ? $this->request->getPost('page_description') : null;
 
         $data['meta_title'] = $this->request->getPost('meta_title');
         $data['meta_keyword'] = $this->request->getPost('meta_keyword');
@@ -176,7 +176,7 @@ class Page_settings extends BaseController
             'slug' => ['label' => 'Slug', 'rules' => 'required'],
         ]);
 
-        if ($this->validation->run($data) == FALSE) {
+        if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/page_update/' . $page_id);
         } else {
@@ -195,7 +195,8 @@ class Page_settings extends BaseController
      * @param int $page_id
      * @return RedirectResponse
      */
-    public function delete($page_id){
+    public function delete($page_id)
+    {
 
         $table = DB()->table('cc_pages');
         $table->where('page_id', $page_id)->delete();

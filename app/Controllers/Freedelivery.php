@@ -2,8 +2,8 @@
 
 namespace App\Controllers;
 
-class Freedelivery extends BaseController {
-
+class Freedelivery extends BaseController
+{
     protected $validation;
     protected $session;
 
@@ -17,10 +17,11 @@ class Freedelivery extends BaseController {
      * @description This method provides free delivery page view
      * @return void
      */
-    public function index(){
+    public function index()
+    {
         $settings = get_settings();
         $table = DB()->table('products');
-        $data['products'] = $table->where('status','Active')->get()->getResult();
+        $data['products'] = $table->where('status', 'Active')->get()->getResult();
 
 
         $data['keywords'] = $settings['meta_keyword'];
@@ -28,8 +29,8 @@ class Freedelivery extends BaseController {
         $data['title'] = 'Free delivery';
 
         $data['page_title'] = 'Free Delivery';
-        echo view('Theme/'.$settings['Theme'].'/header',$data);
-        echo view('Theme/'.$settings['Theme'].'/Home/index',$data);
+        echo view('Theme/'.$settings['Theme'].'/header', $data);
+        echo view('Theme/'.$settings['Theme'].'/Home/index', $data);
         echo view('Theme/'.$settings['Theme'].'/footer');
     }
 }

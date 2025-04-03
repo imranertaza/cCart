@@ -271,8 +271,8 @@
     </a>
     <?php
     $modules = modules_access();
-    $img_size_100 = ($modules['watermark'] == '1')?'100_wm_':'100_';
-    ?>
+                            $img_size_100 = ($modules['watermark'] == '1') ? '100_wm_' : '100_';
+                            ?>
     <div class="collapse toggle-body" id="miniCart">
         <div class="row body-count p-3">
             <div class="col-lg-7 col-md-5 col-4 col-sm-6 p-2 h-120 ">
@@ -282,8 +282,8 @@
                             <div class="pro-item">
                                 <div class="pro-imh-ct">
                                     <?php
-                                    $img = get_data_by_id('image', 'cc_products', 'product_id', $val['id']);
-                                    ?>
+                                                            $img = get_data_by_id('image', 'cc_products', 'product_id', $val['id']);
+                            ?>
                                     <?php echo image_view('uploads/products', $val['id'], $img_size_100 . $img, 'noimage.png', 'img-fluid pro-img-ft') ?>
                                 </div>
                             </div>
@@ -1221,7 +1221,7 @@
             if ($v->type == 'select') { ?>
                 var <?php echo strtolower($v->name); ?> = $('[name="<?php echo strtolower($v->name); ?>"]').val();
         <?php }
-        } ?>
+            } ?>
         $.ajax({
             method: "POST",
             url: "<?php echo base_url('optionPriceCalculate') ?>",

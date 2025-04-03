@@ -33,7 +33,7 @@
                         <a href="<?php echo base_url('admin/album_create') ?>" class="btn btn-primary btn-block btn-xs"><i class="fas fa-plus"></i> Add</a>
                     </div>
                     <div class="col-md-12" style="margin-top: 10px">
-                        <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message'); endif; ?>
+                        <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
                     </div>
                 </div>
             </div>
@@ -48,14 +48,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <?php $i=1; foreach ($album as $val){ ?>
+                    <?php $i = 1;
+foreach ($album as $val) { ?>
                         <tr>
                             <td width="40"><?php echo $i++;?></td>
                             <td><?php echo $val->name;?></td>
                             <td>
-                                <?php $img2 = str_replace("pro_", "", $val->thumb); $url2 = base_url('uploads/album/'.$val->album_id .'/wm_'.$img2);?>
+                                <?php $img2 = str_replace("pro_", "", $val->thumb);
+    $url2 = base_url('uploads/album/'.$val->album_id .'/wm_'.$img2);?>
                                 <a class="album-image-link" href="<?= $url2;?>" data-lightbox="album-set_<?= $val->album_id; ?>" >
-                                <?php echo image_view('uploads/album',$val->album_id,'50_'.$val->thumb,'50_noimage.png','');?>
+                                <?php echo image_view('uploads/album', $val->album_id, '50_'.$val->thumb, '50_noimage.png', '');?>
                                 </a>
                             </td>
                             <td width="180">

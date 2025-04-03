@@ -9,7 +9,6 @@ use CodeIgniter\HTTP\RedirectResponse;
 
 class Advanced_products extends BaseController
 {
-
     protected $validation;
     protected $session;
     protected $permission;
@@ -30,7 +29,7 @@ class Advanced_products extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId = $this->session->adRoleId;
-        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != TRUE) {
+        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
 
@@ -67,27 +66,27 @@ class Advanced_products extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId = $this->session->adRoleId;
-        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != TRUE) {
+        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
 
             $uri = service('uri');
             $urlString = $uri->getPath() . '?' . $this->request->getServer('QUERY_STRING');
-            setcookie('bulk_url_path',$urlString,time()+86400, "/");
+            setcookie('bulk_url_path', $urlString, time() + 86400, "/");
 
             $length = $this->request->getGet('length');
             $keyWord = $this->request->getGet('keyWord');
             $pageNum = $this->request->getGet('page');
 
-            $perPage = !empty($length)?$length:10;
+            $perPage = !empty($length) ? $length : 10;
             if (empty($keyWord)) {
                 $data['product'] = $this->productsModel->bulk_product_list()->paginate($perPage);
-            }else{
+            } else {
                 $data['product'] = $this->productsModel->search_data_bulk($keyWord)->paginate($perPage);
             }
 
             $data['pager'] = $this->productsModel->pager;
-            $data['links'] = $data['pager']->links('default','custom_pagination');
+            $data['links'] = $data['pager']->links('default', 'custom_pagination');
 
 
 
@@ -114,20 +113,20 @@ class Advanced_products extends BaseController
      * @return void
      */
     public function bulk_status_update()
-{
-    $module_settings_id = $this->request->getPost('module_settings_id');
-    $oldStutas = get_data_by_id('value', 'cc_module_settings', 'module_settings_id', $module_settings_id);
-    if ($oldStutas == '1') {
-        $data['value'] = '0';
-    } else {
-        $data['value'] = '1';
+    {
+        $module_settings_id = $this->request->getPost('module_settings_id');
+        $oldStutas = get_data_by_id('value', 'cc_module_settings', 'module_settings_id', $module_settings_id);
+        if ($oldStutas == '1') {
+            $data['value'] = '0';
+        } else {
+            $data['value'] = '1';
+        }
+
+        $table = DB()->table('cc_module_settings');
+        $table->where('module_settings_id', $module_settings_id)->update($data);
+
+        print '<div class="alert alert-success alert-dismissible" role="alert">Bulk Status Update Successfully <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
     }
-
-    $table = DB()->table('cc_module_settings');
-    $table->where('module_settings_id', $module_settings_id)->update($data);
-
-    print '<div class="alert alert-success alert-dismissible" role="alert">Bulk Status Update Successfully <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
-}
 
     /**
      * @description This method provides bulk data update
@@ -170,22 +169,23 @@ class Advanced_products extends BaseController
      * @description This method provides bulk description update
      * @return void
      */
-    public function description_data_update(){
+    public function description_data_update()
+    {
         $product_desc_id = $this->request->getPost('product_desc_id');
         $meta_title = $this->request->getPost('meta_title');
         $meta_description = $this->request->getPost('meta_description');
         $meta_keyword = $this->request->getPost('meta_keyword');
 
         if (isset($meta_title)) {
-            $data2['meta_title'] = !empty($meta_title)?$meta_title:null;
+            $data2['meta_title'] = !empty($meta_title) ? $meta_title : null;
         }
 
         if (isset($meta_description)) {
-            $data2['meta_description'] = !empty($meta_description)?$meta_description:null;
+            $data2['meta_description'] = !empty($meta_description) ? $meta_description : null;
         }
 
         if (isset($meta_keyword)) {
-            $data2['meta_keyword'] = !empty($meta_keyword)?$meta_keyword:null;
+            $data2['meta_keyword'] = !empty($meta_keyword) ? $meta_keyword : null;
         }
 
         //update date
@@ -194,7 +194,7 @@ class Advanced_products extends BaseController
 
 
         //data view query
-        $product_id = get_data_by_id('product_id','cc_product_description','product_desc_id',$product_desc_id);
+        $product_id = get_data_by_id('product_id', 'cc_product_description', 'product_desc_id', $product_desc_id);
         $table2 = DB()->table('cc_products');
         $data['val'] = $table2->join('cc_product_description', 'cc_product_description.product_id = cc_products.product_id')->where('cc_products.product_id', $product_id)->get()->getRow();
 
@@ -278,7 +278,8 @@ class Advanced_products extends BaseController
      * @description This method provides bulk option view
      * @return void
      */
-    public function bulk_option_view(){
+    public function bulk_option_view()
+    {
         $product_id = $this->request->getPost('product_id');
         $data['product_id'] = $product_id;
 
@@ -291,7 +292,8 @@ class Advanced_products extends BaseController
      * @description This method provides bulk option update
      * @return void
      */
-    public function bulk_option_update(){
+    public function bulk_option_update()
+    {
         $product_id = $this->request->getPost('product_id');
 
         $option = $this->request->getPost('option[]');
@@ -301,17 +303,17 @@ class Advanced_products extends BaseController
         $price_op = $this->request->getPost('price_op[]');
 
         $optionTableDel = DB()->table('cc_product_option');
-        $optionTableDel->where('product_id',$product_id)->delete();
+        $optionTableDel->where('product_id', $product_id)->delete();
 
-        if (!empty($qty)){
+        if (!empty($qty)) {
             $optionData = [];
-            foreach ($qty as $key => $val){
+            foreach ($qty as $key => $val) {
                 $optionData[$key] = [
                     'product_id' => $product_id,
                     'option_id' => $option[$key],
                     'option_value_id' => $opValue[$key],
                     'quantity' => $qty[$key],
-                    'subtract' => ($subtract[$key] == 'plus')?null:1,
+                    'subtract' => ($subtract[$key] == 'plus') ? null : 1,
                     'price' => $price_op[$key],
                 ];
             }
@@ -331,9 +333,10 @@ class Advanced_products extends BaseController
      * @description This method provides bulk multi option edit
      * @return RedirectResponse|void
      */
-    public function multi_option_edit(){
+    public function multi_option_edit()
+    {
         $allProductId =  $this->request->getPost('productId[]');
-        if (!empty($allProductId)){
+        if (!empty($allProductId)) {
 
             $data['all_product'] = $allProductId;
 
@@ -342,7 +345,7 @@ class Advanced_products extends BaseController
 
 
             echo view('Admin/Advanced_products/multi_option', $data);
-        }else{
+        } else {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Please select any product <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->back();
         }
@@ -352,7 +355,8 @@ class Advanced_products extends BaseController
      * @description This method provides bulk multi option update
      * @return RedirectResponse
      */
-    public function multi_option_action(){
+    public function multi_option_action()
+    {
         $redirect_url = isset($_COOKIE['bulk_url_path']) ? $_COOKIE['bulk_url_path'] : '';
         $all_product = $this->request->getPost('productId[]');
 
@@ -364,10 +368,10 @@ class Advanced_products extends BaseController
 
 
 
-        if (!empty($qty)){
+        if (!empty($qty)) {
             foreach ($all_product as $p) {
                 $optionTableDel = DB()->table('cc_product_option');
-                $optionTableDel->where('product_id',$p)->delete();
+                $optionTableDel->where('product_id', $p)->delete();
 
                 $optionData = [];
                 foreach ($qty as $key => $val) {
@@ -386,7 +390,7 @@ class Advanced_products extends BaseController
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Multi Option Update Successfully <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to($redirect_url);
 
-        }else{
+        } else {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Invalid input! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to($redirect_url);
         }
@@ -397,9 +401,10 @@ class Advanced_products extends BaseController
      * @description This method provides bulk multi attribute view
      * @return RedirectResponse|void
      */
-    public function multi_attribute_edit(){
+    public function multi_attribute_edit()
+    {
         $allProductId =  $this->request->getPost('productId[]');
-        if (!empty($allProductId)){
+        if (!empty($allProductId)) {
 
             $data['all_product'] = $allProductId;
 
@@ -408,7 +413,7 @@ class Advanced_products extends BaseController
 
 
             echo view('Admin/Advanced_products/multi_attribute', $data);
-        }else{
+        } else {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Please select any product <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->back();
         }
@@ -418,7 +423,8 @@ class Advanced_products extends BaseController
      * @description This method provides bulk multi attribute update
      * @return RedirectResponse
      */
-    public function multi_attribute_action(){
+    public function multi_attribute_action()
+    {
         $redirect_url = isset($_COOKIE['bulk_url_path']) ? $_COOKIE['bulk_url_path'] : '';
 
         $all_product = $this->request->getPost('productId[]');
@@ -427,7 +433,7 @@ class Advanced_products extends BaseController
         $name = $this->request->getPost('name[]');
         $details = $this->request->getPost('details[]');
 
-        if (!empty($attribute_group_id)){
+        if (!empty($attribute_group_id)) {
             foreach ($all_product as $p) {
                 $optionTableDel = DB()->table('cc_product_attribute');
                 $optionTableDel->where('product_id', $p)->delete();
@@ -445,7 +451,7 @@ class Advanced_products extends BaseController
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Multi Attribute Update Successfully <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to($redirect_url);
-        }else{
+        } else {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Invalid input! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to($redirect_url);
         }
@@ -456,9 +462,10 @@ class Advanced_products extends BaseController
      * @description This method provides bulk multi category view
      * @return RedirectResponse|void
      */
-    public function multi_category_edit(){
+    public function multi_category_edit()
+    {
         $allProductId =  $this->request->getPost('productId[]');
-        if (!empty($allProductId)){
+        if (!empty($allProductId)) {
 
             $data['all_product'] = $allProductId;
 
@@ -467,7 +474,7 @@ class Advanced_products extends BaseController
 
 
             echo view('Admin/Advanced_products/category_edit', $data);
-        }else{
+        } else {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Please select any product <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->back();
         }
@@ -477,7 +484,8 @@ class Advanced_products extends BaseController
      * @description This method provides bulk multi category update
      * @return RedirectResponse
      */
-    public function multi_category_action(){
+    public function multi_category_action()
+    {
         $redirect_url = isset($_COOKIE['bulk_url_path']) ? $_COOKIE['bulk_url_path'] : '';
 
         $all_product = $this->request->getPost('productId[]');
@@ -497,7 +505,7 @@ class Advanced_products extends BaseController
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Multi Category Update Successfully <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to($redirect_url);
-        }else{
+        } else {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Please select any category <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to($redirect_url);
         }

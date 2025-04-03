@@ -33,7 +33,7 @@
                         <button type="submit" class="btn btn-primary btn-sm " >Save</button>
                     </div>
                     <div class="col-md-12" style="margin-top: 10px">
-                        <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message'); endif; ?>
+                        <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
                     </div>
                 </div>
             </div>
@@ -72,8 +72,8 @@
                             <div class="card-body">
                                 <?php
                                 $settings = get_settings();
-                                $settingsTitle = get_settings_title();
-                                ?>
+$settingsTitle = get_settings_title();
+?>
                                 <div class="tab-content" id="custom-tabs-four-tabContent">
 
                                     <div class="tab-pane fade show active" id="custom-tabs-four-home" role="tabpanel" aria-labelledby="custom-tabs-four-home-tab">
@@ -164,7 +164,7 @@
                                                 <div class="form-group">
                                                     <label><?php echo $settingsTitle['state'];?></label>
                                                     <select name="state" class="form-control" id="stateView" required >
-                                                        <?php echo state_with_country($settings['country'],$settings['state']);?>
+                                                        <?php echo state_with_country($settings['country'], $settings['state']);?>
                                                     </select>
                                                 </div>
 
@@ -178,9 +178,9 @@
 
                                                     <select name="length_class" class="form-control" required>
                                                         <?php $valLen = $settings['length_class'];?>
-                                                        <option value="Centimeter" <?php echo ($valLen == 'Centimeter')?'selected':'';?> >Centimeter</option>
-                                                        <option value="Milimeter" <?php echo ($valLen == 'Milimeter')?'selected':'';?> >Milimeter</option>
-                                                        <option value="Inch" <?php echo ($valLen == 'Inch')?'selected':'';?> >Inch</option>
+                                                        <option value="Centimeter" <?php echo ($valLen == 'Centimeter') ? 'selected' : '';?> >Centimeter</option>
+                                                        <option value="Milimeter" <?php echo ($valLen == 'Milimeter') ? 'selected' : '';?> >Milimeter</option>
+                                                        <option value="Inch" <?php echo ($valLen == 'Inch') ? 'selected' : '';?> >Inch</option>
                                                     </select>
                                                 </div>
 
@@ -189,9 +189,9 @@
 
                                                     <select name="weight_class" class="form-control" required>
                                                         <?php $valweig = $settings['weight_class'];?>
-                                                        <option value="Kilogram" <?php echo ($valweig == 'Kilogram')?'selected':'';?> >Kilogram</option>
-                                                        <option value="Gram" <?php echo ($valweig == 'Gram')?'selected':'';?> >Gram</option>
-                                                        <option value="Pound" <?php echo ($valweig == 'Pound')?'selected':'';?> >Pound</option>
+                                                        <option value="Kilogram" <?php echo ($valweig == 'Kilogram') ? 'selected' : '';?> >Kilogram</option>
+                                                        <option value="Gram" <?php echo ($valweig == 'Gram') ? 'selected' : '';?> >Gram</option>
+                                                        <option value="Pound" <?php echo ($valweig == 'Pound') ? 'selected' : '';?> >Pound</option>
                                                     </select>
                                                 </div>
 
@@ -228,14 +228,14 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <div class="custom-control custom-switch">
-                                                        <input type="checkbox" name="new_account_alert_mail" <?php echo ($settings['new_account_alert_mail'] == '1')?'checked':'';?> class="custom-control-input" value="1" id="custom2" >
+                                                        <input type="checkbox" name="new_account_alert_mail" <?php echo ($settings['new_account_alert_mail'] == '1') ? 'checked' : '';?> class="custom-control-input" value="1" id="custom2" >
                                                         <label class="custom-control-label" for="custom2"><?php echo $settingsTitle['new_account_alert_mail'];?></label>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group">
                                                     <div class="custom-control custom-switch">
-                                                        <input type="checkbox" name="new_order_alert_mail" <?php echo ($settings['new_order_alert_mail'] == '1')?'checked':'';?> class="custom-control-input" value="1" id="customSwitch1" >
+                                                        <input type="checkbox" name="new_order_alert_mail" <?php echo ($settings['new_order_alert_mail'] == '1') ? 'checked' : '';?> class="custom-control-input" value="1" id="customSwitch1" >
                                                         <label class="custom-control-label" for="customSwitch1"><?php echo $settingsTitle['new_order_alert_mail'];?></label>
                                                     </div>
                                                 </div>

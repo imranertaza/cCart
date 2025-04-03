@@ -1,10 +1,11 @@
 <?php
+
 namespace App\Libraries;
 
 use Config\Services;
 
-class Image_processing {
-
+class Image_processing
+{
     private $wm;
     private $marge_right = 30;
     private $marge_bottom = 30;
@@ -14,7 +15,8 @@ class Image_processing {
     public $sizeArray;
     private $quality = 100;
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->wm = imagecreatefrompng(FCPATH . '/uploads/products/wm.png');
         $this->sx = imagesx($this->wm);
         $this->sy = imagesy($this->wm);
@@ -26,16 +28,17 @@ class Image_processing {
      * @description This function provides selected theme libraries
      * @return array
      */
-    public function selected_theme_libraries(){
+    public function selected_theme_libraries()
+    {
         helper('Global');
         $theme = get_lebel_by_value_in_settings('Theme');
-        if($theme == 'Theme_3'){
+        if ($theme == 'Theme_3') {
             $libraries = new Theme_3();
         }
-        if($theme == 'Default'){
+        if ($theme == 'Default') {
             $libraries = new Theme_default();
         }
-        if($theme == 'Theme_2'){
+        if ($theme == 'Theme_2') {
             $libraries = new Theme_2();
         }
         return $libraries->product_image;
@@ -46,7 +49,8 @@ class Image_processing {
      * @param string $dir
      * @return $this
      */
-    public function image_unlink($dir){
+    public function image_unlink($dir)
+    {
         if (file_exists($dir)) {
             unlink($dir);
         }
@@ -59,7 +63,8 @@ class Image_processing {
      * @param string $dir
      * @return string
      */
-    public function product_image_upload($file,$dir){
+    public function product_image_upload($file, $dir)
+    {
         $namePic = $file->getRandomName();
         $file->move($dir, $namePic);
         return 'pro_' . $file->getName();
@@ -71,12 +76,13 @@ class Image_processing {
      * @param string $image
      * @return $this
      */
-    public function watermark_main_image($dir,$image){
+    public function watermark_main_image($dir, $image)
+    {
         if (!file_exists($dir . '/wm_' . $image)) {
 
-            if (pathinfo($image, PATHINFO_EXTENSION) == 'png'){
+            if (pathinfo($image, PATHINFO_EXTENSION) == 'png') {
                 $mainImg = imagecreatefrompng($dir . $image);
-            }else {
+            } else {
                 $mainImg = imagecreatefromjpeg($dir . $image);
             }
             //imagecopy($mainImg, $this->wm, imagesx($mainImg) - $this->sx - $this->marge_right, imagesy($mainImg) - $this->sy - $this->marge_bottom, 0, 0, imagesx($this->wm), imagesy($this->wm));
@@ -117,13 +123,14 @@ class Image_processing {
      * @param string $image
      * @return $this
      */
-    public function watermark_on_resized_image($dir,$image){
+    public function watermark_on_resized_image($dir, $image)
+    {
         if (!file_exists($dir . '/600_wm_' . $image)) {
-            $this->crop->withFile($dir . $image)->fit(600, 600, 'center')->save($dir . '600_' . $image ,$this->quality);
+            $this->crop->withFile($dir . $image)->fit(600, 600, 'center')->save($dir . '600_' . $image, $this->quality);
 
-            if (pathinfo($image, PATHINFO_EXTENSION) == 'png'){
+            if (pathinfo($image, PATHINFO_EXTENSION) == 'png') {
                 $mImg = imagecreatefrompng($dir . $image);
-            }else {
+            } else {
                 $mImg = imagecreatefromjpeg($dir . '600_' . $image);
             }
             imagecopy($mImg, $this->wm, imagesx($mImg) - $this->sx - $this->marge_right, imagesy($mImg) - $this->sy - $this->marge_bottom, 0, 0, imagesx($this->wm), imagesy($this->wm));
@@ -141,10 +148,11 @@ class Image_processing {
      * @param string $image_name
      * @return $this
      */
-    public function image_crop($dir,$image,$image_name){
-        foreach($this->sizeArray as $pro_img){
+    public function image_crop($dir, $image, $image_name)
+    {
+        foreach ($this->sizeArray as $pro_img) {
             if (!file_exists($dir . '/' . $pro_img['width'] .'_' . $image_name)) {
-                $this->crop->withFile($dir .  $image)->fit($pro_img['width'], $pro_img['height'], 'center')->save($dir . $pro_img['width'] . '_' . $image_name,$this->quality);
+                $this->crop->withFile($dir .  $image)->fit($pro_img['width'], $pro_img['height'], 'center')->save($dir . $pro_img['width'] . '_' . $image_name, $this->quality);
             }
         }
         return $this;
@@ -156,7 +164,8 @@ class Image_processing {
      * @param string $image
      * @return $this
      */
-    public function single_product_image_unlink($dir,$image){
+    public function single_product_image_unlink($dir, $image)
+    {
         if ((!empty($image)) && (file_exists($dir))) {
             $mainImg = str_replace('pro_', '', $image);
 
@@ -164,7 +173,7 @@ class Image_processing {
             $this->image_unlink($dir . '/wm_' . $mainImg);
             $this->image_unlink($dir . '/600_wm_' . $mainImg);
 
-            foreach($this->sizeArray as $pro_img){
+            foreach ($this->sizeArray as $pro_img) {
                 $this->image_unlink($dir . '/' . $pro_img['width'] .'_' . $image);
                 $this->image_unlink($dir . '/' . $pro_img['width'] .'_wm_' . $image);
             }
@@ -177,7 +186,8 @@ class Image_processing {
      * @param string $dir
      * @return $this
      */
-    public function directory_create($dir){
+    public function directory_create($dir)
+    {
         if (!file_exists($dir)) {
             mkdir($dir, 0777);
         }
@@ -190,12 +200,13 @@ class Image_processing {
      * @param string $dir
      * @return string
      */
-    public function product_image_upload_and_crop_all_size($img,$dir){
+    public function product_image_upload_and_crop_all_size($img, $dir)
+    {
         $modules = modules_access();
-        $news_img = $this->product_image_upload($img,$dir);
+        $news_img = $this->product_image_upload($img, $dir);
         //image crop
         $image = str_replace('pro_', '', $news_img);
-        $this->image_crop($dir,$image, $news_img);
+        $this->image_crop($dir, $image, $news_img);
         if ($modules['watermark'] == '1') {
             //image watermark
             $this->watermark_main_image($dir, $image);
@@ -207,12 +218,13 @@ class Image_processing {
         return $news_img;
     }
 
-    public function image_upload_and_crop_all_size($img,$dir){
+    public function image_upload_and_crop_all_size($img, $dir)
+    {
         $modules = modules_access();
-        $news_img = $this->product_image_upload($img,$dir);
+        $news_img = $this->product_image_upload($img, $dir);
         //image crop
         $image = str_replace('pro_', '', $news_img);
-        $this->image_crop($dir,$image, $news_img);
+        $this->image_crop($dir, $image, $news_img);
 
         return $news_img;
     }

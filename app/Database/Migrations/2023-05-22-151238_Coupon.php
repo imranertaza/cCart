@@ -45,13 +45,13 @@ class Coupon extends Migration
             'total_useable' => [
                 'type' => 'INT',
                 'constraint' => 11,
-                'default' => NULL,
+                'default' => null,
                 'null' => true,
             ],
             'total_used' => [
                 'type' => 'INT',
                 'constraint' => 11,
-                'default' => NULL,
+                'default' => null,
                 'null' => true,
             ],
             'date_start' => [
