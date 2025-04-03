@@ -45,9 +45,9 @@ class StripeController extends BaseController
         $data['keywords'] = $settings['meta_keyword'];
         $data['description'] = $settings['meta_description'];
         $data['title'] = 'Stripe payment';
-        echo view('Theme/'.$settings['Theme'].'/header', $data);
-        echo view('Theme/'.$settings['Theme'].'/Checkout/stripe');
-        echo view('Theme/'.$settings['Theme'].'/footer');
+        echo view('Theme/' . $settings['Theme'] . '/header', $data);
+        echo view('Theme/' . $settings['Theme'] . '/Checkout/stripe');
+        echo view('Theme/' . $settings['Theme'] . '/footer');
     }
 
     /**
@@ -63,7 +63,7 @@ class StripeController extends BaseController
             "amount" => $this->session->t_amount * 100,
             "currency" => "usd",
             "source" => $this->request->getVar('stripeToken'),
-            "description" => get_lebel_by_value_in_settings('meta_keyword')." Payment "
+            "description" => get_lebel_by_value_in_settings('meta_keyword') . " Payment ",
         ]);
 
 
@@ -371,9 +371,9 @@ class StripeController extends BaseController
         $data['keywords'] = $settings['meta_keyword'];
         $data['description'] = $settings['meta_description'];
         $data['title'] = 'Stripe payment';
-        echo view('Theme/'.$settings['Theme'].'/header', $data);
-        echo view('Theme/'.$settings['Theme'].'/Customer/stripe');
-        echo view('Theme/'.$settings['Theme'].'/footer');
+        echo view('Theme/' . $settings['Theme'] . '/header', $data);
+        echo view('Theme/' . $settings['Theme'] . '/Customer/stripe');
+        echo view('Theme/' . $settings['Theme'] . '/footer');
     }
 
     public function stripe_create_charge_wallet()
@@ -384,7 +384,7 @@ class StripeController extends BaseController
             "amount" => $this->session->amount * 100,
             "currency" => "usd",
             "source" => $this->request->getVar('stripeToken'),
-            "description" => get_lebel_by_value_in_settings('meta_keyword')." Payment "
+            "description" => get_lebel_by_value_in_settings('meta_keyword') . " Payment ",
         ]);
 
 

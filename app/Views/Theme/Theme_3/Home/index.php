@@ -27,7 +27,7 @@
                     ?>
                         <div class="position-absolute top-0 p-3">
                             <h4><?php echo $theme_settings['head_side_title_1'];?></h4>
-                            <a class="btn btn-sidebanner" href="<?php echo base_url('category/'.$theme_settings['head_side_category_1']); ?>">
+                            <a class="btn btn-sidebanner" href="<?php echo base_url('category/' . $theme_settings['head_side_category_1']); ?>">
                                 Shop Now                                
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M5 12L17.25 12L12 6.75L12.66 6L19.16 12.5L12.66 19L12 18.25L17.25 13L5 13L5 12Z" fill="#818181"/>
@@ -42,7 +42,7 @@
 
                         <div class="position-absolute top-0 p-3">
                             <h4><?php echo $theme_settings['head_side_title_2'];?></h4>
-                            <a class="btn btn-sidebanner" href="<?php echo base_url('category/'.$theme_settings['head_side_category_2']); ?>" >
+                            <a class="btn btn-sidebanner" href="<?php echo base_url('category/' . $theme_settings['head_side_category_2']); ?>" >
                                 Shop Now                                
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M5 12L17.25 12L12 6.75L12.66 6L19.16 12.5L12.66 19L12 18.25L17.25 13L5 13L5 12Z" fill="#818181"/>
@@ -69,7 +69,7 @@
             <div class="row row-cols-lg-6 row-cols-md-3 row-cols-sm-3 row-cols-2 row-cols-1">
             <?php  foreach ($populerCat as $key => $catPop) {  ?>
                 <div class="col">
-                    <a href="<?php echo base_url('category/'.$catPop->prod_cat_id) ?>">   
+                    <a href="<?php echo base_url('category/' . $catPop->prod_cat_id) ?>">   
                     <?php echo image_view('uploads/category', '', $catPop->image, 'noimage.png', 'w-100'); ?>
                     <div class="category-title"><?php echo $catPop->category_name;?></div>
                     </a>

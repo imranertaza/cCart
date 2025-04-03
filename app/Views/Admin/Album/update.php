@@ -58,7 +58,7 @@
                         <div class="col-md-8">
                             <div class="row ">
                                 <div class="col-md-2 img_view">
-                                    <?php echo image_view('uploads/album', $album->album_id, '198_'.$album->thumb, 'noimage.png', 'img-w-h-100');?>
+                                    <?php echo image_view('uploads/album', $album->album_id, '198_' . $album->thumb, 'noimage.png', 'img-w-h-100');?>
                                 </div>
                             </div>
                             <div id="framesdef"></div><br>

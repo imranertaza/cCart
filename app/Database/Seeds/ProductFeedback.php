@@ -20,7 +20,7 @@ class ProductFeedback extends Seeder
                 'createdBy' => null,
                 'updatedBy' => null,
                 'updatedDtm' => '2023-05-27 17:04:00',
-            ]
+            ],
         ];
 
 

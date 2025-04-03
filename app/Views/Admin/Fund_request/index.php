@@ -53,7 +53,7 @@
 foreach ($fund_request as $val) { ?>
                         <tr>
                             <td width="40"><?php echo $i++;?></td>
-                            <td><?php echo get_data_by_id('firstname', 'cc_customer', 'customer_id', $val->customer_id).' '.get_data_by_id('lastname', 'cc_customer', 'customer_id', $val->customer_id);?></td>
+                            <td><?php echo get_data_by_id('firstname', 'cc_customer', 'customer_id', $val->customer_id) . ' ' . get_data_by_id('lastname', 'cc_customer', 'customer_id', $val->customer_id);?></td>
                             <td><?php echo currency_symbol($val->amount);?></td>
                             <td><?php echo get_data_by_id('name', 'cc_payment_method', 'payment_method_id', $val->payment_method_id);?></td>
                             <td><?php echo saleDate($val->createdDtm);?></td>

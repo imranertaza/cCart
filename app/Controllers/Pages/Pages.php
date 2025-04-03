@@ -33,13 +33,13 @@ class Pages extends BaseController
         $data['description'] = !empty($page->meta_description) ? $page->meta_description : $settings['meta_description'];
         $data['title'] = !empty($page->meta_title) ? $page->meta_title : $page->page_title;
 
-        echo view('Theme/'.$settings['Theme'].'/header', $data);
+        echo view('Theme/' . $settings['Theme'] . '/header', $data);
         if (!empty($page->temp)) {
-            echo view('Theme/'.$settings['Theme'].'/Page/'.$page->temp);
+            echo view('Theme/' . $settings['Theme'] . '/Page/' . $page->temp);
         } else {
-            echo view('Theme/'.$settings['Theme'].'/Page/default', $data);
+            echo view('Theme/' . $settings['Theme'] . '/Page/default', $data);
         }
-        echo view('Theme/'.$settings['Theme'].'/footer');
+        echo view('Theme/' . $settings['Theme'] . '/footer');
     }
 
     /**

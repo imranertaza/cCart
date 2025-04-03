@@ -199,7 +199,7 @@ class Order extends Migration
                 'constraint' => '10,4',
             ],
             'status' => [
-                'type' => 'tinyint'
+                'type' => 'tinyint',
             ],
             'payment_status' => [
                 'type' => 'ENUM',

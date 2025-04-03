@@ -107,7 +107,7 @@ class Album extends BaseController
             $this->imageProcessing->sizeArray = [ [ 'width' => '498', 'height' => '498', ], [ 'width' => '261', 'height' => '261', ], [ 'width' => '198', 'height' => '198', ], [ 'width' => '50', 'height' => '50', ], ];
 
             if (!empty($_FILES['thumb']['name'])) {
-                $target_dir = FCPATH . '/uploads/album/'.$albumId.'/';
+                $target_dir = FCPATH . '/uploads/album/' . $albumId . '/';
                 $this->imageProcessing->directory_create($target_dir);
 
                 //new image upload
@@ -125,7 +125,7 @@ class Album extends BaseController
             //multi image upload(start)
             if ($this->request->getFileMultiple('multiImage')) {
 
-                $target_dir = FCPATH . '/uploads/album/'.$albumId.'/';
+                $target_dir = FCPATH . '/uploads/album/' . $albumId . '/';
                 $this->imageProcessing->directory_create($target_dir);
 
                 $files = $this->request->getFileMultiple('multiImage');
@@ -137,7 +137,7 @@ class Album extends BaseController
                         $albumImgTable->insert($dataMultiImg);
                         $albumImgId = DB()->insertID();
 
-                        $target_dir2 = FCPATH . '/uploads/album/'.$albumId.'/'.$albumImgId.'/';
+                        $target_dir2 = FCPATH . '/uploads/album/' . $albumId . '/' . $albumImgId . '/';
                         $this->imageProcessing->directory_create($target_dir2);
 
                         $news_img2 = $this->imageProcessing->product_image_upload_and_crop_all_size($file, $target_dir2);
@@ -222,7 +222,7 @@ class Album extends BaseController
             $this->imageProcessing->sizeArray = [ [ 'width' => '498', 'height' => '498', ], [ 'width' => '261', 'height' => '261', ], [ 'width' => '198', 'height' => '198', ], [ 'width' => '50', 'height' => '50', ], ];
 
             if (!empty($_FILES['thumb']['name'])) {
-                $target_dir = FCPATH . '/uploads/album/'.$album_id.'/';
+                $target_dir = FCPATH . '/uploads/album/' . $album_id . '/';
                 //unlink
                 $oldImg = get_data_by_id('thumb', 'cc_album', 'album_id', $album_id);
                 $pic = $this->request->getFile('thumb');
@@ -238,7 +238,7 @@ class Album extends BaseController
             //multi image upload(start)
             if ($this->request->getFileMultiple('multiImage')) {
 
-                $target_dir = FCPATH . '/uploads/album/'.$album_id.'/';
+                $target_dir = FCPATH . '/uploads/album/' . $album_id . '/';
                 $this->imageProcessing->directory_create($target_dir);
 
                 $files = $this->request->getFileMultiple('multiImage');
@@ -250,7 +250,7 @@ class Album extends BaseController
                         $proImgTable->insert($dataMultiImg);
                         $albumImgId = DB()->insertID();
 
-                        $target_dir2 = FCPATH . '/uploads/album/'.$album_id.'/'.$albumImgId.'/';
+                        $target_dir2 = FCPATH . '/uploads/album/' . $album_id . '/' . $albumImgId . '/';
                         $news_img2 = $this->imageProcessing->directory_create($target_dir2)->product_image_upload_and_crop_all_size($file, $target_dir2);
 
                         $dataMultiImg2['image'] = $news_img2;
@@ -282,7 +282,7 @@ class Album extends BaseController
 
         DB()->transStart();
 
-        $target_dir = FCPATH . '/uploads/album/'.$album_id;
+        $target_dir = FCPATH . '/uploads/album/' . $album_id;
         if (file_exists($target_dir)) {
             delete_files($target_dir, true);
             rmdir($target_dir);
@@ -326,7 +326,7 @@ class Album extends BaseController
         $table = DB()->table('cc_album_details');
         $data = $table->where('album_details_id', $album_details_id)->get()->getRow();
 
-        $target_dir = FCPATH . '/uploads/album/'.$data->album_id.'/'.$album_details_id;
+        $target_dir = FCPATH . '/uploads/album/' . $data->album_id . '/' . $album_details_id;
         if (file_exists($target_dir)) {
             delete_files($target_dir, true);
             rmdir($target_dir);

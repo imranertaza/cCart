@@ -101,9 +101,9 @@ class Products extends BaseController
         $data['title'] = !empty($data['products']->meta_title) ? $data['products']->meta_title : $data['products']->name;
 
         $data['page_title'] = 'Product Detail';
-        echo view('Theme/'.$settings['Theme'].'/header', $data);
-        echo view('Theme/'.$settings['Theme'].'/Product/detail');
-        echo view('Theme/'.$settings['Theme'].'/footer');
+        echo view('Theme/' . $settings['Theme'] . '/header', $data);
+        echo view('Theme/' . $settings['Theme'] . '/Product/detail');
+        echo view('Theme/' . $settings['Theme'] . '/footer');
     }
 
     /**
@@ -119,9 +119,9 @@ class Products extends BaseController
         $data['title'] = !empty($settings['meta_title']) ? $settings['meta_title'] : $settings['store_name'];
 
         $data['page_title'] = 'Product Not Found';
-        echo view('Theme/'.$settings['Theme'].'/header', $data);
-        echo view('Theme/'.$settings['Theme'].'/Product/not_found');
-        echo view('Theme/'.$settings['Theme'].'/footer');
+        echo view('Theme/' . $settings['Theme'] . '/header', $data);
+        echo view('Theme/' . $settings['Theme'] . '/Product/not_found');
+        echo view('Theme/' . $settings['Theme'] . '/footer');
     }
 
     /**
@@ -177,8 +177,8 @@ class Products extends BaseController
         ]);
 
         if ($this->validation->run($data) == false) {
-            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() .'</div>');
-            return redirect()->to('detail/'. $data['product_id']);
+            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . '</div>');
+            return redirect()->to('detail/' . $data['product_id']);
         } else {
 
             $table = DB()->table('cc_product_feedback');
@@ -189,7 +189,7 @@ class Products extends BaseController
             $tablePro->where('product_id', $data['product_id'])->update($dataRet);
 
             $this->session->setFlashdata('message', '<div class="alert-success-m alert-success alert-dismissible" role="alert">Successfully submitted review</div>');
-            return redirect()->to('detail/'. $data['product_id']);
+            return redirect()->to('detail/' . $data['product_id']);
         }
     }
 
@@ -263,7 +263,7 @@ class Products extends BaseController
         $view = '<ul class="list-unstyled filter-items mb-3">';
         foreach ($data as $opVal) {
             $fildName = str_replace(' ', '', $name);
-            $view .= '<li class="mt-2"><input type="radio" class="btn-check" oninput="optionPriceCalculate('.$product_id.')"  name="'.strtolower($fildName).'" id="option_'.$opVal->option_value_id.'" value="'.$opVal->option_value_id.'"  autocomplete="off" required>';
+            $view .= '<li class="mt-2"><input type="radio" class="btn-check" oninput="optionPriceCalculate(' . $product_id . ')"  name="' . strtolower($fildName) . '" id="option_' . $opVal->option_value_id . '" value="' . $opVal->option_value_id . '"  autocomplete="off" required>';
 
             $nameVal = get_data_by_id('name', 'cc_option_value', 'option_value_id', $opVal->option_value_id);
             $firstCar =  mb_substr($nameVal, 0, 1);
@@ -272,8 +272,8 @@ class Products extends BaseController
             $nameOp = !empty($isColor) ? $isColor : '';
             $style = empty($isColor) ? "background-color: $nameVal;padding: 15px 18px; border: unset;" : "";
 
-            $view .= '<label class="btn btn-outline-secondary pd-new"  style="'.$style.' border-radius: unset; margin-left:8px;"  for="option_'.$opVal->option_value_id.'">
-                '.$nameOp.'</label></li>';
+            $view .= '<label class="btn btn-outline-secondary pd-new"  style="' . $style . ' border-radius: unset; margin-left:8px;"  for="option_' . $opVal->option_value_id . '">
+                ' . $nameOp . '</label></li>';
         }
         $view .= '</ul>';
         return $view;
@@ -291,7 +291,7 @@ class Products extends BaseController
         $table = DB()->table('cc_product_option');
         $data = $table->where('option_id', $option_id)->where('product_id', $product_id)->get()->getResult();
         $fildName = str_replace(' ', '', $name);
-        $view = '<select name="'.strtolower($fildName).'"  onchange="optionPriceCalculate('.$product_id.')" class="form-control detail-select my-2" required><option value="" >Please select</option>';
+        $view = '<select name="' . strtolower($fildName) . '"  onchange="optionPriceCalculate(' . $product_id . ')" class="form-control detail-select my-2" required><option value="" >Please select</option>';
         foreach ($data as $opVal) {
             $nameVal = get_data_by_id('name', 'cc_option_value', 'option_value_id', $opVal->option_value_id);
             $firstCar =  mb_substr($nameVal, 0, 1);
@@ -299,7 +299,7 @@ class Products extends BaseController
             $isColor = (($firstCar == '#') && ($length == 7)) ? '' : $nameVal;
             $nameOp = !empty($isColor) ? $isColor : '';
             $style = empty($isColor) ? "background-color: $nameVal;padding: 15px 18px; border: unset;" : "";
-            $view .= '<option value="'.$opVal->option_value_id.'" style="'.$style.'" >'.$nameVal.'</option>';
+            $view .= '<option value="' . $opVal->option_value_id . '" style="' . $style . '" >' . $nameVal . '</option>';
         }
         $view .= '</select>';
         return $view;

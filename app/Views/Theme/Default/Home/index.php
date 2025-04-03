@@ -42,7 +42,7 @@
                                                         $icon = get_data_by_id('code', 'cc_icons', 'icon_id', $icon_id);
                                                         ?>
                         <div class="col border p-5">
-                            <a href="<?php echo base_url('category/'.$catPop->prod_cat_id);?>">
+                            <a href="<?php echo base_url('category/' . $catPop->prod_cat_id);?>">
                             <?php echo $icon; ?>
                             <h5 class="mt-3"><a href="#"><?php echo get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $catPop->prod_cat_id);?></a></h5>
                             </a>
@@ -151,7 +151,7 @@
                                         <a href="javascript:void(0)" onclick="addToCompare(<?php echo $pro->product_id ?>)" class="btn-compare position-absolute start-0 top-0 mt-5 ms-2"><i class="fa-solid fa-code-compare"></i></a>
                                         <?php } ?>
                                         <div class="product-top">
-                                            <?php echo image_view('uploads/products', $pro->product_id, $img_size .$pro->image, 'noimage.png', 'img-fluid w-100')?>
+                                            <?php echo image_view('uploads/products', $pro->product_id, $img_size . $pro->image, 'noimage.png', 'img-fluid w-100')?>
                                             <div class="rating text-center my-2">
                                                 <?php echo product_id_by_rating($pro->product_id);?>
                                             </div>
@@ -161,7 +161,7 @@
                                                 Categorie
                                             </div>
                                             <div class="product-title mb-2 text-capitalize">
-                                                <a href="<?php echo base_url('detail/'.$pro->product_id)?>"><?php echo $pro->name;?></a>
+                                                <a href="<?php echo base_url('detail/' . $pro->product_id)?>"><?php echo $pro->name;?></a>
                                             </div>
                                             <div class="price mb-3">
                                                 <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id);
@@ -208,7 +208,7 @@
                                     <a href="javascript:void(0)" onclick="addToCompare(<?php echo $fetPro->product_id ?>)" class="btn-compare position-absolute start-0 top-0 mt-5 ms-2"><i class="fa-solid fa-code-compare"></i></a>
                                     <?php } ?>
                                     <div class="product-top">
-                                        <?php echo image_view('uploads/products', $fetPro->product_id, $img_size .$fetPro->image, 'noimage.png', 'img-fluid w-100')?>
+                                        <?php echo image_view('uploads/products', $fetPro->product_id, $img_size . $fetPro->image, 'noimage.png', 'img-fluid w-100')?>
                                         <div class="rating text-center my-2">
                                             <?php echo product_id_by_rating($fetPro->product_id);?>
                                         </div>
@@ -218,7 +218,7 @@
                                             Categorie
                                         </div>
                                         <div class="product-title mb-2 text-capitalize">
-                                            <a href="<?php echo base_url('detail/'.$fetPro->product_id)?>"><?php echo $fetPro->name;?></a>
+                                            <a href="<?php echo base_url('detail/' . $fetPro->product_id)?>"><?php echo $fetPro->name;?></a>
                                         </div>
                                         <div class="price mb-3">
                                             <?php $spPricFut = get_data_by_id('special_price', 'cc_product_special', 'product_id', $fetPro->product_id);

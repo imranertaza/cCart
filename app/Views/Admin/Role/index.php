@@ -54,8 +54,8 @@ foreach ($roles as $val) { ?>
                             <td><?php echo $val->role;?></td>
                             <td width="180">
                                 <?php if ($val->is_default != 1) { ?>
-                                <a href="<?php echo base_url('admin/role_update/'.$val->role_id);?>" class="btn btn-primary btn-xs"><i class="fas fa-edit"></i> Update</a>
-                                <a href="<?php echo base_url('admin/role_delete/'.$val->role_id);?>" onclick="return confirm('Are you sure you want to Delete?')" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i> Delete</a>
+                                <a href="<?php echo base_url('admin/role_update/' . $val->role_id);?>" class="btn btn-primary btn-xs"><i class="fas fa-edit"></i> Update</a>
+                                <a href="<?php echo base_url('admin/role_delete/' . $val->role_id);?>" onclick="return confirm('Are you sure you want to Delete?')" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i> Delete</a>
                                 <?php } ?>
                             </td>
                         </tr>

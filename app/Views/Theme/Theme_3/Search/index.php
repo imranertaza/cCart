@@ -56,7 +56,7 @@
                                     <p>Category</p>
                                     <ul class="list-unstyled lh-lg">
                                         <?php foreach (getParentCategoryArray() as $cat) { ?>
-                                            <li><a href="<?php echo base_url('category/'.$cat->prod_cat_id);?>"><i class="fa-solid fa-angle-right"></i> <?php echo $cat->category_name?> <span class="count"><?php echo category_id_by_product_count($cat->prod_cat_id)?></span></a></li>
+                                            <li><a href="<?php echo base_url('category/' . $cat->prod_cat_id);?>"><i class="fa-solid fa-angle-right"></i> <?php echo $cat->category_name?> <span class="count"><?php echo category_id_by_product_count($cat->prod_cat_id)?></span></a></li>
                                         <?php } ?>
                                     </ul>
                                 </div>
@@ -161,7 +161,7 @@
                                                     </a>
                                                 <?php } ?>
                                                 <div class="product-top">
-                                                    <?php echo image_view('uploads/products', $pro->product_id, '191_'.$pro->image, 'noimage.png', 'img-fluid w-100')?>
+                                                    <?php echo image_view('uploads/products', $pro->product_id, '191_' . $pro->image, 'noimage.png', 'img-fluid w-100')?>
                                                     <div class="rating text-center my-2">
                                                         <?php echo product_id_by_rating($pro->product_id);?>
                                                     </div>
@@ -171,7 +171,7 @@
                                                         Categorie
                                                     </div>
                                                     <div class="product-title mb-2">
-                                                        <a href="<?php echo base_url('detail/'.$pro->product_id)?>"><?php echo $pro->name;?></a>
+                                                        <a href="<?php echo base_url('detail/' . $pro->product_id)?>"><?php echo $pro->name;?></a>
                                                     </div>
                                                     <div class="price mb-3">
                                                         <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id);

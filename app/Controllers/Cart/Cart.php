@@ -31,9 +31,9 @@ class Cart extends BaseController
         $data['title'] = 'Shopping Cart';
 
         $data['page_title'] = 'Cart';
-        echo view('Theme/'.$settings['Theme'].'/header', $data);
-        echo view('Theme/'.$settings['Theme'].'/Cart/index');
-        echo view('Theme/'.$settings['Theme'].'/footer');
+        echo view('Theme/' . $settings['Theme'] . '/header', $data);
+        echo view('Theme/' . $settings['Theme'] . '/Cart/index');
+        echo view('Theme/' . $settings['Theme'] . '/footer');
     }
 
     /**
@@ -135,7 +135,7 @@ class Cart extends BaseController
         ];
 
         foreach (get_all_data_array('cc_option') as $v) {
-            $data['op_'.strtolower($v->name)] = $this->request->getPost(strtolower($v->name));
+            $data['op_' . strtolower($v->name)] = $this->request->getPost(strtolower($v->name));
         }
 
         $check = $this->check_qty($product_id, $qty);
@@ -167,7 +167,7 @@ class Cart extends BaseController
                 'id' => $product_id,
                 'name' => strval($name),
                 'qty' => 1,
-                'price' => $price
+                'price' => $price,
             ];
             $this->cart->insert($data);
         }
@@ -184,7 +184,7 @@ class Cart extends BaseController
         $qty = $this->request->getPost('qty');
         $data = [
             'rowid' => $rowid,
-            'qty'   => $qty
+            'qty'   => $qty,
         ];
 
 

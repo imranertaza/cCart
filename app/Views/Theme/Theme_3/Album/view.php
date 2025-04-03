@@ -7,14 +7,14 @@
                 </div>
                 <div class="col-4 col-md-3 mt-4 text-center ">
                     <?php $img = str_replace("pro_", "", $album->thumb);
-                    $url = base_url('uploads/album/'.$album->album_id.'/wm_'.$img); ?>
+                    $url = base_url('uploads/album/' . $album->album_id . '/wm_' . $img); ?>
                     <a class="example-image-link" href="<?= $url;?>" data-lightbox="example-set">
-                    <?php echo image_view('uploads/album', $album->album_id, '261_wm_'.$album->thumb, 'noimage.png', '');?>
+                    <?php echo image_view('uploads/album', $album->album_id, '261_wm_' . $album->thumb, 'noimage.png', '');?>
                     </a>
                 </div>
                 <?php foreach ($albumAll as $val) {
                     $img2 = str_replace("pro_", "", $val->image);
-                    $url2 = base_url('uploads/album/'.$val->album_id.'/'.$val->album_details_id.'/wm_'.$img2); ?>
+                    $url2 = base_url('uploads/album/' . $val->album_id . '/' . $val->album_details_id . '/wm_' . $img2); ?>
                 <div class="col-4 col-md-3 mt-4 text-center ">
                     <a class="example-image-link" href="<?= $url2;?>" data-lightbox="example-set" >
                     <?php echo multi_image_view('uploads/album', $val->album_id, $val->album_details_id, '261_wm_' . $val->image, 'noimage.png', 'img-fluid');?>

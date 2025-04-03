@@ -371,7 +371,7 @@ class Paypal extends BaseController
         $dataSession['payment_method_id'] = $this->request->getGet('payment_method_id');
         $this->session->set($dataSession);
 
-        $name = $this->session->cusAll->firstname.' '.$this->session->cusAll->lastname;
+        $name = $this->session->cusAll->firstname . ' ' . $this->session->cusAll->lastname;
 
         $settings = paypal_settings();
         $paypalexpress = new Paypalexpress($settings);

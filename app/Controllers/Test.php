@@ -21,11 +21,11 @@ class Test extends BaseController
         $output = '';
         foreach ($rows as $row) {
             $output .= '[<br/>';
-            $output .= "'theme_settings_id' => "."'".$row->theme_settings_id."'".',<br/>';
-            $output .= "'label' => "."'".$row->label."'".',<br/>';
-            $output .= "'title' => "."'".$row->title."'".',<br/>';
-            $output .= "'value' => "."'".$row->value."'".',<br/>';
-            $output .= "'theme' => "."'".$row->theme."'".',<br/>';
+            $output .= "'theme_settings_id' => " . "'" . $row->theme_settings_id . "'" . ',<br/>';
+            $output .= "'label' => " . "'" . $row->label . "'" . ',<br/>';
+            $output .= "'title' => " . "'" . $row->title . "'" . ',<br/>';
+            $output .= "'value' => " . "'" . $row->value . "'" . ',<br/>';
+            $output .= "'theme' => " . "'" . $row->theme . "'" . ',<br/>';
             //            $output .= "'image' => '".str_replace("'", "\'", $row->image)."',<br/>";
             //            $output .= "'start_date' => '".$row->start_date."',<br/>";
             //            $output .= "'end_date' => '".$row->end_date."',<br/>";

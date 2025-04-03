@@ -29,7 +29,7 @@ class Category extends BaseController
     public function index($cat_id)
     {
         $settings = get_settings();
-        $categoryWhere = !empty($this->request->getGetPost('category')) ? 'category_id = '.$this->request->getGetPost('category') : 'category_id = '.$cat_id;
+        $categoryWhere = !empty($this->request->getGetPost('category')) ? 'category_id = ' . $this->request->getGetPost('category') : 'category_id = ' . $cat_id;
 
         $data['optionval'] = [];
         $data['brandval'] = [];
@@ -71,9 +71,9 @@ class Category extends BaseController
         setcookie('category_cookie', $cat_id, time() + 86400, "/");
 
         $data['page_title'] = 'Category products';
-        echo view('Theme/'.$settings['Theme'].'/header', $data);
-        echo view('Theme/'.$settings['Theme'].'/Category/index', $data);
-        echo view('Theme/'.$settings['Theme'].'/footer', $data);
+        echo view('Theme/' . $settings['Theme'] . '/header', $data);
+        echo view('Theme/' . $settings['Theme'] . '/Category/index', $data);
+        echo view('Theme/' . $settings['Theme'] . '/footer', $data);
     }
 
     /**
@@ -148,7 +148,7 @@ class Category extends BaseController
 
 
         $querystring = http_build_query($vars);
-        return redirect()->to('products/search?cat='.$cat.'&'.$querystring);
+        return redirect()->to('products/search?cat=' . $cat . '&' . $querystring);
 
     }
 

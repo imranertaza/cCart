@@ -18,11 +18,11 @@ return (new PhpCsFixer\Config())
 //        ], // Improve readability
 //        'braces' => ['position_after_functions_and_oop_constructs' => 'next'], // Braces style
 //        'cast_spaces' => ['space' => 'single'], // Space in casting
-//        'concat_space' => ['spacing' => 'one'], // Spaces around concatenation
+        'concat_space' => ['spacing' => 'one'], // Spaces around concatenation
         'no_unused_imports' => true, // Remove unused use statements
         'ordered_imports' => ['sort_algorithm' => 'alpha'], // Sort use statements alphabetically
 //        'single_quote' => true, // Convert double quotes to single quotes
-//        'trailing_comma_in_multiline' => ['elements' => ['arrays']], // Add trailing commas
+        'trailing_comma_in_multiline' => ['elements' => ['arrays']], // Add trailing commas
         'whitespace_after_comma_in_array' => true, // Ensure space after array commas
     ])
     ->setFinder($finder);

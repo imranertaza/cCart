@@ -59,9 +59,9 @@ foreach ($users as $val) { ?>
                             <td><?php echo get_data_by_id('role', 'cc_roles', 'role_id', $val->role_id);?></td>
                             <td><?php echo $val->mobile;?></td>
                             <td width="180">
-                                <a href="<?php echo base_url('admin/user_update/'.$val->user_id);?>" class="btn btn-primary btn-xs"><i class="fas fa-edit"></i> Update</a>
+                                <a href="<?php echo base_url('admin/user_update/' . $val->user_id);?>" class="btn btn-primary btn-xs"><i class="fas fa-edit"></i> Update</a>
                                 <?php if($val->is_default != 1) { ?>
-                                <a href="<?php echo base_url('admin/user_delete/'.$val->user_id);?>" onclick="return confirm('Are you sure you want to Delete?')" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i> Delete</a>
+                                <a href="<?php echo base_url('admin/user_delete/' . $val->user_id);?>" onclick="return confirm('Are you sure you want to Delete?')" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i> Delete</a>
                                 <?php } ?>
                             </td>
                         </tr>

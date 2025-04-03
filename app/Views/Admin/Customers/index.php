@@ -64,10 +64,10 @@ foreach ($customer as $val) { ?>
                             <td><?php echo currency_symbol_with_symbol($val->balance, $symbol);?></td>
                             <td><?php echo $val->point;?></td>
                             <td width="250">
-                                <a href="<?php echo base_url('admin/customers_point/'.$val->customer_id);?>" class="btn btn-success btn-xs"><i class="fas fa-book"></i> Point</a>
-                                <a href="<?php echo base_url('admin/customers_ledger/'.$val->customer_id);?>" class="btn btn-info btn-xs"><i class="fas fa-book"></i> Ledger</a>
-                                <a href="<?php echo base_url('admin/customers_update/'.$val->customer_id);?>" class="btn btn-primary btn-xs"><i class="fas fa-edit"></i> Update</a>
-                                <a href="<?php echo base_url('admin/customers_delete/'.$val->customer_id);?>" onclick="return confirm('Are you sure you want to Delete?')" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i> Delete</a>
+                                <a href="<?php echo base_url('admin/customers_point/' . $val->customer_id);?>" class="btn btn-success btn-xs"><i class="fas fa-book"></i> Point</a>
+                                <a href="<?php echo base_url('admin/customers_ledger/' . $val->customer_id);?>" class="btn btn-info btn-xs"><i class="fas fa-book"></i> Ledger</a>
+                                <a href="<?php echo base_url('admin/customers_update/' . $val->customer_id);?>" class="btn btn-primary btn-xs"><i class="fas fa-edit"></i> Update</a>
+                                <a href="<?php echo base_url('admin/customers_delete/' . $val->customer_id);?>" onclick="return confirm('Are you sure you want to Delete?')" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i> Delete</a>
 
                             </td>
                         </tr>

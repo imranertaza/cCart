@@ -117,7 +117,7 @@ class Blog extends BaseController
             $this->imageProcessing->sizeArray = [ ['width' => '100', 'height' => '100', ], ['width' => '300', 'height' => '300', ], ['width' => '880', 'height' => '400', ], ];
 
             if (!empty($_FILES['image']['name'])) {
-                $target_dir = FCPATH . '/uploads/blog/'.$blogId.'/';
+                $target_dir = FCPATH . '/uploads/blog/' . $blogId . '/';
                 $this->imageProcessing->directory_create($target_dir);
 
                 //new image upload
@@ -206,7 +206,7 @@ class Blog extends BaseController
             $this->imageProcessing->sizeArray = [ ['width' => '100', 'height' => '100', ], ['width' => '300', 'height' => '300', ], ['width' => '880', 'height' => '400', ], ];
 
             if (!empty($_FILES['image']['name'])) {
-                $target_dir = FCPATH . '/uploads/blog/'.$blog_id.'/';
+                $target_dir = FCPATH . '/uploads/blog/' . $blog_id . '/';
                 //unlink
                 $oldImg = get_data_by_id('image', 'cc_blog', 'blog_id', $blog_id);
                 $pic = $this->request->getFile('image');
@@ -239,7 +239,7 @@ class Blog extends BaseController
 
         DB()->transStart();
 
-        $target_dir = FCPATH . '/uploads/blog/'.$blog_id;
+        $target_dir = FCPATH . '/uploads/blog/' . $blog_id;
         if (file_exists($target_dir)) {
             delete_files($target_dir, true);
             rmdir($target_dir);

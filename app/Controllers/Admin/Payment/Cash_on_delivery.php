@@ -89,7 +89,7 @@ class Cash_on_delivery extends BaseController
             $pic->move($target_dir, $namePic);
             $news_img = 'cash_' . $pic->getName();
             $this->crop->withFile($target_dir . $namePic)->fit(120, 30, 'center')->save($target_dir . $news_img);
-            unlink($target_dir .  $namePic);
+            unlink($target_dir . $namePic);
             $data['image'] = $news_img;
         }
 
@@ -100,7 +100,7 @@ class Cash_on_delivery extends BaseController
 
 
         $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Cash On Delivery Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-        return redirect()->to('admin/payment/bank_transfer/'.$payment_method_id);
+        return redirect()->to('admin/payment/bank_transfer/' . $payment_method_id);
 
 
     }

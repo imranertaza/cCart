@@ -32,8 +32,8 @@ class Featuredproducts extends BaseController
         $data['description'] = $settings['meta_description'];
         $data['title'] = 'Featured Products';
         $data['page_title'] = 'Featured Products';
-        echo view('Theme/'.$settings['Theme'].'/header', $data);
-        echo view('Theme/'.$settings['Theme'].'/Featuredproducts/index', $data);
-        echo view('Theme/'.$settings['Theme'].'/footer');
+        echo view('Theme/' . $settings['Theme'] . '/header', $data);
+        echo view('Theme/' . $settings['Theme'] . '/Featuredproducts/index', $data);
+        echo view('Theme/' . $settings['Theme'] . '/footer');
     }
 }

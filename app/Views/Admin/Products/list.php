@@ -107,7 +107,7 @@ foreach ($product as $val) {
                             </td>
                             <td>
                                 <a class="product-image-link" href="<?= $url;?>" data-lightbox="product-set-<?= $val->product_id;?>">
-                                <?php echo image_view('uploads/products', $val->product_id, '50_'.$val->image, '50_noimage.png', '');?>
+                                <?php echo image_view('uploads/products', $val->product_id, '50_' . $val->image, '50_noimage.png', '');?>
                                 </a>
                             </td>
                             <td><?php echo $val->name;?></td>
@@ -115,8 +115,8 @@ foreach ($product as $val) {
                             <td> <?php echo $val->quantity;?></td>
                             <td> <?php echo $val->status;?></td>
                             <td width="200">
-                                <a href="<?php echo base_url('detail/'.$val->product_id)?>" target="_blank" class="btn btn-sm btn-primary">View</a>
-                                <a href="<?php echo base_url('admin/product_update/'.$val->product_id)?>" class="btn btn-sm btn-info">Edit</a>
+                                <a href="<?php echo base_url('detail/' . $val->product_id)?>" target="_blank" class="btn btn-sm btn-primary">View</a>
+                                <a href="<?php echo base_url('admin/product_update/' . $val->product_id)?>" class="btn btn-sm btn-info">Edit</a>
                                 <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="product_delete('<?php echo $val->product_id;?>')">delete</a>
                             </td>
                         </tr>

@@ -16,7 +16,7 @@ class ProductAttribute extends Seeder
                 'name' => 'Samsung',
                 'details' => null,
                 'sort_order' => 0,
-            ]
+            ],
         ];
 
 

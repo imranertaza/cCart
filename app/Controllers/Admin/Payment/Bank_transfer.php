@@ -86,8 +86,8 @@ class Bank_transfer extends BaseController
             $namePic = $pic->getRandomName();
             $pic->move($target_dir, $namePic);
             $news_img = 'bank_' . $pic->getName();
-            $this->crop->withFile($target_dir .  $namePic)->fit(120, 30, 'center')->save($target_dir . $news_img);
-            unlink($target_dir .  $namePic);
+            $this->crop->withFile($target_dir . $namePic)->fit(120, 30, 'center')->save($target_dir . $news_img);
+            unlink($target_dir . $namePic);
             $data['image'] = $news_img;
         }
 
@@ -98,7 +98,7 @@ class Bank_transfer extends BaseController
 
 
         $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Bank Transfer Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-        return redirect()->to('admin/payment/bank_transfer/'.$payment_method_id);
+        return redirect()->to('admin/payment/bank_transfer/' . $payment_method_id);
 
 
     }

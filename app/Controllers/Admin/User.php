@@ -189,7 +189,7 @@ class User extends BaseController
                 return redirect()->to('admin/user_update/' . $user_id);
             } else {
                 $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Email already exists <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-                return redirect()->to('admin/user_update/'. $user_id);
+                return redirect()->to('admin/user_update/' . $user_id);
             }
 
         }

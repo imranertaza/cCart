@@ -244,10 +244,10 @@
                                     $lname = !empty($val->lastname) ? $val->lastname : $val->payment_lastname; ?>
                                     <tr>
                                         <td><?php echo $val->order_id;?></td>
-                                        <td><?php echo $fname.' '.$lname;?></td>
+                                        <td><?php echo $fname . ' ' . $lname;?></td>
                                         <td><span class="badge badge-default"><?php echo get_data_by_id('name', 'cc_order_status', 'order_status_id', $val->status);?></span></td>
 
-                                        <td><a href="<?php echo base_url('admin/order_view/'.$val->order_id);?>" class="btn btn-success btn-xs"><i class="fas fa-eye"></i> View</a></td>
+                                        <td><a href="<?php echo base_url('admin/order_view/' . $val->order_id);?>" class="btn btn-success btn-xs"><i class="fas fa-eye"></i> View</a></td>
 
                                     </tr>
                                 <?php } ?>

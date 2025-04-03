@@ -53,12 +53,12 @@ $i = 1;
 foreach ($order as $val) { ?>
                         <tr>
                             <td><?php echo $val->order_id;?></td>
-                            <td><?php echo $val->payment_firstname .' '. $val->payment_lastname;?></td>
+                            <td><?php echo $val->payment_firstname . ' ' . $val->payment_lastname;?></td>
                             <td><?php echo currency_symbol_with_symbol($val->final_amount, $symbol) ;?></td>
                             <td><?php echo order_id_by_status($val->order_id) ;?></td>
                             <td><?php echo invoiceDateFormat($val->createdDtm);?></td>
                             <td width="180">
-                                <a href="<?php echo base_url('admin/order_view/'.$val->order_id);?>" class="btn btn-primary btn-xs"><i class="fas fa-eye"></i> View</a>
+                                <a href="<?php echo base_url('admin/order_view/' . $val->order_id);?>" class="btn btn-primary btn-xs"><i class="fas fa-eye"></i> View</a>
 
                             </td>
                         </tr>

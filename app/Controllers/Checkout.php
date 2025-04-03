@@ -89,7 +89,7 @@ class Checkout extends BaseController
                         if (!empty($this->cart->contents())) {
                             $couponArray = [
                                 'coupon_id' => $query->coupon_id,
-                                'coupon_discount' => $query->discount
+                                'coupon_discount' => $query->discount,
                             ];
                             $this->session->set($couponArray);
                             $this->session->setFlashdata('message', 'Coupon code applied successfully ');
@@ -112,7 +112,7 @@ class Checkout extends BaseController
                             if (!empty($this->cart->contents())) {
                                 $couponArray = [
                                     'coupon_id' => $query->coupon_id,
-                                    'coupon_discount' => $query->discount
+                                    'coupon_discount' => $query->discount,
                                 ];
                                 $this->session->set($couponArray);
                                 $this->session->setFlashdata('message', 'Coupon code applied successfully ');
@@ -135,7 +135,7 @@ class Checkout extends BaseController
                     if (!empty($this->cart->contents())) {
                         $couponArray = [
                             'coupon_id' => $query->coupon_id,
-                            'coupon_discount' => $query->discount
+                            'coupon_discount' => $query->discount,
                         ];
                         $this->session->set($couponArray);
                         $this->session->setFlashdata('message', 'Coupon code applied successfully ');
@@ -153,7 +153,7 @@ class Checkout extends BaseController
                         if (!empty($this->cart->contents())) {
                             $couponArray = [
                                 'coupon_id' => $query->coupon_id,
-                                'coupon_discount_shipping' => $query->discount
+                                'coupon_discount_shipping' => $query->discount,
                             ];
                             $this->session->set($couponArray);
                             $this->session->setFlashdata('message', 'Coupon code applied successfully ');
@@ -176,7 +176,7 @@ class Checkout extends BaseController
                             if (!empty($this->cart->contents())) {
                                 $couponArray = [
                                     'coupon_id' => $query->coupon_id,
-                                    'coupon_discount_shipping' => $query->discount
+                                    'coupon_discount_shipping' => $query->discount,
                                 ];
                                 $this->session->set($couponArray);
                                 $this->session->setFlashdata('message', 'Coupon code applied successfully ');
@@ -199,7 +199,7 @@ class Checkout extends BaseController
                     if (!empty($this->cart->contents())) {
                         $couponArray = [
                             'coupon_id' => $query->coupon_id,
-                            'coupon_discount_shipping' => $query->discount
+                            'coupon_discount_shipping' => $query->discount,
                         ];
                         $this->session->set($couponArray);
                         $this->session->setFlashdata('message', 'Coupon code applied successfully ');

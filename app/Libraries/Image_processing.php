@@ -151,8 +151,8 @@ class Image_processing
     public function image_crop($dir, $image, $image_name)
     {
         foreach ($this->sizeArray as $pro_img) {
-            if (!file_exists($dir . '/' . $pro_img['width'] .'_' . $image_name)) {
-                $this->crop->withFile($dir .  $image)->fit($pro_img['width'], $pro_img['height'], 'center')->save($dir . $pro_img['width'] . '_' . $image_name, $this->quality);
+            if (!file_exists($dir . '/' . $pro_img['width'] . '_' . $image_name)) {
+                $this->crop->withFile($dir . $image)->fit($pro_img['width'], $pro_img['height'], 'center')->save($dir . $pro_img['width'] . '_' . $image_name, $this->quality);
             }
         }
         return $this;
@@ -174,8 +174,8 @@ class Image_processing
             $this->image_unlink($dir . '/600_wm_' . $mainImg);
 
             foreach ($this->sizeArray as $pro_img) {
-                $this->image_unlink($dir . '/' . $pro_img['width'] .'_' . $image);
-                $this->image_unlink($dir . '/' . $pro_img['width'] .'_wm_' . $image);
+                $this->image_unlink($dir . '/' . $pro_img['width'] . '_' . $image);
+                $this->image_unlink($dir . '/' . $pro_img['width'] . '_wm_' . $image);
             }
         }
         return $this;

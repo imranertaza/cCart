@@ -57,8 +57,8 @@ foreach ($pages as $val) { ?>
                             <td><?php echo $val->slug;?></td>
                             <td><?php echo $val->temp;?></td>
                             <td width="180">
-                                <a href="<?php echo base_url('admin/page_update/'.$val->page_id);?>" class="btn btn-primary btn-xs"><i class="fas fa-edit"></i> Update</a>
-                                <a href="<?php echo base_url('admin/page_delete/'.$val->page_id);?>" onclick="return confirm('Are you sure you want to Delete?')" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i> Delete</a>
+                                <a href="<?php echo base_url('admin/page_update/' . $val->page_id);?>" class="btn btn-primary btn-xs"><i class="fas fa-edit"></i> Update</a>
+                                <a href="<?php echo base_url('admin/page_delete/' . $val->page_id);?>" onclick="return confirm('Are you sure you want to Delete?')" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i> Delete</a>
                             </td>
                         </tr>
                     <?php } ?>

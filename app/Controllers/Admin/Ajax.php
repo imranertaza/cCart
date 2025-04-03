@@ -34,7 +34,7 @@ class Ajax extends BaseController
         $options = '';
         foreach ($data as $value) {
             $options .= '<option value="' . $value->zone_id . '" ';
-            $options .= '>' . $value->name. '</option>';
+            $options .= '>' . $value->name . '</option>';
         }
         print $options;
     }
@@ -70,7 +70,7 @@ class Ajax extends BaseController
         $options = '';
         foreach ($data as $value) {
             $options .= '<option value="' . $value->option_value_id . '" ';
-            $options .= '>' . $value->name. '</option>';
+            $options .= '>' . $value->name . '</option>';
         }
         print $options;
 
@@ -90,7 +90,7 @@ class Ajax extends BaseController
         $options = '<option value="0">All Zone</option>';
         foreach ($data as $value) {
             $options .= '<option value="' . $value->zone_id . '" ';
-            $options .= '>' . $value->name. '</option>';
+            $options .= '>' . $value->name . '</option>';
         }
         print $options;
 
