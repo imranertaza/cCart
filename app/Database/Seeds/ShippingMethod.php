@@ -11,27 +11,27 @@ class ShippingMethod extends Seeder
         $data = [
             [
                 'shipping_method_id' => 1,
-                'name' => 'Flat Rate Shipping',
-                'code' => 'flat',
-                'status' => '1',
+                'name'               => 'Flat Rate Shipping',
+                'code'               => 'flat',
+                'status'             => '1',
             ],
             [
                 'shipping_method_id' => 2,
-                'name' => 'Zone Based Shipping',
-                'code' => 'zone',
-                'status' => '1',
+                'name'               => 'Zone Based Shipping',
+                'code'               => 'zone',
+                'status'             => '1',
             ],
             [
                 'shipping_method_id' => 3,
-                'name' => 'Weight Based Shipping',
-                'code' => 'weight',
-                'status' => '1',
+                'name'               => 'Weight Based Shipping',
+                'code'               => 'weight',
+                'status'             => '1',
             ],
             [
                 'shipping_method_id' => 4,
-                'name' => 'Zone Rate Shipping',
-                'code' => 'zone_rate',
-                'status' => '1',
+                'name'               => 'Zone Rate Shipping',
+                'code'               => 'zone_rate',
+                'status'             => '1',
             ],
         ];
         // Using Query Builder
