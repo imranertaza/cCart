@@ -39,10 +39,10 @@ class Order extends BaseController
 
             $data['menu_active'] = 'order';
             $data['page_title'] = 'My Order';
-            echo view('Theme/'.$settings['Theme'].'/header', $data);
-            echo view('Theme/'.$settings['Theme'].'/Customer/menu');
-            echo view('Theme/'.$settings['Theme'].'/Customer/order', $data);
-            echo view('Theme/'.$settings['Theme'].'/footer');
+            echo view('Theme/' . $settings['Theme'] . '/header', $data);
+            echo view('Theme/' . $settings['Theme'] . '/Customer/menu');
+            echo view('Theme/' . $settings['Theme'] . '/Customer/order', $data);
+            echo view('Theme/' . $settings['Theme'] . '/footer');
         }
     }
 
@@ -70,10 +70,10 @@ class Order extends BaseController
 
             $data['menu_active'] = 'order';
             $data['page_title'] = 'Invoice';
-            echo view('Theme/'.$settings['Theme'].'/header', $data);
-            echo view('Theme/'.$settings['Theme'].'/Customer/menu');
-            echo view('Theme/'.$settings['Theme'].'/Customer/invoice', $data);
-            echo view('Theme/'.$settings['Theme'].'/footer');
+            echo view('Theme/' . $settings['Theme'] . '/header', $data);
+            echo view('Theme/' . $settings['Theme'] . '/Customer/menu');
+            echo view('Theme/' . $settings['Theme'] . '/Customer/invoice', $data);
+            echo view('Theme/' . $settings['Theme'] . '/footer');
         }
     }
 

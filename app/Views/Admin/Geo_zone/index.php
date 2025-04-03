@@ -55,8 +55,8 @@ foreach ($geo_zone as $val) { ?>
                             <td><?php echo $val->geo_zone_name;?></td>
                             <td><?php echo $val->geo_zone_description;?></td>
                             <td width="180">
-                                <a href="<?php echo base_url('admin/geo_zone_update/'.$val->geo_zone_id);?>" class="btn btn-primary btn-xs"><i class="fas fa-edit"></i> Update</a>
-                                <a href="<?php echo base_url('admin/geo_zone_delete/'.$val->geo_zone_id);?>" onclick="return confirm('Are you sure you want to Delete?')" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i> Delete</a>
+                                <a href="<?php echo base_url('admin/geo_zone_update/' . $val->geo_zone_id);?>" class="btn btn-primary btn-xs"><i class="fas fa-edit"></i> Update</a>
+                                <a href="<?php echo base_url('admin/geo_zone_delete/' . $val->geo_zone_id);?>" onclick="return confirm('Are you sure you want to Delete?')" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i> Delete</a>
                             </td>
                         </tr>
                     <?php } ?>

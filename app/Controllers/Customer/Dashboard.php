@@ -43,10 +43,10 @@ class Dashboard extends BaseController
             $data['title'] = 'Dashboard';
             $data['page_title'] = 'Dashboard';
             $data['menu_active'] = 'dashboard';
-            echo view('Theme/'.$settings['Theme'].'/header', $data);
-            echo view('Theme/'.$settings['Theme'].'/Customer/menu');
-            echo view('Theme/'.$settings['Theme'].'/Customer/dashboard');
-            echo view('Theme/'.$settings['Theme'].'/footer');
+            echo view('Theme/' . $settings['Theme'] . '/header', $data);
+            echo view('Theme/' . $settings['Theme'] . '/Customer/menu');
+            echo view('Theme/' . $settings['Theme'] . '/Customer/dashboard');
+            echo view('Theme/' . $settings['Theme'] . '/footer');
         }
     }
 

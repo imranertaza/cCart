@@ -105,7 +105,7 @@ class Brand extends BaseController
                 $pic->move($target_dir, $namePic);
                 $news_img = 'brand_' . $pic->getName();
                 $this->crop->withFile($target_dir . $namePic)->fit(250, 150, 'center')->save($target_dir . $news_img);
-                unlink($target_dir .  $namePic);
+                unlink($target_dir . $namePic);
                 $data['image'] = $news_img;
             }
 

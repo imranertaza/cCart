@@ -27,7 +27,7 @@
                                         <a href="javascript:void(0)" onclick="addToCompare(<?php echo $pro->product_id ?>)" class="btn-compare position-absolute start-0 top-0 mt-5 ms-2"><i class="fa-solid fa-code-compare"></i></a>
                                         <?php } ?>
                                         <div class="product-top">
-                                            <?php echo image_view('uploads/products', $pro->product_id, $img_size_191 .$pro->image, 'noimage.png', 'img-fluid w-100')?>
+                                            <?php echo image_view('uploads/products', $pro->product_id, $img_size_191 . $pro->image, 'noimage.png', 'img-fluid w-100')?>
                                             <div class="rating text-center my-2">
                                                 <?php echo product_id_by_rating($pro->product_id);?>
                                             </div>
@@ -37,7 +37,7 @@
                                                 Categorie
                                             </div>
                                             <div class="product-title mb-2">
-                                                <a href="<?php echo base_url('detail/'.$pro->product_id)?>"><?php echo $pro->name;?></a>
+                                                <a href="<?php echo base_url('detail/' . $pro->product_id)?>"><?php echo $pro->name;?></a>
                                             </div>
                                             <div class="price mb-3">
                                                 <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id);

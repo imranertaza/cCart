@@ -14,7 +14,7 @@ class CreateThemeColumnInThemeSettingsTable extends Migration
                 'constraint' => 255,
                 'null' => true,
                 'default' => null,
-                'after' => 'value'
+                'after' => 'value',
             ],
         ];
         $this->forge->addColumn('cc_theme_settings', $fields);

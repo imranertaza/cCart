@@ -56,8 +56,8 @@
                     <h4 class="fs-6 mb-0"><?php
                                                 $par_id = get_data_by_id('parent_id', 'cc_product_category', 'prod_cat_id', $prod_cat_id);
                                 if (!empty($par_id)) {
-                                    $url = base_url('category/'.$par_id);
-                                    echo '<a class="text-black" href="'.$url.'">'.get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $par_id).'</a> <i class="fa-solid fa-angle-right"></i>';
+                                    $url = base_url('category/' . $par_id);
+                                    echo '<a class="text-black" href="' . $url . '">' . get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $par_id) . '</a> <i class="fa-solid fa-angle-right"></i>';
                                 }
                                 ?> <?php echo get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $prod_cat_id); ?></h4>
                 </div>
@@ -163,7 +163,7 @@
                                                 <?php } ?>
 
                                                 <div class="product-top">
-                                                    <?php echo image_view('uploads/products', $pro->product_id, $img_size .$pro->image, 'noimage.png', 'img-fluid w-100')?>
+                                                    <?php echo image_view('uploads/products', $pro->product_id, $img_size . $pro->image, 'noimage.png', 'img-fluid w-100')?>
                                                     <div class="rating text-center my-2">
                                                         <?php echo product_id_by_rating($pro->product_id);?>
                                                     </div>
@@ -173,7 +173,7 @@
                                                         Categorie
                                                     </div>
                                                     <div class="product-title mb-2">
-                                                        <a href="<?php echo base_url('detail/'.$pro->product_id)?>"><?php echo $pro->name;?></a>
+                                                        <a href="<?php echo base_url('detail/' . $pro->product_id)?>"><?php echo $pro->name;?></a>
                                                     </div>
                                                     <div class="price mb-3">
                                                         <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id);
@@ -210,7 +210,7 @@
                                                 <?php } ?>
 
                                                 <div class="product-top" style="width:40%;float:left; " >
-                                                    <?php echo image_view('uploads/products', $pro->product_id, $img_size_198 .$pro->image, 'noimage.png', 'img-fluid w-100')?>
+                                                    <?php echo image_view('uploads/products', $pro->product_id, $img_size_198 . $pro->image, 'noimage.png', 'img-fluid w-100')?>
 
                                                 </div>
 
@@ -220,7 +220,7 @@
                                                         Categorie
                                                     </div>
                                                     <div class="product-title mb-2">
-                                                        <a href="<?php echo base_url('detail/'.$pro->product_id)?>"><?php echo $pro->name;?></a>
+                                                        <a href="<?php echo base_url('detail/' . $pro->product_id)?>"><?php echo $pro->name;?></a>
                                                     </div>
                                                     <div class="brand mb-3"><strong>Brand:</strong> <?php echo get_data_by_id('name', 'cc_brand', 'brand_id', $pro->brand_id);?></div>
 

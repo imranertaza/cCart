@@ -38,9 +38,9 @@ class Home extends BaseController
         $data['description'] = $settings['meta_description'];
         $data['title'] = !empty($settings['meta_title']) ? $settings['meta_title'] : $settings['store_name'];
 
-        echo view('Theme/'.$settings['Theme'].'/header', $data);
-        echo view('Theme/'.$settings['Theme'].'/Home/index', $data);
-        echo view('Theme/'.$settings['Theme'].'/footer');
+        echo view('Theme/' . $settings['Theme'] . '/header', $data);
+        echo view('Theme/' . $settings['Theme'] . '/Home/index', $data);
+        echo view('Theme/' . $settings['Theme'] . '/footer');
     }
 
     /**
@@ -134,12 +134,12 @@ class Home extends BaseController
 
             $name = get_lebel_by_value_in_settings('store_name');
             $otp = rand(100000, 999999);
-            $url = base_url('user_subscribe_verify?email='.urlencode($this->encrypter->encrypt($email)).'&code='.urlencode($this->encrypter->encrypt($otp)));
+            $url = base_url('user_subscribe_verify?email=' . urlencode($this->encrypter->encrypt($email)) . '&code=' . urlencode($this->encrypter->encrypt($otp)));
             $subject = 'Please Verify Your Email Address to Complete Your Subscription!';
-            $message = "Thank you for subscribing to ".$name."! Before we can start sending you our updates, we just need to confirm your email address.<br>                    
-                Please verify your email by clicking the link below: <a href='".$url."'>Verify My Email Address</a><br>                    
+            $message = "Thank you for subscribing to " . $name . "! Before we can start sending you our updates, we just need to confirm your email address.<br>                    
+                Please verify your email by clicking the link below: <a href='" . $url . "'>Verify My Email Address</a><br>                    
                 If you did not sign up for this subscription, please disregard this email.<br>                    
-                Thank you for choosing ".$name."!";
+                Thank you for choosing " . $name . "!";
 
             $sessionArray = [
                 'otp' => $otp,

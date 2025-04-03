@@ -197,7 +197,7 @@ class Customers extends BaseController
                 return redirect()->to('admin/customers_update/' . $customer_id);
             } else {
                 $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Email Or Phone already exists <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-                return redirect()->to('admin/customers_update/'. $customer_id);
+                return redirect()->to('admin/customers_update/' . $customer_id);
             }
 
         }

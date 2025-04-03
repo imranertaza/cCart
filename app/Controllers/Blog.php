@@ -35,9 +35,9 @@ class Blog extends BaseController
         $data['description'] = $settings['meta_description'];
         $data['title'] = !empty($settings['meta_title']) ? $settings['meta_title'] : $settings['store_name'];
 
-        echo view('Theme/'.$settings['Theme'].'/header', $data);
-        echo view('Theme/'.$settings['Theme'].'/Blog/index', $data);
-        echo view('Theme/'.$settings['Theme'].'/footer');
+        echo view('Theme/' . $settings['Theme'] . '/header', $data);
+        echo view('Theme/' . $settings['Theme'] . '/Blog/index', $data);
+        echo view('Theme/' . $settings['Theme'] . '/footer');
     }
 
     /**
@@ -56,9 +56,9 @@ class Blog extends BaseController
         $data['description'] = $settings['meta_description'];
         $data['title'] = !empty($settings['meta_title']) ? $settings['meta_title'] : $settings['store_name'];
 
-        echo view('Theme/'.$settings['Theme'].'/header', $data);
-        echo view('Theme/'.$settings['Theme'].'/Blog/view', $data);
-        echo view('Theme/'.$settings['Theme'].'/footer');
+        echo view('Theme/' . $settings['Theme'] . '/header', $data);
+        echo view('Theme/' . $settings['Theme'] . '/Blog/view', $data);
+        echo view('Theme/' . $settings['Theme'] . '/footer');
     }
 
 

@@ -13,7 +13,7 @@ class Stores extends Seeder
                 'store_id' => '1',
                 'name' => 'Default',
                 'description' => 'Default Store Description',
-                'is_default' => '1'
+                'is_default' => '1',
             ],
         ];
 

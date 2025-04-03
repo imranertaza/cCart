@@ -55,14 +55,14 @@ foreach ($album as $val) { ?>
                             <td><?php echo $val->name;?></td>
                             <td>
                                 <?php $img2 = str_replace("pro_", "", $val->thumb);
-    $url2 = base_url('uploads/album/'.$val->album_id .'/wm_'.$img2);?>
+    $url2 = base_url('uploads/album/' . $val->album_id . '/wm_' . $img2);?>
                                 <a class="album-image-link" href="<?= $url2;?>" data-lightbox="album-set_<?= $val->album_id; ?>" >
-                                <?php echo image_view('uploads/album', $val->album_id, '50_'.$val->thumb, '50_noimage.png', '');?>
+                                <?php echo image_view('uploads/album', $val->album_id, '50_' . $val->thumb, '50_noimage.png', '');?>
                                 </a>
                             </td>
                             <td width="180">
-                                <a href="<?php echo base_url('admin/album_update/'.$val->album_id);?>" class="btn btn-primary btn-xs"><i class="fas fa-edit"></i> Update</a>
-                                <a href="<?php echo base_url('admin/album_delete/'.$val->album_id);?>" onclick="return confirm('Are you sure you want to Delete?')" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i> Delete</a>
+                                <a href="<?php echo base_url('admin/album_update/' . $val->album_id);?>" class="btn btn-primary btn-xs"><i class="fas fa-edit"></i> Update</a>
+                                <a href="<?php echo base_url('admin/album_delete/' . $val->album_id);?>" onclick="return confirm('Are you sure you want to Delete?')" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i> Delete</a>
                             </td>
                         </tr>
                     <?php } ?>

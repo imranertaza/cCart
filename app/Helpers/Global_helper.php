@@ -199,7 +199,7 @@ function image_view($url, $slug, $image, $no_image, $class = '', $id = '', $attr
         } else {
             $imgPath = $dir . '/' . $image;
             if (file_exists($imgPath)) {
-                $result = '<img data-sizes="auto" '.$attr.' id="' . $id . '" src="' . $img . '" class="' . $class . '" loading="lazy">';
+                $result = '<img data-sizes="auto" ' . $attr . ' id="' . $id . '" src="' . $img . '" class="' . $class . '" loading="lazy">';
             } else {
                 $result = '<img data-sizes="auto" id="' . $id . '" src="' . $no_img . '" class="' . $class . '" loading="lazy">';
             }
@@ -1001,7 +1001,7 @@ function order_email_template($orderId)
         $total = currency_symbol($row->final_price);
         $view .= "<tr>
             <td style='border-right:1px solid #dddddd;border-bottom:1px solid #dddddd;text-align:left;padding:7px'>
-            <a href='$url' target='_blank' title='".$proName."' style='padding:1px;border:1px solid #dddddd' >
+            <a href='$url' target='_blank' title='" . $proName . "' style='padding:1px;border:1px solid #dddddd' >
                     $imgView
             </a>
             </td>
@@ -1383,7 +1383,7 @@ function display_category_with_parent($cate_id)
         if ($key == 0) {
             print $val;
         } else {
-            print $val." > ";
+            print $val . " > ";
         }
     }
 
@@ -1456,7 +1456,7 @@ function display_blog_category_with_parent($cate_id)
         if ($key == 0) {
             print $val;
         } else {
-            print $val." > ";
+            print $val . " > ";
         }
     }
 

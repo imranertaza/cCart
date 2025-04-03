@@ -69,7 +69,7 @@ class OisbizcraftController extends BaseController
             'merchant_outlet_id' => $merchant_outlet_id->value,
             'terminal_id' => $terminal_id->value,
             'cust_code' => $cust_code->value,
-            'user_fullname' => $firstname.' '.$lastname,
+            'user_fullname' => $firstname . ' ' . $lastname,
             'user_email' => $payment_email,
             'description' => 'Sale',
             'currency' => 'SGD',
@@ -80,7 +80,7 @@ class OisbizcraftController extends BaseController
 
 
         // Set API key and other required headers
-        $string = $data['cust_code'].$data['merchant_outlet_id'].$data['terminal_id'].$data['merchant_return_url'].$data['description'].$data['currency'].$data['amount'].$data['order_id'].$data['user_fullname'];
+        $string = $data['cust_code'] . $data['merchant_outlet_id'] . $data['terminal_id'] . $data['merchant_return_url'] . $data['description'] . $data['currency'] . $data['amount'] . $data['order_id'] . $data['user_fullname'];
         $data['hash'] = strtoupper(hash_hmac('SHA256', $string, $api_key));
 
         $headers = [
@@ -522,7 +522,7 @@ class OisbizcraftController extends BaseController
         $api_key = $api_k->value;
 
         $amount = $this->request->getPost('amount');
-        $name = $this->session->cusAll->firstname.' '.$this->session->cusAll->lastname;
+        $name = $this->session->cusAll->firstname . ' ' . $this->session->cusAll->lastname;
         $payment_email = $this->session->cusAll->email;
 
 
@@ -552,7 +552,7 @@ class OisbizcraftController extends BaseController
 
 
         // Set API key and other required headers
-        $string = $data['cust_code'].$data['merchant_outlet_id'].$data['terminal_id'].$data['merchant_return_url'].$data['description'].$data['currency'].$data['amount'].$data['order_id'].$data['user_fullname'];
+        $string = $data['cust_code'] . $data['merchant_outlet_id'] . $data['terminal_id'] . $data['merchant_return_url'] . $data['description'] . $data['currency'] . $data['amount'] . $data['order_id'] . $data['user_fullname'];
         $data['hash'] = strtoupper(hash_hmac('SHA256', $string, $api_key));
 
         $headers = [

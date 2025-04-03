@@ -49,7 +49,7 @@ class Products extends BaseController
         }
 
         $categoryId = !empty($this->request->getGetPost('category')) ? $this->request->getGetPost('category') : $cat_id;
-        $categoryWhere = !empty($this->request->getGetPost('category')) ? 'category_id = '.$this->request->getGetPost('category') : 'category_id = '.$cat_id;
+        $categoryWhere = !empty($this->request->getGetPost('category')) ? 'category_id = ' . $this->request->getGetPost('category') : 'category_id = ' . $cat_id;
 
         $brand = explode(',', $this->request->getGetPost('manufacturer'));
         $options = explode(',', $this->request->getGetPost('option'));
@@ -62,7 +62,7 @@ class Products extends BaseController
         } else {
             $optionWhere = '';
             foreach ($options as $valOp) {
-                $optionWhere .= 'option_value_id = '.$valOp. ' OR ';
+                $optionWhere .= 'option_value_id = ' . $valOp . ' OR ';
             }
             $countOption = [];
             foreach ($options as $valOp) {
@@ -71,7 +71,7 @@ class Products extends BaseController
                 array_push($countOption, $arr);
             }
 
-            $allOption = '('.rtrim($optionWhere, ' OR ').')';
+            $allOption = '(' . rtrim($optionWhere, ' OR ') . ')';
             $data['optionval'] = $options;
 
         }
@@ -83,9 +83,9 @@ class Products extends BaseController
         } else {
             $brandWhere = '';
             foreach ($brand as $valBr) {
-                $brandWhere .= 'brand_id = '.$valBr. ' OR ';
+                $brandWhere .= 'brand_id = ' . $valBr . ' OR ';
             }
-            $allbrand = '('.rtrim($brandWhere, ' OR ').')';
+            $allbrand = '(' . rtrim($brandWhere, ' OR ') . ')';
             $data['brandval'] = $brand;
         }
 
@@ -93,8 +93,8 @@ class Products extends BaseController
             $firstPrice = '1=1';
             $lastPrice = '1=1';
         } else {
-            $firstPrice = 'cc_products.price >= '.$price[0];
-            $lastPrice = 'cc_products.price <= '.$price[1];
+            $firstPrice = 'cc_products.price >= ' . $price[0];
+            $lastPrice = 'cc_products.price <= ' . $price[1];
         }
 
 
@@ -104,9 +104,9 @@ class Products extends BaseController
         } else {
             $ratingWhere = '';
             foreach ($rating as $valRati) {
-                $ratingWhere .= 'average_feedback = '.$valRati. ' OR ';
+                $ratingWhere .= 'average_feedback = ' . $valRati . ' OR ';
             }
-            $allrating = '('.rtrim($ratingWhere, ' OR ').')';
+            $allrating = '(' . rtrim($ratingWhere, ' OR ') . ')';
             $data['ratingval'] = $rating;
         }
 
@@ -199,9 +199,9 @@ class Products extends BaseController
         $data['description'] = $settings['meta_description'];
         $data['title'] = (!empty($cat_id)) ? get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $cat_id) : 'Search';
 
-        echo view('Theme/'.$settings['Theme'].'/header', $data);
-        echo view('Theme/'.$settings['Theme'].'/Category/index', $data);
-        echo view('Theme/'.$settings['Theme'].'/footer', $data);
+        echo view('Theme/' . $settings['Theme'] . '/header', $data);
+        echo view('Theme/' . $settings['Theme'] . '/Category/index', $data);
+        echo view('Theme/' . $settings['Theme'] . '/footer', $data);
     }
 
 

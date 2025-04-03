@@ -56,7 +56,7 @@ foreach ($point as $val) { ?>
                             <tr>
                                 <td width="40"><?php echo $i++; ?></td>
                                 <td><?php echo $val->particulars; ?></td>
-                                <td><a href="<?php echo base_url('admin/order_view/'.$val->order_id);?>" ><?php echo $val->order_id; ?></a></td>
+                                <td><a href="<?php echo base_url('admin/order_view/' . $val->order_id);?>" ><?php echo $val->order_id; ?></a></td>
                                 <td><?php echo ($val->trangaction_type == 'Cr.') ? 'Add' : 'Deducted'; ?></td>
                                 <td><?php echo saleDate($val->createdDtm); ?></td>
                                 <td><?php echo $val->point; ?></td>

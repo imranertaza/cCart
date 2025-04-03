@@ -141,7 +141,7 @@
                         <ul class="dropdown-menu show">
                             <?php foreach (getParentCategoryArray() as $pcat) {?>
                             <li>
-                                <a class="dropdown-item" href="<?php echo base_url('category/'.$pcat->prod_cat_id);?>">
+                                <a class="dropdown-item" href="<?php echo base_url('category/' . $pcat->prod_cat_id);?>">
                                     <span class="icon">
                                         <?php echo get_data_by_id('code', 'cc_icons', 'icon_id', $pcat->icon_id); ?>
                                     </span>
@@ -153,7 +153,7 @@
                                 <?php  if (!empty(count(getCategoryBySubArray($pcat->prod_cat_id)))) { ?>
                                 <ul class="dropdown-menu dropdown-submenu">
                                     <?php foreach (getCategoryBySubArray($pcat->prod_cat_id) as $sCat) { ?>
-                                    <li><a class="dropdown-item" href="<?php echo base_url('category/'.$sCat->prod_cat_id);?>"><?php echo $sCat->category_name; ?></a></li>
+                                    <li><a class="dropdown-item" href="<?php echo base_url('category/' . $sCat->prod_cat_id);?>"><?php echo $sCat->category_name; ?></a></li>
                                     <?php } ?>
                                 </ul>
                                 <?php } ?>

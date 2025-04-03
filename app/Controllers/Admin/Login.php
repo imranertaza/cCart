@@ -74,7 +74,7 @@ class Login extends BaseController
                     'adRoleId' => $result->role_id,
                     'adminAll' => $result,
                     'isLoggedInEcAdmin' => true,
-                    'resetDatatable' => true
+                    'resetDatatable' => true,
                 ];
                 $this->session->set($sessionArray);
 

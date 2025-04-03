@@ -12,11 +12,11 @@
                     foreach ($xml->page as $val) {
                         $view .= "<li> ";
                         if ($val->parent == '0') {
-                            $view .= "<a href=".$val->url.">".htmlspecialchars($val->title)."</a>";
+                            $view .= "<a href=" . $val->url . ">" . htmlspecialchars($val->title) . "</a>";
                         }
                         $view .= "<ul>";
                         if ($val->parent == '1') {
-                            $view .= "<li class='li-css'><div><a href=".$val->url.">".htmlspecialchars($val->title)."</a></div></li>";
+                            $view .= "<li class='li-css'><div><a href=" . $val->url . ">" . htmlspecialchars($val->title) . "</a></div></li>";
                         }
                         $view .= "</ul></li>";
 

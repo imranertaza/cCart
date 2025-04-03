@@ -54,7 +54,7 @@ foreach ($reviews as $val) { ?>
                         <tr>
                             <td width="40"><?php echo $i++;?></td>
                             <td><?php echo get_data_by_id('name', 'cc_products', 'product_id', $val->product_id);?></td>
-                            <td><?php echo get_data_by_id('firstname', 'cc_customer', 'customer_id', $val->customer_id).' '.get_data_by_id('lastname', 'cc_customer', 'customer_id', $val->customer_id);?></td>
+                            <td><?php echo get_data_by_id('firstname', 'cc_customer', 'customer_id', $val->customer_id) . ' ' . get_data_by_id('lastname', 'cc_customer', 'customer_id', $val->customer_id);?></td>
                             <td><?php echo $val->feedback_star;?></td>
                             <td><?php echo $val->feedback_text;?></td>
                             <td>
@@ -64,7 +64,7 @@ foreach ($reviews as $val) { ?>
                                 </select>
                             </td>
                             <td>
-                                <a href="<?php echo base_url('admin/reviews_delete/'.$val->product_feedback_id);?>" onclick="return confirm('Are you sure you want to Delete?')" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i> Delete</a>
+                                <a href="<?php echo base_url('admin/reviews_delete/' . $val->product_feedback_id);?>" onclick="return confirm('Are you sure you want to Delete?')" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i> Delete</a>
                             </td>
                         </tr>
                     <?php } ?>

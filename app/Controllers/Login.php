@@ -29,9 +29,9 @@ class Login extends BaseController
             $data['description'] = $settings['meta_description'];
             $data['title'] = 'Account Login';
 
-            echo view('Theme/'.$settings['Theme'].'/header', $data);
-            echo view('Theme/'.$settings['Theme'].'/Login/login');
-            echo view('Theme/'.$settings['Theme'].'/footer');
+            echo view('Theme/' . $settings['Theme'] . '/header', $data);
+            echo view('Theme/' . $settings['Theme'] . '/Login/login');
+            echo view('Theme/' . $settings['Theme'] . '/footer');
 
         } else {
             return redirect()->to(site_url('dashboard'));
@@ -79,7 +79,7 @@ class Login extends BaseController
 
                 $sessionArray = ['cusUserId' => $result->customer_id,
                     'cusAll' => $result,
-                    'isLoggedInCustomer' => true
+                    'isLoggedInCustomer' => true,
                 ];
                 $this->session->set($sessionArray);
 
@@ -130,9 +130,9 @@ class Login extends BaseController
             $data['description'] = $settings['meta_description'];
             $data['title'] = 'Register Account';
 
-            echo view('Theme/'.$settings['Theme'].'/header', $data);
-            echo view('Theme/'.$settings['Theme'].'/Login/register');
-            echo view('Theme/'.$settings['Theme'].'/footer');
+            echo view('Theme/' . $settings['Theme'] . '/header', $data);
+            echo view('Theme/' . $settings['Theme'] . '/Login/register');
+            echo view('Theme/' . $settings['Theme'] . '/footer');
 
         } else {
             return redirect()->to(site_url('dashboard'));
@@ -171,7 +171,7 @@ class Login extends BaseController
 
                 $title = 'Your registration is completed!';
                 $message = 'Thank you. Your registration has been successfully completed. 
-                Login details  Email: '.$data['email'].' Password: '.$this->request->getPost('password');
+                Login details  Email: ' . $data['email'] . ' Password: ' . $this->request->getPost('password');
                 $url = base_url('login');
                 $temp = success_email_template($title, $message, $url);
 
@@ -214,9 +214,9 @@ class Login extends BaseController
         $data['description'] = $settings['meta_description'];
 
         $data['page_title'] = 'Forgot Password';
-        echo view('Theme/'.$settings['Theme'].'/header', $data);
-        echo view('Theme/'.$settings['Theme'].'/Login/forgotPassword');
-        echo view('Theme/'.$settings['Theme'].'/footer');
+        echo view('Theme/' . $settings['Theme'] . '/header', $data);
+        echo view('Theme/' . $settings['Theme'] . '/Login/forgotPassword');
+        echo view('Theme/' . $settings['Theme'] . '/footer');
     }
 
     /**
@@ -233,13 +233,13 @@ class Login extends BaseController
             $sessionArray = [
                 'forgot_email' => $email,
                 'otp' => $otp,
-                'forgetPassword' => true
+                'forgetPassword' => true,
             ];
             $this->session->set($sessionArray);
 
             //email send
             $title = 'Password reset Otp';
-            $message = 'Your otp is '.$otp;
+            $message = 'Your otp is ' . $otp;
             $url = base_url('otp_submit');
             $tem = success_email_template($title, $message, $url);
 
@@ -341,7 +341,7 @@ class Login extends BaseController
 
             //email send
             $title = 'Your password reset is completed!';
-            $message = 'Thank you. Your new login details  Email: '.$email.' Password: '.$this->request->getPost('password');
+            $message = 'Thank you. Your new login details  Email: ' . $email . ' Password: ' . $this->request->getPost('password');
             $url = base_url('login');
             $temp = success_email_template($title, $message, $url);
             email_send($email, $title, $temp);

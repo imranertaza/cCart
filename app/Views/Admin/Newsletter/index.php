@@ -50,7 +50,7 @@
 foreach ($newsletter as $val) { ?>
                         <tr>
                             <td width="40"><?php echo $i++;?></td>
-                            <td><?php echo get_data_by_id('firstname', 'cc_customer', 'customer_id', $val->customer_id).get_data_by_id('lastname', 'cc_customer', 'customer_id', $val->customer_id) ;?></td>
+                            <td><?php echo get_data_by_id('firstname', 'cc_customer', 'customer_id', $val->customer_id) . get_data_by_id('lastname', 'cc_customer', 'customer_id', $val->customer_id) ;?></td>
                             <td><?php echo $val->email;?></td>
 <!--                            <td width="180">-->
 <!--                                <a href="--><?php //echo base_url('brand_update/'.$val->brand_id);?><!--" class="btn btn-primary btn-xs"><i class="fas fa-edit"></i> Update</a>-->

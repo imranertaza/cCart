@@ -55,8 +55,8 @@ foreach ($color as $val) { ?>
                             <td><?php echo $val->color_name;?></td>
                             <td><?php echo $val->code;?></td>
                             <td width="180">
-                                <a href="<?php echo base_url('color_family_update/'.$val->color_family_id);?>" class="btn btn-primary btn-xs"><i class="fas fa-edit"></i> Update</a>
-                                <a href="<?php echo base_url('color_family_delete/'.$val->color_family_id);?>" onclick="return confirm('Are you sure you want to Delete?')" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i> Delete</a>
+                                <a href="<?php echo base_url('color_family_update/' . $val->color_family_id);?>" class="btn btn-primary btn-xs"><i class="fas fa-edit"></i> Update</a>
+                                <a href="<?php echo base_url('color_family_delete/' . $val->color_family_id);?>" onclick="return confirm('Are you sure you want to Delete?')" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i> Delete</a>
                             </td>
                         </tr>
                     <?php } ?>

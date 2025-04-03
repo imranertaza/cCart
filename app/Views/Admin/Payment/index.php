@@ -59,7 +59,7 @@ foreach ($payment as $val) { ?>
                                 <input type="checkbox" name="product_featured" onfocus="update_payment_status(<?php echo $val->payment_method_id;?>)" <?php echo ($val->status == '1') ? 'checked' : '';?>  data-bootstrap-switch >
                             </td>
                             <td width="180">
-                                <a href="<?php echo base_url('admin/payment/'.$val->code.'/'.$val->payment_method_id);?>" class="btn btn-primary btn-xs"><i class="fas fa-cogs"></i> Settings</a>
+                                <a href="<?php echo base_url('admin/payment/' . $val->code . '/' . $val->payment_method_id);?>" class="btn btn-primary btn-xs"><i class="fas fa-cogs"></i> Settings</a>
                             </td>
                         </tr>
                     <?php } ?>

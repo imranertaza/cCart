@@ -206,7 +206,7 @@ class Products extends BaseController
 
 
             if (!empty($_FILES['image']['name'])) {
-                $target_dir = FCPATH . '/uploads/products/'.$productId.'/';
+                $target_dir = FCPATH . '/uploads/products/' . $productId . '/';
                 $this->imageProcessing->directory_create($target_dir);
 
                 //new image upload
@@ -224,7 +224,7 @@ class Products extends BaseController
             //multi image upload(start)
             if ($this->request->getFileMultiple('multiImage')) {
 
-                $target_dir = FCPATH . '/uploads/products/'.$productId.'/';
+                $target_dir = FCPATH . '/uploads/products/' . $productId . '/';
                 $this->imageProcessing->directory_create($target_dir);
 
                 $files = $this->request->getFileMultiple('multiImage');
@@ -236,7 +236,7 @@ class Products extends BaseController
                         $proImgTable->insert($dataMultiImg);
                         $proImgId = DB()->insertID();
 
-                        $target_dir2 = FCPATH . '/uploads/products/'.$productId.'/'.$proImgId.'/';
+                        $target_dir2 = FCPATH . '/uploads/products/' . $productId . '/' . $proImgId . '/';
                         $this->imageProcessing->directory_create($target_dir2);
 
                         $news_img2 = $this->imageProcessing->product_image_upload_and_crop_all_size($file, $target_dir2);
@@ -296,56 +296,56 @@ class Products extends BaseController
 
 
             if (!empty($_FILES['description_image']['name'])) {
-                $target_dir = FCPATH . '/uploads/products/'.$productId.'/';
+                $target_dir = FCPATH . '/uploads/products/' . $productId . '/';
                 if (!file_exists($target_dir)) {
                     mkdir($target_dir, 0777);
                 }
 
                 //new image upload
                 $despic = $this->request->getFile('description_image');
-                $namePic = 'des_' .$despic->getRandomName();
+                $namePic = 'des_' . $despic->getRandomName();
                 $despic->move($target_dir, $namePic);
 
                 $proDescData['description_image'] = $namePic;
             }
 
             if (!empty($_FILES['documentation_pdf']['name'])) {
-                $target_dir = FCPATH . '/uploads/products/'.$productId.'/';
+                $target_dir = FCPATH . '/uploads/products/' . $productId . '/';
                 if (!file_exists($target_dir)) {
                     mkdir($target_dir, 0777);
                 }
 
                 //new image upload
                 $docPdf = $this->request->getFile('documentation_pdf');
-                $nameDoc = 'doc_' .$docPdf->getRandomName();
+                $nameDoc = 'doc_' . $docPdf->getRandomName();
                 $docPdf->move($target_dir, $nameDoc);
 
                 $proDescData['documentation_pdf'] = $nameDoc;
             }
 
             if (!empty($_FILES['safety_pdf']['name'])) {
-                $target_dir = FCPATH . '/uploads/products/'.$productId.'/';
+                $target_dir = FCPATH . '/uploads/products/' . $productId . '/';
                 if (!file_exists($target_dir)) {
                     mkdir($target_dir, 0777);
                 }
 
                 //new image upload
                 $safPdf = $this->request->getFile('safety_pdf');
-                $nameDoc = 'saf_' .$safPdf->getRandomName();
+                $nameDoc = 'saf_' . $safPdf->getRandomName();
                 $safPdf->move($target_dir, $nameDoc);
 
                 $proDescData['safety_pdf'] = $nameDoc;
             }
 
             if (!empty($_FILES['instructions_pdf']['name'])) {
-                $target_dir = FCPATH . '/uploads/products/'.$productId.'/';
+                $target_dir = FCPATH . '/uploads/products/' . $productId . '/';
                 if (!file_exists($target_dir)) {
                     mkdir($target_dir, 0777);
                 }
 
                 //new image upload
                 $insPdf = $this->request->getFile('instructions_pdf');
-                $nameDoc = 'ins_' .$insPdf->getRandomName();
+                $nameDoc = 'ins_' . $insPdf->getRandomName();
                 $insPdf->move($target_dir, $nameDoc);
 
                 $proDescData['instructions_pdf'] = $nameDoc;
@@ -483,7 +483,7 @@ class Products extends BaseController
                 //product table data insert(start)
                 $storeId = get_data_by_id('store_id', 'cc_stores', 'is_default', '1');
                 $proData['store_id'] = $storeId;
-                $proData['name'] = 'Copy of '.$pro->name;
+                $proData['name'] = 'Copy of ' . $pro->name;
                 $proData['model'] = $pro->model;
                 $proData['brand_id'] = !empty($pro->brand_id) ? $pro->brand_id : null;
                 $proData['price'] = $pro->price;
@@ -733,7 +733,7 @@ class Products extends BaseController
 
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            return redirect()->to('admin/product_update/'.$product_id);
+            return redirect()->to('admin/product_update/' . $product_id);
         } else {
             DB()->transStart();
 
@@ -763,7 +763,7 @@ class Products extends BaseController
 
 
             if (!empty($_FILES['image']['name'])) {
-                $target_dir = FCPATH . '/uploads/products/'.$product_id.'/';
+                $target_dir = FCPATH . '/uploads/products/' . $product_id . '/';
 
                 //unlink
                 $oldImg = get_data_by_id('image', 'cc_products', 'product_id', $product_id);
@@ -781,7 +781,7 @@ class Products extends BaseController
             //multi image upload(start)
             if ($this->request->getFileMultiple('multiImage')) {
 
-                $target_dir = FCPATH . '/uploads/products/'.$product_id.'/';
+                $target_dir = FCPATH . '/uploads/products/' . $product_id . '/';
                 $this->imageProcessing->directory_create($target_dir);
 
                 $files = $this->request->getFileMultiple('multiImage');
@@ -793,7 +793,7 @@ class Products extends BaseController
                         $proImgTable->insert($dataMultiImg);
                         $proImgId = DB()->insertID();
 
-                        $target_dir2 = FCPATH . '/uploads/products/'.$product_id.'/'.$proImgId.'/';
+                        $target_dir2 = FCPATH . '/uploads/products/' . $product_id . '/' . $proImgId . '/';
                         $news_img2 = $this->imageProcessing->directory_create($target_dir2)->product_image_upload_and_crop_all_size($file, $target_dir2);
 
                         $dataMultiImg2['image'] = $news_img2;
@@ -858,7 +858,7 @@ class Products extends BaseController
 
 
             if (!empty($_FILES['description_image']['name'])) {
-                $target_dir = FCPATH . '/uploads/products/'.$product_id.'/';
+                $target_dir = FCPATH . '/uploads/products/' . $product_id . '/';
                 if (!file_exists($target_dir)) {
                     mkdir($target_dir, 0777);
                 }
@@ -874,14 +874,14 @@ class Products extends BaseController
 
                 //new image upload
                 $despic = $this->request->getFile('description_image');
-                $namePic = 'des_' .$despic->getRandomName();
+                $namePic = 'des_' . $despic->getRandomName();
                 $despic->move($target_dir, $namePic);
 
                 $proDescData['description_image'] = $namePic;
             }
 
             if (!empty($_FILES['documentation_pdf']['name'])) {
-                $target_dir = FCPATH . '/uploads/products/'.$product_id.'/';
+                $target_dir = FCPATH . '/uploads/products/' . $product_id . '/';
                 if (!file_exists($target_dir)) {
                     mkdir($target_dir, 0777);
                 }
@@ -896,14 +896,14 @@ class Products extends BaseController
 
                 //new image upload
                 $docPdf = $this->request->getFile('documentation_pdf');
-                $nameDoc = 'doc_' .$docPdf->getRandomName();
+                $nameDoc = 'doc_' . $docPdf->getRandomName();
                 $docPdf->move($target_dir, $nameDoc);
 
                 $proDescData['documentation_pdf'] = $nameDoc;
             }
 
             if (!empty($_FILES['safety_pdf']['name'])) {
-                $target_dir = FCPATH . '/uploads/products/'.$product_id.'/';
+                $target_dir = FCPATH . '/uploads/products/' . $product_id . '/';
                 if (!file_exists($target_dir)) {
                     mkdir($target_dir, 0777);
                 }
@@ -918,14 +918,14 @@ class Products extends BaseController
 
                 //new image upload
                 $safPdf = $this->request->getFile('safety_pdf');
-                $nameDoc = 'saf_' .$safPdf->getRandomName();
+                $nameDoc = 'saf_' . $safPdf->getRandomName();
                 $safPdf->move($target_dir, $nameDoc);
 
                 $proDescData['safety_pdf'] = $nameDoc;
             }
 
             if (!empty($_FILES['instructions_pdf']['name'])) {
-                $target_dir = FCPATH . '/uploads/products/'.$product_id.'/';
+                $target_dir = FCPATH . '/uploads/products/' . $product_id . '/';
                 if (!file_exists($target_dir)) {
                     mkdir($target_dir, 0777);
                 }
@@ -940,7 +940,7 @@ class Products extends BaseController
 
                 //new image upload
                 $insPdf = $this->request->getFile('instructions_pdf');
-                $nameDoc = 'ins_' .$insPdf->getRandomName();
+                $nameDoc = 'ins_' . $insPdf->getRandomName();
                 $insPdf->move($target_dir, $nameDoc);
 
                 $proDescData['instructions_pdf'] = $nameDoc;
@@ -1078,7 +1078,7 @@ class Products extends BaseController
 
             DB()->transComplete();
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Products Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            return redirect()->to('admin/product_update/'.$product_id);
+            return redirect()->to('admin/product_update/' . $product_id);
 
         }
     }
@@ -1095,7 +1095,7 @@ class Products extends BaseController
 
         DB()->transStart();
 
-        $target_dir = FCPATH . '/uploads/products/'.$product_id;
+        $target_dir = FCPATH . '/uploads/products/' . $product_id;
         if (file_exists($target_dir)) {
             delete_files($target_dir, true);
             rmdir($target_dir);
@@ -1189,7 +1189,7 @@ class Products extends BaseController
         $table = DB()->table('cc_product_image');
         $data = $table->where('product_image_id', $product_image_id)->get()->getRow();
 
-        $target_dir = FCPATH . '/uploads/products/'.$data->product_id.'/'.$product_image_id;
+        $target_dir = FCPATH . '/uploads/products/' . $data->product_id . '/' . $product_image_id;
         if (file_exists($target_dir)) {
             delete_files($target_dir, true);
             rmdir($target_dir);
@@ -1212,8 +1212,8 @@ class Products extends BaseController
         $view = '<ul class="list-unstyled list-op-aj" >';
         foreach ($option as $op) {
             $optionname = "'$op->name'";
-            $optionname2 = "'".strtolower(str_replace(' ', '', $op->name))."'";
-            $view .= '<li><a href="javascript:void(0)" onclick="optionViewPro('.$op->option_id.','.$optionname2.','.$optionname.')" >'.$op->name.'</a></li>';
+            $optionname2 = "'" . strtolower(str_replace(' ', '', $op->name)) . "'";
+            $view .= '<li><a href="javascript:void(0)" onclick="optionViewPro(' . $op->option_id . ',' . $optionname2 . ',' . $optionname . ')" >' . $op->name . '</a></li>';
         }
         $view .= '</ul>';
 
@@ -1231,7 +1231,7 @@ class Products extends BaseController
         $data = $table->where('option_id', $option_id)->get()->getResult();
         $view = '';
         foreach ($data as $item) {
-            $view .= '<option value="'.$item->option_value_id.'">'.$item->name.'</option>';
+            $view .= '<option value="' . $item->option_value_id . '">' . $item->name . '</option>';
         }
         print $view;
     }
@@ -1368,7 +1368,7 @@ class Products extends BaseController
                                 }
                             }
 
-                            echo "Processing step ".$i++." ...<br>";
+                            echo "Processing step " . $i++ . " ...<br>";
                             //                            sleep(3);
 
                             // ob_flush();

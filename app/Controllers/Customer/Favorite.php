@@ -41,10 +41,10 @@ class Favorite extends BaseController
 
             $data['menu_active'] = 'favorite';
             $data['page_title'] = 'Favorite';
-            echo view('Theme/'.$settings['Theme'].'/header', $data);
-            echo view('Theme/'.$settings['Theme'].'/Customer/menu');
-            echo view('Theme/'.$settings['Theme'].'/Customer/favorite', $data);
-            echo view('Theme/'.$settings['Theme'].'/footer');
+            echo view('Theme/' . $settings['Theme'] . '/header', $data);
+            echo view('Theme/' . $settings['Theme'] . '/Customer/menu');
+            echo view('Theme/' . $settings['Theme'] . '/Customer/favorite', $data);
+            echo view('Theme/' . $settings['Theme'] . '/footer');
         }
     }
 

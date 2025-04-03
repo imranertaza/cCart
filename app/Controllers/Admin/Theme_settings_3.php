@@ -128,23 +128,23 @@ class Theme_settings_3 extends BaseController
     public function home_category_update()
     {
         $prefix = $this->request->getPost('prefix');
-        $data['home_category_'.$prefix] = $this->request->getPost('home_category_'.$prefix);
-        $data['home_category_title_'.$prefix] = $this->request->getPost('home_category_title_'.$prefix);
+        $data['home_category_' . $prefix] = $this->request->getPost('home_category_' . $prefix);
+        $data['home_category_title_' . $prefix] = $this->request->getPost('home_category_title_' . $prefix);
 
-        if (!empty($_FILES['home_category_baner_'.$prefix]['name'])) {
+        if (!empty($_FILES['home_category_baner_' . $prefix]['name'])) {
             $target_dir = FCPATH . '/uploads/home_category/';
             if (!file_exists($target_dir)) {
                 mkdir($target_dir, 0777);
             }
 
             //new image uplode
-            $pic = $this->request->getFile('home_category_baner_'.$prefix);
+            $pic = $this->request->getFile('home_category_baner_' . $prefix);
             $namePic = $pic->getRandomName();
             $pic->move($target_dir, $namePic);
             $news_img = 'home_category_' . $pic->getName();
             $this->crop->withFile($target_dir . $namePic)->fit(271, 590, 'center')->save($target_dir . $news_img, 100);
             unlink($target_dir . $namePic);
-            $data['home_category_baner_'.$prefix] = $news_img;
+            $data['home_category_baner_' . $prefix] = $news_img;
         }
 
         foreach ($data as $key => $val) {
@@ -277,8 +277,8 @@ class Theme_settings_3 extends BaseController
             $namePic = $pic->getRandomName();
             $pic->move($target_dir, $namePic);
             $news_img = 'banner_' . $pic->getName();
-            $this->crop->withFile($target_dir . $namePic)->fit(280, 440, 'center')->save($target_dir .  $news_img);
-            unlink($target_dir .  $namePic);
+            $this->crop->withFile($target_dir . $namePic)->fit(280, 440, 'center')->save($target_dir . $news_img);
+            unlink($target_dir . $namePic);
             $data['value'] = $news_img;
 
             $table = DB()->table('cc_theme_settings');
@@ -344,8 +344,8 @@ class Theme_settings_3 extends BaseController
         $namePic = $pic->getRandomName();
         $pic->move($target_dir, $namePic);
         $news_img = 'sp_banner_' . $pic->getName();
-        $this->crop->withFile($target_dir .  $namePic)->fit(837, 190, 'center')->save($target_dir . $news_img);
-        unlink($target_dir .  $namePic);
+        $this->crop->withFile($target_dir . $namePic)->fit(837, 190, 'center')->save($target_dir . $news_img);
+        unlink($target_dir . $namePic);
         $data['value'] = $news_img;
 
     }
@@ -367,7 +367,7 @@ class Theme_settings_3 extends BaseController
             $namePic = $pic->getRandomName();
             $pic->move($target_dir, $namePic);
             $news_img = 'sp_banner_' . $pic->getName();
-            $this->crop->withFile($target_dir . $namePic)->fit(837, 190, 'center')->save($target_dir .  $news_img);
+            $this->crop->withFile($target_dir . $namePic)->fit(837, 190, 'center')->save($target_dir . $news_img);
             unlink($target_dir . $namePic);
             $data['value'] = $news_img;
 

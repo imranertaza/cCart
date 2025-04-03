@@ -91,7 +91,7 @@
                                     <tr>
                                         <td><?php
                                         $img = get_data_by_id('image', 'cc_products', 'product_id', $item->product_id);
-                                    echo image_view('uploads/products', $item->product_id, $img_size.$img, 'noimage.png', '');
+                                    echo image_view('uploads/products', $item->product_id, $img_size . $img, 'noimage.png', '');
                                     ?>
 
                                         </td>

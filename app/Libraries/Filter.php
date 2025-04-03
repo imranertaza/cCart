@@ -179,7 +179,7 @@ class Filter
     {
         $sel = (in_array('1', $ratingSel)) ? 'checked ' : '';
         return '<label class="w-100 mb-2">
-                <input type="checkbox" onclick="formSubmit()" '.$sel.' form="searchForm" name="rating[]" id="" value="1">
+                <input type="checkbox" onclick="formSubmit()" ' . $sel . ' form="searchForm" name="rating[]" id="" value="1">
                     <i class="fa-solid fa-star"></i>
                     <i class="fa-regular fa-star"></i>
                     <i class="fa-regular fa-star"></i>
@@ -198,7 +198,7 @@ class Filter
     {
         $sel = (in_array('2', $ratingSel)) ? 'checked ' : '';
         return '<label class="w-100 mb-2">
-                <input type="checkbox" onclick="formSubmit()" '.$sel.' form="searchForm"  name="rating[]" id="" value="2">
+                <input type="checkbox" onclick="formSubmit()" ' . $sel . ' form="searchForm"  name="rating[]" id="" value="2">
                     <i class="fa-solid fa-star"></i>
                     <i class="fa-solid fa-star"></i>
                     <i class="fa-regular fa-star"></i>
@@ -217,7 +217,7 @@ class Filter
     {
         $sel = (in_array('3', $ratingSel)) ? 'checked ' : '';
         return '<label class="w-100 mb-2">
-                <input type="checkbox" onclick="formSubmit()" '.$sel.' form="searchForm" name="rating[]" id="" value="3">
+                <input type="checkbox" onclick="formSubmit()" ' . $sel . ' form="searchForm" name="rating[]" id="" value="3">
                     <i class="fa-solid fa-star"></i>
                     <i class="fa-solid fa-star"></i>
                     <i class="fa-solid fa-star"></i>
@@ -236,7 +236,7 @@ class Filter
     {
         $sel = (in_array('4', $ratingSel)) ? 'checked ' : '';
         return '<label class="w-100 mb-2">
-                <input type="checkbox" onclick="formSubmit()" '.$sel.' form="searchForm" name="rating[]" id="" value="4">
+                <input type="checkbox" onclick="formSubmit()" ' . $sel . ' form="searchForm" name="rating[]" id="" value="4">
                     <i class="fa-solid fa-star"></i>
                     <i class="fa-solid fa-star"></i>
                     <i class="fa-solid fa-star"></i>
@@ -255,7 +255,7 @@ class Filter
     {
         $sel = (in_array('5', $ratingSel)) ? 'checked ' : '';
         return '<label class="w-100 mb-2">
-                <input type="checkbox" onclick="formSubmit()" '.$sel.' form="searchForm" name="rating[]" id="" value="5">
+                <input type="checkbox" onclick="formSubmit()" ' . $sel . ' form="searchForm" name="rating[]" id="" value="5">
                     <i class="fa-solid fa-star"></i>
                     <i class="fa-solid fa-star"></i>
                     <i class="fa-solid fa-star"></i>

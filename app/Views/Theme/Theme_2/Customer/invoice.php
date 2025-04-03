@@ -34,13 +34,13 @@
                             </div>
                             <div class="col-md-2 text-capitalize ">
                                 <p class="fw-bold">Bill to</p>
-                                <p><?php echo $order->payment_firstname .' '.$order->payment_lastname;?></p>
+                                <p><?php echo $order->payment_firstname . ' ' . $order->payment_lastname;?></p>
                                 <p><?php echo $order->payment_phone;?></p>
                                 <p><?php echo $order->payment_address_1;?></p>
                             </div>
                             <div class="col-md-2 text-capitalize">
                                 <p class="fw-bold">Ship to</p>
-                                <p><?php echo $order->shipping_firstname .' '.$order->shipping_lastname;?></p>
+                                <p><?php echo $order->shipping_firstname . ' ' . $order->shipping_lastname;?></p>
                                 <p><?php echo $order->shipping_phone;?></p>
                                 <p><?php echo $order->shipping_address_1;?></p>
                             </div>
@@ -82,7 +82,7 @@
                                         <div class="img-table" style="width:12%; float:left;">
                                         <?php
                                             $img = get_data_by_id('image', 'cc_products', 'product_id', $item->product_id);
-                                echo image_view('uploads/products', $item->product_id, $img_size_100 .$img, 'noimage.png', '');
+                                echo image_view('uploads/products', $item->product_id, $img_size_100 . $img, 'noimage.png', '');
                                 ?>
                                         </div>
                                         <div class="img-text" style="width:88%;float:left;">

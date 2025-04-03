@@ -14,7 +14,7 @@ class CreatLabelColumInModuleSettings extends Migration
                 'constraint' => 255,
                 'null' => true,
                 'default' => null,
-                'after' => 'module_id'
+                'after' => 'module_id',
             ],
         ];
         $this->forge->addColumn('cc_module_settings', $fields);

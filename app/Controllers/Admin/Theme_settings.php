@@ -106,8 +106,8 @@ class Theme_settings extends BaseController
             $namePic = $pic->getRandomName();
             $pic->move($target_dir, $namePic);
             $news_img = 'slider_' . $pic->getName();
-            $this->crop->withFile($target_dir .  $namePic)->fit($theme_libraries->slider_width, $theme_libraries->slider_height, 'center')->save($target_dir . $news_img);
-            unlink($target_dir .  $namePic);
+            $this->crop->withFile($target_dir . $namePic)->fit($theme_libraries->slider_width, $theme_libraries->slider_height, 'center')->save($target_dir . $news_img);
+            unlink($target_dir . $namePic);
             $data['value'] = $news_img;
 
             $table = DB()->table('cc_theme_settings');

@@ -16,12 +16,12 @@
                             <div class="swiper-container gallery-slider">
                                 <div class="swiper-wrapper">
                                     <div class="swiper-slide">
-                                        <?php echo image_view('uploads/products', $products->product_id, $img_size_437 .$products->image, 'noimage.png', 'img-fluid')?>
+                                        <?php echo image_view('uploads/products', $products->product_id, $img_size_437 . $products->image, 'noimage.png', 'img-fluid')?>
                                     </div>
                                     <?php
                                     if (!empty($proImg)) {
                                         foreach ($proImg as $imgval) {
-                                            echo '<div class="swiper-slide">'.multi_image_view('uploads/products', $imgval->product_id, $imgval->product_image_id, $img_size_437 . $imgval->image, 'noimage.png', 'img-fluid').'</div>';
+                                            echo '<div class="swiper-slide">' . multi_image_view('uploads/products', $imgval->product_id, $imgval->product_image_id, $img_size_437 . $imgval->image, 'noimage.png', 'img-fluid') . '</div>';
                                         }
                                     }
                 ?>
@@ -31,12 +31,12 @@
                             <div class="swiper-container gallery-thumbs">
                                 <div class="swiper-wrapper">
                                     <div class="swiper-slide">
-                                        <?php echo image_view('uploads/products', $products->product_id, $img_size_100 .$products->image, 'noimage.png', 'img-fluid')?>
+                                        <?php echo image_view('uploads/products', $products->product_id, $img_size_100 . $products->image, 'noimage.png', 'img-fluid')?>
                                     </div>
                                     <?php
                     if (!empty($proImg)) {
                         foreach ($proImg as $imgval) {
-                            echo '<div class="swiper-slide">'.multi_image_view('uploads/products', $imgval->product_id, $imgval->product_image_id, $img_size_100 . $imgval->image, 'noimage.png', 'img-fluid').'</div>';
+                            echo '<div class="swiper-slide">' . multi_image_view('uploads/products', $imgval->product_id, $imgval->product_image_id, $img_size_100 . $imgval->image, 'noimage.png', 'img-fluid') . '</div>';
                         }
                     }
                 ?>
@@ -156,7 +156,7 @@
                             <?php foreach ($review as $rev) { ?>
                                 <div class="review text-capitalize mt-2" style="border: 1px solid #ededed;padding: 20px 10px 10px 10px;">
                                     <span style="float: right;"><?php echo $rev->feedback_star;?> <i data-index="2" title="Medium" class="fa-solid fa-star" style="color: rgb(0, 0, 0); margin: 2px; font-size: 1em;"></i></span>
-                                    <p><strong><?php echo get_data_by_id('firstname', 'cc_customer', 'customer_id', $rev->customer_id).' '.get_data_by_id('lastname', 'cc_customer', 'customer_id', $rev->customer_id)?></strong> </p>
+                                    <p><strong><?php echo get_data_by_id('firstname', 'cc_customer', 'customer_id', $rev->customer_id) . ' ' . get_data_by_id('lastname', 'cc_customer', 'customer_id', $rev->customer_id)?></strong> </p>
 
                                     <p><?php echo $rev->feedback_text;?></p>
                                 </div>
@@ -207,7 +207,7 @@
                         <a href="javascript:void(0)" onclick="addToCart(<?php echo $relPro->product_id ?>)" class="btn-compare position-absolute start-0 top-0 mt-5 ms-2"><i class="fa-solid fa-code-compare"></i></a>
                         <?php } ?>
                         <div class="product-top">
-                            <?php echo image_view('uploads/products', $relPro->product_id, $img_size .$relPro->image, 'noimage.png', 'img-fluid w-100')?>
+                            <?php echo image_view('uploads/products', $relPro->product_id, $img_size . $relPro->image, 'noimage.png', 'img-fluid w-100')?>
                             <div class="rating text-center my-2">
                                 <?php echo product_id_by_rating($relPro->product_id);?>
                             </div>
@@ -217,7 +217,7 @@
 <!--                                Categorie-->
                             </div>
                             <div class="product-title mb-2">
-                                <a href="<?php echo base_url('detail/'.$relPro->product_id)?>"><?php echo $relPro->name;?></a>
+                                <a href="<?php echo base_url('detail/' . $relPro->product_id)?>"><?php echo $relPro->name;?></a>
                             </div>
                             <div class="price mb-3">
                                 <?php $spPric2 = get_data_by_id('special_price', 'cc_product_special', 'product_id', $relPro->product_id);
@@ -259,7 +259,7 @@
                                     <a href="javascript:void(0)" onclick="addToCart(<?php echo $rPro->product_id ?>)" class="btn-compare position-absolute start-0 top-0 mt-5 ms-2"><i class="fa-solid fa-code-compare"></i></a>
                                     <?php } ?>
                                     <div class="product-top">
-                                        <?php echo image_view('uploads/products', $rPro->product_id, $img_size .$rPro->image, 'noimage.png', 'img-fluid w-100')?>
+                                        <?php echo image_view('uploads/products', $rPro->product_id, $img_size . $rPro->image, 'noimage.png', 'img-fluid w-100')?>
                                         <div class="rating text-center my-2">
                                             <?php echo product_id_by_rating($rPro->product_id);?>
                                         </div>
@@ -269,7 +269,7 @@
 <!--                                            Categorie-->
                                         </div>
                                         <div class="product-title mb-2">
-                                            <a href="<?php echo base_url('detail/'.$rPro->product_id)?>"><?php echo $rPro->name;?></a>
+                                            <a href="<?php echo base_url('detail/' . $rPro->product_id)?>"><?php echo $rPro->name;?></a>
                                         </div>
                                         <div class="price mb-3">
                                             <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $rPro->product_id);

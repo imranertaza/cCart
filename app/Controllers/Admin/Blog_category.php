@@ -188,7 +188,7 @@ class Blog_category extends BaseController
                 if (!empty($old_img)) {
                     $imgPath = $target_dir . $old_img;
                     if (file_exists($imgPath)) {
-                        unlink($target_dir .  $old_img);
+                        unlink($target_dir . $old_img);
                     }
                 }
 

@@ -87,7 +87,7 @@ class Western_union extends BaseController
             $pic->move($target_dir, $namePic);
             $news_img = 'western_union_' . $pic->getName();
             $this->crop->withFile($target_dir . $namePic)->fit(120, 30, 'center')->save($target_dir . $news_img);
-            unlink($target_dir .  $namePic);
+            unlink($target_dir . $namePic);
             $data['image'] = $news_img;
         }
 

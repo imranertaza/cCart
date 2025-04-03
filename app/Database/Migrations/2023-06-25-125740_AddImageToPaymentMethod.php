@@ -15,7 +15,7 @@ class AddImageToPaymentMethod extends Migration
                 'after' => 'code',
                 'null' => true,
                 'default' => null,
-            ]
+            ],
         ];
         $this->forge->addColumn('cc_payment_method', $fields);
     }
