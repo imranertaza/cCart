@@ -30,6 +30,7 @@ class Coupon extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId          = $this->session->adRoleId;
+
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
@@ -39,9 +40,11 @@ class Coupon extends BaseController
 
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
+
             foreach ($perm as $key => $val) {
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
+
             if (isset($data['mod_access']) and $data['mod_access'] == 1) {
                 echo view('Admin/Coupon/index', $data);
             } else {
@@ -58,6 +61,7 @@ class Coupon extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId          = $this->session->adRoleId;
+
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
@@ -66,9 +70,11 @@ class Coupon extends BaseController
 
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
+
             foreach ($perm as $key => $val) {
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
+
             if (isset($data['create']) and $data['create'] == 1) {
                 echo view('Admin/Coupon/create', $data);
             } else {
@@ -107,6 +113,7 @@ class Coupon extends BaseController
 
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/coupon_create');
         } else {
             DB()->transStart();
@@ -118,6 +125,7 @@ class Coupon extends BaseController
             //multi shipping charge discount
             if (!empty($shipping_method)) {
                 $shipData = [];
+
                 foreach ($shipping_method as $v) {
                     $shData['shipping_method_id'] = $v;
                     $shData['coupon_id']          = $coupon_id;
@@ -129,6 +137,7 @@ class Coupon extends BaseController
             DB()->transComplete();
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Coupon Create Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/coupon_create');
         }
     }
@@ -142,6 +151,7 @@ class Coupon extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId          = $this->session->adRoleId;
+
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
@@ -156,9 +166,11 @@ class Coupon extends BaseController
 
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
+
             foreach ($perm as $key => $val) {
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
+
             if (isset($data['update']) and $data['update'] == 1) {
                 echo view('Admin/Coupon/update', $data);
             } else {
@@ -198,6 +210,7 @@ class Coupon extends BaseController
 
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/coupon_update/' . $coupon_id);
         } else {
             DB()->transStart();
@@ -211,6 +224,7 @@ class Coupon extends BaseController
             //multi shipping charge discount
             if (!empty($shipping_method)) {
                 $shipData = [];
+
                 foreach ($shipping_method as $v) {
                     $shData['shipping_method_id'] = $v;
                     $shData['coupon_id']          = $coupon_id;
@@ -221,6 +235,7 @@ class Coupon extends BaseController
             }
             DB()->transComplete();
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Coupon Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/coupon_update/' . $coupon_id);
         }
     }
@@ -239,6 +254,7 @@ class Coupon extends BaseController
         $table->where('coupon_id', $coupon_id)->delete();
 
         $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Coupon Delete Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
         return redirect()->to('admin/coupon');
     }
 }

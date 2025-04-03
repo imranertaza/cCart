@@ -31,6 +31,7 @@ class Credit_card extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId          = $this->session->adRoleId;
+
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
@@ -44,9 +45,11 @@ class Credit_card extends BaseController
 
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
+
             foreach ($perm as $key => $val) {
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
+
             if (isset($data['update']) and $data['update'] == 1) {
                 echo view('Admin/Payment/credit_card', $data);
             } else {
@@ -66,6 +69,7 @@ class Credit_card extends BaseController
         //settings update
         $label = $this->request->getPost('label[]');
         $id    = $this->request->getPost('id[]');
+
         if (!empty($label)) {
             foreach ($label as $key => $val) {
                 $table = DB()->table('cc_payment_settings');
@@ -78,6 +82,7 @@ class Credit_card extends BaseController
 
         if (!empty($_FILES['image']['name'])) {
             $target_dir = FCPATH . '/uploads/payment/';
+
             if (!file_exists($target_dir)) {
                 mkdir($target_dir, 0777);
             }
@@ -99,6 +104,7 @@ class Credit_card extends BaseController
 
 
         $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Credit Card Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
         return redirect()->to('admin/payment/bank_transfer/' . $payment_method_id);
     }
 }

@@ -50,6 +50,7 @@
                             $bacColor = 'bg-danger';
                             $titleS   = $status;
                             $pad      = 'padding:35px 20px;';
+
                             if ($status == 'Paid') {
                                 $bacColor = 'bg-success';
                                 $titleS   = $status;
@@ -76,6 +77,7 @@
                             </thead>
                             <tbody>
                             <?php $symbol = get_lebel_by_value_in_settings('currency_symbol');
+
                             foreach ($orderItem as $item) { ?>
                                 <tr>
                                     <td width="700">
@@ -90,6 +92,7 @@
                                             <br>
                                         <?php
                                     $orOption = order_iten_id_by_order_options($item->order_item);
+
                                 if (!empty($orOption)) {
                                     foreach ($orOption as $op) { ?>
                                                 <?php

@@ -29,6 +29,7 @@ class Weight_shipping
         $weight                 = 0;
         $value                  = 0;
         $eligible_product_array = $this->get_shipping_eligible_product();
+
         foreach ($eligible_product_array as $val) {
             $weight += get_data_by_id('weight', 'cc_products', 'product_id', $val);
         }
@@ -46,6 +47,7 @@ class Weight_shipping
                 }
             }
         }
+
         return $value;
     }
 
@@ -60,6 +62,7 @@ class Weight_shipping
         foreach (Cart()->contents() as $val) {
             $table = DB()->table('cc_product_free_delivery');
             $exist = $table->where('product_id', $val['id'])->countAllResults();
+
             if (empty($exist)) {
                 $eligible_product[] = $val['id'];
             }

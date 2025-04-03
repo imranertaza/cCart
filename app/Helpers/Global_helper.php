@@ -11,6 +11,7 @@ use CodeIgniter\Session\Session;
 function DB()
 {
     $db = \Config\Database::connect();
+
     return $db;
 }
 
@@ -21,6 +22,7 @@ function DB()
 function newSession()
 {
     $session = \Config\Services::session();
+
     return $session;
 }
 
@@ -31,6 +33,7 @@ function newSession()
 function Cart()
 {
     $cart = \Config\Services::cart();
+
     return $cart;
 }
 
@@ -44,6 +47,7 @@ function invoiceDateFormat($datetime = '0000-00-00 00:00:00')
     if ($datetime == '0000-00-00 00:00:00' or $datetime == '0000-00-00' or $datetime == '') {
         return 'Unknown';
     }
+
     return date('d M Y', strtotime($datetime));
 }
 
@@ -78,11 +82,13 @@ function get_data_by_id($needCol, $table, $whereCol, $whereInfo)
 
     $query      = $table->where($whereCol, $whereInfo)->get();
     $findResult = $query->getRow();
+
     if (!empty($findResult)) {
         $col = ($findResult->$needCol == null) ? null : $findResult->$needCol;
     } else {
         $col = false;
     }
+
     return $col;
 }
 
@@ -99,9 +105,11 @@ function statusView($selected = '1')
     ];
 
     $row = '';
+
     foreach ($status as $key => $option) {
         $row .= ($selected == $key) ? $option : '';
     }
+
     return $row;
 }
 
@@ -118,11 +126,13 @@ function globalStatus($selected = 'sel')
     ];
 
     $row = '';
+
     foreach ($status as $key => $option) {
         $row .= '<option value="' . $key . '"';
         $row .= ($selected == $key) ? ' selected' : '';
         $row .= '>' . $option . '</option>';
     }
+
     return $row;
 }
 
@@ -139,11 +149,13 @@ function getListInOption($selected, $tblId, $needCol, $table)
     $table   = DB()->table($table);
     $query   = $table->get();
     $options = '';
+
     foreach ($query->getResult() as $value) {
         $options .= '<option value="' . $value->$tblId . '" ';
         $options .= ($value->$tblId == $selected) ? ' selected="selected"' : '';
         $options .= '>' . $value->$needCol . '</option>';
     }
+
     return $options;
 }
 
@@ -162,11 +174,13 @@ function getIdByListInOption($selected, $tblId, $needCol, $table, $where, $needw
     $table   = DB()->table($table);
     $query   = $table->where($where, $needwhere)->get();
     $options = '';
+
     foreach ($query->getResult() as $value) {
         $options .= '<option value="' . $value->$tblId . '" ';
         $options .= ($value->$tblId == $selected) ? ' selected="selected"' : '';
         $options .= '>' . $value->$needCol . '</option>';
     }
+
     return $options;
 }
 
@@ -192,11 +206,13 @@ function image_view($url, $slug, $image, $no_image, $class = '', $id = '', $attr
         $img = $bas_url . '/' . $url . '/' . $image;
     }
     $no_img = $bas_url . '/' . $url . '/' . $no_image;
+
     if (!empty($image)) {
         if (!file_exists($dir)) {
             $result = '<img data-sizes="auto" id="' . $id . '" src="' . $no_img . '" class="' . $class . '" loading="lazy">';
         } else {
             $imgPath = $dir . '/' . $image;
+
             if (file_exists($imgPath)) {
                 $result = '<img data-sizes="auto" ' . $attr . ' id="' . $id . '" src="' . $img . '" class="' . $class . '" loading="lazy">';
             } else {
@@ -206,6 +222,7 @@ function image_view($url, $slug, $image, $no_image, $class = '', $id = '', $attr
     } else {
         $result = '<img data-sizes="auto" id="' . $id . '" src="' . $no_img . '" class="' . $class . '" loading="lazy">';
     }
+
     return $result;
 }
 
@@ -228,11 +245,13 @@ function multi_image_view($url, $slug, $slug2, $image, $no_image, $class = '')
 
 
     $no_img = $bas_url . '/' . $url . '/' . $no_image;
+
     if (!empty($image)) {
         if (!file_exists($dir)) {
             $result = '<img data-sizes="auto" src="' . $no_img . '" class="' . $class . '" loading="lazy">';
         } else {
             $imgPath = $dir . '/' . $image;
+
             if (file_exists($imgPath)) {
                 $result = '<img data-sizes="auto" src="' . $img . '" class="' . $class . '" loading="lazy">';
             } else {
@@ -242,6 +261,7 @@ function multi_image_view($url, $slug, $slug2, $image, $no_image, $class = '')
     } else {
         $result = '<img data-sizes="auto" src="' . $no_img . '" class="' . $class . '" loading="lazy">';
     }
+
     return $result;
 }
 
@@ -256,6 +276,7 @@ function is_exists($table, $whereCol, $whereInfo)
 {
     $table = DB()->table($table);
     $query = $table->where($whereCol, $whereInfo)->countAllResults();
+
     return !empty($query) ? false : true;
 }
 
@@ -272,6 +293,7 @@ function is_exists_double_condition($table, $whereCol, $whereInfo, $orWhereCol, 
 {
     $table = DB()->table($table);
     $query = $table->where($whereCol, $whereInfo)->where($orWhereCol, $orWhereInfo)->countAllResults();
+
     return !empty($query) ? false : true;
 }
 
@@ -288,6 +310,7 @@ function is_exists_update($table, $whereCol, $whereInfo, $whereId, $id)
 {
     $table = DB()->table($table);
     $query = $table->where($whereCol, $whereInfo)->where($whereId . ' !=', $id)->countAllResults();
+
     return !empty($query) ? false : true;
 }
 
@@ -307,6 +330,7 @@ function add_main_based_menu_with_permission($title, $url, $roleId, $icon, $modu
 
     $menu   = '';
     $access = $permission->have_access($roleId, $module_name, 'mod_access');
+
     if ($access == 1) {
         $class_active = ($active_url === $url) ? 'active' : '';
         $menu .= '<li class="nav-item" ><a class="nav-link' . $class_active . '"  href="' . $url . '" >';
@@ -327,9 +351,11 @@ function add_main_based_menu_with_permission($title, $url, $roleId, $icon, $modu
 function all_menu_permission_check($module_name_array, $role_id)
 {
     $permission = new Permission();
+
     foreach ($module_name_array as $module_name) {
         $access[] = $permission->have_access($role_id, $module_name, 'mod_access');
     }
+
     return empty(array_filter($access)) ? false : true;
 }
 
@@ -341,6 +367,7 @@ function admin_user_name()
 {
     $userId = newSession()->adUserId;
     $table  = DB()->table('cc_users');
+
     return $table->where('user_id', $userId)->get()->getRow()->name;
 }
 
@@ -354,6 +381,7 @@ function get_settings()
     $data  = $table->get()->getResult();
 
     $settings = [];
+
     foreach ($data as $key => $val) {
         foreach ($val as $k => $v) {
             if ($k == 'label') {
@@ -361,6 +389,7 @@ function get_settings()
             }
         }
     }
+
     return $settings;
 }
 
@@ -374,6 +403,7 @@ function get_settings_title()
     $data  = $table->get()->getResult();
 
     $settings = [];
+
     foreach ($data as $key => $val) {
         foreach ($val as $k => $v) {
             if ($k == 'label') {
@@ -381,6 +411,7 @@ function get_settings_title()
             }
         }
     }
+
     return $settings;
 }
 
@@ -395,6 +426,7 @@ function get_theme_settings()
     $table    = DB()->table('cc_theme_settings');
     $data     = $table->where('theme', $theme)->get()->getResult();
     $settings = [];
+
     foreach ($data as $key => $val) {
         foreach ($val as $k => $v) {
             if ($k == 'label') {
@@ -402,6 +434,7 @@ function get_theme_settings()
             }
         }
     }
+
     return $settings;
 }
 
@@ -416,6 +449,7 @@ function get_theme_title_settings()
     $table    = DB()->table('cc_theme_settings');
     $data     = $table->where('theme', $theme)->get()->getResult();
     $settings = [];
+
     foreach ($data as $key => $val) {
         foreach ($val as $k => $v) {
             if ($k == 'label') {
@@ -423,6 +457,7 @@ function get_theme_title_settings()
             }
         }
     }
+
     return $settings;
 }
 
@@ -435,6 +470,7 @@ function modules_access()
     $table    = DB()->table('cc_modules');
     $data     = $table->get()->getResult();
     $settings = [];
+
     foreach ($data as $key => $val) {
         foreach ($val as $k => $v) {
             if ($k == 'module_key') {
@@ -442,6 +478,7 @@ function modules_access()
             }
         }
     }
+
     return $settings;
 }
 
@@ -454,6 +491,7 @@ function get_lebel_by_value_in_settings($lable)
 {
     $table = DB()->table('cc_settings');
     $data  = $table->where('label', $lable)->get()->getRow();
+
     return !empty($data) ? $data->value : '';
 }
 
@@ -466,6 +504,7 @@ function get_lebel_by_title_in_settings($lable)
 {
     $table = DB()->table('cc_settings');
     $data  = $table->where('label', $lable)->get()->getRow();
+
     return !empty($data) ? $data->title : '';
 }
 
@@ -479,11 +518,13 @@ function getListInParentCategory($selected)
     $table   = DB()->table('cc_product_category');
     $query   = $table->where('parent_id', null)->get();
     $options = '';
+
     foreach ($query->getResult() as $value) {
         $options .= '<option value="' . $value->prod_cat_id . '" ';
         $options .= ($value->prod_cat_id == $selected) ? ' selected="selected"' : '';
         $options .= '>' . $value->category_name . '</option>';
     }
+
     return $options;
 }
 
@@ -494,6 +535,7 @@ function getListInParentCategory($selected)
 function getParentCategoryArray()
 {
     $table = DB()->table('cc_product_category');
+
     return $table->where('parent_id', null)->get()->getResult();
 }
 
@@ -505,6 +547,7 @@ function getParentCategoryArray()
 function getCategoryBySubArray($cat_id)
 {
     $table = DB()->table('cc_product_category');
+
     return $table->where('parent_id', $cat_id)->orderBy('sort_order', 'ASC')->get()->getResult();
 }
 
@@ -517,6 +560,7 @@ function check_is_parent_category($product_category_id)
 {
     $table = DB()->table('cc_product_category');
     $cat   = $table->where('prod_cat_id', $product_category_id)->get()->getRow();
+
     return !empty($cat->parent_id) ? $cat->parent_id : $cat->prod_cat_id;
 }
 
@@ -529,6 +573,7 @@ function check_is_sub_category($product_category_id)
 {
     $table = DB()->table('cc_product_category');
     $cat   = $table->where('prod_cat_id', $product_category_id)->get()->getRow();
+
     return !empty($cat->parent_id) ? false : true;
 }
 
@@ -542,10 +587,12 @@ function available_theme($sel = '')
     helper('filesystem');
     $file = get_dir_file_info(FCPATH . '../app/Views/Theme');
     $view = '';
+
     foreach ($file as $key => $val) {
         $s = ($key == $sel) ? "selected" : "";
         $view .= '<option value="' . $key . '" ' . $s . ' >' . $key . '</option>';
     }
+
     return $view;
 }
 
@@ -559,11 +606,13 @@ function country($sel = '')
     $table   = DB()->table('cc_country');
     $data    = $table->get()->getResult();
     $options = '';
+
     foreach ($data as $value) {
         $options .= '<option value="' . $value->country_id . '" ';
         $options .= ($value->country_id == $sel) ? ' selected="selected"' : '';
         $options .= '>' . $value->name . '</option>';
     }
+
     return $options;
 }
 
@@ -578,11 +627,13 @@ function state_with_country($country, $sel = '')
     $table   = DB()->table('cc_zone');
     $data    = $table->where('country_id', $country)->get()->getResult();
     $options = '';
+
     foreach ($data as $value) {
         $options .= '<option value="' . $value->zone_id . '" ';
         $options .= ($value->zone_id == $sel) ? ' selected="selected"' : '';
         $options .= '>' . $value->name . '</option>';
     }
+
     return $options;
 }
 
@@ -595,6 +646,7 @@ function attribute_array_by_product_id($productId)
 {
     $table = DB()->table('cc_product_attribute');
     $query = $table->where('product_id', $productId)->get()->getResult();
+
     return $query;
 }
 
@@ -607,6 +659,7 @@ function get_all_data_array($table)
 {
     $tableSel = DB()->table($table);
     $query    = $tableSel->get()->getResult();
+
     return $query;
 }
 
@@ -621,6 +674,7 @@ function get_array_data_by_id($table, $whereInfo, $whereId)
 {
     $tableSel = DB()->table($table);
     $query    = $tableSel->where($whereInfo, $whereId)->get()->getResult();
+
     return $query;
 }
 
@@ -633,6 +687,7 @@ function category_id_by_product_count($category_id)
 {
     $table = DB()->table('cc_product_to_category');
     $count = $table->join('cc_products', 'cc_products.product_id = cc_product_to_category.product_id')->where('cc_product_to_category.category_id', $category_id)->where('cc_products.status', 'Active')->countAllResults();
+
     return $count;
 }
 
@@ -645,6 +700,7 @@ function check_review($productId)
 {
     $table = DB()->table('cc_product_feedback');
     $count = $table->where('product_id', $productId)->where('customer_id', newSession()->cusUserId)->countAllResults();
+
     return $count;
 }
 
@@ -661,8 +717,10 @@ function product_id_by_rating($productId, $ratingCount = 0)
 
     $average         = 0;
     $numberOfReviews = count($pro);
+
     if (!empty($numberOfReviews)) {
         $totalStar = 0;
+
         foreach ($pro as $val) {
             $totalStar += $val->feedback_star;
         }
@@ -672,6 +730,7 @@ function product_id_by_rating($productId, $ratingCount = 0)
     $view      = '<div class="js-wc-star-rating" style="' . $sty . '">';
     $starColor = 'rgb(0, 0, 0)';
     $starType  = 'fa-solid';
+
     for ($x = 1; $x <= 5; $x++) {
         if ($x > $average) {
             $starColor = 'lightgray';
@@ -700,13 +759,16 @@ function product_id_by_average_rating($productId)
 
     $average         = 0;
     $numberOfReviews = count($pro);
+
     if (!empty($numberOfReviews)) {
         $totalStar = 0;
+
         foreach ($pro as $val) {
             $totalStar += $val->feedback_star;
         }
         $average = $totalStar / $numberOfReviews;
     }
+
     return $average;
 }
 
@@ -721,10 +783,12 @@ function available_template($sel = '')
     $tem  = get_lebel_by_value_in_settings('Theme');
     $file = get_dir_file_info(FCPATH . '../app/Views/Theme/' . $tem . '/Page');
     $view = '';
+
     foreach ($file as $key => $val) {
         $s = ($key == $sel) ? "selected" : "";
         $view .= '<option value="' . $key . '" ' . $s . ' >' . $key . '</option>';
     }
+
     return $view;
 }
 
@@ -737,10 +801,12 @@ function top_menu()
     $table = DB()->table('cc_product_category');
     $query = $table->where('header_menu', '1')->get()->getResult();
     $view  = '';
+
     foreach ($query as $val) {
         $url = base_url('category/' . $val->prod_cat_id);
         $view .= '<li class="nav-item"><a class="nav-link" aria-current="page" href="' . $url . '" >' . $val->category_name . '</a></li>';
     }
+
     return $view;
 }
 
@@ -753,6 +819,7 @@ function modules_key_by_access($key)
 {
     $table = DB()->table('cc_modules');
     $data  = $table->where('module_key', $key)->get()->getRow();
+
     return !empty($data) ? $data->status : '';
 }
 
@@ -765,6 +832,7 @@ function get_lebel_by_value_in_theme_settings($lable)
 {
     $table = DB()->table('cc_theme_settings');
     $data  = $table->where('label', $lable)->get()->getRow();
+
     return !empty($data) ? $data->value : '';
 }
 
@@ -777,6 +845,7 @@ function get_lebel_by_title_in_theme_settings($lable)
 {
     $table = DB()->table('cc_theme_settings');
     $data  = $table->where('label', $lable)->get()->getRow();
+
     return !empty($data) ? $data->title : '';
 }
 
@@ -790,6 +859,7 @@ function get_lebel_by_title_in_theme_settings_with_theme($lable, $theme)
 {
     $table = DB()->table('cc_theme_settings');
     $data  = $table->where('label', $lable)->where('theme', $theme)->get()->getRow();
+
     return !empty($data) ? $data->title : '';
 }
 
@@ -803,6 +873,7 @@ function get_lebel_by_value_in_theme_settings_with_theme($lable, $theme)
 {
     $table = DB()->table('cc_theme_settings');
     $data  = $table->where('label', $lable)->where('theme', $theme)->get()->getRow();
+
     return !empty($data) ? $data->value : '';
 }
 
@@ -1118,6 +1189,7 @@ function order_id_by_status($order_id)
 {
     $table = DB()->table('cc_order_history');
     $order = $table->where('order_id', $order_id)->get()->getLastRow();
+
     return get_data_by_id('name', 'cc_order_status', 'order_status_id', $order->order_status_id);
 }
 
@@ -1129,6 +1201,7 @@ function getSideMenuArray()
 {
     $table = DB()->table('cc_product_category');
     $table->join('cc_icons', 'cc_icons.icon_id = cc_product_category.icon_id');
+
     return $table->where('cc_product_category.side_menu', 1)->orderBy('cc_product_category.sort_order', 'ASC')->get()->getResult();
 }
 
@@ -1142,6 +1215,7 @@ function addToCartBtn($product_id)
     $qtyCheck    = get_data_by_id('quantity', 'cc_products', 'product_id', $product_id);
     $optionCheck = is_exists('cc_product_option', 'product_id', $product_id);
     $btn         = '';
+
     if (!empty($qtyCheck)) {
         if ($optionCheck == true) {
             $btn = '<a href="javascript:void(0)" onclick="addToCart(' . $product_id . ')" class="btn btn-cart w-100 rounded-0 mt-auto">Add to Cart</a>';
@@ -1152,6 +1226,7 @@ function addToCartBtn($product_id)
     } else {
         $btn = '<a href="javascript:void(0)"  class="btn btn-cart w-100 rounded-0 mt-auto">Out of Stock</a>';
     }
+
     return $btn;
 }
 
@@ -1166,6 +1241,7 @@ function addToCartBtnIcon($product_id)
     $optionCheck = is_exists('cc_product_option', 'product_id', $product_id);
     $icon        = '<svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none"><path d="M14.55 11C15.3 11 15.96 10.59 16.3 9.97L19.88 3.48C19.9643 3.32843 20.0075 3.15747 20.0054 2.98406C20.0034 2.81064 19.956 2.64077 19.8681 2.49126C19.7803 2.34175 19.6549 2.21778 19.5043 2.13162C19.3538 2.04545 19.1834 2.00009 19.01 2H4.21L3.27 0H0V2H2L5.6 9.59L4.25 12.03C3.52 13.37 4.48 15 6 15H18V13H6L7.1 11H14.55ZM5.16 4H17.31L14.55 9H7.53L5.16 4ZM6 16C4.9 16 4.01 16.9 4.01 18C4.01 19.1 4.9 20 6 20C7.1 20 8 19.1 8 18C8 16.9 7.1 16 6 16ZM16 16C14.9 16 14.01 16.9 14.01 18C14.01 19.1 14.9 20 16 20C17.1 20 18 19.1 18 18C18 16.9 17.1 16 16 16Z" fill="white"/></svg>';
     $btn         = '';
+
     if (!empty($qtyCheck)) {
         if ($optionCheck == true) {
             $btn = '<a href="javascript:void(0)" onclick="addToCart(' . $product_id . ')" class="btn btn-cart bg-custom-color text-white rounded-0 mt-3">' . $icon . '</a>';
@@ -1176,6 +1252,7 @@ function addToCartBtnIcon($product_id)
     } else {
         $btn = '<a href="javascript:void(0)"  class="btn btn-cart bg-black text-white rounded-0 mt-3">' . $icon . '</a>';
     }
+
     return $btn;
 }
 
@@ -1188,6 +1265,7 @@ function addToCartBtnIcon($product_id)
 function option_id_or_product_id_by_option_value($option_id, $product_id)
 {
     $table = DB()->table('cc_product_option');
+
     return $table->where('option_id', $option_id)->where('product_id', $product_id)->get()->getResult();
 }
 
@@ -1199,6 +1277,7 @@ function option_id_or_product_id_by_option_value($option_id, $product_id)
 function order_iten_id_by_order_options($order_item_id)
 {
     $table = DB()->table('cc_order_option');
+
     return $table->where('order_item_id', $order_item_id)->get()->getResult();
 }
 
@@ -1213,6 +1292,7 @@ function get_all_row_data_by_id($table, $whereCol, $whereInfo)
 {
     $db       = \Config\Database::connect();
     $tabledta = $db->table($table);
+
     return $tabledta->where($whereCol, $whereInfo)->get()->getRow();
 }
 
@@ -1226,6 +1306,7 @@ function get_model_settings_value_by_modelId_or_label($modelId, $label)
 {
     $table = DB()->table('cc_module_settings');
     $row   = $table->where('module_id', $modelId)->where('label', $label)->get()->getRow();
+
     return !empty($row) ? $row->value : 0;
 }
 
@@ -1271,12 +1352,14 @@ function get_category_id_by_product_show_home_slide($category_id)
     $img_size = ($modules['watermark'] == '1') ? '191_wm_' : '191_';
     $view     = '';
     $count    = 0;
+
     foreach ($result as $pro) {
         if ($count % 2 == 0) {
             $view .= '<div class="swiper-slide">' . "\n";
         }
         $view .= '<div class="border p-3 product-grid h-100 d-flex align-items-stretch flex-column position-relative">
             <div class="product-grid position-relative">';
+
         if ($modules['wishlist'] == 1) {
             if (!isset(newSession()->isLoggedInCustomer)) {
                 $view .= '<a href="' . base_url('login') . '" class="btn-wishlist position-absolute mt-2 ms-2"  ><i class="fa-solid fa-heart"></i>
@@ -1333,6 +1416,7 @@ function get_category_name_by_id($cate_id)
 {
     $table = DB()->table('cc_product_category');
     $cat   = $table->where('prod_cat_id', $cate_id)->get()->getRow();
+
     return $cat->category_name;
 }
 
@@ -1345,6 +1429,7 @@ function category_parent_count($cate_id)
 {
     $table = DB()->table('cc_product_category');
     $cat   = $table->where('prod_cat_id', $cate_id)->get()->getRow();
+
     if ($cat->parent_id) {
         return category_parent_count($cat->parent_id) + 1;
     }
@@ -1358,8 +1443,10 @@ function category_parent_count($cate_id)
 function display_category_with_parent($cate_id)
 {
     $catName = [];
+
     if (!empty($cate_id)) {
         $totalParent = category_parent_count($cate_id);
+
         for ($i = 0; $i <= $totalParent; $i++) {
             $catName[] = get_category_name_by_id($cate_id);
             $table     = DB()->table('cc_product_category');
@@ -1390,6 +1477,7 @@ function zone_rate_type()
         '2' => 'Item',
         '3' => 'Price',
     ];
+
     return $status;
 }
 
@@ -1401,6 +1489,7 @@ function zone_rate_type()
 function category_id_by_get_category_all_data($cat_id)
 {
     $table = DB()->table('cc_product_category');
+
     return $table->join('cc_icons', 'cc_icons.icon_id = cc_product_category.icon_id')->where('cc_product_category.prod_cat_id', $cat_id)->get()->getRow();
 }
 
@@ -1413,11 +1502,13 @@ function category_id_by_get_category_all_data($cat_id)
 function product_count_by_brand_id($brand_id, $products)
 {
     $count = 0;
+
     foreach ($products as $v) {
         if ($v->brand_id == $brand_id) {
             $count++;
         }
     }
+
     return $count;
 }
 
@@ -1429,8 +1520,10 @@ function product_count_by_brand_id($brand_id, $products)
 function display_blog_category_with_parent($cate_id)
 {
     $catName = [];
+
     if (!empty($cate_id)) {
         $totalParent = blog_category_parent_count($cate_id);
+
         for ($i = 0; $i <= $totalParent; $i++) {
             $catName[] = get_blog_category_name_by_id($cate_id);
             $table     = DB()->table('cc_category');
@@ -1459,6 +1552,7 @@ function blog_category_parent_count($cate_id)
 {
     $table = DB()->table('cc_category');
     $cat   = $table->where('cat_id', $cate_id)->get()->getRow();
+
     if ($cat->parent_id) {
         return blog_category_parent_count($cat->parent_id) + 1;
     }
@@ -1473,5 +1567,6 @@ function get_blog_category_name_by_id($cate_id)
 {
     $table = DB()->table('cc_category');
     $cat   = $table->where('cat_id', $cate_id)->get()->getRow();
+
     return $cat->category_name;
 }

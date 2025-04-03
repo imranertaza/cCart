@@ -30,6 +30,7 @@ class Page_settings extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId          = $this->session->adRoleId;
+
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
@@ -39,9 +40,11 @@ class Page_settings extends BaseController
 
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
+
             foreach ($perm as $key => $val) {
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
+
             if (isset($data['mod_access']) and $data['mod_access'] == 1) {
                 echo view('Admin/Page_settings/index', $data);
             } else {
@@ -58,14 +61,17 @@ class Page_settings extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId          = $this->session->adRoleId;
+
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
+
             foreach ($perm as $key => $val) {
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
+
             if (isset($data['create']) and $data['create'] == 1) {
                 echo view('Admin/Page_settings/create');
             } else {
@@ -96,6 +102,7 @@ class Page_settings extends BaseController
 
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/page_create');
         } else {
             //            if (!empty($_FILES['f_image']['name'])) {
@@ -118,6 +125,7 @@ class Page_settings extends BaseController
             $table->insert($data);
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Page Settings Create Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/page_create');
         }
     }
@@ -131,6 +139,7 @@ class Page_settings extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId          = $this->session->adRoleId;
+
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
@@ -140,9 +149,11 @@ class Page_settings extends BaseController
 
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
+
             foreach ($perm as $key => $val) {
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
+
             if (isset($data['update']) and $data['update'] == 1) {
                 echo view('Admin/Page_settings/update', $data);
             } else {
@@ -175,12 +186,14 @@ class Page_settings extends BaseController
 
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/page_update/' . $page_id);
         } else {
             $table = DB()->table('cc_pages');
             $table->where('page_id', $page_id)->update($data);
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Page Settings Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/page_update/' . $page_id);
         }
     }
@@ -196,6 +209,7 @@ class Page_settings extends BaseController
         $table->where('page_id', $page_id)->delete();
 
         $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Page Settings Delete Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
         return redirect()->to('admin/page_list');
     }
 }

@@ -24,6 +24,7 @@
                     </thead>
                     <tbody>
                         <?php $symbol = get_lebel_by_value_in_settings('currency_symbol');
+
                     foreach (Cart()->contents() as $val) { ?>
                             <tr>
                                 <td class="product-remove mo-text-center">
@@ -83,6 +84,7 @@
                             </td>
                             <td class="border-end-0 mo-text-center" style="text-align:left;">
                                 <?php $disc = 0;
+
                     if (isset(newSession()->coupon_discount)) { ?>
                                     <span class="fs-4 ">Price</span><br>
                                     <span class="fs-4 ">Discount</span><br>

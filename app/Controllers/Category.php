@@ -100,6 +100,7 @@ class Category extends BaseController
         if (($category_cookie == $selCategory) || (!empty($global_search))) {
             if (!empty($brand)) {
                 $menu = '';
+
                 foreach ($brand as $brVal) {
                     $menu .= $brVal . ',';
                 }
@@ -108,6 +109,7 @@ class Category extends BaseController
 
             if (!empty($options)) {
                 $option = '';
+
                 foreach ($options as $optVal) {
                     $option .= $optVal . ',';
                 }
@@ -120,6 +122,7 @@ class Category extends BaseController
 
             if (!empty($rating)) {
                 $rat = '';
+
                 foreach ($rating as $ratVal) {
                     $rat .= $ratVal . ',';
                 }
@@ -140,12 +143,14 @@ class Category extends BaseController
         if (!empty($shortBy)) {
             $vars ['shortBy'] = $shortBy;
         }
+
         if (!empty($show)) {
             $vars ['show'] = $show;
         }
 
 
         $querystring = http_build_query($vars);
+
         return redirect()->to('products/search?cat=' . $cat . '&' . $querystring);
     }
 }

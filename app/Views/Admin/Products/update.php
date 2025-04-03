@@ -207,6 +207,7 @@
                                                 <label>Category <span class="requi">*</span></label>
                                                 <select class="select2bs4" name="categorys[]" multiple="multiple" data-placeholder="Select a State" style="width: 100%;" required>
                                                     <?php $i = 1;
+
 foreach ($prodCat as $key => $cat) { ?>
                                                         <option value="<?php echo $cat->prod_cat_id; ?>" <?php foreach ($prodCatSel as $valC) {
                                                             echo ($valC->category_id == $cat->prod_cat_id) ? 'selected' : '';
@@ -269,6 +270,7 @@ foreach ($prodCat as $key => $cat) { ?>
                                                     $opVal               = get_array_data_by_id('cc_option_value', 'option_id', $op->option_id);
                                                     ?>
                                                             <?php $i = 101;
+
                                                     foreach ($opValue as $val) {  ?>
                                                                 <div class='col-md-12 mt-3' id='new_<?php echo $i++ . $option->name;?>' ><input type='hidden' name='option[]' value='<?php echo $val->option_id;?>' ><select name='opValue[]' id='valId_"+new_chq_no+"' style='padding: 3px;'><option value=''>Please select</option><?php foreach ($opVal as $p) { ?><option value='<?php echo $p->option_value_id; ?>'  <?php echo ($p->option_value_id == $val->option_value_id) ? 'selected' : ''; ?> ><?php echo $p->name; ?></option><?php } ?></select><select name='subtract[]' style='padding: 3px;'><option value='plus' <?php echo ($val->subtract == null) ? 'selected' : '';?> >Plus</option><option value='minus' <?php echo ($val->subtract != null) ? 'selected' : '';?> >Minus</option></select><input type='number' placeholder='Quantity' name='qty[]' value='<?php echo $val->quantity;?>' required> <input type='number' placeholder='Price' name='price_op[]' value='<?php echo $val->price;?>' required> <a href='javascript:void(0)' onclick='remove_option(this)' class='btn btn-sm btn-danger' style='margin-top: -5px;'>X</a></div>
                                                             <?php } ?>

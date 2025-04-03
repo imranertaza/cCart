@@ -47,6 +47,7 @@
                             $bacColor = 'bg-danger';
                             $titleS   = 'Unpaid';
                             $pad      = 'padding:35px 20px;';
+
                             if ($status == 'Complete') {
                                 $bacColor = 'bg-success';
                                 $titleS   = 'Paid';

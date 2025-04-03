@@ -119,6 +119,7 @@ class Home extends BaseController
         $tabShopBy = DB()->table('cc_product_category_shop_by');
         $tabShopBy->join('cc_product_category', 'cc_product_category.prod_cat_id = cc_product_category_shop_by.prod_cat_id')->join('cc_icons', 'cc_icons.icon_id = cc_product_category.icon_id');
         $data['shop_by'] = $tabShopBy->limit(10)->get()->getResult();
+
         return $data;
     }
 
@@ -157,6 +158,7 @@ class Home extends BaseController
     {
         $email = $this->request->getGetPost('email');
         $code  = $this->request->getGetPost('code');
+
         if (!empty($email)) {
             $email_decrypt = $this->encrypter->decrypt($email);
             $otp_decrypt   = $this->encrypter->decrypt($code);
@@ -171,13 +173,16 @@ class Home extends BaseController
 
                 setcookie('download_image', $email_decrypt, time() + (86400 * 365), "/");
                 $this->session->setFlashdata('message', '<div class="alert-success_web py-2 px-3 border-0 text-white fs-5 text-capitalize" role="alert">Subscribe successfully completed </div>');
+
                 return redirect()->to('/');
             } else {
                 $this->session->setFlashdata('message', '<div class="alert-success_web py-2 px-3 border-0 text-white fs-5 text-capitalize" role="alert">Information not matching </div>');
+
                 return redirect()->to('/');
             }
         } else {
             $this->session->setFlashdata('message', '<div class="alert-success_web py-2 px-3 border-0 text-white fs-5 text-capitalize" role="alert">Information not matching </div>');
+
             return redirect()->to('/');
         }
     }

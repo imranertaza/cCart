@@ -30,6 +30,7 @@ class Theme_settings_3 extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId          = $this->session->adRoleId;
+
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
@@ -39,9 +40,11 @@ class Theme_settings_3 extends BaseController
 
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
+
             foreach ($perm as $key => $val) {
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
+
             if (isset($data['mod_access']) and $data['mod_access'] == 1) {
                 echo view('Admin/Theme_settings/theme_3', $data);
             } else {
@@ -61,6 +64,7 @@ class Theme_settings_3 extends BaseController
 
         if (!empty($_FILES['head_side_baner_1']['name'])) {
             $target_dir = FCPATH . '/uploads/top_side_baner/';
+
             if (!file_exists($target_dir)) {
                 mkdir($target_dir, 0777);
             }
@@ -82,6 +86,7 @@ class Theme_settings_3 extends BaseController
         }
 
         $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Header Section Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
         return redirect()->to('admin/theme_settings?sel=home_settings');
     }
 
@@ -96,6 +101,7 @@ class Theme_settings_3 extends BaseController
 
         if (!empty($_FILES['head_side_baner_2']['name'])) {
             $target_dir = FCPATH . '/uploads/top_side_baner/';
+
             if (!file_exists($target_dir)) {
                 mkdir($target_dir, 0777);
             }
@@ -117,6 +123,7 @@ class Theme_settings_3 extends BaseController
         }
 
         $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Header Section Two Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
         return redirect()->to('admin/theme_settings?sel=home_settings');
     }
 
@@ -132,6 +139,7 @@ class Theme_settings_3 extends BaseController
 
         if (!empty($_FILES['home_category_baner_' . $prefix]['name'])) {
             $target_dir = FCPATH . '/uploads/home_category/';
+
             if (!file_exists($target_dir)) {
                 mkdir($target_dir, 0777);
             }
@@ -153,6 +161,7 @@ class Theme_settings_3 extends BaseController
         }
 
         $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Home Category Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
         return redirect()->to('admin/theme_settings?sel=home_settings');
     }
 
@@ -164,6 +173,7 @@ class Theme_settings_3 extends BaseController
     {
         if (!empty($_FILES['banner_bottom']['name'])) {
             $target_dir = FCPATH . '/uploads/banner_bottom/';
+
             if (!file_exists($target_dir)) {
                 mkdir($target_dir, 0777);
             }
@@ -183,9 +193,11 @@ class Theme_settings_3 extends BaseController
 
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Banner Bottom Update  Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/theme_settings?sel=home_settings');
         } else {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Image field is required! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/theme_settings?sel=home_settings');
         }
     }
@@ -200,6 +212,7 @@ class Theme_settings_3 extends BaseController
 
         if (!empty($_FILES['slider']['name'])) {
             $target_dir = FCPATH . '/uploads/slider/';
+
             if (!file_exists($target_dir)) {
                 mkdir($target_dir, 0777);
             }
@@ -217,9 +230,11 @@ class Theme_settings_3 extends BaseController
             $table->where('label', $nameslider)->update($data);
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Slider Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/theme_settings');
         } else {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Image required <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/theme_settings');
         }
     }
@@ -232,6 +247,7 @@ class Theme_settings_3 extends BaseController
     {
         if (!empty($_FILES['side_logo']['name'])) {
             $target_dir = FCPATH . '/uploads/logo/';
+
             if (!file_exists($target_dir)) {
                 mkdir($target_dir, 0777);
             }
@@ -246,9 +262,11 @@ class Theme_settings_3 extends BaseController
             $table->where('label', 'side_logo')->update($data);
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Logo Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/theme_settings');
         } else {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Logo required <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/theme_settings');
         }
     }
@@ -261,6 +279,7 @@ class Theme_settings_3 extends BaseController
     {
         if (!empty($_FILES['home_category_banner']['name'])) {
             $target_dir = FCPATH . '/uploads/category_banner/';
+
             if (!file_exists($target_dir)) {
                 mkdir($target_dir, 0777);
             }
@@ -278,9 +297,11 @@ class Theme_settings_3 extends BaseController
             $table->where('label', 'home_category_banner')->update($data);
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Category Banner Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/theme_settings');
         } else {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Logo required <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/theme_settings');
         }
     }
@@ -299,12 +320,14 @@ class Theme_settings_3 extends BaseController
 
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/theme_settings?sel=home_settings');
         } else {
             $table = DB()->table('cc_theme_settings');
             $table->where('label', 'home_category')->update($data);
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Home Category Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/theme_settings?sel=home_settings');
         }
     }
@@ -322,6 +345,7 @@ class Theme_settings_3 extends BaseController
         $table->where('label', $label)->update($data);
 
         $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Settings Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
         return redirect()->to('admin/theme_settings?sel=home_settings');
 
         //new image uplode
@@ -342,6 +366,7 @@ class Theme_settings_3 extends BaseController
     {
         if (!empty($_FILES['special_banner']['name'])) {
             $target_dir = FCPATH . '/uploads/special_banner/';
+
             if (!file_exists($target_dir)) {
                 mkdir($target_dir, 0777);
             }
@@ -359,9 +384,11 @@ class Theme_settings_3 extends BaseController
             $table->where('label', 'special_banner')->update($data);
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Special Banner Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/theme_settings?sel=home_settings');
         } else {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Special Banner required <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/theme_settings?sel=home_settings');
         }
     }
@@ -373,8 +400,10 @@ class Theme_settings_3 extends BaseController
     public function home_left_side_banner()
     {
         $label = $this->request->getPost('label');
+
         if (!empty($_FILES['left_side_banner']['name'])) {
             $target_dir = FCPATH . '/uploads/left_side_banner/';
+
             if (!file_exists($target_dir)) {
                 mkdir($target_dir, 0777);
             }
@@ -392,9 +421,11 @@ class Theme_settings_3 extends BaseController
             $table->where('label', $label)->update($data);
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Side Banner Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/theme_settings?sel=home_settings');
         } else {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Side Banner required <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/theme_settings?sel=home_settings');
         }
     }

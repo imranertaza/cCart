@@ -30,6 +30,7 @@ class Blog_category extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId          = $this->session->adRoleId;
+
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
@@ -39,9 +40,11 @@ class Blog_category extends BaseController
 
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
+
             foreach ($perm as $key => $val) {
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
+
             if (isset($data['mod_access']) and $data['mod_access'] == 1) {
                 echo view('Admin/Blog_category/index', $data);
             } else {
@@ -58,6 +61,7 @@ class Blog_category extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId          = $this->session->adRoleId;
+
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
@@ -66,9 +70,11 @@ class Blog_category extends BaseController
 
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
+
             foreach ($perm as $key => $val) {
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
+
             if (isset($data['create']) and $data['create'] == 1) {
                 echo view('Admin/Blog_category/create', $data);
             } else {
@@ -94,10 +100,12 @@ class Blog_category extends BaseController
 
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/blog_category_create');
         } else {
             if (!empty($_FILES['image']['name'])) {
                 $target_dir = FCPATH . '/uploads/blog_category/';
+
                 if (!file_exists($target_dir)) {
                     mkdir($target_dir, 0777);
                 }
@@ -116,6 +124,7 @@ class Blog_category extends BaseController
             $table->insert($data);
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Create Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/blog_category_create');
         }
     }
@@ -129,6 +138,7 @@ class Blog_category extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId          = $this->session->adRoleId;
+
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
@@ -140,9 +150,11 @@ class Blog_category extends BaseController
 
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
+
             foreach ($perm as $key => $val) {
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
+
             if (isset($data['update']) and $data['update'] == 1) {
                 echo view('Admin/Blog_category/update', $data);
             } else {
@@ -170,18 +182,22 @@ class Blog_category extends BaseController
 
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/blog_category_update/' . $cat_id);
         } else {
             if (!empty($_FILES['image']['name'])) {
                 $target_dir = FCPATH . '/uploads/blog_category/';
+
                 if (!file_exists($target_dir)) {
                     mkdir($target_dir, 0777);
                 }
 
                 //old image unlink
                 $old_img = get_data_by_id('image', 'cc_category', 'cat_id', $cat_id);
+
                 if (!empty($old_img)) {
                     $imgPath = $target_dir . $old_img;
+
                     if (file_exists($imgPath)) {
                         unlink($target_dir . $old_img);
                     }
@@ -201,6 +217,7 @@ class Blog_category extends BaseController
             $table->where('cat_id', $cat_id)->update($data);
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Update Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/blog_category_update/' . $cat_id);
         }
     }
@@ -228,12 +245,14 @@ class Blog_category extends BaseController
 
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/blog_category_update/' . $cat_id);
         } else {
             $table = DB()->table('cc_category');
             $table->where('cat_id', $cat_id)->update($data);
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Update Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/blog_category_update/' . $cat_id);
         }
     }
@@ -248,8 +267,10 @@ class Blog_category extends BaseController
         $target_dir = FCPATH . '/uploads/blog_category/';
         //old image unlink
         $old_img = get_data_by_id('image', 'cc_category', 'cat_id', $cat_id);
+
         if (!empty($old_img)) {
             $imgPath = $target_dir . $old_img;
+
             if (file_exists($imgPath)) {
                 unlink($target_dir . $old_img);
             }
@@ -259,6 +280,7 @@ class Blog_category extends BaseController
         //delete child category
         $tableCheck  = DB()->table('cc_category');
         $checkParent = $tableCheck->where('parent_id', $cat_id)->countAllResults();
+
         if (!empty($checkParent)) {
             $categoryUpdateData['parent_id'] = null;
             $tableUpdate                     = DB()->table('cc_category');
@@ -268,6 +290,7 @@ class Blog_category extends BaseController
         //delete blog category
         $tableCheckBlog = DB()->table('cc_blog');
         $checkBlog      = $tableCheckBlog->where('cat_id', $cat_id)->countAllResults();
+
         if (!empty($checkBlog)) {
             $blogUpdateData['cat_id'] = 0;
             $tableUpdateBlog          = DB()->table('cc_blog');
@@ -280,6 +303,7 @@ class Blog_category extends BaseController
         DB()->transComplete();
 
         $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Delete Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
         return redirect()->to('admin/blog_category');
     }
 

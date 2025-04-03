@@ -13,6 +13,7 @@
                             <?php
                             $symbol  = get_lebel_by_value_in_settings('currency_symbol');
                             $modules = modules_access();
+
                             foreach ($products as $pro) {
                                 ?>
                                 <div class="col border p-2">
@@ -42,6 +43,7 @@
                                             </div>
                                             <div class="price mb-3">
                                                 <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id);
+
                                 if (empty($spPric)) { ?>
                                                     <?php echo currency_symbol_with_symbol($pro->price, $symbol);?>
                                                 <?php } else { ?>

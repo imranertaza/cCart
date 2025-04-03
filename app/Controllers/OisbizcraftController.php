@@ -197,6 +197,7 @@ class OisbizcraftController extends BaseController
             unset($_SESSION['order_id']);
 
             $this->session->setFlashdata('message', 'Your order has been successfully placed');
+
             return redirect()->to('checkout_success');
         } else {
             // Handle failed payment (e.g., update database, show failure message)
@@ -238,6 +239,7 @@ class OisbizcraftController extends BaseController
 
 
         DB()->transStart();
+
         if ($shipping_else == 'on') {
             $data['shipping_firstname']  = $this->session->shipping_firstname;
             $data['shipping_lastname']   = $this->session->shipping_lastname;
@@ -262,9 +264,11 @@ class OisbizcraftController extends BaseController
             $data['customer_id'] = $this->session->cusUserId;
         }
         $disc = null;
+
         if (isset($this->session->coupon_discount)) {
             $disc = ($this->cart->total() * $this->session->coupon_discount) / 100;
         }
+
         if (!empty($data['shipping_charge'])) {
             if (isset($this->session->coupon_discount_shipping)) {
                 $disc = $this->session->shipping_discount_charge;
@@ -279,6 +283,7 @@ class OisbizcraftController extends BaseController
         }
 
         $finalAmo = $this->cart->total() - $disc;
+
         if (!empty($data['shipping_charge'])) {
             $finalAmo = ($this->cart->total() + $data['shipping_charge']) - $disc;
         }
@@ -349,6 +354,7 @@ class OisbizcraftController extends BaseController
         if (isset($this->session->cusUserId)) {
             $tableModule = DB()->table('cc_modules');
             $query       = $tableModule->join('cc_module_settings', 'cc_module_settings.module_id = cc_modules.module_id')->where('cc_modules.module_key', 'point')->get()->getRow();
+
             if ($query->status == '1') {
                 $oldPoint  = get_data_by_id('point', 'cc_customer', 'customer_id', $this->session->cusUserId);
                 $point     = $this->cart->total() * $query->value;
@@ -598,6 +604,7 @@ class OisbizcraftController extends BaseController
         if ($message === 'success') {
             $this->wallet_action();
             $this->session->setFlashdata('message', 'Your order has been successfully placed');
+
             return redirect()->to('my-wallet-success');
         } else {
             // Handle failed payment (e.g., update database, show failure message)

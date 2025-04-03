@@ -31,6 +31,7 @@ class Western_union extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId          = $this->session->adRoleId;
+
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
@@ -44,9 +45,11 @@ class Western_union extends BaseController
 
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
+
             foreach ($perm as $key => $val) {
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
+
             if (isset($data['update']) and $data['update'] == 1) {
                 echo view('Admin/Payment/western_union', $data);
             } else {
@@ -66,6 +69,7 @@ class Western_union extends BaseController
         //settings update
         $label = $this->request->getPost('label[]');
         $id    = $this->request->getPost('id[]');
+
         foreach ($label as $key => $val) {
             $table = DB()->table('cc_payment_settings');
             $table->set('value', $val)->where('settings_id', $id[$key])->update();
@@ -76,6 +80,7 @@ class Western_union extends BaseController
 
         if (!empty($_FILES['image']['name'])) {
             $target_dir = FCPATH . '/uploads/payment/';
+
             if (!file_exists($target_dir)) {
                 mkdir($target_dir, 0777);
             }
@@ -97,6 +102,7 @@ class Western_union extends BaseController
 
 
         $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Western Union Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
         return redirect()->to('admin/payment/bank_transfer/' . $payment_method_id);
     }
 }

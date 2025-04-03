@@ -11,6 +11,7 @@
                 </div>
                 <div class="col-lg-6">
                     <?php $isLoggedInCustomer = newSession()->isLoggedInCustomer;
+
         if (!isset($isLoggedInCustomer) || $isLoggedInCustomer != true) { ?>
                     <p><a class="btn bg-custom-color w-100 text-white rounded-0"
                             href="<?php echo base_url('login') ?>">Log In</a></p>
@@ -75,6 +76,7 @@
                         <?php
             $coun = $zon =  $post = $add1 = $add2 = '';
         $cusAddr  = isset($customer->customer_id) ? get_all_row_data_by_id('cc_address', 'customer_id', $customer->customer_id) : '';
+
         if (!empty($cusAddr)) {
             $coun = isset($customer->customer_id) ? $cusAddr->country_id : '';
             $zon  = isset($customer->customer_id) ? $cusAddr->zone_id : '';
@@ -386,6 +388,7 @@
                                 <?php
         $sMethod   = get_array_data_by_id('cc_shipping_method', 'status', '1');
         $dataCount = count($sMethod);
+
         foreach ($sMethod as $ship) { ?>
                                 <div class="d-flex justify-content-between mt-3">
                                     <div class="form-check">

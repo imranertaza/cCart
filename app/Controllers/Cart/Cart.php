@@ -72,10 +72,12 @@ class Cart extends BaseController
         $name         = get_data_by_id('name', 'cc_products', 'product_id', $product_id);
         $price        = get_data_by_id('price', 'cc_products', 'product_id', $product_id);
         $specialprice = get_data_by_id('special_price', 'cc_product_special', 'product_id', $product_id);
+
         if (!empty($specialprice)) {
             $price = $specialprice;
         }
         $check = $this->check_qty($product_id, $qty);
+
         if ($check == true) {
             $data = [
                 'id'    => $product_id,
@@ -102,6 +104,7 @@ class Cart extends BaseController
         $qty        = $this->request->getPost('qty');
 
         $totalOptionPrice = 0;
+
         foreach (get_all_data_array('cc_option') as $vl) {
             $data[strtolower($vl->name)] = $this->request->getPost(strtolower($vl->name));
 
@@ -120,6 +123,7 @@ class Cart extends BaseController
         $name         = get_data_by_id('name', 'cc_products', 'product_id', $product_id);
         $price        = get_data_by_id('price', 'cc_products', 'product_id', $product_id);
         $specialprice = get_data_by_id('special_price', 'cc_product_special', 'product_id', $product_id);
+
         if (!empty($specialprice)) {
             $price = $specialprice;
         }
@@ -137,6 +141,7 @@ class Cart extends BaseController
         }
 
         $check = $this->check_qty($product_id, $qty);
+
         if ($check == true) {
             $this->cart->insert($data);
             print 'Successfully add to cart';
@@ -157,6 +162,7 @@ class Cart extends BaseController
             $name         = get_data_by_id('name', 'cc_products', 'product_id', $product_id);
             $price        = get_data_by_id('price', 'cc_products', 'product_id', $product_id);
             $specialprice = get_data_by_id('special_price', 'cc_product_special', 'product_id', $product_id);
+
             if (!empty($specialprice)) {
                 $price = $specialprice;
             }
@@ -188,6 +194,7 @@ class Cart extends BaseController
         foreach ($this->cart->contents() as $row) {
             if ($row['rowid'] == $rowid) {
                 $check = $this->check_qty($row['id'], $qty);
+
                 if ($check == true) {
                     $this->cart->update($data);
                     $data['message'] = 'Successfully update to cart';
@@ -229,6 +236,7 @@ class Cart extends BaseController
     {
         $table = DB()->table('cc_products');
         $data  = $table->where('product_id', $productID)->get()->getRow();
+
         return ($data->quantity >= $qty) ? true : false;
     }
 }

@@ -79,6 +79,7 @@
                     </td>
                     <td class="border-end-0 " style="text-align:left;">
                         <?php $disc = 0;
+
                     if (isset(newSession()->coupon_discount)) { ?>
                         <span class="fs-4 ">Price</span><br>
                         <span class="fs-4 ">Discount</span><br>

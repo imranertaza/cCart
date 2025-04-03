@@ -14,6 +14,7 @@
                             $symbol   = get_lebel_by_value_in_settings('currency_symbol');
                             $modules  = modules_access();
                             $img_size = ($modules['watermark'] == '1') ? '191_wm_' : '191_';
+
                             foreach ($allProd as $pro) { ?>
                                 <div class="col border p-2">
                                     <div class="product-grid h-100 d-flex align-items-stretch flex-column position-relative">
@@ -55,6 +56,7 @@
                                             </div>
                                             <div class="price mb-3">
                                                 <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro['product_id']);
+
                                 if (empty($spPric)) { ?>
                                                     <?php echo currency_symbol_with_symbol($pro['price'], $symbol);?>
                                                 <?php } else { ?>

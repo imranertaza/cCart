@@ -22,6 +22,7 @@ class Compare extends BaseController
         $settings = get_settings();
         $arrayCom = $this->session->compare_session;
         $proArray = [];
+
         if (isset($arrayCom)) {
             foreach ($arrayCom as $key => $val) {
                 $table          = DB()->table('cc_products');
@@ -58,6 +59,7 @@ class Compare extends BaseController
             foreach ($this->session->compare_session as $stored_product) {
                 $ids[] = $stored_product;
             }
+
             if (!in_array($product_id, $ids)) {
                 $this->session->set('compare_session', $compareArray);
                 print 'Successfully add to compare';
@@ -75,6 +77,7 @@ class Compare extends BaseController
     public function removeToCompare()
     {
         $key_id = $this->request->getPost('key_id');
+
         if (isset($this->session->compare_session)) {
             unset($_SESSION['compare_session'][$key_id]);
             print 'Successfully remove to compare';

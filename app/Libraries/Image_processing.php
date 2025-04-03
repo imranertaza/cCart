@@ -32,15 +32,19 @@ class Image_processing
     {
         helper('Global');
         $theme = get_lebel_by_value_in_settings('Theme');
+
         if ($theme == 'Theme_3') {
             $libraries = new Theme_3();
         }
+
         if ($theme == 'Default') {
             $libraries = new Theme_default();
         }
+
         if ($theme == 'Theme_2') {
             $libraries = new Theme_2();
         }
+
         return $libraries->product_image;
     }
 
@@ -54,6 +58,7 @@ class Image_processing
         if (file_exists($dir)) {
             unlink($dir);
         }
+
         return $this;
     }
 
@@ -67,6 +72,7 @@ class Image_processing
     {
         $namePic = $file->getRandomName();
         $file->move($dir, $namePic);
+
         return 'pro_' . $file->getName();
     }
 
@@ -113,6 +119,7 @@ class Image_processing
 
             imagePng($mainImg, $dir . 'wm_' . $image);
         }
+
         return $this;
     }
 
@@ -137,6 +144,7 @@ class Image_processing
 
             $this->image_unlink($dir . '600_' . $image);
         }
+
         return $this;
     }
 
@@ -154,6 +162,7 @@ class Image_processing
                 $this->crop->withFile($dir . $image)->fit($pro_img['width'], $pro_img['height'], 'center')->save($dir . $pro_img['width'] . '_' . $image_name, $this->quality);
             }
         }
+
         return $this;
     }
 
@@ -177,6 +186,7 @@ class Image_processing
                 $this->image_unlink($dir . '/' . $pro_img['width'] . '_wm_' . $image);
             }
         }
+
         return $this;
     }
 
@@ -190,6 +200,7 @@ class Image_processing
         if (!file_exists($dir)) {
             mkdir($dir, 0777);
         }
+
         return $this;
     }
 
@@ -206,6 +217,7 @@ class Image_processing
         //image crop
         $image = str_replace('pro_', '', $news_img);
         $this->image_crop($dir, $image, $news_img);
+
         if ($modules['watermark'] == '1') {
             //image watermark
             $this->watermark_main_image($dir, $image);

@@ -56,6 +56,7 @@ class Search extends BaseController
         $top_category = $this->request->getPost('top_category');
         $keywordTop   = $this->request->getPost('keywordTop');
         $table        = DB()->table('cc_products');
+
         if (!empty($top_category)) {
             $data['products'] = $this->categoryproductsModel->where('cc_product_to_category.category_id', $top_category)->like('cc_products.name', $keywordTop)->query()->paginate(9);
             $data['pager']    = $this->categoryproductsModel->pager;

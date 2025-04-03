@@ -67,6 +67,7 @@
                                                     </div>
                                                     <div class="price-hot mb-md-3">
                                                         <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id);
+
                                         if (empty($spPric)) { ?>
                                                             <?php echo currency_symbol_with_symbol($pro->price, $symbol); ?>
                                                         <?php } else { ?>
@@ -131,6 +132,7 @@
                                                 </div>
                                                 <div class="price-new mb-md-3">
                                                     <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id);
+
                                     if (empty($spPric)) { ?>
                                                         <?php echo currency_symbol_with_symbol($pro->price, $symbol); ?>
                                                     <?php } else { ?>
@@ -186,6 +188,7 @@
                                                     </div>
                                                     <div class="price-hot mb-3">
                                                         <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id);
+
                                         if (empty($spPric)) { ?>
                                                             <?php echo currency_symbol_with_symbol($pro->price, $symbol); ?>
                                                         <?php } else { ?>
@@ -234,6 +237,7 @@
                                         </div>
                                         <div class="price-special mb-3">
                                             <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id);
+
                                 if (empty($spPric)) { ?>
                                                 <?php echo currency_symbol_with_symbol($pro->price, $symbol); ?>
                                             <?php } else { ?>
@@ -310,6 +314,7 @@
                                                         </div>
                                                         <div class="price-new ">
                                                             <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id);
+
                                             if (empty($spPric)) { ?>
                                                                 <?php echo currency_symbol_with_symbol($pro->price, $symbol); ?>
                                                             <?php } else { ?>
@@ -366,6 +371,7 @@
                                                         </div>
                                                         <div class="price-new ">
                                                             <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id);
+
                                             if (empty($spPric)) { ?>
                                                                 <?php echo currency_symbol_with_symbol($pro->price, $symbol); ?>
                                                             <?php } else { ?>
@@ -422,6 +428,7 @@
                                                         </div>
                                                         <div class="price-new ">
                                                             <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id);
+
                                             if (empty($spPric)) { ?>
                                                                 <?php echo currency_symbol_with_symbol($pro->price, $symbol); ?>
                                                             <?php } else { ?>
@@ -522,6 +529,7 @@
                                                 </div>
                                                 <div class="price-new mb-md-3">
                                                     <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id);
+
                                     if (empty($spPric)) { ?>
                                                         <?php echo currency_symbol_with_symbol($pro->price, $symbol); ?>
                                                     <?php } else { ?>
@@ -573,10 +581,12 @@
                                 $perPageShow = 6;
                         $count               = ceil(count($brand) / $perPageShow);
                         $j                   = 1;
+
                         for ($i = 1; $i <= $count; $i++) {
                             $l   = $i * $perPageShow;
                             $act = ($l == $perPageShow) ? 'active' : '';
                             print '<div class="carousel-item ' . $act . '"> <div class="row px-2">';
+
                             while ($j <= $l) {
                                 if (array_key_exists($j - 1, $brand)) {
                                     echo '<div class="col-6 brand-item  mt-2  no-padding">' . image_view('uploads/brand', '', $brand[$j - 1]->image, 'noimage.png', 'brand-img px-2 ') . '</div>';

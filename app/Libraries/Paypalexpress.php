@@ -33,6 +33,7 @@ class Paypalexpress
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_POST, 1);
         $nvpstr = $nvpheader . $nvpstr;
+
         //check if version is included in $nvpstr else include the version.
         if (strlen(str_replace('VERSION=', '', strtoupper($nvpstr))) == strlen($nvpstr)) {
             $nvpstr = "&VERSION=" . urlencode($settings['api_version']) . $nvpstr;
@@ -57,6 +58,7 @@ class Paypalexpress
             //closing the curl
             curl_close($ch);
         }
+
         return $nvpresarray;
     }
 
@@ -67,6 +69,7 @@ class Paypalexpress
     {
         $intial   = 0;
         $nvparray = [];
+
         while (strlen($nvpstr)) {
             //postion of Key
             $keypos = strpos($nvpstr, '=');
@@ -79,6 +82,7 @@ class Paypalexpress
             $nvparray[urldecode($keyval)] = urldecode($valval);
             $nvpstr                       = substr($nvpstr, $valuepos + 1, strlen($nvpstr));
         }
+
         return $nvparray;
     }
 
@@ -93,6 +97,7 @@ class Paypalexpress
         // call api with token and getting result.
         $resarray = $this->hash_call("GetExpressCheckoutDetails", $nvpstr);
         $ack      = strtoupper($resarray["ACK"]);
+
         if ($ack == 'SUCCESS' || $ack == 'SUCCESSWITHWARNING') {
             ini_set('session.bug_compat_42', 0);
             ini_set('session.bug_compat_warn', 0);
@@ -103,6 +108,7 @@ class Paypalexpress
             $nvpstr         = '&TOKEN=' . $token . '&PAYERID=' . $payerid . '&PAYMENTACTION=' . $settings['payment_type'] . '&AMT=' . $payment_amount . '&CURRENCYCODE=' . $settings['currency'] . '&IPADDRESS=' . $server_name;
             $resarray       = $this->hash_call("DoExpressCheckoutPayment", $nvpstr);
             $ack            = strtoupper($resarray["ACK"]);
+
             // checking response for success.
             if ($ack != 'SUCCESS' && $ack != 'SUCCESSWITHWARNING') {
                 return $resarray;

@@ -26,6 +26,7 @@ class Profile extends BaseController
     public function index()
     {
         $isLoggedInCustomer = $this->session->isLoggedInCustomer;
+
         if (!isset($isLoggedInCustomer) || $isLoggedInCustomer != true) {
             return redirect()->to(site_url('Login'));
         } else {
@@ -85,6 +86,7 @@ class Profile extends BaseController
 
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert text-white alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . '</div>');
+
             return redirect()->to('profile');
         } else {
             if (!empty($this->request->getPost('subscription'))) {
@@ -108,15 +110,18 @@ class Profile extends BaseController
 
             if (!empty($data['current_password'])) {
                 $check = is_exists_double_condition('cc_customer', 'customer_id', $this->session->cusUserId, 'password', SHA1($data['current_password']));
+
                 if ($check == false) {
                     if ($data['new_password'] == $data['confirm_password']) {
                         $cusData['password'] =  SHA1($data['new_password']);
                     } else {
                         $this->session->setFlashdata('message', '<div class="alert alert-danger text-white alert-dismissible" role="alert">New password and confirm password not match </div>');
+
                         return redirect()->to('profile');
                     }
                 } else {
                     $this->session->setFlashdata('message', '<div class="alert alert-danger text-white alert-dismissible" role="alert">Current password not match </div>');
+
                     return redirect()->to('profile');
                 }
             }
@@ -135,6 +140,7 @@ class Profile extends BaseController
             $addData['postcode']    = $data['postcode'];
 
             $check_address = is_exists('cc_address', 'customer_id', $this->session->cusUserId);
+
             if ($check_address == true) {
                 $tabAd = DB()->table('cc_address');
                 $tabAd->insert($addData);
@@ -147,6 +153,7 @@ class Profile extends BaseController
 
 
             $this->session->setFlashdata('message', '<div class="alert-success-m alert-success alert-dismissible" role="alert">Profile Update successfully </div>');
+
             return redirect()->to('profile');
         }
     }
@@ -169,14 +176,17 @@ class Profile extends BaseController
 
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert text-white  alert-dismissible" role="alert">' . $this->validation->listErrors() . '</div>');
+
             return redirect()->to('dashboard');
         } else {
             if (!empty($data['current_password'])) {
                 $check = is_exists_double_condition('cc_customer', 'customer_id', $this->session->cusUserId, 'password', SHA1($data['current_password']));
+
                 if ($check == false) {
                     $cusData['password'] =  SHA1($data['new_password']);
                 } else {
                     $this->session->setFlashdata('message', '<div class="alert  alert-dismissible" role="alert">Current password not match </div>');
+
                     return redirect()->to('dashboard');
                 }
             }
@@ -186,6 +196,7 @@ class Profile extends BaseController
 
 
             $this->session->setFlashdata('message', '<div class="alert-success-m alert-success alert-dismissible" role="alert">Update successfully </div>');
+
             return redirect()->to('dashboard');
         }
     }

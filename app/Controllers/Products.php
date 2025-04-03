@@ -40,6 +40,7 @@ class Products extends BaseController
         $lemit = !empty($this->request->getGetPost('show')) ? $this->request->getGetPost('show') : $settings['category_product_limit'];
 
         $shortBy = !empty($this->request->getGetPost('shortBy')) ? $this->request->getGetPost('shortBy') : '';
+
         if ($shortBy == 'price_asc') {
             $shortBy = "`cc_products.price` ASC";
         } elseif ($shortBy == 'price_desc') {
@@ -57,14 +58,17 @@ class Products extends BaseController
         $rating  = explode(',', $this->request->getGetPost('rating'));
 
         $data['optionval'] = [];
+
         if (empty($this->request->getGetPost('option'))) {
             $allOption = '1=1';
         } else {
             $optionWhere = '';
+
             foreach ($options as $valOp) {
                 $optionWhere .= 'option_value_id = ' . $valOp . ' OR ';
             }
             $countOption = [];
+
             foreach ($options as $valOp) {
                 $optId = get_data_by_id('option_id', 'cc_product_option', 'option_value_id', $valOp);
                 $arr   = $optId;
@@ -77,10 +81,12 @@ class Products extends BaseController
 
         $data['brandval'] = [];
         $manufacturer     = $this->request->getGetPost('manufacturer');
+
         if (empty($this->request->getGetPost('manufacturer'))) {
             $allbrand = '1=1';
         } else {
             $brandWhere = '';
+
             foreach ($brand as $valBr) {
                 $brandWhere .= 'brand_id = ' . $valBr . ' OR ';
             }
@@ -98,10 +104,12 @@ class Products extends BaseController
 
 
         $data['ratingval'] = [];
+
         if (empty($this->request->getGetPost('rating'))) {
             $allrating = '1=1';
         } else {
             $ratingWhere = '';
+
             foreach ($rating as $valRati) {
                 $ratingWhere .= 'average_feedback = ' . $valRati . ' OR ';
             }

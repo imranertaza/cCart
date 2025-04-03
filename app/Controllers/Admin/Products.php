@@ -41,6 +41,7 @@ class Products extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId          = $this->session->adRoleId;
+
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
@@ -49,11 +50,13 @@ class Products extends BaseController
 
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
+
             foreach ($perm as $key => $val) {
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
             echo view('Admin/header');
             echo view('Admin/sidebar');
+
             if (isset($data['mod_access']) and $data['mod_access'] == 1) {
                 echo view('Admin/Products/index', $data);
             } else {
@@ -75,6 +78,7 @@ class Products extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId          = $this->session->adRoleId;
+
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
@@ -87,6 +91,7 @@ class Products extends BaseController
             $pageNum = $this->request->getGet('page');
 
             $perPage = !empty($length) ? $length : 10;
+
             if (empty($keyWord)) {
                 $data['product'] = $this->productsModel->orderBy('product_id', 'desc')->paginate($perPage);
             } else {
@@ -104,9 +109,11 @@ class Products extends BaseController
 
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
+
             foreach ($perm as $key => $val) {
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
+
             if (isset($data['mod_access']) and $data['mod_access'] == 1) {
                 echo view('Admin/Products/list', $data);
             } else {
@@ -127,6 +134,7 @@ class Products extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId          = $this->session->adRoleId;
+
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
@@ -138,9 +146,11 @@ class Products extends BaseController
 
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
+
             foreach ($perm as $key => $val) {
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
+
             if (isset($data['create']) and $data['create'] == 1) {
                 echo view('Admin/Products/create', $data);
             } else {
@@ -173,6 +183,7 @@ class Products extends BaseController
 
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/product_create');
         } else {
             DB()->transStart();
@@ -194,6 +205,7 @@ class Products extends BaseController
             $proData['createdBy']  = $adUserId;
 
             $product_featured = $this->request->getPost('product_featured');
+
             if ($product_featured == 'on') {
                 $proData['featured'] = '1';
             }
@@ -225,6 +237,7 @@ class Products extends BaseController
                 $this->imageProcessing->directory_create($target_dir);
 
                 $files = $this->request->getFileMultiple('multiImage');
+
                 foreach ($files as $file) {
                     if ($file->isValid() && ! $file->hasMoved()) {
                         $dataMultiImg['product_id'] = $productId;
@@ -252,6 +265,7 @@ class Products extends BaseController
 
             //product category insert(start)
             $catData = [];
+
             foreach ($data['categorys'] as $key => $cat) {
                 $catData[$key] = [
                     'product_id'  => $productId,
@@ -268,6 +282,7 @@ class Products extends BaseController
 
             //product_free_delivery data insert(start)
             $free_delivery = $this->request->getPost('product_free_delivery');
+
             if ($free_delivery == 'on') {
                 $proFreeData['product_id'] = $productId;
                 $proFreetable              = DB()->table('cc_product_free_delivery');
@@ -291,6 +306,7 @@ class Products extends BaseController
 
             if (!empty($_FILES['description_image']['name'])) {
                 $target_dir = FCPATH . '/uploads/products/' . $productId . '/';
+
                 if (!file_exists($target_dir)) {
                     mkdir($target_dir, 0777);
                 }
@@ -305,6 +321,7 @@ class Products extends BaseController
 
             if (!empty($_FILES['documentation_pdf']['name'])) {
                 $target_dir = FCPATH . '/uploads/products/' . $productId . '/';
+
                 if (!file_exists($target_dir)) {
                     mkdir($target_dir, 0777);
                 }
@@ -319,6 +336,7 @@ class Products extends BaseController
 
             if (!empty($_FILES['safety_pdf']['name'])) {
                 $target_dir = FCPATH . '/uploads/products/' . $productId . '/';
+
                 if (!file_exists($target_dir)) {
                     mkdir($target_dir, 0777);
                 }
@@ -333,6 +351,7 @@ class Products extends BaseController
 
             if (!empty($_FILES['instructions_pdf']['name'])) {
                 $target_dir = FCPATH . '/uploads/products/' . $productId . '/';
+
                 if (!file_exists($target_dir)) {
                     mkdir($target_dir, 0777);
                 }
@@ -355,8 +374,10 @@ class Products extends BaseController
             $qty      = $this->request->getPost('qty[]');
             $subtract = $this->request->getPost('subtract[]');
             $price_op = $this->request->getPost('price_op[]');
+
             if (!empty($qty)) {
                 $optionData = [];
+
                 foreach ($qty as $key => $val) {
                     $optionData[$key] = [
                         'product_id'      => $productId,
@@ -381,6 +402,7 @@ class Products extends BaseController
 
             if (!empty($attribute_group_id)) {
                 $attributeData = [];
+
                 foreach ($attribute_group_id as $key => $val) {
                     $attributeData[$key] = [
                         'product_id'         => $productId,
@@ -416,8 +438,10 @@ class Products extends BaseController
 
             //product_related table data insert(start)
             $product_related = $this->request->getPost('product_related[]');
+
             if (!empty($product_related)) {
                 $proRelData = [];
+
                 foreach ($product_related as $key => $relp) {
                     $proRelData[$key] = [
                         'product_id' => $productId,
@@ -434,8 +458,10 @@ class Products extends BaseController
 
             // product_bought_together table data insert(start)
             $bought_together = $this->request->getPost('bought_together[]');
+
             if (!empty($bought_together)) {
                 $proBothData = [];
+
                 foreach ($bought_together as $key => $bothp) {
                     $proBothData[$key] = [
                         'product_id' => $productId,
@@ -469,6 +495,7 @@ class Products extends BaseController
 
         if (!empty($allProductId)) {
             DB()->transStart();
+
             foreach ($allProductId as $p) {
                 $tablePro = DB()->table('cc_products');
                 $pro      = $tablePro->where('product_id', $p)->get()->getRow();
@@ -500,6 +527,7 @@ class Products extends BaseController
                 $categ  = $cTable->where('product_id', $p)->get()->getResult();
 
                 $catData = [];
+
                 foreach ($categ as $key => $cat) {
                     $catData[$key] = [
                         'product_id'  => $productId,
@@ -514,6 +542,7 @@ class Products extends BaseController
                 //product_free_delivery data insert(start)
                 $proFrDetable  = DB()->table('cc_product_free_delivery');
                 $free_delivery = $proFrDetable->where('product_id', $p)->countAllResults();
+
                 if (!empty($free_delivery)) {
                     $proFreeData['product_id'] = $productId;
                     $proFreetable              = DB()->table('cc_product_free_delivery');
@@ -543,8 +572,10 @@ class Products extends BaseController
 
                 $optionTableGet = DB()->table('cc_product_option');
                 $optData        = $optionTableGet->where('product_id', $p)->get()->getResult();
+
                 if (!empty($optData)) {
                     $optionData = [];
+
                     foreach ($optData as $key => $valOp) {
                         $optionData[$key] = [
                             'product_id'      => $productId,
@@ -565,8 +596,10 @@ class Products extends BaseController
                 //product Attribute table data insert(start)
                 $attributeTableget = DB()->table('cc_product_attribute');
                 $attData           = $attributeTableget->where('product_id', $p)->get()->getResult();
+
                 if (!empty($attData)) {
                     $attributeData = [];
+
                     foreach ($attData as $key => $valAtt) {
                         $attributeData[$key] = [
                             'product_id'         => $productId,
@@ -585,6 +618,7 @@ class Products extends BaseController
                 //product product_special table data insert(start)
                 $specialTableGet = DB()->table('cc_product_special');
                 $spec            = $specialTableGet->where('product_id', $p)->get()->getRow();
+
                 if (!empty($spec)) {
                     $specialData['product_id']    = $productId;
                     $specialData['special_price'] = $spec->special_price;
@@ -600,8 +634,10 @@ class Products extends BaseController
                 //product_related table data insert(start)
                 $proReltableGet     = DB()->table('cc_product_related');
                 $proReltableGetData = $proReltableGet->where('product_id', $p)->get()->getResult();
+
                 if (!empty($proReltableGetData)) {
                     $proRelData = [];
+
                     foreach ($proReltableGetData as $relp) {
                         $proRelData[] = [
                             'product_id' => $productId,
@@ -617,8 +653,10 @@ class Products extends BaseController
                 // product_bought_together table data insert(start)
                 $proBothtableGet     = DB()->table('cc_product_bought_together');
                 $proBothtableGetData = $proBothtableGet->where('product_id', $p)->get()->getResult();
+
                 if (!empty($proBothtableGetData)) {
                     $proBothData = [];
+
                     foreach ($proBothtableGetData as $key => $bothp) {
                         $proBothData[$key] = [
                             'product_id' => $productId,
@@ -633,9 +671,11 @@ class Products extends BaseController
             DB()->transComplete();
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Products Copy Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/products?page=1');
         } else {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Please select any product! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->back();
         }
     }
@@ -649,6 +689,7 @@ class Products extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId          = $this->session->adRoleId;
+
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
@@ -686,9 +727,11 @@ class Products extends BaseController
 
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
+
             foreach ($perm as $key => $val) {
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
+
             if (isset($data['update']) and $data['update'] == 1) {
                 echo view('Admin/Products/update', $data);
             } else {
@@ -723,6 +766,7 @@ class Products extends BaseController
 
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/product_update/' . $product_id);
         } else {
             DB()->transStart();
@@ -741,6 +785,7 @@ class Products extends BaseController
             $proData['quantity']   = $this->request->getPost('quantity');
 
             $product_featured = $this->request->getPost('product_featured');
+
             if ($product_featured == 'on') {
                 $proData['featured'] = '1';
             } else {
@@ -774,6 +819,7 @@ class Products extends BaseController
                 $this->imageProcessing->directory_create($target_dir);
 
                 $files = $this->request->getFileMultiple('multiImage');
+
                 foreach ($files as $file) {
                     if ($file->isValid() && ! $file->hasMoved()) {
                         $dataMultiImg['product_id'] = $product_id;
@@ -801,6 +847,7 @@ class Products extends BaseController
             $catTableDel = DB()->table('cc_product_to_category');
             $catTableDel->where('product_id', $product_id)->delete();
             $catData = [];
+
             foreach ($data['categorys'] as $key => $cat) {
                 $catData[$key] = [
                     'product_id'  => $product_id,
@@ -817,6 +864,7 @@ class Products extends BaseController
 
             //product_free_delivery data insert(start)
             $free_delivery = $this->request->getPost('product_free_delivery');
+
             if ($free_delivery == 'on') {
                 if (is_exists('cc_product_free_delivery', 'product_id', $product_id) == true) {
                     $proFreeData['product_id'] = $product_id;
@@ -845,12 +893,14 @@ class Products extends BaseController
 
             if (!empty($_FILES['description_image']['name'])) {
                 $target_dir = FCPATH . '/uploads/products/' . $product_id . '/';
+
                 if (!file_exists($target_dir)) {
                     mkdir($target_dir, 0777);
                 }
 
                 //unlink
                 $oldImg = get_data_by_id('description_image', 'cc_product_description', 'product_id', $product_id);
+
                 if ((!empty($oldImg)) && (file_exists($target_dir))) {
                     if (file_exists($target_dir . '/' . $oldImg)) {
                         unlink($target_dir . $oldImg);
@@ -868,12 +918,14 @@ class Products extends BaseController
 
             if (!empty($_FILES['documentation_pdf']['name'])) {
                 $target_dir = FCPATH . '/uploads/products/' . $product_id . '/';
+
                 if (!file_exists($target_dir)) {
                     mkdir($target_dir, 0777);
                 }
 
                 //unlink
                 $oldImg = get_data_by_id('documentation_pdf', 'cc_product_description', 'product_id', $product_id);
+
                 if ((!empty($oldImg)) && (file_exists($target_dir))) {
                     if (file_exists($target_dir . '/' . $oldImg)) {
                         unlink($target_dir . $oldImg);
@@ -890,12 +942,14 @@ class Products extends BaseController
 
             if (!empty($_FILES['safety_pdf']['name'])) {
                 $target_dir = FCPATH . '/uploads/products/' . $product_id . '/';
+
                 if (!file_exists($target_dir)) {
                     mkdir($target_dir, 0777);
                 }
 
                 //unlink
                 $oldImg = get_data_by_id('safety_pdf', 'cc_product_description', 'product_id', $product_id);
+
                 if ((!empty($oldImg)) && (file_exists($target_dir))) {
                     if (file_exists($target_dir . '/' . $oldImg)) {
                         unlink($target_dir . $oldImg);
@@ -912,12 +966,14 @@ class Products extends BaseController
 
             if (!empty($_FILES['instructions_pdf']['name'])) {
                 $target_dir = FCPATH . '/uploads/products/' . $product_id . '/';
+
                 if (!file_exists($target_dir)) {
                     mkdir($target_dir, 0777);
                 }
 
                 //unlink
                 $oldImg = get_data_by_id('instructions_pdf', 'cc_product_description', 'product_id', $product_id);
+
                 if ((!empty($oldImg)) && (file_exists($target_dir))) {
                     if (file_exists($target_dir . '/' . $oldImg)) {
                         unlink($target_dir . $oldImg);
@@ -951,6 +1007,7 @@ class Products extends BaseController
 
             if (!empty($qty)) {
                 $optionData = [];
+
                 foreach ($qty as $key => $val) {
                     $optionData[$key] = [
                         'product_id'      => $product_id,
@@ -978,6 +1035,7 @@ class Products extends BaseController
 
             if (!empty($attribute_group_id)) {
                 $attributeData = [];
+
                 foreach ($attribute_group_id as $key => $val) {
                     $attributeData[$key] = [
                         'product_id'         => $product_id,
@@ -1006,6 +1064,7 @@ class Products extends BaseController
 
                 $specialTable = DB()->table('cc_product_special');
                 $checkSpec    = $specialTable->where('product_id', $product_id)->countAllResults();
+
                 if (empty($checkSpec)) {
                     $specialTable->insert($specialData);
                 } else {
@@ -1021,10 +1080,12 @@ class Products extends BaseController
 
             //product_related table data insert(start)
             $product_related = $this->request->getPost('product_related[]');
+
             if (!empty($product_related)) {
                 $proReltableDel = DB()->table('cc_product_related');
                 $proReltableDel->where('product_id', $product_id)->delete();
                 $proRelData = [];
+
                 foreach ($product_related as $key => $relp) {
                     $proRelData[$key] = [
                         'product_id' => $product_id,
@@ -1042,10 +1103,12 @@ class Products extends BaseController
 
             // product_bought_together table data insert(start)
             $bought_together = $this->request->getPost('bought_together[]');
+
             if (!empty($bought_together)) {
                 $boughtTogetherDel = DB()->table('cc_product_bought_together');
                 $boughtTogetherDel->where('product_id', $product_id)->delete();
                 $proBothData = [];
+
                 foreach ($bought_together as $key => $bothp) {
                     $proBothData[$key] = [
                         'product_id' => $product_id,
@@ -1064,6 +1127,7 @@ class Products extends BaseController
 
             DB()->transComplete();
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Products Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/product_update/' . $product_id);
         }
     }
@@ -1081,6 +1145,7 @@ class Products extends BaseController
         DB()->transStart();
 
         $target_dir = FCPATH . '/uploads/products/' . $product_id;
+
         if (file_exists($target_dir)) {
             delete_files($target_dir, true);
             rmdir($target_dir);
@@ -1137,8 +1202,10 @@ class Products extends BaseController
         $table      = DB()->table('cc_product_category');
         $data       = $table->where('parent_id', $categoryID)->get()->getResult();
         $view       = '';
+
         if (!empty($data)) {
             $view .= '<label>Sub Category</label><select name="sub_category" class="form-control" ><option value="">Please select</option>';
+
             foreach ($data as $val) {
                 $view .= '<option value="' . $val->prod_cat_id . '" >' . $val->category_name . '</option>';
             }
@@ -1175,6 +1242,7 @@ class Products extends BaseController
         $data             = $table->where('product_image_id', $product_image_id)->get()->getRow();
 
         $target_dir = FCPATH . '/uploads/products/' . $data->product_id . '/' . $product_image_id;
+
         if (file_exists($target_dir)) {
             delete_files($target_dir, true);
             rmdir($target_dir);
@@ -1195,6 +1263,7 @@ class Products extends BaseController
         $option  = $table->like('name', $keyword)->get()->getResult();
 
         $view = '<ul class="list-unstyled list-op-aj" >';
+
         foreach ($option as $op) {
             $optionname  = "'$op->name'";
             $optionname2 = "'" . strtolower(str_replace(' ', '', $op->name)) . "'";
@@ -1215,6 +1284,7 @@ class Products extends BaseController
         $table     = DB()->table('cc_option_value');
         $data      = $table->where('option_id', $option_id)->get()->getResult();
         $view      = '';
+
         foreach ($data as $item) {
             $view .= '<option value="' . $item->option_value_id . '">' . $item->name . '</option>';
         }
@@ -1303,10 +1373,13 @@ class Products extends BaseController
 
                 //product main image crop
                 $target_dir = FCPATH . '/uploads/products/' . $single->product_id . '/';
+
                 if ((!empty($single->image)) && (file_exists($target_dir))) {
                     $mainImg = str_replace('pro_', '', $single->image);
+
                     if (file_exists($target_dir . '/' . $mainImg)) {
                         $this->imageProcessing->image_crop($target_dir, $mainImg, $single->image);
+
                         if ($modules['watermark'] == '1') {
                             $this->imageProcessing->watermark_main_image($target_dir, $mainImg);
 
@@ -1333,14 +1406,18 @@ class Products extends BaseController
                 //multi image crop
                 if (!empty($allImage)) {
                     $i = 0;
+
                     foreach ($allImage as $val) {
                         if ($val->product_id == $single->product_id) {
                             $target_dir_mult = FCPATH . '/uploads/products/' . $val->product_id . '/' . $val->product_image_id . "/";
                             $oldImgMul       = $val->image;
+
                             if ((!empty($oldImgMul)) && (file_exists($target_dir_mult))) {
                                 $mainImgMul = str_replace('pro_', '', $oldImgMul);
+
                                 if (file_exists($target_dir_mult . '/' . $mainImgMul)) {
                                     $this->imageProcessing->image_crop($target_dir_mult, $mainImgMul, $oldImgMul);
+
                                     if ($modules['watermark'] == '1') {
                                         $this->imageProcessing->watermark_main_image($target_dir_mult, $mainImgMul);
 
@@ -1375,6 +1452,7 @@ class Products extends BaseController
             flush(); // Ensure the redirect script is sent
         } else {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Please select any product <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->back();
         }
     }
@@ -1388,9 +1466,11 @@ class Products extends BaseController
     {
         $table = DB()->table('cc_products');
         $table->select('product_id, image');
+
         foreach ($productarray as $productId) {
             $table->orWhere('product_id', $productId);
         }
+
         return $table->get()->getResult();
     }
 
@@ -1403,9 +1483,11 @@ class Products extends BaseController
     {
         $table = DB()->table('cc_product_image');
         $table->select('product_image_id,product_id, image');
+
         foreach ($productarray as $productId) {
             $table->orWhere('product_id', $productId);
         }
+
         return $table->get()->getResult();
     }
 
@@ -1416,12 +1498,15 @@ class Products extends BaseController
     public function multi_delete_action()
     {
         $allProductId =  $this->request->getPost('productId[]');
+
         if (!empty($allProductId)) {
             helper('filesystem');
 
             DB()->transStart();
+
             foreach ($allProductId as $product_id) {
                 $target_dir = FCPATH . '/uploads/products/' . $product_id;
+
                 if (file_exists($target_dir)) {
                     delete_files($target_dir, true);
                     rmdir($target_dir);
@@ -1466,9 +1551,11 @@ class Products extends BaseController
             DB()->transComplete();
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Products Delete Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->back();
         } else {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Please select any product <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->back();
         }
     }
@@ -1477,20 +1564,24 @@ class Products extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId          = $this->session->adRoleId;
+
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
             $redirect_url = isset($_COOKIE['product_url_path']) ? $_COOKIE['product_url_path'] : 'admin/products';
 
             $allProductId =  $this->request->getPost('productId[]');
+
             if (!empty($allProductId)) {
                 $data['all_product'] = $allProductId;
 
                 //$perm = array('create','read','update','delete','mod_access');
                 $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
+
                 foreach ($perm as $key => $val) {
                     $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
                 }
+
                 if (isset($data['update']) and $data['update'] == 1) {
                     echo view('Admin/Products/status_update', $data);
                 } else {
@@ -1498,6 +1589,7 @@ class Products extends BaseController
                 }
             } else {
                 $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Please select any product <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
                 return redirect()->to($redirect_url);
             }
         }
@@ -1518,6 +1610,7 @@ class Products extends BaseController
         }
 
         $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Product status update successfully <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
         return redirect()->to($redirect_url);
     }
 }

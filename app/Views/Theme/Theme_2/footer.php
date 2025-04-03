@@ -1218,6 +1218,7 @@
             if ($v->type == 'radio') { ?>
                 var <?php echo strtolower($v->name); ?> = $('input[name="<?php echo strtolower($v->name); ?>"]:checked').val();
             <?php }
+
             if ($v->type == 'select') { ?>
                 var <?php echo strtolower($v->name); ?> = $('[name="<?php echo strtolower($v->name); ?>"]').val();
         <?php }

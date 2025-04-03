@@ -70,6 +70,7 @@ class StripeController extends BaseController
         if ($charge->status == 'succeeded') {
             $sess = [ 'charge_id' => $charge->id ];
             $this->session->set($sess);
+
             return redirect()->to('stripe_action');
         } else {
             return redirect()->to('checkout_failed');
@@ -104,6 +105,7 @@ class StripeController extends BaseController
 
 
         DB()->transStart();
+
         if ($shipping_else == 'on') {
             $data['shipping_firstname']  = $this->session->shipping_firstname;
             $data['shipping_lastname']   = $this->session->shipping_lastname;
@@ -128,9 +130,11 @@ class StripeController extends BaseController
             $data['customer_id'] = $this->session->cusUserId;
         }
         $disc = null;
+
         if (isset($this->session->coupon_discount)) {
             $disc = ($this->cart->total() * $this->session->coupon_discount) / 100;
         }
+
         if (!empty($data['shipping_charge'])) {
             if (isset($this->session->coupon_discount_shipping)) {
                 $disc = $this->session->shipping_discount_charge;
@@ -145,6 +149,7 @@ class StripeController extends BaseController
         }
 
         $finalAmo = $this->cart->total() - $disc;
+
         if (!empty($data['shipping_charge'])) {
             $finalAmo = ($this->cart->total() + $data['shipping_charge']) - $disc;
         }
@@ -215,6 +220,7 @@ class StripeController extends BaseController
         if (isset($this->session->cusUserId)) {
             $tableModule = DB()->table('cc_modules');
             $query       = $tableModule->join('cc_module_settings', 'cc_module_settings.module_id = cc_modules.module_id')->where('cc_modules.module_key', 'point')->get()->getRow();
+
             if ($query->status == '1') {
                 $oldPoint = get_data_by_id('point', 'cc_customer', 'customer_id', $this->session->cusUserId);
                 $point    = $this->cart->total() * $query->value;
@@ -269,6 +275,7 @@ class StripeController extends BaseController
 
 
         $this->session->setFlashdata('message', 'Your order has been successfully placed ');
+
         return redirect()->to('checkout_success');
     }
 
@@ -388,6 +395,7 @@ class StripeController extends BaseController
         if ($charge->status == 'succeeded') {
             $sess = [ 'charge_id' => $charge->id ];
             $this->session->set($sess);
+
             return redirect()->to('stripe_wallet_action');
         } else {
             return redirect()->to('my-wallet-failed');
@@ -434,6 +442,7 @@ class StripeController extends BaseController
         unset($_SESSION['amount']);
 
         $this->session->setFlashdata('message', 'Create successfully ');
+
         return redirect()->to('my-wallet-success');
     }
 }

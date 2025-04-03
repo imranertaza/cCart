@@ -52,6 +52,7 @@
                                 <ol>
                                     <?php
                                     $myRole = json_decode($roles->permission);
+
 foreach ($permission as $key => $value) { ?>
                                         <li><?php echo $key; ?>
                                             <?php foreach ($value as $k => $v) {

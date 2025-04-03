@@ -34,6 +34,7 @@ class Pages extends BaseController
         $data['title']       = !empty($page->meta_title) ? $page->meta_title : $page->page_title;
 
         echo view('Theme/' . $settings['Theme'] . '/header', $data);
+
         if (!empty($page->temp)) {
             echo view('Theme/' . $settings['Theme'] . '/Page/' . $page->temp);
         } else {

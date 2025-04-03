@@ -30,6 +30,7 @@ class Brand extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId          = $this->session->adRoleId;
+
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
@@ -39,9 +40,11 @@ class Brand extends BaseController
 
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
+
             foreach ($perm as $key => $val) {
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
+
             if (isset($data['mod_access']) and $data['mod_access'] == 1) {
                 echo view('Admin/Brand/index', $data);
             } else {
@@ -58,14 +61,17 @@ class Brand extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId          = $this->session->adRoleId;
+
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
+
             foreach ($perm as $key => $val) {
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
+
             if (isset($data['create']) and $data['create'] == 1) {
                 echo view('Admin/Brand/create');
             } else {
@@ -89,10 +95,12 @@ class Brand extends BaseController
 
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/brand_create');
         } else {
             if (!empty($_FILES['image']['name'])) {
                 $target_dir = FCPATH . '/uploads/brand/';
+
                 if (!file_exists($target_dir)) {
                     mkdir($target_dir, 0777);
                 }
@@ -111,6 +119,7 @@ class Brand extends BaseController
             $table->insert($data);
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Brand Create Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/brand_create');
         }
     }
@@ -124,6 +133,7 @@ class Brand extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId          = $this->session->adRoleId;
+
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
@@ -133,9 +143,11 @@ class Brand extends BaseController
 
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
+
             foreach ($perm as $key => $val) {
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
+
             if (isset($data['update']) and $data['update'] == 1) {
                 echo view('Admin/Brand/update', $data);
             } else {
@@ -161,18 +173,22 @@ class Brand extends BaseController
 
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/brand_update/' . $brand_id);
         } else {
             if (!empty($_FILES['image']['name'])) {
                 $target_dir = FCPATH . '/uploads/brand/';
+
                 if (!file_exists($target_dir)) {
                     mkdir($target_dir, 0777);
                 }
 
                 //old image unlink
                 $old_img = get_data_by_id('image', 'cc_brand', 'brand_id', $brand_id);
+
                 if (!empty($old_img)) {
                     $imgPath = $target_dir . $old_img;
+
                     if (file_exists($imgPath)) {
                         unlink($target_dir . $old_img);
                     }
@@ -192,6 +208,7 @@ class Brand extends BaseController
             $table->where('brand_id', $brand_id)->update($data);
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Brand Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/brand_update/' . $brand_id);
         }
     }
@@ -206,8 +223,10 @@ class Brand extends BaseController
         $target_dir = FCPATH . '/uploads/brand/';
         //old image unlink
         $old_img = get_data_by_id('image', 'cc_brand', 'brand_id', $brand_id);
+
         if (!empty($old_img)) {
             $imgPath = $target_dir . $old_img;
+
             if (file_exists($imgPath)) {
                 unlink($target_dir . $old_img);
             }
@@ -221,6 +240,7 @@ class Brand extends BaseController
         $table->where('brand_id', $brand_id)->delete();
 
         $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Brand Delete Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
         return redirect()->to('admin/brand');
     }
 }

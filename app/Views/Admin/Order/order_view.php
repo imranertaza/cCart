@@ -150,6 +150,7 @@
                                     </tr>
                                     <?php
                                     $paymentDet =  get_all_row_data_by_id('cc_order_card_details', 'payment_method_id', $order->payment_method);
+
 if (!empty($paymentDet)) {
     ?>
                                     <tr>
@@ -221,6 +222,7 @@ if (!empty($paymentDet)) {
                                                 <?php echo get_data_by_id('name', 'cc_products', 'product_id', $vew->product_id); ?><br>
                                                 <?php
                     $orOption = order_iten_id_by_order_options($vew->order_item);
+
                                             if (!empty($orOption)) {
                                                 foreach ($orOption as $op) { ?>
                                                 <?php

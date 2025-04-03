@@ -59,6 +59,7 @@
                     </thead>
                     <tbody>
                         <?php $i = 1;
+
                         foreach ($product as $val) { ?>
                         <tr id="hide_<?php echo $val->product_id;?>">
                             <td>

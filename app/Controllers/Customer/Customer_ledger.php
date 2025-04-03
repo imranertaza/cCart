@@ -23,6 +23,7 @@ class Customer_ledger extends BaseController
     public function index()
     {
         $isLoggedInCustomer = $this->session->isLoggedInCustomer;
+
         if (!isset($isLoggedInCustomer) || $isLoggedInCustomer != true) {
             return redirect()->to(site_url('Login'));
         } else {

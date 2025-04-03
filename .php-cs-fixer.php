@@ -13,9 +13,9 @@ return (new PhpCsFixer\Config())
         '@PSR12' => true, // Apply PSR-12 standards
         'array_syntax' => ['syntax' => 'short'], // Convert arrays to short syntax []
         'binary_operator_spaces' => ['default' => 'align_single_space'], // Align operators
-//        'blank_line_before_statement' => [
-//            'statements' => ['return', 'try', 'if', 'switch', 'for', 'foreach', 'while']
-//        ], // Improve readability
+        'blank_line_before_statement' => [
+            'statements' => ['return', 'try', 'if', 'switch', 'for', 'foreach', 'while']
+        ], // Improve readability
         'braces' => ['position_after_functions_and_oop_constructs' => 'next'], // Braces style
         'cast_spaces' => ['space' => 'single'], // Space in casting
         'concat_space' => ['spacing' => 'one'], // Spaces around concatenation

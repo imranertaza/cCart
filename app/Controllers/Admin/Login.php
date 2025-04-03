@@ -23,6 +23,7 @@ class Login extends BaseController
     public function index()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
+
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             echo view('Admin/login');
         } else {
@@ -41,6 +42,7 @@ class Login extends BaseController
 
         if ($this->validation->withRequest($this->request)->run() == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">All field is required <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to(site_url('admin'));
         } else {
             $email    = strtolower($this->request->getPost('email'));
@@ -57,6 +59,7 @@ class Login extends BaseController
                     if (isset($_COOKIE['login_email'])) {
                         setcookie('login_email', '', 0, "/");
                     }
+
                     if (isset($_COOKIE['login_password'])) {
                         setcookie('login_password', '', 0, "/");
                     }
@@ -77,6 +80,7 @@ class Login extends BaseController
                 return redirect()->to(site_url('admin/dashboard'));
             } else {
                 $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Your login detail not match <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
                 return redirect()->to(site_url('admin'));
             }
         }

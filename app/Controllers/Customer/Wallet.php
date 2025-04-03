@@ -23,6 +23,7 @@ class Wallet extends BaseController
     public function index()
     {
         $isLoggedInCustomer = $this->session->isLoggedInCustomer;
+
         if (!isset($isLoggedInCustomer) || $isLoggedInCustomer != true) {
             return redirect()->to(site_url('Login'));
         } else {
@@ -57,6 +58,7 @@ class Wallet extends BaseController
     public function add_funds()
     {
         $isLoggedInCustomer = $this->session->isLoggedInCustomer;
+
         if (!isset($isLoggedInCustomer) || $isLoggedInCustomer != true) {
             return redirect()->to(site_url('Login'));
         } else {
@@ -97,6 +99,7 @@ class Wallet extends BaseController
 
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert text-white alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . '</div>');
+
             return redirect()->to('add-funds');
         } else {
             if ($data['payment_method_id'] == '7') {
@@ -110,6 +113,7 @@ class Wallet extends BaseController
             $table->insert($data);
 
             $this->session->setFlashdata('message', '<div class="alert-success-m alert-success alert-dismissible" role="alert">Fund Update successfully </div>');
+
             return redirect()->to('my-wallet');
         }
     }
@@ -117,6 +121,7 @@ class Wallet extends BaseController
     public function wallet_success()
     {
         $isLoggedInCustomer = $this->session->isLoggedInCustomer;
+
         if (!isset($isLoggedInCustomer) || $isLoggedInCustomer != true) {
             return redirect()->to(site_url('Login'));
         } else {
@@ -136,6 +141,7 @@ class Wallet extends BaseController
     public function wallet_canceled()
     {
         $isLoggedInCustomer = $this->session->isLoggedInCustomer;
+
         if (!isset($isLoggedInCustomer) || $isLoggedInCustomer != true) {
             return redirect()->to(site_url('Login'));
         } else {
@@ -155,6 +161,7 @@ class Wallet extends BaseController
     public function wallet_failed()
     {
         $isLoggedInCustomer = $this->session->isLoggedInCustomer;
+
         if (!isset($isLoggedInCustomer) || $isLoggedInCustomer != true) {
             return redirect()->to(site_url('Login'));
         } else {

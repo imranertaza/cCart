@@ -54,6 +54,7 @@
                     <tbody>
                     <?php $symbol = get_lebel_by_value_in_settings('currency_symbol');
 $i                                = 1;
+
 foreach ($customer as $val) { ?>
                         <tr>
                             <td width="40"><?php echo $i++;?></td>

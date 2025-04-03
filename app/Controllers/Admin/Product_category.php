@@ -30,6 +30,7 @@ class Product_category extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId          = $this->session->adRoleId;
+
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
@@ -39,9 +40,11 @@ class Product_category extends BaseController
 
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
+
             foreach ($perm as $key => $val) {
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
+
             if (isset($data['mod_access']) and $data['mod_access'] == 1) {
                 echo view('Admin/Product_category/index', $data);
             } else {
@@ -58,6 +61,7 @@ class Product_category extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId          = $this->session->adRoleId;
+
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
@@ -66,9 +70,11 @@ class Product_category extends BaseController
 
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
+
             foreach ($perm as $key => $val) {
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
+
             if (isset($data['create']) and $data['create'] == 1) {
                 echo view('Admin/Product_category/create', $data);
             } else {
@@ -94,10 +100,12 @@ class Product_category extends BaseController
 
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/product_category_create');
         } else {
             if (!empty($_FILES['image']['name'])) {
                 $target_dir = FCPATH . '/uploads/category/';
+
                 if (!file_exists($target_dir)) {
                     mkdir($target_dir, 0777);
                 }
@@ -116,6 +124,7 @@ class Product_category extends BaseController
             $table->insert($data);
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Product Category Create Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/product_category_create');
         }
     }
@@ -129,6 +138,7 @@ class Product_category extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId          = $this->session->adRoleId;
+
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
@@ -140,9 +150,11 @@ class Product_category extends BaseController
 
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
+
             foreach ($perm as $key => $val) {
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
+
             if (isset($data['update']) and $data['update'] == 1) {
                 echo view('Admin/Product_category/update', $data);
             } else {
@@ -172,9 +184,11 @@ class Product_category extends BaseController
 
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/product_category_update/' . $prod_cat_id);
         } else {
             $checkPop = is_exists('cc_product_category_popular', 'prod_cat_id', $prod_cat_id);
+
             if ($popular == 'on') {
                 if ($checkPop == true) {
                     $polulerData['prod_cat_id'] = $prod_cat_id;
@@ -189,6 +203,7 @@ class Product_category extends BaseController
             }
 
             $checkShop = is_exists('cc_product_category_shop_by', 'prod_cat_id', $prod_cat_id);
+
             if ($shop_by == 'on') {
                 if ($checkShop == true) {
                     $shopData['prod_cat_id'] = $prod_cat_id;
@@ -205,14 +220,17 @@ class Product_category extends BaseController
 
             if (!empty($_FILES['image']['name'])) {
                 $target_dir = FCPATH . '/uploads/category/';
+
                 if (!file_exists($target_dir)) {
                     mkdir($target_dir, 0777);
                 }
 
                 //old image unlink
                 $old_img = get_data_by_id('image', 'cc_product_category', 'prod_cat_id', $prod_cat_id);
+
                 if (!empty($old_img)) {
                     $imgPath = $target_dir . $old_img;
+
                     if (file_exists($imgPath)) {
                         unlink($target_dir . $old_img);
                     }
@@ -232,6 +250,7 @@ class Product_category extends BaseController
             $table->where('prod_cat_id', $prod_cat_id)->update($data);
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Product Category Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/product_category_update/' . $prod_cat_id);
         }
     }
@@ -259,12 +278,14 @@ class Product_category extends BaseController
 
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/product_category_update/' . $prod_cat_id);
         } else {
             $table = DB()->table('cc_product_category');
             $table->where('prod_cat_id', $prod_cat_id)->update($data);
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Product Category Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/product_category_update/' . $prod_cat_id);
         }
     }
@@ -279,20 +300,24 @@ class Product_category extends BaseController
         $target_dir = FCPATH . '/uploads/category/';
         //old image unlink
         $old_img = get_data_by_id('image', 'cc_product_category', 'prod_cat_id', $prod_cat_id);
+
         if (!empty($old_img)) {
             $imgPath = $target_dir . $old_img;
+
             if (file_exists($imgPath)) {
                 unlink($target_dir . $old_img);
             }
         }
 
         $checkProCat = is_exists('cc_product_to_category', 'category_id', $prod_cat_id);
+
         if ($checkProCat == false) {
             $tableproCat = DB()->table('cc_product_to_category');
             $tableproCat->where('category_id', $prod_cat_id)->delete();
         }
 
         $checkPopuCat = is_exists('cc_product_category_popular', 'prod_cat_id', $prod_cat_id);
+
         if ($checkPopuCat == false) {
             $tablePopuCat = DB()->table('cc_product_category_popular');
             $tablePopuCat->where('prod_cat_id', $prod_cat_id)->delete();
@@ -303,6 +328,7 @@ class Product_category extends BaseController
         $table->where('prod_cat_id', $prod_cat_id)->delete();
 
         $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Product Category Delete Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
         return redirect()->to('admin/product_category');
     }
 

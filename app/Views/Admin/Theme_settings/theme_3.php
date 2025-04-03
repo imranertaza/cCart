@@ -20,6 +20,7 @@
                     <option value="">Please Select</option>
                     <?php
                     $catSel = $themeSetting['head_side_category_1'];
+
         foreach ($cat as $val) {
             ?>
                     <option value="<?php echo $val->prod_cat_id;?>"
@@ -61,6 +62,7 @@
                     <option value="">Please Select</option>
                     <?php
                 $catSel2 = $themeSetting['head_side_category_2'];
+
         foreach ($cat as $val) {
             ?>
                     <option value="<?php echo $val->prod_cat_id;?>"
@@ -100,6 +102,7 @@
                     <option value="">Please Select</option>
                     <?php
                 $catSel_1 = $themeSetting['home_category_1'];
+
         foreach ($cat as $val) {
             ?>
                     <option value="<?php echo $val->prod_cat_id;?>"
@@ -137,6 +140,7 @@
                     <option value="">Please Select</option>
                     <?php
                 $catSel_1 = $themeSetting['home_category_2'];
+
         foreach ($cat as $val) {
             ?>
                     <option value="<?php echo $val->prod_cat_id;?>"
@@ -174,6 +178,7 @@
                     <option value="">Please Select</option>
                     <?php
                 $catSel_1 = $themeSetting['home_category_3'];
+
         foreach ($cat as $val) {
             ?>
                     <option value="<?php echo $val->prod_cat_id;?>"
@@ -211,6 +216,7 @@
                     <option value="">Please Select</option>
                     <?php
                 $catSel_1 = $themeSetting['home_category_4'];
+
         foreach ($cat as $val) {
             ?>
                     <option value="<?php echo $val->prod_cat_id;?>"
@@ -248,6 +254,7 @@
                     <option value="">Please Select</option>
                     <?php
                 $catSel_1 = get_lebel_by_value_in_theme_settings('home_category_5');
+
         foreach ($cat as $val) {
             ?>
                     <option value="<?php echo $val->prod_cat_id;?>"

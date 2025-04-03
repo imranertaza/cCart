@@ -21,6 +21,7 @@ class Permission
         $result = $table->where('role_id', $roleId)->get()->getRow();
 
         $obj = json_decode($result->permission, true);
+
         if (!empty($obj[$module_name][$sub_permission])) {
             return $obj[$module_name][$sub_permission];
         } else {
@@ -46,6 +47,7 @@ class Permission
             $obj    = json_decode('{"' . $module_name . '":{"mod_access":"0","create":"0","read":"0","update":"0","delete":"0"}}', true);
             $output = $obj[$module_name];
         }
+
         return $output;
     }
 }

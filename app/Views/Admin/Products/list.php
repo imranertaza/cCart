@@ -98,6 +98,7 @@
                     </thead>
                     <tbody>
                         <?php $i = 1;
+
 foreach ($product as $val) {
     $img = str_replace("pro_", "", $val->image);
     $url = (!empty($val->image)) ? base_url('uploads/products/' . $val->product_id . '/' . $img) : base_url('uploads/products/noimage.png'); ?>

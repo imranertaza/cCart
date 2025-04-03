@@ -23,6 +23,7 @@ class Customer_point_history extends BaseController
     public function index()
     {
         $isLoggedInCustomer = $this->session->isLoggedInCustomer;
+
         if (!isset($isLoggedInCustomer) || $isLoggedInCustomer != true) {
             return redirect()->to(site_url('Login'));
         } else {

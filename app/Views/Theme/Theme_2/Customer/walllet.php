@@ -40,6 +40,7 @@
                                 </thead>
                                 <tbody>
                                     <?php $i = 1;
+
         foreach($fund_request as $req) { ?>
                                     <tr>
                                         <td><?php echo $i++?></td>

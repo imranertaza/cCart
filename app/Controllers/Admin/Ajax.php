@@ -32,6 +32,7 @@ class Ajax extends BaseController
         $table   = DB()->table('cc_zone');
         $data    = $table->where('country_id', $country_id)->get()->getResult();
         $options = '';
+
         foreach ($data as $value) {
             $options .= '<option value="' . $value->zone_id . '" ';
             $options .= '>' . $value->name . '</option>';
@@ -68,6 +69,7 @@ class Ajax extends BaseController
         $table   = DB()->table('cc_option_value');
         $data    = $table->where('option_id', $option_id)->get()->getResult();
         $options = '';
+
         foreach ($data as $value) {
             $options .= '<option value="' . $value->option_value_id . '" ';
             $options .= '>' . $value->name . '</option>';
@@ -86,6 +88,7 @@ class Ajax extends BaseController
         $table   = DB()->table('cc_zone');
         $data    = $table->where('country_id', $country_id)->get()->getResult();
         $options = '<option value="0">All Zone</option>';
+
         foreach ($data as $value) {
             $options .= '<option value="' . $value->zone_id . '" ';
             $options .= '>' . $value->name . '</option>';

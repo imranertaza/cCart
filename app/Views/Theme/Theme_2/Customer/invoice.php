@@ -51,6 +51,7 @@
                             $bacColor = 'bg-danger';
                             $titleS   = 'Unpaid';
                             $pad      = 'padding:35px 20px;';
+
                             if ($status == 'Complete') {
                                 $bacColor = 'bg-success';
                                 $titleS   = 'Paid';
@@ -90,6 +91,7 @@
                                             <br>
                                         <?php
                                     $orOption = order_iten_id_by_order_options($item->order_item);
+
                                 if (!empty($orOption)) {
                                     foreach ($orOption as $op) { ?>
                                                 <?php

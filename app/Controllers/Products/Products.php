@@ -26,6 +26,7 @@ class Products extends BaseController
     public function detail($product_id)
     {
         $check = is_exists('cc_products', 'product_id', $product_id);
+
         if ($check == true) {
             return redirect()->to('product_not_found');
         }
@@ -48,9 +49,11 @@ class Products extends BaseController
         $relatedProduct = [];
         $relTable       = DB()->table('cc_product_related');
         $relPro         = $relTable->where('product_id', $product_id)->limit(5)->get()->getResult();
+
         foreach ($relPro as $rVal) {
             $tableSear = DB()->table('cc_products');
             $rowPro    = $tableSear->where('product_id', $rVal->related_id)->where('status', 'Active')->get()->getRow();
+
             if (!empty($rowPro)) {
                 array_push($relatedProduct, $rowPro);
             }
@@ -63,9 +66,11 @@ class Products extends BaseController
         $relatedProduct2 = [];
         $relTable        = DB()->table('cc_product_related');
         $relPro2         = $relTable->where('product_id', $product_id)->orderBy('product_id', 'DESC')->limit(2)->get()->getResult();
+
         foreach ($relPro2 as $rVal2) {
             $tableSear2 = DB()->table('cc_products');
             $rowPro2    = $tableSear2->where('product_id', $rVal2->related_id)->where('status', 'Active')->get()->getRow();
+
             if (!empty($rowPro2)) {
                 array_push($relatedProduct2, $rowPro2);
             }
@@ -82,9 +87,11 @@ class Products extends BaseController
         $bothProduct = [];
         $bothTable   = DB()->table('cc_product_bought_together');
         $bothPro     = $bothTable->where('product_id', $product_id)->orderBy('product_id', 'DESC')->get()->getResult();
+
         foreach ($bothPro as $bVal) {
             $tableboth = DB()->table('cc_products');
             $rowPro    = $tableboth->where('product_id', $bVal->related_id)->where('status', 'Active')->get()->getRow();
+
             if (!empty($rowPro)) {
                 array_push($bothProduct, $rowPro);
             }
@@ -133,6 +140,7 @@ class Products extends BaseController
         $product_id = $this->request->getPost('product_id');
 
         $totalOptionPrice = 0;
+
         foreach (get_all_data_array('cc_option') as $vl) {
             $fildName                    = str_replace(' ', '', $vl->name);
             $data[strtolower($vl->name)] = $this->request->getPost(strtolower($fildName));
@@ -151,6 +159,7 @@ class Products extends BaseController
 
         $proPrice     = get_data_by_id('price', 'cc_products', 'product_id', $product_id);
         $specialprice = get_data_by_id('special_price', 'cc_product_special', 'product_id', $product_id);
+
         if (!empty($specialprice)) {
             $proPrice = $specialprice;
         }
@@ -177,6 +186,7 @@ class Products extends BaseController
 
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . '</div>');
+
             return redirect()->to('detail/' . $data['product_id']);
         } else {
             $table = DB()->table('cc_product_feedback');
@@ -187,6 +197,7 @@ class Products extends BaseController
             $tablePro->where('product_id', $data['product_id'])->update($dataRet);
 
             $this->session->setFlashdata('message', '<div class="alert-success-m alert-success alert-dismissible" role="alert">Successfully submitted review</div>');
+
             return redirect()->to('detail/' . $data['product_id']);
         }
     }
@@ -199,6 +210,7 @@ class Products extends BaseController
     {
         $productId = $this->request->getPost('both_product[]');
         $total     = 0;
+
         foreach ($productId as $id) {
             $regPric = get_data_by_id('price', 'cc_products', 'product_id', $id);
             $spPric  = get_data_by_id('special_price', 'cc_product_special', 'product_id', $id);
@@ -218,6 +230,7 @@ class Products extends BaseController
         $allOptionsGroup = $productOption->where('product_id', $product_id)->groupBy('option_id')->get()->getResult();
 
         $view = '';
+
         foreach ($allOptionsGroup as $gro) {
             $type = get_data_by_id('type', 'cc_option', 'option_id', $gro->option_id);
             $name = get_data_by_id('name', 'cc_option', 'option_id', $gro->option_id);
@@ -241,6 +254,7 @@ class Products extends BaseController
         if ($type == 'radio') {
             return $this->typeRadio($option_id, $product_id, $name);
         }
+
         if ($type == 'select') {
             return $this->typeSelect($option_id, $product_id, $name);
         }
@@ -258,6 +272,7 @@ class Products extends BaseController
         $table = DB()->table('cc_product_option');
         $data  = $table->where('option_id', $option_id)->where('product_id', $product_id)->get()->getResult();
         $view  = '<ul class="list-unstyled filter-items mb-3">';
+
         foreach ($data as $opVal) {
             $fildName = str_replace(' ', '', $name);
             $view .= '<li class="mt-2"><input type="radio" class="btn-check" oninput="optionPriceCalculate(' . $product_id . ')"  name="' . strtolower($fildName) . '" id="option_' . $opVal->option_value_id . '" value="' . $opVal->option_value_id . '"  autocomplete="off" required>';
@@ -273,6 +288,7 @@ class Products extends BaseController
                 ' . $nameOp . '</label></li>';
         }
         $view .= '</ul>';
+
         return $view;
     }
 
@@ -289,6 +305,7 @@ class Products extends BaseController
         $data     = $table->where('option_id', $option_id)->where('product_id', $product_id)->get()->getResult();
         $fildName = str_replace(' ', '', $name);
         $view     = '<select name="' . strtolower($fildName) . '"  onchange="optionPriceCalculate(' . $product_id . ')" class="form-control detail-select my-2" required><option value="" >Please select</option>';
+
         foreach ($data as $opVal) {
             $nameVal  = get_data_by_id('name', 'cc_option_value', 'option_value_id', $opVal->option_value_id);
             $firstCar =  mb_substr($nameVal, 0, 1);
@@ -299,6 +316,7 @@ class Products extends BaseController
             $view .= '<option value="' . $opVal->option_value_id . '" style="' . $style . '" >' . $nameVal . '</option>';
         }
         $view .= '</select>';
+
         return $view;
     }
 }

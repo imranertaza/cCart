@@ -30,6 +30,7 @@ class Option extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId          = $this->session->adRoleId;
+
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
@@ -39,9 +40,11 @@ class Option extends BaseController
 
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
+
             foreach ($perm as $key => $val) {
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
+
             if (isset($data['mod_access']) and $data['mod_access'] == 1) {
                 echo view('Admin/Option/index', $data);
             } else {
@@ -58,14 +61,17 @@ class Option extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId          = $this->session->adRoleId;
+
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
+
             foreach ($perm as $key => $val) {
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
+
             if (isset($data['create']) and $data['create'] == 1) {
                 echo view('Admin/Option/create');
             } else {
@@ -91,6 +97,7 @@ class Option extends BaseController
 
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/option');
         } else {
             $table = DB()->table('cc_option');
@@ -98,6 +105,7 @@ class Option extends BaseController
             $optionID = DB()->insertID();
 
             $dataval = [];
+
             foreach ($value as $key => $val) {
                 $dataval[$key] = [
                     'option_id' => $optionID,
@@ -108,6 +116,7 @@ class Option extends BaseController
             $tableVal->insertBatch($dataval);
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Option Create Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/option');
         }
     }
@@ -121,6 +130,7 @@ class Option extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId          = $this->session->adRoleId;
+
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
@@ -133,9 +143,11 @@ class Option extends BaseController
 
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
+
             foreach ($perm as $key => $val) {
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
+
             if (isset($data['update']) and $data['update'] == 1) {
                 echo view('Admin/Option/update', $data);
             } else {
@@ -163,6 +175,7 @@ class Option extends BaseController
 
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/option_update/' . $option_id);
         } else {
             if (!empty($value)) {
@@ -184,9 +197,11 @@ class Option extends BaseController
                 }
 
                 $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Option Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
                 return redirect()->to('admin/option_update/' . $option_id);
             } else {
                 $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert"> Please Add Value ! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
                 return redirect()->to('admin/option_update/' . $option_id);
             }
         }
@@ -210,6 +225,7 @@ class Option extends BaseController
 
 
         $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Option Delete Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
         return redirect()->to('admin/option');
     }
 

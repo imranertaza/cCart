@@ -60,6 +60,7 @@
                         <hr>
                         <div class="price mb-3">
                             <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $products->product_id);
+
                 if (empty($spPric)) { ?>
                             <?php echo currency_symbol($products->price);?>
                             <?php } else { ?>
@@ -221,6 +222,7 @@
                             </div>
                             <div class="price mb-3">
                                 <?php $spPric2 = get_data_by_id('special_price', 'cc_product_special', 'product_id', $relPro->product_id);
+
                             if (empty($spPric2)) { ?>
                                     <?php echo currency_symbol($relPro->price);?>
                                 <?php } else { ?>
@@ -273,6 +275,7 @@
                                         </div>
                                         <div class="price mb-3">
                                             <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $rPro->product_id);
+
                                     if (empty($spPric)) { ?>
                                                 <?php echo currency_symbol($rPro->price);?>
                                             <?php } else { ?>

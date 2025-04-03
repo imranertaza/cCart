@@ -26,6 +26,7 @@ class Order extends BaseController
     public function index()
     {
         $isLoggedInCustomer = $this->session->isLoggedInCustomer;
+
         if (!isset($isLoggedInCustomer) || $isLoggedInCustomer != true) {
             return redirect()->to(site_url('Login'));
         } else {
@@ -54,6 +55,7 @@ class Order extends BaseController
     public function invoice($order_id)
     {
         $isLoggedInCustomer = $this->session->isLoggedInCustomer;
+
         if (!isset($isLoggedInCustomer) || $isLoggedInCustomer != true) {
             return redirect()->to(site_url('Login'));
         } else {

@@ -49,6 +49,7 @@
                     </thead>
                     <tbody>
                     <?php $i = 1;
+
 foreach ($album as $val) { ?>
                         <tr>
                             <td width="40"><?php echo $i++;?></td>

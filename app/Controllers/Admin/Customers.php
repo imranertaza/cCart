@@ -30,6 +30,7 @@ class Customers extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId          = $this->session->adRoleId;
+
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
@@ -39,9 +40,11 @@ class Customers extends BaseController
 
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
+
             foreach ($perm as $key => $val) {
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
+
             if (isset($data['mod_access']) and $data['mod_access'] == 1) {
                 echo view('Admin/Customers/index', $data);
             } else {
@@ -58,14 +61,17 @@ class Customers extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId          = $this->session->adRoleId;
+
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
+
             foreach ($perm as $key => $val) {
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
+
             if (isset($data['create']) and $data['create'] == 1) {
                 echo view('Admin/Customers/create');
             } else {
@@ -98,10 +104,12 @@ class Customers extends BaseController
 
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/customers_create');
         } else {
             $check  = is_exists('cc_customer', 'phone', $data['phone']);
             $check2 = is_exists('cc_customer', 'email', $data['email']);
+
             if (($check == true) && ($check2 == true)) {
                 $data2['firstname'] = $this->request->getPost('firstname');
                 $data2['lastname']  = $this->request->getPost('lastname');
@@ -115,9 +123,11 @@ class Customers extends BaseController
                 $table->insert($data2);
 
                 $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Customers Create Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
                 return redirect()->to('admin/customers_create');
             } else {
                 $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Email Or Phone already exists <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
                 return redirect()->to('admin/customers_create');
             }
         }
@@ -132,6 +142,7 @@ class Customers extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId          = $this->session->adRoleId;
+
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
@@ -141,9 +152,11 @@ class Customers extends BaseController
 
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
+
             foreach ($perm as $key => $val) {
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
+
             if (isset($data['update']) and $data['update'] == 1) {
                 echo view('Admin/Customers/update', $data);
             } else {
@@ -163,11 +176,13 @@ class Customers extends BaseController
         $data['lastname']  = $this->request->getPost('lastname');
         $data['email']     = $this->request->getPost('email');
         $data['phone']     = $this->request->getPost('phone');
+
         if (!empty($this->request->getPost('password'))) {
             $data['password'] = SHA1($this->request->getPost('password'));
 
             if ($this->request->getPost('password') != $this->request->getPost('con_password')) {
                 $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Password and Confirm Password do not match <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
                 return redirect()->to('admin/customers_update/' . $customer_id);
             }
         }
@@ -182,18 +197,22 @@ class Customers extends BaseController
 
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/customers_update/' . $customer_id);
         } else {
             $check  = is_exists_update('cc_customer', 'phone', $data['phone'], 'customer_id', $customer_id);
             $check2 = is_exists_update('cc_customer', 'email', $data['email'], 'customer_id', $customer_id);
+
             if (($check == true) && ($check2 == true)) {
                 $table = DB()->table('cc_customer');
                 $table->where('customer_id', $customer_id)->update($data);
 
                 $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Customers Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
                 return redirect()->to('admin/customers_update/' . $customer_id);
             } else {
                 $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Email Or Phone already exists <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
                 return redirect()->to('admin/customers_update/' . $customer_id);
             }
         }
@@ -219,12 +238,14 @@ class Customers extends BaseController
 
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/customers_update/' . $customer_id);
         } else {
             $table = DB()->table('cc_customer');
             $table->where('customer_id', $customer_id)->update($data);
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Customers General Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/customers_update/' . $customer_id);
         }
     }
@@ -239,14 +260,17 @@ class Customers extends BaseController
 
         if (!empty($_FILES['pic']['name'])) {
             $target_dir = FCPATH . '/uploads/customer/';
+
             if (!file_exists($target_dir)) {
                 mkdir($target_dir, 0777);
             }
 
             //old image unlink
             $old_img = get_data_by_id('pic', 'cc_customers', 'customer_id', $customer_id);
+
             if (!empty($old_img)) {
                 $imgPath = $target_dir . $old_img;
+
                 if (file_exists($imgPath)) {
                     unlink($target_dir . $old_img);
                 }
@@ -265,9 +289,11 @@ class Customers extends BaseController
             $table->where('customer_id', $customer_id)->update($data);
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Customers Image Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/customers_update/' . $customer_id);
         } else {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">No image selected!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/customers_update/' . $customer_id);
         }
     }
@@ -283,6 +309,7 @@ class Customers extends BaseController
         $table->where('customer_id', $customer_id)->delete();
 
         $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Customers Delete Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
         return redirect()->to('admin/customers');
     }
 
@@ -295,6 +322,7 @@ class Customers extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId          = $this->session->adRoleId;
+
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
@@ -304,9 +332,11 @@ class Customers extends BaseController
 
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
+
             foreach ($perm as $key => $val) {
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
+
             if (isset($data['read']) and $data['read'] == 1) {
                 echo view('Admin/Customers/ledger', $data);
             } else {
@@ -318,6 +348,7 @@ class Customers extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId          = $this->session->adRoleId;
+
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
@@ -327,9 +358,11 @@ class Customers extends BaseController
 
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
+
             foreach ($perm as $key => $val) {
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
+
             if (isset($data['read']) and $data['read'] == 1) {
                 echo view('Admin/Customers/point', $data);
             } else {

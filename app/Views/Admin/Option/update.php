@@ -62,6 +62,7 @@
                         <div class="col-md-6" style="padding-top: 16px;">
                             <div id="new_chq">
                                 <?php $i = 1;
+
 foreach ($optionVal as $val) { ?>
                                 <div class="form-group mt-3" id="new_<?php echo $i++;?>"><input type="hidden"  name="option_value_id[]" value="<?php echo $val->option_value_id;?>" ><input type="text" class="form-control" placeholder="value" name="value[]" value="<?php echo $val->name;?>" style="width: 70%;float: left;" required> <a href="javascript:void(0)" onclick="remove_option_new_remove(this,'<?php echo $val->option_value_id;?>')" class="btn btn-sm btn-danger" style="margin-left: 5px;padding: 7px;">X</a></div>
                                 <?php } ?>

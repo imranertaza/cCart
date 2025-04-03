@@ -29,6 +29,7 @@ class Advanced_products extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId          = $this->session->adRoleId;
+
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
@@ -43,11 +44,13 @@ class Advanced_products extends BaseController
 
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
+
             foreach ($perm as $key => $val) {
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
             echo view('Admin/header');
             echo view('Admin/sidebar');
+
             if (isset($data['mod_access']) and $data['mod_access'] == 1) {
                 echo view('Admin/Advanced_products/index', $data);
             } else {
@@ -65,6 +68,7 @@ class Advanced_products extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId          = $this->session->adRoleId;
+
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
@@ -77,6 +81,7 @@ class Advanced_products extends BaseController
             $pageNum = $this->request->getGet('page');
 
             $perPage = !empty($length) ? $length : 10;
+
             if (empty($keyWord)) {
                 $data['product'] = $this->productsModel->bulk_product_list()->paginate($perPage);
             } else {
@@ -95,9 +100,11 @@ class Advanced_products extends BaseController
 
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
+
             foreach ($perm as $key => $val) {
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
+
             if (isset($data['mod_access']) and $data['mod_access'] == 1) {
                 echo view('Admin/Advanced_products/list', $data);
             } else {
@@ -114,6 +121,7 @@ class Advanced_products extends BaseController
     {
         $module_settings_id = $this->request->getPost('module_settings_id');
         $oldStutas          = get_data_by_id('value', 'cc_module_settings', 'module_settings_id', $module_settings_id);
+
         if ($oldStutas == '1') {
             $data['value'] = '0';
         } else {
@@ -141,12 +149,15 @@ class Advanced_products extends BaseController
         if (!empty($name)) {
             $dataSearch['name'] = $name;
         }
+
         if (!empty($model)) {
             $dataSearch['model'] = $model;
         }
+
         if (!empty($price)) {
             $dataSearch['price'] = $price;
         }
+
         if (!empty($quantity)) {
             $dataSearch['quantity'] = $quantity;
         }
@@ -253,6 +264,7 @@ class Advanced_products extends BaseController
 
 
         $catData = [];
+
         foreach ($category as $key => $cat) {
             $catData[$key] = [
                 'product_id'  => $product_id,
@@ -302,6 +314,7 @@ class Advanced_products extends BaseController
 
         if (!empty($qty)) {
             $optionData = [];
+
             foreach ($qty as $key => $val) {
                 $optionData[$key] = [
                     'product_id'      => $product_id,
@@ -331,6 +344,7 @@ class Advanced_products extends BaseController
     public function multi_option_edit()
     {
         $allProductId =  $this->request->getPost('productId[]');
+
         if (!empty($allProductId)) {
             $data['all_product'] = $allProductId;
 
@@ -341,6 +355,7 @@ class Advanced_products extends BaseController
             echo view('Admin/Advanced_products/multi_option', $data);
         } else {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Please select any product <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->back();
         }
     }
@@ -368,6 +383,7 @@ class Advanced_products extends BaseController
                 $optionTableDel->where('product_id', $p)->delete();
 
                 $optionData = [];
+
                 foreach ($qty as $key => $val) {
                     $optionData[$key] = [
                          'product_id'      => $p,
@@ -382,9 +398,11 @@ class Advanced_products extends BaseController
                 $optionTable->insertBatch($optionData);
             }
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Multi Option Update Successfully <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to($redirect_url);
         } else {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Invalid input! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to($redirect_url);
         }
     }
@@ -396,6 +414,7 @@ class Advanced_products extends BaseController
     public function multi_attribute_edit()
     {
         $allProductId =  $this->request->getPost('productId[]');
+
         if (!empty($allProductId)) {
             $data['all_product'] = $allProductId;
 
@@ -406,6 +425,7 @@ class Advanced_products extends BaseController
             echo view('Admin/Advanced_products/multi_attribute', $data);
         } else {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Please select any product <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->back();
         }
     }
@@ -441,9 +461,11 @@ class Advanced_products extends BaseController
             }
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Multi Attribute Update Successfully <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to($redirect_url);
         } else {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Invalid input! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to($redirect_url);
         }
     }
@@ -455,6 +477,7 @@ class Advanced_products extends BaseController
     public function multi_category_edit()
     {
         $allProductId =  $this->request->getPost('productId[]');
+
         if (!empty($allProductId)) {
             $data['all_product'] = $allProductId;
 
@@ -465,6 +488,7 @@ class Advanced_products extends BaseController
             echo view('Admin/Advanced_products/category_edit', $data);
         } else {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Please select any product <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->back();
         }
     }
@@ -483,8 +507,10 @@ class Advanced_products extends BaseController
         if (!empty($categorys)) {
             $arrayData = [];
             $catTable  = DB()->table('cc_product_to_category');
+
             foreach ($all_product as $pro) {
                 $catTable->where('product_id', $pro)->delete();
+
                 foreach ($categorys as $cat) {
                     $arrayData[] = ['product_id' => $pro, 'category_id' => $cat];
                 }
@@ -493,9 +519,11 @@ class Advanced_products extends BaseController
             $catTable->insertBatch($arrayData);
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Multi Category Update Successfully <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to($redirect_url);
         } else {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Please select any category <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to($redirect_url);
         }
     }

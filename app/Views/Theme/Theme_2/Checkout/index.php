@@ -7,6 +7,7 @@
                 </div>
                 <div class="col-lg-6">
                     <?php $isLoggedInCustomer = newSession()->isLoggedInCustomer;
+
         if (!isset($isLoggedInCustomer) || $isLoggedInCustomer != true) { ?>
                     <p><a class="btn bg-custom-color w-100 text-white rounded-0"
                             href="<?php echo base_url('login') ?>">Log In</a></p>
@@ -314,6 +315,7 @@
                             <div class="d-flex justify-content-between mb-2">
                                 <span>Discount</span>
                                 <?php $disc = 0;
+
         if (isset(newSession()->coupon_discount)) {
             $disc = round((Cart()->total() * newSession()->coupon_discount) / 100); ?>
                                 <span><?php echo currency_symbol_with_symbol($disc, $symbol) ?></span>

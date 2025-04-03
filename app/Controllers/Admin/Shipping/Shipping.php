@@ -30,6 +30,7 @@ class Shipping extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId          = $this->session->adRoleId;
+
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
@@ -39,9 +40,11 @@ class Shipping extends BaseController
 
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
+
             foreach ($perm as $key => $val) {
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
+
             if (isset($data['mod_access']) and $data['mod_access'] == 1) {
                 echo view('Admin/Shipping/index', $data);
             } else {
@@ -59,6 +62,7 @@ class Shipping extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId          = $this->session->adRoleId;
+
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
@@ -76,19 +80,24 @@ class Shipping extends BaseController
 
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
+
             foreach ($perm as $key => $val) {
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
+
             if (isset($data['update']) and $data['update'] == 1) {
                 if ($code == 'flat') {
                     echo view('Admin/Shipping/flat_rate', $data);
                 }
+
                 if ($code == 'zone') {
                     echo view('Admin/Shipping/zone', $data);
                 }
+
                 if ($code == 'weight') {
                     echo view('Admin/Shipping/weight', $data);
                 }
+
                 if ($code == 'zone_rate') {
                     echo view('Admin/Shipping/zone_rate', $data);
                 }
@@ -126,6 +135,7 @@ class Shipping extends BaseController
         $weight_label = $this->request->getPost('weight_label[]');
         $weight_value = $this->request->getPost('weight_value[]');
         $weight_id    = $this->request->getPost('weight_id[]');
+
         if (!empty($weight_label)) {
             foreach ($weight_label as $key => $val) {
                 //                $check = is_exists('cc_weight_shipping_settings','settings_id',$weight_id[$key]);
@@ -144,6 +154,7 @@ class Shipping extends BaseController
 
 
         $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Shipping Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
         return redirect()->to('admin/shipping_settings/' . $shipping_method_id);
     }
 
@@ -190,6 +201,7 @@ class Shipping extends BaseController
             }
         }
         $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Zone Rate Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
         return redirect()->to('admin/shipping_settings/' . $shipping_method_id);
     }
 
@@ -214,6 +226,7 @@ class Shipping extends BaseController
     {
         $shipping_method_id = $this->request->getPost('id');
         $oldStatus          = get_data_by_id('status', 'cc_shipping_method', 'shipping_method_id', $shipping_method_id);
+
         if ($oldStatus == '1') {
             $data['status'] = '0';
         } else {

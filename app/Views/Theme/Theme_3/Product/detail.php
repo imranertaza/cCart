@@ -120,6 +120,7 @@
                                             <div class="col-6">
                                                 <div class="product-price text-end" id="priceVal">
                                                     <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $products->product_id);
+
                     if (empty($spPric)) { ?>
                                                         <?php $pp = $products->price;
                         echo currency_symbol_with_symbol($products->price, $symbol); ?>
@@ -256,6 +257,7 @@
 
                                     <h5 class="card-title"><?php echo substr($rPro->name, 0, 60); ?></h5>
                                     <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $rPro->product_id);
+
                                 if (empty($spPric)) { ?>
                                        <p> <?php echo currency_symbol_with_symbol($rPro->price, $symbol); ?> </p>
                                     <?php } else { ?>

@@ -19,6 +19,7 @@ class Test extends BaseController
         $rows    = $builder->get()->getResult();
 
         $output = '';
+
         foreach ($rows as $row) {
             $output .= '[<br/>';
             $output .= "'theme_settings_id' => " . "'" . $row->theme_settings_id . "'" . ',<br/>';

@@ -84,6 +84,7 @@
                     </div>
                     <?php
                         $newChe = is_exists('cc_newsletter', 'customer_id', newSession()->cusUserId);
+
         if ($newChe == true) {
             ?>
                     <h6 style="margin-top:150px;">Newsletter</h6>

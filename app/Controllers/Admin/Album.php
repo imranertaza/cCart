@@ -33,6 +33,7 @@ class Album extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId          = $this->session->adRoleId;
+
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
@@ -42,9 +43,11 @@ class Album extends BaseController
 
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
+
             foreach ($perm as $key => $val) {
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
+
             if (isset($data['mod_access']) and $data['mod_access'] == 1) {
                 echo view('Admin/Album/index', $data);
             } else {
@@ -61,14 +64,17 @@ class Album extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId          = $this->session->adRoleId;
+
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
+
             foreach ($perm as $key => $val) {
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
+
             if (isset($data['create']) and $data['create'] == 1) {
                 echo view('Admin/Album/create');
             } else {
@@ -92,6 +98,7 @@ class Album extends BaseController
 
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/album_create');
         } else {
             $table = DB()->table('cc_album');
@@ -125,6 +132,7 @@ class Album extends BaseController
                 $this->imageProcessing->directory_create($target_dir);
 
                 $files = $this->request->getFileMultiple('multiImage');
+
                 foreach ($files as $file) {
                     if ($file->isValid() && ! $file->hasMoved()) {
                         $dataMultiImg['album_id'] = $albumId;
@@ -150,6 +158,7 @@ class Album extends BaseController
 
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Album Create Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/album_create');
         }
     }
@@ -163,6 +172,7 @@ class Album extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId          = $this->session->adRoleId;
+
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
@@ -175,9 +185,11 @@ class Album extends BaseController
 
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
+
             foreach ($perm as $key => $val) {
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
+
             if (isset($data['update']) and $data['update'] == 1) {
                 echo view('Admin/Album/update', $data);
             } else {
@@ -202,6 +214,7 @@ class Album extends BaseController
 
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/album_update/' . $album_id);
         } else {
             $table = DB()->table('cc_album');
@@ -232,6 +245,7 @@ class Album extends BaseController
                 $this->imageProcessing->directory_create($target_dir);
 
                 $files = $this->request->getFileMultiple('multiImage');
+
                 foreach ($files as $file) {
                     if ($file->isValid() && ! $file->hasMoved()) {
                         $dataMultiImg['album_id'] = $album_id;
@@ -252,6 +266,7 @@ class Album extends BaseController
             //multi image upload(start)
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Album Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/album_update/' . $album_id);
         }
     }
@@ -268,6 +283,7 @@ class Album extends BaseController
         DB()->transStart();
 
         $target_dir = FCPATH . '/uploads/album/' . $album_id;
+
         if (file_exists($target_dir)) {
             delete_files($target_dir, true);
             rmdir($target_dir);
@@ -282,6 +298,7 @@ class Album extends BaseController
 
 
         $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Album Delete Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
         //        return redirect()->to('admin/album');
         return redirect()->back();
     }
@@ -312,6 +329,7 @@ class Album extends BaseController
         $data             = $table->where('album_details_id', $album_details_id)->get()->getRow();
 
         $target_dir = FCPATH . '/uploads/album/' . $data->album_id . '/' . $album_details_id;
+
         if (file_exists($target_dir)) {
             delete_files($target_dir, true);
             rmdir($target_dir);

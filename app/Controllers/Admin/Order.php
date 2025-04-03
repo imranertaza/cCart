@@ -30,6 +30,7 @@ class Order extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId          = $this->session->adRoleId;
+
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
@@ -39,9 +40,11 @@ class Order extends BaseController
 
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
+
             foreach ($perm as $key => $val) {
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
+
             if (isset($data['mod_access']) and $data['mod_access'] == 1) {
                 echo view('Admin/Order/index', $data);
             } else {
@@ -59,6 +62,7 @@ class Order extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId          = $this->session->adRoleId;
+
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
@@ -75,9 +79,11 @@ class Order extends BaseController
 
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
+
             foreach ($perm as $key => $val) {
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
+
             if (isset($data['mod_access']) and $data['mod_access'] == 1) {
                 echo view('Admin/Order/order_view', $data);
             } else {
@@ -103,6 +109,7 @@ class Order extends BaseController
 
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/order_view/' . $data['order_id'] . '?selTab=history');
         } else {
             $table = DB()->table('cc_order_history');
@@ -120,6 +127,7 @@ class Order extends BaseController
                 if (!empty($ord->customer_id)) {
                     $tableModule = DB()->table('cc_modules');
                     $query       = $tableModule->join('cc_module_settings', 'cc_module_settings.module_id = cc_modules.module_id')->where('cc_modules.module_key', 'point')->get()->getRow();
+
                     if ($query->status == '1') {
                         DB()->transStart();
                         $oldPoint  = get_data_by_id('point', 'cc_customer', 'customer_id', $ord->customer_id);
@@ -153,6 +161,7 @@ class Order extends BaseController
 
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert"> History Add Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/order_view/' . $data['order_id'] . '?selTab=history');
         }
     }
@@ -172,6 +181,7 @@ class Order extends BaseController
             if (!empty($ord->customer_id)) {
                 $tableModule = DB()->table('cc_modules');
                 $query       = $tableModule->join('cc_module_settings', 'cc_module_settings.module_id = cc_modules.module_id')->where('cc_modules.module_key', 'point')->get()->getRow();
+
                 if ($query->status == '1') {
                     DB()->transStart();
                     $oldPoint  = get_data_by_id('point', 'cc_customer', 'customer_id', $ord->customer_id);
@@ -220,6 +230,7 @@ class Order extends BaseController
 
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/order_view/' . $data['order_id'] . '?selTab=point');
         } else {
             $tabOrder = DB()->table('cc_order');
@@ -228,6 +239,7 @@ class Order extends BaseController
             if ($data['status'] == 'add') {
                 $tableModule = DB()->table('cc_modules');
                 $query       = $tableModule->join('cc_module_settings', 'cc_module_settings.module_id = cc_modules.module_id')->where('cc_modules.module_key', 'point')->get()->getRow();
+
                 if ($query->status == '1') {
                     $oldPoint  = get_data_by_id('point', 'cc_customer', 'customer_id', $ord->customer_id);
                     $point     = $data['amount'] ;
@@ -261,6 +273,7 @@ class Order extends BaseController
                 if (!empty($ord->customer_id)) {
                     $tableModule = DB()->table('cc_modules');
                     $query       = $tableModule->join('cc_module_settings', 'cc_module_settings.module_id = cc_modules.module_id')->where('cc_modules.module_key', 'point')->get()->getRow();
+
                     if ($query->status == '1') {
                         $oldPoint  = get_data_by_id('point', 'cc_customer', 'customer_id', $ord->customer_id);
                         $point     = $data['amount'];
@@ -292,6 +305,7 @@ class Order extends BaseController
 
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert"> Point Add Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/order_view/' . $data['order_id'] . '?selTab=point');
         }
     }
