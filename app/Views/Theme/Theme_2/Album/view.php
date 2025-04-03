@@ -7,7 +7,7 @@
                 </div>
                 <div class="col-4 col-md-4 mt-4 text-center ">
                     <?php $img = str_replace("pro_", "", $album->thumb);
-                    $url = base_url('uploads/album/' . $album->album_id . '/wm_' . $img); ?>
+                    $url       = base_url('uploads/album/' . $album->album_id . '/wm_' . $img); ?>
                     <a class="example-image-link" href="<?= $url;?>" data-lightbox="example-set">
                     <?php echo image_view('uploads/album', $album->album_id, '498_wm_' . $album->thumb, 'noimage.png', 'img-fluid');?>
                     </a>

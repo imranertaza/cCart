@@ -2,8 +2,8 @@
     <div class="col-md-6">
 
         <?php
-        $cat = get_all_data_array('cc_product_category');
-        $themeSettings = get_theme_settings();
+        $cat                = get_all_data_array('cc_product_category');
+        $themeSettings      = get_theme_settings();
         $themeSettingsTitle = get_theme_title_settings();
 
         ?>

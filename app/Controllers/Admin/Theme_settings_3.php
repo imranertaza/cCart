@@ -17,8 +17,8 @@ class Theme_settings_3 extends BaseController
     public function __construct()
     {
         $this->validation = \Config\Services::validation();
-        $this->session = \Config\Services::session();
-        $this->crop = \Config\Services::image();
+        $this->session    = \Config\Services::session();
+        $this->crop       = \Config\Services::image();
         $this->permission = new Permission();
     }
 
@@ -29,11 +29,11 @@ class Theme_settings_3 extends BaseController
     public function index()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
-        $adRoleId = $this->session->adRoleId;
+        $adRoleId          = $this->session->adRoleId;
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-            $table = DB()->table('cc_theme_settings');
+            $table                  = DB()->table('cc_theme_settings');
             $data['theme_settings'] = $table->get()->getResult();
 
 
@@ -56,7 +56,7 @@ class Theme_settings_3 extends BaseController
      */
     public function header_section_one_update()
     {
-        $data['head_side_title_1'] = $this->request->getPost('head_side_title_1');
+        $data['head_side_title_1']    = $this->request->getPost('head_side_title_1');
         $data['head_side_category_1'] = $this->request->getPost('head_side_category_1');
 
         if (!empty($_FILES['head_side_baner_1']['name'])) {
@@ -66,7 +66,7 @@ class Theme_settings_3 extends BaseController
             }
 
             //new image uplode
-            $pic = $this->request->getFile('head_side_baner_1');
+            $pic     = $this->request->getFile('head_side_baner_1');
             $namePic = $pic->getRandomName();
             $pic->move($target_dir, $namePic);
             $news_img = 'head_side_baner_' . $pic->getName();
@@ -77,7 +77,7 @@ class Theme_settings_3 extends BaseController
 
         foreach ($data as $key => $val) {
             $dataUpdate['value'] = $val;
-            $table = DB()->table('cc_theme_settings');
+            $table               = DB()->table('cc_theme_settings');
             $table->where('label', $key)->update($dataUpdate);
         }
 
@@ -91,7 +91,7 @@ class Theme_settings_3 extends BaseController
      */
     public function header_section_two_update()
     {
-        $data['head_side_title_2'] = $this->request->getPost('head_side_title_2');
+        $data['head_side_title_2']    = $this->request->getPost('head_side_title_2');
         $data['head_side_category_2'] = $this->request->getPost('head_side_category_2');
 
         if (!empty($_FILES['head_side_baner_2']['name'])) {
@@ -101,7 +101,7 @@ class Theme_settings_3 extends BaseController
             }
 
             //new image uplode
-            $pic = $this->request->getFile('head_side_baner_2');
+            $pic     = $this->request->getFile('head_side_baner_2');
             $namePic = $pic->getRandomName();
             $pic->move($target_dir, $namePic);
             $news_img = 'head_side_baner_' . $pic->getName();
@@ -112,7 +112,7 @@ class Theme_settings_3 extends BaseController
 
         foreach ($data as $key => $val) {
             $dataUpdate['value'] = $val;
-            $table = DB()->table('cc_theme_settings');
+            $table               = DB()->table('cc_theme_settings');
             $table->where('label', $key)->update($dataUpdate);
         }
 
@@ -126,8 +126,8 @@ class Theme_settings_3 extends BaseController
      */
     public function home_category_update()
     {
-        $prefix = $this->request->getPost('prefix');
-        $data['home_category_' . $prefix] = $this->request->getPost('home_category_' . $prefix);
+        $prefix                                 = $this->request->getPost('prefix');
+        $data['home_category_' . $prefix]       = $this->request->getPost('home_category_' . $prefix);
         $data['home_category_title_' . $prefix] = $this->request->getPost('home_category_title_' . $prefix);
 
         if (!empty($_FILES['home_category_baner_' . $prefix]['name'])) {
@@ -137,7 +137,7 @@ class Theme_settings_3 extends BaseController
             }
 
             //new image uplode
-            $pic = $this->request->getFile('home_category_baner_' . $prefix);
+            $pic     = $this->request->getFile('home_category_baner_' . $prefix);
             $namePic = $pic->getRandomName();
             $pic->move($target_dir, $namePic);
             $news_img = 'home_category_' . $pic->getName();
@@ -148,7 +148,7 @@ class Theme_settings_3 extends BaseController
 
         foreach ($data as $key => $val) {
             $dataUpdate['value'] = $val;
-            $table = DB()->table('cc_theme_settings');
+            $table               = DB()->table('cc_theme_settings');
             $table->where('label', $key)->update($dataUpdate);
         }
 
@@ -169,7 +169,7 @@ class Theme_settings_3 extends BaseController
             }
 
             //new image uplode
-            $pic = $this->request->getFile('banner_bottom');
+            $pic     = $this->request->getFile('banner_bottom');
             $namePic = $pic->getRandomName();
             $pic->move($target_dir, $namePic);
             $news_img = 'banner_bottom_' . $pic->getName();
@@ -205,7 +205,7 @@ class Theme_settings_3 extends BaseController
             }
 
             //new image uplode
-            $pic = $this->request->getFile('slider');
+            $pic     = $this->request->getFile('slider');
             $namePic = $pic->getRandomName();
             $pic->move($target_dir, $namePic);
             $news_img = 'slider_' . $pic->getName();
@@ -237,7 +237,7 @@ class Theme_settings_3 extends BaseController
             }
 
             //new image uplode
-            $pic = $this->request->getFile('side_logo');
+            $pic     = $this->request->getFile('side_logo');
             $namePic = 'logo_' . $pic->getRandomName();
             $pic->move($target_dir, $namePic);
             $data['value'] = $namePic;
@@ -266,7 +266,7 @@ class Theme_settings_3 extends BaseController
             }
 
             //new image uplode
-            $pic = $this->request->getFile('home_category_banner');
+            $pic     = $this->request->getFile('home_category_banner');
             $namePic = $pic->getRandomName();
             $pic->move($target_dir, $namePic);
             $news_img = 'banner_' . $pic->getName();
@@ -316,7 +316,7 @@ class Theme_settings_3 extends BaseController
     public function settings_update()
     {
         $data['value'] = $this->request->getPost('value');
-        $label = $this->request->getPost('label');
+        $label         = $this->request->getPost('label');
 
         $table = DB()->table('cc_theme_settings');
         $table->where('label', $label)->update($data);
@@ -325,7 +325,7 @@ class Theme_settings_3 extends BaseController
         return redirect()->to('admin/theme_settings?sel=home_settings');
 
         //new image uplode
-        $pic = $this->request->getFile('special_banner');
+        $pic     = $this->request->getFile('special_banner');
         $namePic = $pic->getRandomName();
         $pic->move($target_dir, $namePic);
         $news_img = 'sp_banner_' . $pic->getName();
@@ -347,7 +347,7 @@ class Theme_settings_3 extends BaseController
             }
 
             //new image uplode
-            $pic = $this->request->getFile('special_banner');
+            $pic     = $this->request->getFile('special_banner');
             $namePic = $pic->getRandomName();
             $pic->move($target_dir, $namePic);
             $news_img = 'sp_banner_' . $pic->getName();
@@ -380,7 +380,7 @@ class Theme_settings_3 extends BaseController
             }
 
             //new image uplode
-            $pic = $this->request->getFile('left_side_banner');
+            $pic     = $this->request->getFile('left_side_banner');
             $namePic = $pic->getRandomName();
             $pic->move($target_dir, $namePic);
             $news_img = 'left_banner_' . $pic->getName();

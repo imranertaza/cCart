@@ -23,13 +23,13 @@ class StripeController extends BaseController
 
     public function __construct()
     {
-        $this->validation = \Config\Services::validation();
-        $this->session = \Config\Services::session();
-        $this->productsModel = new ProductsModel();
-        $this->zone_shipping = new Zone_shipping();
-        $this->flat_shipping = new Flat_shipping();
+        $this->validation      = \Config\Services::validation();
+        $this->session         = \Config\Services::session();
+        $this->productsModel   = new ProductsModel();
+        $this->zone_shipping   = new Zone_shipping();
+        $this->flat_shipping   = new Flat_shipping();
         $this->weight_shipping = new Weight_shipping();
-        $this->cart = new Mycart();
+        $this->cart            = new Mycart();
     }
 
     /**
@@ -39,12 +39,12 @@ class StripeController extends BaseController
     public function payment_stripe()
     {
         $settings = get_settings();
-        $array = $this->session_data();
+        $array    = $this->session_data();
         $this->session->set($array);
 
-        $data['keywords'] = $settings['meta_keyword'];
+        $data['keywords']    = $settings['meta_keyword'];
         $data['description'] = $settings['meta_description'];
-        $data['title'] = 'Stripe payment';
+        $data['title']       = 'Stripe payment';
         echo view('Theme/' . $settings['Theme'] . '/header', $data);
         echo view('Theme/' . $settings['Theme'] . '/Checkout/stripe');
         echo view('Theme/' . $settings['Theme'] . '/footer');
@@ -60,9 +60,9 @@ class StripeController extends BaseController
         $secret_key = get_all_row_data_by_id('cc_payment_settings', 'label', 'secret_key');
         Stripe\Stripe::setApiKey($secret_key->value);
         $charge = Stripe\Charge::create([
-            "amount" => $this->session->t_amount * 100,
-            "currency" => "usd",
-            "source" => $this->request->getVar('stripeToken'),
+            "amount"      => $this->session->t_amount * 100,
+            "currency"    => "usd",
+            "source"      => $this->request->getVar('stripeToken'),
             "description" => get_lebel_by_value_in_settings('meta_keyword') . " Payment ",
         ]);
 
@@ -82,19 +82,19 @@ class StripeController extends BaseController
      */
     public function stripe_action()
     {
-        $data['payment_firstname'] = $this->session->payment_firstname;
-        $data['payment_lastname'] = $this->session->payment_lastname;
-        $data['payment_phone'] = $this->session->payment_phone;
-        $data['payment_email'] = $this->session->payment_email;
+        $data['payment_firstname']  = $this->session->payment_firstname;
+        $data['payment_lastname']   = $this->session->payment_lastname;
+        $data['payment_phone']      = $this->session->payment_phone;
+        $data['payment_email']      = $this->session->payment_email;
         $data['payment_country_id'] = $this->session->payment_country_id;
-        $data['payment_city'] = $this->session->payment_city;
-        $data['payment_postcode'] = $this->session->payment_postcode;
-        $data['payment_address_1'] = $this->session->payment_address_1;
-        $data['payment_address_2'] = $this->session->payment_address_2;
+        $data['payment_city']       = $this->session->payment_city;
+        $data['payment_postcode']   = $this->session->payment_postcode;
+        $data['payment_address_1']  = $this->session->payment_address_1;
+        $data['payment_address_2']  = $this->session->payment_address_2;
 
         $data['shipping_method'] = $this->session->shipping_method;
         $data['shipping_charge'] = $this->session->shipping_charge;
-        $data['payment_method'] = $this->session->payment_method;
+        $data['payment_method']  = $this->session->payment_method;
 
         $data['store_id'] = $this->session->store_id;
 
@@ -105,23 +105,23 @@ class StripeController extends BaseController
 
         DB()->transStart();
         if ($shipping_else == 'on') {
-            $data['shipping_firstname'] = $this->session->shipping_firstname;
-            $data['shipping_lastname'] = $this->session->shipping_lastname;
-            $data['shipping_phone'] = $this->session->shipping_phone;
+            $data['shipping_firstname']  = $this->session->shipping_firstname;
+            $data['shipping_lastname']   = $this->session->shipping_lastname;
+            $data['shipping_phone']      = $this->session->shipping_phone;
             $data['shipping_country_id'] = $this->session->shipping_country_id;
-            $data['shipping_city'] = $this->session->shipping_city;
-            $data['shipping_postcode'] = $this->session->shipping_postcode;
-            $data['shipping_address_1'] = $this->session->shipping_address_1;
-            $data['shipping_address_2'] = $this->session->shipping_address_2;
+            $data['shipping_city']       = $this->session->shipping_city;
+            $data['shipping_postcode']   = $this->session->shipping_postcode;
+            $data['shipping_address_1']  = $this->session->shipping_address_1;
+            $data['shipping_address_2']  = $this->session->shipping_address_2;
         } else {
-            $data['shipping_firstname'] = $data['payment_firstname'];
-            $data['shipping_lastname'] = $data['payment_lastname'];
-            $data['shipping_phone'] = $data['payment_phone'];
+            $data['shipping_firstname']  = $data['payment_firstname'];
+            $data['shipping_lastname']   = $data['payment_lastname'];
+            $data['shipping_phone']      = $data['payment_phone'];
             $data['shipping_country_id'] = $data['payment_country_id'];
-            $data['shipping_city'] = $data['payment_city'];
-            $data['shipping_postcode'] = $this->session->payment_postcode;
-            $data['shipping_address_1'] = $data['payment_address_1'];
-            $data['shipping_address_2'] = $data['payment_address_2'];
+            $data['shipping_city']       = $data['payment_city'];
+            $data['shipping_postcode']   = $this->session->payment_postcode;
+            $data['shipping_address_1']  = $data['payment_address_1'];
+            $data['shipping_address_2']  = $data['payment_address_2'];
         }
 
         if (isset($this->session->cusUserId)) {
@@ -138,9 +138,9 @@ class StripeController extends BaseController
         }
 
         if (!empty($disc)) {
-            $oldQtyCup = get_data_by_id('total_used', 'cc_coupon', 'coupon_id', $this->session->coupon_id);
+            $oldQtyCup                   = get_data_by_id('total_used', 'cc_coupon', 'coupon_id', $this->session->coupon_id);
             $newQtyCupUsed['total_used'] = $oldQtyCup + 1;
-            $table = DB()->table('cc_coupon');
+            $table                       = DB()->table('cc_coupon');
             $table->where('coupon_id', $this->session->coupon_id)->update($newQtyCupUsed);
         }
 
@@ -150,9 +150,9 @@ class StripeController extends BaseController
         }
 
         $data['payment_status'] = 'Paid';
-        $data['total'] = $this->cart->total();
-        $data['discount'] = $disc;
-        $data['final_amount'] = $finalAmo;
+        $data['total']          = $this->cart->total();
+        $data['discount']       = $disc;
+        $data['final_amount']   = $finalAmo;
 
 
         $table = DB()->table('cc_order');
@@ -165,47 +165,47 @@ class StripeController extends BaseController
 
 
         //order cc_order_history
-        $order_status_id = get_data_by_id('order_status_id', 'cc_order_status', 'name', 'Pending');
-        $dataOrderHistory['order_id'] = $order_id;
+        $order_status_id                     = get_data_by_id('order_status_id', 'cc_order_status', 'name', 'Pending');
+        $dataOrderHistory['order_id']        = $order_id;
         $dataOrderHistory['order_status_id'] = $order_status_id;
-        $tabHistOr = DB()->table('cc_order_history');
+        $tabHistOr                           = DB()->table('cc_order_history');
         $tabHistOr->insert($dataOrderHistory);
 
 
 
 
         foreach ($this->cart->contents() as $val) {
-            $oldQty = get_data_by_id('quantity', 'cc_products', 'product_id', $val['id']);
-            $dataOrder['order_id'] = $order_id;
-            $dataOrder['product_id'] = $val['id'];
-            $dataOrder['price'] = $val['price'];
-            $dataOrder['quantity'] = $val['qty'];
+            $oldQty                   = get_data_by_id('quantity', 'cc_products', 'product_id', $val['id']);
+            $dataOrder['order_id']    = $order_id;
+            $dataOrder['product_id']  = $val['id'];
+            $dataOrder['price']       = $val['price'];
+            $dataOrder['quantity']    = $val['qty'];
             $dataOrder['total_price'] = $val['subtotal'];
             $dataOrder['final_price'] = $val['subtotal'];
-            $tableOrder = DB()->table('cc_order_item');
+            $tableOrder               = DB()->table('cc_order_item');
             $tableOrder->insert($dataOrder);
             $order_item_id = DB()->insertID();
 
             $newqty['quantity'] = $oldQty - $val['qty'];
-            $tablePro = DB()->table('cc_products');
+            $tablePro           = DB()->table('cc_products');
             $tablePro->where('product_id', $val['id'])->update($newqty);
 
             foreach (get_all_data_array('cc_option') as $vl) {
                 if (!empty($val['op_' . strtolower($vl->name)])) {
                     $data[strtolower($vl->name)] = $val['op_' . strtolower($vl->name)];
 
-                    $table = DB()->table('cc_product_option');
+                    $table  = DB()->table('cc_product_option');
                     $option = $table->where('option_value_id', $data[strtolower($vl->name)])->where('product_id', $val['id'])->get()->getRow();
 
                     if (!empty($option)) {
-                        $dataOptino['order_id'] = $order_id;
-                        $dataOptino['order_item_id'] = $order_item_id;
-                        $dataOptino['product_id'] = $option->product_id;
-                        $dataOptino['option_id'] = $option->option_id;
+                        $dataOptino['order_id']        = $order_id;
+                        $dataOptino['order_item_id']   = $order_item_id;
+                        $dataOptino['product_id']      = $option->product_id;
+                        $dataOptino['option_id']       = $option->option_id;
                         $dataOptino['option_value_id'] = $option->option_value_id;
-                        $dataOptino['name'] = strtolower($vl->name);
-                        $dataOptino['value'] = get_data_by_id('name', 'cc_option_value', 'option_value_id', $option->option_value_id);
-                        $tableOption = DB()->table('cc_order_option');
+                        $dataOptino['name']            = strtolower($vl->name);
+                        $dataOptino['value']           = get_data_by_id('name', 'cc_option_value', 'option_value_id', $option->option_value_id);
+                        $tableOption                   = DB()->table('cc_order_option');
                         $tableOption->insert($dataOptino);
                     }
                 }
@@ -214,32 +214,32 @@ class StripeController extends BaseController
 
         if (isset($this->session->cusUserId)) {
             $tableModule = DB()->table('cc_modules');
-            $query = $tableModule->join('cc_module_settings', 'cc_module_settings.module_id = cc_modules.module_id')->where('cc_modules.module_key', 'point')->get()->getRow();
+            $query       = $tableModule->join('cc_module_settings', 'cc_module_settings.module_id = cc_modules.module_id')->where('cc_modules.module_key', 'point')->get()->getRow();
             if ($query->status == '1') {
                 $oldPoint = get_data_by_id('point', 'cc_customer', 'customer_id', $this->session->cusUserId);
-                $point = $this->cart->total() * $query->value;
+                $point    = $this->cart->total() * $query->value;
 
                 $restPoint = $oldPoint + $point;
 
                 //customer point update
                 $cusPointData['point'] = $restPoint;
-                $tableCus = DB()->table('cc_customer');
+                $tableCus              = DB()->table('cc_customer');
                 $tableCus->where('customer_id', $this->session->cusUserId)->update($cusPointData);
 
 
                 //point history add
-                $cusPointHistory['customer_id'] = $this->session->cusUserId;
-                $cusPointHistory['order_id'] = $order_id;
-                $cusPointHistory['particulars'] = 'product purchase point';
+                $cusPointHistory['customer_id']      = $this->session->cusUserId;
+                $cusPointHistory['order_id']         = $order_id;
+                $cusPointHistory['particulars']      = 'product purchase point';
                 $cusPointHistory['trangaction_type'] = 'Cr.';
-                $cusPointHistory['point'] = $point;
-                $cusPointHistory['rest_point'] = $restPoint;
-                $tablePoint = DB()->table('cc_customer_point_history');
+                $cusPointHistory['point']            = $point;
+                $cusPointHistory['rest_point']       = $restPoint;
+                $tablePoint                          = DB()->table('cc_customer_point_history');
                 $tablePoint->insert($cusPointHistory);
 
                 //order point update
                 $orPointData['total_point'] = $point;
-                $tabOrder = DB()->table('cc_order');
+                $tabOrder                   = DB()->table('cc_order');
                 $tabOrder->where('order_id', $order_id)->update($orPointData);
             }
         }
@@ -250,14 +250,14 @@ class StripeController extends BaseController
 
 
         //email send customer
-        $temMes = order_email_template($order_id);
+        $temMes  = order_email_template($order_id);
         $subject = 'Product order';
         $message = $temMes;
         email_send($data['payment_email'], $subject, $message);
 
 
         //email send admin
-        $email = get_lebel_by_value_in_settings('email');
+        $email     = get_lebel_by_value_in_settings('email');
         $subjectAd = 'Product order';
         $messageAd = $temMes;
         email_send($email, $subjectAd, $messageAd);
@@ -278,20 +278,20 @@ class StripeController extends BaseController
      */
     private function session_data()
     {
-        $data['payment_firstname'] = $this->request->getPost('payment_firstname');
-        $data['payment_lastname'] = $this->request->getPost('payment_lastname');
-        $data['payment_phone'] = $this->request->getPost('payment_phone');
-        $data['payment_email'] = $this->request->getPost('payment_email');
+        $data['payment_firstname']  = $this->request->getPost('payment_firstname');
+        $data['payment_lastname']   = $this->request->getPost('payment_lastname');
+        $data['payment_phone']      = $this->request->getPost('payment_phone');
+        $data['payment_email']      = $this->request->getPost('payment_email');
         $data['payment_country_id'] = $this->request->getPost('payment_country_id');
-        $data['payment_city'] = $this->request->getPost('payment_city');
-        $data['payment_postcode'] = $this->request->getPost('payment_postcode');
-        $data['payment_address_1'] = $this->request->getPost('payment_address_1');
-        $data['payment_address_2'] = $this->request->getPost('payment_address_2');
+        $data['payment_city']       = $this->request->getPost('payment_city');
+        $data['payment_postcode']   = $this->request->getPost('payment_postcode');
+        $data['payment_address_1']  = $this->request->getPost('payment_address_1');
+        $data['payment_address_2']  = $this->request->getPost('payment_address_2');
 
-        $data['shipping_method'] = $this->request->getPost('shipping_method');
-        $data['shipping_charge'] = $this->request->getPost('shipping_charge');
+        $data['shipping_method']          = $this->request->getPost('shipping_method');
+        $data['shipping_charge']          = $this->request->getPost('shipping_charge');
         $data['shipping_discount_charge'] = $this->request->getPost('shipping_discount_charge');
-        $data['payment_method'] = $this->request->getPost('payment_method');
+        $data['payment_method']           = $this->request->getPost('payment_method');
 
 
 
@@ -302,14 +302,14 @@ class StripeController extends BaseController
         $data['shipping_else'] = $this->request->getPost('shipping_else');
 
 
-        $data['shipping_firstname'] = $this->request->getPost('shipping_firstname');
-        $data['shipping_lastname'] = $this->request->getPost('shipping_lastname');
-        $data['shipping_phone'] = $this->request->getPost('shipping_phone');
+        $data['shipping_firstname']  = $this->request->getPost('shipping_firstname');
+        $data['shipping_lastname']   = $this->request->getPost('shipping_lastname');
+        $data['shipping_phone']      = $this->request->getPost('shipping_phone');
         $data['shipping_country_id'] = $this->request->getPost('shipping_country_id');
-        $data['shipping_city'] = $this->request->getPost('shipping_city');
-        $data['shipping_postcode'] = $this->request->getPost('shipping_postcode');
-        $data['shipping_address_1'] = $this->request->getPost('shipping_address_1');
-        $data['shipping_address_2'] = $this->request->getPost('shipping_address_2');
+        $data['shipping_city']       = $this->request->getPost('shipping_city');
+        $data['shipping_postcode']   = $this->request->getPost('shipping_postcode');
+        $data['shipping_address_1']  = $this->request->getPost('shipping_address_1');
+        $data['shipping_address_2']  = $this->request->getPost('shipping_address_2');
 
         $data['t_amount'] = $this->request->getPost('amount');
 
@@ -360,14 +360,14 @@ class StripeController extends BaseController
 
     public function payment_stripe_wallet()
     {
-        $settings = get_settings();
-        $dataSession['amount'] = $this->request->getPost('amount');
+        $settings                         = get_settings();
+        $dataSession['amount']            = $this->request->getPost('amount');
         $dataSession['payment_method_id'] = $this->request->getPost('payment_method_id');
         $this->session->set($dataSession);
 
-        $data['keywords'] = $settings['meta_keyword'];
+        $data['keywords']    = $settings['meta_keyword'];
         $data['description'] = $settings['meta_description'];
-        $data['title'] = 'Stripe payment';
+        $data['title']       = 'Stripe payment';
         echo view('Theme/' . $settings['Theme'] . '/header', $data);
         echo view('Theme/' . $settings['Theme'] . '/Customer/stripe');
         echo view('Theme/' . $settings['Theme'] . '/footer');
@@ -378,9 +378,9 @@ class StripeController extends BaseController
         $secret_key = get_all_row_data_by_id('cc_payment_settings', 'label', 'secret_key');
         Stripe\Stripe::setApiKey($secret_key->value);
         $charge = Stripe\Charge::create([
-            "amount" => $this->session->amount * 100,
-            "currency" => "usd",
-            "source" => $this->request->getVar('stripeToken'),
+            "amount"      => $this->session->amount * 100,
+            "currency"    => "usd",
+            "source"      => $this->request->getVar('stripeToken'),
             "description" => get_lebel_by_value_in_settings('meta_keyword') . " Payment ",
         ]);
 
@@ -398,10 +398,10 @@ class StripeController extends BaseController
     {
         DB()->transStart();
         //fund request data insert
-        $data['amount'] = $this->session->amount;
+        $data['amount']            = $this->session->amount;
         $data['payment_method_id'] = $this->session->payment_method_id;
-        $data['customer_id'] = $this->session->cusUserId;
-        $data['status'] = 'Complete';
+        $data['customer_id']       = $this->session->cusUserId;
+        $data['status']            = 'Complete';
 
         $table = DB()->table('cc_fund_request');
         $table->insert($data);
@@ -413,18 +413,18 @@ class StripeController extends BaseController
         $newBalance = $oldBalance + $this->session->amount;
 
         $cusData['balance'] = $newBalance;
-        $tableCus = DB()->table('cc_customer');
+        $tableCus           = DB()->table('cc_customer');
         $tableCus->where('customer_id', $this->session->cusUserId)->update($cusData);
 
 
         //customer ledger insert
-        $cusLedg['customer_id'] = $this->session->cusUserId;
-        $cusLedg['fund_request_id'] = $fund_request_id;
+        $cusLedg['customer_id']       = $this->session->cusUserId;
+        $cusLedg['fund_request_id']   = $fund_request_id;
         $cusLedg['payment_method_id'] = $this->session->payment_method_id;
-        $cusLedg['particulars'] = 'Deposit balance';
-        $cusLedg['trangaction_type'] = 'Cr.';
-        $cusLedg['amount'] = $this->session->amount;
-        $cusLedg['rest_balance'] = $newBalance;
+        $cusLedg['particulars']       = 'Deposit balance';
+        $cusLedg['trangaction_type']  = 'Cr.';
+        $cusLedg['amount']            = $this->session->amount;
+        $cusLedg['rest_balance']      = $newBalance;
 
         $tableCusLedg = DB()->table('cc_customer_ledger');
         $tableCusLedg->insert($cusLedg);

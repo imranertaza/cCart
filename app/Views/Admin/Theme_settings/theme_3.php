@@ -3,10 +3,10 @@
         <form action="<?php echo base_url('admin/header_section_one_update') ?>" method="post" enctype="multipart/form-data">
             <h3>Top Section One</h3>
             <?php
-                $theme = get_lebel_by_value_in_settings('Theme');
-        $themeSetting = get_theme_settings();
+                $theme     = get_lebel_by_value_in_settings('Theme');
+        $themeSetting      = get_theme_settings();
         $themeSettingTitle = get_theme_title_settings();
-        $cat = get_all_data_array('cc_product_category');
+        $cat               = get_all_data_array('cc_product_category');
         ?>
             <div class="form-group">
                 <label><?php echo $themeSettingTitle['head_side_title_1'];?></label>

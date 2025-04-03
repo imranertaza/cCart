@@ -13,8 +13,8 @@ class Zone_rate_shipping
      */
     public function getSettings($city)
     {
-        $shipping_method_id = get_data_by_id('shipping_method_id', 'cc_shipping_method', 'code', 'zone_rate');
-        $table = DB()->table('cc_shipping_settings');
+        $shipping_method_id     = get_data_by_id('shipping_method_id', 'cc_shipping_method', 'code', 'zone_rate');
+        $table                  = DB()->table('cc_shipping_settings');
         $this->zone_rate_method = $table->where('shipping_method_id', $shipping_method_id)->where('label', 'zone_rate_method')->get()->getRow();
         if (!empty($city)) {
             $country_id = get_data_by_id('country_id', 'cc_zone', 'zone_id', $city);
@@ -62,10 +62,10 @@ class Zone_rate_shipping
      */
     private function others_rate_calculation($geo_zone_id)
     {
-        $charge = 0;
+        $charge             = 0;
         $shipping_method_id = get_data_by_id('shipping_method_id', 'cc_shipping_method', 'code', 'zone_rate');
-        $table = DB()->table('cc_shipping_settings');
-        $zone_rate_method = $table->where('shipping_method_id', $shipping_method_id)->where('label', 'zone_rate_method')->get()->getRow();
+        $table              = DB()->table('cc_shipping_settings');
+        $zone_rate_method   = $table->where('shipping_method_id', $shipping_method_id)->where('label', 'zone_rate_method')->get()->getRow();
 
         if ($zone_rate_method->value == '1') {
             $charge = $this->weight_rate_calculation($geo_zone_id);
@@ -86,8 +86,8 @@ class Zone_rate_shipping
      */
     private function weight_rate_calculation($geo_zone_id)
     {
-        $charge = 0;
-        $totalWeight = 0;
+        $charge                 = 0;
+        $totalWeight            = 0;
         $eligible_product_array = $this->get_shipping_eligible_product();
         if (empty($eligible_product_array)) {
             return $charge;
@@ -99,7 +99,7 @@ class Zone_rate_shipping
                 }
             }
 
-            $tableRate = DB()->table('cc_geo_zone_shipping_rate');
+            $tableRate   = DB()->table('cc_geo_zone_shipping_rate');
             $allZoneRate = $tableRate->where('geo_zone_id', $geo_zone_id)->where('up_to_value >=', $totalWeight)->orderBy('up_to_value', 'ASC')->get()->getRow();
 
             if (!empty($allZoneRate)) {
@@ -116,7 +116,7 @@ class Zone_rate_shipping
      */
     private function item_rate_calculation($geo_zone_id)
     {
-        $charge = 0;
+        $charge    = 0;
         $totalItem = 0;
 
         $eligible_product_array = $this->get_shipping_eligible_product();
@@ -129,7 +129,7 @@ class Zone_rate_shipping
                 }
             }
 
-            $tableRate = DB()->table('cc_geo_zone_shipping_rate');
+            $tableRate   = DB()->table('cc_geo_zone_shipping_rate');
             $allZoneRate = $tableRate->where('geo_zone_id', $geo_zone_id)->where('up_to_value >=', $totalItem)->orderBy('up_to_value', 'ASC')->get()->getRow();
 
             if (!empty($allZoneRate)) {
@@ -159,7 +159,7 @@ class Zone_rate_shipping
                 }
             }
 
-            $tableRate = DB()->table('cc_geo_zone_shipping_rate');
+            $tableRate   = DB()->table('cc_geo_zone_shipping_rate');
             $allZoneRate = $tableRate->where('geo_zone_id', $geo_zone_id)->where('up_to_value >=', $totalPrice)->orderBy('up_to_value', 'ASC')->get()->getRow();
 
             if (!empty($allZoneRate)) {
@@ -177,7 +177,7 @@ class Zone_rate_shipping
      */
     private function zone_id($country_id, $zone_id)
     {
-        $table = DB()->table('cc_geo_zone_details');
+        $table   = DB()->table('cc_geo_zone_details');
         $datarow = $table->where('country_id', $country_id)->where('zone_id', $zone_id)->get()->getRow();
 
         if (!empty($datarow)) {

@@ -13,7 +13,7 @@ class Wallet extends BaseController
     public function __construct()
     {
         $this->validation = \Config\Services::validation();
-        $this->session = \Config\Services::session();
+        $this->session    = \Config\Services::session();
     }
 
     /**
@@ -27,21 +27,21 @@ class Wallet extends BaseController
             return redirect()->to(site_url('Login'));
         } else {
             $settings = get_settings();
-            $table = DB()->table('cc_fund_request');
+            $table    = DB()->table('cc_fund_request');
             $table->join('cc_payment_method', 'cc_payment_method.payment_method_id = cc_fund_request.payment_method_id');
             $table->select('cc_fund_request.*');
             $table->select('cc_payment_method.name');
             $data['fund_request'] = $table->where('cc_fund_request.customer_id', $this->session->cusUserId)->get()->getResult();
 
-            $tableBal = DB()->table('cc_customer');
+            $tableBal     = DB()->table('cc_customer');
             $data['cust'] = $tableBal->where('customer_id', $this->session->cusUserId)->get()->getRow();
 
 
-            $data['keywords'] = $settings['meta_keyword'];
+            $data['keywords']    = $settings['meta_keyword'];
             $data['description'] = $settings['meta_description'];
-            $data['title'] = 'Wallet';
+            $data['title']       = 'Wallet';
 
-            $data['page_title'] = 'Wallet';
+            $data['page_title']  = 'Wallet';
             $data['menu_active'] = 'wallet';
             echo view('Theme/' . $settings['Theme'] . '/header', $data);
             echo view('Theme/' . $settings['Theme'] . '/Customer/menu');
@@ -60,18 +60,18 @@ class Wallet extends BaseController
         if (!isset($isLoggedInCustomer) || $isLoggedInCustomer != true) {
             return redirect()->to(site_url('Login'));
         } else {
-            $settings = get_settings();
-            $table = DB()->table('cc_fund_request');
+            $settings             = get_settings();
+            $table                = DB()->table('cc_fund_request');
             $data['fund_request'] = $table->where('customer_id', $this->session->cusUserId)->get()->getResult();
 
-            $tableBal = DB()->table('cc_customer');
+            $tableBal     = DB()->table('cc_customer');
             $data['cust'] = $tableBal->where('customer_id', $this->session->cusUserId)->get()->getRow();
 
 
-            $data['keywords'] = $settings['meta_keyword'];
+            $data['keywords']    = $settings['meta_keyword'];
             $data['description'] = $settings['meta_description'];
-            $data['title'] = 'Account Add Fund';
-            $data['page_title'] = 'Dashboard';
+            $data['title']       = 'Account Add Fund';
+            $data['page_title']  = 'Dashboard';
             $data['menu_active'] = 'wallet';
             echo view('Theme/' . $settings['Theme'] . '/header', $data);
             echo view('Theme/' . $settings['Theme'] . '/Customer/menu');
@@ -86,12 +86,12 @@ class Wallet extends BaseController
      */
     public function fund_action()
     {
-        $data['amount'] = $this->request->getPost('amount');
+        $data['amount']            = $this->request->getPost('amount');
         $data['payment_method_id'] = $this->request->getPost('payment_method_id');
-        $data['customer_id'] = $this->session->cusUserId;
+        $data['customer_id']       = $this->session->cusUserId;
 
         $this->validation->setRules([
-            'amount' => ['label' => 'Amount', 'rules' => 'required'],
+            'amount'            => ['label' => 'Amount', 'rules' => 'required'],
             'payment_method_id' => ['label' => 'Payment Method', 'rules' => 'required'],
         ]);
 
@@ -100,10 +100,10 @@ class Wallet extends BaseController
             return redirect()->to('add-funds');
         } else {
             if ($data['payment_method_id'] == '7') {
-                $data['card_name'] = $this->request->getPost('card_name');
-                $data['card_number'] = $this->request->getPost('card_number');
+                $data['card_name']       = $this->request->getPost('card_name');
+                $data['card_number']     = $this->request->getPost('card_number');
                 $data['card_expiration'] = $this->request->getPost('card_expiration');
-                $data['card_cvc'] = $this->request->getPost('card_cvc');
+                $data['card_cvc']        = $this->request->getPost('card_cvc');
             }
 
             $table = DB()->table('cc_fund_request');
@@ -122,10 +122,10 @@ class Wallet extends BaseController
         } else {
             $settings = get_settings();
 
-            $data['keywords'] = $settings['meta_keyword'];
+            $data['keywords']    = $settings['meta_keyword'];
             $data['description'] = $settings['meta_description'];
-            $data['title'] = 'Account Add Fund';
-            $data['page_title'] = 'Wallet';
+            $data['title']       = 'Account Add Fund';
+            $data['page_title']  = 'Wallet';
             $data['menu_active'] = 'wallet';
             echo view('Theme/' . $settings['Theme'] . '/header', $data);
             echo view('Theme/' . $settings['Theme'] . '/Customer/menu');
@@ -141,10 +141,10 @@ class Wallet extends BaseController
         } else {
             $settings = get_settings();
 
-            $data['keywords'] = $settings['meta_keyword'];
+            $data['keywords']    = $settings['meta_keyword'];
             $data['description'] = $settings['meta_description'];
-            $data['title'] = 'Account Add Fund';
-            $data['page_title'] = 'Wallet';
+            $data['title']       = 'Account Add Fund';
+            $data['page_title']  = 'Wallet';
             $data['menu_active'] = 'wallet';
             echo view('Theme/' . $settings['Theme'] . '/header', $data);
             echo view('Theme/' . $settings['Theme'] . '/Customer/menu');
@@ -160,10 +160,10 @@ class Wallet extends BaseController
         } else {
             $settings = get_settings();
 
-            $data['keywords'] = $settings['meta_keyword'];
+            $data['keywords']    = $settings['meta_keyword'];
             $data['description'] = $settings['meta_description'];
-            $data['title'] = 'Account Add Fund';
-            $data['page_title'] = 'Wallet';
+            $data['title']       = 'Account Add Fund';
+            $data['page_title']  = 'Wallet';
             $data['menu_active'] = 'wallet';
             echo view('Theme/' . $settings['Theme'] . '/header', $data);
             echo view('Theme/' . $settings['Theme'] . '/Customer/menu');

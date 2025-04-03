@@ -22,12 +22,12 @@ class Theme_settings extends BaseController
 
     public function __construct()
     {
-        $this->validation = \Config\Services::validation();
-        $this->session = \Config\Services::session();
-        $this->crop = \Config\Services::image();
-        $this->permission = new Permission();
-        $this->theme_3 = new Theme_3();
-        $this->theme_2 = new Theme_2();
+        $this->validation    = \Config\Services::validation();
+        $this->session       = \Config\Services::session();
+        $this->crop          = \Config\Services::image();
+        $this->permission    = new Permission();
+        $this->theme_3       = new Theme_3();
+        $this->theme_2       = new Theme_2();
         $this->theme_default = new Theme_default();
     }
 
@@ -38,26 +38,26 @@ class Theme_settings extends BaseController
     public function index()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
-        $adRoleId = $this->session->adRoleId;
+        $adRoleId          = $this->session->adRoleId;
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-            $table = DB()->table('cc_theme_settings');
+            $table                  = DB()->table('cc_theme_settings');
             $data['theme_settings'] = $table->get()->getResult();
 
             $theme = get_lebel_by_value_in_settings('Theme');
             if ($theme == 'Theme_3') {
                 $data['theme_libraries'] = $this->theme_3;
-                $data['theme_view'] = view('Admin/Theme_settings/theme_3', $data);
+                $data['theme_view']      = view('Admin/Theme_settings/theme_3', $data);
             }
 
             if ($theme == 'Default') {
                 $data['theme_libraries'] = $this->theme_default;
-                $data['theme_view'] = view('Admin/Theme_settings/default', $data);
+                $data['theme_view']      = view('Admin/Theme_settings/default', $data);
             }
             if ($theme == 'Theme_2') {
                 $data['theme_libraries'] = $this->theme_2;
-                $data['theme_view'] = view('Admin/Theme_settings/theme_2', $data);
+                $data['theme_view']      = view('Admin/Theme_settings/theme_2', $data);
             }
 
 
@@ -101,7 +101,7 @@ class Theme_settings extends BaseController
             }
 
             //new image uplode
-            $pic = $this->request->getFile('slider');
+            $pic     = $this->request->getFile('slider');
             $namePic = $pic->getRandomName();
             $pic->move($target_dir, $namePic);
             $news_img = 'slider_' . $pic->getName();
@@ -144,7 +144,7 @@ class Theme_settings extends BaseController
             }
 
             //new image uplode
-            $pic = $this->request->getFile('side_logo');
+            $pic     = $this->request->getFile('side_logo');
             $namePic = 'logo_' . $pic->getRandomName();
             $pic->move($target_dir, $namePic);
             //            $news_img = 'logo_' . $pic->getName();
@@ -177,7 +177,7 @@ class Theme_settings extends BaseController
             }
 
             //new image uplode
-            $pic = $this->request->getFile('favicon');
+            $pic     = $this->request->getFile('favicon');
             $namePic = $pic->getRandomName();
             $pic->move($target_dir, $namePic);
             $news_img = 'favicon_' . $pic->getName();
@@ -210,7 +210,7 @@ class Theme_settings extends BaseController
             }
 
             //new image uplode
-            $pic = $this->request->getFile('home_category_banner');
+            $pic     = $this->request->getFile('home_category_banner');
             $namePic = $pic->getRandomName();
             $pic->move($target_dir, $namePic);
             $news_img = 'banner_' . $pic->getName();
@@ -260,7 +260,7 @@ class Theme_settings extends BaseController
     public function settings_update()
     {
         $data['value'] = $this->request->getPost('value');
-        $label = $this->request->getPost('label');
+        $label         = $this->request->getPost('label');
 
         $table = DB()->table('cc_theme_settings');
         $table->where('label', $label)->update($data);
@@ -269,7 +269,7 @@ class Theme_settings extends BaseController
         return redirect()->to('admin/theme_settings?sel=home_settings');
 
         //new image uplode
-        $pic = $this->request->getFile('special_banner');
+        $pic     = $this->request->getFile('special_banner');
         $namePic = $pic->getRandomName();
         $pic->move($target_dir, $namePic);
         $news_img = 'sp_banner_' . $pic->getName();
@@ -291,7 +291,7 @@ class Theme_settings extends BaseController
             }
 
             //new image uplode
-            $pic = $this->request->getFile('special_banner');
+            $pic     = $this->request->getFile('special_banner');
             $namePic = $pic->getRandomName();
             $pic->move($target_dir, $namePic);
             $news_img = 'sp_banner_' . $pic->getName();
@@ -324,7 +324,7 @@ class Theme_settings extends BaseController
             }
 
             //new image uplode
-            $pic = $this->request->getFile('left_side_banner');
+            $pic     = $this->request->getFile('left_side_banner');
             $namePic = $pic->getRandomName();
             $pic->move($target_dir, $namePic);
             $news_img = 'left_banner_' . $pic->getName();

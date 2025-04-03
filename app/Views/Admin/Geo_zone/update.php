@@ -60,8 +60,8 @@
                                 <div id="new_zone" class="row">
                                     <?php
                                     $i = 1;
-$j = 1;
-$k = 1;
+$j                                     = 1;
+$k                                     = 1;
 foreach ($geo_zone_detail as $val) {
     ?>
                                     <div class="col-md-12 mt-3" id="new_<?php echo $i++;?>" >

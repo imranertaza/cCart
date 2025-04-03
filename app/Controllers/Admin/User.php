@@ -17,8 +17,8 @@ class User extends BaseController
     public function __construct()
     {
         $this->validation = \Config\Services::validation();
-        $this->session = \Config\Services::session();
-        $this->crop = \Config\Services::image();
+        $this->session    = \Config\Services::session();
+        $this->crop       = \Config\Services::image();
         $this->permission = new Permission();
     }
 
@@ -29,11 +29,11 @@ class User extends BaseController
     public function index()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
-        $adRoleId = $this->session->adRoleId;
+        $adRoleId          = $this->session->adRoleId;
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-            $table = DB()->table('cc_users');
+            $table         = DB()->table('cc_users');
             $data['users'] = $table->get()->getResult();
 
 
@@ -57,7 +57,7 @@ class User extends BaseController
     public function create()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
-        $adRoleId = $this->session->adRoleId;
+        $adRoleId          = $this->session->adRoleId;
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
@@ -80,18 +80,18 @@ class User extends BaseController
      */
     public function create_action()
     {
-        $data['name'] = $this->request->getPost('name');
-        $data['email'] = $this->request->getPost('email');
-        $data['role_id'] = $this->request->getPost('role_id');
-        $data['pass'] = $this->request->getPost('password');
-        $data['password'] = $this->request->getPost('password');
+        $data['name']         = $this->request->getPost('name');
+        $data['email']        = $this->request->getPost('email');
+        $data['role_id']      = $this->request->getPost('role_id');
+        $data['pass']         = $this->request->getPost('password');
+        $data['password']     = $this->request->getPost('password');
         $data['con_password'] = $this->request->getPost('con_password');
-        $data['createdBy'] = $this->session->adUserId;
+        $data['createdBy']    = $this->session->adUserId;
 
         $this->validation->setRules([
-            'name' => ['label' => 'Name', 'rules' => 'required'],
-            'email' => ['label' => 'Email', 'rules' => 'required|valid_email'],
-            'password' => ['label' => 'Password', 'rules' => 'required|min_length[6]|max_length[30]'],
+            'name'         => ['label' => 'Name', 'rules' => 'required'],
+            'email'        => ['label' => 'Email', 'rules' => 'required|valid_email'],
+            'password'     => ['label' => 'Password', 'rules' => 'required|min_length[6]|max_length[30]'],
             'con_password' => ['label' => 'Confirm Password', 'rules' => 'required|min_length[6]|max_length[30]|matches[password]'],
         ]);
 
@@ -101,11 +101,11 @@ class User extends BaseController
         } else {
             $check = is_exists('cc_users', 'email', $data['email']);
             if ($check == true) {
-                $data2['name'] = $this->request->getPost('name');
-                $data2['email'] = $this->request->getPost('email');
-                $data2['role_id'] = $this->request->getPost('role_id');
-                $data2['pass'] = $this->request->getPost('password');
-                $data2['password'] = SHA1($this->request->getPost('password'));
+                $data2['name']      = $this->request->getPost('name');
+                $data2['email']     = $this->request->getPost('email');
+                $data2['role_id']   = $this->request->getPost('role_id');
+                $data2['pass']      = $this->request->getPost('password');
+                $data2['password']  = SHA1($this->request->getPost('password'));
                 $data2['createdBy'] = $this->session->adUserId;
 
 
@@ -129,11 +129,11 @@ class User extends BaseController
     public function update($user_id)
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
-        $adRoleId = $this->session->adRoleId;
+        $adRoleId          = $this->session->adRoleId;
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-            $table = DB()->table('cc_users');
+            $table        = DB()->table('cc_users');
             $data['user'] = $table->where('user_id', $user_id)->get()->getRow();
 
 
@@ -156,20 +156,20 @@ class User extends BaseController
      */
     public function update_action()
     {
-        $user_id = $this->request->getPost('user_id');
-        $data['name'] = $this->request->getPost('name');
+        $user_id       = $this->request->getPost('user_id');
+        $data['name']  = $this->request->getPost('name');
         $data['email'] = $this->request->getPost('email');
         if (!empty($this->request->getPost('role_id'))) {
             $data['role_id'] = $this->request->getPost('role_id');
         }
         if (!empty($this->request->getPost('password'))) {
             $data['password'] = SHA1($this->request->getPost('password'));
-            $data['pass'] = $this->request->getPost('password');
+            $data['pass']     = $this->request->getPost('password');
         }
         $data['updatedBy'] = $this->session->adUserId;
 
         $this->validation->setRules([
-            'name' => ['label' => 'Name', 'rules' => 'required'],
+            'name'  => ['label' => 'Name', 'rules' => 'required'],
             'email' => ['label' => 'Email', 'rules' => 'required|valid_email'],
         ]);
 
@@ -197,10 +197,10 @@ class User extends BaseController
      */
     public function general_action()
     {
-        $user_id = $this->request->getPost('user_id');
-        $data['mobile'] = $this->request->getPost('mobile');
-        $data['address'] = $this->request->getPost('address');
-        $data['status'] = $this->request->getPost('status');
+        $user_id           = $this->request->getPost('user_id');
+        $data['mobile']    = $this->request->getPost('mobile');
+        $data['address']   = $this->request->getPost('address');
+        $data['status']    = $this->request->getPost('status');
         $data['updatedBy'] = $this->session->adUserId;
 
         $this->validation->setRules([
@@ -243,7 +243,7 @@ class User extends BaseController
             }
 
             //new image uplode
-            $pic = $this->request->getFile('pic');
+            $pic     = $this->request->getFile('pic');
             $namePic = $pic->getRandomName();
             $pic->move($target_dir, $namePic);
             $news_img = 'user_' . $pic->getName();
