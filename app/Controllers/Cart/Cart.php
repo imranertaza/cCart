@@ -15,8 +15,8 @@ class Cart extends BaseController
     public function __construct()
     {
         $this->validation = \Config\Services::validation();
-        $this->session = \Config\Services::session();
-        $this->cart = new Mycart();
+        $this->session    = \Config\Services::session();
+        $this->cart       = new Mycart();
     }
 
     /**
@@ -25,10 +25,10 @@ class Cart extends BaseController
      */
     public function index()
     {
-        $settings = get_settings();
-        $data['keywords'] = $settings['meta_keyword'];
+        $settings            = get_settings();
+        $data['keywords']    = $settings['meta_keyword'];
         $data['description'] = $settings['meta_description'];
-        $data['title'] = 'Shopping Cart';
+        $data['title']       = 'Shopping Cart';
 
         $data['page_title'] = 'Cart';
         echo view('Theme/' . $settings['Theme'] . '/header', $data);
@@ -43,8 +43,8 @@ class Cart extends BaseController
     public function checkoption()
     {
         $product_id = $this->request->getPost('product_id');
-        $table = DB()->table('cc_product_option');
-        $check = $table->where('product_id', $product_id)->countAllResults();
+        $table      = DB()->table('cc_product_option');
+        $check      = $table->where('product_id', $product_id)->countAllResults();
         print !empty($check) ? false : true;
     }
 
@@ -64,13 +64,13 @@ class Cart extends BaseController
     public function addToCart()
     {
         $product_id = $this->request->getPost('product_id');
-        $qty = $this->request->getPost('qtyall');
+        $qty        = $this->request->getPost('qtyall');
 
-        $size = $this->request->getPost('size');
+        $size  = $this->request->getPost('size');
         $color = $this->request->getPost('color');
 
-        $name = get_data_by_id('name', 'cc_products', 'product_id', $product_id);
-        $price = get_data_by_id('price', 'cc_products', 'product_id', $product_id);
+        $name         = get_data_by_id('name', 'cc_products', 'product_id', $product_id);
+        $price        = get_data_by_id('price', 'cc_products', 'product_id', $product_id);
         $specialprice = get_data_by_id('special_price', 'cc_product_special', 'product_id', $product_id);
         if (!empty($specialprice)) {
             $price = $specialprice;
@@ -78,12 +78,12 @@ class Cart extends BaseController
         $check = $this->check_qty($product_id, $qty);
         if ($check == true) {
             $data = [
-                'id' => $product_id,
-                'name' => strval($name),
-                'qty' => $qty,
+                'id'    => $product_id,
+                'name'  => strval($name),
+                'qty'   => $qty,
                 'price' => $price,
                 'color' => $color,
-                'size' => $size,
+                'size'  => $size,
             ];
             $this->cart->insert($data);
             print 'Successfully add to cart';
@@ -99,13 +99,13 @@ class Cart extends BaseController
     public function addtocartdetail()
     {
         $product_id = $this->request->getPost('product_id');
-        $qty = $this->request->getPost('qty');
+        $qty        = $this->request->getPost('qty');
 
         $totalOptionPrice = 0;
         foreach (get_all_data_array('cc_option') as $vl) {
             $data[strtolower($vl->name)] = $this->request->getPost(strtolower($vl->name));
 
-            $table = DB()->table('cc_product_option');
+            $table  = DB()->table('cc_product_option');
             $option = $table->where('option_value_id', $data[strtolower($vl->name)])->where('product_id', $product_id)->get()->getRow();
 
             if (!empty($option)) {
@@ -117,18 +117,18 @@ class Cart extends BaseController
             }
         }
 
-        $name = get_data_by_id('name', 'cc_products', 'product_id', $product_id);
-        $price = get_data_by_id('price', 'cc_products', 'product_id', $product_id);
+        $name         = get_data_by_id('name', 'cc_products', 'product_id', $product_id);
+        $price        = get_data_by_id('price', 'cc_products', 'product_id', $product_id);
         $specialprice = get_data_by_id('special_price', 'cc_product_special', 'product_id', $product_id);
         if (!empty($specialprice)) {
             $price = $specialprice;
         }
 
         $totalPrice = $price + $totalOptionPrice;
-        $data = [
-            'id' => $product_id,
-            'name' => strval($name),
-            'qty' => $qty,
+        $data       = [
+            'id'    => $product_id,
+            'name'  => strval($name),
+            'qty'   => $qty,
             'price' => $totalPrice,
         ];
 
@@ -154,16 +154,16 @@ class Cart extends BaseController
         $productId = $this->request->getPost('both_product[]');
 
         foreach ($productId as $product_id) {
-            $name = get_data_by_id('name', 'cc_products', 'product_id', $product_id);
-            $price = get_data_by_id('price', 'cc_products', 'product_id', $product_id);
+            $name         = get_data_by_id('name', 'cc_products', 'product_id', $product_id);
+            $price        = get_data_by_id('price', 'cc_products', 'product_id', $product_id);
             $specialprice = get_data_by_id('special_price', 'cc_product_special', 'product_id', $product_id);
             if (!empty($specialprice)) {
                 $price = $specialprice;
             }
             $data = [
-                'id' => $product_id,
-                'name' => strval($name),
-                'qty' => 1,
+                'id'    => $product_id,
+                'name'  => strval($name),
+                'qty'   => 1,
                 'price' => $price,
             ];
             $this->cart->insert($data);
@@ -178,8 +178,8 @@ class Cart extends BaseController
     public function updateToCart()
     {
         $rowid = $this->request->getPost('rowid');
-        $qty = $this->request->getPost('qty');
-        $data = [
+        $qty   = $this->request->getPost('qty');
+        $data  = [
             'rowid' => $rowid,
             'qty'   => $qty,
         ];
@@ -228,7 +228,7 @@ class Cart extends BaseController
     private function check_qty($productID, $qty)
     {
         $table = DB()->table('cc_products');
-        $data = $table->where('product_id', $productID)->get()->getRow();
+        $data  = $table->where('product_id', $productID)->get()->getRow();
         return ($data->quantity >= $qty) ? true : false;
     }
 }

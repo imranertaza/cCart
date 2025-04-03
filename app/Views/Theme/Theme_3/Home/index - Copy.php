@@ -565,10 +565,10 @@
 
                                 <?php
                                 $perPageShow = 6;
-                        $count = ceil(count($brand) / $perPageShow);
-                        $j = 1;
+                        $count               = ceil(count($brand) / $perPageShow);
+                        $j                   = 1;
                         for ($i = 1; $i <= $count; $i++) {
-                            $l = $i * $perPageShow;
+                            $l   = $i * $perPageShow;
                             $act = ($l == $perPageShow) ? 'active' : '';
                             print '<div class="carousel-item ' . $act . '"> <div class="row px-2">';
                             while ($j <= $l) {
@@ -630,7 +630,7 @@
                                 <?php
                         foreach ($populerCat as $key => $catPop) {
                             $icon_id = get_data_by_id('icon_id', 'cc_product_category', 'prod_cat_id', $catPop->prod_cat_id);
-                            $icon = get_data_by_id('code', 'cc_icons', 'icon_id', $icon_id);
+                            $icon    = get_data_by_id('code', 'cc_icons', 'icon_id', $icon_id);
                             ?>
                                     <div class="swiper-slide">
                                         <div class="products  <?php echo ($key == '0') ? 'active' : ''; ?> p-md-4  text-center">
@@ -669,7 +669,7 @@
                             <?php
                             foreach ($populerCat as $catPop) {
                                 $icon_id = get_data_by_id('icon_id', 'cc_product_category', 'prod_cat_id', $catPop->prod_cat_id);
-                                $icon = get_data_by_id('code', 'cc_icons', 'icon_id', $icon_id);
+                                $icon    = get_data_by_id('code', 'cc_icons', 'icon_id', $icon_id);
                                 ?>
                                 <div class="col p-2 p-md-3 border position-relative">
                                     <a href="<?php echo base_url('category/' . $catPop->prod_cat_id); ?>">

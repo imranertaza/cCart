@@ -8,7 +8,7 @@ use CodeIgniter\Model;
 
 class CategoryproductsModel extends Model
 {
-    protected $table = 'cc_product_to_category';
+    protected $table      = 'cc_product_to_category';
     protected $primaryKey = 'product_id';
     protected $returnType = 'object';
 

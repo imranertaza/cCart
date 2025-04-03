@@ -17,8 +17,8 @@ class Brand extends BaseController
     public function __construct()
     {
         $this->validation = \Config\Services::validation();
-        $this->session = \Config\Services::session();
-        $this->crop = \Config\Services::image();
+        $this->session    = \Config\Services::session();
+        $this->crop       = \Config\Services::image();
         $this->permission = new Permission();
     }
 
@@ -29,11 +29,11 @@ class Brand extends BaseController
     public function index()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
-        $adRoleId = $this->session->adRoleId;
+        $adRoleId          = $this->session->adRoleId;
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-            $table = DB()->table('cc_brand');
+            $table         = DB()->table('cc_brand');
             $data['brand'] = $table->get()->getResult();
 
 
@@ -57,7 +57,7 @@ class Brand extends BaseController
     public function create()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
-        $adRoleId = $this->session->adRoleId;
+        $adRoleId          = $this->session->adRoleId;
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
@@ -80,7 +80,7 @@ class Brand extends BaseController
      */
     public function create_action()
     {
-        $data['name'] = $this->request->getPost('name');
+        $data['name']      = $this->request->getPost('name');
         $data['createdBy'] = $this->session->adUserId;
 
         $this->validation->setRules([
@@ -98,7 +98,7 @@ class Brand extends BaseController
                 }
 
                 //new image uplode
-                $pic = $this->request->getFile('image');
+                $pic     = $this->request->getFile('image');
                 $namePic = $pic->getRandomName();
                 $pic->move($target_dir, $namePic);
                 $news_img = 'brand_' . $pic->getName();
@@ -123,11 +123,11 @@ class Brand extends BaseController
     public function update($brand_id)
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
-        $adRoleId = $this->session->adRoleId;
+        $adRoleId          = $this->session->adRoleId;
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-            $table = DB()->table('cc_brand');
+            $table         = DB()->table('cc_brand');
             $data['brand'] = $table->where('brand_id', $brand_id)->get()->getRow();
 
 
@@ -150,10 +150,10 @@ class Brand extends BaseController
      */
     public function update_action()
     {
-        $brand_id = $this->request->getPost('brand_id');
-        $data['name'] = $this->request->getPost('name');
+        $brand_id           = $this->request->getPost('brand_id');
+        $data['name']       = $this->request->getPost('name');
         $data['sort_order'] = $this->request->getPost('sort_order');
-        $data['updatedBy'] = $this->session->adUserId;
+        $data['updatedBy']  = $this->session->adUserId;
 
         $this->validation->setRules([
             'name' => ['label' => 'Name', 'rules' => 'required'],
@@ -179,7 +179,7 @@ class Brand extends BaseController
                 }
 
                 //new image uplode
-                $pic = $this->request->getFile('image');
+                $pic     = $this->request->getFile('image');
                 $namePic = $pic->getRandomName();
                 $pic->move($target_dir, $namePic);
                 $news_img = 'brand_' . $pic->getName();
@@ -214,7 +214,7 @@ class Brand extends BaseController
         }
 
         $upBrand['brand_id'] = null;
-        $tablePro = DB()->table('cc_products');
+        $tablePro            = DB()->table('cc_products');
         $tablePro->where('brand_id', $brand_id)->update($upBrand);
 
         $table = DB()->table('cc_brand');

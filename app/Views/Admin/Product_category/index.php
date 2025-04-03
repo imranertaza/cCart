@@ -54,8 +54,8 @@
                         <?php $i = 1;
 foreach ($category as $val) {
     $main_cat = (!empty($val->parent_id)) ? get_data_by_id('parent_id', 'cc_product_category', 'prod_cat_id', $val->parent_id) : '';
-    $main = (!empty($main_cat)) ? get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $main_cat) . '->' : '';
-    $parCat = (!empty($val->parent_id)) ? get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $val->parent_id) . '-> ' : '';
+    $main     = (!empty($main_cat)) ? get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $main_cat) . '->' : '';
+    $parCat   = (!empty($val->parent_id)) ? get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $val->parent_id) . '-> ' : '';
     ?>
                             <tr>
                                 <td width="40"><?php echo $i++; ?></td>

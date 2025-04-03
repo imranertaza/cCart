@@ -11,11 +11,11 @@
                                         <div class="thumb_plus_video">
                                             <div class="row">
                                                 <?php
-                                                $modules = modules_access();
-                                                $symbol = get_lebel_by_value_in_settings('currency_symbol');
+                                                $modules      = modules_access();
+                                                $symbol       = get_lebel_by_value_in_settings('currency_symbol');
                                                 $img_size_100 = ($modules['watermark'] == '1') ? '100_wm_' : '100_';
                                                 $img_size_198 = ($modules['watermark'] == '1') ? '198_wm_' : '198_';
-                                                $img_size = ($modules['watermark'] == '1') ? '191_wm_' : '191_';
+                                                $img_size     = ($modules['watermark'] == '1') ? '191_wm_' : '191_';
                                                 $img_size_437 = ($modules['watermark'] == '1') ? '437_wm_' : '437_';
                                                 ?>
                                                 <div class="col-2 col-sm-3 col-md-2 col-lg-3 px-0">
@@ -503,7 +503,7 @@
                                     <div class="products h-100">
                                         <div class="row mo-text-center both-pro-mob">
                                             <?php $totalPrice = 0;
-                $i = 1;
+                $i                                            = 1;
                 foreach ($bothProducts as $key => $both) { ?>
                                             <div class="col-lg-3 ">
                                                 <div

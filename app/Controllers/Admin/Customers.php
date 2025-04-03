@@ -17,8 +17,8 @@ class Customers extends BaseController
     public function __construct()
     {
         $this->validation = \Config\Services::validation();
-        $this->session = \Config\Services::session();
-        $this->crop = \Config\Services::image();
+        $this->session    = \Config\Services::session();
+        $this->crop       = \Config\Services::image();
         $this->permission = new Permission();
     }
 
@@ -29,11 +29,11 @@ class Customers extends BaseController
     public function index()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
-        $adRoleId = $this->session->adRoleId;
+        $adRoleId          = $this->session->adRoleId;
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-            $table = DB()->table('cc_customer');
+            $table            = DB()->table('cc_customer');
             $data['customer'] = $table->get()->getResult();
 
 
@@ -57,7 +57,7 @@ class Customers extends BaseController
     public function create()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
-        $adRoleId = $this->session->adRoleId;
+        $adRoleId          = $this->session->adRoleId;
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
@@ -80,19 +80,19 @@ class Customers extends BaseController
      */
     public function create_action()
     {
-        $data['firstname'] = $this->request->getPost('firstname');
-        $data['lastname'] = $this->request->getPost('lastname');
-        $data['email'] = $this->request->getPost('email');
-        $data['phone'] = $this->request->getPost('phone');
-        $data['password'] = $this->request->getPost('password');
+        $data['firstname']    = $this->request->getPost('firstname');
+        $data['lastname']     = $this->request->getPost('lastname');
+        $data['email']        = $this->request->getPost('email');
+        $data['phone']        = $this->request->getPost('phone');
+        $data['password']     = $this->request->getPost('password');
         $data['con_password'] = $this->request->getPost('con_password');
 
         $this->validation->setRules([
-            'firstname' => ['label' => 'First Name', 'rules' => 'required'],
-            'lastname' => ['label' => 'Last Name', 'rules' => 'required'],
-            'email' => ['label' => 'Email', 'rules' => 'required'],
-            'phone' => ['label' => 'Phone', 'rules' => 'required|min_length[10]|max_length[12]'],
-            'password' => ['label' => 'Password', 'rules' => 'required|min_length[6]|max_length[30]'],
+            'firstname'    => ['label' => 'First Name', 'rules' => 'required'],
+            'lastname'     => ['label' => 'Last Name', 'rules' => 'required'],
+            'email'        => ['label' => 'Email', 'rules' => 'required'],
+            'phone'        => ['label' => 'Phone', 'rules' => 'required|min_length[10]|max_length[12]'],
+            'password'     => ['label' => 'Password', 'rules' => 'required|min_length[6]|max_length[30]'],
             'con_password' => ['label' => 'Confirm Password', 'rules' => 'required|min_length[6]|max_length[30]|matches[password]'],
         ]);
 
@@ -100,14 +100,14 @@ class Customers extends BaseController
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/customers_create');
         } else {
-            $check = is_exists('cc_customer', 'phone', $data['phone']);
+            $check  = is_exists('cc_customer', 'phone', $data['phone']);
             $check2 = is_exists('cc_customer', 'email', $data['email']);
             if (($check == true) && ($check2 == true)) {
                 $data2['firstname'] = $this->request->getPost('firstname');
-                $data2['lastname'] = $this->request->getPost('lastname');
-                $data2['email'] = $this->request->getPost('email');
-                $data2['phone'] = $this->request->getPost('phone');
-                $data2['password'] = SHA1($this->request->getPost('password'));
+                $data2['lastname']  = $this->request->getPost('lastname');
+                $data2['email']     = $this->request->getPost('email');
+                $data2['phone']     = $this->request->getPost('phone');
+                $data2['password']  = SHA1($this->request->getPost('password'));
                 $data2['createdBy'] = $this->session->adUserId;
 
 
@@ -131,11 +131,11 @@ class Customers extends BaseController
     public function update($customer_id)
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
-        $adRoleId = $this->session->adRoleId;
+        $adRoleId          = $this->session->adRoleId;
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-            $table = DB()->table('cc_customer');
+            $table             = DB()->table('cc_customer');
             $data['customers'] = $table->where('customer_id', $customer_id)->get()->getRow();
 
 
@@ -158,11 +158,11 @@ class Customers extends BaseController
      */
     public function update_action()
     {
-        $customer_id = $this->request->getPost('customer_id');
+        $customer_id       = $this->request->getPost('customer_id');
         $data['firstname'] = $this->request->getPost('firstname');
-        $data['lastname'] = $this->request->getPost('lastname');
-        $data['email'] = $this->request->getPost('email');
-        $data['phone'] = $this->request->getPost('phone');
+        $data['lastname']  = $this->request->getPost('lastname');
+        $data['email']     = $this->request->getPost('email');
+        $data['phone']     = $this->request->getPost('phone');
         if (!empty($this->request->getPost('password'))) {
             $data['password'] = SHA1($this->request->getPost('password'));
 
@@ -175,16 +175,16 @@ class Customers extends BaseController
 
         $this->validation->setRules([
             'firstname' => ['label' => 'First Name', 'rules' => 'required'],
-            'lastname' => ['label' => 'Last Name', 'rules' => 'required'],
-            'email' => ['label' => 'Email', 'rules' => 'required'],
-            'phone' => ['label' => 'Phone', 'rules' => 'required|min_length[10]|max_length[12]'],
+            'lastname'  => ['label' => 'Last Name', 'rules' => 'required'],
+            'email'     => ['label' => 'Email', 'rules' => 'required'],
+            'phone'     => ['label' => 'Phone', 'rules' => 'required|min_length[10]|max_length[12]'],
         ]);
 
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/customers_update/' . $customer_id);
         } else {
-            $check = is_exists_update('cc_customer', 'phone', $data['phone'], 'customer_id', $customer_id);
+            $check  = is_exists_update('cc_customer', 'phone', $data['phone'], 'customer_id', $customer_id);
             $check2 = is_exists_update('cc_customer', 'email', $data['email'], 'customer_id', $customer_id);
             if (($check == true) && ($check2 == true)) {
                 $table = DB()->table('cc_customer');
@@ -205,13 +205,13 @@ class Customers extends BaseController
      */
     public function general_action()
     {
-        $customer_id = $this->request->getPost('customer_id');
+        $customer_id         = $this->request->getPost('customer_id');
         $data['father_name'] = $this->request->getPost('father_name');
         $data['mother_name'] = $this->request->getPost('mother_name');
-        $data['age'] = $this->request->getPost('age');
-        $data['nid'] = $this->request->getPost('nid');
-        $data['address'] = $this->request->getPost('address');
-        $data['updatedBy'] = $this->session->adUserId;
+        $data['age']         = $this->request->getPost('age');
+        $data['nid']         = $this->request->getPost('nid');
+        $data['address']     = $this->request->getPost('address');
+        $data['updatedBy']   = $this->session->adUserId;
 
         $this->validation->setRules([
             'address' => ['label' => 'Address', 'rules' => 'required'],
@@ -253,7 +253,7 @@ class Customers extends BaseController
             }
 
             //new image uplode
-            $pic = $this->request->getFile('pic');
+            $pic     = $this->request->getFile('pic');
             $namePic = $pic->getRandomName();
             $pic->move($target_dir, $namePic);
             $news_img = 'customers_' . $pic->getName();
@@ -294,11 +294,11 @@ class Customers extends BaseController
     public function ledger($customer_id)
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
-        $adRoleId = $this->session->adRoleId;
+        $adRoleId          = $this->session->adRoleId;
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-            $table = DB()->table('cc_customer_ledger');
+            $table          = DB()->table('cc_customer_ledger');
             $data['ledger'] = $table->where('customer_id', $customer_id)->get()->getResult();
 
 
@@ -317,11 +317,11 @@ class Customers extends BaseController
     public function point($customer_id)
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
-        $adRoleId = $this->session->adRoleId;
+        $adRoleId          = $this->session->adRoleId;
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-            $table = DB()->table('cc_customer_point_history');
+            $table         = DB()->table('cc_customer_point_history');
             $data['point'] = $table->where('customer_id', $customer_id)->get()->getResult();
 
 

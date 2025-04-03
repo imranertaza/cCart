@@ -13,8 +13,8 @@ class Blog extends BaseController
     public function __construct()
     {
         $this->validation = \Config\Services::validation();
-        $this->session = \Config\Services::session();
-        $this->blogModel = new BlogModel();
+        $this->session    = \Config\Services::session();
+        $this->blogModel  = new BlogModel();
     }
 
     /**
@@ -25,15 +25,15 @@ class Blog extends BaseController
     {
         $settings = get_settings();
 
-        $data['blog'] = $this->blogModel->where('status', '1')->orderBy('blog_id', 'ASC')->paginate(12);
+        $data['blog']  = $this->blogModel->where('status', '1')->orderBy('blog_id', 'ASC')->paginate(12);
         $data['pager'] = $this->blogModel->pager;
         $data['links'] = $data['pager']->links('default', 'custome_link');
 
 
 
-        $data['keywords'] = $settings['meta_keyword'];
+        $data['keywords']    = $settings['meta_keyword'];
         $data['description'] = $settings['meta_description'];
-        $data['title'] = !empty($settings['meta_title']) ? $settings['meta_title'] : $settings['store_name'];
+        $data['title']       = !empty($settings['meta_title']) ? $settings['meta_title'] : $settings['store_name'];
 
         echo view('Theme/' . $settings['Theme'] . '/header', $data);
         echo view('Theme/' . $settings['Theme'] . '/Blog/index', $data);
@@ -49,12 +49,12 @@ class Blog extends BaseController
     {
         $settings = get_settings();
 
-        $table = DB()->table('cc_blog');
+        $table        = DB()->table('cc_blog');
         $data['blog'] = $table->where('blog_id', $blog_id)->get()->getRow();
 
-        $data['keywords'] = $settings['meta_keyword'];
+        $data['keywords']    = $settings['meta_keyword'];
         $data['description'] = $settings['meta_description'];
-        $data['title'] = !empty($settings['meta_title']) ? $settings['meta_title'] : $settings['store_name'];
+        $data['title']       = !empty($settings['meta_title']) ? $settings['meta_title'] : $settings['store_name'];
 
         echo view('Theme/' . $settings['Theme'] . '/header', $data);
         echo view('Theme/' . $settings['Theme'] . '/Blog/view', $data);

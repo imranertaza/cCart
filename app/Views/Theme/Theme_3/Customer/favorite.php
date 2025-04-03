@@ -11,8 +11,8 @@
                         <div class="row gx-0 row-cols-1 row-cols-sm-3 row-cols-lg-3 row-cols-xl-5 h-100">
 
                             <?php
-                            $symbol = get_lebel_by_value_in_settings('currency_symbol');
-                            $modules = modules_access();
+                            $symbol   = get_lebel_by_value_in_settings('currency_symbol');
+                            $modules  = modules_access();
                             $img_size = ($modules['watermark'] == '1') ? '191_wm_' : '191_';
                             foreach ($allProd as $pro) { ?>
                                 <div class="col border p-2">

@@ -13,7 +13,7 @@ class Login extends BaseController
     public function __construct()
     {
         $this->validation = \Config\Services::validation();
-        $this->session = \Config\Services::session();
+        $this->session    = \Config\Services::session();
     }
 
     /**
@@ -43,7 +43,7 @@ class Login extends BaseController
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">All field is required <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to(site_url('admin'));
         } else {
-            $email = strtolower($this->request->getPost('email'));
+            $email    = strtolower($this->request->getPost('email'));
             $password = $this->request->getPost('password');
 
             $result = $this->loginMe($email, $password);
@@ -66,11 +66,11 @@ class Login extends BaseController
 
 
                 $sessionArray = ['adUserId' => $result->user_id,
-                    'adName' => $result->name,
-                    'adRoleId' => $result->role_id,
-                    'adminAll' => $result,
-                    'isLoggedInEcAdmin' => true,
-                    'resetDatatable' => true,
+                    'adName'                => $result->name,
+                    'adRoleId'              => $result->role_id,
+                    'adminAll'              => $result,
+                    'isLoggedInEcAdmin'     => true,
+                    'resetDatatable'        => true,
                 ];
                 $this->session->set($sessionArray);
 
@@ -91,7 +91,7 @@ class Login extends BaseController
     private function loginMe($email, $password)
     {
         $table = DB()->table('cc_users');
-        $user = $table->where('email', $email)->where('status', '1')->get()->getRow();
+        $user  = $table->where('email', $email)->where('status', '1')->get()->getRow();
 
         if (!empty($user)) {
             if (SHA1($password) == $user->password) {

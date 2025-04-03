@@ -48,9 +48,9 @@
 
                             <?php
                             $modules = modules_access();
-                    $symbol = get_lebel_by_value_in_settings('currency_symbol');
-                    $img_size_198 = ($modules['watermark'] == '1') ? '198_wm_' : '198_';
-                    $img_size = ($modules['watermark'] == '1') ? '191_wm_' : '191_';
+                    $symbol          = get_lebel_by_value_in_settings('currency_symbol');
+                    $img_size_198    = ($modules['watermark'] == '1') ? '198_wm_' : '198_';
+                    $img_size        = ($modules['watermark'] == '1') ? '191_wm_' : '191_';
                     ?>
 
                             <div class="products cat-pro-mob">
@@ -210,7 +210,7 @@
                                                 <input type="hidden" name="cat" value="<?php echo $prod_cat_id?>">
                                                     <ul class="list-unstyled lh-lg">
                                                         <?php $i = 1;
-                                                $j = 1;
+                                                $j               = 1;
                                                 foreach ($parent_Cat as $cat) { ?>
                                                         <li>
                                                             <div class="form-check d-flex flex-row align-items-center gap-1">
@@ -293,7 +293,7 @@
                                                 <input type="hidden" name="cat" value="<?php echo $prod_cat_id?>">
                                                 <ul class="list-unstyled lh-lg">
                                                     <?php $i = 1;
-                                                    $j = 1;
+                                                    $j       = 1;
                                                     foreach ($parent_Cat as $cat) { ?>
                                                     <li>
                                                         <div class="form-check d-flex flex-row align-items-center gap-1">

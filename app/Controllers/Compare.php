@@ -10,7 +10,7 @@ class Compare extends BaseController
     public function __construct()
     {
         $this->validation = \Config\Services::validation();
-        $this->session = \Config\Services::session();
+        $this->session    = \Config\Services::session();
     }
 
     /**
@@ -24,16 +24,16 @@ class Compare extends BaseController
         $proArray = [];
         if (isset($arrayCom)) {
             foreach ($arrayCom as $key => $val) {
-                $table = DB()->table('cc_products');
-                $prodata = $table->where('product_id', $val)->get()->getRow();
+                $table          = DB()->table('cc_products');
+                $prodata        = $table->where('product_id', $val)->get()->getRow();
                 $proArray[$key] = $prodata;
             }
         }
         $data['products'] = $proArray;
 
-        $data['keywords'] = $settings['meta_keyword'];
+        $data['keywords']    = $settings['meta_keyword'];
         $data['description'] = $settings['meta_description'];
-        $data['title'] = 'Product Compare';
+        $data['title']       = 'Product Compare';
 
         $data['page_title'] = 'Compare list';
         echo view('Theme/' . $settings['Theme'] . '/header', $data);
@@ -47,7 +47,7 @@ class Compare extends BaseController
      */
     public function addtoCompare()
     {
-        $product_id = $this->request->getPost('product_id');
+        $product_id                                              = $this->request->getPost('product_id');
         (empty($this->session->compare_session)) ? $compareArray = [] : $compareArray = $this->session->compare_session;
         array_push($compareArray, $product_id);
 

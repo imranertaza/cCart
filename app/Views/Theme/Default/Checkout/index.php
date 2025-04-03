@@ -53,10 +53,10 @@
 
                         <?php
             $coun = isset($customer->customer_id) ? get_data_by_id('country_id', 'cc_address', 'customer_id', $customer->customer_id) : '';
-        $zon = isset($customer->customer_id) ? get_data_by_id('zone_id', 'cc_address', 'customer_id', $customer->customer_id) : '';
-        $post = isset($customer->customer_id) ? get_data_by_id('postcode', 'cc_address', 'customer_id', $customer->customer_id) : '';
-        $add1 = isset($customer->customer_id) ? get_data_by_id('address_1', 'cc_address', 'customer_id', $customer->customer_id) : '';
-        $add2 = isset($customer->customer_id) ? get_data_by_id('address_2', 'cc_address', 'customer_id', $customer->customer_id) : '';
+        $zon      = isset($customer->customer_id) ? get_data_by_id('zone_id', 'cc_address', 'customer_id', $customer->customer_id) : '';
+        $post     = isset($customer->customer_id) ? get_data_by_id('postcode', 'cc_address', 'customer_id', $customer->customer_id) : '';
+        $add1     = isset($customer->customer_id) ? get_data_by_id('address_1', 'cc_address', 'customer_id', $customer->customer_id) : '';
+        $add2     = isset($customer->customer_id) ? get_data_by_id('address_2', 'cc_address', 'customer_id', $customer->customer_id) : '';
         ?>
 
 
@@ -184,7 +184,7 @@
                 </div>
                 <?php
                 $modules = modules_access();
-        $img_size_100 = ($modules['watermark'] == '1') ? '100_wm_' : '100_';
+        $img_size_100    = ($modules['watermark'] == '1') ? '100_wm_' : '100_';
         ?>
                 <div class="col-lg-6">
                     <div class="checkout-items mb-4">

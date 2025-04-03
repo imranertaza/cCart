@@ -5,7 +5,7 @@
 <!--            <p class="text-end"><a href="#">Print This Page</a></p>-->
 
             <?php
-            $modules = modules_access();
+            $modules      = modules_access();
             $img_size_191 = ($modules['watermark'] == '1') ? '191_wm_' : '191_';
             ?>
             <?php if (!empty($products)) { ?>

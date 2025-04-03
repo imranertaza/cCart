@@ -492,7 +492,7 @@
                                     <div class="products h-100">
                                         <div class="row mo-text-center both-pro-mob">
                                             <?php $totalPrice = 0;
-            $i = 1;
+            $i                                                = 1;
             foreach ($bothProducts as $key => $both) { ?>
                                             <div class="col-lg-3 ">
                                                 <div

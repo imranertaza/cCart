@@ -17,8 +17,8 @@ class Geo_zone extends BaseController
     public function __construct()
     {
         $this->validation = \Config\Services::validation();
-        $this->session = \Config\Services::session();
-        $this->crop = \Config\Services::image();
+        $this->session    = \Config\Services::session();
+        $this->crop       = \Config\Services::image();
         $this->permission = new Permission();
     }
 
@@ -29,11 +29,11 @@ class Geo_zone extends BaseController
     public function index()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
-        $adRoleId = $this->session->adRoleId;
+        $adRoleId          = $this->session->adRoleId;
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-            $table = DB()->table('cc_geo_zone');
+            $table            = DB()->table('cc_geo_zone');
             $data['geo_zone'] = $table->get()->getResult();
 
 
@@ -57,7 +57,7 @@ class Geo_zone extends BaseController
     public function create()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
-        $adRoleId = $this->session->adRoleId;
+        $adRoleId          = $this->session->adRoleId;
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
@@ -80,11 +80,11 @@ class Geo_zone extends BaseController
      */
     public function create_action()
     {
-        $data['geo_zone_name'] = $this->request->getPost('geo_zone_name');
+        $data['geo_zone_name']        = $this->request->getPost('geo_zone_name');
         $data['geo_zone_description'] = $this->request->getPost('geo_zone_description');
 
         $country_id = $this->request->getPost('country_id[]');
-        $zone_id = $this->request->getPost('zone_id[]');
+        $zone_id    = $this->request->getPost('zone_id[]');
 
         $this->validation->setRules([
             'geo_zone_name' => ['label' => 'Name', 'rules' => 'required'],
@@ -105,8 +105,8 @@ class Geo_zone extends BaseController
                 foreach ($country_id as $key => $val) {
                     $zoneData[$key] = [
                         'geo_zone_id' => $geo_zone_id,
-                        'country_id' => $val,
-                        'zone_id' => $zone_id[$key],
+                        'country_id'  => $val,
+                        'zone_id'     => $zone_id[$key],
                     ];
                 }
                 $tableZone = DB()->table('cc_geo_zone_details');
@@ -130,14 +130,14 @@ class Geo_zone extends BaseController
     public function update($geo_zone_id)
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
-        $adRoleId = $this->session->adRoleId;
+        $adRoleId          = $this->session->adRoleId;
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-            $table = DB()->table('cc_geo_zone');
+            $table            = DB()->table('cc_geo_zone');
             $data['geo_zone'] = $table->where('geo_zone_id', $geo_zone_id)->get()->getRow();
 
-            $tableZone = DB()->table('cc_geo_zone_details');
+            $tableZone               = DB()->table('cc_geo_zone_details');
             $data['geo_zone_detail'] = $tableZone->where('geo_zone_id', $geo_zone_id)->get()->getResult();
 
 
@@ -162,11 +162,11 @@ class Geo_zone extends BaseController
     {
         $geo_zone_id = $this->request->getPost('geo_zone_id');
 
-        $data['geo_zone_name'] = $this->request->getPost('geo_zone_name');
+        $data['geo_zone_name']        = $this->request->getPost('geo_zone_name');
         $data['geo_zone_description'] = $this->request->getPost('geo_zone_description');
 
-        $country_id = $this->request->getPost('country_id[]');
-        $zone_id = $this->request->getPost('zone_id[]');
+        $country_id          = $this->request->getPost('country_id[]');
+        $zone_id             = $this->request->getPost('zone_id[]');
         $geo_zone_details_id = $this->request->getPost('geo_zone_details_id[]');
 
         $this->validation->setRules([
@@ -185,8 +185,8 @@ class Geo_zone extends BaseController
                 if (empty($geo_zone_details_id[$key])) {
                     if ($exist == true) {
                         $zoneData['geo_zone_id'] = $geo_zone_id;
-                        $zoneData['country_id'] = $val;
-                        $zoneData['zone_id'] = $zone_id[$key];
+                        $zoneData['country_id']  = $val;
+                        $zoneData['zone_id']     = $zone_id[$key];
 
                         $tableZone = DB()->table('cc_geo_zone_details');
                         $tableZone->insert($zoneData);
@@ -196,8 +196,8 @@ class Geo_zone extends BaseController
                     }
                 } else {
                     $zoneData['country_id'] = $val;
-                    $zoneData['zone_id'] = $zone_id[$key];
-                    $tableZone = DB()->table('cc_geo_zone_details');
+                    $zoneData['zone_id']    = $zone_id[$key];
+                    $tableZone              = DB()->table('cc_geo_zone_details');
                     $tableZone->where('geo_zone_details_id', $geo_zone_details_id[$key])->update($zoneData);
                 }
             }
@@ -249,10 +249,10 @@ class Geo_zone extends BaseController
         foreach ($country_id_array as $key => $con) {
             if ($zone_id_array[$key] != 0) {
                 $table = DB()->table('cc_geo_zone_details');
-                $data = $table->where('country_id', $con)->where('zone_id', $zone_id_array[$key])->countAllResults();
+                $data  = $table->where('country_id', $con)->where('zone_id', $zone_id_array[$key])->countAllResults();
                 if (empty($data)) {
                     $tableZone = DB()->table('cc_geo_zone_details');
-                    $data = $tableZone->where('country_id', $con)->where('zone_id', '0')->countAllResults();
+                    $data      = $tableZone->where('country_id', $con)->where('zone_id', '0')->countAllResults();
                     if (empty($data)) {
                         $result = true;
                     } else {
@@ -263,7 +263,7 @@ class Geo_zone extends BaseController
                 }
             } else {
                 $tableZone = DB()->table('cc_geo_zone_details');
-                $data = $tableZone->where('country_id', $con)->countAllResults();
+                $data      = $tableZone->where('country_id', $con)->countAllResults();
                 if (empty($data)) {
                     $result = true;
                 } else {

@@ -23,7 +23,7 @@ class Filter
      */
     public function product_array_by_price_range()
     {
-        $priceArray = array_column($this->productArray, 'price');
+        $priceArray       = array_column($this->productArray, 'price');
         $data['minPrice'] = empty($priceArray) ? '0' : floor(min($priceArray));
         $data['maxPrice'] = empty($priceArray) ? '0' : floor(max($priceArray));
         return $data;
@@ -58,12 +58,12 @@ class Filter
 
                         foreach ($allOptVal as $value) {
                             if ($valOption->option_id == $value->option_id) {
-                                $nameVal = $value->name;
+                                $nameVal  = $value->name;
                                 $firstCar = mb_substr($nameVal, 0, 1);
-                                $length = strlen($nameVal);
-                                $isColor = (($firstCar == '#') && ($length == 7)) ? '' : $nameVal;
-                                $nameOp = !empty($isColor) ? $isColor : '';
-                                $style = empty($isColor) ? "background-color: $nameVal !important;padding: 15px; border: unset;" : "";
+                                $length   = strlen($nameVal);
+                                $isColor  = (($firstCar == '#') && ($length == 7)) ? '' : $nameVal;
+                                $nameOp   = !empty($isColor) ? $isColor : '';
+                                $style    = empty($isColor) ? "background-color: $nameVal !important;padding: 15px; border: unset;" : "";
 
                                 $view .= '<li class="mt-2">
                                 <input type="checkbox" form="searchForm" onclick="formSubmit()"';
@@ -88,7 +88,7 @@ class Filter
     private function product_option_value($opt)
     {
         $productIds = array_column($this->productArray, 'product_id');
-        $optionIds = array_column($opt, 'option_id');
+        $optionIds  = array_column($opt, 'option_id');
 
         if (!empty($productIds) && !empty($optionIds)) {
             $table = DB()->table('cc_product_option');
@@ -112,7 +112,7 @@ class Filter
     public function product_array_by_brand($brandSel)
     {
         $brandArray = array_unique(array_column($this->productArray, 'brand_id'));
-        $view = '';
+        $view       = '';
 
         if ($this->allValuesNotEmpty($brandArray)) {
             $view .= '<div class="product-filter"><p class="mb-2">Brands</p>';
@@ -146,7 +146,7 @@ class Filter
     public function product_array_by_rating_view($ratingSel)
     {
         $ratingArray = array_unique(array_column($this->productArray, 'average_feedback'));
-        $view = '';
+        $view        = '';
 
         if ($this->allValuesNotEmpty($ratingArray)) {
             $view .= '<div class="product-filter"><p class="mb-2">Rating</p>';

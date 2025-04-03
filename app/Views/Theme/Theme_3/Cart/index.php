@@ -5,7 +5,7 @@
                 <div class="col-md-12 ">
                     <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message');
                     endif;
-                    $modules = modules_access();
+                    $modules  = modules_access();
                     $img_size = ($modules['watermark'] == '1') ? '100_wm_' : '100_';
                     ?>
                 </div>

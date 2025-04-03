@@ -7,7 +7,7 @@ use Config\Services;
 class Image_processing
 {
     private $wm;
-    private $marge_right = 30;
+    private $marge_right  = 30;
     private $marge_bottom = 30;
     private $sx;
     private $sy;
@@ -17,10 +17,10 @@ class Image_processing
 
     public function __construct()
     {
-        $this->wm = imagecreatefrompng(FCPATH . '/uploads/products/wm.png');
-        $this->sx = imagesx($this->wm);
-        $this->sy = imagesy($this->wm);
-        $this->crop = Services::image();
+        $this->wm        = imagecreatefrompng(FCPATH . '/uploads/products/wm.png');
+        $this->sx        = imagesx($this->wm);
+        $this->sy        = imagesy($this->wm);
+        $this->crop      = Services::image();
         $this->sizeArray = $this->selected_theme_libraries();
     }
 
@@ -87,15 +87,15 @@ class Image_processing
             //imagecopy($mainImg, $this->wm, imagesx($mainImg) - $this->sx - $this->marge_right, imagesy($mainImg) - $this->sy - $this->marge_bottom, 0, 0, imagesx($this->wm), imagesy($this->wm));
 
             // Get the dimensions of the main image
-            $mainImageWidth = imagesx($mainImg);
+            $mainImageWidth  = imagesx($mainImg);
             $mainImageHeight = imagesy($mainImg);
 
             // Get the dimensions of the watermark image
-            $watermarkWidth = imagesx($this->wm);
+            $watermarkWidth  = imagesx($this->wm);
             $watermarkHeight = imagesy($this->wm);
 
             // Calculate the new watermark size based on the main image size, keeping the aspect ratio
-            $watermarkNewWidth = $mainImageWidth * 0.25;  // Adjust this factor as needed (e.g., 25% of the main image width)
+            $watermarkNewWidth  = $mainImageWidth                        * 0.25;  // Adjust this factor as needed (e.g., 25% of the main image width)
             $watermarkNewHeight = ($watermarkNewWidth / $watermarkWidth) * $watermarkHeight;  // Maintain the aspect ratio
 
             // Resize the watermark to the new size
@@ -105,7 +105,7 @@ class Image_processing
             imagecopyresampled($watermarkResized, $this->wm, 0, 0, 0, 0, $watermarkNewWidth, $watermarkNewHeight, $watermarkWidth, $watermarkHeight);
 
             // Calculate the position to place the watermark (bottom-right corner)
-            $watermarkX = $mainImageWidth - $watermarkNewWidth - $this->marge_right; // 30px padding from the right
+            $watermarkX = $mainImageWidth  - $watermarkNewWidth - $this->marge_right; // 30px padding from the right
             $watermarkY = $mainImageHeight - $watermarkNewHeight - $this->marge_bottom; // 30px padding from the bottom
 
             // Merge the watermark onto the main image
@@ -201,7 +201,7 @@ class Image_processing
      */
     public function product_image_upload_and_crop_all_size($img, $dir)
     {
-        $modules = modules_access();
+        $modules  = modules_access();
         $news_img = $this->product_image_upload($img, $dir);
         //image crop
         $image = str_replace('pro_', '', $news_img);
@@ -219,7 +219,7 @@ class Image_processing
 
     public function image_upload_and_crop_all_size($img, $dir)
     {
-        $modules = modules_access();
+        $modules  = modules_access();
         $news_img = $this->product_image_upload($img, $dir);
         //image crop
         $image = str_replace('pro_', '', $news_img);

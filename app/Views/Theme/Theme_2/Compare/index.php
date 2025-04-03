@@ -4,8 +4,8 @@
         <div class="card p-3 rounded-0">
 <!--            <p class="text-end"><a href="#">Print This Page</a></p>-->
             <?php
-            $modules = modules_access();
-            $symbol = get_lebel_by_value_in_settings('currency_symbol');
+            $modules  = modules_access();
+            $symbol   = get_lebel_by_value_in_settings('currency_symbol');
             $img_size = ($modules['watermark'] == '1') ? '191_wm_' : '191_';
             ?>
             <?php if (!empty($products)) { ?>

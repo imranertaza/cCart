@@ -72,10 +72,10 @@
 
                         <?php
             $coun = isset($customer->customer_id) ? get_data_by_id('country_id', 'cc_address', 'customer_id', $customer->customer_id) : '';
-        $zon = isset($customer->customer_id) ? get_data_by_id('zone_id', 'cc_address', 'customer_id', $customer->customer_id) : '';
-        $post = isset($customer->customer_id) ? get_data_by_id('postcode', 'cc_address', 'customer_id', $customer->customer_id) : '';
-        $add1 = isset($customer->customer_id) ? get_data_by_id('address_1', 'cc_address', 'customer_id', $customer->customer_id) : '';
-        $add2 = isset($customer->customer_id) ? get_data_by_id('address_2', 'cc_address', 'customer_id', $customer->customer_id) : '';
+        $zon      = isset($customer->customer_id) ? get_data_by_id('zone_id', 'cc_address', 'customer_id', $customer->customer_id) : '';
+        $post     = isset($customer->customer_id) ? get_data_by_id('postcode', 'cc_address', 'customer_id', $customer->customer_id) : '';
+        $add1     = isset($customer->customer_id) ? get_data_by_id('address_1', 'cc_address', 'customer_id', $customer->customer_id) : '';
+        $add2     = isset($customer->customer_id) ? get_data_by_id('address_2', 'cc_address', 'customer_id', $customer->customer_id) : '';
         ?>
 
 
@@ -258,15 +258,15 @@
                     </div>
                     <div class="checkout-items mb-4">
                         <?php
-        $modules = modules_access();
-        $symbol = get_lebel_by_value_in_settings('currency_symbol');
+        $modules      = modules_access();
+        $symbol       = get_lebel_by_value_in_settings('currency_symbol');
         $img_size_100 = ($modules['watermark'] == '1') ? '100_wm_' : '100_';
         ?>
                         <?php foreach (Cart()->contents() as $val) { ?>
                         <div class="list-item d-flex gap-2 mb-2">
                             <div class="d-flex gap-2 bg-gray p-2 rounded-2 pro-bg-check">
                                 <?php
-                    $img = get_data_by_id('image', 'cc_products', 'product_id', $val['id']);
+                    $img         = get_data_by_id('image', 'cc_products', 'product_id', $val['id']);
                             $des = get_data_by_id('description', 'cc_product_description', 'product_id', $val['id']);
                             ?>
                                 <?php echo image_view('uploads/products', $val['id'], $img_size_100 . $img, 'noimage.png', 'img-fluid w-h-100') ?>

@@ -5,8 +5,8 @@
                 <div class="row ">
                     <!--image showing -->
                     <?php
-                    $symbol = get_lebel_by_value_in_settings('currency_symbol');
-                    $modules = modules_access();
+                    $symbol       = get_lebel_by_value_in_settings('currency_symbol');
+                    $modules      = modules_access();
                     $img_size_437 = ($modules['watermark'] == '1') ? '437_wm_' : '437_';
                     $img_size_191 = ($modules['watermark'] == '1') ? '191_wm_' : '191_';
                     ?>

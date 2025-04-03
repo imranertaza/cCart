@@ -17,8 +17,8 @@ class Module extends BaseController
     public function __construct()
     {
         $this->validation = \Config\Services::validation();
-        $this->session = \Config\Services::session();
-        $this->crop = \Config\Services::image();
+        $this->session    = \Config\Services::session();
+        $this->crop       = \Config\Services::image();
         $this->permission = new Permission();
     }
 
@@ -29,11 +29,11 @@ class Module extends BaseController
     public function index()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
-        $adRoleId = $this->session->adRoleId;
+        $adRoleId          = $this->session->adRoleId;
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-            $table = DB()->table('cc_modules');
+            $table           = DB()->table('cc_modules');
             $data['modules'] = $table->get()->getResult();
 
 
@@ -59,11 +59,11 @@ class Module extends BaseController
     public function module_settings($id)
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
-        $adRoleId = $this->session->adRoleId;
+        $adRoleId          = $this->session->adRoleId;
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-            $table = DB()->table('cc_module_settings');
+            $table                   = DB()->table('cc_module_settings');
             $data['modulesSettings'] = $table->where('module_id', $id)->get()->getResult();
 
             $data['module_id'] = $id;
@@ -88,8 +88,8 @@ class Module extends BaseController
     public function module_settings_action()
     {
         $module_id = $this->request->getPost('module_id');
-        $label = $this->request->getPost('label[]');
-        $id = $this->request->getPost('id[]');
+        $label     = $this->request->getPost('label[]');
+        $id        = $this->request->getPost('id[]');
 
         if (!empty($label)) {
             foreach ($label as $key => $val) {

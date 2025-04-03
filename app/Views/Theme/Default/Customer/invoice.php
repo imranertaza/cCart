@@ -45,12 +45,12 @@
                             $status = order_id_by_status($order->order_id);
 
                             $bacColor = 'bg-danger';
-                            $titleS = 'Unpaid';
-                            $pad = 'padding:35px 20px;';
+                            $titleS   = 'Unpaid';
+                            $pad      = 'padding:35px 20px;';
                             if ($status == 'Complete') {
                                 $bacColor = 'bg-success';
-                                $titleS = 'Paid';
-                                $pad = 'padding: 35px 28px;';
+                                $titleS   = 'Paid';
+                                $pad      = 'padding: 35px 28px;';
                             }
 
 
@@ -61,7 +61,7 @@
                     </div>
                 </div>
                 <?php
-                $modules = modules_access();
+                $modules                  = modules_access();
                             $img_size_100 = ($modules['watermark'] == '1') ? '100_wm_' : '100_';
                             ?>
                 <div class="col-md-12 mt-5">

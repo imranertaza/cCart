@@ -8,7 +8,7 @@ use CodeIgniter\Model;
 
 class FavoriteModel extends Model
 {
-    protected $table = 'cc_customer_wishlist';
+    protected $table      = 'cc_customer_wishlist';
     protected $primaryKey = 'product_id';
 
     // your function to paginate

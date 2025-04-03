@@ -10,7 +10,7 @@ class Freedelivery extends BaseController
     public function __construct()
     {
         $this->validation = \Config\Services::validation();
-        $this->session = \Config\Services::session();
+        $this->session    = \Config\Services::session();
     }
 
     /**
@@ -19,14 +19,14 @@ class Freedelivery extends BaseController
      */
     public function index()
     {
-        $settings = get_settings();
-        $table = DB()->table('products');
+        $settings         = get_settings();
+        $table            = DB()->table('products');
         $data['products'] = $table->where('status', 'Active')->get()->getResult();
 
 
-        $data['keywords'] = $settings['meta_keyword'];
+        $data['keywords']    = $settings['meta_keyword'];
         $data['description'] = $settings['meta_description'];
-        $data['title'] = 'Free delivery';
+        $data['title']       = 'Free delivery';
 
         $data['page_title'] = 'Free Delivery';
         echo view('Theme/' . $settings['Theme'] . '/header', $data);

@@ -82,7 +82,7 @@
                             </form>
                         </div>
                         <?php
-                        $modules = modules_access();
+                        $modules          = modules_access();
                             $img_size_100 = ($modules['watermark'] == '1') ? '100_wm_' : '100_';
                             ?>
                         <div class="col-md-3 div-p" >

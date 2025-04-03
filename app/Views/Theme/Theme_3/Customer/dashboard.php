@@ -13,8 +13,8 @@
                                 <span class="mt-3 con-tit">Total Order</span>
                                 <?php
                                     $modules = modules_access();
-                            $img_size = ($modules['watermark'] == '1') ? '100_wm_' : '100_';
-                            $all = 0;
+                            $img_size        = ($modules['watermark'] == '1') ? '100_wm_' : '100_';
+                            $all             = 0;
                             foreach ($order as $acVal) {
                                 $all++;
                             }

@@ -19,7 +19,7 @@
                     </thead>
                     <tbody>
                         <?php $i = 1;
-            $symbol = get_lebel_by_value_in_settings('currency_symbol');
+            $symbol              = get_lebel_by_value_in_settings('currency_symbol');
             foreach ($ledger as $val) { ?>
                             <tr>
                                 <td width="40"><?php echo $i++; ?></td>

@@ -44,11 +44,11 @@
             </div>
         </div>
         <?php
-        $theme_settings = get_theme_settings();
-                                $modules = modules_access();
-                                $symbol = get_lebel_by_value_in_settings('currency_symbol');
+        $theme_settings                       = get_theme_settings();
+                                $modules      = modules_access();
+                                $symbol       = get_lebel_by_value_in_settings('currency_symbol');
                                 $img_size_198 = ($modules['watermark'] == '1') ? '198_wm_' : '198_';
-                                $img_size = ($modules['watermark'] == '1') ? '191_wm_' : '191_';
+                                $img_size     = ($modules['watermark'] == '1') ? '191_wm_' : '191_';
                                 ?>
         <div class="product-category mb-5">
             <div class="card rounded-0 p-5">
@@ -74,7 +74,7 @@
                                     <input type="hidden" name="cat" value="<?php echo $prod_cat_id?>">
                                     <ul class="list-unstyled lh-lg">
                                         <?php $i = 1;
-                                $j = 1;
+                                $j               = 1;
                                 foreach ($parent_Cat as $cat) { ?>
                                         <li>
                                             <div class="form-check">

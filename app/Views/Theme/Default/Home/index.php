@@ -19,11 +19,11 @@
 </section>
 
 <?php
-    $theme_settings = get_theme_settings();
-                        $modules = modules_access();
-                        $symbol = get_lebel_by_value_in_settings('currency_symbol');
+    $theme_settings                   = get_theme_settings();
+                        $modules      = modules_access();
+                        $symbol       = get_lebel_by_value_in_settings('currency_symbol');
                         $img_size_100 = ($modules['watermark'] == '1') ? '100_wm_' : '100_';
-                        $img_size = ($modules['watermark'] == '1') ? '191_wm_' : '191_';
+                        $img_size     = ($modules['watermark'] == '1') ? '191_wm_' : '191_';
                         ?>
 
 <section class="main-container my-5">
@@ -39,7 +39,7 @@
 
                                                     foreach ($populerCat as $catPop) {
                                                         $icon_id = get_data_by_id('icon_id', 'cc_product_category', 'prod_cat_id', $catPop->prod_cat_id);
-                                                        $icon = get_data_by_id('code', 'cc_icons', 'icon_id', $icon_id);
+                                                        $icon    = get_data_by_id('code', 'cc_icons', 'icon_id', $icon_id);
                                                         ?>
                         <div class="col border p-5">
                             <a href="<?php echo base_url('category/' . $catPop->prod_cat_id);?>">

@@ -62,7 +62,7 @@ class Country extends Seeder
             [ 'country_id' => '52', 'name' => 'Cote D\'Ivoire', 'iso_code_2' => 'CI', 'iso_code_3' => 'CIV',  'address_format' =>  '', 'postcode_required' => 0, 'status' => 1],
 
 
-            ['country_id' => '1', 'name' => 'Afghanistan',  'iso_code_2' => 'AF',  'iso_code_3' => 'AFG',  'address_format' => '', 'postcode_required' => 0, 'status' => 1],
+            ['country_id'  => '1', 'name' => 'Afghanistan',  'iso_code_2' => 'AF',  'iso_code_3' => 'AFG',  'address_format' => '', 'postcode_required' => 0, 'status' => 1],
             [ 'country_id' => '53', 'name' => 'Croatia', 'iso_code_2' => 'HR', 'iso_code_3' => 'HRV',  'address_format' =>  '', 'postcode_required' => 0, 'status' => 1],
             [ 'country_id' => '54', 'name' => 'Cuba', 'iso_code_2' => 'CU', 'iso_code_3' => 'CUB',  'address_format' =>  '', 'postcode_required' => 0, 'status' => 1],
             [ 'country_id' => '55', 'name' => 'Cyprus', 'iso_code_2' => 'CY', 'iso_code_3' => 'CYP',  'address_format' =>  '', 'postcode_required' => 0, 'status' => 1],

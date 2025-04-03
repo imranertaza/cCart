@@ -4,7 +4,7 @@
         <div class="card p-3 rounded-0">
 <!--            <p class="text-end"><a href="#">Print This Page</a></p>-->
             <?php if (!empty($products)) {
-                $modules = modules_access();
+                $modules  = modules_access();
                 $img_size = ($modules['watermark'] == '1') ? '191_wm_' : '191_';
                 ?>
                 <div class="table-responsive">

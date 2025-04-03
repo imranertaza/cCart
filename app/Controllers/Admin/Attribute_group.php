@@ -17,8 +17,8 @@ class Attribute_group extends BaseController
     public function __construct()
     {
         $this->validation = \Config\Services::validation();
-        $this->session = \Config\Services::session();
-        $this->crop = \Config\Services::image();
+        $this->session    = \Config\Services::session();
+        $this->crop       = \Config\Services::image();
         $this->permission = new Permission();
     }
 
@@ -29,11 +29,11 @@ class Attribute_group extends BaseController
     public function index()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
-        $adRoleId = $this->session->adRoleId;
+        $adRoleId          = $this->session->adRoleId;
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-            $table = DB()->table('cc_product_attribute_group');
+            $table             = DB()->table('cc_product_attribute_group');
             $data['attribute'] = $table->get()->getResult();
 
 
@@ -57,7 +57,7 @@ class Attribute_group extends BaseController
     public function create()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
-        $adRoleId = $this->session->adRoleId;
+        $adRoleId          = $this->session->adRoleId;
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
@@ -106,11 +106,11 @@ class Attribute_group extends BaseController
     public function update($attribute_group_id)
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
-        $adRoleId = $this->session->adRoleId;
+        $adRoleId          = $this->session->adRoleId;
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-            $table = DB()->table('cc_product_attribute_group');
+            $table             = DB()->table('cc_product_attribute_group');
             $data['attribute'] = $table->where('attribute_group_id', $attribute_group_id)->get()->getRow();
 
 
@@ -134,7 +134,7 @@ class Attribute_group extends BaseController
     public function update_action()
     {
         $attribute_group_id = $this->request->getPost('attribute_group_id');
-        $data['name'] = $this->request->getPost('name');
+        $data['name']       = $this->request->getPost('name');
         $data['sort_order'] = $this->request->getPost('sort_order');
 
         $this->validation->setRules([

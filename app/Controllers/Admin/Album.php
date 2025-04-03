@@ -18,10 +18,10 @@ class Album extends BaseController
 
     public function __construct()
     {
-        $this->validation = \Config\Services::validation();
-        $this->session = \Config\Services::session();
-        $this->crop = \Config\Services::image();
-        $this->permission = new Permission();
+        $this->validation      = \Config\Services::validation();
+        $this->session         = \Config\Services::session();
+        $this->crop            = \Config\Services::image();
+        $this->permission      = new Permission();
         $this->imageProcessing = new Image_processing();
     }
 
@@ -32,11 +32,11 @@ class Album extends BaseController
     public function index()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
-        $adRoleId = $this->session->adRoleId;
+        $adRoleId          = $this->session->adRoleId;
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-            $table = DB()->table('cc_album');
+            $table         = DB()->table('cc_album');
             $data['album'] = $table->get()->getResult();
 
 
@@ -60,7 +60,7 @@ class Album extends BaseController
     public function create()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
-        $adRoleId = $this->session->adRoleId;
+        $adRoleId          = $this->session->adRoleId;
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
@@ -83,7 +83,7 @@ class Album extends BaseController
      */
     public function create_action()
     {
-        $data['name'] = $this->request->getPost('name');
+        $data['name']      = $this->request->getPost('name');
         $data['createdBy'] = $this->session->adUserId;
 
         $this->validation->setRules([
@@ -128,7 +128,7 @@ class Album extends BaseController
                 foreach ($files as $file) {
                     if ($file->isValid() && ! $file->hasMoved()) {
                         $dataMultiImg['album_id'] = $albumId;
-                        $albumImgTable = DB()->table('cc_album_details');
+                        $albumImgTable            = DB()->table('cc_album_details');
                         $albumImgTable->insert($dataMultiImg);
                         $albumImgId = DB()->insertID();
 
@@ -162,14 +162,14 @@ class Album extends BaseController
     public function update($album_id)
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
-        $adRoleId = $this->session->adRoleId;
+        $adRoleId          = $this->session->adRoleId;
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-            $table = DB()->table('cc_album');
+            $table         = DB()->table('cc_album');
             $data['album'] = $table->where('album_id', $album_id)->get()->getRow();
 
-            $tableAl = DB()->table('cc_album_details');
+            $tableAl          = DB()->table('cc_album_details');
             $data['albumAll'] = $tableAl->where('album_id', $album_id)->get()->getResult();
 
 
@@ -192,8 +192,8 @@ class Album extends BaseController
      */
     public function update_action()
     {
-        $album_id = $this->request->getPost('album_id');
-        $data['name'] = $this->request->getPost('name');
+        $album_id           = $this->request->getPost('album_id');
+        $data['name']       = $this->request->getPost('name');
         $data['sort_order'] = $this->request->getPost('sort_order_al');
 
         $this->validation->setRules([
@@ -215,8 +215,8 @@ class Album extends BaseController
             if (!empty($_FILES['thumb']['name'])) {
                 $target_dir = FCPATH . '/uploads/album/' . $album_id . '/';
                 //unlink
-                $oldImg = get_data_by_id('thumb', 'cc_album', 'album_id', $album_id);
-                $pic = $this->request->getFile('thumb');
+                $oldImg   = get_data_by_id('thumb', 'cc_album', 'album_id', $album_id);
+                $pic      = $this->request->getFile('thumb');
                 $news_img = $this->imageProcessing->single_product_image_unlink($target_dir, $oldImg)->directory_create($target_dir)->product_image_upload_and_crop_all_size($pic, $target_dir);
 
                 $dataImg['thumb'] = $news_img;
@@ -235,12 +235,12 @@ class Album extends BaseController
                 foreach ($files as $file) {
                     if ($file->isValid() && ! $file->hasMoved()) {
                         $dataMultiImg['album_id'] = $album_id;
-                        $proImgTable = DB()->table('cc_album_details');
+                        $proImgTable              = DB()->table('cc_album_details');
                         $proImgTable->insert($dataMultiImg);
                         $albumImgId = DB()->insertID();
 
                         $target_dir2 = FCPATH . '/uploads/album/' . $album_id . '/' . $albumImgId . '/';
-                        $news_img2 = $this->imageProcessing->directory_create($target_dir2)->product_image_upload_and_crop_all_size($file, $target_dir2);
+                        $news_img2   = $this->imageProcessing->directory_create($target_dir2)->product_image_upload_and_crop_all_size($file, $target_dir2);
 
                         $dataMultiImg2['image'] = $news_img2;
 
@@ -295,7 +295,7 @@ class Album extends BaseController
         $album_details_id =  $this->request->getPost('album_details_id');
 
         $data['sort_order'] = $this->request->getPost('value');
-        $table = DB()->table('cc_album_details');
+        $table              = DB()->table('cc_album_details');
         $table->where('album_details_id', $album_details_id)->update($data);
     }
 
@@ -308,8 +308,8 @@ class Album extends BaseController
         helper('filesystem');
 
         $album_details_id = $this->request->getPost('album_details_id');
-        $table = DB()->table('cc_album_details');
-        $data = $table->where('album_details_id', $album_details_id)->get()->getRow();
+        $table            = DB()->table('cc_album_details');
+        $data             = $table->where('album_details_id', $album_details_id)->get()->getRow();
 
         $target_dir = FCPATH . '/uploads/album/' . $data->album_id . '/' . $album_details_id;
         if (file_exists($target_dir)) {

@@ -17,8 +17,8 @@ class Coupon extends BaseController
     public function __construct()
     {
         $this->validation = \Config\Services::validation();
-        $this->session = \Config\Services::session();
-        $this->crop = \Config\Services::image();
+        $this->session    = \Config\Services::session();
+        $this->crop       = \Config\Services::image();
         $this->permission = new Permission();
     }
 
@@ -29,11 +29,11 @@ class Coupon extends BaseController
     public function index()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
-        $adRoleId = $this->session->adRoleId;
+        $adRoleId          = $this->session->adRoleId;
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-            $table = DB()->table('cc_coupon');
+            $table          = DB()->table('cc_coupon');
             $data['coupon'] = $table->get()->getResult();
 
 
@@ -57,11 +57,11 @@ class Coupon extends BaseController
     public function create()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
-        $adRoleId = $this->session->adRoleId;
+        $adRoleId          = $this->session->adRoleId;
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-            $table = DB()->table('cc_shipping_method');
+            $table                   = DB()->table('cc_shipping_method');
             $data['shipping_method'] = $table->where('status', 1)->get()->getResult();
 
             //$perm = array('create','read','update','delete','mod_access');
@@ -83,26 +83,26 @@ class Coupon extends BaseController
      */
     public function create_action()
     {
-        $data['name'] = $this->request->getPost('name');
-        $data['code'] = $this->request->getPost('code');
-        $data['discount'] = $this->request->getPost('discount');
+        $data['name']          = $this->request->getPost('name');
+        $data['code']          = $this->request->getPost('code');
+        $data['discount']      = $this->request->getPost('discount');
         $data['total_useable'] = $this->request->getPost('total_useable');
-        $data['date_start'] = $this->request->getPost('date_start');
-        $data['date_end'] = $this->request->getPost('date_end');
+        $data['date_start']    = $this->request->getPost('date_start');
+        $data['date_end']      = $this->request->getPost('date_end');
 
-        $data['discount_on'] = $this->request->getPost('discount_on');
+        $data['discount_on']         = $this->request->getPost('discount_on');
         $data['for_subscribed_user'] = $this->request->getPost('for_subscribed_user');
         $data['for_registered_user'] = $this->request->getPost('for_registered_user');
 
         $shipping_method = $this->request->getPost('shipping_method[]');
 
         $this->validation->setRules([
-            'name' => ['label' => 'Name', 'rules' => 'required'],
-            'code' => ['label' => 'Code', 'rules' => 'required'],
-            'discount' => ['label' => 'Discount', 'rules' => 'required'],
+            'name'          => ['label' => 'Name', 'rules' => 'required'],
+            'code'          => ['label' => 'Code', 'rules' => 'required'],
+            'discount'      => ['label' => 'Discount', 'rules' => 'required'],
             'total_useable' => ['label' => 'Total Useable', 'rules' => 'required'],
-            'date_start' => ['label' => 'Start Date', 'rules' => 'required'],
-            'date_end' => ['label' => 'End Date', 'rules' => 'required'],
+            'date_start'    => ['label' => 'Start Date', 'rules' => 'required'],
+            'date_end'      => ['label' => 'End Date', 'rules' => 'required'],
         ]);
 
         if ($this->validation->run($data) == false) {
@@ -120,7 +120,7 @@ class Coupon extends BaseController
                 $shipData = [];
                 foreach ($shipping_method as $v) {
                     $shData['shipping_method_id'] = $v;
-                    $shData['coupon_id'] = $coupon_id;
+                    $shData['coupon_id']          = $coupon_id;
                     array_push($shipData, $shData);
                 }
                 $tableShip = DB()->table('cc_coupon_shipping');
@@ -141,17 +141,17 @@ class Coupon extends BaseController
     public function update($coupon_id)
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
-        $adRoleId = $this->session->adRoleId;
+        $adRoleId          = $this->session->adRoleId;
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-            $table = DB()->table('cc_coupon');
+            $table          = DB()->table('cc_coupon');
             $data['coupon'] = $table->where('coupon_id', $coupon_id)->get()->getRow();
 
-            $table = DB()->table('cc_shipping_method');
+            $table                   = DB()->table('cc_shipping_method');
             $data['shipping_method'] = $table->where('status', 1)->get()->getResult();
 
-            $tableCoup = DB()->table('cc_coupon_shipping');
+            $tableCoup           = DB()->table('cc_coupon_shipping');
             $data['coupon_ship'] = $tableCoup->where('coupon_id', $coupon_id)->get()->getResult();
 
             //$perm = array('create','read','update','delete','mod_access');
@@ -173,27 +173,27 @@ class Coupon extends BaseController
      */
     public function update_action()
     {
-        $coupon_id = $this->request->getPost('coupon_id');
-        $data['name'] = $this->request->getPost('name');
-        $data['code'] = $this->request->getPost('code');
-        $data['discount'] = $this->request->getPost('discount');
+        $coupon_id             = $this->request->getPost('coupon_id');
+        $data['name']          = $this->request->getPost('name');
+        $data['code']          = $this->request->getPost('code');
+        $data['discount']      = $this->request->getPost('discount');
         $data['total_useable'] = $this->request->getPost('total_useable');
-        $data['date_start'] = $this->request->getPost('date_start');
-        $data['date_end'] = $this->request->getPost('date_end');
+        $data['date_start']    = $this->request->getPost('date_start');
+        $data['date_end']      = $this->request->getPost('date_end');
 
-        $data['discount_on'] = $this->request->getPost('discount_on');
+        $data['discount_on']         = $this->request->getPost('discount_on');
         $data['for_subscribed_user'] = $this->request->getPost('for_subscribed_user');
         $data['for_registered_user'] = $this->request->getPost('for_registered_user');
 
         $shipping_method = $this->request->getPost('shipping_method[]');
 
         $this->validation->setRules([
-            'name' => ['label' => 'Name', 'rules' => 'required'],
-            'code' => ['label' => 'Code', 'rules' => 'required'],
-            'discount' => ['label' => 'Discount', 'rules' => 'required'],
+            'name'          => ['label' => 'Name', 'rules' => 'required'],
+            'code'          => ['label' => 'Code', 'rules' => 'required'],
+            'discount'      => ['label' => 'Discount', 'rules' => 'required'],
             'total_useable' => ['label' => 'Total Useable', 'rules' => 'required'],
-            'date_start' => ['label' => 'Start Date', 'rules' => 'required'],
-            'date_end' => ['label' => 'End Date', 'rules' => 'required'],
+            'date_start'    => ['label' => 'Start Date', 'rules' => 'required'],
+            'date_end'      => ['label' => 'End Date', 'rules' => 'required'],
         ]);
 
         if ($this->validation->run($data) == false) {
@@ -213,7 +213,7 @@ class Coupon extends BaseController
                 $shipData = [];
                 foreach ($shipping_method as $v) {
                     $shData['shipping_method_id'] = $v;
-                    $shData['coupon_id'] = $coupon_id;
+                    $shData['coupon_id']          = $coupon_id;
                     array_push($shipData, $shData);
                 }
                 $tableShip = DB()->table('cc_coupon_shipping');

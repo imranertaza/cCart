@@ -10,7 +10,7 @@
                     <div class="products h-100">
                         <div class="row gx-0 row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-5 h-100">
                             <?php
-                            $modules = modules_access();
+                            $modules      = modules_access();
                             $img_size_191 = ($modules['watermark'] == '1') ? '191_wm_' : '191_';
                             ?>
                             <?php foreach ($products as $pro) { ?>

@@ -47,9 +47,9 @@
                         <div class="row gx-0 row-cols-1 row-cols-sm-2 row-cols-md-3 h-100 " id="grid-view" >
                             <?php
                                 $modules = modules_access();
-            $symbol = get_lebel_by_value_in_settings('currency_symbol');
-            $img_size = ($modules['watermark'] == '1') ? '191_wm_' : '191_';
-            $img_size2 = ($modules['watermark'] == '1') ? '198_wm_' : '198_';
+            $symbol                      = get_lebel_by_value_in_settings('currency_symbol');
+            $img_size                    = ($modules['watermark'] == '1') ? '191_wm_' : '191_';
+            $img_size2                   = ($modules['watermark'] == '1') ? '198_wm_' : '198_';
             if (!empty($products)) {
                 foreach ($products as $pro) {
                     ?>
@@ -197,7 +197,7 @@ $sSel = !empty($searchPrice) ? 'form="searchForm"' : '';
 
                                                     <ul class="list-unstyled lh-lg">
                                                         <?php $i = 1;
-                                                $j = 1;
+                                                $j               = 1;
                                                 foreach ($parent_Cat as $cat) { ?>
                                                         <li>
                                                             <div class="form-check d-flex flex-row align-items-center gap-1">
@@ -281,7 +281,7 @@ $sSel = !empty($searchPrice) ? 'form="searchForm"' : '';
 
                                                 <ul class="list-unstyled lh-lg">
                                                     <?php $i = 1;
-                                                    $j = 1;
+                                                    $j       = 1;
                                                     foreach ($parent_Cat as $cat) { ?>
                                                     <li>
                                                         <div class="form-check d-flex flex-row align-items-center gap-1">

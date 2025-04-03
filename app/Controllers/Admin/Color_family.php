@@ -17,8 +17,8 @@ class Color_family extends BaseController
     public function __construct()
     {
         $this->validation = \Config\Services::validation();
-        $this->session = \Config\Services::session();
-        $this->crop = \Config\Services::image();
+        $this->session    = \Config\Services::session();
+        $this->crop       = \Config\Services::image();
         $this->permission = new Permission();
     }
 
@@ -29,11 +29,11 @@ class Color_family extends BaseController
     public function index()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
-        $adRoleId = $this->session->adRoleId;
+        $adRoleId          = $this->session->adRoleId;
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-            $table = DB()->table('cc_color_family');
+            $table         = DB()->table('cc_color_family');
             $data['color'] = $table->get()->getResult();
 
 
@@ -57,7 +57,7 @@ class Color_family extends BaseController
     public function create()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
-        $adRoleId = $this->session->adRoleId;
+        $adRoleId          = $this->session->adRoleId;
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
@@ -81,12 +81,12 @@ class Color_family extends BaseController
     public function create_action()
     {
         $data['color_name'] = $this->request->getPost('color_name');
-        $data['code'] = $this->request->getPost('code');
-        $data['createdBy'] = $this->session->adUserId;
+        $data['code']       = $this->request->getPost('code');
+        $data['createdBy']  = $this->session->adUserId;
 
         $this->validation->setRules([
             'color_name' => ['label' => 'Color Name', 'rules' => 'required'],
-            'code' => ['label' => 'Code', 'rules' => 'required'],
+            'code'       => ['label' => 'Code', 'rules' => 'required'],
         ]);
 
         if ($this->validation->run($data) == false) {
@@ -109,11 +109,11 @@ class Color_family extends BaseController
     public function update($color_family_id)
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
-        $adRoleId = $this->session->adRoleId;
+        $adRoleId          = $this->session->adRoleId;
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-            $table = DB()->table('cc_color_family');
+            $table         = DB()->table('cc_color_family');
             $data['color'] = $table->where('color_family_id', $color_family_id)->get()->getRow();
 
 
@@ -136,14 +136,14 @@ class Color_family extends BaseController
      */
     public function update_action()
     {
-        $color_family_id = $this->request->getPost('color_family_id');
+        $color_family_id    = $this->request->getPost('color_family_id');
         $data['color_name'] = $this->request->getPost('color_name');
-        $data['code'] = $this->request->getPost('code');
-        $data['updatedBy'] = $this->session->adUserId;
+        $data['code']       = $this->request->getPost('code');
+        $data['updatedBy']  = $this->session->adUserId;
 
         $this->validation->setRules([
             'color_name' => ['label' => 'Color Name', 'rules' => 'required'],
-            'code' => ['label' => 'Code', 'rules' => 'required'],
+            'code'       => ['label' => 'Code', 'rules' => 'required'],
         ]);
 
         if ($this->validation->run($data) == false) {

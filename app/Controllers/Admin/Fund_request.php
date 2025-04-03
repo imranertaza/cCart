@@ -17,8 +17,8 @@ class Fund_request extends BaseController
     public function __construct()
     {
         $this->validation = \Config\Services::validation();
-        $this->session = \Config\Services::session();
-        $this->crop = \Config\Services::image();
+        $this->session    = \Config\Services::session();
+        $this->crop       = \Config\Services::image();
         $this->permission = new Permission();
     }
 
@@ -29,11 +29,11 @@ class Fund_request extends BaseController
     public function index()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
-        $adRoleId = $this->session->adRoleId;
+        $adRoleId          = $this->session->adRoleId;
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-            $table = DB()->table('cc_fund_request');
+            $table                = DB()->table('cc_fund_request');
             $data['fund_request'] = $table->get()->getResult();
 
             //$perm = array('create','read','update','delete','mod_access');
@@ -56,29 +56,29 @@ class Fund_request extends BaseController
     public function fund_action()
     {
         $fund_request_id = $this->request->getPost('fund_request_id');
-        $data['status'] = $this->request->getPost('status');
+        $data['status']  = $this->request->getPost('status');
 
         $table = DB()->table('cc_fund_request');
         $table->where('fund_request_id', $fund_request_id)->update($data);
 
         if ($data['status'] == 'Complete') {
             $tabledata = DB()->table('cc_fund_request');
-            $row = $tabledata->where('fund_request_id', $fund_request_id)->get()->getRow();
+            $row       = $tabledata->where('fund_request_id', $fund_request_id)->get()->getRow();
 
             $oldBalance = get_data_by_id('balance', 'cc_customer', 'customer_id', $row->customer_id);
             $newBalance = $oldBalance + $row->amount;
 
             $cusData['balance'] = $newBalance;
-            $tableCus = DB()->table('cc_customer');
+            $tableCus           = DB()->table('cc_customer');
             $tableCus->where('customer_id', $row->customer_id)->update($cusData);
 
-            $cusLedg['customer_id'] = $row->customer_id;
-            $cusLedg['fund_request_id'] = $fund_request_id;
+            $cusLedg['customer_id']       = $row->customer_id;
+            $cusLedg['fund_request_id']   = $fund_request_id;
             $cusLedg['payment_method_id'] = $row->payment_method_id;
-            $cusLedg['particulars'] = 'Deposit balance';
-            $cusLedg['trangaction_type'] = 'Cr.';
-            $cusLedg['amount'] = $row->amount;
-            $cusLedg['rest_balance'] = $newBalance;
+            $cusLedg['particulars']       = 'Deposit balance';
+            $cusLedg['trangaction_type']  = 'Cr.';
+            $cusLedg['amount']            = $row->amount;
+            $cusLedg['rest_balance']      = $newBalance;
 
             $tableCusLedg = DB()->table('cc_customer_ledger');
             $tableCusLedg->insert($cusLedg);
