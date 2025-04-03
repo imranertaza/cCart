@@ -80,7 +80,7 @@ function get_data_by_id($needCol, $table, $whereCol, $whereInfo)
     $query = $table->where($whereCol, $whereInfo)->get();
     $findResult = $query->getRow();
     if (!empty($findResult)) {
-        $col = ($findResult->$needCol == NULL) ? NULL : $findResult->$needCol;
+        $col = ($findResult->$needCol == null) ? null : $findResult->$needCol;
     } else {
         $col = false;
     }
@@ -181,7 +181,7 @@ function getIdByListInOption($selected, $tblId, $needCol, $table, $where, $needw
  * @param int $id
  * @return string
  */
-function image_view($url, $slug, $image, $no_image, $class = '', $id = '', $attr = '' )
+function image_view($url, $slug, $image, $no_image, $class = '', $id = '', $attr = '')
 {
     $bas_url = base_url();
 
@@ -273,7 +273,7 @@ function is_exists_double_condition($table, $whereCol, $whereInfo, $orWhereCol, 
 {
     $table = DB()->table($table);
     $query = $table->where($whereCol, $whereInfo)->where($orWhereCol, $orWhereInfo)->countAllResults();
-    return !empty($query)?false:true;
+    return !empty($query) ? false : true;
 }
 
 /**
@@ -289,7 +289,7 @@ function is_exists_update($table, $whereCol, $whereInfo, $whereId, $id)
 {
     $table = DB()->table($table);
     $query = $table->where($whereCol, $whereInfo)->where($whereId . ' !=', $id)->countAllResults();
-    return !empty($query)?false:true;
+    return !empty($query) ? false : true;
 }
 
 /**
@@ -301,7 +301,8 @@ function is_exists_update($table, $whereCol, $whereInfo, $whereId, $id)
  * @param string $module_name
  * @return string|void
  */
-function add_main_based_menu_with_permission($title, $url, $roleId, $icon, $module_name){
+function add_main_based_menu_with_permission($title, $url, $roleId, $icon, $module_name)
+{
     $active_url = current_url(true);
     $permission = new Permission();
 
@@ -348,14 +349,15 @@ function admin_user_name()
  * @description This function provides settings value data.
  * @return array
  */
-function get_settings(){
+function get_settings()
+{
     $table = DB()->table('cc_settings');
     $data = $table->get()->getResult();
 
     $settings = array();
-    foreach ($data as $key=>$val){
-        foreach($val as $k=>$v) {
-            if ($k == 'label'){
+    foreach ($data as $key => $val) {
+        foreach ($val as $k => $v) {
+            if ($k == 'label') {
                 $settings[$v] = $data[$key]->value;
             }
         }
@@ -367,14 +369,15 @@ function get_settings(){
  * @description This function provides settings title data.
  * @return array
  */
-function get_settings_title(){
+function get_settings_title()
+{
     $table = DB()->table('cc_settings');
     $data = $table->get()->getResult();
 
     $settings = array();
-    foreach ($data as $key=>$val){
-        foreach($val as $k=>$v) {
-            if ($k == 'label'){
+    foreach ($data as $key => $val) {
+        foreach ($val as $k => $v) {
+            if ($k == 'label') {
                 $settings[$v] = $data[$key]->title;
             }
         }
@@ -386,15 +389,16 @@ function get_settings_title(){
  * @description This function provides theme settings value data.
  * @return array
  */
-function get_theme_settings(){
+function get_theme_settings()
+{
 
     $settings = get_settings();
     $theme = $settings['Theme'];
     $table = DB()->table('cc_theme_settings');
     $data = $table->where('theme', $theme)->get()->getResult();
     $settings = array();
-    foreach ($data as $key => $val){
-        foreach($val as $k=>$v) {
+    foreach ($data as $key => $val) {
+        foreach ($val as $k => $v) {
             if ($k == 'label') {
                 $settings[$v] = $data[$key]->value;
             }
@@ -407,15 +411,16 @@ function get_theme_settings(){
  * @description This function provides theme settings title data.
  * @return array
  */
-function get_theme_title_settings(){
+function get_theme_title_settings()
+{
 
     $settings = get_settings();
     $theme = $settings['Theme'];
     $table = DB()->table('cc_theme_settings');
     $data = $table->where('theme', $theme)->get()->getResult();
     $settings = array();
-    foreach ($data as $key => $val){
-        foreach($val as $k=>$v) {
+    foreach ($data as $key => $val) {
+        foreach ($val as $k => $v) {
             if ($k == 'label') {
                 $settings[$v] = $data[$key]->title;
             }
@@ -433,8 +438,8 @@ function modules_access()
     $table = DB()->table('cc_modules');
     $data = $table->get()->getResult();
     $settings = array();
-    foreach ($data as $key => $val){
-        foreach($val as $k=>$v) {
+    foreach ($data as $key => $val) {
+        foreach ($val as $k => $v) {
             if ($k == 'module_key') {
                 $settings[$v] = $data[$key]->status;
             }
@@ -452,7 +457,7 @@ function get_lebel_by_value_in_settings($lable)
 {
     $table = DB()->table('cc_settings');
     $data = $table->where('label', $lable)->get()->getRow();
-    return !empty($data)?$data->value:'';
+    return !empty($data) ? $data->value : '';
 }
 
 /**
@@ -464,7 +469,7 @@ function get_lebel_by_title_in_settings($lable)
 {
     $table = DB()->table('cc_settings');
     $data = $table->where('label', $lable)->get()->getRow();
-    return !empty($data)?$data->title:'';
+    return !empty($data) ? $data->title : '';
 }
 
 /**
@@ -515,7 +520,7 @@ function check_is_parent_category($product_category_id)
 {
     $table = DB()->table('cc_product_category');
     $cat = $table->where('prod_cat_id', $product_category_id)->get()->getRow();
-    return !empty($cat->parent_id)?$cat->parent_id:$cat->prod_cat_id;
+    return !empty($cat->parent_id) ? $cat->parent_id : $cat->prod_cat_id;
 }
 
 /**
@@ -527,7 +532,7 @@ function check_is_sub_category($product_category_id)
 {
     $table = DB()->table('cc_product_category');
     $cat = $table->where('prod_cat_id', $product_category_id)->get()->getRow();
-    return !empty($cat->parent_id)? false : true;
+    return !empty($cat->parent_id) ? false : true;
 }
 
 /**
@@ -630,7 +635,7 @@ function get_array_data_by_id($table, $whereInfo, $whereId)
 function category_id_by_product_count($category_id)
 {
     $table = DB()->table('cc_product_to_category');
-    $count = $table->join('cc_products', 'cc_products.product_id = cc_product_to_category.product_id')->where('cc_product_to_category.category_id', $category_id)->where('cc_products.status','Active')->countAllResults();
+    $count = $table->join('cc_products', 'cc_products.product_id = cc_product_to_category.product_id')->where('cc_product_to_category.category_id', $category_id)->where('cc_products.status', 'Active')->countAllResults();
     return $count;
 }
 
@@ -752,7 +757,7 @@ function modules_key_by_access($key)
 {
     $table = DB()->table('cc_modules');
     $data = $table->where('module_key', $key)->get()->getRow();
-    return !empty($data)?$data->status:'';
+    return !empty($data) ? $data->status : '';
 }
 
 /**
@@ -764,7 +769,7 @@ function get_lebel_by_value_in_theme_settings($lable)
 {
     $table = DB()->table('cc_theme_settings');
     $data = $table->where('label', $lable)->get()->getRow();
-    return !empty($data)?$data->value:'';
+    return !empty($data) ? $data->value : '';
 }
 
 /**
@@ -776,7 +781,7 @@ function get_lebel_by_title_in_theme_settings($lable)
 {
     $table = DB()->table('cc_theme_settings');
     $data = $table->where('label', $lable)->get()->getRow();
-    return !empty($data)?$data->title:'';
+    return !empty($data) ? $data->title : '';
 }
 
 /**
@@ -789,7 +794,7 @@ function get_lebel_by_title_in_theme_settings_with_theme($lable, $theme)
 {
     $table = DB()->table('cc_theme_settings');
     $data = $table->where('label', $lable)->where('theme', $theme)->get()->getRow();
-    return !empty($data)?$data->title:'';
+    return !empty($data) ? $data->title : '';
 }
 
 /**
@@ -802,7 +807,7 @@ function get_lebel_by_value_in_theme_settings_with_theme($lable, $theme)
 {
     $table = DB()->table('cc_theme_settings');
     $data = $table->where('label', $lable)->where('theme', $theme)->get()->getRow();
-    return !empty($data)? $data->value :'';
+    return !empty($data) ? $data->value : '';
 }
 
 /**
@@ -813,7 +818,7 @@ function get_lebel_by_value_in_theme_settings_with_theme($lable, $theme)
  * @param string $replyTo
  * @return void
  */
-function email_send($to, $subject, $message,$replyTo='')
+function email_send($to, $subject, $message, $replyTo = '')
 {
 
     $email = \Config\Services::email();
@@ -873,8 +878,9 @@ function currency_symbol($amount) // Deprecated
  * @param string $symbol
  * @return string
  */
-function currency_symbol_with_symbol($amount,$symbol) {
-    $cur = !empty($amount) ? number_format($amount,2) : 0;
+function currency_symbol_with_symbol($amount, $symbol)
+{
+    $cur = !empty($amount) ? number_format($amount, 2) : 0;
     $split = explode('.', $cur);
     $flot = empty($split[1]) ? '00' : $split[1];
     $result = $symbol . '' . $split[0] . '<sup>' . $flot . '</sup>';
@@ -899,7 +905,7 @@ function order_email_template($orderId)
 
     $titleStore = get_lebel_by_value_in_settings('store_name');
 
-    $paymentMet = get_data_by_id('name','cc_payment_method','payment_method_id',$val->payment_method);
+    $paymentMet = get_data_by_id('name', 'cc_payment_method', 'payment_method_id', $val->payment_method);
 
     $view = '';
     $view .= "<div style='width:680px'><style> .logo-css{ margin-bottom:20px;border:none; } </style>
@@ -1127,7 +1133,7 @@ function order_id_by_status($order_id)
 function getSideMenuArray()
 {
     $table = DB()->table('cc_product_category');
-    $table->join('cc_icons','cc_icons.icon_id = cc_product_category.icon_id');
+    $table->join('cc_icons', 'cc_icons.icon_id = cc_product_category.icon_id');
     return $table->where('cc_product_category.side_menu', 1)->orderBy('cc_product_category.sort_order', 'ASC')->get()->getResult();
 
 }
@@ -1227,7 +1233,7 @@ function get_model_settings_value_by_modelId_or_label($modelId, $label)
 {
     $table = DB()->table('cc_module_settings');
     $row = $table->where('module_id', $modelId)->where('label', $label)->get()->getRow();
-    return !empty($row)?$row->value:0;
+    return !empty($row) ? $row->value : 0;
 }
 
 /**
@@ -1266,14 +1272,16 @@ function get_category_id_by_product_show_home_slide($category_id)
 {
     $table = DB()->table('cc_products');
     $table->join('cc_product_to_category', 'cc_product_to_category.product_id = cc_products.product_id')->where('cc_products.status', 'Active');
-    $result = $table->where('cc_product_to_category.category_id', $category_id)->orderBy('cc_products.product_id','DESC')->limit(20)->get()->getResult();
+    $result = $table->where('cc_product_to_category.category_id', $category_id)->orderBy('cc_products.product_id', 'DESC')->limit(20)->get()->getResult();
     $modules = modules_access();
     $symbol = get_lebel_by_value_in_settings('currency_symbol');
-    $img_size = ($modules['watermark'] == '1')?'191_wm_':'191_';
+    $img_size = ($modules['watermark'] == '1') ? '191_wm_' : '191_';
     $view = '';
     $count = 0;
     foreach ($result as $pro) {
-        if ($count % 2 == 0) $view .= '<div class="swiper-slide">' . "\n";
+        if ($count % 2 == 0) {
+            $view .= '<div class="swiper-slide">' . "\n";
+        }
         $view .= '<div class="border p-3 product-grid h-100 d-flex align-items-stretch flex-column position-relative">
             <div class="product-grid position-relative">';
         if ($modules['wishlist'] == 1) {
@@ -1302,14 +1310,16 @@ function get_category_id_by_product_show_home_slide($category_id)
                     <div class="product-title product_title_area mb-2">
                         <a href="' . base_url('detail/' . $pro->product_id) . '">' . substr($pro->name, 0, 40) . '</a>
                     </div>
-                    <div class="price mb-2">' . currency_symbol_with_symbol($pro->price,$symbol) . '</div>';
+                    <div class="price mb-2">' . currency_symbol_with_symbol($pro->price, $symbol) . '</div>';
 
         $view .= addToCartBtn($pro->product_id);
         $view .= '</div>                                            
             </div>  ';
         $view .= '</div>' . "\n";
 
-        if ($count % 2 != 0) $view .= '</div>';
+        if ($count % 2 != 0) {
+            $view .= '</div>';
+        }
 
         $count++;
     }
@@ -1328,7 +1338,8 @@ function get_category_id_by_product_show_home_slide($category_id)
  * @param int $cate_id
  * @return mixed
  */
-function get_category_name_by_id($cate_id){
+function get_category_name_by_id($cate_id)
+{
     $table = DB()->table('cc_product_category');
     $cat = $table->where('prod_cat_id', $cate_id)->get()->getRow();
     return $cat->category_name;
@@ -1339,7 +1350,8 @@ function get_category_name_by_id($cate_id){
  * @param int $cate_id
  * @return int|void|null
  */
-function category_parent_count($cate_id){
+function category_parent_count($cate_id)
+{
     $table = DB()->table('cc_product_category');
     $cat = $table->where('prod_cat_id', $cate_id)->get()->getRow();
     if ($cat->parent_id) {
@@ -1357,7 +1369,7 @@ function display_category_with_parent($cate_id)
     $catName = array();
     if (!empty($cate_id)) {
         $totalParent = category_parent_count($cate_id);
-        for ($i=0; $i<=$totalParent; $i++) {
+        for ($i = 0; $i <= $totalParent; $i++) {
             $catName[] = get_category_name_by_id($cate_id);
             $table = DB()->table('cc_product_category');
             $cat = $table->where('prod_cat_id', $cate_id)->get()->getRow();
@@ -1367,10 +1379,10 @@ function display_category_with_parent($cate_id)
 
     krsort($catName);
 
-    foreach ($catName as $key => $val){
+    foreach ($catName as $key => $val) {
         if ($key == 0) {
             print $val;
-        }else {
+        } else {
             print $val." > ";
         }
     }
@@ -1382,7 +1394,8 @@ function display_category_with_parent($cate_id)
  * @description This function provides rate type zone base.
  * @return string[]
  */
-function zone_rate_type(){
+function zone_rate_type()
+{
     $status = [
         '1' => 'Weight',
         '2' => 'Item',
@@ -1396,9 +1409,10 @@ function zone_rate_type(){
  * @param int $cat_id
  * @return array
  */
-function category_id_by_get_category_all_data($cat_id){
+function category_id_by_get_category_all_data($cat_id)
+{
     $table = DB()->table('cc_product_category');
-    return $table->join('cc_icons','cc_icons.icon_id = cc_product_category.icon_id')->where('cc_product_category.prod_cat_id',$cat_id)->get()->getRow();
+    return $table->join('cc_icons', 'cc_icons.icon_id = cc_product_category.icon_id')->where('cc_product_category.prod_cat_id', $cat_id)->get()->getRow();
 }
 
 /**
@@ -1407,10 +1421,11 @@ function category_id_by_get_category_all_data($cat_id){
  * @param array $products
  * @return int
  */
-function product_count_by_brand_id($brand_id,$products){
+function product_count_by_brand_id($brand_id, $products)
+{
     $count = 0;
-    foreach ($products as $v){
-        if($v->brand_id == $brand_id){
+    foreach ($products as $v) {
+        if ($v->brand_id == $brand_id) {
             $count++;
         }
     }
@@ -1427,7 +1442,7 @@ function display_blog_category_with_parent($cate_id)
     $catName = array();
     if (!empty($cate_id)) {
         $totalParent = blog_category_parent_count($cate_id);
-        for ($i=0; $i<=$totalParent; $i++) {
+        for ($i = 0; $i <= $totalParent; $i++) {
             $catName[] = get_blog_category_name_by_id($cate_id);
             $table = DB()->table('cc_category');
             $cat = $table->where('cat_id', $cate_id)->get()->getRow();
@@ -1437,10 +1452,10 @@ function display_blog_category_with_parent($cate_id)
 
     krsort($catName);
 
-    foreach ($catName as $key => $val){
+    foreach ($catName as $key => $val) {
         if ($key == 0) {
             print $val;
-        }else {
+        } else {
             print $val." > ";
         }
     }
@@ -1452,7 +1467,8 @@ function display_blog_category_with_parent($cate_id)
  * @param $cate_id
  * @return int|void|null
  */
-function blog_category_parent_count($cate_id){
+function blog_category_parent_count($cate_id)
+{
     $table = DB()->table('cc_category');
     $cat = $table->where('cat_id', $cate_id)->get()->getRow();
     if ($cat->parent_id) {
@@ -1465,7 +1481,8 @@ function blog_category_parent_count($cate_id){
  * @param $cate_id
  * @return mixed
  */
-function get_blog_category_name_by_id($cate_id){
+function get_blog_category_name_by_id($cate_id)
+{
     $table = DB()->table('cc_category');
     $cat = $table->where('cat_id', $cate_id)->get()->getRow();
     return $cat->category_name;

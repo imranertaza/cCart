@@ -31,7 +31,7 @@
                     </div>
                     <div class="col-md-4"></div>
                     <div class="col-md-12" style="margin-top: 10px" id="message">
-                        <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message'); endif; ?>
+                        <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
                     </div>
                 </div>
             </div>
@@ -49,17 +49,18 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <?php $i=1; foreach ($reviews as $val){ ?>
+                    <?php $i = 1;
+foreach ($reviews as $val) { ?>
                         <tr>
                             <td width="40"><?php echo $i++;?></td>
-                            <td><?php echo get_data_by_id('name','cc_products','product_id',$val->product_id);?></td>
-                            <td><?php echo get_data_by_id('firstname','cc_customer','customer_id',$val->customer_id).' '.get_data_by_id('lastname','cc_customer','customer_id',$val->customer_id);?></td>
+                            <td><?php echo get_data_by_id('name', 'cc_products', 'product_id', $val->product_id);?></td>
+                            <td><?php echo get_data_by_id('firstname', 'cc_customer', 'customer_id', $val->customer_id).' '.get_data_by_id('lastname', 'cc_customer', 'customer_id', $val->customer_id);?></td>
                             <td><?php echo $val->feedback_star;?></td>
                             <td><?php echo $val->feedback_text;?></td>
                             <td>
                                 <select name="status" onchange="reviewStatusUpdate(this.value,<?php echo $val->product_feedback_id;?>)" >
-                                    <option value="Pending" <?php echo ($val->status == 'Pending')?'selected':'';?> >Pending</option>
-                                    <option value="Active" <?php echo ($val->status == 'Active')?'selected':'';?> >Active</option>
+                                    <option value="Pending" <?php echo ($val->status == 'Pending') ? 'selected' : '';?> >Pending</option>
+                                    <option value="Active" <?php echo ($val->status == 'Active') ? 'selected' : '';?> >Active</option>
                                 </select>
                             </td>
                             <td>

@@ -55,7 +55,7 @@
                                 <div class="product-filter">
                                     <p>Category</p>
                                     <ul class="list-unstyled lh-lg">
-                                        <?php foreach (getParentCategoryArray() as $cat){ ?>
+                                        <?php foreach (getParentCategoryArray() as $cat) { ?>
                                             <li><a href="<?php echo base_url('category/'.$cat->prod_cat_id);?>"><i class="fa-solid fa-angle-right"></i> <?php echo $cat->category_name?> <span class="count"><?php echo category_id_by_product_count($cat->prod_cat_id)?></span></a></li>
                                         <?php } ?>
                                     </ul>
@@ -140,19 +140,19 @@
                         <div class="col-lg-8">
                             <div class="products">
                                 <div class="row gx-0 row-cols-1 row-cols-sm-2 row-cols-md-3 h-100">
-                                    <?php foreach ($products as $pro){ ?>
+                                    <?php foreach ($products as $pro) { ?>
                                         <div class="col border p-2">
                                             <div class="product-grid h-100 d-flex align-items-stretch flex-column position-relative">
 
-                                                <?php if (!isset(newSession()->isLoggedInCustomer)){ ?>
+                                                <?php if (!isset(newSession()->isLoggedInCustomer)) { ?>
                                                     <a href="<?php echo base_url('login');?>" class="btn-wishlist position-absolute start-0 top-0 mt-2 ms-2"><i class="fa-solid fa-heart"></i></a>
-                                                <?php }else{ ?>
+                                                <?php } else { ?>
                                                     <a href="javascript:void(0)" class="btn-wishlist position-absolute start-0 top-0 mt-2 ms-2" onclick="addToWishlist(<?php echo $pro->product_id ?>)"><i class="fa-solid fa-heart"></i></a>
                                                 <?php } ?>
                                                 <a href="javascript:void(0)" onclick="addToCompare(<?php echo $pro->product_id ?>)" class="btn-compare position-absolute start-0 top-0 mt-5 ms-2"><i class="fa-solid fa-code-compare"></i></a>
 
                                                 <div class="product-top">
-                                                    <?php echo image_view('uploads/products',$pro->product_id,'191_'.$pro->image,'noimage.png','img-fluid w-100')?>
+                                                    <?php echo image_view('uploads/products', $pro->product_id, '191_'.$pro->image, 'noimage.png', 'img-fluid w-100')?>
                                                     <div class="rating text-center my-2">
                                                         <?php echo product_id_by_rating($pro->product_id);?>
                                                     </div>
@@ -165,9 +165,10 @@
                                                         <a href="<?php echo base_url('detail/'.$pro->product_id)?>"><?php echo $pro->name;?></a>
                                                     </div>
                                                     <div class="price mb-3">
-                                                        <?php $spPric = get_data_by_id('special_price','cc_product_special','product_id',$pro->product_id);  if (empty($spPric)){ ?>
+                                                        <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id);
+                                        if (empty($spPric)) { ?>
                                                             <?php echo currency_symbol($pro->price);?>
-                                                        <?php }else{ ?>
+                                                        <?php } else { ?>
                                                             <small> <del><?php echo currency_symbol($pro->price);?></del></small>/<?php echo currency_symbol($spPric);?>
                                                         <?php } ?>
                                                     </div>

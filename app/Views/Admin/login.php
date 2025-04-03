@@ -27,13 +27,16 @@
             </div>
             <div class="card-body">
                 <p class="login-box-msg">Sign in to start your session</p>
-                <?php $message = isset($_SESSION['message']) ? $_SESSION['message'] : 0; if($message){ ?>
+                <?php $message = isset($_SESSION['message']) ? $_SESSION['message'] : 0;
+    if ($message) { ?>
                 <?php print $message; ?> <?php } ?>
 
                 <form action="<?php echo base_url()?>/admin/login_action" method="post">
                     <div class="input-group mb-3">
                         <input type="email" name="email" class="form-control" placeholder="Email"
-                            value="<?php if(isset($_COOKIE['login_email'])){ echo $_COOKIE['login_email'];} ?>"
+                            value="<?php if (isset($_COOKIE['login_email'])) {
+                                echo $_COOKIE['login_email'];
+                            } ?>"
                             required>
                         <div class="input-group-append">
                             <div class="input-group-text">
@@ -43,7 +46,9 @@
                     </div>
                     <div class="input-group mb-3">
                         <input type="password" name="password" class="form-control" placeholder="Password"
-                            value="<?php if(isset($_COOKIE['login_password'])){ echo $_COOKIE['login_password'];} ?>"
+                            value="<?php if (isset($_COOKIE['login_password'])) {
+                                echo $_COOKIE['login_password'];
+                            } ?>"
                             required>
                         <div class="input-group-append">
                             <div class="input-group-text">
@@ -55,7 +60,9 @@
                         <div class="col-8">
                             <div class="icheck-primary">
                                 <input type="checkbox" name="remember" id="remember"
-                                    <?php if(isset($_COOKIE['login_email'])){ echo 'checked';} ?>>
+                                    <?php if (isset($_COOKIE['login_email'])) {
+                                        echo 'checked';
+                                    } ?>>
                                 <label for="remember">
                                     Remember Me
                                 </label>

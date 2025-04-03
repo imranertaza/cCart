@@ -9,8 +9,8 @@ use App\Libraries\Zone_shipping;
 use App\Models\ProductsModel;
 use CodeIgniter\HTTP\RedirectResponse;
 
-class OisbizcraftController extends BaseController {
-
+class OisbizcraftController extends BaseController
+{
     protected $validation;
     protected $session;
 
@@ -35,7 +35,8 @@ class OisbizcraftController extends BaseController {
      * @description This method provides oisbizcraft page view
      * @return void
      */
-    public function payment_oisbizcraft(){
+    public function payment_oisbizcraft()
+    {
         $array = $this->session_data();
         $this->session->set($array);
 
@@ -106,13 +107,13 @@ class OisbizcraftController extends BaseController {
         // Check if the request was successful
         if ($response_data->status === 200) {
             return redirect()->to($response_data->data->url);
-        }else{
+        } else {
             $error = curl_error($ch);
             curl_close($ch);
 
             $data['payment_status'] = 'Failed';
             $table = DB()->table('cc_order');
-            $table->where('order_id',$this->session->order_id)->update($data);
+            $table->where('order_id', $this->session->order_id)->update($data);
             unset($_SESSION['order_id']);
 
             return redirect()->to('checkout_failed');
@@ -120,7 +121,8 @@ class OisbizcraftController extends BaseController {
     }
 
 
-    public function usdToSgdRates(){
+    public function usdToSgdRates()
+    {
         $exchange_rates_api = get_all_row_data_by_id('cc_payment_settings', 'label', 'exchange_rates_api');
         $apiKey = $exchange_rates_api->value;
         $url = "https://openexchangerates.org/api/latest.json?app_id=$apiKey";
@@ -130,7 +132,7 @@ class OisbizcraftController extends BaseController {
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $response = curl_exec($ch);
 
-        if(curl_errno($ch)) {
+        if (curl_errno($ch)) {
             echo 'Error:' . curl_error($ch);
         } else {
             // Decode the JSON response into a PHP array
@@ -151,35 +153,37 @@ class OisbizcraftController extends BaseController {
         return $usdToSgd;
     }
 
-    public function notification_webhook(){
+    public function notification_webhook()
+    {
 
         $api_k = get_all_row_data_by_id('cc_payment_settings', 'label', 'api_key');
         $secret_key = $api_k->value;  // Replace with your actual secret key
 
         $input = file_get_contents('php://input');
         $data = json_decode($input, true);
-//        var_dump($data);
+        //        var_dump($data);
 
-        
+
         $hash_string = $data['order_id'] . $data['status'] . $data['amount_cent'] . $data['currency'];
         $generated_hash = strtoupper(hash_hmac('SHA1', $hash_string, $secret_key));
 
         if ($generated_hash === $data['hash'] && $data['status'] == "A") {
             $dataOrder['payment_status'] = 'Paid';
             $table = DB()->table('cc_order');
-            $table->where('order_id',$data['order_id'])->update($dataOrder);
+            $table->where('order_id', $data['order_id'])->update($dataOrder);
 
             http_response_code(200);
         } else {
             $dataOrder['payment_status'] = 'Failed';
             $table = DB()->table('cc_order');
-            $table->where('order_id',$data['order_id'])->update($dataOrder);
+            $table->where('order_id', $data['order_id'])->update($dataOrder);
 
             http_response_code(400);  // Respond with 400 Bad Request
         }
     }
 
-    public function return_url() {
+    public function return_url()
+    {
         $message = $this->request->getGet('message');
         $order_id = $this->request->getGet('order_id');
         $return_code = $this->request->getGet('return_code');
@@ -189,7 +193,7 @@ class OisbizcraftController extends BaseController {
             $data['payment_status'] = 'Paid';
             $data['PM_transaction_id'] = $ref_order_id;
             $table = DB()->table('cc_order');
-            $table->where('order_id',$order_id)->update($data);
+            $table->where('order_id', $order_id)->update($data);
 
             unset($_SESSION['order_id']);
 
@@ -199,7 +203,7 @@ class OisbizcraftController extends BaseController {
             // Handle failed payment (e.g., update database, show failure message)
             $data['payment_status'] = 'Failed';
             $table = DB()->table('cc_order');
-            $table->where('order_id',$this->session->order_id)->update($data);
+            $table->where('order_id', $this->session->order_id)->update($data);
             unset($_SESSION['order_id']);
 
             return redirect()->to('checkout_failed');
@@ -211,7 +215,8 @@ class OisbizcraftController extends BaseController {
      * @description This method provides oisbizcraft checkout action execute
      * @return RedirectResponse
      */
-    public function oisbizcraft_action(){
+    public function oisbizcraft_action()
+    {
 
         $data['payment_firstname'] = $this->session->payment_firstname;
         $data['payment_lastname'] = $this->session->payment_lastname;
@@ -268,11 +273,11 @@ class OisbizcraftController extends BaseController {
             }
         }
 
-        if (!empty($disc)){
-            $oldQtyCup = get_data_by_id('total_used','cc_coupon','coupon_id',$this->session->coupon_id);
+        if (!empty($disc)) {
+            $oldQtyCup = get_data_by_id('total_used', 'cc_coupon', 'coupon_id', $this->session->coupon_id);
             $newQtyCupUsed['total_used'] = $oldQtyCup + 1;
             $table = DB()->table('cc_coupon');
-            $table->where('coupon_id',$this->session->coupon_id)->update($newQtyCupUsed);
+            $table->where('coupon_id', $this->session->coupon_id)->update($newQtyCupUsed);
         }
 
         $finalAmo = $this->cart->total() - $disc;
@@ -345,8 +350,8 @@ class OisbizcraftController extends BaseController {
 
         if (isset($this->session->cusUserId)) {
             $tableModule = DB()->table('cc_modules');
-            $query = $tableModule->join('cc_module_settings', 'cc_module_settings.module_id = cc_modules.module_id')->where('cc_modules.module_key','point')->get()->getRow();
-            if($query->status == '1') {
+            $query = $tableModule->join('cc_module_settings', 'cc_module_settings.module_id = cc_modules.module_id')->where('cc_modules.module_key', 'point')->get()->getRow();
+            if ($query->status == '1') {
                 $oldPoint = get_data_by_id('point', 'cc_customer', 'customer_id', $this->session->cusUserId);
                 $point = $this->cart->total() * $query->value;
                 $restPoint = $oldPoint + $point;
@@ -370,7 +375,7 @@ class OisbizcraftController extends BaseController {
                 //order point update
                 $orPointData['total_point'] = $point;
                 $tabOrder = DB()->table('cc_order');
-                $tabOrder->where('order_id',$order_id)->update($orPointData);
+                $tabOrder->where('order_id', $order_id)->update($orPointData);
             }
         }
 
@@ -400,8 +405,8 @@ class OisbizcraftController extends BaseController {
         $dataOrder['order_id'] = $order_id;
         $this->session->set($dataOrder);
 
-//        $this->session->setFlashdata('message', '<div class="alert-success-m alert-success alert-dismissible" role="alert">Your order has been successfully placed </div>');
-//        return redirect()->to('checkout_success');
+        //        $this->session->setFlashdata('message', '<div class="alert-success-m alert-success alert-dismissible" role="alert">Your order has been successfully placed </div>');
+        //        return redirect()->to('checkout_success');
     }
 
     /**
@@ -490,7 +495,8 @@ class OisbizcraftController extends BaseController {
         unset($_SESSION['t_amount']);
     }
 
-    public function payment_oisbizcraft_wallet(){
+    public function payment_oisbizcraft_wallet()
+    {
 
 
         $data['amount'] = $this->request->getPost('amount');
@@ -573,20 +579,21 @@ class OisbizcraftController extends BaseController {
         // Check if the request was successful
         if ($response_data->status === 200) {
             return redirect()->to($response_data->data->url);
-        }else{
+        } else {
             $error = curl_error($ch);
             curl_close($ch);
 
             $data['status'] = 'Canceled';
             $table = DB()->table('cc_fund_request');
-            $table->where('fund_request_id',$this->session->fund_request_id)->update($data);
+            $table->where('fund_request_id', $this->session->fund_request_id)->update($data);
             unset($_SESSION['fund_request_id']);
 
             return redirect()->to('my-wallet-failed');
         }
     }
 
-    public function return_url_wallet(){
+    public function return_url_wallet()
+    {
         $message = $this->request->getGet('message');
         $order_id = $this->request->getGet('order_id');
         $return_code = $this->request->getGet('return_code');
@@ -600,26 +607,27 @@ class OisbizcraftController extends BaseController {
             // Handle failed payment (e.g., update database, show failure message)
             $data['status'] = 'Canceled';
             $table = DB()->table('cc_fund_request');
-            $table->where('fund_request_id',$this->session->fund_request_id)->update($data);
+            $table->where('fund_request_id', $this->session->fund_request_id)->update($data);
             unset($_SESSION['fund_request_id']);
 
             return redirect()->to('my-wallet-failed');
         }
     }
 
-    public function wallet_action(){
+    public function wallet_action()
+    {
         DB()->transStart();
         $data['status'] = 'Complete';
         $table = DB()->table('cc_fund_request');
-        $table->where('fund_request_id',$this->session->fund_request_id)->update($data);
+        $table->where('fund_request_id', $this->session->fund_request_id)->update($data);
 
         //customer balance update
-        $oldBalance = get_data_by_id('balance','cc_customer','customer_id',$this->session->cusUserId);
+        $oldBalance = get_data_by_id('balance', 'cc_customer', 'customer_id', $this->session->cusUserId);
         $newBalance = $oldBalance + $this->session->amount;
 
         $cusData['balance'] = $newBalance;
         $tableCus = DB()->table('cc_customer');
-        $tableCus->where('customer_id',$this->session->cusUserId)->update($cusData);
+        $tableCus->where('customer_id', $this->session->cusUserId)->update($cusData);
 
 
         //customer ledger insert

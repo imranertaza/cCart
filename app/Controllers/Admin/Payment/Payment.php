@@ -8,7 +8,6 @@ use CodeIgniter\HTTP\RedirectResponse;
 
 class Payment extends BaseController
 {
-
     protected $validation;
     protected $session;
     protected $crop;
@@ -31,7 +30,7 @@ class Payment extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId = $this->session->adRoleId;
-        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != TRUE) {
+        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
 
@@ -56,12 +55,13 @@ class Payment extends BaseController
      * @description This method provides status update
      * @return void
      */
-    public function status_update(){
+    public function status_update()
+    {
         $payment_method_id = $this->request->getPost('id');
-        $oldStatus = get_data_by_id('status','cc_payment_method','payment_method_id',$payment_method_id);
-        if ($oldStatus == '1'){
+        $oldStatus = get_data_by_id('status', 'cc_payment_method', 'payment_method_id', $payment_method_id);
+        if ($oldStatus == '1') {
             $data['status'] = '0';
-        }else{
+        } else {
             $data['status'] = '1';
         }
         $table = DB()->table('cc_payment_method');

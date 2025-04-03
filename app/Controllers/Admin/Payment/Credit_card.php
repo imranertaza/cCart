@@ -8,7 +8,6 @@ use CodeIgniter\HTTP\RedirectResponse;
 
 class Credit_card extends BaseController
 {
-
     protected $validation;
     protected $session;
     protected $crop;
@@ -32,7 +31,7 @@ class Credit_card extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId = $this->session->adRoleId;
-        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != TRUE) {
+        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
 

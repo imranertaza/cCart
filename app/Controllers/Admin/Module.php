@@ -8,7 +8,6 @@ use CodeIgniter\HTTP\RedirectResponse;
 
 class Module extends BaseController
 {
-
     protected $validation;
     protected $session;
     protected $crop;
@@ -31,7 +30,7 @@ class Module extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId = $this->session->adRoleId;
-        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != TRUE) {
+        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
 
@@ -63,7 +62,7 @@ class Module extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId = $this->session->adRoleId;
-        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != TRUE) {
+        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
 

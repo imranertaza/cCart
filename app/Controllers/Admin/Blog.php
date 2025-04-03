@@ -9,7 +9,6 @@ use CodeIgniter\HTTP\RedirectResponse;
 
 class Blog extends BaseController
 {
-
     protected $validation;
     protected $session;
     protected $crop;
@@ -34,7 +33,7 @@ class Blog extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId = $this->session->adRoleId;
-        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != TRUE) {
+        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
 
@@ -59,10 +58,11 @@ class Blog extends BaseController
      * @description This method provides album create page view
      * @return RedirectResponse|void
      */
-    public function create(){
+    public function create()
+    {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId = $this->session->adRoleId;
-        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != TRUE) {
+        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
 
@@ -75,7 +75,7 @@ class Blog extends BaseController
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
             if (isset($data['create']) and $data['create'] == 1) {
-                echo view('Admin/Blog/create',$data);
+                echo view('Admin/Blog/create', $data);
             } else {
                 echo view('Admin/no_permission');
             }
@@ -104,7 +104,7 @@ class Blog extends BaseController
             'cat_id' => ['label' => 'Category', 'rules' => 'required'],
         ]);
 
-        if ($this->validation->run($data) == FALSE) {
+        if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/blog_create');
         } else {
@@ -114,7 +114,7 @@ class Blog extends BaseController
             $blogId = DB()->insertID();
 
             //image size array
-            $this->imageProcessing->sizeArray = [ ['width'=>'100', 'height'=>'100', ],['width'=>'300', 'height'=>'300', ],['width'=>'880', 'height'=>'400', ],];
+            $this->imageProcessing->sizeArray = [ ['width' => '100', 'height' => '100', ],['width' => '300', 'height' => '300', ],['width' => '880', 'height' => '400', ],];
 
             if (!empty($_FILES['image']['name'])) {
                 $target_dir = FCPATH . '/uploads/blog/'.$blogId.'/';
@@ -123,12 +123,12 @@ class Blog extends BaseController
                 //new image upload
                 $pic = $this->request->getFile('image');
 
-                $news_img = $this->imageProcessing->image_upload_and_crop_all_size($pic,$target_dir);
+                $news_img = $this->imageProcessing->image_upload_and_crop_all_size($pic, $target_dir);
 
                 $dataImg['image'] = $news_img;
 
                 $albumTable = DB()->table('cc_blog');
-                $albumTable->where('blog_id',$blogId)->update($dataImg);
+                $albumTable->where('blog_id', $blogId)->update($dataImg);
             }
             //album table data insert(end)
 
@@ -147,7 +147,7 @@ class Blog extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId = $this->session->adRoleId;
-        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != TRUE) {
+        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
             $tableCat = DB()->table('cc_category');
@@ -194,7 +194,7 @@ class Blog extends BaseController
             'cat_id' => ['label' => 'Category', 'rules' => 'required'],
         ]);
 
-        if ($this->validation->run($data) == FALSE) {
+        if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/blog_update/' . $blog_id);
         } else {
@@ -203,19 +203,19 @@ class Blog extends BaseController
             $table->where('blog_id', $blog_id)->update($data);
 
             //image size array
-            $this->imageProcessing->sizeArray = [ ['width'=>'100', 'height'=>'100', ],['width'=>'300', 'height'=>'300', ],['width'=>'880', 'height'=>'400', ],];
+            $this->imageProcessing->sizeArray = [ ['width' => '100', 'height' => '100', ],['width' => '300', 'height' => '300', ],['width' => '880', 'height' => '400', ],];
 
             if (!empty($_FILES['image']['name'])) {
                 $target_dir = FCPATH . '/uploads/blog/'.$blog_id.'/';
                 //unlink
-                $oldImg = get_data_by_id('image','cc_blog','blog_id',$blog_id);
+                $oldImg = get_data_by_id('image', 'cc_blog', 'blog_id', $blog_id);
                 $pic = $this->request->getFile('image');
-                $news_img = $this->imageProcessing->single_product_image_unlink($target_dir,$oldImg)->directory_create($target_dir)->image_upload_and_crop_all_size($pic,$target_dir);
+                $news_img = $this->imageProcessing->single_product_image_unlink($target_dir, $oldImg)->directory_create($target_dir)->image_upload_and_crop_all_size($pic, $target_dir);
 
                 $dataImg['image'] = $news_img;
 
                 $proUpTable = DB()->table('cc_blog');
-                $proUpTable->where('blog_id',$blog_id)->update($dataImg);
+                $proUpTable->where('blog_id', $blog_id)->update($dataImg);
             }
             //product table data insert(end)
 
@@ -232,7 +232,8 @@ class Blog extends BaseController
      * @param int $color_family_id
      * @return RedirectResponse
      */
-    public function delete($blog_id){
+    public function delete($blog_id)
+    {
 
         helper('filesystem');
 
@@ -240,7 +241,7 @@ class Blog extends BaseController
 
         $target_dir = FCPATH . '/uploads/blog/'.$blog_id;
         if (file_exists($target_dir)) {
-            delete_files($target_dir, TRUE);
+            delete_files($target_dir, true);
             rmdir($target_dir);
         }
         $table = DB()->table('cc_blog');

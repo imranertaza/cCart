@@ -31,7 +31,7 @@
                     <div class="col-md-4 text-right">
                     </div>
                     <div class="col-md-12" style="margin-top: 10px" id="message">
-                        <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message'); endif; ?>
+                        <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
                     </div>
                 </div>
             </div>
@@ -48,14 +48,15 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <?php $i=1; foreach ($payment as $val){ ?>
+                    <?php $i = 1;
+foreach ($payment as $val) { ?>
                         <tr>
                             <td width="40"><?php echo $i++;?></td>
                             <td><?php echo $val->name;?></td>
                             <td><?php echo $val->code;?></td>
-                            <td><?php echo image_view('uploads/payment','',$val->image,'noimage.png','width-80');?></td>
+                            <td><?php echo image_view('uploads/payment', '', $val->image, 'noimage.png', 'width-80');?></td>
                             <td>
-                                <input type="checkbox" name="product_featured" onfocus="update_payment_status(<?php echo $val->payment_method_id;?>)" <?php echo ($val->status == '1')?'checked':'';?>  data-bootstrap-switch >
+                                <input type="checkbox" name="product_featured" onfocus="update_payment_status(<?php echo $val->payment_method_id;?>)" <?php echo ($val->status == '1') ? 'checked' : '';?>  data-bootstrap-switch >
                             </td>
                             <td width="180">
                                 <a href="<?php echo base_url('admin/payment/'.$val->code.'/'.$val->payment_method_id);?>" class="btn btn-primary btn-xs"><i class="fas fa-cogs"></i> Settings</a>

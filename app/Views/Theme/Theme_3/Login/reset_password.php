@@ -6,7 +6,7 @@
             </div>
             <div class="col-lg-6">
                 <form  onsubmit="return passwordRecovery()" action="<?php echo base_url('reset_action')?>" method="post" class="sing-up">
-                    <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message'); endif; ?>
+                    <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
 
 
                     <div class="form-group">

@@ -1,11 +1,13 @@
 <?php
+
 // ADEL CODEIGNITER 4 CRUD GENERATOR
 
 namespace App\Models;
+
 use CodeIgniter\Model;
 
-class BlogModel extends Model {
-
+class BlogModel extends Model
+{
     protected $table = 'cc_blog';
     protected $primaryKey = 'blog_id';
     protected $returnType = 'object';

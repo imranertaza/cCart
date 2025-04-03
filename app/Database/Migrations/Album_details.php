@@ -26,7 +26,7 @@ class Album_details extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => 155,
                 'null' => true,
-                'default' => NULL,
+                'default' => null,
             ],
             'sort_order' => [
                 'type' => 'INT',

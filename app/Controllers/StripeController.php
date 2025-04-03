@@ -10,8 +10,8 @@ use App\Models\ProductsModel;
 use CodeIgniter\HTTP\RedirectResponse;
 use Stripe;
 
-class StripeController extends BaseController {
-
+class StripeController extends BaseController
+{
     protected $validation;
     protected $session;
 
@@ -36,15 +36,16 @@ class StripeController extends BaseController {
      * @description This method provides stripe page view
      * @return void
      */
-    public function payment_stripe(){
+    public function payment_stripe()
+    {
         $settings = get_settings();
         $array = $this->session_data();
         $this->session->set($array);
-        
+
         $data['keywords'] = $settings['meta_keyword'];
         $data['description'] = $settings['meta_description'];
         $data['title'] = 'Stripe payment';
-        echo view('Theme/'.$settings['Theme'].'/header',$data);
+        echo view('Theme/'.$settings['Theme'].'/header', $data);
         echo view('Theme/'.$settings['Theme'].'/Checkout/stripe');
         echo view('Theme/'.$settings['Theme'].'/footer');
     }
@@ -54,10 +55,11 @@ class StripeController extends BaseController {
      * @return RedirectResponse
      * @throws Stripe\Exception\ApiErrorException
      */
-    public function stripe_create_charge(){
+    public function stripe_create_charge()
+    {
         $secret_key = get_all_row_data_by_id('cc_payment_settings', 'label', 'secret_key');
         Stripe\Stripe::setApiKey($secret_key->value);
-        $charge = Stripe\Charge::create ([
+        $charge = Stripe\Charge::create([
             "amount" => $this->session->t_amount * 100,
             "currency" => "usd",
             "source" => $this->request->getVar('stripeToken'),
@@ -70,7 +72,7 @@ class StripeController extends BaseController {
             $this->session->set($sess);
             return redirect()->to('stripe_action');
 
-        }else{
+        } else {
             return redirect()->to('checkout_failed');
         }
 
@@ -80,7 +82,8 @@ class StripeController extends BaseController {
      * @description This method provides stripe checkout action execute
      * @return RedirectResponse
      */
-    public function stripe_action(){
+    public function stripe_action()
+    {
 
         $data['payment_firstname'] = $this->session->payment_firstname;
         $data['payment_lastname'] = $this->session->payment_lastname;
@@ -137,11 +140,11 @@ class StripeController extends BaseController {
             }
         }
 
-        if (!empty($disc)){
-            $oldQtyCup = get_data_by_id('total_used','cc_coupon','coupon_id',$this->session->coupon_id);
+        if (!empty($disc)) {
+            $oldQtyCup = get_data_by_id('total_used', 'cc_coupon', 'coupon_id', $this->session->coupon_id);
             $newQtyCupUsed['total_used'] = $oldQtyCup + 1;
             $table = DB()->table('cc_coupon');
-            $table->where('coupon_id',$this->session->coupon_id)->update($newQtyCupUsed);
+            $table->where('coupon_id', $this->session->coupon_id)->update($newQtyCupUsed);
         }
 
         $finalAmo = $this->cart->total() - $disc;
@@ -214,8 +217,8 @@ class StripeController extends BaseController {
 
         if (isset($this->session->cusUserId)) {
             $tableModule = DB()->table('cc_modules');
-            $query = $tableModule->join('cc_module_settings', 'cc_module_settings.module_id = cc_modules.module_id')->where('cc_modules.module_key','point')->get()->getRow();
-            if($query->status == '1') {
+            $query = $tableModule->join('cc_module_settings', 'cc_module_settings.module_id = cc_modules.module_id')->where('cc_modules.module_key', 'point')->get()->getRow();
+            if ($query->status == '1') {
                 $oldPoint = get_data_by_id('point', 'cc_customer', 'customer_id', $this->session->cusUserId);
                 $point = $this->cart->total() * $query->value;
 
@@ -240,7 +243,7 @@ class StripeController extends BaseController {
                 //order point update
                 $orPointData['total_point'] = $point;
                 $tabOrder = DB()->table('cc_order');
-                $tabOrder->where('order_id',$order_id)->update($orPointData);
+                $tabOrder->where('order_id', $order_id)->update($orPointData);
             }
         }
 
@@ -358,7 +361,8 @@ class StripeController extends BaseController {
         unset($_SESSION['t_amount']);
     }
 
-    public function payment_stripe_wallet(){
+    public function payment_stripe_wallet()
+    {
         $settings = get_settings();
         $dataSession['amount'] = $this->request->getPost('amount');
         $dataSession['payment_method_id'] = $this->request->getPost('payment_method_id');
@@ -367,15 +371,16 @@ class StripeController extends BaseController {
         $data['keywords'] = $settings['meta_keyword'];
         $data['description'] = $settings['meta_description'];
         $data['title'] = 'Stripe payment';
-        echo view('Theme/'.$settings['Theme'].'/header',$data);
+        echo view('Theme/'.$settings['Theme'].'/header', $data);
         echo view('Theme/'.$settings['Theme'].'/Customer/stripe');
         echo view('Theme/'.$settings['Theme'].'/footer');
     }
 
-    public function stripe_create_charge_wallet(){
+    public function stripe_create_charge_wallet()
+    {
         $secret_key = get_all_row_data_by_id('cc_payment_settings', 'label', 'secret_key');
         Stripe\Stripe::setApiKey($secret_key->value);
-        $charge = Stripe\Charge::create ([
+        $charge = Stripe\Charge::create([
             "amount" => $this->session->amount * 100,
             "currency" => "usd",
             "source" => $this->request->getVar('stripeToken'),
@@ -388,46 +393,47 @@ class StripeController extends BaseController {
             $this->session->set($sess);
             return redirect()->to('stripe_wallet_action');
 
-        }else{
+        } else {
             return redirect()->to('my-wallet-failed');
         }
 
     }
 
-    public function stripe_wallet_action(){
+    public function stripe_wallet_action()
+    {
 
         DB()->transStart();
-            //fund request data insert
-            $data['amount'] = $this->session->amount;
-            $data['payment_method_id'] = $this->session->payment_method_id;
-            $data['customer_id'] = $this->session->cusUserId;
-            $data['status'] = 'Complete';
+        //fund request data insert
+        $data['amount'] = $this->session->amount;
+        $data['payment_method_id'] = $this->session->payment_method_id;
+        $data['customer_id'] = $this->session->cusUserId;
+        $data['status'] = 'Complete';
 
-            $table = DB()->table('cc_fund_request');
-            $table->insert($data);
-            $fund_request_id = DB()->insertID();
-
-
-            //customer balance update
-            $oldBalance = get_data_by_id('balance','cc_customer','customer_id',$this->session->cusUserId);
-            $newBalance = $oldBalance + $this->session->amount;
-
-            $cusData['balance'] = $newBalance;
-            $tableCus = DB()->table('cc_customer');
-            $tableCus->where('customer_id',$this->session->cusUserId)->update($cusData);
+        $table = DB()->table('cc_fund_request');
+        $table->insert($data);
+        $fund_request_id = DB()->insertID();
 
 
-            //customer ledger insert
-            $cusLedg['customer_id'] = $this->session->cusUserId;
-            $cusLedg['fund_request_id'] = $fund_request_id;
-            $cusLedg['payment_method_id'] = $this->session->payment_method_id;
-            $cusLedg['particulars'] = 'Deposit balance';
-            $cusLedg['trangaction_type'] = 'Cr.';
-            $cusLedg['amount'] = $this->session->amount;
-            $cusLedg['rest_balance'] = $newBalance;
+        //customer balance update
+        $oldBalance = get_data_by_id('balance', 'cc_customer', 'customer_id', $this->session->cusUserId);
+        $newBalance = $oldBalance + $this->session->amount;
 
-            $tableCusLedg = DB()->table('cc_customer_ledger');
-            $tableCusLedg->insert($cusLedg);
+        $cusData['balance'] = $newBalance;
+        $tableCus = DB()->table('cc_customer');
+        $tableCus->where('customer_id', $this->session->cusUserId)->update($cusData);
+
+
+        //customer ledger insert
+        $cusLedg['customer_id'] = $this->session->cusUserId;
+        $cusLedg['fund_request_id'] = $fund_request_id;
+        $cusLedg['payment_method_id'] = $this->session->payment_method_id;
+        $cusLedg['particulars'] = 'Deposit balance';
+        $cusLedg['trangaction_type'] = 'Cr.';
+        $cusLedg['amount'] = $this->session->amount;
+        $cusLedg['rest_balance'] = $newBalance;
+
+        $tableCusLedg = DB()->table('cc_customer_ledger');
+        $tableCusLedg->insert($cusLedg);
         DB()->transComplete();
 
         unset($_SESSION['payment_method_id']);

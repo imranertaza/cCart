@@ -8,7 +8,6 @@ use CodeIgniter\HTTP\RedirectResponse;
 
 class Email_send extends BaseController
 {
-
     protected $validation;
     protected $session;
     protected $crop;
@@ -31,7 +30,7 @@ class Email_send extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId = $this->session->adRoleId;
-        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != TRUE) {
+        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
 
@@ -55,7 +54,8 @@ class Email_send extends BaseController
      * @description This method provides email send
      * @return RedirectResponse
      */
-    public function email_send_action(){
+    public function email_send_action()
+    {
         $data['subject'] = $this->request->getPost('subject');
         $data['message'] = $this->request->getPost('message');
         $data['user'] = $this->request->getPost('user');
@@ -66,28 +66,28 @@ class Email_send extends BaseController
             'user' => ['label' => 'User', 'rules' => 'required'],
         ]);
 
-        if ($this->validation->run($data) == FALSE) {
+        if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/email_send');
         } else {
 
-            if ($data['user'] == 'subscribe'){
+            if ($data['user'] == 'subscribe') {
                 $subscrib = get_all_data_array('cc_newsletter');
-                foreach ($subscrib as $sub){
+                foreach ($subscrib as $sub) {
                     $to = $sub->email;
                     $subject = $data['subject'];
-                    $message= $data['message'];
-                    email_send($to,$subject,$message);
+                    $message = $data['message'];
+                    email_send($to, $subject, $message);
                 }
             }
 
-            if ($data['user'] == 'customer'){
+            if ($data['user'] == 'customer') {
                 $customer = get_all_data_array('cc_customer');
-                foreach ($customer as $cus){
+                foreach ($customer as $cus) {
                     $to = $cus->email;
                     $subject = $data['subject'];
-                    $message= $data['message'];
-                    email_send($to,$subject,$message);
+                    $message = $data['message'];
+                    email_send($to, $subject, $message);
                 }
             }
 

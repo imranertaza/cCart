@@ -8,7 +8,6 @@ use CodeIgniter\HTTP\RedirectResponse;
 
 class Cash_on_delivery extends BaseController
 {
-
     protected $validation;
     protected $session;
     protected $crop;
@@ -28,18 +27,19 @@ class Cash_on_delivery extends BaseController
      * @param int $payment_method_id
      * @return RedirectResponse|void
      */
-    public function settings($payment_method_id) {
+    public function settings($payment_method_id)
+    {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId = $this->session->adRoleId;
-        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != TRUE) {
+        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
 
             $table = DB()->table('cc_payment_method');
-            $data['payment'] = $table->where('payment_method_id',$payment_method_id)->get()->getFirstRow();
+            $data['payment'] = $table->where('payment_method_id', $payment_method_id)->get()->getFirstRow();
 
             $table = DB()->table('cc_payment_settings');
-            $data['payment_settings'] = $table->where('payment_method_id',$payment_method_id)->get()->getResult();
+            $data['payment_settings'] = $table->where('payment_method_id', $payment_method_id)->get()->getResult();
 
             $data['payment_method_id'] = $payment_method_id;
 

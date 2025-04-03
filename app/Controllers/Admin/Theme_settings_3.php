@@ -8,7 +8,6 @@ use CodeIgniter\HTTP\RedirectResponse;
 
 class Theme_settings_3 extends BaseController
 {
-
     protected $validation;
     protected $session;
     protected $crop;
@@ -31,7 +30,7 @@ class Theme_settings_3 extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId = $this->session->adRoleId;
-        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != TRUE) {
+        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
 
@@ -56,7 +55,8 @@ class Theme_settings_3 extends BaseController
      * @description This method update header section one update
      * @return RedirectResponse
      */
-    public function header_section_one_update(){
+    public function header_section_one_update()
+    {
         $data['head_side_title_1'] = $this->request->getPost('head_side_title_1');
         $data['head_side_category_1'] = $this->request->getPost('head_side_category_1');
 
@@ -75,8 +75,8 @@ class Theme_settings_3 extends BaseController
             unlink($target_dir . $namePic);
             $data['head_side_baner_1'] = $news_img;
         }
-        
-        foreach($data as $key => $val){
+
+        foreach ($data as $key => $val) {
             $dataUpdate['value'] = $val;
             $table = DB()->table('cc_theme_settings');
             $table->where('label', $key)->update($dataUpdate);
@@ -90,7 +90,8 @@ class Theme_settings_3 extends BaseController
      * @description This method update header section two update
      * @return RedirectResponse
      */
-    public function header_section_two_update(){
+    public function header_section_two_update()
+    {
         $data['head_side_title_2'] = $this->request->getPost('head_side_title_2');
         $data['head_side_category_2'] = $this->request->getPost('head_side_category_2');
 
@@ -109,8 +110,8 @@ class Theme_settings_3 extends BaseController
             unlink($target_dir . $namePic);
             $data['head_side_baner_2'] = $news_img;
         }
-        
-        foreach($data as $key => $val){
+
+        foreach ($data as $key => $val) {
             $dataUpdate['value'] = $val;
             $table = DB()->table('cc_theme_settings');
             $table->where('label', $key)->update($dataUpdate);
@@ -124,7 +125,8 @@ class Theme_settings_3 extends BaseController
      * @description This method update home category update
      * @return RedirectResponse
      */
-    public function home_category_update(){
+    public function home_category_update()
+    {
         $prefix = $this->request->getPost('prefix');
         $data['home_category_'.$prefix] = $this->request->getPost('home_category_'.$prefix);
         $data['home_category_title_'.$prefix] = $this->request->getPost('home_category_title_'.$prefix);
@@ -140,12 +142,12 @@ class Theme_settings_3 extends BaseController
             $namePic = $pic->getRandomName();
             $pic->move($target_dir, $namePic);
             $news_img = 'home_category_' . $pic->getName();
-            $this->crop->withFile($target_dir . $namePic)->fit(271, 590, 'center')->save($target_dir . $news_img,100);
+            $this->crop->withFile($target_dir . $namePic)->fit(271, 590, 'center')->save($target_dir . $news_img, 100);
             unlink($target_dir . $namePic);
             $data['home_category_baner_'.$prefix] = $news_img;
         }
-        
-        foreach($data as $key => $val){
+
+        foreach ($data as $key => $val) {
             $dataUpdate['value'] = $val;
             $table = DB()->table('cc_theme_settings');
             $table->where('label', $key)->update($dataUpdate);
@@ -159,7 +161,8 @@ class Theme_settings_3 extends BaseController
      * @description This method update banner bottom update
      * @return RedirectResponse
      */
-    public function banner_bottom_update(){
+    public function banner_bottom_update()
+    {
         if (!empty($_FILES['banner_bottom']['name'])) {
             $target_dir = FCPATH . '/uploads/banner_bottom/';
             if (!file_exists($target_dir)) {
@@ -182,7 +185,7 @@ class Theme_settings_3 extends BaseController
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Banner Bottom Update  Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/theme_settings?sel=home_settings');
-        }else{
+        } else {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Image field is required! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/theme_settings?sel=home_settings');
         }
@@ -304,7 +307,7 @@ class Theme_settings_3 extends BaseController
             'value' => ['label' => 'Category', 'rules' => 'required'],
         ]);
 
-        if ($this->validation->run($data) == FALSE) {
+        if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/theme_settings?sel=home_settings');
         } else {
@@ -413,4 +416,3 @@ class Theme_settings_3 extends BaseController
     }
 
 }
-

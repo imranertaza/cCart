@@ -8,7 +8,6 @@ use CodeIgniter\HTTP\RedirectResponse;
 
 class Geo_zone extends BaseController
 {
-
     protected $validation;
     protected $session;
     protected $crop;
@@ -31,7 +30,7 @@ class Geo_zone extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId = $this->session->adRoleId;
-        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != TRUE) {
+        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
 
@@ -56,10 +55,11 @@ class Geo_zone extends BaseController
      * @description This method provides create page view
      * @return RedirectResponse|void
      */
-    public function create(){
+    public function create()
+    {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId = $this->session->adRoleId;
-        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != TRUE) {
+        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
 
@@ -92,12 +92,12 @@ class Geo_zone extends BaseController
             'geo_zone_name' => ['label' => 'Name', 'rules' => 'required'],
         ]);
 
-        if ($this->validation->run($data) == FALSE) {
+        if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/geo_zone_create');
         } else {
 
-            $exist = $this->check_exist_to_create($country_id,$zone_id);
+            $exist = $this->check_exist_to_create($country_id, $zone_id);
 
             if ($exist == true) {
                 $table = DB()->table('cc_geo_zone');
@@ -118,7 +118,7 @@ class Geo_zone extends BaseController
 
                 $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Geo Zone Create Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                 return redirect()->to('admin/geo_zone_create');
-            }else{
+            } else {
                 $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert"> Zone already exist ! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                 return redirect()->to('admin/geo_zone_create');
             }
@@ -136,7 +136,7 @@ class Geo_zone extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId = $this->session->adRoleId;
-        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != TRUE) {
+        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
 
@@ -179,15 +179,15 @@ class Geo_zone extends BaseController
             'geo_zone_name' => ['label' => 'Name', 'rules' => 'required'],
         ]);
 
-        if ($this->validation->run($data) == FALSE) {
+        if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/geo_zone_update/' . $geo_zone_id);
         } else {
             $table = DB()->table('cc_geo_zone');
-            $table->where('geo_zone_id',$geo_zone_id)->update($data);
+            $table->where('geo_zone_id', $geo_zone_id)->update($data);
 
-            $exist = $this->check_exist_to_create($country_id,$zone_id);
-            foreach ($country_id as $key => $val){
+            $exist = $this->check_exist_to_create($country_id, $zone_id);
+            foreach ($country_id as $key => $val) {
                 if (empty($geo_zone_details_id[$key])) {
                     if ($exist == true) {
                         $zoneData['geo_zone_id'] = $geo_zone_id;
@@ -196,15 +196,15 @@ class Geo_zone extends BaseController
 
                         $tableZone = DB()->table('cc_geo_zone_details');
                         $tableZone->insert($zoneData);
-                    }else{
+                    } else {
                         $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert"> Zone already exist ! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                         return redirect()->to('admin/geo_zone_update/' . $geo_zone_id);
                     }
-                }else{
+                } else {
                     $zoneData['country_id'] = $val;
                     $zoneData['zone_id'] = $zone_id[$key];
                     $tableZone = DB()->table('cc_geo_zone_details');
-                    $tableZone->where('geo_zone_details_id',$geo_zone_details_id[$key])->update($zoneData);
+                    $tableZone->where('geo_zone_details_id', $geo_zone_details_id[$key])->update($zoneData);
                 }
             }
 
@@ -219,7 +219,8 @@ class Geo_zone extends BaseController
      * @param int $geo_zone_id
      * @return RedirectResponse
      */
-    public function delete($geo_zone_id){
+    public function delete($geo_zone_id)
+    {
 
         $tableZone = DB()->table('cc_geo_zone_details');
         $tableZone->where('geo_zone_id', $geo_zone_id)->delete();
@@ -235,7 +236,8 @@ class Geo_zone extends BaseController
      * @description This method delete geo zone
      * @return void
      */
-    public function geo_zone_detail_delete(){
+    public function geo_zone_detail_delete()
+    {
 
         $geo_zone_details_id = $this->request->getPost('geo_zone_details_id');
 
@@ -252,7 +254,8 @@ class Geo_zone extends BaseController
      * @param int $zone_id_array
      * @return bool
      */
-    private function check_exist_to_create($country_id_array,$zone_id_array){
+    private function check_exist_to_create($country_id_array, $zone_id_array)
+    {
         foreach ($country_id_array as $key => $con) {
             if ($zone_id_array[$key] != 0) {
                 $table = DB()->table('cc_geo_zone_details');
@@ -268,7 +271,7 @@ class Geo_zone extends BaseController
                 } else {
                     $result = false;
                 }
-            }else{
+            } else {
                 $tableZone = DB()->table('cc_geo_zone_details');
                 $data = $tableZone->where('country_id', $con)->countAllResults();
                 if (empty($data)) {

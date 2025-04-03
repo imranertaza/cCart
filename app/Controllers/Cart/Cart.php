@@ -1,10 +1,13 @@
-<?php namespace App\Controllers\Cart;
+<?php
+
+namespace App\Controllers\Cart;
+
 use App\Controllers\BaseController;
 use App\Libraries\Mycart;
 use CodeIgniter\HTTP\ResponseInterface;
 
-class Cart extends BaseController {
-
+class Cart extends BaseController
+{
     protected $validation;
     protected $session;
     protected $cart;
@@ -28,7 +31,7 @@ class Cart extends BaseController {
         $data['title'] = 'Shopping Cart';
 
         $data['page_title'] = 'Cart';
-        echo view('Theme/'.$settings['Theme'].'/header',$data);
+        echo view('Theme/'.$settings['Theme'].'/header', $data);
         echo view('Theme/'.$settings['Theme'].'/Cart/index');
         echo view('Theme/'.$settings['Theme'].'/footer');
     }
@@ -37,10 +40,11 @@ class Cart extends BaseController {
      * @description This method provides option data exist check
      * @return void
      */
-    public function checkoption(){
+    public function checkoption()
+    {
         $product_id = $this->request->getPost('product_id');
         $table = DB()->table('cc_product_option');
-        $check = $table->where('product_id',$product_id)->countAllResults();
+        $check = $table->where('product_id', $product_id)->countAllResults();
         print !empty($check) ? false : true;
     }
 
@@ -48,15 +52,17 @@ class Cart extends BaseController {
      * @description This method provides cart data exist check
      * @return void
      */
-    public function cart_empty_check(){
-        print empty($this->cart->contents())? false : true;
+    public function cart_empty_check()
+    {
+        print empty($this->cart->contents()) ? false : true;
     }
 
     /**
      * @description This method provides cart data store.
      * @return void
      */
-    public function addToCart(){
+    public function addToCart()
+    {
 
 
         $product_id = $this->request->getPost('product_id');
@@ -65,13 +71,13 @@ class Cart extends BaseController {
         $size = $this->request->getPost('size');
         $color = $this->request->getPost('color');
 
-        $name = get_data_by_id('name','cc_products','product_id',$product_id);
-        $price = get_data_by_id('price','cc_products','product_id',$product_id);
-        $specialprice = get_data_by_id('special_price','cc_product_special','product_id',$product_id);
-        if (!empty($specialprice)){
+        $name = get_data_by_id('name', 'cc_products', 'product_id', $product_id);
+        $price = get_data_by_id('price', 'cc_products', 'product_id', $product_id);
+        $specialprice = get_data_by_id('special_price', 'cc_product_special', 'product_id', $product_id);
+        if (!empty($specialprice)) {
             $price = $specialprice;
         }
-        $check = $this->check_qty($product_id , $qty);
+        $check = $this->check_qty($product_id, $qty);
         if ($check == true) {
             $data = array(
                 'id' => $product_id,
@@ -83,7 +89,7 @@ class Cart extends BaseController {
             );
             $this->cart->insert($data);
             print 'Successfully add to cart';
-        }else{
+        } else {
             print 'not enough quantity!';
         }
     }
@@ -92,30 +98,31 @@ class Cart extends BaseController {
      * @description This method provides cart data store.
      * @return void
      */
-    public function addtocartdetail(){
+    public function addtocartdetail()
+    {
         $product_id = $this->request->getPost('product_id');
         $qty = $this->request->getPost('qty');
 
         $totalOptionPrice = 0;
-        foreach(get_all_data_array('cc_option') as $vl) {
+        foreach (get_all_data_array('cc_option') as $vl) {
             $data[strtolower($vl->name)] = $this->request->getPost(strtolower($vl->name));
 
             $table = DB()->table('cc_product_option');
-            $option = $table->where('option_value_id',$data[strtolower($vl->name)])->where('product_id',$product_id)->get()->getRow();
+            $option = $table->where('option_value_id', $data[strtolower($vl->name)])->where('product_id', $product_id)->get()->getRow();
 
             if (!empty($option)) {
-                if (empty($option->subtract)){
+                if (empty($option->subtract)) {
                     $totalOptionPrice = $totalOptionPrice + $option->price;
-                }else{
+                } else {
                     $totalOptionPrice = $totalOptionPrice - $option->price;
                 }
             }
         }
 
-        $name = get_data_by_id('name','cc_products','product_id',$product_id);
-        $price = get_data_by_id('price','cc_products','product_id',$product_id);
-        $specialprice = get_data_by_id('special_price','cc_product_special','product_id',$product_id);
-        if (!empty($specialprice)){
+        $name = get_data_by_id('name', 'cc_products', 'product_id', $product_id);
+        $price = get_data_by_id('price', 'cc_products', 'product_id', $product_id);
+        $specialprice = get_data_by_id('special_price', 'cc_product_special', 'product_id', $product_id);
+        if (!empty($specialprice)) {
             $price = $specialprice;
         }
 
@@ -127,15 +134,15 @@ class Cart extends BaseController {
             'price' => $totalPrice,
         );
 
-        foreach(get_all_data_array('cc_option') as $v) {
+        foreach (get_all_data_array('cc_option') as $v) {
             $data['op_'.strtolower($v->name)] = $this->request->getPost(strtolower($v->name));
         }
 
-        $check = $this->check_qty($product_id , $qty);
+        $check = $this->check_qty($product_id, $qty);
         if ($check == true) {
             $this->cart->insert($data);
             print 'Successfully add to cart';
-        }else{
+        } else {
             print 'not enough quantity!';
         }
     }
@@ -144,7 +151,8 @@ class Cart extends BaseController {
      * @description This method provides cart data store.
      * @return void
      */
-    public function addToCartGroup(){
+    public function addToCartGroup()
+    {
 
         $productId = $this->request->getPost('both_product[]');
 
@@ -170,7 +178,8 @@ class Cart extends BaseController {
      * @description This method provides cart data update.
      * @return ResponseInterface
      */
-    public function updateToCart(){
+    public function updateToCart()
+    {
         $rowid = $this->request->getPost('rowid');
         $qty = $this->request->getPost('qty');
         $data = array(
@@ -179,7 +188,7 @@ class Cart extends BaseController {
         );
 
 
-        foreach($this->cart->contents() as $row) {
+        foreach ($this->cart->contents() as $row) {
             if ($row['rowid'] == $rowid) {
                 $check = $this->check_qty($row['id'], $qty);
                 if ($check == true) {
@@ -199,11 +208,12 @@ class Cart extends BaseController {
      * @description This method provides cart data remove.
      * @return void
      */
-    public function removeToCart(){
+    public function removeToCart()
+    {
         $rowid = $this->request->getPost('rowid');
         $this->cart->remove($rowid);
 
-        if (empty($this->cart->contents())){
+        if (empty($this->cart->contents())) {
             unset($_SESSION['coupon_id']);
             unset($_SESSION['coupon_discount']);
             unset($_SESSION['coupon_discount_shipping']);
@@ -218,10 +228,11 @@ class Cart extends BaseController {
      * @param int $qty
      * @return bool
      */
-    private function check_qty($productID , $qty){
+    private function check_qty($productID, $qty)
+    {
         $table = DB()->table('cc_products');
-        $data = $table->where('product_id',$productID)->get()->getRow();
-        return ($data->quantity >= $qty)? true : false;
+        $data = $table->where('product_id', $productID)->get()->getRow();
+        return ($data->quantity >= $qty) ? true : false;
     }
 
 

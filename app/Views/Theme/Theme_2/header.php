@@ -132,7 +132,7 @@
                         <div class="logo text-center text-md-start">
                             <a href="<?php echo base_url() ?>">
                                 <?php $logoImg = get_lebel_by_value_in_theme_settings('side_logo');
-                                echo image_view('uploads/logo', '', $logoImg, 'noimage.png', 'img-fluid side_logo'); ?>
+    echo image_view('uploads/logo', '', $logoImg, 'noimage.png', 'img-fluid side_logo'); ?>
                             </a>
                         </div>
                     </div>
@@ -146,7 +146,7 @@
                                     <select name="cat" id="first-cat" class="form-select rounded-0">
                                         <option value="">All Categories</option>
                                         <?php foreach (getParentCategoryArray() as $catTop) {
-                                                $tCat =  isset($top_category) ? $top_category : ''; ?>
+                                            $tCat =  isset($top_category) ? $top_category : ''; ?>
                                         <option value="<?php echo $catTop->prod_cat_id; ?>"
                                             <?php echo ($tCat == $catTop->prod_cat_id) ? 'selected' : ''; ?>>
                                             <?php echo $catTop->category_name; ?></option>
@@ -194,7 +194,8 @@
             <div class="container">
                 <div class="row gx-0">
                     <div class="col-md-3">
-                        <?php $modules = modules_access(); if (isset($home_menu)) {  ?>
+                        <?php $modules = modules_access();
+    if (isset($home_menu)) {  ?>
                         <div class="allcategory h-100 me-md-3">
                             <button
                                 class="cat-btn-h d-flex d-md-inline justify-content-between justify-content-md-start gap-1 btn bg-custom-color text-white text-uppercase show fw-semibold dropdown-toggle rounded-0 h-100  border-0 text-center w-100 btn-click "
@@ -305,7 +306,7 @@
                             <div class="logo">
                                 <a href="<?php echo base_url() ?>">
                                     <?php $logoImg = get_lebel_by_value_in_theme_settings('side_logo');
-                                    echo image_view('uploads/logo', '', $logoImg, 'noimage.png', 'img-fluid side_logo img-30'); ?>
+    echo image_view('uploads/logo', '', $logoImg, 'noimage.png', 'img-fluid side_logo img-30'); ?>
                                 </a>
                             </div>
                         </div>
@@ -319,7 +320,7 @@
                                         <select name="cat" id="second-cat" class="form-select rounded-0">
                                             <option value="">All Categories</option>
                                             <?php foreach (getParentCategoryArray() as $catTop) {
-                                                    $tCat =  isset($top_category) ? $top_category : ''; ?>
+                                                $tCat =  isset($top_category) ? $top_category : ''; ?>
                                             <option value="<?php echo $catTop->prod_cat_id; ?>"
                                                 <?php echo ($tCat == $catTop->prod_cat_id) ? 'selected' : ''; ?>>
                                                 <?php echo $catTop->category_name; ?></option>
@@ -429,7 +430,7 @@
                                             </li>
 
                                             <?php echo top_menu();
-                                            ?>
+    ?>
 
                                             <li class="nav-item">
                                                 <a class="nav-link"

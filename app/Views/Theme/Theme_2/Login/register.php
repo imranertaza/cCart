@@ -6,7 +6,7 @@
             </div>
             <div class="col-md-6">
                 <form action="<?php echo base_url('register_action')?>" method="post" class="sing-up" onsubmit="return onRegistration()">
-                    <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message'); endif; ?>
+                    <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
                     <div class="form-group">
                         <div class="input-group d-flex align-items-center bg-white border rounded-2 px-3 in_err">
                             <input class="form-control border-0" id="firstname" name="firstname" type="text" placeholder="First Name" required >

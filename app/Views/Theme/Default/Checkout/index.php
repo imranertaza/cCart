@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-lg-6">
                     <?php $isLoggedInCustomer = newSession()->isLoggedInCustomer;
-                    if (!isset($isLoggedInCustomer) || $isLoggedInCustomer != TRUE) { ?>
+        if (!isset($isLoggedInCustomer) || $isLoggedInCustomer != true) { ?>
                     <p><a class="btn bg-black w-100 text-white rounded-0 in_err" href="<?php echo base_url('login') ?>">Log In</a></p>
                     <p class="text-center">Or</p>
                     <div class="create-box mb-5">
@@ -19,7 +19,7 @@
                             <div class="form-group mb-4">
                                 <label class="w-100" for="name">First Name</label>
                                 <input class="form-control rounded-0 in_err" type="text" name="payment_firstname" id="fname1"
-                                       placeholder="First Name" value="<?php echo isset($customer->firstname)?$customer->firstname:'';?>" required>
+                                       placeholder="First Name" value="<?php echo isset($customer->firstname) ? $customer->firstname : '';?>" required>
                                 <span class="text-danger err d-inline-block text-capitalize" id="fnameError"></span>
                             </div>
                         </div>
@@ -27,7 +27,7 @@
                             <div class="form-group mb-4">
                                 <label class="w-100" for="name">Last Name</label>
                                 <input class="form-control rounded-0 in_err" type="text" name="payment_lastname" id="lname1"
-                                       placeholder="Last Name" value="<?php echo isset($customer->lastname)?$customer->lastname:'';?>" required>
+                                       placeholder="Last Name" value="<?php echo isset($customer->lastname) ? $customer->lastname : '';?>" required>
                                 <span class="text-danger err d-inline-block text-capitalize" id="lnameError"></span>
                             </div>
                         </div>
@@ -35,7 +35,7 @@
                             <div class="form-group mb-4">
                                 <label class="w-100" for="email">Email</label>
                                 <input class="form-control rounded-0 in_err" type="email" name="payment_email" id="email"
-                                       placeholder="Email" value="<?php echo isset($customer->email)?$customer->email:'';?>" required>
+                                       placeholder="Email" value="<?php echo isset($customer->email) ? $customer->email : '';?>" required>
                                        <span class="text-danger err d-inline-block text-capitalize" id="emailError"></span>
                             </div>
                         </div>
@@ -43,7 +43,7 @@
                             <div class="form-group mb-4">
                                 <label class="w-100" for="phone">Phone</label>
                                 <input class="form-control rounded-0 in_err" type="number" name="payment_phone" id="payment_phone"
-                                       placeholder="Phone" value="<?php echo isset($customer->phone)?$customer->phone:'';?>" required>
+                                       placeholder="Phone" value="<?php echo isset($customer->phone) ? $customer->phone : '';?>" required>
                                        <span class="text-danger err d-inline-block text-capitalize" id="paymentPhoneError"></span>
                             </div>
                         </div>
@@ -52,12 +52,12 @@
 
 
                         <?php
-                        $coun = isset($customer->customer_id)?get_data_by_id('country_id','cc_address','customer_id',$customer->customer_id):'';
-                        $zon = isset($customer->customer_id)?get_data_by_id('zone_id','cc_address','customer_id',$customer->customer_id):'';
-                        $post = isset($customer->customer_id)?get_data_by_id('postcode','cc_address','customer_id',$customer->customer_id):'';
-                        $add1 = isset($customer->customer_id)?get_data_by_id('address_1','cc_address','customer_id',$customer->customer_id):'';
-                        $add2 = isset($customer->customer_id)?get_data_by_id('address_2','cc_address','customer_id',$customer->customer_id):'';
-                        ?>
+            $coun = isset($customer->customer_id) ? get_data_by_id('country_id', 'cc_address', 'customer_id', $customer->customer_id) : '';
+        $zon = isset($customer->customer_id) ? get_data_by_id('zone_id', 'cc_address', 'customer_id', $customer->customer_id) : '';
+        $post = isset($customer->customer_id) ? get_data_by_id('postcode', 'cc_address', 'customer_id', $customer->customer_id) : '';
+        $add1 = isset($customer->customer_id) ? get_data_by_id('address_1', 'cc_address', 'customer_id', $customer->customer_id) : '';
+        $add2 = isset($customer->customer_id) ? get_data_by_id('address_2', 'cc_address', 'customer_id', $customer->customer_id) : '';
+        ?>
 
 
                         <div class="col-lg-6">
@@ -75,7 +75,7 @@
                                 <label class="w-100" for="payment_city">District</label>
                                 <select name="payment_city" class="form-control in_err" onchange="shippingCharge()" id="stateView" required >
                                     <option value="" >Please select</option>
-                                    <?php echo state_with_country($coun,$zon)?>
+                                    <?php echo state_with_country($coun, $zon)?>
                                 </select>
                                 <span class="text-danger err d-inline-block text-capitalize" id="stateViewPhoneError"></span>
                             </div>
@@ -184,17 +184,17 @@
                 </div>
                 <?php
                 $modules = modules_access();
-                $img_size_100 = ($modules['watermark'] == '1')?'100_wm_':'100_';
-                ?>
+        $img_size_100 = ($modules['watermark'] == '1') ? '100_wm_' : '100_';
+        ?>
                 <div class="col-lg-6">
                     <div class="checkout-items mb-4">
                         <?php foreach (Cart()->contents() as $val) { ?>
                             <div class="list-item d-flex gap-2 mb-2">
                                 <div class="d-flex gap-2 bg-gray p-2 rounded-2">
                                     <?php
-                                    $img = get_data_by_id('image', 'cc_products', 'product_id', $val['id']);
-                                    $des = get_data_by_id('description', 'cc_product_description', 'product_id', $val['id']);
-                                    ?>
+                            $img = get_data_by_id('image', 'cc_products', 'product_id', $val['id']);
+                            $des = get_data_by_id('description', 'cc_product_description', 'product_id', $val['id']);
+                            ?>
                                     <?php echo image_view('uploads/products', $val['id'], $img_size_100 . $img, 'noimage.png', 'img-fluid') ?>
                                     <div>
                                         <p class="fw-semibold mb-2"><?php echo $val['name']; ?></p>
@@ -234,16 +234,18 @@
                         <div class="d-flex justify-content-between mb-2">
                             <span>Discount</span>
                             <?php $disc = 0;
-                            if (isset(newSession()->coupon_discount)) {
-                                $disc = round((Cart()->total() * newSession()->coupon_discount) / 100); ?>
+        if (isset(newSession()->coupon_discount)) {
+            $disc = round((Cart()->total() * newSession()->coupon_discount) / 100); ?>
                                 <span><?php echo currency_symbol($disc) ?></span>
-                            <?php }else{echo currency_symbol($disc); }
-                            $total = (isset(newSession()->coupon_discount)) ? number_format(Cart()->total() - $disc,2) : Cart()->total(); ?>
+                            <?php } else {
+                                echo currency_symbol($disc);
+                            }
+        $total = (isset(newSession()->coupon_discount)) ? number_format(Cart()->total() - $disc, 2) : Cart()->total(); ?>
                         </div>
                         <div class="d-flex justify-content-between mb-2">
                             <span>Shipping Method</span>
                             <div class="d-flex flex-column text-end">
-                                <?php foreach (get_all_data_array('cc_shipping_method') as $ship){ ?>
+                                <?php foreach (get_all_data_array('cc_shipping_method') as $ship) { ?>
                                 <span><label><?php echo $ship->name;?> <input type="radio" name="shipping_method" oninput="shippingCharge()" id="shipping_method" value="<?php echo $ship->code;?>" required></label></span>
                                 <?php } ?>
                             </div>
@@ -267,7 +269,7 @@
                         </div>
                     </div>
                     <div class="payment-method mt-5 mb-4 p-3">
-                        <?php foreach (get_all_data_array('cc_payment_method') as $pay){ ?>
+                        <?php foreach (get_all_data_array('cc_payment_method') as $pay) { ?>
                         <p><label><input type="radio" name="payment_method" id="payment_method" value="<?php echo $pay->payment_method_id;?>" required> <?php echo $pay->name;?> </label></p>
                         <?php } ?>
 

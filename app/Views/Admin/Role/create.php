@@ -33,7 +33,7 @@
                         <!--                        <a href="--><?php //echo base_url('Admin/Brand')?><!--" class="btn btn-primary btn-block ">Add</a>-->
                     </div>
                     <div class="col-md-12" style="margin-top: 10px">
-                        <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message'); endif; ?>
+                        <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
                     </div>
                 </div>
             </div>
@@ -52,8 +52,8 @@
                                 <ol>
                                     <?php foreach ($permission as $key => $value) { ?>
                                         <li><?php echo $key; ?>
-                                            <?php foreach ($value as $k=>$v) {
-//                                                        $isChecked = ($v == 1) ? 'checked="checked"' : '';
+                                            <?php foreach ($value as $k => $v) {
+                                                //                                                        $isChecked = ($v == 1) ? 'checked="checked"' : '';
                                                 $isChecked = ($v == 1) ? '' : ''; ?>
                                                 <div class="checkbox">
                                                     <label>

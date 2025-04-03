@@ -7,7 +7,6 @@ use CodeIgniter\HTTP\RedirectResponse;
 
 class Wallet extends BaseController
 {
-
     protected $validation;
     protected $session;
 
@@ -24,7 +23,7 @@ class Wallet extends BaseController
     public function index()
     {
         $isLoggedInCustomer = $this->session->isLoggedInCustomer;
-        if (!isset($isLoggedInCustomer) || $isLoggedInCustomer != TRUE) {
+        if (!isset($isLoggedInCustomer) || $isLoggedInCustomer != true) {
             return redirect()->to(site_url('Login'));
         } else {
             $settings = get_settings();
@@ -58,7 +57,7 @@ class Wallet extends BaseController
     public function add_funds()
     {
         $isLoggedInCustomer = $this->session->isLoggedInCustomer;
-        if (!isset($isLoggedInCustomer) || $isLoggedInCustomer != TRUE) {
+        if (!isset($isLoggedInCustomer) || $isLoggedInCustomer != true) {
             return redirect()->to(site_url('Login'));
         } else {
             $settings = get_settings();
@@ -85,7 +84,8 @@ class Wallet extends BaseController
      * @description This method provides fund action execute
      * @return RedirectResponse
      */
-    public function fund_action(){
+    public function fund_action()
+    {
         $data['amount'] = $this->request->getPost('amount');
         $data['payment_method_id'] = $this->request->getPost('payment_method_id');
         $data['customer_id'] = $this->session->cusUserId;
@@ -95,12 +95,12 @@ class Wallet extends BaseController
             'payment_method_id' => ['label' => 'Payment Method', 'rules' => 'required'],
         ]);
 
-        if ($this->validation->run($data) == FALSE) {
+        if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert text-white alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . '</div>');
             return redirect()->to('add-funds');
         } else {
 
-            if($data['payment_method_id'] == '7'){
+            if ($data['payment_method_id'] == '7') {
                 $data['card_name'] = $this->request->getPost('card_name');
                 $data['card_number'] = $this->request->getPost('card_number');
                 $data['card_expiration'] = $this->request->getPost('card_expiration');
@@ -109,15 +109,16 @@ class Wallet extends BaseController
 
             $table = DB()->table('cc_fund_request');
             $table->insert($data);
-            
+
             $this->session->setFlashdata('message', '<div class="alert-success-m alert-success alert-dismissible" role="alert">Fund Update successfully </div>');
             return redirect()->to('my-wallet');
         }
     }
 
-    public function wallet_success(){
+    public function wallet_success()
+    {
         $isLoggedInCustomer = $this->session->isLoggedInCustomer;
-        if (!isset($isLoggedInCustomer) || $isLoggedInCustomer != TRUE) {
+        if (!isset($isLoggedInCustomer) || $isLoggedInCustomer != true) {
             return redirect()->to(site_url('Login'));
         } else {
             $settings = get_settings();
@@ -133,9 +134,10 @@ class Wallet extends BaseController
             echo view('Theme/' . $settings['Theme'] . '/footer');
         }
     }
-    public function wallet_canceled(){
+    public function wallet_canceled()
+    {
         $isLoggedInCustomer = $this->session->isLoggedInCustomer;
-        if (!isset($isLoggedInCustomer) || $isLoggedInCustomer != TRUE) {
+        if (!isset($isLoggedInCustomer) || $isLoggedInCustomer != true) {
             return redirect()->to(site_url('Login'));
         } else {
             $settings = get_settings();
@@ -151,9 +153,10 @@ class Wallet extends BaseController
             echo view('Theme/' . $settings['Theme'] . '/footer');
         }
     }
-    public function wallet_failed(){
+    public function wallet_failed()
+    {
         $isLoggedInCustomer = $this->session->isLoggedInCustomer;
-        if (!isset($isLoggedInCustomer) || $isLoggedInCustomer != TRUE) {
+        if (!isset($isLoggedInCustomer) || $isLoggedInCustomer != true) {
             return redirect()->to(site_url('Login'));
         } else {
             $settings = get_settings();

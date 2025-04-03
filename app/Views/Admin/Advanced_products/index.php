@@ -31,17 +31,17 @@
                             <a href="<?php echo base_url('admin/product_create') ?>" class="btn btn-primary  btn-xs float-right "><i class="fas fa-plus"></i> Add</a>
                             <a class="btn btn-xs btn-info float-right mr-2" data-toggle="collapse" href="#collapseProduct" role="button" aria-expanded="false" aria-controls="collapseProduct">Settings</a>
                             <form id="multiActionForm" action="<?= base_url('admin/bulk_product_multi_option_edit')?>" method="post">
-                            <?php if(modules_key_by_access('multi_option') == '1' ){ ?>
+                            <?php if(modules_key_by_access('multi_option') == '1') { ?>
                                 <button type="submit"  class="btn btn-primary btn-xs float-right mr-2"><i class="fas fa-edit"></i> Multi option edit</button>
                             <?php } ?>
-                            <?php if(modules_key_by_access('multi_attribute') == '1' ){ ?>
+                            <?php if(modules_key_by_access('multi_attribute') == '1') { ?>
                                 <button type="submit" formaction="<?php echo base_url('admin/bulk_product_multi_attribute_edit'); ?>" class="btn btn-info btn-xs float-right mr-2"><i class="fas fa-edit"></i> Multi attribute edit</button>
                             <?php } ?>
                             </form>
                             <a href="<?php echo base_url('admin/products') ?>" class="btn btn-danger btn-xs float-right mr-2 " >Back</a>
                         </div>
                         <div class="col-md-12" id="message" style="margin-top: 10px">
-                            <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message'); endif; ?>
+                            <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
                             <span id="mess" style="display: none"><div class="alert alert-success alert-dismissible" role="alert">Update Successfully <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div></span>
                         </div>
                     </div>
@@ -162,20 +162,20 @@
                                         <input type="checkbox" name="productId[]" value="<?php echo $val->product_id;?>" form="multiActionForm" >
                                     </td>
                                     <td class="colum_id row_show "> <?php echo $val->product_id; ?></td>
-                                    <td class="colum_image row_show "> <?php echo image_view('uploads/products',$val->product_id,'50_'.$val->image,'50_noimage.png','');?></td>
+                                    <td class="colum_image row_show "> <?php echo image_view('uploads/products', $val->product_id, '50_'.$val->image, '50_noimage.png', '');?></td>
                                     <td class="colum_name row_show ">
                                         <p  onclick="updateFunction('<?php echo $val->product_id; ?>','name','<?php echo $val->name; ?>','view_name_<?php echo $val->product_id; ?>','bulkForm_name_<?php echo $val->product_id; ?>','update_<?php echo $val->product_id?>')">
-                                            <?php echo !empty($val->name)?$val->name:'<i style="color: #ccc;">NULL</i>'; ?></p>
+                                            <?php echo !empty($val->name) ? $val->name : '<i style="color: #ccc;">NULL</i>'; ?></p>
                                         <span id="view_name_<?php echo $val->product_id; ?>"></span>
                                     </td>
                                     <td class="colum_model row_show ">
                                         <p onclick="updateFunction('<?php echo $val->product_id; ?>', 'model', '<?php echo $val->model; ?>', 'view_model_<?php echo $val->product_id; ?>','bulkForm_model_<?php echo $val->product_id; ?>','update_<?php echo $val->product_id?>')">
-                                            <?php echo !empty($val->model)?$val->model:'<i style="color: #ccc;">NULL</i>'; ?> </p>
+                                            <?php echo !empty($val->model) ? $val->model : '<i style="color: #ccc;">NULL</i>'; ?> </p>
                                         <span id="view_model_<?php echo $val->product_id; ?>"></span>
                                     </td>
                                     <td class="colum_quantity row_show ">
                                         <p onclick="updateFunction('<?php echo $val->product_id; ?>', 'quantity', '<?php echo $val->quantity; ?>', 'view_qty_<?php echo $val->product_id; ?>','bulkForm_qty_<?php echo $val->product_id; ?>','update_<?php echo $val->product_id?>')">
-                                            <?php echo !empty($val->quantity)?$val->quantity:'<i style="color: #ccc;">NULL</i>'; ?> </p>
+                                            <?php echo !empty($val->quantity) ? $val->quantity : '<i style="color: #ccc;">NULL</i>'; ?> </p>
                                         <span id="view_qty_<?php echo $val->product_id; ?>"></span>
                                     </td>
                                     <td class="colum_category row_show">
@@ -184,7 +184,7 @@
                                     </td>
                                     <td class="colum_price row_show">
                                         <p  onclick="updateFunction('<?php echo $val->product_id; ?>', 'price', '<?php echo $val->price; ?>', 'view_price_<?php echo $val->product_id; ?>','bulkForm_price_<?php echo $val->product_id; ?>','update_<?php echo $val->product_id?>')">
-                                            <?php echo !empty($val->price)?$val->price:'<i style="color: #ccc;">NULL</i>'; ?></p>
+                                            <?php echo !empty($val->price) ? $val->price : '<i style="color: #ccc;">NULL</i>'; ?></p>
                                         <span id="view_price_<?php echo $val->product_id; ?>"></span>
                                     </td>
                                     <td class="colum_status row_show">
@@ -209,16 +209,16 @@
                                     </td>
 
                                     <td class="colum_meta_title row_hide">
-                                        <p onclick="descriptionTableDataUpdateFunction('<?php echo $val->product_desc_id; ?>','meta_title', '<?php echo $val->meta_title;?>' , 'view_meta_title_<?php echo $val->product_id; ?>', 'desc_meta_title_<?php echo $val->product_id; ?>','update_<?php echo $val->product_id?>')"><?php echo !empty($val->meta_title)?$val->meta_title:'<i style="color: #ccc;">NULL</i>';?></p>
+                                        <p onclick="descriptionTableDataUpdateFunction('<?php echo $val->product_desc_id; ?>','meta_title', '<?php echo $val->meta_title;?>' , 'view_meta_title_<?php echo $val->product_id; ?>', 'desc_meta_title_<?php echo $val->product_id; ?>','update_<?php echo $val->product_id?>')"><?php echo !empty($val->meta_title) ? $val->meta_title : '<i style="color: #ccc;">NULL</i>';?></p>
                                         <span id="view_meta_title_<?php echo $val->product_id; ?>"></span>
                                     </td>
                                     <td class="colum_meta_keyword row_hide">
-                                        <p onclick="descriptionTableDataUpdateFunction('<?php echo $val->product_desc_id; ?>','meta_keyword', '<?php echo $val->meta_keyword;?>' , 'view_meta_keyword_<?php echo $val->product_id; ?>', 'desc_meta_keyword_<?php echo $val->product_id; ?>','update_<?php echo $val->product_id?>')"><?php echo !empty($val->meta_keyword)?$val->meta_keyword:'<i style="color: #ccc;">NULL</i>';?></p>
+                                        <p onclick="descriptionTableDataUpdateFunction('<?php echo $val->product_desc_id; ?>','meta_keyword', '<?php echo $val->meta_keyword;?>' , 'view_meta_keyword_<?php echo $val->product_id; ?>', 'desc_meta_keyword_<?php echo $val->product_id; ?>','update_<?php echo $val->product_id?>')"><?php echo !empty($val->meta_keyword) ? $val->meta_keyword : '<i style="color: #ccc;">NULL</i>';?></p>
                                         <span id="view_meta_keyword_<?php echo $val->product_id; ?>"></span>
                                     </td>
 
                                     <td class="colum_meta_description row_hide">
-                                        <p onclick="descriptionTableDataUpdateFunction('<?php echo $val->product_desc_id; ?>','meta_description', '<?php echo $val->meta_description;?>' , 'view_meta_description_<?php echo $val->product_id; ?>', 'desc_meta_description_<?php echo $val->product_id; ?>','update_<?php echo $val->product_id?>')"><?php echo !empty($val->meta_description)?$val->meta_description:'<i style="color: #ccc;">NULL</i>';?></p>
+                                        <p onclick="descriptionTableDataUpdateFunction('<?php echo $val->product_desc_id; ?>','meta_description', '<?php echo $val->meta_description;?>' , 'view_meta_description_<?php echo $val->product_id; ?>', 'desc_meta_description_<?php echo $val->product_id; ?>','update_<?php echo $val->product_id?>')"><?php echo !empty($val->meta_description) ? $val->meta_description : '<i style="color: #ccc;">NULL</i>';?></p>
                                         <span id="view_meta_description_<?php echo $val->product_id; ?>"></span>
                                     </td>
                                 </tr>

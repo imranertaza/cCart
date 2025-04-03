@@ -33,7 +33,7 @@
                         <a href="<?php echo base_url('admin/blog_create') ?>" class="btn btn-primary btn-block btn-xs"><i class="fas fa-plus"></i> Add</a>
                     </div>
                     <div class="col-md-12" style="margin-top: 10px">
-                        <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message'); endif; ?>
+                        <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
                     </div>
                 </div>
             </div>
@@ -50,12 +50,13 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <?php $i=1; foreach ($blog as $val){ ?>
+                    <?php $i = 1;
+foreach ($blog as $val) { ?>
                         <tr>
                             <td width="40"><?php echo $i++;?></td>
                             <td><?php echo $val->blog_title;?></td>
                             <td><?php echo $val->short_des;?></td>
-                            <td><?php echo image_view('uploads/blog',$val->blog_id,'100_'.$val->image,'50_noimage.png','');?></td>
+                            <td><?php echo image_view('uploads/blog', $val->blog_id, '100_'.$val->image, '50_noimage.png', '');?></td>
                             <td><?php echo statusView($val->status);?></td>
                             <td width="180">
                                 <a href="<?php echo base_url('admin/blog_update/'.$val->blog_id);?>" class="btn btn-primary btn-xs"><i class="fas fa-edit"></i> Update</a>

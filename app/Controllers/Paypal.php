@@ -12,7 +12,6 @@ use CodeIgniter\HTTP\RedirectResponse;
 
 class Paypal extends BaseController
 {
-
     protected $validation;
     protected $session;
     protected $productsModel;
@@ -191,11 +190,11 @@ class Paypal extends BaseController
                 }
             }
 
-            if (!empty($disc)){
-                $oldQtyCup = get_data_by_id('total_used','cc_coupon','coupon_id',$this->session->coupon_id);
+            if (!empty($disc)) {
+                $oldQtyCup = get_data_by_id('total_used', 'cc_coupon', 'coupon_id', $this->session->coupon_id);
                 $newQtyCupUsed['total_used'] = $oldQtyCup + 1;
                 $table = DB()->table('cc_coupon');
-                $table->where('coupon_id',$this->session->coupon_id)->update($newQtyCupUsed);
+                $table->where('coupon_id', $this->session->coupon_id)->update($newQtyCupUsed);
             }
 
             $finalAmo = $this->cart->total() - $disc;
@@ -268,8 +267,8 @@ class Paypal extends BaseController
 
             if (isset($this->session->cusUserId)) {
                 $tableModule = DB()->table('cc_modules');
-                $query = $tableModule->join('cc_module_settings', 'cc_module_settings.module_id = cc_modules.module_id')->where('cc_modules.module_key','point')->get()->getRow();
-                if($query->status == '1') {
+                $query = $tableModule->join('cc_module_settings', 'cc_module_settings.module_id = cc_modules.module_id')->where('cc_modules.module_key', 'point')->get()->getRow();
+                if ($query->status == '1') {
                     $oldPoint = get_data_by_id('point', 'cc_customer', 'customer_id', $this->session->cusUserId);
                     $point = $this->cart->total() * $query->value;
                     $restPoint = $oldPoint + $point;
@@ -293,7 +292,7 @@ class Paypal extends BaseController
                     //order point update
                     $orPointData['total_point'] = $point;
                     $tabOrder = DB()->table('cc_order');
-                    $tabOrder->where('order_id',$order_id)->update($orPointData);
+                    $tabOrder->where('order_id', $order_id)->update($orPointData);
                 }
             }
 
@@ -364,7 +363,8 @@ class Paypal extends BaseController
         unset($_SESSION['coupon_id']);
     }
 
-    public function wallet_paypal(){
+    public function wallet_paypal()
+    {
 
 
         $dataSession['amount'] = $this->request->getGet('amount');
@@ -407,7 +407,8 @@ class Paypal extends BaseController
         }
     }
 
-    public function paypal_wallet_action(){
+    public function paypal_wallet_action()
+    {
         $paypalexpress = new Paypalexpress(paypal_settings());
         $token = urlencode($_GET['token']);
         $result = $paypalexpress->make_payment($token);
@@ -417,37 +418,37 @@ class Paypal extends BaseController
             return redirect()->to('my-wallet-failed');
         } else {
             DB()->transStart();
-                //fund request data insert
-                $data['amount'] = $this->session->amount;
-                $data['payment_method_id'] = $this->session->payment_method_id;
-                $data['customer_id'] = $this->session->cusUserId;
-                $data['status'] = 'Complete';
+            //fund request data insert
+            $data['amount'] = $this->session->amount;
+            $data['payment_method_id'] = $this->session->payment_method_id;
+            $data['customer_id'] = $this->session->cusUserId;
+            $data['status'] = 'Complete';
 
-                $table = DB()->table('cc_fund_request');
-                $table->insert($data);
-                $fund_request_id = DB()->insertID();
-
-
-                //customer balance update
-                $oldBalance = get_data_by_id('balance','cc_customer','customer_id',$this->session->cusUserId);
-                $newBalance = $oldBalance + $this->session->amount;
-
-                $cusData['balance'] = $newBalance;
-                $tableCus = DB()->table('cc_customer');
-                $tableCus->where('customer_id',$this->session->cusUserId)->update($cusData);
+            $table = DB()->table('cc_fund_request');
+            $table->insert($data);
+            $fund_request_id = DB()->insertID();
 
 
-                //customer ledger insert
-                $cusLedg['customer_id'] = $this->session->cusUserId;
-                $cusLedg['fund_request_id'] = $fund_request_id;
-                $cusLedg['payment_method_id'] = $this->session->payment_method_id;
-                $cusLedg['particulars'] = 'Deposit balance';
-                $cusLedg['trangaction_type'] = 'Cr.';
-                $cusLedg['amount'] = $this->session->amount;
-                $cusLedg['rest_balance'] = $newBalance;
+            //customer balance update
+            $oldBalance = get_data_by_id('balance', 'cc_customer', 'customer_id', $this->session->cusUserId);
+            $newBalance = $oldBalance + $this->session->amount;
 
-                $tableCusLedg = DB()->table('cc_customer_ledger');
-                $tableCusLedg->insert($cusLedg);
+            $cusData['balance'] = $newBalance;
+            $tableCus = DB()->table('cc_customer');
+            $tableCus->where('customer_id', $this->session->cusUserId)->update($cusData);
+
+
+            //customer ledger insert
+            $cusLedg['customer_id'] = $this->session->cusUserId;
+            $cusLedg['fund_request_id'] = $fund_request_id;
+            $cusLedg['payment_method_id'] = $this->session->payment_method_id;
+            $cusLedg['particulars'] = 'Deposit balance';
+            $cusLedg['trangaction_type'] = 'Cr.';
+            $cusLedg['amount'] = $this->session->amount;
+            $cusLedg['rest_balance'] = $newBalance;
+
+            $tableCusLedg = DB()->table('cc_customer_ledger');
+            $tableCusLedg->insert($cusLedg);
             DB()->transComplete();
 
             unset($_SESSION['payment_method_id']);

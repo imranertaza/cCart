@@ -33,7 +33,7 @@
                         <a href="<?php echo base_url('admin/geo_zone_create') ?>" class="btn btn-primary btn-block btn-xs"><i class="fas fa-plus"></i> Create</a>
                     </div>
                     <div class="col-md-12" style="margin-top: 10px">
-                        <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message'); endif; ?>
+                        <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
                     </div>
                 </div>
             </div>
@@ -48,7 +48,8 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <?php $i=1; foreach ($geo_zone as $val){ ?>
+                    <?php $i = 1;
+foreach ($geo_zone as $val) { ?>
                         <tr>
                             <td width="40"><?php echo $i++;?></td>
                             <td><?php echo $val->geo_zone_name;?></td>

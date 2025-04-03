@@ -33,7 +33,7 @@
                         <!--                        <a href="--><?php //echo base_url('Admin/Brand')?><!--" class="btn btn-primary btn-block ">Add</a>-->
                     </div>
                     <div class="col-md-12" style="margin-top: 10px">
-                        <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message'); endif; ?>
+                        <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
                     </div>
                 </div>
             </div>
@@ -71,7 +71,8 @@
                                                 <label>Email</label>
                                                 <input type="email" name="email" class="form-control" placeholder="Email" value="<?php echo $user->email;?>" required>
                                             </div>
-                                                <?php if($user->is_default != 1){ ;?>
+                                                <?php if($user->is_default != 1) {
+                                                    ;?>
                                             <div class="form-group">
                                                 <label>Role </label>
                                                 <select name="role_id" class="form-control" required>
@@ -119,7 +120,7 @@
                                         <div class="tab-pane fade" id="custom-tabs-four-messages" role="tabpanel" aria-labelledby="custom-tabs-four-messages-tab">
                                             <form action="<?php echo base_url('admin/user_image_action')?>" method="post" enctype="multipart/form-data" >
                                             <div class="form-group">
-                                                <?php echo image_view('uploads/user','',$user->pic,'noimage.png','');?>
+                                                <?php echo image_view('uploads/user', '', $user->pic, 'noimage.png', '');?>
                                             </div>
                                             <div class="form-group">
                                                 <label>Image </label>

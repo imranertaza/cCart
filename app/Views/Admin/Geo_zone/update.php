@@ -31,7 +31,7 @@
                     </div>
                     <div class="col-md-4"> </div>
                     <div class="col-md-12" style="margin-top: 10px" id="mess">
-                        <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message'); endif; ?>
+                        <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
                     </div>
                 </div>
             </div>
@@ -60,10 +60,10 @@
                                 <div id="new_zone" class="row">
                                     <?php
                                     $i = 1;
-                                    $j = 1;
-                                    $k = 1;
-                                        foreach ($geo_zone_detail as $val){
-                                    ?>
+$j = 1;
+$k = 1;
+foreach ($geo_zone_detail as $val) {
+    ?>
                                     <div class="col-md-12 mt-3" id="new_<?php echo $i++;?>" >
                                         <select class="form-input" name="country_id[]" onchange="zoneVal(this.value,'<?php echo $j++;?>' )" style="padding: 3px; width: 40%;" required>
                                             <option value=''>Please select</option>
@@ -71,7 +71,7 @@
                                         </select>
                                         <select class="form-input" name="zone_id[]" id="valId_<?php echo $k++;?>" style="padding: 3px; width: 40%;" required>
                                             <option value="">Please select</option>
-                                            <option value="0" <?php echo ($val->zone_id == 0)?'selected':'';?> >All Zone</option>
+                                            <option value="0" <?php echo ($val->zone_id == 0) ? 'selected' : '';?> >All Zone</option>
                                             <?php echo getIdByListInOption($val->zone_id, 'zone_id', 'name', 'cc_zone', 'country_id', $val->country_id);?>
                                         </select>
                                         <input type="hidden" value="<?php echo $val->geo_zone_details_id;?>" name="geo_zone_details_id[]">

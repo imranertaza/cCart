@@ -8,7 +8,6 @@ use CodeIgniter\HTTP\RedirectResponse;
 
 class Reviews extends BaseController
 {
-
     protected $validation;
     protected $session;
     protected $crop;
@@ -31,7 +30,7 @@ class Reviews extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId = $this->session->adRoleId;
-        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != TRUE) {
+        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
 
@@ -56,7 +55,8 @@ class Reviews extends BaseController
      * @description This method update reviews status
      * @return void
      */
-    public function reviews_status_update(){
+    public function reviews_status_update()
+    {
         $feedback_id = $this->request->getPost('feedback_id');
         $data['status'] = $this->request->getPost('status');
 
@@ -71,7 +71,8 @@ class Reviews extends BaseController
      * @param int $feedback_id
      * @return RedirectResponse
      */
-    public function delete($feedback_id){
+    public function delete($feedback_id)
+    {
 
         $table = DB()->table('cc_product_feedback');
         $table->where('product_feedback_id', $feedback_id)->delete();

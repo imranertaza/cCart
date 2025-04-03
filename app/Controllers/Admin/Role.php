@@ -8,7 +8,6 @@ use CodeIgniter\HTTP\RedirectResponse;
 
 class Role extends BaseController
 {
-
     protected $validation;
     protected $session;
     protected $crop;
@@ -31,7 +30,7 @@ class Role extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId = $this->session->adRoleId;
-        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != TRUE) {
+        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
 
@@ -56,15 +55,16 @@ class Role extends BaseController
      * @description This method provides create page view
      * @return RedirectResponse|void
      */
-    public function create(){
+    public function create()
+    {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId = $this->session->adRoleId;
-        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != TRUE) {
+        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
 
             $table = DB()->table('cc_roles');
-            $adminRole = $table->where('is_default','1')->get()->getRow();
+            $adminRole = $table->where('is_default', '1')->get()->getRow();
             $data['permission'] = json_decode($adminRole->permission);
 
             //$perm = array('create','read','update','delete','mod_access');
@@ -73,7 +73,7 @@ class Role extends BaseController
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
             if (isset($data['create']) and $data['create'] == 1) {
-                echo view('Admin/Role/create',$data);
+                echo view('Admin/Role/create', $data);
             } else {
                 echo view('Admin/no_permission');
             }
@@ -94,7 +94,7 @@ class Role extends BaseController
             'role' => ['label' => 'Role', 'rules' => 'required'],
         ]);
 
-        if ($this->validation->run($data) == FALSE) {
+        if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/role_create');
         } else {
@@ -116,7 +116,7 @@ class Role extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId = $this->session->adRoleId;
-        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != TRUE) {
+        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
 
@@ -124,9 +124,9 @@ class Role extends BaseController
             $rolesTable = DB()->table('cc_roles');
 
             $table = DB()->table('cc_roles');
-            $adminRole = $table->where('is_default','1')->get()->getRow();
+            $adminRole = $table->where('is_default', '1')->get()->getRow();
 
-            $data['roles'] = $rolesTable->where('role_id',$role_id)->get()->getRow();
+            $data['roles'] = $rolesTable->where('role_id', $role_id)->get()->getRow();
             $data['permission'] = json_decode($adminRole->permission);
 
 
@@ -157,7 +157,7 @@ class Role extends BaseController
             'role' => ['label' => 'Role', 'rules' => 'required'],
         ]);
 
-        if ($this->validation->run($data) == FALSE) {
+        if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             return redirect()->to('admin/role_update/' . $role_id);
         } else {
@@ -176,7 +176,8 @@ class Role extends BaseController
      * @param int $role_id
      * @return RedirectResponse
      */
-    public function delete($role_id){
+    public function delete($role_id)
+    {
 
 
         $table = DB()->table('cc_roles');

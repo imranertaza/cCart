@@ -17,8 +17,8 @@ class ProductFeedback extends Seeder
                 'feedback_text' => 'good product',
                 'status' => 'Active',
                 'createdDtm' => '2023-05-27 17:03:07',
-                'createdBy' => NULL,
-                'updatedBy' => NULL,
+                'createdBy' => null,
+                'updatedBy' => null,
                 'updatedDtm' => '2023-05-27 17:04:00',
             ]
         ];

@@ -8,7 +8,6 @@ use CodeIgniter\HTTP\RedirectResponse;
 
 class Shipping extends BaseController
 {
-
     protected $validation;
     protected $session;
     protected $crop;
@@ -31,7 +30,7 @@ class Shipping extends BaseController
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId = $this->session->adRoleId;
-        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != TRUE) {
+        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
 
@@ -57,24 +56,25 @@ class Shipping extends BaseController
      * @param int $shipping_method_id
      * @return RedirectResponse|void
      */
-    public function shipping_settings($shipping_method_id) {
+    public function shipping_settings($shipping_method_id)
+    {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId = $this->session->adRoleId;
-        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != TRUE) {
+        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
 
             $table = DB()->table('cc_shipping_settings');
-            $data['shipping'] = $table->where('shipping_method_id',$shipping_method_id)->get()->getResult();
+            $data['shipping'] = $table->where('shipping_method_id', $shipping_method_id)->get()->getResult();
 
             $data['shipping_method_id'] = $shipping_method_id;
-            $data['shipping_status'] = get_data_by_id('status','cc_shipping_method','shipping_method_id',$shipping_method_id);
+            $data['shipping_status'] = get_data_by_id('status', 'cc_shipping_method', 'shipping_method_id', $shipping_method_id);
 
             $tableWeight = DB()->table('cc_weight_shipping_settings');
-            $data['extra_settingd'] = $tableWeight->where('shipping_method_id',$shipping_method_id)->get()->getResult();
+            $data['extra_settingd'] = $tableWeight->where('shipping_method_id', $shipping_method_id)->get()->getResult();
 
 
-            $code = get_data_by_id('code','cc_shipping_method','shipping_method_id',$shipping_method_id);
+            $code = get_data_by_id('code', 'cc_shipping_method', 'shipping_method_id', $shipping_method_id);
 
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
@@ -128,16 +128,16 @@ class Shipping extends BaseController
         $weight_label = $this->request->getPost('weight_label[]');
         $weight_value = $this->request->getPost('weight_value[]');
         $weight_id = $this->request->getPost('weight_id[]');
-        if (!empty($weight_label)){
+        if (!empty($weight_label)) {
             foreach ($weight_label as $key => $val) {
-//                $check = is_exists('cc_weight_shipping_settings','settings_id',$weight_id[$key]);
-                if (empty($weight_id[$key]) ){
+                //                $check = is_exists('cc_weight_shipping_settings','settings_id',$weight_id[$key]);
+                if (empty($weight_id[$key])) {
                     $dataWeight['shipping_method_id'] = $shipping_method_id;
                     $dataWeight['label'] = $val;
                     $dataWeight['value'] = $weight_value[$key];
                     $table = DB()->table('cc_weight_shipping_settings');
                     $table->insert($dataWeight);
-                }else {
+                } else {
                     $table = DB()->table('cc_weight_shipping_settings');
                     $table->set('label', $val)->set('value', $weight_value[$key])->where('settings_id', $weight_id[$key])->update();
                 }
@@ -179,14 +179,14 @@ class Shipping extends BaseController
         $geo_zone_id = $this->request->getPost('geo_zone_id[]');
         $cc_geo_zone_shipping_rate_id = $this->request->getPost('cc_geo_zone_shipping_rate_id[]');
 
-        foreach ($up_to_value as $key => $v){
-            if (!empty($cc_geo_zone_shipping_rate_id[$key])){
+        foreach ($up_to_value as $key => $v) {
+            if (!empty($cc_geo_zone_shipping_rate_id[$key])) {
                 $rateData['geo_zone_id'] = $geo_zone_id[$key];
                 $rateData['up_to_value'] = $v;
                 $rateData['cost'] = $cost[$key];
                 $tableRate = DB()->table('cc_geo_zone_shipping_rate');
-                $tableRate->where('cc_geo_zone_shipping_rate_id',$cc_geo_zone_shipping_rate_id[$key])->update($rateData);
-            }else{
+                $tableRate->where('cc_geo_zone_shipping_rate_id', $cc_geo_zone_shipping_rate_id[$key])->update($rateData);
+            } else {
                 $rateData['geo_zone_id'] = $geo_zone_id[$key];
                 $rateData['up_to_value'] = $v;
                 $rateData['cost'] = $cost[$key];
@@ -204,7 +204,8 @@ class Shipping extends BaseController
      * @description This method provides data delete
      * @return void
      */
-    function zone_rate_delete(){
+    public function zone_rate_delete()
+    {
         $cc_geo_zone_shipping_rate_id = $this->request->getPost('cc_geo_zone_shipping_rate_id');
         $table = DB()->table('cc_geo_zone_shipping_rate');
         $table->where('cc_geo_zone_shipping_rate_id', $cc_geo_zone_shipping_rate_id)->delete();
@@ -216,12 +217,13 @@ class Shipping extends BaseController
      * @description This method provides data update
      * @return void
      */
-    public function update_status(){
+    public function update_status()
+    {
         $shipping_method_id = $this->request->getPost('id');
-        $oldStatus = get_data_by_id('status','cc_shipping_method','shipping_method_id',$shipping_method_id);
-        if ($oldStatus == '1'){
+        $oldStatus = get_data_by_id('status', 'cc_shipping_method', 'shipping_method_id', $shipping_method_id);
+        if ($oldStatus == '1') {
             $data['status'] = '0';
-        }else{
+        } else {
             $data['status'] = '1';
         }
         $table = DB()->table('cc_shipping_method');
@@ -234,7 +236,8 @@ class Shipping extends BaseController
      * @description This method provides data remove
      * @return void
      */
-    public function remove_settings_weight(){
+    public function remove_settings_weight()
+    {
         $settings_id = $this->request->getPost('settings_id');
         $table = DB()->table('cc_weight_shipping_settings');
         $table->where('settings_id', $settings_id)->delete();
