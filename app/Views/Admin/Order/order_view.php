@@ -225,9 +225,9 @@ if (!empty($paymentDet)) {
                                                 foreach ($orOption as $op) { ?>
                                                 <?php
                                                     $firstCar =  mb_substr($op->value, 0, 1);
-                                                    $length = strlen($op->value);
-                                                    $isColor = (($firstCar == '#') && ($length == 7)) ? '' : $op->value;
-                                                    $style = empty($isColor) ? "background-color: $op->value;padding: 13px 14px; border: unset;" : "padding: 0px 4px;";
+                                                    $length   = strlen($op->value);
+                                                    $isColor  = (($firstCar == '#') && ($length == 7)) ? '' : $op->value;
+                                                    $style    = empty($isColor) ? "background-color: $op->value;padding: 13px 14px; border: unset;" : "padding: 0px 4px;";
                                                     ?>
                                                 <span><?php echo $op->name ?> :</span>
                                                 <label class="btn btn-outline-secondary pd-new"

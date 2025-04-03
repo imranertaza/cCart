@@ -10,7 +10,7 @@ class Paypalexpress
     public function __construct($pex_settings)
     {
         $this->pex_settings = $pex_settings;
-        $this->session = \Config\Services::session();
+        $this->session      = \Config\Services::session();
     }
 
     /**
@@ -21,7 +21,7 @@ class Paypalexpress
      */
     public function hash_call($method_name, $nvpstr)
     {
-        $settings = $this->pex_settings;
+        $settings  = $this->pex_settings;
         $nvpheader = "&PWD=" . urlencode($settings['api_password']) . "&USER=" . urlencode($settings['api_username']) . "&SIGNATURE=" . urlencode($settings['api_signature']);
         //setting the curl parameters.
         $ch = curl_init();
@@ -43,15 +43,15 @@ class Paypalexpress
         //getting response from server
         $response = curl_exec($ch);
         //convrting NVPResponse to an Associative Array
-        $nvpresarray = $this->deformat_nvp($response);
-        $nvpreqarray = $this->deformat_nvp($nvpreq);
+        $nvpresarray             = $this->deformat_nvp($response);
+        $nvpreqarray             = $this->deformat_nvp($nvpreq);
         $_SESSION['nvpreqarray'] = $nvpreqarray;
 
         if (curl_errno($ch)) {
             // moving to display page to display curl errors
-            $_SESSION['curl_error_no'] = curl_errno($ch);
+            $_SESSION['curl_error_no']  = curl_errno($ch);
             $_SESSION['curl_error_msg'] = curl_error($ch);
-            $location = "APIError.php";
+            $location                   = "APIError.php";
             header("Location: $location");
         } else {
             //closing the curl
@@ -65,7 +65,7 @@ class Paypalexpress
      */
     public function deformat_nvp($nvpstr)
     {
-        $intial = 0;
+        $intial   = 0;
         $nvparray = [];
         while (strlen($nvpstr)) {
             //postion of Key
@@ -77,7 +77,7 @@ class Paypalexpress
             $valval = substr($nvpstr, $keypos + 1, $valuepos - $keypos - 1);
             //decoding the respose
             $nvparray[urldecode($keyval)] = urldecode($valval);
-            $nvpstr = substr($nvpstr, $valuepos + 1, strlen($nvpstr));
+            $nvpstr                       = substr($nvpstr, $valuepos + 1, strlen($nvpstr));
         }
         return $nvparray;
     }
@@ -89,20 +89,20 @@ class Paypalexpress
     {
         // Getting settings.
         $settings = $this->pex_settings;
-        $nvpstr = "&TOKEN=" . $token;
+        $nvpstr   = "&TOKEN=" . $token;
         // call api with token and getting result.
         $resarray = $this->hash_call("GetExpressCheckoutDetails", $nvpstr);
-        $ack = strtoupper($resarray["ACK"]);
+        $ack      = strtoupper($resarray["ACK"]);
         if ($ack == 'SUCCESS' || $ack == 'SUCCESSWITHWARNING') {
             ini_set('session.bug_compat_42', 0);
             ini_set('session.bug_compat_warn', 0);
-            $token = trim($resarray['TOKEN']);
+            $token          = trim($resarray['TOKEN']);
             $payment_amount = trim($resarray['AMT']);
-            $payerid = trim($resarray['PAYERID']);
-            $server_name = trim($_SERVER['SERVER_NAME']);
-            $nvpstr = '&TOKEN=' . $token . '&PAYERID=' . $payerid . '&PAYMENTACTION=' . $settings['payment_type'] . '&AMT=' . $payment_amount . '&CURRENCYCODE=' . $settings['currency'] . '&IPADDRESS=' . $server_name;
-            $resarray = $this->hash_call("DoExpressCheckoutPayment", $nvpstr);
-            $ack = strtoupper($resarray["ACK"]);
+            $payerid        = trim($resarray['PAYERID']);
+            $server_name    = trim($_SERVER['SERVER_NAME']);
+            $nvpstr         = '&TOKEN=' . $token . '&PAYERID=' . $payerid . '&PAYMENTACTION=' . $settings['payment_type'] . '&AMT=' . $payment_amount . '&CURRENCYCODE=' . $settings['currency'] . '&IPADDRESS=' . $server_name;
+            $resarray       = $this->hash_call("DoExpressCheckoutPayment", $nvpstr);
+            $ack            = strtoupper($resarray["ACK"]);
             // checking response for success.
             if ($ack != 'SUCCESS' && $ack != 'SUCCESSWITHWARNING') {
                 return $resarray;

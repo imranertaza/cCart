@@ -17,11 +17,11 @@ class Products extends BaseController
 
     public function __construct()
     {
-        $this->validation = \Config\Services::validation();
-        $this->session = \Config\Services::session();
+        $this->validation            = \Config\Services::validation();
+        $this->session               = \Config\Services::session();
         $this->categoryproductsModel = new CategoryproductsModel();
-        $this->productsSearchModel = new ProductsSearchModel();
-        $this->filter = new Filter();
+        $this->productsSearchModel   = new ProductsSearchModel();
+        $this->filter                = new Filter();
     }
 
     /**
@@ -30,11 +30,11 @@ class Products extends BaseController
      */
     public function search()
     {
-        $settings = get_settings();
-        $cat_id = $this->request->getGetPost('cat');
-        $keyword = $this->request->getGetPost('keywordTop');
-        $data['top_category'] = $cat_id;
-        $data['keywordTop'] = $keyword;
+        $settings              = get_settings();
+        $cat_id                = $this->request->getGetPost('cat');
+        $keyword               = $this->request->getGetPost('keywordTop');
+        $data['top_category']  = $cat_id;
+        $data['keywordTop']    = $keyword;
         $data['keywordSearch'] = $keyword;
 
         $lemit = !empty($this->request->getGetPost('show')) ? $this->request->getGetPost('show') : $settings['category_product_limit'];
@@ -48,13 +48,13 @@ class Products extends BaseController
             $shortBy = "`cc_products.product_id` DESC";
         }
 
-        $categoryId = !empty($this->request->getGetPost('category')) ? $this->request->getGetPost('category') : $cat_id;
+        $categoryId    = !empty($this->request->getGetPost('category')) ? $this->request->getGetPost('category') : $cat_id;
         $categoryWhere = !empty($this->request->getGetPost('category')) ? 'category_id = ' . $this->request->getGetPost('category') : 'category_id = ' . $cat_id;
 
-        $brand = explode(',', $this->request->getGetPost('manufacturer'));
+        $brand   = explode(',', $this->request->getGetPost('manufacturer'));
         $options = explode(',', $this->request->getGetPost('option'));
-        $price = explode(',', $this->request->getGetPost('price'));
-        $rating = explode(',', $this->request->getGetPost('rating'));
+        $price   = explode(',', $this->request->getGetPost('price'));
+        $rating  = explode(',', $this->request->getGetPost('rating'));
 
         $data['optionval'] = [];
         if (empty($this->request->getGetPost('option'))) {
@@ -67,16 +67,16 @@ class Products extends BaseController
             $countOption = [];
             foreach ($options as $valOp) {
                 $optId = get_data_by_id('option_id', 'cc_product_option', 'option_value_id', $valOp);
-                $arr = $optId;
+                $arr   = $optId;
                 array_push($countOption, $arr);
             }
 
-            $allOption = '(' . rtrim($optionWhere, ' OR ') . ')';
+            $allOption         = '(' . rtrim($optionWhere, ' OR ') . ')';
             $data['optionval'] = $options;
         }
 
         $data['brandval'] = [];
-        $manufacturer = $this->request->getGetPost('manufacturer');
+        $manufacturer     = $this->request->getGetPost('manufacturer');
         if (empty($this->request->getGetPost('manufacturer'))) {
             $allbrand = '1=1';
         } else {
@@ -84,16 +84,16 @@ class Products extends BaseController
             foreach ($brand as $valBr) {
                 $brandWhere .= 'brand_id = ' . $valBr . ' OR ';
             }
-            $allbrand = '(' . rtrim($brandWhere, ' OR ') . ')';
+            $allbrand         = '(' . rtrim($brandWhere, ' OR ') . ')';
             $data['brandval'] = $brand;
         }
 
         if (empty($this->request->getGetPost('price'))) {
             $firstPrice = '1=1';
-            $lastPrice = '1=1';
+            $lastPrice  = '1=1';
         } else {
             $firstPrice = 'cc_products.price >= ' . $price[0];
-            $lastPrice = 'cc_products.price <= ' . $price[1];
+            $lastPrice  = 'cc_products.price <= ' . $price[1];
         }
 
 
@@ -105,7 +105,7 @@ class Products extends BaseController
             foreach ($rating as $valRati) {
                 $ratingWhere .= 'average_feedback = ' . $valRati . ' OR ';
             }
-            $allrating = '(' . rtrim($ratingWhere, ' OR ') . ')';
+            $allrating         = '(' . rtrim($ratingWhere, ' OR ') . ')';
             $data['ratingval'] = $rating;
         }
 
@@ -117,7 +117,7 @@ class Products extends BaseController
 
         $searchModel = empty($cat_id) ? 'productsSearchModel' : 'categoryproductsModel';
 
-        $productsArr = [];
+        $productsArr      = [];
         $data['products'] = [];
 
         if (!empty($categoryId)) {
@@ -137,12 +137,12 @@ class Products extends BaseController
         }
 
         if (!empty($data['products'])) {
-            $data['pager'] = $this->$searchModel->pager;
-            $data['links'] = $data['pager']->links('default', 'custome_link');
+            $data['pager']    = $this->$searchModel->pager;
+            $data['links']    = $data['pager']->links('default', 'custome_link');
             $data['totalPro'] = $data['pager']->getTotal();
         } else {
-            $data['pager'] = '';
-            $data['links'] = '';
+            $data['pager']    = '';
+            $data['links']    = '';
             $data['totalPro'] = '0';
         }
 
@@ -151,7 +151,7 @@ class Products extends BaseController
             if (empty($manufacturer)) {
                 $productsArr = $this->$searchModel->where($categoryWhere)->query()->findAll();
             } else {
-                $productsArr = $this->$searchModel->where($categoryWhere)->where($allbrand)->query()->findAll();
+                $productsArr       = $this->$searchModel->where($categoryWhere)->where($allbrand)->query()->findAll();
                 $productsArrCatBas = $this->$searchModel->where($categoryWhere)->query()->findAll();
             }
         } else {
@@ -166,11 +166,11 @@ class Products extends BaseController
             }
         }
 
-        $filter = $this->filter->getSettings($productsArr);
-        $data['price'] = $filter->product_array_by_price_range();
-        $data['optionView'] = $filter->product_array_by_options($data['optionval']);
-        $data['brandView'] = $filter->product_array_by_brand($data['brandval']);
-        $data['ratingView'] = $filter->product_array_by_rating_view($data['ratingval']);
+        $filter              = $this->filter->getSettings($productsArr);
+        $data['price']       = $filter->product_array_by_price_range();
+        $data['optionView']  = $filter->product_array_by_options($data['optionval']);
+        $data['brandView']   = $filter->product_array_by_brand($data['brandval']);
+        $data['ratingView']  = $filter->product_array_by_rating_view($data['ratingval']);
         $data['productsArr'] = $productsArr;
 
         if (!empty($manufacturer) && !empty($cat_id)) {
@@ -182,21 +182,21 @@ class Products extends BaseController
         }
 
         $data['searchPrice'] = !empty($price[0]) ? $price[0] : '';
-        $data['fstprice'] = !empty($price[0]) ? $price[0] : $data['price']['minPrice'];
-        $data['lstPrice'] = !empty($price[1]) ? $price[1] : $data['price']['maxPrice'];
+        $data['fstprice']    = !empty($price[0]) ? $price[0] : $data['price']['minPrice'];
+        $data['lstPrice']    = !empty($price[1]) ? $price[1] : $data['price']['maxPrice'];
 
-        $table = DB()->table('cc_product_category');
+        $table              = DB()->table('cc_product_category');
         $data['parent_Cat'] = $table->where('parent_id', $cat_id)->get()->getResult();
 
-        $table = DB()->table('cc_product_category');
+        $table            = DB()->table('cc_product_category');
         $data['main_Cat'] = $table->where('parent_id', null)->get()->getResult();
 
 
         $data['prod_cat_id'] = $cat_id;
-        $data['page_title'] = 'Category products';
-        $data['keywords'] = $settings['meta_keyword'];
+        $data['page_title']  = 'Category products';
+        $data['keywords']    = $settings['meta_keyword'];
         $data['description'] = $settings['meta_description'];
-        $data['title'] = (!empty($cat_id)) ? get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $cat_id) : 'Search';
+        $data['title']       = (!empty($cat_id)) ? get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $cat_id) : 'Search';
 
         echo view('Theme/' . $settings['Theme'] . '/header', $data);
         echo view('Theme/' . $settings['Theme'] . '/Category/index', $data);

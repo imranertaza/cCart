@@ -17,8 +17,8 @@ class Page_settings extends BaseController
     public function __construct()
     {
         $this->validation = \Config\Services::validation();
-        $this->session = \Config\Services::session();
-        $this->crop = \Config\Services::image();
+        $this->session    = \Config\Services::session();
+        $this->crop       = \Config\Services::image();
         $this->permission = new Permission();
     }
 
@@ -29,11 +29,11 @@ class Page_settings extends BaseController
     public function index()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
-        $adRoleId = $this->session->adRoleId;
+        $adRoleId          = $this->session->adRoleId;
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-            $table = DB()->table('cc_pages');
+            $table         = DB()->table('cc_pages');
             $data['pages'] = $table->get()->getResult();
 
 
@@ -57,7 +57,7 @@ class Page_settings extends BaseController
     public function create()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
-        $adRoleId = $this->session->adRoleId;
+        $adRoleId          = $this->session->adRoleId;
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
@@ -80,18 +80,18 @@ class Page_settings extends BaseController
      */
     public function create_action()
     {
-        $data['page_title'] = $this->request->getPost('page_title');
-        $data['slug'] = $this->request->getPost('slug');
-        $data['temp'] = !empty($this->request->getPost('temp')) ? $this->request->getPost('temp') : null;
-        $data['short_des'] = !empty($this->request->getPost('short_des')) ? $this->request->getPost('short_des') : null;
+        $data['page_title']       = $this->request->getPost('page_title');
+        $data['slug']             = $this->request->getPost('slug');
+        $data['temp']             = !empty($this->request->getPost('temp')) ? $this->request->getPost('temp') : null;
+        $data['short_des']        = !empty($this->request->getPost('short_des')) ? $this->request->getPost('short_des') : null;
         $data['page_description'] = !empty($this->request->getPost('page_description')) ? $this->request->getPost('page_description') : null;
-        $data['meta_title'] = $this->request->getPost('meta_title');
-        $data['meta_keyword'] = $this->request->getPost('meta_keyword');
+        $data['meta_title']       = $this->request->getPost('meta_title');
+        $data['meta_keyword']     = $this->request->getPost('meta_keyword');
         $data['meta_description'] = $this->request->getPost('meta_description');
 
         $this->validation->setRules([
             'page_title' => ['label' => 'Page Title', 'rules' => 'required'],
-            'slug' => ['label' => 'Slug', 'rules' => 'required'],
+            'slug'       => ['label' => 'Slug', 'rules' => 'required'],
         ]);
 
         if ($this->validation->run($data) == false) {
@@ -130,11 +130,11 @@ class Page_settings extends BaseController
     public function update($page_id)
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
-        $adRoleId = $this->session->adRoleId;
+        $adRoleId          = $this->session->adRoleId;
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-            $table = DB()->table('cc_pages');
+            $table        = DB()->table('cc_pages');
             $data['page'] = $table->where('page_id', $page_id)->get()->getRow();
 
 
@@ -157,20 +157,20 @@ class Page_settings extends BaseController
      */
     public function update_action()
     {
-        $page_id = $this->request->getPost('page_id');
-        $data['page_title'] = $this->request->getPost('page_title');
-        $data['slug'] = $this->request->getPost('slug');
-        $data['temp'] = !empty($this->request->getPost('temp')) ? $this->request->getPost('temp') : null;
-        $data['short_des'] = !empty($this->request->getPost('short_des')) ? $this->request->getPost('short_des') : null;
+        $page_id                  = $this->request->getPost('page_id');
+        $data['page_title']       = $this->request->getPost('page_title');
+        $data['slug']             = $this->request->getPost('slug');
+        $data['temp']             = !empty($this->request->getPost('temp')) ? $this->request->getPost('temp') : null;
+        $data['short_des']        = !empty($this->request->getPost('short_des')) ? $this->request->getPost('short_des') : null;
         $data['page_description'] = !empty($this->request->getPost('page_description')) ? $this->request->getPost('page_description') : null;
 
-        $data['meta_title'] = $this->request->getPost('meta_title');
-        $data['meta_keyword'] = $this->request->getPost('meta_keyword');
+        $data['meta_title']       = $this->request->getPost('meta_title');
+        $data['meta_keyword']     = $this->request->getPost('meta_keyword');
         $data['meta_description'] = $this->request->getPost('meta_description');
 
         $this->validation->setRules([
             'page_title' => ['label' => 'Page Title', 'rules' => 'required'],
-            'slug' => ['label' => 'Slug', 'rules' => 'required'],
+            'slug'       => ['label' => 'Slug', 'rules' => 'required'],
         ]);
 
         if ($this->validation->run($data) == false) {

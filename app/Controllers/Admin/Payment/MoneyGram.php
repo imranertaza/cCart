@@ -17,8 +17,8 @@ class MoneyGram extends BaseController
     public function __construct()
     {
         $this->validation = \Config\Services::validation();
-        $this->session = \Config\Services::session();
-        $this->crop = \Config\Services::image();
+        $this->session    = \Config\Services::session();
+        $this->crop       = \Config\Services::image();
         $this->permission = new Permission();
     }
 
@@ -30,14 +30,14 @@ class MoneyGram extends BaseController
     public function settings($payment_method_id)
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
-        $adRoleId = $this->session->adRoleId;
+        $adRoleId          = $this->session->adRoleId;
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-            $table = DB()->table('cc_payment_method');
+            $table           = DB()->table('cc_payment_method');
             $data['payment'] = $table->where('payment_method_id', $payment_method_id)->get()->getFirstRow();
 
-            $table = DB()->table('cc_payment_settings');
+            $table                    = DB()->table('cc_payment_settings');
             $data['payment_settings'] = $table->where('payment_method_id', $payment_method_id)->get()->getResult();
 
             $data['payment_method_id'] = $payment_method_id;
@@ -65,7 +65,7 @@ class MoneyGram extends BaseController
 
         //settings update
         $label = $this->request->getPost('label[]');
-        $id = $this->request->getPost('id[]');
+        $id    = $this->request->getPost('id[]');
         foreach ($label as $key => $val) {
             $table = DB()->table('cc_payment_settings');
             $table->set('value', $val)->where('settings_id', $id[$key])->update();
@@ -81,7 +81,7 @@ class MoneyGram extends BaseController
             }
 
             //new image uplode
-            $pic = $this->request->getFile('image');
+            $pic     = $this->request->getFile('image');
             $namePic = $pic->getRandomName();
             $pic->move($target_dir, $namePic);
             $news_img = 'moneyGram_' . $pic->getName();
@@ -92,7 +92,7 @@ class MoneyGram extends BaseController
 
 
         $data['status'] = $this->request->getPost('status');
-        $table = DB()->table('cc_payment_method');
+        $table          = DB()->table('cc_payment_method');
         $table->where('payment_method_id', $payment_method_id)->update($data);
 
 

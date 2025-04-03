@@ -17,8 +17,8 @@ class Option extends BaseController
     public function __construct()
     {
         $this->validation = \Config\Services::validation();
-        $this->session = \Config\Services::session();
-        $this->crop = \Config\Services::image();
+        $this->session    = \Config\Services::session();
+        $this->crop       = \Config\Services::image();
         $this->permission = new Permission();
     }
 
@@ -29,11 +29,11 @@ class Option extends BaseController
     public function index()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
-        $adRoleId = $this->session->adRoleId;
+        $adRoleId          = $this->session->adRoleId;
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-            $table = DB()->table('cc_option');
+            $table          = DB()->table('cc_option');
             $data['option'] = $table->get()->getResult();
 
 
@@ -57,7 +57,7 @@ class Option extends BaseController
     public function create()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
-        $adRoleId = $this->session->adRoleId;
+        $adRoleId          = $this->session->adRoleId;
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
@@ -82,7 +82,7 @@ class Option extends BaseController
     {
         $data['name'] = $this->request->getPost('name');
         $data['type'] = $this->request->getPost('type');
-        $value = $this->request->getPost('value[]');
+        $value        = $this->request->getPost('value[]');
 
         $this->validation->setRules([
             'name' => ['label' => 'Name', 'rules' => 'required'],
@@ -101,7 +101,7 @@ class Option extends BaseController
             foreach ($value as $key => $val) {
                 $dataval[$key] = [
                     'option_id' => $optionID,
-                    'name' => $val,
+                    'name'      => $val,
                 ];
             }
             $tableVal = DB()->table('cc_option_value');
@@ -120,14 +120,14 @@ class Option extends BaseController
     public function update($option_id)
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
-        $adRoleId = $this->session->adRoleId;
+        $adRoleId          = $this->session->adRoleId;
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-            $table = DB()->table('cc_option');
+            $table          = DB()->table('cc_option');
             $data['option'] = $table->where('option_id', $option_id)->get()->getRow();
 
-            $tableVal = DB()->table('cc_option_value');
+            $tableVal          = DB()->table('cc_option_value');
             $data['optionVal'] = $tableVal->where('option_id', $option_id)->get()->getResult();
 
 
@@ -150,10 +150,10 @@ class Option extends BaseController
      */
     public function update_action()
     {
-        $option_id = $this->request->getPost('option_id');
-        $data['name'] = $this->request->getPost('name');
-        $data['type'] = $this->request->getPost('type');
-        $value = $this->request->getPost('value[]');
+        $option_id       = $this->request->getPost('option_id');
+        $data['name']    = $this->request->getPost('name');
+        $data['type']    = $this->request->getPost('type');
+        $value           = $this->request->getPost('value[]');
         $option_value_id = $this->request->getPost('option_value_id[]');
 
         $this->validation->setRules([
@@ -171,11 +171,11 @@ class Option extends BaseController
 
                 foreach ($value as $key => $val) {
                     $dataval['option_id'] = $option_id;
-                    $dataval['name'] = $val;
+                    $dataval['name']      = $val;
 
                     if (!empty($option_value_id[$key])) {
                         $datavalUp['name'] = $val;
-                        $tableValDel = DB()->table('cc_option_value');
+                        $tableValDel       = DB()->table('cc_option_value');
                         $tableValDel->where('option_value_id', $option_value_id[$key])->update($datavalUp);
                     } else {
                         $tableVal = DB()->table('cc_option_value');

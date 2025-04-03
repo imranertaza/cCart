@@ -17,8 +17,8 @@ class Payment extends BaseController
     public function __construct()
     {
         $this->validation = \Config\Services::validation();
-        $this->session = \Config\Services::session();
-        $this->crop = \Config\Services::image();
+        $this->session    = \Config\Services::session();
+        $this->crop       = \Config\Services::image();
         $this->permission = new Permission();
     }
 
@@ -29,11 +29,11 @@ class Payment extends BaseController
     public function index()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
-        $adRoleId = $this->session->adRoleId;
+        $adRoleId          = $this->session->adRoleId;
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-            $table = DB()->table('cc_payment_method');
+            $table           = DB()->table('cc_payment_method');
             $data['payment'] = $table->get()->getResult();
 
 
@@ -57,7 +57,7 @@ class Payment extends BaseController
     public function status_update()
     {
         $payment_method_id = $this->request->getPost('id');
-        $oldStatus = get_data_by_id('status', 'cc_payment_method', 'payment_method_id', $payment_method_id);
+        $oldStatus         = get_data_by_id('status', 'cc_payment_method', 'payment_method_id', $payment_method_id);
         if ($oldStatus == '1') {
             $data['status'] = '0';
         } else {

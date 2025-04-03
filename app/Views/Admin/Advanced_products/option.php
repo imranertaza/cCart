@@ -32,7 +32,7 @@
                             <div id="<?php echo strtolower(str_replace(' ', '', $option->name)) ?>_op">
                                 <?php
                                     $opValue = option_id_or_product_id_by_option_value($op->option_id, $product_id);
-                        $opVal = get_array_data_by_id('cc_option_value', 'option_id', $op->option_id);
+                        $opVal               = get_array_data_by_id('cc_option_value', 'option_id', $op->option_id);
                         ?>
                                 <?php $i = 101;
                         foreach ($opValue as $val) {  ?>

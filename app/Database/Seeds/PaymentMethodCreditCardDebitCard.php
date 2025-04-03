@@ -11,9 +11,9 @@ class PaymentMethodCreditCardDebitCard extends Seeder
         $data = [
             [
                 'payment_method_id' => 7,
-                'name' => 'Credit Card / Debit Card',
-                'code' => 'credit_card',
-                'status' => '1',
+                'name'              => 'Credit Card / Debit Card',
+                'code'              => 'credit_card',
+                'status'            => '1',
             ],
         ];
         // Using Query Builder

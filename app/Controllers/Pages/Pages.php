@@ -12,7 +12,7 @@ class Pages extends BaseController
     public function __construct()
     {
         $this->validation = \Config\Services::validation();
-        $this->session = \Config\Services::session();
+        $this->session    = \Config\Services::session();
     }
 
     /**
@@ -23,15 +23,15 @@ class Pages extends BaseController
     public function page($slug)
     {
         $settings = get_settings();
-        $table = DB()->table('cc_pages');
-        $page = $table->where('slug', $slug)->get()->getRow();
+        $table    = DB()->table('cc_pages');
+        $page     = $table->where('slug', $slug)->get()->getRow();
 
         $data['page_title'] = $page->page_title;
-        $data['pageData'] = $page;
+        $data['pageData']   = $page;
 
-        $data['keywords'] = !empty($page->meta_keyword) ? $page->meta_keyword : $settings['meta_keyword'];
+        $data['keywords']    = !empty($page->meta_keyword) ? $page->meta_keyword : $settings['meta_keyword'];
         $data['description'] = !empty($page->meta_description) ? $page->meta_description : $settings['meta_description'];
-        $data['title'] = !empty($page->meta_title) ? $page->meta_title : $page->page_title;
+        $data['title']       = !empty($page->meta_title) ? $page->meta_title : $page->page_title;
 
         echo view('Theme/' . $settings['Theme'] . '/header', $data);
         if (!empty($page->temp)) {
@@ -48,11 +48,11 @@ class Pages extends BaseController
      */
     public function contact_action()
     {
-        $data['email'] = $this->request->getPost('email');
+        $data['email']   = $this->request->getPost('email');
         $data['message'] = $this->request->getPost('message');
-        $subject = 'Contact form';
+        $subject         = 'Contact form';
         $this->validation->setRules([
-            'email' => ['label' => 'Email', 'rules' => 'required'],
+            'email'   => ['label' => 'Email', 'rules' => 'required'],
             'message' => ['label' => 'Message', 'rules' => 'required'],
         ]);
 

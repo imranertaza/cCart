@@ -8,7 +8,7 @@ use CodeIgniter\Model;
 
 class ProductsSearchModel extends Model
 {
-    protected $table = 'cc_products';
+    protected $table      = 'cc_products';
     protected $primaryKey = 'product_id';
     protected $returnType = 'object';
 

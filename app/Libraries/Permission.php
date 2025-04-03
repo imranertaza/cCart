@@ -17,7 +17,7 @@ class Permission
      */
     public function have_access($roleId, $module_name, $sub_permission)
     {
-        $table = DB()->table('cc_roles');
+        $table  = DB()->table('cc_roles');
         $result = $table->where('role_id', $roleId)->get()->getRow();
 
         $obj = json_decode($result->permission, true);
@@ -36,14 +36,14 @@ class Permission
      */
     public function module_permission_list($role_id, $module_name)
     {
-        $table = DB()->table('cc_roles');
+        $table  = DB()->table('cc_roles');
         $result = $table->where('role_id', $role_id)->get()->getRow();
-        $obj = json_decode($result->permission, true);
+        $obj    = json_decode($result->permission, true);
 
         if (!empty($obj[$module_name])) {
             $output = $obj[$module_name];
         } else {
-            $obj = json_decode('{"' . $module_name . '":{"mod_access":"0","create":"0","read":"0","update":"0","delete":"0"}}', true);
+            $obj    = json_decode('{"' . $module_name . '":{"mod_access":"0","create":"0","read":"0","update":"0","delete":"0"}}', true);
             $output = $obj[$module_name];
         }
         return $output;
