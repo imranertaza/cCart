@@ -14,8 +14,8 @@ class Profile extends BaseController
 
     public function __construct()
     {
-        $this->validation = \Config\Services::validation();
-        $this->session = \Config\Services::session();
+        $this->validation    = \Config\Services::validation();
+        $this->session       = \Config\Services::session();
         $this->favoriteModel = new FavoriteModel();
     }
 
@@ -26,22 +26,23 @@ class Profile extends BaseController
     public function index()
     {
         $isLoggedInCustomer = $this->session->isLoggedInCustomer;
+
         if (!isset($isLoggedInCustomer) || $isLoggedInCustomer != true) {
             return redirect()->to(site_url('Login'));
         } else {
-            $settings = get_settings();
-            $table = DB()->table('cc_customer');
+            $settings         = get_settings();
+            $table            = DB()->table('cc_customer');
             $data['customer'] = $table->where('customer_id', $this->session->cusUserId)->get()->getRow();
 
-            $table = DB()->table('cc_address');
+            $table           = DB()->table('cc_address');
             $data['address'] = $table->where('customer_id', $this->session->cusUserId)->get()->getRow();
 
-            $data['keywords'] = $settings['meta_keyword'];
+            $data['keywords']    = $settings['meta_keyword'];
             $data['description'] = $settings['meta_description'];
-            $data['title'] = 'Profile';
+            $data['title']       = 'Profile';
 
             $data['menu_active'] = 'profile';
-            $data['page_title'] = 'Profile';
+            $data['page_title']  = 'Profile';
             echo view('Theme/' . $settings['Theme'] . '/header', $data);
             echo view('Theme/' . $settings['Theme'] . '/Customer/menu');
             echo view('Theme/' . $settings['Theme'] . '/Customer/profile', $data);
@@ -56,42 +57,42 @@ class Profile extends BaseController
     public function update_action()
     {
         $data['firstname'] = $this->request->getPost('firstname');
-        $data['lastname'] = $this->request->getPost('lastname');
-        $data['email'] = $this->request->getPost('email');
-        $data['phone'] = $this->request->getPost('phone');
+        $data['lastname']  = $this->request->getPost('lastname');
+        $data['email']     = $this->request->getPost('email');
+        $data['phone']     = $this->request->getPost('phone');
 
-        $data['address_1'] = $this->request->getPost('address_1');
-        $data['address_2'] = $this->request->getPost('address_2');
+        $data['address_1']  = $this->request->getPost('address_1');
+        $data['address_2']  = $this->request->getPost('address_2');
         $data['country_id'] = $this->request->getPost('country_id');
-        $data['zone_id'] = $this->request->getPost('zone_id');
-        $data['postcode'] = $this->request->getPost('postcode');
+        $data['zone_id']    = $this->request->getPost('zone_id');
+        $data['postcode']   = $this->request->getPost('postcode');
 
 
         $data['current_password'] = $this->request->getPost('current_password');
-        $data['new_password'] = $this->request->getPost('new_password');
+        $data['new_password']     = $this->request->getPost('new_password');
         $data['confirm_password'] = $this->request->getPost('confirm_password');
 
         $data['subscription'] = $this->request->getPost('subscription');
 
         $this->validation->setRules([
-            'firstname' => ['label' => 'First name', 'rules' => 'required'],
-            'lastname' => ['label' => 'Last name', 'rules' => 'required'],
-            'email' => ['label' => 'Email', 'rules' => 'required'],
-            'phone' => ['label' => 'Phone', 'rules' => 'required'],
-            'postcode' => ['label' => 'Post code', 'rules' => 'required'],
+            'firstname'  => ['label' => 'First name', 'rules' => 'required'],
+            'lastname'   => ['label' => 'Last name', 'rules' => 'required'],
+            'email'      => ['label' => 'Email', 'rules' => 'required'],
+            'phone'      => ['label' => 'Phone', 'rules' => 'required'],
+            'postcode'   => ['label' => 'Post code', 'rules' => 'required'],
             'country_id' => ['label' => 'Country', 'rules' => 'required'],
-            'address_1' => ['label' => 'Address line 1', 'rules' => 'required'],
+            'address_1'  => ['label' => 'Address line 1', 'rules' => 'required'],
         ]);
 
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert text-white alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . '</div>');
+
             return redirect()->to('profile');
         } else {
-
             if (!empty($this->request->getPost('subscription'))) {
                 $newData['customer_id'] = $this->session->cusUserId;
-                $newData['email'] = $data['email'];
-                $newAd = DB()->table('cc_newsletter');
+                $newData['email']       = $data['email'];
+                $newAd                  = DB()->table('cc_newsletter');
                 $newAd->insert($newData);
 
                 $cusData['newsletter'] = '1';
@@ -103,21 +104,24 @@ class Profile extends BaseController
 
 
             $cusData['firstname'] = $data['firstname'];
-            $cusData['lastname'] = $data['lastname'];
-            $cusData['email'] = $data['email'];
-            $cusData['phone'] = $data['phone'];
+            $cusData['lastname']  = $data['lastname'];
+            $cusData['email']     = $data['email'];
+            $cusData['phone']     = $data['phone'];
 
             if (!empty($data['current_password'])) {
                 $check = is_exists_double_condition('cc_customer', 'customer_id', $this->session->cusUserId, 'password', SHA1($data['current_password']));
+
                 if ($check == false) {
                     if ($data['new_password'] == $data['confirm_password']) {
                         $cusData['password'] =  SHA1($data['new_password']);
                     } else {
                         $this->session->setFlashdata('message', '<div class="alert alert-danger text-white alert-dismissible" role="alert">New password and confirm password not match </div>');
+
                         return redirect()->to('profile');
                     }
                 } else {
                     $this->session->setFlashdata('message', '<div class="alert alert-danger text-white alert-dismissible" role="alert">Current password not match </div>');
+
                     return redirect()->to('profile');
                 }
             }
@@ -127,15 +131,16 @@ class Profile extends BaseController
 
             //address
             $addData['customer_id'] = $this->session->cusUserId;
-            $addData['firstname'] = $data['firstname'];
-            $addData['lastname'] = $data['lastname'];
-            $addData['address_1'] = $data['address_1'];
-            $addData['address_2'] = $data['address_2'];
-            $addData['country_id'] = $data['country_id'];
-            $addData['zone_id'] = $data['zone_id'];
-            $addData['postcode'] = $data['postcode'];
+            $addData['firstname']   = $data['firstname'];
+            $addData['lastname']    = $data['lastname'];
+            $addData['address_1']   = $data['address_1'];
+            $addData['address_2']   = $data['address_2'];
+            $addData['country_id']  = $data['country_id'];
+            $addData['zone_id']     = $data['zone_id'];
+            $addData['postcode']    = $data['postcode'];
 
             $check_address = is_exists('cc_address', 'customer_id', $this->session->cusUserId);
+
             if ($check_address == true) {
                 $tabAd = DB()->table('cc_address');
                 $tabAd->insert($addData);
@@ -148,8 +153,8 @@ class Profile extends BaseController
 
 
             $this->session->setFlashdata('message', '<div class="alert-success-m alert-success alert-dismissible" role="alert">Profile Update successfully </div>');
-            return redirect()->to('profile');
 
+            return redirect()->to('profile');
         }
     }
 
@@ -159,29 +164,29 @@ class Profile extends BaseController
      */
     public function password_action()
     {
-
-
         $data['current_password'] = $this->request->getPost('current_password');
-        $data['new_password'] = $this->request->getPost('new_password');
+        $data['new_password']     = $this->request->getPost('new_password');
         $data['confirm_password'] = $this->request->getPost('confirm_password');
 
         $this->validation->setRules([
             'current_password' => ['label' => 'Current Password', 'rules' => 'required'],
-            'new_password' => ['label' => 'New Password', 'rules' => 'required'],
+            'new_password'     => ['label' => 'New Password', 'rules' => 'required'],
             'confirm_password' => ['label' => 'Confirm Password', 'rules' => 'required|matches[new_password]'],
         ]);
 
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert text-white  alert-dismissible" role="alert">' . $this->validation->listErrors() . '</div>');
+
             return redirect()->to('dashboard');
         } else {
-
             if (!empty($data['current_password'])) {
                 $check = is_exists_double_condition('cc_customer', 'customer_id', $this->session->cusUserId, 'password', SHA1($data['current_password']));
+
                 if ($check == false) {
                     $cusData['password'] =  SHA1($data['new_password']);
                 } else {
                     $this->session->setFlashdata('message', '<div class="alert  alert-dismissible" role="alert">Current password not match </div>');
+
                     return redirect()->to('dashboard');
                 }
             }
@@ -191,8 +196,8 @@ class Profile extends BaseController
 
 
             $this->session->setFlashdata('message', '<div class="alert-success-m alert-success alert-dismissible" role="alert">Update successfully </div>');
-            return redirect()->to('dashboard');
 
+            return redirect()->to('dashboard');
         }
     }
 
@@ -205,15 +210,15 @@ class Profile extends BaseController
         $check = get_data_by_id('newsletter', 'cc_customer', 'customer_id', $this->session->cusUserId);
 
         if ($check == '0') {
-            $email = get_data_by_id('email', 'cc_customer', 'customer_id', $this->session->cusUserId);
+            $email                  = get_data_by_id('email', 'cc_customer', 'customer_id', $this->session->cusUserId);
             $newData['customer_id'] = $this->session->cusUserId;
-            $newData['email'] = $email;
-            $newAd = DB()->table('cc_newsletter');
+            $newData['email']       = $email;
+            $newAd                  = DB()->table('cc_newsletter');
             $newAd->insert($newData);
 
 
             $cusData['newsletter'] = '1';
-            $table = DB()->table('cc_customer');
+            $table                 = DB()->table('cc_customer');
             $table->where('customer_id', $this->session->cusUserId)->update($cusData);
 
             $subject = 'Subscription';
@@ -224,8 +229,5 @@ class Profile extends BaseController
         } else {
             print '<div class="alert alert-danger alert-dismissible text-white " role="alert">Your email already exists</div>';
         }
-
-
     }
-
 }

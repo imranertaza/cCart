@@ -51,6 +51,7 @@
                     </thead>
                     <tbody>
                     <?php $i = 1;
+
 foreach ($users as $val) { ?>
                         <tr>
                             <td width="40"><?php echo $i++;?></td>

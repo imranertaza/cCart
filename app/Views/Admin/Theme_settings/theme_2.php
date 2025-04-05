@@ -2,8 +2,8 @@
     <div class="col-md-6">
 
         <?php
-        $cat = get_all_data_array('cc_product_category');
-        $themeSettings = get_theme_settings();
+        $cat                = get_all_data_array('cc_product_category');
+        $themeSettings      = get_theme_settings();
         $themeSettingsTitle = get_theme_title_settings();
 
         ?>
@@ -96,6 +96,7 @@
                     <option value="">Please Select</option>
                     <?php
             $catSel = $themeSettings['hot_deals_category'];
+
         foreach ($cat as $val) {
             ?>
                         <option value="<?php echo $val->prod_cat_id; ?>"
@@ -117,6 +118,7 @@
                     <option value="">Please Select</option>
                     <?php
                     $catSel = $themeSettings['trending_collection_category'];
+
         foreach ($cat as $val) {
             ?>
                         <option value="<?php echo $val->prod_cat_id; ?>"
@@ -138,6 +140,7 @@
                     <option value="">Please Select</option>
                     <?php
                     $catSel = $themeSettings['special_category_one'];
+
         foreach ($cat as $val) {
             ?>
                         <option value="<?php echo $val->prod_cat_id; ?>"
@@ -158,6 +161,7 @@
                     <option value="">Please Select</option>
                     <?php
                     $catSel = $themeSettings['special_category_two'];
+
         foreach ($cat as $val) {
             ?>
                         <option value="<?php echo $val->prod_cat_id; ?>"
@@ -178,6 +182,7 @@
                     <option value="">Please Select</option>
                     <?php
                     $catSel = $themeSettings['special_category_three'];
+
         foreach ($cat as $val) {
             ?>
                         <option value="<?php echo $val->prod_cat_id; ?>"

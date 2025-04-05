@@ -72,7 +72,7 @@
                             <div class="card-body">
                                 <?php
                                 $settings = get_settings();
-$settingsTitle = get_settings_title();
+$settingsTitle                            = get_settings_title();
 ?>
                                 <div class="tab-content" id="custom-tabs-four-tabContent">
 

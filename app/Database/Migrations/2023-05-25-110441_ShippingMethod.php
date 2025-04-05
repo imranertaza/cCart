@@ -16,19 +16,19 @@ class ShippingMethod extends Migration
                 'auto_increment' => true,
             ],
             'name' => [
-                'type' => 'VARCHAR',
+                'type'       => 'VARCHAR',
                 'constraint' => 155,
             ],
             'code' => [
-                'type' => 'VARCHAR',
+                'type'       => 'VARCHAR',
                 'constraint' => 155,
-                'null' => true,
-                'default' => null,
+                'null'       => true,
+                'default'    => null,
             ],
             'status' => [
-                'type' => 'ENUM',
+                'type'       => 'ENUM',
                 'constraint' => ['1', '0'],
-                'default' => '1',
+                'default'    => '1',
             ],
         ]);
 

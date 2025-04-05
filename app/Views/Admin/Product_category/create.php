@@ -75,7 +75,8 @@
                                 <?php $icons = get_all_data_array('cc_icons'); ?>
                                 <div class="row">
                                     <?php $i = 1;
-$j = 1;
+$j                                           = 1;
+
 foreach ($icons as $valic) { ?>
                                     <div class="col-md-2  custom-control custom-radio">
                                         <input class="custom-control-input" type="radio"

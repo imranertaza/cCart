@@ -195,6 +195,7 @@
                 <div class="row gx-0">
                     <div class="col-md-3">
                         <?php $modules = modules_access();
+
     if (isset($home_menu)) {  ?>
                         <div class="allcategory h-100 me-md-3">
                             <button

@@ -84,6 +84,7 @@
 
                                         <?php
                             $params = null;
+
                                     // Reflection by name is not available for closure function
                                     if (substr($row['function'], -1) !== '}') {
                                         $mirror = isset($row['class']) ? new \ReflectionMethod($row['class'], $row['function']) : new \ReflectionFunction($row['function']);

@@ -12,20 +12,20 @@ class AddPrefixOnProductOption extends Migration
             'price_prefix' => [
                 'type'           => 'varchar',
                 'constraint'     => 1,
-                'after' => 'price',
-                'null' => false,
+                'after'          => 'price',
+                'null'           => false,
             ],
             'point_prefix' => [
                 'type'           => 'varchar',
                 'constraint'     => 1,
-                'after' => 'points',
-                'null' => false,
+                'after'          => 'points',
+                'null'           => false,
             ],
             'weight_prefix' => [
                 'type'           => 'varchar',
                 'constraint'     => 1,
-                'after' => 'weight',
-                'null' => false,
+                'after'          => 'weight',
+                'null'           => false,
             ],
         ];
         $this->forge->addColumn('cc_product_option', $fields);

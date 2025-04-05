@@ -7,7 +7,8 @@
                     <option value="">Please Select</option>
                     <?php
                     $catSel = get_lebel_by_value_in_theme_settings('home_category');
-        $cat = get_all_data_array('cc_product_category');
+        $cat                = get_all_data_array('cc_product_category');
+
         foreach ($cat as $val) {
             ?>
                         <option value="<?php echo $val->prod_cat_id; ?>"

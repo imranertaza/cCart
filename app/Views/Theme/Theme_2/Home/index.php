@@ -25,11 +25,11 @@
     </div>
 </section>
 <?php
-    $theme_settings = get_theme_settings();
-                        $modules = modules_access();
-                        $symbol = get_lebel_by_value_in_settings('currency_symbol');
+    $theme_settings                   = get_theme_settings();
+                        $modules      = modules_access();
+                        $symbol       = get_lebel_by_value_in_settings('currency_symbol');
                         $img_size_100 = ($modules['watermark'] == '1') ? '100_wm_' : '100_';
-                        $img_size = ($modules['watermark'] == '1') ? '191_wm_' : '191_';
+                        $img_size     = ($modules['watermark'] == '1') ? '191_wm_' : '191_';
                         ?>
 <section class="main-container my-5">
     <div class="container">
@@ -67,6 +67,7 @@
                                                     </div>
                                                     <div class="price-hot mb-md-3">
                                                         <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id);
+
                                         if (empty($spPric)) { ?>
                                                             <?php echo currency_symbol_with_symbol($pro->price, $symbol); ?>
                                                         <?php } else { ?>
@@ -131,6 +132,7 @@
                                                 </div>
                                                 <div class="price-new mb-md-3">
                                                     <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id);
+
                                     if (empty($spPric)) { ?>
                                                         <?php echo currency_symbol_with_symbol($pro->price, $symbol); ?>
                                                     <?php } else { ?>
@@ -186,6 +188,7 @@
                                                     </div>
                                                     <div class="price-hot mb-3">
                                                         <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id);
+
                                         if (empty($spPric)) { ?>
                                                             <?php echo currency_symbol_with_symbol($pro->price, $symbol); ?>
                                                         <?php } else { ?>
@@ -234,6 +237,7 @@
                                         </div>
                                         <div class="price-special mb-3">
                                             <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id);
+
                                 if (empty($spPric)) { ?>
                                                 <?php echo currency_symbol_with_symbol($pro->price, $symbol); ?>
                                             <?php } else { ?>
@@ -310,6 +314,7 @@
                                                         </div>
                                                         <div class="price-new ">
                                                             <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id);
+
                                             if (empty($spPric)) { ?>
                                                                 <?php echo currency_symbol_with_symbol($pro->price, $symbol); ?>
                                                             <?php } else { ?>
@@ -366,6 +371,7 @@
                                                         </div>
                                                         <div class="price-new ">
                                                             <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id);
+
                                             if (empty($spPric)) { ?>
                                                                 <?php echo currency_symbol_with_symbol($pro->price, $symbol); ?>
                                                             <?php } else { ?>
@@ -422,6 +428,7 @@
                                                         </div>
                                                         <div class="price-new ">
                                                             <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id);
+
                                             if (empty($spPric)) { ?>
                                                                 <?php echo currency_symbol_with_symbol($pro->price, $symbol); ?>
                                                             <?php } else { ?>
@@ -522,6 +529,7 @@
                                                 </div>
                                                 <div class="price-new mb-md-3">
                                                     <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id);
+
                                     if (empty($spPric)) { ?>
                                                         <?php echo currency_symbol_with_symbol($pro->price, $symbol); ?>
                                                     <?php } else { ?>
@@ -571,12 +579,14 @@
 
                                 <?php
                                 $perPageShow = 6;
-                        $count = ceil(count($brand) / $perPageShow);
-                        $j = 1;
+                        $count               = ceil(count($brand) / $perPageShow);
+                        $j                   = 1;
+
                         for ($i = 1; $i <= $count; $i++) {
-                            $l = $i * $perPageShow;
+                            $l   = $i * $perPageShow;
                             $act = ($l == $perPageShow) ? 'active' : '';
                             print '<div class="carousel-item ' . $act . '"> <div class="row px-2">';
+
                             while ($j <= $l) {
                                 if (array_key_exists($j - 1, $brand)) {
                                     echo '<div class="col-6 brand-item  mt-2  no-padding">' . image_view('uploads/brand', '', $brand[$j - 1]->image, 'noimage.png', 'brand-img px-2 ') . '</div>';
@@ -636,7 +646,7 @@
                                 <?php
                         foreach ($populerCat as $key => $catPop) {
                             $icon_id = get_data_by_id('icon_id', 'cc_product_category', 'prod_cat_id', $catPop->prod_cat_id);
-                            $icon = get_data_by_id('code', 'cc_icons', 'icon_id', $icon_id);
+                            $icon    = get_data_by_id('code', 'cc_icons', 'icon_id', $icon_id);
                             ?>
                                     <div class="swiper-slide">
                                         <div class="products  <?php echo ($key == '0') ? 'active' : ''; ?> p-md-4  text-center">
@@ -675,7 +685,7 @@
                             <?php
                             foreach ($populerCat as $catPop) {
                                 $icon_id = get_data_by_id('icon_id', 'cc_product_category', 'prod_cat_id', $catPop->prod_cat_id);
-                                $icon = get_data_by_id('code', 'cc_icons', 'icon_id', $icon_id);
+                                $icon    = get_data_by_id('code', 'cc_icons', 'icon_id', $icon_id);
                                 ?>
                                 <div class="col p-2 p-md-3 border position-relative">
                                     <a href="<?php echo base_url('category/' . $catPop->prod_cat_id); ?>">

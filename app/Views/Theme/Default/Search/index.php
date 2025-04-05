@@ -166,6 +166,7 @@
                                                     </div>
                                                     <div class="price mb-3">
                                                         <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id);
+
                                         if (empty($spPric)) { ?>
                                                             <?php echo currency_symbol($pro->price);?>
                                                         <?php } else { ?>

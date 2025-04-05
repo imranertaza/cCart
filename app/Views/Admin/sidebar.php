@@ -28,10 +28,11 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
                 <?php
-    $modules = modules_access();
-    $adRoleId = newSession()->adRoleId;
-    $modArrayPur = ['Dashboard'];
+    $modules       = modules_access();
+    $adRoleId      = newSession()->adRoleId;
+    $modArrayPur   = ['Dashboard'];
     $menuAccessPur = all_menu_permission_check($modArrayPur, $adRoleId);
+
     if ($menuAccessPur == true) {
         ?>
                     <?php echo add_main_based_menu_with_permission('Dashboard', base_url('admin/dashboard'), $adRoleId, 'fa-tachometer-alt', 'Dashboard'); ?>
@@ -42,7 +43,8 @@
 
                 <?php
         $modArrayPur = ['Order'];
-    $menuAccessPur = all_menu_permission_check($modArrayPur, $adRoleId);
+    $menuAccessPur   = all_menu_permission_check($modArrayPur, $adRoleId);
+
     if ($menuAccessPur == true) {
         ?>
                     <li class="nav-item">
@@ -57,7 +59,8 @@
 
                 <?php
         $modArrayPur = ['Products'];
-    $menuAccessPur = all_menu_permission_check($modArrayPur, $adRoleId);
+    $menuAccessPur   = all_menu_permission_check($modArrayPur, $adRoleId);
+
     if ($menuAccessPur == true) {
         ?>
 
@@ -91,7 +94,8 @@
 
                 <?php
         $modArrayPur = ['Album'];
-    $menuAccessPur = all_menu_permission_check($modArrayPur, $adRoleId);
+    $menuAccessPur   = all_menu_permission_check($modArrayPur, $adRoleId);
+
     if ($menuAccessPur == true) {
         if ($modules['album'] == 1) {
             ?>
@@ -108,7 +112,8 @@
 
                 <?php
         $modArrayPur = ['Coupon'];
-    $menuAccessPur = all_menu_permission_check($modArrayPur, $adRoleId);
+    $menuAccessPur   = all_menu_permission_check($modArrayPur, $adRoleId);
+
     if ($menuAccessPur == true) {
         ?>
                     <li class="nav-item">
@@ -123,7 +128,8 @@
 
                 <?php
         $modArrayPur = ['Reviews'];
-    $menuAccessPur = all_menu_permission_check($modArrayPur, $adRoleId);
+    $menuAccessPur   = all_menu_permission_check($modArrayPur, $adRoleId);
+
     if ($menuAccessPur == true) {
         ?>
                     <li class="nav-item">
@@ -139,7 +145,8 @@
                 <li class="nav-header">Modules</li>
                 <?php
         $modArrayPur = ['Shipping'];
-    $menuAccessPur = all_menu_permission_check($modArrayPur, $adRoleId);
+    $menuAccessPur   = all_menu_permission_check($modArrayPur, $adRoleId);
+
     if ($menuAccessPur == true) { ?>
                     <li class="nav-item">
                         <a href="<?php echo base_url('admin/shipping'); ?>" class="nav-link">
@@ -152,8 +159,9 @@
                 <?php } ?>
 
                 <?php
-    $modArrayPur = ['Payment'];
+    $modArrayPur   = ['Payment'];
     $menuAccessPur = all_menu_permission_check($modArrayPur, $adRoleId);
+
     if ($menuAccessPur == true) { ?>
                     <li class="nav-item">
                         <a href="<?php echo base_url('admin/payment'); ?>" class="nav-link">
@@ -167,8 +175,9 @@
 
 
                 <?php
-    $modArrayPur = ['Module'];
+    $modArrayPur   = ['Module'];
     $menuAccessPur = all_menu_permission_check($modArrayPur, $adRoleId);
+
     if ($menuAccessPur == true) {
         ?>
                     <li class="nav-item">
@@ -185,7 +194,8 @@
 
                 <?php
                 $modArrayPur = ['User'];
-    $menuAccessPur = all_menu_permission_check($modArrayPur, $adRoleId);
+    $menuAccessPur           = all_menu_permission_check($modArrayPur, $adRoleId);
+
     if ($menuAccessPur == true) {
         ?>
                     <li class="nav-item">
@@ -200,7 +210,8 @@
 
                 <?php
         $modArrayPur = ['Role'];
-    $menuAccessPur = all_menu_permission_check($modArrayPur, $adRoleId);
+    $menuAccessPur   = all_menu_permission_check($modArrayPur, $adRoleId);
+
     if ($menuAccessPur == true) {
         ?>
                     <li class="nav-item">
@@ -213,7 +224,8 @@
 
                 <?php
         $modArrayPur = ['Customers'];
-    $menuAccessPur = all_menu_permission_check($modArrayPur, $adRoleId);
+    $menuAccessPur   = all_menu_permission_check($modArrayPur, $adRoleId);
+
     if ($menuAccessPur == true) {
         ?>
                     <li class="nav-item">
@@ -226,7 +238,8 @@
 
                 <?php
         $modArrayPur = ['Fund_request'];
-    $menuAccessPur = all_menu_permission_check($modArrayPur, $adRoleId);
+    $menuAccessPur   = all_menu_permission_check($modArrayPur, $adRoleId);
+
     if ($menuAccessPur == true) {
         ?>
                     <li class="nav-item">
@@ -239,7 +252,8 @@
                 <li class="nav-header">Blog</li>
                 <?php
         $modArrayPur = ['Blog_category'];
-    $menuAccessPur = all_menu_permission_check($modArrayPur, $adRoleId);
+    $menuAccessPur   = all_menu_permission_check($modArrayPur, $adRoleId);
+
     if ($menuAccessPur == true) {
         ?>
                     <li class="nav-item">
@@ -251,7 +265,8 @@
                 <?php } ?>
                 <?php
                 $modArrayPur = ['Blog'];
-    $menuAccessPur = all_menu_permission_check($modArrayPur, $adRoleId);
+    $menuAccessPur           = all_menu_permission_check($modArrayPur, $adRoleId);
+
     if ($menuAccessPur == true) {
         ?>
                     <li class="nav-item">
@@ -267,7 +282,8 @@
                 <li class="nav-header">System</li>
                 <?php
                 $modArrayPur = ['Settings'];
-    $menuAccessPur = all_menu_permission_check($modArrayPur, $adRoleId);
+    $menuAccessPur           = all_menu_permission_check($modArrayPur, $adRoleId);
+
     if ($menuAccessPur == true) { ?>
                     <li class="nav-item">
                         <a href="<?php echo base_url('admin/settings'); ?>" class="nav-link">
@@ -280,8 +296,9 @@
                 <?php } ?>
 
                 <?php
-    $modArrayPur = ['Theme_settings'];
+    $modArrayPur   = ['Theme_settings'];
     $menuAccessPur = all_menu_permission_check($modArrayPur, $adRoleId);
+
     if ($menuAccessPur == true) { ?>
                     <li class="nav-item">
                         <a href="<?php echo base_url('admin/theme_settings'); ?>" class="nav-link">
@@ -311,8 +328,9 @@
 
 
                 <?php
-    $modArrayPur = ['Page_settings'];
+    $modArrayPur   = ['Page_settings'];
     $menuAccessPur = all_menu_permission_check($modArrayPur, $adRoleId);
+
     if ($menuAccessPur == true) { ?>
                     <li class="nav-item">
                         <a href="<?php echo base_url('admin/page_list'); ?>" class="nav-link">
@@ -325,8 +343,9 @@
                 <?php } ?>
 
                 <?php
-    $modArrayPur = ['Newsletter'];
+    $modArrayPur   = ['Newsletter'];
     $menuAccessPur = all_menu_permission_check($modArrayPur, $adRoleId);
+
     if ($menuAccessPur == true) {
         ?>
                     <li class="nav-item">
@@ -341,7 +360,8 @@
 
                 <?php
         $modArrayPur = ['Email_send'];
-    $menuAccessPur = all_menu_permission_check($modArrayPur, $adRoleId);
+    $menuAccessPur   = all_menu_permission_check($modArrayPur, $adRoleId);
+
     if ($menuAccessPur == true) { ?>
                     <li class="nav-item">
                         <a href="<?php echo base_url('admin/email_send'); ?>" class="nav-link">

@@ -28,6 +28,7 @@
             <div class="card-body">
                 <p class="login-box-msg">Sign in to start your session</p>
                 <?php $message = isset($_SESSION['message']) ? $_SESSION['message'] : 0;
+
     if ($message) { ?>
                 <?php print $message; ?> <?php } ?>
 

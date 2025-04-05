@@ -44,17 +44,18 @@
             </div>
         </div>
         <?php
-        $theme_settings = get_theme_settings();
-                                $modules = modules_access();
-                                $symbol = get_lebel_by_value_in_settings('currency_symbol');
+        $theme_settings                       = get_theme_settings();
+                                $modules      = modules_access();
+                                $symbol       = get_lebel_by_value_in_settings('currency_symbol');
                                 $img_size_198 = ($modules['watermark'] == '1') ? '198_wm_' : '198_';
-                                $img_size = ($modules['watermark'] == '1') ? '191_wm_' : '191_';
+                                $img_size     = ($modules['watermark'] == '1') ? '191_wm_' : '191_';
                                 ?>
         <div class="product-category mb-5">
             <div class="card rounded-0 p-5">
                 <div class="card-header py-3 bg-white border-0">
                     <h4 class="fs-6 mb-0"><?php
                                                 $par_id = get_data_by_id('parent_id', 'cc_product_category', 'prod_cat_id', $prod_cat_id);
+
                                 if (!empty($par_id)) {
                                     $url = base_url('category/' . $par_id);
                                     echo '<a class="text-black" href="' . $url . '">' . get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $par_id) . '</a> <i class="fa-solid fa-angle-right"></i>';
@@ -74,7 +75,8 @@
                                     <input type="hidden" name="cat" value="<?php echo $prod_cat_id?>">
                                     <ul class="list-unstyled lh-lg">
                                         <?php $i = 1;
-                                $j = 1;
+                                $j               = 1;
+
                                 foreach ($parent_Cat as $cat) { ?>
                                         <li>
                                             <div class="form-check">
@@ -177,6 +179,7 @@
                                                     </div>
                                                     <div class="price mb-3">
                                                         <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id);
+
                                             if (empty($spPric)) { ?>
                                                             <?php echo currency_symbol_with_symbol($pro->price, $symbol);?>
                                                         <?php } else { ?>
@@ -230,6 +233,7 @@
 
                                                     <div class="price mb-3">
                                                         <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id);
+
                                         if (empty($spPric)) { ?>
                                                             <?php echo currency_symbol_with_symbol($pro->price, $symbol);?>
                                                         <?php } else { ?>

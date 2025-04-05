@@ -50,6 +50,7 @@
                     </thead>
                     <tbody>
                     <?php $i = 1;
+
 foreach ($pages as $val) { ?>
                         <tr>
                             <td width="40"><?php echo $i++;?></td>

@@ -4,8 +4,8 @@
         <div class="card p-3 rounded-0">
 <!--            <p class="text-end"><a href="#">Print This Page</a></p>-->
             <?php
-            $modules = modules_access();
-            $symbol = get_lebel_by_value_in_settings('currency_symbol');
+            $modules  = modules_access();
+            $symbol   = get_lebel_by_value_in_settings('currency_symbol');
             $img_size = ($modules['watermark'] == '1') ? '191_wm_' : '191_';
             ?>
             <?php if (!empty($products)) { ?>
@@ -28,6 +28,7 @@
                         <p><a href="<?php echo base_url('detail/' . $pro->product_id)?>"><?php echo $pro->name;?></a></p>
                         <div class="">
                             <span><?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id);
+
                         if (empty($spPric)) { ?>
                                     <?php echo currency_symbol_with_symbol($pro->price, $symbol);?>
                                 <?php } else { ?>
@@ -64,6 +65,7 @@
                     <?php foreach ($products as $pro) { ?>
                         <td>
                             <?php $attb = attribute_array_by_product_id($pro->product_id);
+
                         foreach ($attb as $at) {?>
                             <p><b><?php echo get_data_by_id('name', 'cc_product_attribute_group', 'attribute_group_id', $at->attribute_group_id)?></b> : <?php echo $at->name;?></p>
                             <?php } ?>

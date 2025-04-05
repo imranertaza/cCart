@@ -28,15 +28,15 @@ class OrderOption extends Migration
                 'constraint'     => 11,
             ],
             'option_id' => [
-                'type' => 'INT',
+                'type'       => 'INT',
                 'constraint' => 11,
             ],
             'option_value_id' => [
-                'type' => 'INT',
+                'type'       => 'INT',
                 'constraint' => 11,
             ],
             'name' => [
-                'type' => 'VARCHAR',
+                'type'       => 'VARCHAR',
                 'constraint' => 255,
             ],
             'value' => [

@@ -150,6 +150,7 @@
                                     </tr>
                                     <?php
                                     $paymentDet =  get_all_row_data_by_id('cc_order_card_details', 'payment_method_id', $order->payment_method);
+
 if (!empty($paymentDet)) {
     ?>
                                     <tr>
@@ -221,13 +222,14 @@ if (!empty($paymentDet)) {
                                                 <?php echo get_data_by_id('name', 'cc_products', 'product_id', $vew->product_id); ?><br>
                                                 <?php
                     $orOption = order_iten_id_by_order_options($vew->order_item);
+
                                             if (!empty($orOption)) {
                                                 foreach ($orOption as $op) { ?>
                                                 <?php
                                                     $firstCar =  mb_substr($op->value, 0, 1);
-                                                    $length = strlen($op->value);
-                                                    $isColor = (($firstCar == '#') && ($length == 7)) ? '' : $op->value;
-                                                    $style = empty($isColor) ? "background-color: $op->value;padding: 13px 14px; border: unset;" : "padding: 0px 4px;";
+                                                    $length   = strlen($op->value);
+                                                    $isColor  = (($firstCar == '#') && ($length == 7)) ? '' : $op->value;
+                                                    $style    = empty($isColor) ? "background-color: $op->value;padding: 13px 14px; border: unset;" : "padding: 0px 4px;";
                                                     ?>
                                                 <span><?php echo $op->name ?> :</span>
                                                 <label class="btn btn-outline-secondary pd-new"

@@ -5,8 +5,8 @@
                 <div class="row ">
                     <!--image showing -->
                     <?php
-                    $symbol = get_lebel_by_value_in_settings('currency_symbol');
-                    $modules = modules_access();
+                    $symbol       = get_lebel_by_value_in_settings('currency_symbol');
+                    $modules      = modules_access();
                     $img_size_437 = ($modules['watermark'] == '1') ? '437_wm_' : '437_';
                     $img_size_191 = ($modules['watermark'] == '1') ? '191_wm_' : '191_';
                     ?>
@@ -120,6 +120,7 @@
                                             <div class="col-6">
                                                 <div class="product-price text-end" id="priceVal">
                                                     <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $products->product_id);
+
                     if (empty($spPric)) { ?>
                                                         <?php $pp = $products->price;
                         echo currency_symbol_with_symbol($products->price, $symbol); ?>
@@ -256,6 +257,7 @@
 
                                     <h5 class="card-title"><?php echo substr($rPro->name, 0, 60); ?></h5>
                                     <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $rPro->product_id);
+
                                 if (empty($spPric)) { ?>
                                        <p> <?php echo currency_symbol_with_symbol($rPro->price, $symbol); ?> </p>
                                     <?php } else { ?>

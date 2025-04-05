@@ -106,6 +106,7 @@
                                     </div>
                                     <div class="price mb-3  " id="priceVal">
                                         <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $products->product_id);
+
                                                                 if (empty($spPric)) { ?>
                                         <?php $pp = $products->price;
                                                                     echo currency_symbol($products->price); ?>
@@ -492,7 +493,8 @@
                                     <div class="products h-100">
                                         <div class="row mo-text-center both-pro-mob">
                                             <?php $totalPrice = 0;
-            $i = 1;
+            $i                                                = 1;
+
             foreach ($bothProducts as $key => $both) { ?>
                                             <div class="col-lg-3 ">
                                                 <div
@@ -510,6 +512,7 @@
                                                         </div>
                                                         <div class="price-2 mb-3">
                                                             <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $both->product_id);
+
                 if (empty($spPric)) { ?>
                                                             <?php echo currency_symbol($both->price); ?>
                                                             <?php } else { ?>
@@ -521,6 +524,7 @@
                                             </div>
                                             <?php $totalPrice += !empty($spPric) ? $spPric : $both->price;
                 $show = 3 / $i;
+
                 if (($show != 1) && (array_key_exists($key + 1, $bothProducts))) { ?>
                                             <div class="col-lg-1 d-flex align-items-center ">
                                                 <div class="plus-icon w-100 text-center">
@@ -534,6 +538,7 @@
                                                 </div>
                                             </div>
                                             <?php }
+
                 if ($i >= 3) {
                     $i = 1;
                     continue;
@@ -617,6 +622,7 @@
                                         </div>
                                         <div class="price-new mb-3">
                                             <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $rPro->product_id);
+
                                     if (empty($spPric)) { ?>
                                             <?php echo currency_symbol($rPro->price); ?>
                                             <?php } else { ?>
@@ -713,6 +719,7 @@
                                         </div>
                                         <div class="price-new mb-3">
                                             <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $rPro->product_id);
+
                                     if (empty($spPric)) { ?>
                                             <?php echo currency_symbol($rPro->price); ?>
                                             <?php } else { ?>

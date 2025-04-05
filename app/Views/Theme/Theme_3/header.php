@@ -77,6 +77,7 @@
                     </div>
                     <div class="col-12 col-sm-8 col-md-5 d-flex gap-3 justify-content-center justify-content-sm-end mb-2 mb-sm-0"> 
                     <?php $modules = modules_access();
+
     if (!isset(newSession()->isLoggedInCustomer)) { ?>
                         <a class="btn" href="<?php echo base_url('login') ?>">Sign In</a>
                         <a class="btn btn-create px-4 py-2" href="<?php echo base_url('register') ?>">Create an account</a>
@@ -180,6 +181,7 @@
                                     </span>
                                         <?php echo $pcat->category_name; ?>
                                         <?php $fCat = getCategoryBySubArray($pcat->prod_cat_id);
+
                                 if (!empty(count($fCat))) { ?>
                                             <i class="fa-solid fa-angle-right  float-end"></i>
                                         <?php } ?>
@@ -191,6 +193,7 @@
                                             <a class="dropdown-item"
                                                 href="<?php echo base_url('category/' . $sCat->prod_cat_id); ?>">
                                                 <?php $sSubCat = getCategoryBySubArray($sCat->prod_cat_id);
+
                                         if (!empty(count($sSubCat))) { ?>
                                                 <i class="fa-solid fa-angle-right  float-end "
                                                     style="margin-top: 4px;"></i>

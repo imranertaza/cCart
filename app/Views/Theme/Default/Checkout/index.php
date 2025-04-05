@@ -4,6 +4,7 @@
             <div class="row">
                 <div class="col-lg-6">
                     <?php $isLoggedInCustomer = newSession()->isLoggedInCustomer;
+
         if (!isset($isLoggedInCustomer) || $isLoggedInCustomer != true) { ?>
                     <p><a class="btn bg-black w-100 text-white rounded-0 in_err" href="<?php echo base_url('login') ?>">Log In</a></p>
                     <p class="text-center">Or</p>
@@ -53,10 +54,10 @@
 
                         <?php
             $coun = isset($customer->customer_id) ? get_data_by_id('country_id', 'cc_address', 'customer_id', $customer->customer_id) : '';
-        $zon = isset($customer->customer_id) ? get_data_by_id('zone_id', 'cc_address', 'customer_id', $customer->customer_id) : '';
-        $post = isset($customer->customer_id) ? get_data_by_id('postcode', 'cc_address', 'customer_id', $customer->customer_id) : '';
-        $add1 = isset($customer->customer_id) ? get_data_by_id('address_1', 'cc_address', 'customer_id', $customer->customer_id) : '';
-        $add2 = isset($customer->customer_id) ? get_data_by_id('address_2', 'cc_address', 'customer_id', $customer->customer_id) : '';
+        $zon      = isset($customer->customer_id) ? get_data_by_id('zone_id', 'cc_address', 'customer_id', $customer->customer_id) : '';
+        $post     = isset($customer->customer_id) ? get_data_by_id('postcode', 'cc_address', 'customer_id', $customer->customer_id) : '';
+        $add1     = isset($customer->customer_id) ? get_data_by_id('address_1', 'cc_address', 'customer_id', $customer->customer_id) : '';
+        $add2     = isset($customer->customer_id) ? get_data_by_id('address_2', 'cc_address', 'customer_id', $customer->customer_id) : '';
         ?>
 
 
@@ -184,7 +185,7 @@
                 </div>
                 <?php
                 $modules = modules_access();
-        $img_size_100 = ($modules['watermark'] == '1') ? '100_wm_' : '100_';
+        $img_size_100    = ($modules['watermark'] == '1') ? '100_wm_' : '100_';
         ?>
                 <div class="col-lg-6">
                     <div class="checkout-items mb-4">
@@ -234,6 +235,7 @@
                         <div class="d-flex justify-content-between mb-2">
                             <span>Discount</span>
                             <?php $disc = 0;
+
         if (isset(newSession()->coupon_discount)) {
             $disc = round((Cart()->total() * newSession()->coupon_discount) / 100); ?>
                                 <span><?php echo currency_symbol($disc) ?></span>

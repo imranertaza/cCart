@@ -5,12 +5,13 @@
             <div class="row">
                 <div class="col-lg-12 ">
                     <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif;
-        $modules = modules_access();
+        $modules  = modules_access();
         $img_size = ($modules['watermark'] == '1') ? '100_wm_' : '100_';
         ?>
                 </div>
                 <div class="col-lg-6">
                     <?php $isLoggedInCustomer = newSession()->isLoggedInCustomer;
+
         if (!isset($isLoggedInCustomer) || $isLoggedInCustomer != true) { ?>
                     <p><a class="btn bg-custom-color w-100 text-white rounded-0"
                             href="<?php echo base_url('login') ?>">Log In</a></p>
@@ -74,10 +75,11 @@
 
                         <?php
             $coun = $zon =  $post = $add1 = $add2 = '';
-        $cusAddr = isset($customer->customer_id) ? get_all_row_data_by_id('cc_address', 'customer_id', $customer->customer_id) : '';
+        $cusAddr  = isset($customer->customer_id) ? get_all_row_data_by_id('cc_address', 'customer_id', $customer->customer_id) : '';
+
         if (!empty($cusAddr)) {
             $coun = isset($customer->customer_id) ? $cusAddr->country_id : '';
-            $zon = isset($customer->customer_id) ? $cusAddr->zone_id : '';
+            $zon  = isset($customer->customer_id) ? $cusAddr->zone_id : '';
             $post = isset($customer->customer_id) ? $cusAddr->postcode : '';
             $add1 = isset($customer->customer_id) ? $cusAddr->address_1 : '';
             $add2 = isset($customer->customer_id) ? $cusAddr->address_2 : '';
@@ -265,7 +267,7 @@
                         <div class="list-item d-flex gap-2 mb-2">
                             <div class="d-flex gap-2 bg-gray p-2 rounded-2 pro-bg-check">
                                 <?php
-                    $img = get_data_by_id('image', 'cc_products', 'product_id', $val['id']);
+                    $img         = get_data_by_id('image', 'cc_products', 'product_id', $val['id']);
                             $des = get_data_by_id('description', 'cc_product_description', 'product_id', $val['id']);
                             ?>
                                 <?php echo image_view('uploads/products', $val['id'], $img_size . $img, 'noimage.png', 'img-fluid w-h-100') ?>
@@ -384,8 +386,9 @@
 
                             <div class="d-flex flex-column">
                                 <?php
-        $sMethod = get_array_data_by_id('cc_shipping_method', 'status', '1');
+        $sMethod   = get_array_data_by_id('cc_shipping_method', 'status', '1');
         $dataCount = count($sMethod);
+
         foreach ($sMethod as $ship) { ?>
                                 <div class="d-flex justify-content-between mt-3">
                                     <div class="form-check">

@@ -17,8 +17,8 @@ class Reviews extends BaseController
     public function __construct()
     {
         $this->validation = \Config\Services::validation();
-        $this->session = \Config\Services::session();
-        $this->crop = \Config\Services::image();
+        $this->session    = \Config\Services::session();
+        $this->crop       = \Config\Services::image();
         $this->permission = new Permission();
     }
 
@@ -29,20 +29,22 @@ class Reviews extends BaseController
     public function index()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
-        $adRoleId = $this->session->adRoleId;
+        $adRoleId          = $this->session->adRoleId;
+
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
-            $table = DB()->table('cc_product_feedback');
+            $table           = DB()->table('cc_product_feedback');
             $data['reviews'] = $table->get()->getResult();
 
 
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
+
             foreach ($perm as $key => $val) {
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
+
             if (isset($data['mod_access']) and $data['mod_access'] == 1) {
                 echo view('Admin/Reviews/index', $data);
             } else {
@@ -57,7 +59,7 @@ class Reviews extends BaseController
      */
     public function reviews_status_update()
     {
-        $feedback_id = $this->request->getPost('feedback_id');
+        $feedback_id    = $this->request->getPost('feedback_id');
         $data['status'] = $this->request->getPost('status');
 
         $table = DB()->table('cc_product_feedback');
@@ -73,12 +75,11 @@ class Reviews extends BaseController
      */
     public function delete($feedback_id)
     {
-
         $table = DB()->table('cc_product_feedback');
         $table->where('product_feedback_id', $feedback_id)->delete();
 
         $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert"> Reviews Delete Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
         return redirect()->to('admin/reviews');
     }
-
 }

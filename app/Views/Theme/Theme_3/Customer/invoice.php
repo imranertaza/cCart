@@ -7,7 +7,7 @@
                         <div class="logo">
                             <?php $logoImg = get_lebel_by_value_in_theme_settings('side_logo');
                             echo image_view('uploads/logo', '', $logoImg, 'noimage.png', 'img-fluid');
-                            $modules = modules_access();
+                            $modules  = modules_access();
                             $img_size = ($modules['watermark'] == '1') ? '100_wm_' : '100_';
                             ?>
                         </div>
@@ -46,14 +46,15 @@
                         </div>
                         <?php
 //                            $status = order_id_by_status($order->order_id);
-                            $status = $order->payment_status;
+                            $status   = $order->payment_status;
                             $bacColor = 'bg-danger';
-                            $titleS = $status;
-                            $pad = 'padding:35px 20px;';
+                            $titleS   = $status;
+                            $pad      = 'padding:35px 20px;';
+
                             if ($status == 'Paid') {
                                 $bacColor = 'bg-success';
-                                $titleS = $status;
-                                $pad = 'padding: 35px 28px;';
+                                $titleS   = $status;
+                                $pad      = 'padding: 35px 28px;';
                             }
 
 
@@ -76,6 +77,7 @@
                             </thead>
                             <tbody>
                             <?php $symbol = get_lebel_by_value_in_settings('currency_symbol');
+
                             foreach ($orderItem as $item) { ?>
                                 <tr>
                                     <td width="700">
@@ -90,13 +92,14 @@
                                             <br>
                                         <?php
                                     $orOption = order_iten_id_by_order_options($item->order_item);
+
                                 if (!empty($orOption)) {
                                     foreach ($orOption as $op) { ?>
                                                 <?php
                                         $firstCar =  mb_substr($op->value, 0, 1);
-                                        $length = strlen($op->value);
-                                        $isColor = (($firstCar == '#') && ($length == 7)) ? '' : $op->value;
-                                        $style = empty($isColor) ? "background-color: $op->value;padding: 13px 14px; border: unset;" : "padding: 0px 4px;";
+                                        $length   = strlen($op->value);
+                                        $isColor  = (($firstCar == '#') && ($length == 7)) ? '' : $op->value;
+                                        $style    = empty($isColor) ? "background-color: $op->value;padding: 13px 14px; border: unset;" : "padding: 0px 4px;";
                                         ?>
                                             <span><?php echo $op->name?> :</span>
                                             <label class="btn btn-outline-secondary"  style="<?php echo $style;?> border-radius: unset; margin-left:8px; " ><?php echo !empty($isColor) ? $op->value : '';?></label>

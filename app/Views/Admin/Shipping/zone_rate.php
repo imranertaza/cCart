@@ -52,6 +52,7 @@
                             <h5>Calculation Method</h5>
                             <?php
                                 $sel = get_data_by_id('value', 'cc_shipping_settings', 'shipping_method_id', $shipping_method_id);
+
 foreach (zone_rate_type() as $key => $val) {
     ?>
                                 <div class="form-check form-check-inline">
@@ -108,6 +109,7 @@ foreach (zone_rate_type() as $key => $val) {
                                             <div class="col-md-12">
                                                 <div id="new_rate_0" class="row">
                                                     <?php $allRateOt = get_array_data_by_id('cc_geo_zone_shipping_rate', 'geo_zone_id', '0');
+
 foreach ($allRateOt as $rateOt) { ?>
                                                         <div class='col-md-12 mt-2' ><input type='text' class='form-input' placeholder='Weight'  name='up_to_value[]' value="<?php echo $rateOt->up_to_value;?>" style='width: 40%;margin-right: 2px;'><input type='text' class='form-input' value="<?php echo $rateOt->cost;?>"  name='cost[]' placeholder='Rate' style='width: 45%; margin-left: 3px;'><input type='hidden' value='0' name='geo_zone_id[]'><input type='hidden' value='<?php echo $rateOt->cc_geo_zone_shipping_rate_id;?>' name='cc_geo_zone_shipping_rate_id[]'> <a href='javascript:void(0)' onclick='remove_option(this),removeRate(<?php echo $rateOt->cc_geo_zone_shipping_rate_id;?>)' class='btn btn-danger' style='margin-top: -5px;width: 5%;'>X</a></div>
                                                     <?php } ?>

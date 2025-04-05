@@ -13,7 +13,7 @@ class Customer_ledger extends BaseController
     public function __construct()
     {
         $this->validation = \Config\Services::validation();
-        $this->session = \Config\Services::session();
+        $this->session    = \Config\Services::session();
     }
 
     /**
@@ -23,18 +23,19 @@ class Customer_ledger extends BaseController
     public function index()
     {
         $isLoggedInCustomer = $this->session->isLoggedInCustomer;
+
         if (!isset($isLoggedInCustomer) || $isLoggedInCustomer != true) {
             return redirect()->to(site_url('Login'));
         } else {
-            $settings = get_settings();
-            $table = DB()->table('cc_customer_ledger');
+            $settings       = get_settings();
+            $table          = DB()->table('cc_customer_ledger');
             $data['ledger'] = $table->where('customer_id', $this->session->cusUserId)->get()->getResult();
 
 
-            $data['keywords'] = $settings['meta_keyword'];
+            $data['keywords']    = $settings['meta_keyword'];
             $data['description'] = $settings['meta_description'];
-            $data['title'] = 'Account Ledger';
-            $data['page_title'] = 'Ledger';
+            $data['title']       = 'Account Ledger';
+            $data['page_title']  = 'Ledger';
             $data['menu_active'] = 'ledger';
             echo view('Theme/' . $settings['Theme'] . '/header', $data);
             echo view('Theme/' . $settings['Theme'] . '/Customer/menu');
@@ -42,7 +43,4 @@ class Customer_ledger extends BaseController
             echo view('Theme/' . $settings['Theme'] . '/footer');
         }
     }
-
-
-
 }

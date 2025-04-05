@@ -11,10 +11,10 @@ class ModulesSettings extends Seeder
         $data = [
             [
                 'module_settings_id' => 1,
-                'module_id' => '5',
-                'label' => 'whatsapp_number',
-                'title' => 'Whatsapp number',
-                'value' => '00000000000',
+                'module_id'          => '5',
+                'label'              => 'whatsapp_number',
+                'title'              => 'Whatsapp number',
+                'value'              => '00000000000',
             ],
 
         ];

@@ -20,7 +20,7 @@ class CouponProduct extends Migration
                 'constraint' => 11,
             ],
             'product_id' => [
-                'type' => 'INT',
+                'type'       => 'INT',
                 'constraint' => 11,
             ],
         ]);

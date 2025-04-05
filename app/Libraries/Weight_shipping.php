@@ -14,7 +14,7 @@ class Weight_shipping
     {
         $shipping_method_id = get_data_by_id('shipping_method_id', 'cc_shipping_method', 'code', 'weight');
 
-        $table = DB()->table('cc_weight_shipping_settings');
+        $table              = DB()->table('cc_weight_shipping_settings');
         $this->shippingData = $table->where('shipping_method_id', $shipping_method_id)->orderBy('label', 'ASC')->get()->getResult();
 
         return $this;
@@ -26,9 +26,10 @@ class Weight_shipping
      */
     public function calculateShipping()
     {
-        $weight = 0;
-        $value = 0;
+        $weight                 = 0;
+        $value                  = 0;
         $eligible_product_array = $this->get_shipping_eligible_product();
+
         foreach ($eligible_product_array as $val) {
             $weight += get_data_by_id('weight', 'cc_products', 'product_id', $val);
         }
@@ -46,6 +47,7 @@ class Weight_shipping
                 }
             }
         }
+
         return $value;
     }
 
@@ -60,6 +62,7 @@ class Weight_shipping
         foreach (Cart()->contents() as $val) {
             $table = DB()->table('cc_product_free_delivery');
             $exist = $table->where('product_id', $val['id'])->countAllResults();
+
             if (empty($exist)) {
                 $eligible_product[] = $val['id'];
             }
@@ -67,6 +70,4 @@ class Weight_shipping
 
         return $eligible_product;
     }
-
-
 }

@@ -48,9 +48,9 @@
 
                             <?php
                             $modules = modules_access();
-                    $symbol = get_lebel_by_value_in_settings('currency_symbol');
-                    $img_size_198 = ($modules['watermark'] == '1') ? '198_wm_' : '198_';
-                    $img_size = ($modules['watermark'] == '1') ? '191_wm_' : '191_';
+                    $symbol          = get_lebel_by_value_in_settings('currency_symbol');
+                    $img_size_198    = ($modules['watermark'] == '1') ? '198_wm_' : '198_';
+                    $img_size        = ($modules['watermark'] == '1') ? '191_wm_' : '191_';
                     ?>
 
                             <div class="products cat-pro-mob">
@@ -94,6 +94,7 @@
                                                     </div>
                                                     <div class="price mb-3">
                                                         <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id);
+
                                             if (empty($spPric)) { ?>
                                                             <?php echo currency_symbol_with_symbol($pro->price, $symbol);?>
                                                         <?php } else { ?>
@@ -156,6 +157,7 @@
 
                                                     <div class="price mb-3">
                                                         <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id);
+
                                         if (empty($spPric)) { ?>
                                                             <?php echo currency_symbol_with_symbol($pro->price, $symbol);?>
                                                         <?php } else { ?>
@@ -193,6 +195,7 @@
                                         <span class="title-hot category"><?php
         if (!empty($prod_cat_id)) {
             $par_id = get_data_by_id('parent_id', 'cc_product_category', 'prod_cat_id', $prod_cat_id);
+
             if (!empty($par_id)) {
                 $url = base_url('category/' . $par_id);
                 echo '<a href="' . $url . '">' . get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $par_id) . '</a> <i class="fa-solid fa-angle-right"></i>';
@@ -210,7 +213,8 @@
                                                 <input type="hidden" name="cat" value="<?php echo $prod_cat_id?>">
                                                     <ul class="list-unstyled lh-lg">
                                                         <?php $i = 1;
-                                                $j = 1;
+                                                $j               = 1;
+
                                                 foreach ($parent_Cat as $cat) { ?>
                                                         <li>
                                                             <div class="form-check d-flex flex-row align-items-center gap-1">
@@ -276,6 +280,7 @@
                                             <span class="title-hot"><?php
         if (!empty($prod_cat_id)) {
             $par_id = get_data_by_id('parent_id', 'cc_product_category', 'prod_cat_id', $prod_cat_id);
+
             if (!empty($par_id)) {
                 $url = base_url('category/' . $par_id);
                 echo '<a href="' . $url . '">' . get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $par_id) . '</a> <i class="fa-solid fa-angle-right"></i>';
@@ -293,7 +298,8 @@
                                                 <input type="hidden" name="cat" value="<?php echo $prod_cat_id?>">
                                                 <ul class="list-unstyled lh-lg">
                                                     <?php $i = 1;
-                                                    $j = 1;
+                                                    $j       = 1;
+
                                                     foreach ($parent_Cat as $cat) { ?>
                                                     <li>
                                                         <div class="form-check d-flex flex-row align-items-center gap-1">

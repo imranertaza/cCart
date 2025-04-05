@@ -270,7 +270,7 @@
         </svg>
     </a>
     <?php
-    $modules = modules_access();
+    $modules                              = modules_access();
                             $img_size_100 = ($modules['watermark'] == '1') ? '100_wm_' : '100_';
                             ?>
     <div class="collapse toggle-body" id="miniCart">
@@ -1218,6 +1218,7 @@
             if ($v->type == 'radio') { ?>
                 var <?php echo strtolower($v->name); ?> = $('input[name="<?php echo strtolower($v->name); ?>"]:checked').val();
             <?php }
+
             if ($v->type == 'select') { ?>
                 var <?php echo strtolower($v->name); ?> = $('[name="<?php echo strtolower($v->name); ?>"]').val();
         <?php }

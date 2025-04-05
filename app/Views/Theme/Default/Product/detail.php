@@ -4,11 +4,11 @@
             <div class="card p-3 rounded-0 mb-4">
                 <?php
                 $theme_settings = get_theme_settings();
-                $modules = modules_access();
-                $symbol = get_lebel_by_value_in_settings('currency_symbol');
-                $img_size_100 = ($modules['watermark'] == '1') ? '100_wm_' : '100_';
-                $img_size_437 = ($modules['watermark'] == '1') ? '437_wm_' : '437_';
-                $img_size = ($modules['watermark'] == '1') ? '191_wm_' : '191_';
+                $modules        = modules_access();
+                $symbol         = get_lebel_by_value_in_settings('currency_symbol');
+                $img_size_100   = ($modules['watermark'] == '1') ? '100_wm_' : '100_';
+                $img_size_437   = ($modules['watermark'] == '1') ? '437_wm_' : '437_';
+                $img_size       = ($modules['watermark'] == '1') ? '191_wm_' : '191_';
                 ?>
                 <div class="row">
                     <div class="col-lg-5 mb-3 mb-lg-0">
@@ -60,6 +60,7 @@
                         <hr>
                         <div class="price mb-3">
                             <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $products->product_id);
+
                 if (empty($spPric)) { ?>
                             <?php echo currency_symbol($products->price);?>
                             <?php } else { ?>
@@ -221,6 +222,7 @@
                             </div>
                             <div class="price mb-3">
                                 <?php $spPric2 = get_data_by_id('special_price', 'cc_product_special', 'product_id', $relPro->product_id);
+
                             if (empty($spPric2)) { ?>
                                     <?php echo currency_symbol($relPro->price);?>
                                 <?php } else { ?>
@@ -273,6 +275,7 @@
                                         </div>
                                         <div class="price mb-3">
                                             <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $rPro->product_id);
+
                                     if (empty($spPric)) { ?>
                                                 <?php echo currency_symbol($rPro->price);?>
                                             <?php } else { ?>

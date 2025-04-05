@@ -19,34 +19,34 @@ class Album_details extends Migration
             'album_id' => [
                 'type'           => 'INT',
                 'constraint'     => 11,
-                'null'       => true,
+                'null'           => true,
             ],
 
             'image' => [
-                'type' => 'VARCHAR',
+                'type'       => 'VARCHAR',
                 'constraint' => 155,
-                'null' => true,
-                'default' => null,
+                'null'       => true,
+                'default'    => null,
             ],
             'sort_order' => [
-                'type' => 'INT',
+                'type'       => 'INT',
                 'constraint' => 3,
             ],
             'createdDtm' => [
-                'type' => 'DATETIME',
+                'type'    => 'DATETIME',
                 'default' => new RawSql('CURRENT_TIMESTAMP'),
             ],
             'createdBy' => [
-                'type' => 'INT',
+                'type'       => 'INT',
                 'constraint' => 11,
-                'null' => true,
-                'default' => null,
+                'null'       => true,
+                'default'    => null,
             ],
             'updatedBy' => [
-                'type' => 'INT',
+                'type'       => 'INT',
                 'constraint' => 11,
-                'null' => true,
-                'default' => null,
+                'null'       => true,
+                'default'    => null,
             ],
             'updatedDtm DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP',
         ]);

@@ -17,8 +17,8 @@ class Option extends BaseController
     public function __construct()
     {
         $this->validation = \Config\Services::validation();
-        $this->session = \Config\Services::session();
-        $this->crop = \Config\Services::image();
+        $this->session    = \Config\Services::session();
+        $this->crop       = \Config\Services::image();
         $this->permission = new Permission();
     }
 
@@ -29,20 +29,22 @@ class Option extends BaseController
     public function index()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
-        $adRoleId = $this->session->adRoleId;
+        $adRoleId          = $this->session->adRoleId;
+
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
-            $table = DB()->table('cc_option');
+            $table          = DB()->table('cc_option');
             $data['option'] = $table->get()->getResult();
 
 
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
+
             foreach ($perm as $key => $val) {
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
+
             if (isset($data['mod_access']) and $data['mod_access'] == 1) {
                 echo view('Admin/Option/index', $data);
             } else {
@@ -58,16 +60,18 @@ class Option extends BaseController
     public function create()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
-        $adRoleId = $this->session->adRoleId;
+        $adRoleId          = $this->session->adRoleId;
+
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
+
             foreach ($perm as $key => $val) {
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
+
             if (isset($data['create']) and $data['create'] == 1) {
                 echo view('Admin/Option/create');
             } else {
@@ -84,7 +88,7 @@ class Option extends BaseController
     {
         $data['name'] = $this->request->getPost('name');
         $data['type'] = $this->request->getPost('type');
-        $value = $this->request->getPost('value[]');
+        $value        = $this->request->getPost('value[]');
 
         $this->validation->setRules([
             'name' => ['label' => 'Name', 'rules' => 'required'],
@@ -93,24 +97,26 @@ class Option extends BaseController
 
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/option');
         } else {
-
             $table = DB()->table('cc_option');
             $table->insert($data);
             $optionID = DB()->insertID();
 
             $dataval = [];
+
             foreach ($value as $key => $val) {
                 $dataval[$key] = [
                     'option_id' => $optionID,
-                    'name' => $val,
+                    'name'      => $val,
                 ];
             }
             $tableVal = DB()->table('cc_option_value');
             $tableVal->insertBatch($dataval);
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Option Create Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/option');
         }
     }
@@ -123,23 +129,25 @@ class Option extends BaseController
     public function update($option_id)
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
-        $adRoleId = $this->session->adRoleId;
+        $adRoleId          = $this->session->adRoleId;
+
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
-            $table = DB()->table('cc_option');
+            $table          = DB()->table('cc_option');
             $data['option'] = $table->where('option_id', $option_id)->get()->getRow();
 
-            $tableVal = DB()->table('cc_option_value');
+            $tableVal          = DB()->table('cc_option_value');
             $data['optionVal'] = $tableVal->where('option_id', $option_id)->get()->getResult();
 
 
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
+
             foreach ($perm as $key => $val) {
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
+
             if (isset($data['update']) and $data['update'] == 1) {
                 echo view('Admin/Option/update', $data);
             } else {
@@ -154,10 +162,10 @@ class Option extends BaseController
      */
     public function update_action()
     {
-        $option_id = $this->request->getPost('option_id');
-        $data['name'] = $this->request->getPost('name');
-        $data['type'] = $this->request->getPost('type');
-        $value = $this->request->getPost('value[]');
+        $option_id       = $this->request->getPost('option_id');
+        $data['name']    = $this->request->getPost('name');
+        $data['type']    = $this->request->getPost('type');
+        $value           = $this->request->getPost('value[]');
         $option_value_id = $this->request->getPost('option_value_id[]');
 
         $this->validation->setRules([
@@ -167,20 +175,20 @@ class Option extends BaseController
 
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/option_update/' . $option_id);
         } else {
-
             if (!empty($value)) {
                 $table = DB()->table('cc_option');
                 $table->where('option_id', $option_id)->update($data);
 
                 foreach ($value as $key => $val) {
                     $dataval['option_id'] = $option_id;
-                    $dataval['name'] = $val;
+                    $dataval['name']      = $val;
 
                     if (!empty($option_value_id[$key])) {
                         $datavalUp['name'] = $val;
-                        $tableValDel = DB()->table('cc_option_value');
+                        $tableValDel       = DB()->table('cc_option_value');
                         $tableValDel->where('option_value_id', $option_value_id[$key])->update($datavalUp);
                     } else {
                         $tableVal = DB()->table('cc_option_value');
@@ -189,12 +197,13 @@ class Option extends BaseController
                 }
 
                 $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Option Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
                 return redirect()->to('admin/option_update/' . $option_id);
             } else {
                 $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert"> Please Add Value ! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
                 return redirect()->to('admin/option_update/' . $option_id);
             }
-
         }
     }
 
@@ -205,7 +214,6 @@ class Option extends BaseController
      */
     public function delete($option_id)
     {
-
         $tabOp = DB()->table('cc_product_option');
         $tabOp->where('option_id', $option_id)->delete();
 
@@ -217,6 +225,7 @@ class Option extends BaseController
 
 
         $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Option Delete Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
         return redirect()->to('admin/option');
     }
 
@@ -234,5 +243,4 @@ class Option extends BaseController
         $tableValDel = DB()->table('cc_option_value');
         $tableValDel->where('option_value_id', $option_value_id)->delete();
     }
-
 }

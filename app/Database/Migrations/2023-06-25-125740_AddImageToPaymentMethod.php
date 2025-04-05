@@ -12,9 +12,9 @@ class AddImageToPaymentMethod extends Migration
             'image' => [
                 'type'           => 'varchar',
                 'constraint'     => 155,
-                'after' => 'code',
-                'null' => true,
-                'default' => null,
+                'after'          => 'code',
+                'null'           => true,
+                'default'        => null,
             ],
         ];
         $this->forge->addColumn('cc_payment_method', $fields);

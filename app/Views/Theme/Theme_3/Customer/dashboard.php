@@ -13,8 +13,9 @@
                                 <span class="mt-3 con-tit">Total Order</span>
                                 <?php
                                     $modules = modules_access();
-                            $img_size = ($modules['watermark'] == '1') ? '100_wm_' : '100_';
-                            $all = 0;
+                            $img_size        = ($modules['watermark'] == '1') ? '100_wm_' : '100_';
+                            $all             = 0;
+
                             foreach ($order as $acVal) {
                                 $all++;
                             }
@@ -26,8 +27,10 @@
                                 <span class="mt-3 con-tit">Total Complete <br>Order</span>
                                 <?php
                             $complete = 0;
+
                             foreach ($order as $acVal) {
                                 $orderSt = order_id_by_status($acVal->order_id);
+
                                 if ($orderSt == 'Complete') {
                                     $complete++;
                                 }
@@ -40,8 +43,10 @@
                                 <span class="mt-3 con-tit">Total Cancel <br>Order</span>
                                 <?php
                             $canceled = 0;
+
                             foreach ($order as $acVal) {
                                 $orderSt = order_id_by_status($acVal->order_id);
+
                                 if ($orderSt == 'Canceled') {
                                     $canceled++;
                                 }

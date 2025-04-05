@@ -7,7 +7,7 @@
                 </div>
             </div>
             <?php
-            $modules = modules_access();
+            $modules              = modules_access();
                     $img_size_100 = ($modules['watermark'] == '1') ? '100_wm_' : '100_';
                     ?>
             <table class="cart-table w-100 text-center" >
@@ -79,6 +79,7 @@
                     </td>
                     <td class="border-end-0 " style="text-align:left;">
                         <?php $disc = 0;
+
                     if (isset(newSession()->coupon_discount)) { ?>
                         <span class="fs-4 ">Price</span><br>
                         <span class="fs-4 ">Discount</span><br>

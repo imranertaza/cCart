@@ -24,16 +24,16 @@ class ProductAttribute extends Migration
                 'constraint'     => 11,
             ],
             'name' => [
-                'type' => 'VARCHAR',
+                'type'       => 'VARCHAR',
                 'constraint' => 255,
             ],
             'details' => [
-                'type' => 'text',
-                'null' => true,
+                'type'    => 'text',
+                'null'    => true,
                 'default' => null,
             ],
             'sort_order' => [
-                'type' => 'INT',
+                'type'       => 'INT',
                 'constraint' => 3,
             ],
         ]);

@@ -276,7 +276,9 @@
         table.page('first').draw('page');
         table.page.len(10).draw();
 
-        <?php } if (isset($_GET['page'])) {  ?>
+        <?php }
+
+if (isset($_GET['page'])) {  ?>
         $('#productListData').DataTable().page(<?= $_GET['page'] - 1;?>).draw('page');
         <?php } ?>
 

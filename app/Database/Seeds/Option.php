@@ -10,15 +10,15 @@ class Option extends Seeder
     {
         $data = [
             [
-                'option_id' => 1,
-                'name' => 'size',
-                'type' => 'select',
+                'option_id'  => 1,
+                'name'       => 'size',
+                'type'       => 'select',
                 'sort_order' => '0',
             ],
             [
-                'option_id' => 2,
-                'name' => 'Color',
-                'type' => 'checkbox',
+                'option_id'  => 2,
+                'name'       => 'Color',
+                'type'       => 'checkbox',
                 'sort_order' => '0',
             ],
         ];

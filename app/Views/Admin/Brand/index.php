@@ -49,6 +49,7 @@
                     </thead>
                     <tbody>
                     <?php $i = 1;
+
 foreach ($brand as $val) { ?>
                         <tr>
                             <td width="40"><?php echo $i++;?></td>

@@ -8,7 +8,7 @@ use CodeIgniter\Model;
 
 class ProductsSearchModel extends Model
 {
-    protected $table = 'cc_products';
+    protected $table      = 'cc_products';
     protected $primaryKey = 'product_id';
     protected $returnType = 'object';
 
@@ -22,6 +22,4 @@ class ProductsSearchModel extends Model
     {
         return $this->select('cc_products.*,cc_product_option.option_value_id ')->join('cc_product_option', 'cc_product_option.product_id = cc_products.product_id')->where('cc_products.status', 'Active')->groupBy('product_id');
     }
-
-
 }

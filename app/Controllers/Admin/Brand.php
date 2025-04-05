@@ -17,8 +17,8 @@ class Brand extends BaseController
     public function __construct()
     {
         $this->validation = \Config\Services::validation();
-        $this->session = \Config\Services::session();
-        $this->crop = \Config\Services::image();
+        $this->session    = \Config\Services::session();
+        $this->crop       = \Config\Services::image();
         $this->permission = new Permission();
     }
 
@@ -29,20 +29,22 @@ class Brand extends BaseController
     public function index()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
-        $adRoleId = $this->session->adRoleId;
+        $adRoleId          = $this->session->adRoleId;
+
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
-            $table = DB()->table('cc_brand');
+            $table         = DB()->table('cc_brand');
             $data['brand'] = $table->get()->getResult();
 
 
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
+
             foreach ($perm as $key => $val) {
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
+
             if (isset($data['mod_access']) and $data['mod_access'] == 1) {
                 echo view('Admin/Brand/index', $data);
             } else {
@@ -58,16 +60,18 @@ class Brand extends BaseController
     public function create()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
-        $adRoleId = $this->session->adRoleId;
+        $adRoleId          = $this->session->adRoleId;
+
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
+
             foreach ($perm as $key => $val) {
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
+
             if (isset($data['create']) and $data['create'] == 1) {
                 echo view('Admin/Brand/create');
             } else {
@@ -82,7 +86,7 @@ class Brand extends BaseController
      */
     public function create_action()
     {
-        $data['name'] = $this->request->getPost('name');
+        $data['name']      = $this->request->getPost('name');
         $data['createdBy'] = $this->session->adUserId;
 
         $this->validation->setRules([
@@ -91,16 +95,18 @@ class Brand extends BaseController
 
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/brand_create');
         } else {
             if (!empty($_FILES['image']['name'])) {
                 $target_dir = FCPATH . '/uploads/brand/';
+
                 if (!file_exists($target_dir)) {
                     mkdir($target_dir, 0777);
                 }
 
                 //new image uplode
-                $pic = $this->request->getFile('image');
+                $pic     = $this->request->getFile('image');
                 $namePic = $pic->getRandomName();
                 $pic->move($target_dir, $namePic);
                 $news_img = 'brand_' . $pic->getName();
@@ -113,6 +119,7 @@ class Brand extends BaseController
             $table->insert($data);
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Brand Create Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/brand_create');
         }
     }
@@ -125,20 +132,22 @@ class Brand extends BaseController
     public function update($brand_id)
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
-        $adRoleId = $this->session->adRoleId;
+        $adRoleId          = $this->session->adRoleId;
+
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
-            $table = DB()->table('cc_brand');
+            $table         = DB()->table('cc_brand');
             $data['brand'] = $table->where('brand_id', $brand_id)->get()->getRow();
 
 
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
+
             foreach ($perm as $key => $val) {
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
+
             if (isset($data['update']) and $data['update'] == 1) {
                 echo view('Admin/Brand/update', $data);
             } else {
@@ -153,10 +162,10 @@ class Brand extends BaseController
      */
     public function update_action()
     {
-        $brand_id = $this->request->getPost('brand_id');
-        $data['name'] = $this->request->getPost('name');
+        $brand_id           = $this->request->getPost('brand_id');
+        $data['name']       = $this->request->getPost('name');
         $data['sort_order'] = $this->request->getPost('sort_order');
-        $data['updatedBy'] = $this->session->adUserId;
+        $data['updatedBy']  = $this->session->adUserId;
 
         $this->validation->setRules([
             'name' => ['label' => 'Name', 'rules' => 'required'],
@@ -164,25 +173,29 @@ class Brand extends BaseController
 
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
             return redirect()->to('admin/brand_update/' . $brand_id);
         } else {
             if (!empty($_FILES['image']['name'])) {
                 $target_dir = FCPATH . '/uploads/brand/';
+
                 if (!file_exists($target_dir)) {
                     mkdir($target_dir, 0777);
                 }
 
                 //old image unlink
                 $old_img = get_data_by_id('image', 'cc_brand', 'brand_id', $brand_id);
+
                 if (!empty($old_img)) {
                     $imgPath = $target_dir . $old_img;
+
                     if (file_exists($imgPath)) {
                         unlink($target_dir . $old_img);
                     }
                 }
 
                 //new image uplode
-                $pic = $this->request->getFile('image');
+                $pic     = $this->request->getFile('image');
                 $namePic = $pic->getRandomName();
                 $pic->move($target_dir, $namePic);
                 $news_img = 'brand_' . $pic->getName();
@@ -195,8 +208,8 @@ class Brand extends BaseController
             $table->where('brand_id', $brand_id)->update($data);
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Brand Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            return redirect()->to('admin/brand_update/' . $brand_id);
 
+            return redirect()->to('admin/brand_update/' . $brand_id);
         }
     }
 
@@ -207,26 +220,27 @@ class Brand extends BaseController
      */
     public function delete($brand_id)
     {
-
         $target_dir = FCPATH . '/uploads/brand/';
         //old image unlink
         $old_img = get_data_by_id('image', 'cc_brand', 'brand_id', $brand_id);
+
         if (!empty($old_img)) {
             $imgPath = $target_dir . $old_img;
+
             if (file_exists($imgPath)) {
                 unlink($target_dir . $old_img);
             }
         }
 
         $upBrand['brand_id'] = null;
-        $tablePro = DB()->table('cc_products');
+        $tablePro            = DB()->table('cc_products');
         $tablePro->where('brand_id', $brand_id)->update($upBrand);
 
         $table = DB()->table('cc_brand');
         $table->where('brand_id', $brand_id)->delete();
 
         $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Brand Delete Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
         return redirect()->to('admin/brand');
     }
-
 }

@@ -10,15 +10,16 @@ class Test extends BaseController
     public function __construct()
     {
         $this->validation = \Config\Services::validation();
-        $this->session = \Config\Services::session();
+        $this->session    = \Config\Services::session();
     }
 
     public function index()
     {
         $builder = DB()->table('cc_theme_settings');
-        $rows = $builder->get()->getResult();
+        $rows    = $builder->get()->getResult();
 
         $output = '';
+
         foreach ($rows as $row) {
             $output .= '[<br/>';
             $output .= "'theme_settings_id' => " . "'" . $row->theme_settings_id . "'" . ',<br/>';
@@ -37,6 +38,4 @@ class Test extends BaseController
         }
         print $output;
     }
-
-
 }

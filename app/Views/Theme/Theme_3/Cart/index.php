@@ -5,7 +5,7 @@
                 <div class="col-md-12 ">
                     <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message');
                     endif;
-                    $modules = modules_access();
+                    $modules  = modules_access();
                     $img_size = ($modules['watermark'] == '1') ? '100_wm_' : '100_';
                     ?>
                 </div>
@@ -24,6 +24,7 @@
                     </thead>
                     <tbody>
                         <?php $symbol = get_lebel_by_value_in_settings('currency_symbol');
+
                     foreach (Cart()->contents() as $val) { ?>
                             <tr>
                                 <td class="product-remove mo-text-center">
@@ -83,6 +84,7 @@
                             </td>
                             <td class="border-end-0 mo-text-center" style="text-align:left;">
                                 <?php $disc = 0;
+
                     if (isset(newSession()->coupon_discount)) { ?>
                                     <span class="fs-4 ">Price</span><br>
                                     <span class="fs-4 ">Discount</span><br>

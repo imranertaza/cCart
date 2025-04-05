@@ -17,8 +17,8 @@ class Module extends BaseController
     public function __construct()
     {
         $this->validation = \Config\Services::validation();
-        $this->session = \Config\Services::session();
-        $this->crop = \Config\Services::image();
+        $this->session    = \Config\Services::session();
+        $this->crop       = \Config\Services::image();
         $this->permission = new Permission();
     }
 
@@ -29,17 +29,18 @@ class Module extends BaseController
     public function index()
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
-        $adRoleId = $this->session->adRoleId;
+        $adRoleId          = $this->session->adRoleId;
+
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
-            $table = DB()->table('cc_modules');
+            $table           = DB()->table('cc_modules');
             $data['modules'] = $table->get()->getResult();
 
 
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
+
             foreach ($perm as $key => $val) {
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
@@ -49,7 +50,6 @@ class Module extends BaseController
             } else {
                 echo view('Admin/no_permission');
             }
-
         }
     }
 
@@ -61,21 +61,23 @@ class Module extends BaseController
     public function module_settings($id)
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
-        $adRoleId = $this->session->adRoleId;
+        $adRoleId          = $this->session->adRoleId;
+
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
-            $table = DB()->table('cc_module_settings');
+            $table                   = DB()->table('cc_module_settings');
             $data['modulesSettings'] = $table->where('module_id', $id)->get()->getResult();
 
             $data['module_id'] = $id;
 
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
+
             foreach ($perm as $key => $val) {
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
+
             if (isset($data['mod_access']) and $data['mod_access'] == 1) {
                 echo view('Admin/Module/settings', $data);
             } else {
@@ -90,10 +92,9 @@ class Module extends BaseController
      */
     public function module_settings_action()
     {
-
         $module_id = $this->request->getPost('module_id');
-        $label = $this->request->getPost('label[]');
-        $id = $this->request->getPost('id[]');
+        $label     = $this->request->getPost('label[]');
+        $id        = $this->request->getPost('id[]');
 
         if (!empty($label)) {
             foreach ($label as $key => $val) {
@@ -106,6 +107,7 @@ class Module extends BaseController
 
 
         $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Module Settings Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
         return redirect()->to('admin/module_settings/' . $module_id);
     }
 }

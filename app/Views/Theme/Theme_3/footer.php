@@ -815,9 +815,11 @@
     function optionPriceCalculate(product_id) {
         <?php foreach (get_all_data_array('cc_option') as $v) {
             $fildName = str_replace(' ', '', $v->name);
+
             if ($v->type == 'radio') { ?>
         var <?php echo strtolower($fildName); ?> = $('input[name="<?php echo strtolower($fildName); ?>"]:checked').val();
         <?php }
+
             if ($v->type == 'select') { ?>
         var <?php echo strtolower($fildName); ?> = $('[name="<?php echo strtolower($fildName); ?>"]').val();
         <?php }

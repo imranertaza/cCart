@@ -10,7 +10,7 @@
                     <div class="products h-100">
                         <div class="row gx-0 row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-5 h-100">
                             <?php
-                            $modules = modules_access();
+                            $modules      = modules_access();
                             $img_size_191 = ($modules['watermark'] == '1') ? '191_wm_' : '191_';
                             ?>
                             <?php foreach ($products as $pro) { ?>
@@ -41,6 +41,7 @@
                                             </div>
                                             <div class="price mb-3">
                                                 <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id);
+
                                 if (empty($spPric)) { ?>
                                                     <?php echo currency_symbol($pro->price);?>
                                                 <?php } else { ?>

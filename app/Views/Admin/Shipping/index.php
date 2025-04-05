@@ -48,6 +48,7 @@
                     </thead>
                     <tbody>
                     <?php $i = 1;
+
 foreach ($shipping as $val) { ?>
                         <tr>
                             <td width="40"><?php echo $i++;?></td>

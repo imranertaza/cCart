@@ -3,10 +3,10 @@
         <form action="<?php echo base_url('admin/header_section_one_update') ?>" method="post" enctype="multipart/form-data">
             <h3>Top Section One</h3>
             <?php
-                $theme = get_lebel_by_value_in_settings('Theme');
-        $themeSetting = get_theme_settings();
+                $theme     = get_lebel_by_value_in_settings('Theme');
+        $themeSetting      = get_theme_settings();
         $themeSettingTitle = get_theme_title_settings();
-        $cat = get_all_data_array('cc_product_category');
+        $cat               = get_all_data_array('cc_product_category');
         ?>
             <div class="form-group">
                 <label><?php echo $themeSettingTitle['head_side_title_1'];?></label>
@@ -20,6 +20,7 @@
                     <option value="">Please Select</option>
                     <?php
                     $catSel = $themeSetting['head_side_category_1'];
+
         foreach ($cat as $val) {
             ?>
                     <option value="<?php echo $val->prod_cat_id;?>"
@@ -61,6 +62,7 @@
                     <option value="">Please Select</option>
                     <?php
                 $catSel2 = $themeSetting['head_side_category_2'];
+
         foreach ($cat as $val) {
             ?>
                     <option value="<?php echo $val->prod_cat_id;?>"
@@ -100,6 +102,7 @@
                     <option value="">Please Select</option>
                     <?php
                 $catSel_1 = $themeSetting['home_category_1'];
+
         foreach ($cat as $val) {
             ?>
                     <option value="<?php echo $val->prod_cat_id;?>"
@@ -137,6 +140,7 @@
                     <option value="">Please Select</option>
                     <?php
                 $catSel_1 = $themeSetting['home_category_2'];
+
         foreach ($cat as $val) {
             ?>
                     <option value="<?php echo $val->prod_cat_id;?>"
@@ -174,6 +178,7 @@
                     <option value="">Please Select</option>
                     <?php
                 $catSel_1 = $themeSetting['home_category_3'];
+
         foreach ($cat as $val) {
             ?>
                     <option value="<?php echo $val->prod_cat_id;?>"
@@ -211,6 +216,7 @@
                     <option value="">Please Select</option>
                     <?php
                 $catSel_1 = $themeSetting['home_category_4'];
+
         foreach ($cat as $val) {
             ?>
                     <option value="<?php echo $val->prod_cat_id;?>"
@@ -248,6 +254,7 @@
                     <option value="">Please Select</option>
                     <?php
                 $catSel_1 = get_lebel_by_value_in_theme_settings('home_category_5');
+
         foreach ($cat as $val) {
             ?>
                     <option value="<?php echo $val->prod_cat_id;?>"

@@ -49,7 +49,8 @@
                     </thead>
                     <tbody>
                     <?php $symbol = get_lebel_by_value_in_settings('currency_symbol');
-$i = 1;
+$i                                = 1;
+
 foreach ($order as $val) { ?>
                         <tr>
                             <td><?php echo $val->order_id;?></td>

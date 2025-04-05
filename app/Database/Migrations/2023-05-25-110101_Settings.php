@@ -17,32 +17,32 @@ class Settings extends Migration
                 'auto_increment' => true,
             ],
             'label' => [
-                'type' => 'VARCHAR',
+                'type'       => 'VARCHAR',
                 'constraint' => 155,
             ],
             'title' => [
-                'type' => 'VARCHAR',
+                'type'       => 'VARCHAR',
                 'constraint' => 155,
             ],
             'value' => [
-                'type' => 'VARCHAR',
+                'type'       => 'VARCHAR',
                 'constraint' => 155,
             ],
             'createdDtm' => [
-                'type' => 'DATETIME',
+                'type'    => 'DATETIME',
                 'default' => new RawSql('CURRENT_TIMESTAMP'),
             ],
             'createdBy' => [
-                'type' => 'INT',
+                'type'       => 'INT',
                 'constraint' => 11,
-                'null' => true,
-                'default' => null,
+                'null'       => true,
+                'default'    => null,
             ],
             'updatedBy' => [
-                'type' => 'INT',
+                'type'       => 'INT',
                 'constraint' => 11,
-                'null' => true,
-                'default' => null,
+                'null'       => true,
+                'default'    => null,
             ],
             'updatedDtm DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP',
         ]);
