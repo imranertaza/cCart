@@ -31,7 +31,7 @@
                     </div>
                     <div class="col-md-4"></div>
                     <div class="col-md-12" style="margin-top: 10px">
-                        <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message');
+                        <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message');
                         endif; ?>
                     </div>
                 </div>
@@ -51,7 +51,8 @@
                     </thead>
                     <tbody>
                         <?php $i = 1;
-                        foreach ($ledger as $val) { ?>
+
+foreach ($ledger as $val) { ?>
                             <tr>
                                 <td width="40"><?php echo $i++; ?></td>
                                 <td><?php echo $val->particulars; ?></td>

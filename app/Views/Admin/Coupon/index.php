@@ -33,7 +33,7 @@
                         <a href="<?php echo base_url('admin/coupon_create') ?>" class="btn btn-primary btn-block btn-xs"><i class="fas fa-plus"></i> Create</a>
                     </div>
                     <div class="col-md-12" style="margin-top: 10px">
-                        <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message'); endif; ?>
+                        <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
                     </div>
                 </div>
             </div>
@@ -52,7 +52,9 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <?php $i=1; foreach ($coupon as $val){ ?>
+                    <?php $i = 1;
+
+foreach ($coupon as $val) { ?>
                         <tr>
                             <td width="40"><?php echo $i++;?></td>
                             <td><?php echo $val->name;?></td>
@@ -62,8 +64,8 @@
                             <td><?php echo $val->date_end;?></td>
                             <td><?php echo $val->total_used;?></td>
                             <td width="180">
-                                <a href="<?php echo base_url('admin/coupon_update/'.$val->coupon_id);?>" class="btn btn-primary btn-xs"><i class="fas fa-edit"></i> Update</a>
-                                <a href="<?php echo base_url('admin/coupon_delete/'.$val->coupon_id);?>" onclick="return confirm('Are you sure you want to Delete?')" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i> Delete</a>
+                                <a href="<?php echo base_url('admin/coupon_update/' . $val->coupon_id);?>" class="btn btn-primary btn-xs"><i class="fas fa-edit"></i> Update</a>
+                                <a href="<?php echo base_url('admin/coupon_delete/' . $val->coupon_id);?>" onclick="return confirm('Are you sure you want to Delete?')" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i> Delete</a>
                             </td>
                         </tr>
                     <?php } ?>

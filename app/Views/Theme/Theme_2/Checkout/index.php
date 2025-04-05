@@ -3,11 +3,12 @@
         <form id="checkout-form" action="<?php echo base_url('checkout_action')  ?>" method="post" onsubmit="return onchackoutsubmit()">
             <div class="row">
                 <div class="col-lg-12 ">
-                    <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message'); endif; ?>
+                    <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
                 </div>
                 <div class="col-lg-6">
                     <?php $isLoggedInCustomer = newSession()->isLoggedInCustomer;
-                    if (!isset($isLoggedInCustomer) || $isLoggedInCustomer != TRUE) { ?>
+
+        if (!isset($isLoggedInCustomer) || $isLoggedInCustomer != true) { ?>
                     <p><a class="btn bg-custom-color w-100 text-white rounded-0"
                             href="<?php echo base_url('login') ?>">Log In</a></p>
                     <p class="text-center pd-te-ch">Or</p>
@@ -71,12 +72,12 @@
 
 
                         <?php
-                        $coun = isset($customer->customer_id) ? get_data_by_id('country_id', 'cc_address', 'customer_id', $customer->customer_id) : '';
-                        $zon = isset($customer->customer_id) ? get_data_by_id('zone_id', 'cc_address', 'customer_id', $customer->customer_id) : '';
-                        $post = isset($customer->customer_id) ? get_data_by_id('postcode', 'cc_address', 'customer_id', $customer->customer_id) : '';
-                        $add1 = isset($customer->customer_id) ? get_data_by_id('address_1', 'cc_address', 'customer_id', $customer->customer_id) : '';
-                        $add2 = isset($customer->customer_id) ? get_data_by_id('address_2', 'cc_address', 'customer_id', $customer->customer_id) : '';
-                        ?>
+            $coun = isset($customer->customer_id) ? get_data_by_id('country_id', 'cc_address', 'customer_id', $customer->customer_id) : '';
+        $zon      = isset($customer->customer_id) ? get_data_by_id('zone_id', 'cc_address', 'customer_id', $customer->customer_id) : '';
+        $post     = isset($customer->customer_id) ? get_data_by_id('postcode', 'cc_address', 'customer_id', $customer->customer_id) : '';
+        $add1     = isset($customer->customer_id) ? get_data_by_id('address_1', 'cc_address', 'customer_id', $customer->customer_id) : '';
+        $add2     = isset($customer->customer_id) ? get_data_by_id('address_2', 'cc_address', 'customer_id', $customer->customer_id) : '';
+        ?>
 
 
                         <div class="col-lg-6">
@@ -258,17 +259,17 @@
                     </div>
                     <div class="checkout-items mb-4">
                         <?php
-                        $modules = modules_access();
-                        $symbol = get_lebel_by_value_in_settings('currency_symbol');
-                        $img_size_100 = ($modules['watermark'] == '1')?'100_wm_':'100_';
-                        ?>
+        $modules      = modules_access();
+        $symbol       = get_lebel_by_value_in_settings('currency_symbol');
+        $img_size_100 = ($modules['watermark'] == '1') ? '100_wm_' : '100_';
+        ?>
                         <?php foreach (Cart()->contents() as $val) { ?>
                         <div class="list-item d-flex gap-2 mb-2">
                             <div class="d-flex gap-2 bg-gray p-2 rounded-2 pro-bg-check">
                                 <?php
-                                    $img = get_data_by_id('image', 'cc_products', 'product_id', $val['id']);
-                                    $des = get_data_by_id('description', 'cc_product_description', 'product_id', $val['id']);
-                                    ?>
+                    $img         = get_data_by_id('image', 'cc_products', 'product_id', $val['id']);
+                            $des = get_data_by_id('description', 'cc_product_description', 'product_id', $val['id']);
+                            ?>
                                 <?php echo image_view('uploads/products', $val['id'], $img_size_100 . $img, 'noimage.png', 'img-fluid w-h-100') ?>
                                 <div>
                                     <p class="fw-semibold mb-2"><?php echo $val['name']; ?></p>
@@ -308,19 +309,20 @@
                         <div class="group-check mb-4">
                             <div class="d-flex justify-content-between mb-2">
                                 <span>Price</span>
-                                <span id="check_total" ><?php echo currency_symbol_with_symbol(Cart()->total(),$symbol) ?></span>
+                                <span id="check_total" ><?php echo currency_symbol_with_symbol(Cart()->total(), $symbol) ?></span>
                             </div>
 
                             <div class="d-flex justify-content-between mb-2">
                                 <span>Discount</span>
                                 <?php $disc = 0;
-                                if (isset(newSession()->coupon_discount)) {
-                                    $disc = round((Cart()->total() * newSession()->coupon_discount) / 100); ?>
-                                <span><?php echo currency_symbol_with_symbol($disc,$symbol) ?></span>
+
+        if (isset(newSession()->coupon_discount)) {
+            $disc = round((Cart()->total() * newSession()->coupon_discount) / 100); ?>
+                                <span><?php echo currency_symbol_with_symbol($disc, $symbol) ?></span>
                                 <?php } else {
-                                    echo '<span>' . currency_symbol_with_symbol($disc,$symbol) . '</span>';
+                                    echo '<span>' . currency_symbol_with_symbol($disc, $symbol) . '</span>';
                                 }
-                                $total = (isset(newSession()->coupon_discount)) ? number_format(Cart()->total() - $disc,2) : Cart()->total(); ?>
+        $total = (isset(newSession()->coupon_discount)) ? number_format(Cart()->total() - $disc, 2) : Cart()->total(); ?>
                             </div>
                         </div>
 
@@ -392,18 +394,18 @@
                                             <?php echo $ship->name; ?></label></div>
                                 </div>
                                 <?php }
-                                } ?>
+                                    } ?>
                             </div>
 
                             <div class="d-flex justify-content-between mt-3">
                                 <span>Shipping charge</span>
-                                <span id="chargeShip"><?php echo currency_symbol_with_symbol(0,$symbol) ?></span>
+                                <span id="chargeShip"><?php echo currency_symbol_with_symbol(0, $symbol) ?></span>
                                 <input type="hidden" name="shipping_charge" id="shipping_charge">
                             </div>
 
                             <div class="d-flex justify-content-between mt-3">
                                 <span>Shipping Discount</span>
-                                <span>(-) <span id="chargeDisSh"><?php echo $symbol .'0' ?></span></span>
+                                <span>(-) <span id="chargeDisSh"><?php echo $symbol . '0' ?></span></span>
                                 <input type="hidden" name="shipping_discount_charge" id="discount_charge">
                             </div>
                         </div>
@@ -411,7 +413,7 @@
                         <div class="total py-3 group-check mb-4" style="border-top: unset !important;">
                             <div class="d-flex justify-content-between fw-bold">
                                 <span>Total</span>
-                                <span id="total"><?php echo currency_symbol_with_symbol($total,$symbol) ?></span>
+                                <span id="total"><?php echo currency_symbol_with_symbol($total, $symbol) ?></span>
                                 <input type="hidden" id="totalamo" value="<?php echo $total ?>">
                             </div>
                         </div>
@@ -439,7 +441,7 @@
                                 </label></div>
                         </div>
                         <?php }
-                        } ?>
+                            } ?>
 
                     </div>
 

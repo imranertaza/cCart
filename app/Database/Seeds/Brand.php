@@ -10,23 +10,23 @@ class Brand extends Seeder
     {
         $data = [
             [
-                'name' => 'Chanel',
-                'image' => 'chanel.png',
+                'name'      => 'Chanel',
+                'image'     => 'chanel.png',
                 'createdBy' => 1,
             ],
             [
-                'name' => 'LV',
-                'image' => 'lv.png',
+                'name'      => 'LV',
+                'image'     => 'lv.png',
                 'createdBy' => 1,
             ],
             [
-                'name' => 'Bally',
-                'image' => 'bally.png',
+                'name'      => 'Bally',
+                'image'     => 'bally.png',
                 'createdBy' => 1,
             ],
             [
-                'name' => 'Hermes',
-                'image' => 'hermes.png',
+                'name'      => 'Hermes',
+                'image'     => 'hermes.png',
                 'createdBy' => 1,
             ],
         ];

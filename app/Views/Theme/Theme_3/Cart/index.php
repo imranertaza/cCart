@@ -3,10 +3,10 @@
         <div class="cart">
             <div class="row">
                 <div class="col-md-12 ">
-                    <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message');
+                    <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message');
                     endif;
-                    $modules = modules_access();
-                    $img_size = ($modules['watermark'] == '1')?'100_wm_':'100_';
+                    $modules  = modules_access();
+                    $img_size = ($modules['watermark'] == '1') ? '100_wm_' : '100_';
                     ?>
                 </div>
             </div>
@@ -23,7 +23,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $symbol = get_lebel_by_value_in_settings('currency_symbol');  foreach (Cart()->contents() as $val) { ?>
+                        <?php $symbol = get_lebel_by_value_in_settings('currency_symbol');
+
+                    foreach (Cart()->contents() as $val) { ?>
                             <tr>
                                 <td class="product-remove mo-text-center">
                                     <a href="javascript:void(0)" onclick="removeCart('<?php echo $val['rowid']; ?>')"><i class="fa-solid fa-trash-can"></i></a>
@@ -39,7 +41,7 @@
                                 </td>
 
                                 <td class="product-price mo-text-center" width="100">
-                                    <span class="price"><?php echo currency_symbol_with_symbol($val['price'],$symbol); ?></span>
+                                    <span class="price"><?php echo currency_symbol_with_symbol($val['price'], $symbol); ?></span>
                                 </td>
 
                                 <td class="product-quantity mo-text-center" width="180">
@@ -50,7 +52,7 @@
                                             </div>
                                             <input type="text" id="qty_input" name="qty" class="form-control form-control-sm item_<?php echo $val['rowid']; ?>" value="<?php echo $val['qty']; ?>" min="1">
                                             <!--                                    <input type="hidden"  name="rowid[]"  value="--><?php //echo $val['rowid'];
-                                                                                                                                    ?>
+                                                                                                                                ?>
                                             <!--" >-->
                                             <div class="input-group-prepend">
                                                 <button class="btn btn-dark btn-sm" onclick="plusItem('<?php echo $val['rowid']; ?>')" id="plus-btn"><i class="fa fa-plus"></i></button>
@@ -64,7 +66,7 @@
                                     </div>
                                 </td>
                                 <td class="product-subtotal mo-text-center">
-                                    <span class="price"><?php echo currency_symbol_with_symbol($val['subtotal'],$symbol); ?></span>
+                                    <span class="price"><?php echo currency_symbol_with_symbol($val['subtotal'], $symbol); ?></span>
                                 </td>
                             </tr>
                         <?php } ?>
@@ -82,7 +84,8 @@
                             </td>
                             <td class="border-end-0 mo-text-center" style="text-align:left;">
                                 <?php $disc = 0;
-                                if (isset(newSession()->coupon_discount)) { ?>
+
+                    if (isset(newSession()->coupon_discount)) { ?>
                                     <span class="fs-4 ">Price</span><br>
                                     <span class="fs-4 ">Discount</span><br>
                                 <?php } ?>
@@ -90,12 +93,12 @@
                             </td>
                             <td class="mo-text-center mo-amount" style="text-align:left; width: 170px">
                                 <?php if (isset(newSession()->coupon_discount)) {
-                                    $disc = number_format((Cart()->total() * newSession()->coupon_discount) / 100,2); ?>
-                                    <span class=" fs-4"><?php echo currency_symbol_with_symbol(Cart()->total(),$symbol) ?></span><br>
+                                    $disc = number_format((Cart()->total() * newSession()->coupon_discount) / 100, 2); ?>
+                                    <span class=" fs-4"><?php echo currency_symbol_with_symbol(Cart()->total(), $symbol) ?></span><br>
                                     <span class=" fs-4"><?php echo currency_symbol($disc) ?></span><br>
                                 <?php }
                                 $total = (isset(newSession()->coupon_discount)) ? Cart()->total() - $disc : Cart()->total(); ?>
-                                <span class="fw-bold fs-4"><?php echo currency_symbol_with_symbol($total,$symbol) ?></span>
+                                <span class="fw-bold fs-4"><?php echo currency_symbol_with_symbol($total, $symbol) ?></span>
                             </td>
                         </tr>
 

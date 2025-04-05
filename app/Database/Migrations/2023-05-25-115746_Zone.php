@@ -3,7 +3,6 @@
 namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
-use CodeIgniter\Database\RawSql;
 
 class Zone extends Migration
 {
@@ -21,17 +20,17 @@ class Zone extends Migration
                 'constraint'     => 11,
             ],
             'name' => [
-                'type' => 'VARCHAR',
+                'type'       => 'VARCHAR',
                 'constraint' => 128,
             ],
             'code' => [
-                'type' => 'VARCHAR',
+                'type'       => 'VARCHAR',
                 'constraint' => 32,
             ],
             'status' => [
-                'type' => 'tinyint',
+                'type'       => 'tinyint',
                 'constraint' => 1,
-                'default' => '1',
+                'default'    => '1',
             ],
         ]);
 

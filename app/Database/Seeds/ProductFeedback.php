@@ -11,16 +11,16 @@ class ProductFeedback extends Seeder
         $data = [
             [
                 'product_feedback_id' => 1,
-                'product_id' => 2,
-                'customer_id' => 1,
-                'feedback_star' => 5,
-                'feedback_text' => 'good product',
-                'status' => 'Active',
-                'createdDtm' => '2023-05-27 17:03:07',
-                'createdBy' => NULL,
-                'updatedBy' => NULL,
-                'updatedDtm' => '2023-05-27 17:04:00',
-            ]
+                'product_id'          => 2,
+                'customer_id'         => 1,
+                'feedback_star'       => 5,
+                'feedback_text'       => 'good product',
+                'status'              => 'Active',
+                'createdDtm'          => '2023-05-27 17:03:07',
+                'createdBy'           => null,
+                'updatedBy'           => null,
+                'updatedDtm'          => '2023-05-27 17:04:00',
+            ],
         ];
 
 

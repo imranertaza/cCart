@@ -1,7 +1,7 @@
 <section class="main-container my-5" >
     <div class="container">
         <div class="col-md-12 px-5">
-            <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message'); endif; ?>
+            <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
         </div>
         <div class="cart">
             <div class="table-responsive">
@@ -18,7 +18,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <?php foreach ($order as $val){ ?>
+                    <?php foreach ($order as $val) { ?>
                         <tr>
                             <td><?php echo $val->createdDtm;?></td>
                             <td><?php echo currency_symbol($val->total);?></td>
@@ -27,7 +27,7 @@
                             <td><?php echo currency_symbol($val->final_amount);?></td>
                             <td><?php echo order_id_by_status($val->order_id);?></td>
                             <td>
-                                <a href="<?php echo base_url('invoice/'.$val->order_id)?>" class="btn  bg-custom-color text-white rounded-0">View</a>
+                                <a href="<?php echo base_url('invoice/' . $val->order_id)?>" class="btn  bg-custom-color text-white rounded-0">View</a>
                             </td>
                         </tr>
                     <?php } ?>

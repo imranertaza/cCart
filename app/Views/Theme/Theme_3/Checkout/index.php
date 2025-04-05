@@ -4,14 +4,15 @@
         <form id="checkout-form" onsubmit="return onchackoutsubmit()" action="<?php echo base_url('checkout_action')  ?>" method="post">
             <div class="row">
                 <div class="col-lg-12 ">
-                    <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message'); endif;
-                    $modules = modules_access();
-                    $img_size = ($modules['watermark'] == '1')?'100_wm_':'100_';
-                    ?>
+                    <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif;
+        $modules  = modules_access();
+        $img_size = ($modules['watermark'] == '1') ? '100_wm_' : '100_';
+        ?>
                 </div>
                 <div class="col-lg-6">
                     <?php $isLoggedInCustomer = newSession()->isLoggedInCustomer;
-                    if (!isset($isLoggedInCustomer) || $isLoggedInCustomer != TRUE) { ?>
+
+        if (!isset($isLoggedInCustomer) || $isLoggedInCustomer != true) { ?>
                     <p><a class="btn bg-custom-color w-100 text-white rounded-0"
                             href="<?php echo base_url('login') ?>">Log In</a></p>
                     <p class="text-center pd-te-ch">Or</p>
@@ -73,16 +74,17 @@
 
 
                         <?php
-                        $coun = $zon =  $post = $add1 = $add2 = '';
-                        $cusAddr = isset($customer->customer_id) ?get_all_row_data_by_id('cc_address', 'customer_id', $customer->customer_id):'';
-                        if (!empty($cusAddr)) {
-                            $coun = isset($customer->customer_id) ? $cusAddr->country_id : '';
-                            $zon = isset($customer->customer_id) ? $cusAddr->zone_id : '';
-                            $post = isset($customer->customer_id) ? $cusAddr->postcode : '';
-                            $add1 = isset($customer->customer_id) ? $cusAddr->address_1 : '';
-                            $add2 = isset($customer->customer_id) ? $cusAddr->address_2 : '';
-                        }
-                        ?>
+            $coun = $zon =  $post = $add1 = $add2 = '';
+        $cusAddr  = isset($customer->customer_id) ? get_all_row_data_by_id('cc_address', 'customer_id', $customer->customer_id) : '';
+
+        if (!empty($cusAddr)) {
+            $coun = isset($customer->customer_id) ? $cusAddr->country_id : '';
+            $zon  = isset($customer->customer_id) ? $cusAddr->zone_id : '';
+            $post = isset($customer->customer_id) ? $cusAddr->postcode : '';
+            $add1 = isset($customer->customer_id) ? $cusAddr->address_1 : '';
+            $add2 = isset($customer->customer_id) ? $cusAddr->address_2 : '';
+        }
+        ?>
 
 
                         <div class="col-lg-6">
@@ -265,9 +267,9 @@
                         <div class="list-item d-flex gap-2 mb-2">
                             <div class="d-flex gap-2 bg-gray p-2 rounded-2 pro-bg-check">
                                 <?php
-                                    $img = get_data_by_id('image', 'cc_products', 'product_id', $val['id']);
-                                    $des = get_data_by_id('description', 'cc_product_description', 'product_id', $val['id']);
-                                    ?>
+                    $img         = get_data_by_id('image', 'cc_products', 'product_id', $val['id']);
+                            $des = get_data_by_id('description', 'cc_product_description', 'product_id', $val['id']);
+                            ?>
                                 <?php echo image_view('uploads/products', $val['id'], $img_size . $img, 'noimage.png', 'img-fluid w-h-100') ?>
                                 <div>
                                     <p class="fw-semibold mb-2"><?php echo $val['name']; ?></p>
@@ -307,20 +309,20 @@
                         <div class="group-check mb-4">
                             <div class="d-flex justify-content-between mb-2">
                                 <span>Price</span>
-                                <span id="check_total"><?php echo $cSymbol .number_format(Cart()->total(),2) ?></span>
+                                <span id="check_total"><?php echo $cSymbol . number_format(Cart()->total(), 2) ?></span>
                             </div>
 
                             <div class="d-flex justify-content-between mb-2">
                                 <span>Discount</span>
                                 <?php $disc = 0;
 
-                                if (isset(newSession()->coupon_discount)) {
-                                    $disc = number_format((Cart()->total() * newSession()->coupon_discount) / 100,2); ?>
-                                <span><?php echo $cSymbol .$disc ?></span>
+        if (isset(newSession()->coupon_discount)) {
+            $disc = number_format((Cart()->total() * newSession()->coupon_discount) / 100, 2); ?>
+                                <span><?php echo $cSymbol . $disc ?></span>
                                 <?php } else {
-                                    echo '<span>' . $cSymbol .$disc . '</span>';
+                                    echo '<span>' . $cSymbol . $disc . '</span>';
                                 }
-                                $total = (isset(newSession()->coupon_discount)) ? number_format(Cart()->total() - $disc,2) : Cart()->total(); ?>
+        $total = (isset(newSession()->coupon_discount)) ? number_format(Cart()->total() - $disc, 2) : Cart()->total(); ?>
                             </div>
                         </div>
 
@@ -384,13 +386,14 @@
 
                             <div class="d-flex flex-column">
                                 <?php
-                                $sMethod = get_array_data_by_id('cc_shipping_method','status','1');
-                                $dataCount = count($sMethod);
-                                foreach ($sMethod as $ship) { ?>
+        $sMethod   = get_array_data_by_id('cc_shipping_method', 'status', '1');
+        $dataCount = count($sMethod);
+
+        foreach ($sMethod as $ship) { ?>
                                 <div class="d-flex justify-content-between mt-3">
                                     <div class="form-check">
                                         <label class="form-check-label">
-                                            <input class="form-check-input" type="radio" name="shipping_method" oninput="shippingCharge()" id="shipping_method" value="<?php echo $ship->code; ?>" <?php echo ($dataCount == 1)?'checked':'';?> required>
+                                            <input class="form-check-input" type="radio" name="shipping_method" oninput="shippingCharge()" id="shipping_method" value="<?php echo $ship->code; ?>" <?php echo ($dataCount == 1) ? 'checked' : '';?> required>
                                             <?php echo $ship->name; ?>
                                         </label>
                                     </div>
@@ -400,13 +403,13 @@
 
                             <div class="d-flex justify-content-between mt-3">
                                 <span>Shipping charge</span>
-                                <span id="chargeShip"><?php echo $cSymbol .'0' ?></span>
+                                <span id="chargeShip"><?php echo $cSymbol . '0' ?></span>
                                 <input type="hidden" name="shipping_charge" id="shipping_charge">
                             </div>
 
                             <div class="d-flex justify-content-between mt-3">
                                 <span>Shipping Discount</span>
-                                <span>(-) <span id="chargeDisSh"><?php echo $cSymbol .'0' ?></span></span>
+                                <span>(-) <span id="chargeDisSh"><?php echo $cSymbol . '0' ?></span></span>
                                 <input type="hidden" name="shipping_discount_charge" id="discount_charge">
                             </div>
                         </div>
@@ -414,7 +417,7 @@
                         <div class="total py-3 group-check mb-4" style="border-top: unset !important;">
                             <div class="d-flex justify-content-between fw-bold">
                                 <span>Total</span>
-                                <span id="total"><?php echo $cSymbol .$total ?></span>
+                                <span id="total"><?php echo $cSymbol . $total ?></span>
                                 <input type="hidden" id="totalamo" value="<?php echo $total ?>">
                             </div>
                         </div>
@@ -442,7 +445,7 @@
                                 </label></div>
                         </div>
                         <?php }
-                        } ?>
+                            } ?>
 
                     </div>
 

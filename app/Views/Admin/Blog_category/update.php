@@ -36,7 +36,7 @@
                         <!--" class="btn btn-primary btn-block ">Add</a>-->
                     </div>
                     <div class="col-md-12" style="margin-top: 10px">
-                        <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message');
+                        <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message');
                         endif; ?>
                     </div>
                 </div>
@@ -94,8 +94,9 @@
                                                         <?php $icons = get_all_data_array('cc_icons'); ?>
                                                         <div class="row">
                                                             <?php $i = 1;
-                                                            $j = 1;
-                                                            foreach ($icons as $valic) { ?>
+$j                                                                   = 1;
+
+foreach ($icons as $valic) { ?>
                                                                 <div class="col-md-2  custom-control custom-radio">
                                                                     <input class="custom-control-input" <?php echo ($category->icon_id == $valic->icon_id) ? 'checked' : ''; ?> type="radio" id="customRadio_<?php echo $i++ ?>" name="icon_id" value="<?php echo $valic->icon_id; ?>">
                                                                     <label for="customRadio_<?php echo $j++ ?>" class="custom-control-label"><?php echo $valic->code; ?></label>

@@ -33,7 +33,7 @@
 
                     </div>
                     <div class="col-md-12" style="margin-top: 10px">
-                        <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message'); endif; ?>
+                        <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
                     </div>
                 </div>
             </div>
@@ -52,12 +52,13 @@
                                 <ol>
                                     <?php
                                     $myRole = json_decode($roles->permission);
-                                    foreach ($permission as $key => $value) { ?>
+
+foreach ($permission as $key => $value) { ?>
                                         <li><?php echo $key; ?>
-                                            <?php foreach ($value as $k=>$v) {
+                                            <?php foreach ($value as $k => $v) {
                                                 if(isset($myRole->$key->$k)) {
                                                     $isChecked = ($myRole->$key->$k == 1) ? 'checked="checked"' : '';
-                                                }else{
+                                                } else {
                                                     $isChecked = '';
                                                 }
                                                 ?>

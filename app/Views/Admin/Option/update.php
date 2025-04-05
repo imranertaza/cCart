@@ -31,7 +31,7 @@
                     </div>
                     <div class="col-md-4"> </div>
                     <div class="col-md-12" style="margin-top: 10px">
-                        <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message'); endif; ?>
+                        <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
                     </div>
                 </div>
             </div>
@@ -50,9 +50,9 @@
                                 <label>Type</label>
                                 <select name="type" class="form-control" required>
                                     <option value="">Please select</option>
-                                    <option value="select" <?php echo ($option->type == 'select')?'selected':''; ?> >Select</option>
-                                    <option value="checkbox" <?php echo ($option->type == 'checkbox')?'selected':''; ?> >Checkbox</option>
-                                    <option value="radio" <?php echo ($option->type == 'radio')?'selected':''; ?> >Radio</option>
+                                    <option value="select" <?php echo ($option->type == 'select') ? 'selected' : ''; ?> >Select</option>
+                                    <option value="checkbox" <?php echo ($option->type == 'checkbox') ? 'selected' : ''; ?> >Checkbox</option>
+                                    <option value="radio" <?php echo ($option->type == 'radio') ? 'selected' : ''; ?> >Radio</option>
                                 </select>
                             </div>
 
@@ -61,7 +61,9 @@
                         </div>
                         <div class="col-md-6" style="padding-top: 16px;">
                             <div id="new_chq">
-                                <?php $i=1; foreach ($optionVal as $val){ ?>
+                                <?php $i = 1;
+
+foreach ($optionVal as $val) { ?>
                                 <div class="form-group mt-3" id="new_<?php echo $i++;?>"><input type="hidden"  name="option_value_id[]" value="<?php echo $val->option_value_id;?>" ><input type="text" class="form-control" placeholder="value" name="value[]" value="<?php echo $val->name;?>" style="width: 70%;float: left;" required> <a href="javascript:void(0)" onclick="remove_option_new_remove(this,'<?php echo $val->option_value_id;?>')" class="btn btn-sm btn-danger" style="margin-left: 5px;padding: 7px;">X</a></div>
                                 <?php } ?>
                             </div>

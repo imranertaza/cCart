@@ -270,14 +270,16 @@
             "buttons": ["csv", "excel", "pdf", "print" ]
         }).buttons().container().appendTo('#productListData_wrapper .col-md-6:eq(0)');
 
-        <?php if (isset(newSession()->resetDatatable) && (newSession()->resetDatatable == true)){  ?>
+        <?php if (isset(newSession()->resetDatatable) && (newSession()->resetDatatable == true)) {  ?>
         var table = $("#productListData").DataTable();
         table.search('').draw();
         table.page('first').draw('page');
         table.page.len(10).draw();
 
-        <?php } if (isset($_GET['page'])){  ?>
-        $('#productListData').DataTable().page(<?= $_GET['page']-1;?>).draw('page');
+        <?php }
+
+if (isset($_GET['page'])) {  ?>
+        $('#productListData').DataTable().page(<?= $_GET['page'] - 1;?>).draw('page');
         <?php } ?>
 
     });
@@ -526,7 +528,7 @@
 
 <?= $this->renderSection('java_script') ?>
 
-<?php //require_once(FCPATH .'admin_assets/dist/js/ajaxScript.php'); ?>
+<?php //require_once(FCPATH .'admin_assets/dist/js/ajaxScript.php');?>
 
 </body>
 </html>

@@ -16,11 +16,11 @@ class ProductAttributeGroup extends Migration
                 'auto_increment' => true,
             ],
             'name' => [
-                'type' => 'VARCHAR',
+                'type'       => 'VARCHAR',
                 'constraint' => 155,
             ],
             'sort_order' => [
-                'type' => 'INT',
+                'type'       => 'INT',
                 'constraint' => 3,
             ],
         ]);

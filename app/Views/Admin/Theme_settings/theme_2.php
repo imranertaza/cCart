@@ -2,8 +2,8 @@
     <div class="col-md-6">
 
         <?php
-        $cat = get_all_data_array('cc_product_category');
-        $themeSettings = get_theme_settings();
+        $cat                = get_all_data_array('cc_product_category');
+        $themeSettings      = get_theme_settings();
         $themeSettingsTitle = get_theme_title_settings();
 
         ?>
@@ -37,8 +37,8 @@
             <div class="form-group mt-5">
                 <?php
                 $special_banner_1 = $themeSettings['special_banner'];
-                echo image_view('uploads/special_banner', '', $special_banner_1, 'noimage.png', 'w-75');
-                ?>
+        echo image_view('uploads/special_banner', '', $special_banner_1, 'noimage.png', 'w-75');
+        ?>
             </div>
             <div class="form-group">
                 <label><?php echo $themeSettingsTitle['special_banner']; ?></label>
@@ -52,9 +52,9 @@
         <form action="<?php echo base_url('admin/home_left_side_banner') ?>" method="post" enctype="multipart/form-data">
             <div class="form-group mt-5">
                 <?php
-                $special_banner_1 = $themeSettings['left_side_banner_one'];
-                echo image_view('uploads/left_side_banner', '', $special_banner_1, 'noimage.png', 'w-25');
-                ?>
+        $special_banner_1 = $themeSettings['left_side_banner_one'];
+        echo image_view('uploads/left_side_banner', '', $special_banner_1, 'noimage.png', 'w-25');
+        ?>
             </div>
             <div class="form-group">
                 <label><?php echo $themeSettingsTitle['left_side_banner_one']; ?></label>
@@ -69,9 +69,9 @@
         <form action="<?php echo base_url('admin/home_left_side_banner') ?>" method="post" enctype="multipart/form-data">
             <div class="form-group mt-5">
                 <?php
-                $banner_1 = $themeSettings['left_side_banner_three'];
-                echo image_view('uploads/left_side_banner', '', $banner_1, 'noimage.png', 'w-25');
-                ?>
+        $banner_1 = $themeSettings['left_side_banner_three'];
+        echo image_view('uploads/left_side_banner', '', $banner_1, 'noimage.png', 'w-25');
+        ?>
             </div>
             <div class="form-group">
                 <label><?php echo $themeSettingsTitle['left_side_banner_three']; ?></label>
@@ -95,9 +95,10 @@
                 <select name="value" class="form-control" required>
                     <option value="">Please Select</option>
                     <?php
-                    $catSel = $themeSettings['hot_deals_category'];
-                    foreach ($cat as $val) {
-                        ?>
+            $catSel = $themeSettings['hot_deals_category'];
+
+        foreach ($cat as $val) {
+            ?>
                         <option value="<?php echo $val->prod_cat_id; ?>"
                             <?php echo ($val->prod_cat_id == $catSel) ? 'selected' : ''; ?>><?php echo display_category_with_parent($val->prod_cat_id); ?>
                         </option>
@@ -117,8 +118,9 @@
                     <option value="">Please Select</option>
                     <?php
                     $catSel = $themeSettings['trending_collection_category'];
-                    foreach ($cat as $val) {
-                        ?>
+
+        foreach ($cat as $val) {
+            ?>
                         <option value="<?php echo $val->prod_cat_id; ?>"
                             <?php echo ($val->prod_cat_id == $catSel) ? 'selected' : ''; ?>><?php echo display_category_with_parent($val->prod_cat_id); ?>
                         </option>
@@ -138,8 +140,9 @@
                     <option value="">Please Select</option>
                     <?php
                     $catSel = $themeSettings['special_category_one'];
-                    foreach ($cat as $val) {
-                        ?>
+
+        foreach ($cat as $val) {
+            ?>
                         <option value="<?php echo $val->prod_cat_id; ?>"
                             <?php echo ($val->prod_cat_id == $catSel) ? 'selected' : ''; ?>><?php echo display_category_with_parent($val->prod_cat_id); ?>
                         </option>
@@ -158,8 +161,9 @@
                     <option value="">Please Select</option>
                     <?php
                     $catSel = $themeSettings['special_category_two'];
-                    foreach ($cat as $val) {
-                        ?>
+
+        foreach ($cat as $val) {
+            ?>
                         <option value="<?php echo $val->prod_cat_id; ?>"
                             <?php echo ($val->prod_cat_id == $catSel) ? 'selected' : ''; ?>><?php echo display_category_with_parent($val->prod_cat_id); ?>
                         </option>
@@ -178,8 +182,9 @@
                     <option value="">Please Select</option>
                     <?php
                     $catSel = $themeSettings['special_category_three'];
-                    foreach ($cat as $val) {
-                        ?>
+
+        foreach ($cat as $val) {
+            ?>
                         <option value="<?php echo $val->prod_cat_id; ?>"
                             <?php echo ($val->prod_cat_id == $catSel) ? 'selected' : ''; ?>><?php echo display_category_with_parent($val->prod_cat_id); ?>
                         </option>
@@ -195,8 +200,8 @@
             <div class="form-group mt-5">
                 <?php
                 $banner_1 = $themeSettings['left_side_banner_two'];
-                echo image_view('uploads/left_side_banner', '', $banner_1, 'noimage.png', 'w-25');
-                ?>
+        echo image_view('uploads/left_side_banner', '', $banner_1, 'noimage.png', 'w-25');
+        ?>
             </div>
             <div class="form-group">
                 <label><?php echo $themeSettingsTitle['left_side_banner_two']; ?></label>

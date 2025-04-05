@@ -32,7 +32,7 @@
                     <div class="col-md-4">
                     </div>
                     <div class="col-md-12" style="margin-top: 10px" id="message">
-                        <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message'); endif; ?>
+                        <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
                     </div>
                 </div>
             </div>
@@ -49,21 +49,25 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $i=1; foreach ($fund_request as $val){ ?>
+                        <?php $i = 1;
+
+foreach ($fund_request as $val) { ?>
                         <tr>
                             <td width="40"><?php echo $i++;?></td>
-                            <td><?php echo get_data_by_id('firstname','cc_customer','customer_id',$val->customer_id).' '.get_data_by_id('lastname','cc_customer','customer_id',$val->customer_id);?></td>
+                            <td><?php echo get_data_by_id('firstname', 'cc_customer', 'customer_id', $val->customer_id) . ' ' . get_data_by_id('lastname', 'cc_customer', 'customer_id', $val->customer_id);?></td>
                             <td><?php echo currency_symbol($val->amount);?></td>
-                            <td><?php echo get_data_by_id('name','cc_payment_method','payment_method_id',$val->payment_method_id);?></td>
+                            <td><?php echo get_data_by_id('name', 'cc_payment_method', 'payment_method_id', $val->payment_method_id);?></td>
                             <td><?php echo saleDate($val->createdDtm);?></td>
                             <td width="180">
-                                <?php if($val->status == 'Pending'){ ?>
+                                <?php if($val->status == 'Pending') { ?>
                                     <select name="status" id="status" onchange="found_request_update(this.value,'<?php echo $val->fund_request_id;?>')" >
-                                        <option value="Pending" <?php echo ($val->status == 'Pending')?'selected':'';?>>Pending</option>
-                                        <option value="Complete" <?php echo ($val->status == 'Complete')?'selected':'';?>>Complete</option>
-                                        <option value="Canceled" <?php echo ($val->status == 'Canceled')?'selected':'';?>>Canceled</option>
+                                        <option value="Pending" <?php echo ($val->status == 'Pending') ? 'selected' : '';?>>Pending</option>
+                                        <option value="Complete" <?php echo ($val->status == 'Complete') ? 'selected' : '';?>>Complete</option>
+                                        <option value="Canceled" <?php echo ($val->status == 'Canceled') ? 'selected' : '';?>>Canceled</option>
                                     </select>
-                                <?php }else{ echo $val->status;} ?>
+                                <?php } else {
+                                    echo $val->status;
+                                } ?>
 
                             </td>
                         </tr>

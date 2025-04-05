@@ -20,15 +20,15 @@ class CouponHistory extends Migration
                 'constraint' => 11,
             ],
             'order_id' => [
-                'type' => 'INT',
+                'type'       => 'INT',
                 'constraint' => 11,
             ],
             'customer_id' => [
-                'type' => 'INT',
+                'type'       => 'INT',
                 'constraint' => 11,
             ],
             'amount' => [
-                'type' => 'DECIMAL',
+                'type'       => 'DECIMAL',
                 'constraint' => '15,4',
             ],
             'date_added' => [

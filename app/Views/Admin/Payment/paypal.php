@@ -31,7 +31,7 @@
                     </div>
                     <div class="col-md-4"></div>
                     <div class="col-md-12" style="margin-top: 10px">
-                        <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message');
+                        <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message');
                         endif; ?>
                     </div>
                 </div>
@@ -71,9 +71,9 @@
                             <div class="form-group">
                                 <label>API URL</label>
                                 <select name="label[]" class="form-control" required="">
-                                    <option value="sandbox" <?php echo ($rowVal->value == 'sandbox')?'selected':'';?>>
+                                    <option value="sandbox" <?php echo ($rowVal->value == 'sandbox') ? 'selected' : '';?>>
                                         Sandbox</option>
-                                    <option value="paypal" <?php echo ($rowVal->value == 'paypal')?'selected':'';?>>
+                                    <option value="paypal" <?php echo ($rowVal->value == 'paypal') ? 'selected' : '';?>>
                                         Paypal</option>
                                 </select>
                                 <input type="hidden" name="id[]" value="7" required="">

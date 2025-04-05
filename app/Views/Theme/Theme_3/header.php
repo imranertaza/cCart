@@ -34,9 +34,9 @@
 
 </head>
 <body>
-    <div class="message_alert <?php echo (session()->getFlashdata('message') !== NULL) ? "display_block":''; ?>"  id="messAlt">
+    <div class="message_alert <?php echo (session()->getFlashdata('message') !== null) ? "display_block" : ''; ?>"  id="messAlt">
         <div class="alert-success_web py-2 px-3 border-0 text-white fs-5 text-capitalize" id="mesVal">
-            <?php echo (session()->getFlashdata('message') !== NULL) ?  session()->getFlashdata('message'):'Successfully update to cart';  ?>
+            <?php echo (session()->getFlashdata('message') !== null) ? session()->getFlashdata('message') : 'Successfully update to cart';  ?>
         </div>
     </div>
     <?php $settings = get_settings();?>
@@ -76,7 +76,9 @@
                         </div>
                     </div>
                     <div class="col-12 col-sm-8 col-md-5 d-flex gap-3 justify-content-center justify-content-sm-end mb-2 mb-sm-0"> 
-                    <?php $modules = modules_access(); if (!isset(newSession()->isLoggedInCustomer)) { ?>
+                    <?php $modules = modules_access();
+
+    if (!isset(newSession()->isLoggedInCustomer)) { ?>
                         <a class="btn" href="<?php echo base_url('login') ?>">Sign In</a>
                         <a class="btn btn-create px-4 py-2" href="<?php echo base_url('register') ?>">Create an account</a>
                         <?php } else { ?>
@@ -113,7 +115,7 @@
                         <div class="logo text-center text-sm-start">
                         <a href="<?php echo base_url() ?>">
                                 <?php $logoImg = get_lebel_by_value_in_theme_settings('side_logo');
-                                echo image_view('uploads/logo', '', $logoImg, 'noimage.png', 'img-fluid side_logo'); ?>
+    echo image_view('uploads/logo', '', $logoImg, 'noimage.png', 'img-fluid side_logo'); ?>
                             </a>
                         </div>
                     </div>
@@ -178,7 +180,9 @@
                                         <?php echo $pcat->code;?>
                                     </span>
                                         <?php echo $pcat->category_name; ?>
-                                        <?php $fCat = getCategoryBySubArray($pcat->prod_cat_id); if (!empty(count($fCat))) { ?>
+                                        <?php $fCat = getCategoryBySubArray($pcat->prod_cat_id);
+
+                                if (!empty(count($fCat))) { ?>
                                             <i class="fa-solid fa-angle-right  float-end"></i>
                                         <?php } ?>
                                     </a>
@@ -188,7 +192,9 @@
                                         <li>
                                             <a class="dropdown-item"
                                                 href="<?php echo base_url('category/' . $sCat->prod_cat_id); ?>">
-                                                <?php $sSubCat = getCategoryBySubArray($sCat->prod_cat_id);  if (!empty(count($sSubCat))) { ?>
+                                                <?php $sSubCat = getCategoryBySubArray($sCat->prod_cat_id);
+
+                                        if (!empty(count($sSubCat))) { ?>
                                                 <i class="fa-solid fa-angle-right  float-end "
                                                     style="margin-top: 4px;"></i>
                                                 <?php } ?>

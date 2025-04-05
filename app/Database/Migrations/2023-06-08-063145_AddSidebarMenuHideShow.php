@@ -12,9 +12,9 @@ class AddSidebarMenuHideShow extends Migration
             'side_menu' => [
                 'type'           => 'ENUM',
                 'constraint'     => ['1', '0'],
-                'default' => '0',
-                'null' => false,
-                'after' => 'header_menu',
+                'default'        => '0',
+                'null'           => false,
+                'after'          => 'header_menu',
             ],
         ];
         $this->forge->addColumn('cc_product_category', $fields);

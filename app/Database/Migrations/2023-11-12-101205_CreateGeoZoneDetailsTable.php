@@ -29,20 +29,20 @@ class CreateGeoZoneDetailsTable extends Migration
                 'constraint' => 11,
             ],
             'createdDtm' => [
-                'type' => 'DATETIME',
+                'type'    => 'DATETIME',
                 'default' => new RawSql('CURRENT_TIMESTAMP'),
             ],
             'createdBy' => [
-                'type' => 'INT',
+                'type'       => 'INT',
                 'constraint' => 11,
-                'null' => true,
-                'default' => null,
+                'null'       => true,
+                'default'    => null,
             ],
             'updatedBy' => [
-                'type' => 'INT',
+                'type'       => 'INT',
                 'constraint' => 11,
-                'null' => true,
-                'default' => null,
+                'null'       => true,
+                'default'    => null,
             ],
             'updatedDtm DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP',
         ]);
@@ -54,5 +54,4 @@ class CreateGeoZoneDetailsTable extends Migration
     {
         $this->forge->dropTable('cc_geo_zone_details');
     }
-
 }

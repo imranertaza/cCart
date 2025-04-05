@@ -31,7 +31,7 @@
                     </div>
                     <div class="col-md-4"></div>
                     <div class="col-md-12" style="margin-top: 10px">
-                        <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message'); endif; ?>
+                        <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
                     </div>
                 </div>
             </div>
@@ -42,8 +42,8 @@
                             <div class="form-group">
                                 <label>Status</label>
                                 <select name="status" class="form-control" required>
-                                    <option value="1" <?php echo ($payment->status == '1')?'selected':'';?>>Active</option>
-                                    <option value="0" <?php echo ($payment->status == '0')?'selected':'';?>>Inactive</option>
+                                    <option value="1" <?php echo ($payment->status == '1') ? 'selected' : '';?>>Active</option>
+                                    <option value="0" <?php echo ($payment->status == '0') ? 'selected' : '';?>>Inactive</option>
                                 </select>
                             </div>
                         </div>
@@ -51,7 +51,7 @@
                             <label>Image</label>
                             <input type="file" class="form-control" name="image" >
                         </div>
-                        <?php foreach ($payment_settings as $val){ ?>
+                        <?php foreach ($payment_settings as $val) { ?>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label><?php echo $val->title;?></label>

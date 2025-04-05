@@ -5,7 +5,7 @@
                 <div class="card-body p-3 p-md-5">
                     <div class="row mb-4">
                         <div class="col-md-12 px-5">
-                            <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message');
+                            <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message');
                             endif; ?>
                         </div>
                         <div class="col-md-12 px-5 text-center">
@@ -32,12 +32,14 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php $symbol = get_lebel_by_value_in_settings('currency_symbol'); $i=1;
-                                    foreach($fund_request as $req ){ ?>
+                                    <?php $symbol = get_lebel_by_value_in_settings('currency_symbol');
+        $i                                        = 1;
+
+        foreach($fund_request as $req) { ?>
                                     <tr>
                                         <td><?php echo $i++?></td>
                                         <td><?php echo $req->name; ?></td>
-                                        <td><?php echo currency_symbol_with_symbol($req->amount,$symbol)?></td>
+                                        <td><?php echo currency_symbol_with_symbol($req->amount, $symbol)?></td>
                                         <td><?php echo $req->status?></td>
                                     </tr>
                                     <?php } ?>

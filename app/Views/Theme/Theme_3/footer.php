@@ -203,7 +203,8 @@
                                         <?php echo $settings['address']; ?>
                                     </span>
                                 </li>    
-                                <?php if(modules_key_by_access('contact_with_whatsapp') ==1){ $modulId = get_data_by_id('module_id','cc_modules','module_key','contact_with_whatsapp');?>
+                                <?php if (modules_key_by_access('contact_with_whatsapp') == 1) {
+                                    $modulId = get_data_by_id('module_id', 'cc_modules', 'module_key', 'contact_with_whatsapp');?>
                                 <li class="d-flex fot-about">
                                     <a target="_blank" href="https://wa.me/<?php echo get_model_settings_value_by_modelId_or_label($modulId, 'whatsapp_number');?>" ><span>
                                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#ffffff" width="20" height="20" version="1.1" id="Layer_1" viewBox="0 0 308 308" xml:space="preserve">
@@ -813,19 +814,23 @@
 
     function optionPriceCalculate(product_id) {
         <?php foreach (get_all_data_array('cc_option') as $v) {
-        $fildName = str_replace(' ','',$v->name);
-        if ($v->type == 'radio') { ?>
+            $fildName = str_replace(' ', '', $v->name);
+
+            if ($v->type == 'radio') { ?>
         var <?php echo strtolower($fildName); ?> = $('input[name="<?php echo strtolower($fildName); ?>"]:checked').val();
         <?php }
-        if ($v->type == 'select') { ?>
+
+            if ($v->type == 'select') { ?>
         var <?php echo strtolower($fildName); ?> = $('[name="<?php echo strtolower($fildName); ?>"]').val();
-        <?php } } ?>
+        <?php }
+            } ?>
         $.ajax({
             method: "POST",
             url: "<?php echo base_url('optionPriceCalculate') ?>",
             data: {
                 product_id: product_id,
-                <?php foreach (get_all_data_array('cc_option') as $vl) { $fildName2 = str_replace(' ','',$vl->name); ?>
+                <?php foreach (get_all_data_array('cc_option') as $vl) {
+                    $fildName2 = str_replace(' ', '', $vl->name); ?>
                 <?php echo strtolower($fildName2); ?>: <?php echo strtolower($fildName2); ?>,
                 <?php } ?>
             },

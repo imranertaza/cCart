@@ -33,7 +33,7 @@
                         <a href="<?php echo base_url('admin/geo_zone_create') ?>" class="btn btn-primary btn-block btn-xs"><i class="fas fa-plus"></i> Create</a>
                     </div>
                     <div class="col-md-12" style="margin-top: 10px">
-                        <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message'); endif; ?>
+                        <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
                     </div>
                 </div>
             </div>
@@ -48,14 +48,16 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <?php $i=1; foreach ($geo_zone as $val){ ?>
+                    <?php $i = 1;
+
+foreach ($geo_zone as $val) { ?>
                         <tr>
                             <td width="40"><?php echo $i++;?></td>
                             <td><?php echo $val->geo_zone_name;?></td>
                             <td><?php echo $val->geo_zone_description;?></td>
                             <td width="180">
-                                <a href="<?php echo base_url('admin/geo_zone_update/'.$val->geo_zone_id);?>" class="btn btn-primary btn-xs"><i class="fas fa-edit"></i> Update</a>
-                                <a href="<?php echo base_url('admin/geo_zone_delete/'.$val->geo_zone_id);?>" onclick="return confirm('Are you sure you want to Delete?')" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i> Delete</a>
+                                <a href="<?php echo base_url('admin/geo_zone_update/' . $val->geo_zone_id);?>" class="btn btn-primary btn-xs"><i class="fas fa-edit"></i> Update</a>
+                                <a href="<?php echo base_url('admin/geo_zone_delete/' . $val->geo_zone_id);?>" onclick="return confirm('Are you sure you want to Delete?')" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i> Delete</a>
                             </td>
                         </tr>
                     <?php } ?>

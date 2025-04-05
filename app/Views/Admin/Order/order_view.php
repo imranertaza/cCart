@@ -31,7 +31,7 @@
                     </div>
                     <div class="col-md-4"></div>
                     <div class="col-md-12" style="margin-top: 10px" id="message">
-                        <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message');
+                        <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message');
                         endif; ?>
                     </div>
                 </div>
@@ -57,7 +57,7 @@
                             <a class="nav-link text-dark <?php echo (isset($_GET['selTab']) && $_GET['selTab'] == 'history') ? 'active' : ''; ?>"
                                 id="vert-tabs-settings-tab" data-toggle="pill" href="#vert-tabs-history" role="tab"
                                 aria-controls="vert-tabs-settings" aria-selected="false">History</a>
-                            <?php if(modules_key_by_access('point') == '1' ){ ?>
+                            <?php if(modules_key_by_access('point') == '1') { ?>
                             <a class="nav-link text-dark <?php echo (isset($_GET['selTab']) && $_GET['selTab'] == 'point') ? 'active' : ''; ?>" id="vert-tabs-point-tab" data-toggle="pill" href="#vert-tabs-point" role="tab"
                                aria-controls="vert-tabs-point" aria-selected="false">Point</a>
                             <?php } ?>
@@ -92,7 +92,7 @@
                                     </tr>
                                     <tr>
                                         <td>Total</td>
-                                        <td><?php echo currency_symbol_with_symbol($order->final_amount,$symbol); ?></td>
+                                        <td><?php echo currency_symbol_with_symbol($order->final_amount, $symbol); ?></td>
                                     </tr>
                                     <tr>
                                         <td>Order Status</td>
@@ -142,16 +142,17 @@
                                         <td>Payment Status</td>
                                         <td>
                                             <select name="payment_status" class="form-control" style="width: 160px;" onchange="payment_status_update(this.value,'<?php echo $order->order_id;?>')">
-                                                <option value="Pending" <?php echo ($order->payment_status == 'Pending')?'selected':'';?> >Pending</option>
-                                                <option value="Paid" <?php echo ($order->payment_status == 'Paid')?'selected':'';?> >Paid</option>
-                                                <option value="Failed" <?php echo ($order->payment_status == 'Failed')?'selected':'';?> >Failed</option>
+                                                <option value="Pending" <?php echo ($order->payment_status == 'Pending') ? 'selected' : '';?> >Pending</option>
+                                                <option value="Paid" <?php echo ($order->payment_status == 'Paid') ? 'selected' : '';?> >Paid</option>
+                                                <option value="Failed" <?php echo ($order->payment_status == 'Failed') ? 'selected' : '';?> >Failed</option>
                                             </select>
                                         </td>
                                     </tr>
                                     <?php
                                     $paymentDet =  get_all_row_data_by_id('cc_order_card_details', 'payment_method_id', $order->payment_method);
-                                    if (!empty($paymentDet)) {
-                                    ?>
+
+if (!empty($paymentDet)) {
+    ?>
                                     <tr>
                                         <td>Payment Details</td>
                                         <td>
@@ -220,49 +221,50 @@
                                             <td width="400">
                                                 <?php echo get_data_by_id('name', 'cc_products', 'product_id', $vew->product_id); ?><br>
                                                 <?php
-                                                    $orOption = order_iten_id_by_order_options($vew->order_item);
-                                                    if (!empty($orOption)) {
-                                                        foreach ($orOption as $op) { ?>
+                    $orOption = order_iten_id_by_order_options($vew->order_item);
+
+                                            if (!empty($orOption)) {
+                                                foreach ($orOption as $op) { ?>
                                                 <?php
-                                                            $firstCar =  mb_substr($op->value, 0, 1);
-                                                            $length = strlen($op->value);
-                                                            $isColor = (($firstCar == '#') && ($length == 7)) ? '' : $op->value;
-                                                            $style = empty($isColor) ? "background-color: $op->value;padding: 13px 14px; border: unset;" : "padding: 0px 4px;";
-                                                            ?>
+                                                    $firstCar =  mb_substr($op->value, 0, 1);
+                                                    $length   = strlen($op->value);
+                                                    $isColor  = (($firstCar == '#') && ($length == 7)) ? '' : $op->value;
+                                                    $style    = empty($isColor) ? "background-color: $op->value;padding: 13px 14px; border: unset;" : "padding: 0px 4px;";
+                                                    ?>
                                                 <span><?php echo $op->name ?> :</span>
                                                 <label class="btn btn-outline-secondary pd-new"
                                                     style="<?php echo $style; ?> border-radius: unset; margin-left:8px;"><?php echo !empty($isColor) ? $op->value : ''; ?></label>
 
                                                 <?php }
-                                                    } ?>
+                                                } ?>
                                             </td>
                                             <td><?php echo $vew->quantity; ?></td>
-                                            <td><?php echo currency_symbol_with_symbol($vew->price,$symbol); ?></td>
-                                            <td><?php echo currency_symbol_with_symbol($vew->final_price,$symbol); ?></td>
+                                            <td><?php echo currency_symbol_with_symbol($vew->price, $symbol); ?></td>
+                                            <td><?php echo currency_symbol_with_symbol($vew->final_price, $symbol); ?></td>
                                         </tr>
                                         <?php } ?>
 
                                         <tr>
                                             <td class="text-right" colspan="3">Sub-Total:</td>
-                                            <td><?php echo currency_symbol_with_symbol($order->total,$symbol); ?></td>
+                                            <td><?php echo currency_symbol_with_symbol($order->total, $symbol); ?></td>
                                         </tr>
                                         <tr>
                                             <td class="text-right" colspan="3">Discount:</td>
-                                            <td><?php echo currency_symbol_with_symbol($order->discount,$symbol); ?></td>
+                                            <td><?php echo currency_symbol_with_symbol($order->discount, $symbol); ?></td>
                                         </tr>
                                         <tr>
                                             <td class="text-right" colspan="3">Shipping Charge:</td>
-                                            <td><?php echo currency_symbol_with_symbol($order->shipping_charge,$symbol); ?></td>
+                                            <td><?php echo currency_symbol_with_symbol($order->shipping_charge, $symbol); ?></td>
                                         </tr>
                                         <tr>
                                             <td class="text-right" colspan="3">Total:</td>
-                                            <td><?php echo currency_symbol_with_symbol($order->final_amount,$symbol); ?></td>
+                                            <td><?php echo currency_symbol_with_symbol($order->final_amount, $symbol); ?></td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
 
-                            <div class="tab-pane fade <?php echo (isset($_GET['selTab']) && $_GET['selTab'] == 'history')? 'show active' : ''; ?>" id="vert-tabs-history" role="tabpanel" aria-labelledby="vert-tabs-settings-tab">
+                            <div class="tab-pane fade <?php echo (isset($_GET['selTab']) && $_GET['selTab'] == 'history') ? 'show active' : ''; ?>" id="vert-tabs-history" role="tabpanel" aria-labelledby="vert-tabs-settings-tab">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <h5>History</h5>
@@ -311,7 +313,7 @@
                                 </div>
                             </div>
 
-                            <div class="tab-pane fade <?php echo (isset($_GET['selTab']) && $_GET['selTab'] == 'point')? 'show active' : ''; ?>" id="vert-tabs-point" role="tabpanel" aria-labelledby="vert-tabs-point-tab">
+                            <div class="tab-pane fade <?php echo (isset($_GET['selTab']) && $_GET['selTab'] == 'point') ? 'show active' : ''; ?>" id="vert-tabs-point" role="tabpanel" aria-labelledby="vert-tabs-point-tab">
                                 <div class="row">
                                     <div class="col-md-6 ">
                                         <h5>Point: <?php echo $order->total_point; ?> </h5>

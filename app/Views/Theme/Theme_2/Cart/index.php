@@ -3,14 +3,14 @@
         <div class="cart">
             <div class="row">
                 <div class="col-md-12 ">
-                    <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message');
+                    <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message');
                     endif; ?>
                 </div>
             </div>
             <?php
-            $modules = modules_access();
-            $img_size_100 = ($modules['watermark'] == '1')?'100_wm_':'100_';
-            ?>
+            $modules              = modules_access();
+                    $img_size_100 = ($modules['watermark'] == '1') ? '100_wm_' : '100_';
+                    ?>
             <div class="table-responsive">
                 <table class="cart-table w-100 text-center ">
                     <thead>
@@ -51,7 +51,7 @@
                                             </div>
                                             <input type="text" id="qty_input" name="qty" class="form-control form-control-sm item_<?php echo $val['rowid']; ?>" value="<?php echo $val['qty']; ?>" min="1">
                                             <!--                                    <input type="hidden"  name="rowid[]"  value="--><?php //echo $val['rowid'];
-                                                                                                                                    ?>
+                                                                                                                                            ?>
                                             <!--" >-->
                                             <div class="input-group-prepend">
                                                 <button class="btn btn-dark btn-sm" onclick="plusItem('<?php echo $val['rowid']; ?>')" id="plus-btn"><i class="fa fa-plus"></i></button>
@@ -83,7 +83,8 @@
                             </td>
                             <td class="border-end-0 mo-text-center" style="text-align:left;">
                                 <?php $disc = 0;
-                                if (isset(newSession()->coupon_discount)) { ?>
+
+                    if (isset(newSession()->coupon_discount)) { ?>
                                     <span class="fs-4 ">Price</span><br>
                                     <span class="fs-4 ">Discount</span><br>
                                 <?php } ?>

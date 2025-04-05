@@ -6,7 +6,7 @@
                     <div class="d-flex justify-content-between">
                         <div class="logo">
                             <?php $logoImg = get_lebel_by_value_in_theme_settings('side_logo');
-                            echo image_view('uploads/logo','',$logoImg,'noimage.png','img-fluid');?>
+                            echo image_view('uploads/logo', '', $logoImg, 'noimage.png', 'img-fluid');?>
                         </div>
                         <div class="address">
                             <div class="icon float-start">
@@ -30,13 +30,13 @@
                             </div>
                             <div class="col-md-2 text-capitalize ">
                                 <p class="fw-bold">Bill to</p>
-                                <p><?php echo $order->payment_firstname .' '.$order->payment_lastname;?></p>
+                                <p><?php echo $order->payment_firstname . ' ' . $order->payment_lastname;?></p>
                                 <p><?php echo $order->payment_phone;?></p>
                                 <p><?php echo $order->payment_address_1;?></p>
                             </div>
                             <div class="col-md-2 text-capitalize">
                                 <p class="fw-bold">Ship to</p>
-                                <p><?php echo $order->shipping_firstname .' '.$order->shipping_lastname;?></p>
+                                <p><?php echo $order->shipping_firstname . ' ' . $order->shipping_lastname;?></p>
                                 <p><?php echo $order->shipping_phone;?></p>
                                 <p><?php echo $order->shipping_address_1;?></p>
                             </div>
@@ -45,25 +45,26 @@
                             $status = order_id_by_status($order->order_id);
 
                             $bacColor = 'bg-danger';
-                            $titleS = 'Unpaid';
-                            $pad ='padding:35px 20px;';
-                            if ($status == 'Complete'){
+                            $titleS   = 'Unpaid';
+                            $pad      = 'padding:35px 20px;';
+
+                            if ($status == 'Complete') {
                                 $bacColor = 'bg-success';
-                                $titleS = 'Paid';
-                                $pad ='padding: 35px 28px;';
+                                $titleS   = 'Paid';
+                                $pad      = 'padding: 35px 28px;';
                             }
 
 
-                        ?>
+                            ?>
                         <div class="round <?php echo $bacColor;?> bd-placeholder-img rounded-circle position-absolute " width="75" height="75" style="<?php echo $pad;?>">
                             <span><?php echo $titleS;?></span>
                         </div>
                     </div>
                 </div>
                 <?php
-                $modules = modules_access();
-                $img_size_100 = ($modules['watermark'] == '1')?'100_wm_':'100_';
-                ?>
+                $modules                  = modules_access();
+                            $img_size_100 = ($modules['watermark'] == '1') ? '100_wm_' : '100_';
+                            ?>
                 <div class="col-md-12 mt-5">
                     <table class="table table-borderless table-responsive">
                         <thead>
@@ -75,13 +76,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                        <?php foreach ($orderItem as $item){ ?>
+                        <?php foreach ($orderItem as $item) { ?>
                             <tr>
                                 <td><?php
-                                    $img = get_data_by_id('image','cc_products','product_id',$item->product_id);
-                                    echo image_view('uploads/products',$item->product_id,$img_size_100 .$img,'noimage.png','');
-                                ?>
-                                    <?php echo get_data_by_id('name','cc_products','product_id',$item->product_id) ;?>
+                                                $img = get_data_by_id('image', 'cc_products', 'product_id', $item->product_id);
+                            echo image_view('uploads/products', $item->product_id, $img_size_100 . $img, 'noimage.png', '');
+                            ?>
+                                    <?php echo get_data_by_id('name', 'cc_products', 'product_id', $item->product_id) ;?>
                                 </td>
                                 <td><?php echo currency_symbol($item->price);?></td>
                                 <td><?php echo $item->quantity;?></td>

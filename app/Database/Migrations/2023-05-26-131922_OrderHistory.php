@@ -27,14 +27,14 @@ class OrderHistory extends Migration
             'notify' => [
                 'type'           => 'tinyint',
                 'constraint'     => 1,
-                'default' => 0,
+                'default'        => 0,
             ],
             'comment' => [
-                'type' => 'TEXT',
+                'type'       => 'TEXT',
                 'constraint' => 155,
             ],
             'date_added' => [
-                'type' => 'DATETIME',
+                'type'    => 'DATETIME',
                 'default' => new RawSql('CURRENT_TIMESTAMP'),
             ],
         ]);

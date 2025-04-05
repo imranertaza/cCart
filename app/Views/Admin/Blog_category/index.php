@@ -33,7 +33,7 @@
                         <a href="<?php echo base_url('admin/blog_category_create') ?>" class="btn btn-primary btn-block btn-xs"><i class="fas fa-plus"></i> Add</a>
                     </div>
                     <div class="col-md-12" style="margin-top: 10px" id="message">
-                        <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message');
+                        <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message');
                         endif; ?>
                     </div>
                 </div>
@@ -52,11 +52,12 @@
                     </thead>
                     <tbody>
                         <?php $i = 1;
-                        foreach ($category as $val) {
-                            $main_cat = (!empty($val->parent_id)) ? get_data_by_id('parent_id', 'cc_category', 'cat_id', $val->parent_id) : '';
-                            $main = (!empty($main_cat)) ? get_data_by_id('category_name', 'cc_category', 'cat_id', $main_cat) . '->' : '';
-                            $parCat = (!empty($val->parent_id)) ? get_data_by_id('category_name', 'cc_category', 'cat_id', $val->parent_id) . '-> ' : '';
-                        ?>
+
+foreach ($category as $val) {
+    $main_cat = (!empty($val->parent_id)) ? get_data_by_id('parent_id', 'cc_category', 'cat_id', $val->parent_id) : '';
+    $main     = (!empty($main_cat)) ? get_data_by_id('category_name', 'cc_category', 'cat_id', $main_cat) . '->' : '';
+    $parCat   = (!empty($val->parent_id)) ? get_data_by_id('category_name', 'cc_category', 'cat_id', $val->parent_id) . '-> ' : '';
+    ?>
                             <tr>
                                 <td width="40"><?php echo $i++; ?></td>
                                 <td><?php echo display_blog_category_with_parent($val->cat_id); ?></td>

@@ -11,9 +11,9 @@ class PaymentMethod extends Seeder
         $data = [
             [
                 'payment_method_id' => 1,
-                'name' => 'Cash On Delivery',
-                'code' => 'cash_on',
-                'status' => '1',
+                'name'              => 'Cash On Delivery',
+                'code'              => 'cash_on',
+                'status'            => '1',
             ],
         ];
         // Using Query Builder

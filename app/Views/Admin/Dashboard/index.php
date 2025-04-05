@@ -185,7 +185,7 @@
                         <div class="col-md-3 col-sm-6 col-12">
                             <div class="description-block border-right">
                                 <!--                                <span class="description-percentage text-warning"><i class="fas fa-caret-left"></i> 0%</span>-->
-                                <h5 class="description-header"><?php echo currency_symbol_with_symbol($orderAmo,$symbol); ?></h5>
+                                <h5 class="description-header"><?php echo currency_symbol_with_symbol($orderAmo, $symbol); ?></h5>
                                 <span class="description-text">SALE AMOUNT</span>
                             </div>
                             <!-- /.description-block -->
@@ -194,7 +194,7 @@
                         <div class="col-md-3 col-sm-6 col-12">
                             <div class="description-block">
                                 <!--                                <span class="description-percentage text-danger"><i class="fas fa-caret-down"></i> 18%</span>-->
-                                <h5 class="description-header"><?php echo currency_symbol_with_symbol($orderAmoYear,$symbol); ?></h5>
+                                <h5 class="description-header"><?php echo currency_symbol_with_symbol($orderAmoYear, $symbol); ?></h5>
                                 <span class="description-text">SALE AMOUNT THIS YEAR</span>
 
                             </div>
@@ -239,13 +239,15 @@
                                     <th>Action</th>
                                 </tr>
                                 </thead>
-                                <?php foreach ($orderLast as $val){ $fname = !empty($val->firstname)?$val->firstname:$val->payment_firstname; $lname = !empty($val->lastname)?$val->lastname:$val->payment_lastname; ?>
+                                <?php foreach ($orderLast as $val) {
+                                    $fname = !empty($val->firstname) ? $val->firstname : $val->payment_firstname;
+                                    $lname = !empty($val->lastname) ? $val->lastname : $val->payment_lastname; ?>
                                     <tr>
                                         <td><?php echo $val->order_id;?></td>
-                                        <td><?php echo $fname.' '.$lname;?></td>
-                                        <td><span class="badge badge-default"><?php echo get_data_by_id('name','cc_order_status','order_status_id',$val->status);?></span></td>
+                                        <td><?php echo $fname . ' ' . $lname;?></td>
+                                        <td><span class="badge badge-default"><?php echo get_data_by_id('name', 'cc_order_status', 'order_status_id', $val->status);?></span></td>
 
-                                        <td><a href="<?php echo base_url('admin/order_view/'.$val->order_id);?>" class="btn btn-success btn-xs"><i class="fas fa-eye"></i> View</a></td>
+                                        <td><a href="<?php echo base_url('admin/order_view/' . $val->order_id);?>" class="btn btn-success btn-xs"><i class="fas fa-eye"></i> View</a></td>
 
                                     </tr>
                                 <?php } ?>

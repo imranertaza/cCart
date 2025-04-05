@@ -11,59 +11,59 @@ class OrderStatus extends Seeder
         $data = [
             [
                 'order_status_id' => 2,
-                'name' => 'Processing',
+                'name'            => 'Processing',
             ],
             [
                 'order_status_id' => 3,
-                'name' => 'Shipped',
+                'name'            => 'Shipped',
             ],
             [
                 'order_status_id' => 7,
-                'name' => 'Canceled',
+                'name'            => 'Canceled',
             ],
             [
                 'order_status_id' => 5,
-                'name' => 'Complete',
+                'name'            => 'Complete',
             ],
             [
                 'order_status_id' => 8,
-                'name' => 'Denied',
+                'name'            => 'Denied',
             ],
             [
                 'order_status_id' => 9,
-                'name' => 'Canceled Reversal',
+                'name'            => 'Canceled Reversal',
             ],
             [
                 'order_status_id' => 10,
-                'name' => 'Failed',
+                'name'            => 'Failed',
             ],
             [
                 'order_status_id' => 11,
-                'name' => 'Refunded',
+                'name'            => 'Refunded',
             ],
             [
                 'order_status_id' => 12,
-                'name' => 'Reversed',
+                'name'            => 'Reversed',
             ],
             [
                 'order_status_id' => 13,
-                'name' => 'Chargeback',
+                'name'            => 'Chargeback',
             ],
             [
                 'order_status_id' => 1,
-                'name' => 'Pending',
+                'name'            => 'Pending',
             ],
             [
                 'order_status_id' => 16,
-                'name' => 'Voided',
+                'name'            => 'Voided',
             ],
             [
                 'order_status_id' => 15,
-                'name' => 'Processed',
+                'name'            => 'Processed',
             ],
             [
                 'order_status_id' => 14,
-                'name' => 'Expired',
+                'name'            => 'Expired',
             ],
         ];
         // Using Query Builder

@@ -1,8 +1,9 @@
 <?php
+
 namespace App\Libraries;
 
-class Filter{
-
+class Filter
+{
     private $productArray;
 
     /**
@@ -10,8 +11,10 @@ class Filter{
      * @param array $products
      * @return $this
      */
-    public function getSettings($products){
+    public function getSettings($products)
+    {
         $this->productArray = $products;
+
         return $this;
     }
 
@@ -19,10 +22,12 @@ class Filter{
      * @description This method provides product price range.
      * @return array
      */
-    public function product_array_by_price_range(){
-        $priceArray = array_column($this->productArray, 'price');
+    public function product_array_by_price_range()
+    {
+        $priceArray       = array_column($this->productArray, 'price');
         $data['minPrice'] = empty($priceArray) ? '0' : floor(min($priceArray));
         $data['maxPrice'] = empty($priceArray) ? '0' : floor(max($priceArray));
+
         return $data;
     }
 
@@ -31,8 +36,10 @@ class Filter{
      * @param array $optionSel
      * @return string
      */
-    public function product_array_by_options($optionSel){
+    public function product_array_by_options($optionSel)
+    {
         $view = '';
+
         if (!empty($this->productArray)) {
             $productIds = array_column($this->productArray, 'product_id');
 
@@ -54,12 +61,12 @@ class Filter{
 
                         foreach ($allOptVal as $value) {
                             if ($valOption->option_id == $value->option_id) {
-                                $nameVal = $value->name;
+                                $nameVal  = $value->name;
                                 $firstCar = mb_substr($nameVal, 0, 1);
-                                $length = strlen($nameVal);
-                                $isColor = (($firstCar == '#') && ($length == 7)) ? '' : $nameVal;
-                                $nameOp = !empty($isColor) ? $isColor : '';
-                                $style = empty($isColor) ? "background-color: $nameVal !important;padding: 15px; border: unset;" : "";
+                                $length   = strlen($nameVal);
+                                $isColor  = (($firstCar == '#') && ($length == 7)) ? '' : $nameVal;
+                                $nameOp   = !empty($isColor) ? $isColor : '';
+                                $style    = empty($isColor) ? "background-color: $nameVal !important;padding: 15px; border: unset;" : "";
 
                                 $view .= '<li class="mt-2">
                                 <input type="checkbox" form="searchForm" onclick="formSubmit()"';
@@ -73,6 +80,7 @@ class Filter{
                 }
             }
         }
+
         return $view;
     }
 
@@ -81,9 +89,10 @@ class Filter{
      * @param int $optionId
      * @return array
      */
-    private function product_option_value($opt){
+    private function product_option_value($opt)
+    {
         $productIds = array_column($this->productArray, 'product_id');
-        $optionIds = array_column($opt, 'option_id');
+        $optionIds  = array_column($opt, 'option_id');
 
         if (!empty($productIds) && !empty($optionIds)) {
             $table = DB()->table('cc_product_option');
@@ -93,6 +102,7 @@ class Filter{
                 ->groupBy('cc_option_value.option_value_id');
 
             $option = $table->get()->getResult();
+
             return $option;
         }
 
@@ -104,14 +114,16 @@ class Filter{
      * @param array $brandSel
      * @return string
      */
-    public function product_array_by_brand($brandSel){
+    public function product_array_by_brand($brandSel)
+    {
         $brandArray = array_unique(array_column($this->productArray, 'brand_id'));
-        $view = '';
+        $view       = '';
 
         if ($this->allValuesNotEmpty($brandArray)) {
             $view .= '<div class="product-filter"><p class="mb-2">Brands</p>';
 
             $table = DB()->table('cc_brand');
+
             if (!empty($brandArray)) {
                 $table->whereIn('brand_id', $brandArray)
                     ->orderBy('name');
@@ -129,6 +141,7 @@ class Filter{
             }
             $view .= '</div>';
         }
+
         return $view;
     }
 
@@ -137,9 +150,10 @@ class Filter{
      * @param int $ratingSel
      * @return string
      */
-    public function product_array_by_rating_view($ratingSel){
+    public function product_array_by_rating_view($ratingSel)
+    {
         $ratingArray = array_unique(array_column($this->productArray, 'average_feedback'));
-        $view = '';
+        $view        = '';
 
         if ($this->allValuesNotEmpty($ratingArray)) {
             $view .= '<div class="product-filter"><p class="mb-2">Rating</p>';
@@ -160,6 +174,7 @@ class Filter{
 
             $view .= '</div>';
         }
+
         return $view;
     }
 
@@ -168,10 +183,12 @@ class Filter{
      * @param int $ratingSel
      * @return string
      */
-    private function rating_1($ratingSel){
-        $sel = (in_array('1', $ratingSel))?'checked ':'';
+    private function rating_1($ratingSel)
+    {
+        $sel = (in_array('1', $ratingSel)) ? 'checked ' : '';
+
         return '<label class="w-100 mb-2">
-                <input type="checkbox" onclick="formSubmit()" '.$sel.' form="searchForm" name="rating[]" id="" value="1">
+                <input type="checkbox" onclick="formSubmit()" ' . $sel . ' form="searchForm" name="rating[]" id="" value="1">
                     <i class="fa-solid fa-star"></i>
                     <i class="fa-regular fa-star"></i>
                     <i class="fa-regular fa-star"></i>
@@ -186,10 +203,12 @@ class Filter{
      * @param int $ratingSel
      * @return string
      */
-    private function rating_2($ratingSel){
-        $sel = (in_array('2', $ratingSel))?'checked ':'';
+    private function rating_2($ratingSel)
+    {
+        $sel = (in_array('2', $ratingSel)) ? 'checked ' : '';
+
         return '<label class="w-100 mb-2">
-                <input type="checkbox" onclick="formSubmit()" '.$sel.' form="searchForm"  name="rating[]" id="" value="2">
+                <input type="checkbox" onclick="formSubmit()" ' . $sel . ' form="searchForm"  name="rating[]" id="" value="2">
                     <i class="fa-solid fa-star"></i>
                     <i class="fa-solid fa-star"></i>
                     <i class="fa-regular fa-star"></i>
@@ -204,10 +223,12 @@ class Filter{
      * @param int $ratingSel
      * @return string
      */
-    private function rating_3($ratingSel){
-        $sel = (in_array('3', $ratingSel))?'checked ':'';
+    private function rating_3($ratingSel)
+    {
+        $sel = (in_array('3', $ratingSel)) ? 'checked ' : '';
+
         return '<label class="w-100 mb-2">
-                <input type="checkbox" onclick="formSubmit()" '.$sel.' form="searchForm" name="rating[]" id="" value="3">
+                <input type="checkbox" onclick="formSubmit()" ' . $sel . ' form="searchForm" name="rating[]" id="" value="3">
                     <i class="fa-solid fa-star"></i>
                     <i class="fa-solid fa-star"></i>
                     <i class="fa-solid fa-star"></i>
@@ -222,10 +243,12 @@ class Filter{
      * @param int $ratingSel
      * @return string
      */
-    private function rating_4($ratingSel){
-        $sel = (in_array('4', $ratingSel))?'checked ':'';
+    private function rating_4($ratingSel)
+    {
+        $sel = (in_array('4', $ratingSel)) ? 'checked ' : '';
+
         return '<label class="w-100 mb-2">
-                <input type="checkbox" onclick="formSubmit()" '.$sel.' form="searchForm" name="rating[]" id="" value="4">
+                <input type="checkbox" onclick="formSubmit()" ' . $sel . ' form="searchForm" name="rating[]" id="" value="4">
                     <i class="fa-solid fa-star"></i>
                     <i class="fa-solid fa-star"></i>
                     <i class="fa-solid fa-star"></i>
@@ -240,10 +263,12 @@ class Filter{
      * @param int $ratingSel
      * @return string
      */
-    private function rating_5($ratingSel){
-        $sel = (in_array('5', $ratingSel))?'checked ':'';
+    private function rating_5($ratingSel)
+    {
+        $sel = (in_array('5', $ratingSel)) ? 'checked ' : '';
+
         return '<label class="w-100 mb-2">
-                <input type="checkbox" onclick="formSubmit()" '.$sel.' form="searchForm" name="rating[]" id="" value="5">
+                <input type="checkbox" onclick="formSubmit()" ' . $sel . ' form="searchForm" name="rating[]" id="" value="5">
                     <i class="fa-solid fa-star"></i>
                     <i class="fa-solid fa-star"></i>
                     <i class="fa-solid fa-star"></i>
@@ -258,32 +283,16 @@ class Filter{
      * @param array $array
      * @return bool
      */
-    private  function allValuesNotEmpty($array) {
+    private function allValuesNotEmpty($array)
+    {
         $data = false;
-        foreach ($array as $value){
+
+        foreach ($array as $value) {
             if (!empty($value)) {
                 $data = true;
             }
         }
+
         return $data;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

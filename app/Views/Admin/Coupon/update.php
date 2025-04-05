@@ -31,7 +31,7 @@
                     </div>
                     <div class="col-md-4"> </div>
                     <div class="col-md-12" style="margin-top: 10px">
-                        <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message'); endif; ?>
+                        <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
                     </div>
                 </div>
             </div>
@@ -53,17 +53,19 @@
                             <div class="form-group">
                                 <label>Discount On</label>
                                 <select name="discount_on" class="form-control" onchange="shippingMethod(this.value)">
-                                    <option value="Product" <?php echo ($coupon->discount_on == 'Product')?'selected':''; ?> >Product</option>
-                                    <option value="Shipping" <?php echo ($coupon->discount_on == 'Shipping')?'selected':''; ?> >Shipping</option>
+                                    <option value="Product" <?php echo ($coupon->discount_on == 'Product') ? 'selected' : ''; ?> >Product</option>
+                                    <option value="Shipping" <?php echo ($coupon->discount_on == 'Shipping') ? 'selected' : ''; ?> >Shipping</option>
                                 </select>
                             </div>
 
-                            <div class="form-group " id="shippingMethod" style="<?php echo ($coupon->discount_on == 'Shipping')?'display: block;':'display: none;';?>" >
+                            <div class="form-group " id="shippingMethod" style="<?php echo ($coupon->discount_on == 'Shipping') ? 'display: block;' : 'display: none;';?>" >
                                 <label>Shipping Method</label>
 
-                                <?php foreach ($shipping_method as  $val){ ?>
+                                <?php foreach ($shipping_method as  $val) { ?>
                                     <div class="form-group form-check">
-                                        <input type="checkbox" name="shipping_method[]" <?php foreach ($coupon_ship as $v){ echo ($v->shipping_method_id == $val->shipping_method_id )?'checked':''; } ?>  class="form-check-input" id="check_<?php echo $val->shipping_method_id;?>" value="<?php echo $val->shipping_method_id;?>">
+                                        <input type="checkbox" name="shipping_method[]" <?php foreach ($coupon_ship as $v) {
+                                            echo ($v->shipping_method_id == $val->shipping_method_id) ? 'checked' : '';
+                                        } ?>  class="form-check-input" id="check_<?php echo $val->shipping_method_id;?>" value="<?php echo $val->shipping_method_id;?>">
                                         <label class="form-check-label" for="check_<?php echo $val->shipping_method_id;?>"><?php echo $val->name;?></label>
                                     </div>
                                 <?php } ?>
