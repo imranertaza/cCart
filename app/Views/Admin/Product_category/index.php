@@ -61,7 +61,7 @@
                                 <td width="40"><?php echo $i++; ?></td>
                                 <td><?php echo display_category_with_parent($val->prod_cat_id); ?></td>
 
-                                <td><?php echo image_view('uploads/category', '', $val->image, 'noimage.png', 'width-80'); ?>
+                                <td><?php echo common_image_view('uploads/category', '', $val->image, 'noimage.png', 'width-80','','80','80'); ?>
                                 </td>
                                 <td><?php
                                     $icon = get_data_by_id('code', 'cc_icons', 'icon_id', $val->icon_id);

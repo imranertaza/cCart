@@ -62,7 +62,7 @@
                             </div>
 
                             <div class="form-group">
-                                <?php echo image_view('uploads/blog',$blog->blog_id,'100_'.$blog->image,'50_noimage.png','');?><br>
+                                <?php echo common_image_view('uploads/blog',$blog->blog_id,$blog->image,'noimage.png','','','100','100');?><br>
                                 <label>Image </label>
                                 <input type="file" name="image"  class="form-control" placeholder="Image" >
                                 <span>Recommended Size (900x500)</span>

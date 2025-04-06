@@ -6,7 +6,6 @@
 
             <?php
             $modules = modules_access();
-            $img_size_191 = ($modules['watermark'] == '1')?'191_wm_':'191_';
             ?>
             <?php if (!empty($products)){ ?>
             <table class="table table-bordered table-hover" id="compReload">
@@ -23,7 +22,7 @@
                     <th></th>
                     <?php foreach ($products as $pro){ ?>
                     <td>
-                        <p><?php echo image_view('uploads/products',$pro->product_id,$img_size_191 .$pro->image,'noimage.png','img-fluid')?></p>
+                        <p><?php echo product_image_view('uploads/products',$pro->product_id,$pro->image,'noimage.png','img-fluid','','','191','191')?></p>
                         <p><a href="<?php echo base_url('detail/'.$pro->product_id)?>"><?php echo $pro->name;?></a></p>
                         <div class="">
                             <span><?php $spPric = get_data_by_id('special_price','cc_product_special','product_id',$pro->product_id);  if (empty($spPric)){ ?>

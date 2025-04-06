@@ -268,7 +268,7 @@
                                     $img = get_data_by_id('image', 'cc_products', 'product_id', $val['id']);
                                     $des = get_data_by_id('description', 'cc_product_description', 'product_id', $val['id']);
                                     ?>
-                                <?php echo image_view('uploads/products', $val['id'], $img_size . $img, 'noimage.png', 'img-fluid w-h-100') ?>
+                                <?php echo product_image_view('uploads/products', $val['id'], $img, 'noimage.png', 'img-fluid w-h-100','','','100','100') ?>
                                 <div>
                                     <p class="fw-semibold mb-2"><?php echo $val['name']; ?></p>
                                     <p class="lh-sm">

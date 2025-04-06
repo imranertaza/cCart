@@ -6,25 +6,24 @@
                     <div class="swiper-wrapper">
                     <?php $sli_1 = get_lebel_by_value_in_theme_settings('slider_1'); ?>
                         <div class="swiper-slide">
-                            <?php echo image_view('uploads/slider', '', $sli_1, 'noimage.png', 'img-fluid w-100 '); ?>
+                            <?php echo common_image_view('uploads/slider','',$sli_1,'noimage.png','img-fluid w-100','','605','401');?>
                         </div>
                         <?php $sli_2 = get_lebel_by_value_in_theme_settings('slider_2'); ?>
                         <div class="swiper-slide">
-                            <?php echo image_view('uploads/slider', '', $sli_2, 'noimage.png', 'img-fluid w-100 '); ?>
+                            <?php echo common_image_view('uploads/slider','',$sli_2,'noimage.png','img-fluid w-100','','605','401');?>
                         </div>
                         <?php $sli_3 = get_lebel_by_value_in_theme_settings('slider_3'); ?>
                         <div class="swiper-slide">
-                            <?php echo image_view('uploads/slider', '', $sli_3, 'noimage.png', 'img-fluid w-100 '); ?>
+                            <?php echo common_image_view('uploads/slider','',$sli_3,'noimage.png','img-fluid w-100','','605','401');?>
                         </div>
                     </div>
                     <div class="swiper-pagination"></div>
                 </div>
                 <div class="side-banner d-flex flex-column flex-sm-row flex-lg-column gap-1">
                     <div class="side-banner-box position-relative custom-d-50 w-100">                        
-                        <?php
-                            $theme_settings = get_theme_settings();
-                            echo image_view('uploads/top_side_baner', '', $theme_settings['head_side_baner_1'], 'noimage.png', 'img-fluid w-100 h-100');
-                        ?>
+                        <?php $theme_settings = get_theme_settings(); ?>
+
+                        <?php echo common_image_view('uploads/top_side_baner','',$theme_settings['head_side_baner_1'],'noimage.png','img-fluid w-100','','226','199');?>
                         <div class="position-absolute top-0 p-3">
                             <h4><?php echo $theme_settings['head_side_title_1'];?></h4>
                             <a class="btn btn-sidebanner" href="<?php echo base_url('category/'.$theme_settings['head_side_category_1']); ?>">
@@ -36,9 +35,8 @@
                         </div>
                     </div>
                     <div class="side-banner-box position-relative custom-d-50 w-100">
-                        <?php
-                            echo image_view('uploads/top_side_baner', '', $theme_settings['head_side_baner_2'], 'noimage.png', 'img-fluid w-100 h-100');
-                        ?>
+
+                        <?php echo common_image_view('uploads/top_side_baner','',$theme_settings['head_side_baner_2'],'noimage.png','img-fluid w-100','','226','199');?>
 
                         <div class="position-absolute top-0 p-3">
                             <h4><?php echo $theme_settings['head_side_title_2'];?></h4>
@@ -69,8 +67,8 @@
             <div class="row row-cols-lg-6 row-cols-md-3 row-cols-sm-3 row-cols-2 row-cols-1">
             <?php  foreach ($populerCat as $key => $catPop) {  ?>
                 <div class="col">
-                    <a href="<?php echo base_url('category/'.$catPop->prod_cat_id) ?>">   
-                    <?php echo image_view('uploads/category', '', $catPop->image, 'noimage.png', 'w-100'); ?>
+                    <a href="<?php echo base_url('category/'.$catPop->prod_cat_id) ?>">
+                    <?php echo common_image_view('uploads/category','',$catPop->image,'noimage.png','w-100','','166','208');?>
                     <div class="category-title"><?php echo $catPop->category_name;?></div>
                     </a>
                 </div>
@@ -99,17 +97,13 @@
             </div>
             <div class="row">
                 <div class="col-sm-3">
-                    <?php
-                        echo image_view('uploads/home_category', '', $theme_settings['home_category_baner_1'], 'noimage.png', 'w-100');
-                    ?>
+                    <?php echo common_image_view('uploads/home_category','',$theme_settings['home_category_baner_1'],'noimage.png','w-100','','261','566');?>
                 </div>
                 <div class="col-sm-9">
                     <div class="products h-100">
                         <div class="swiper apparelsSlide">
                             <div class="swiper-wrapper">
-                            <?php
-                                echo get_category_id_by_product_show_home_slide($theme_settings['home_category_1']);
-                            ?>
+                            <?php echo get_category_id_by_product_show_home_slide($theme_settings['home_category_1']); ?>
                             </div>
                         </div>
                     </div>
@@ -138,17 +132,13 @@
             </div>
             <div class="row">
                 <div class="col-sm-3">
-                    <?php
-                        echo image_view('uploads/home_category', '', $theme_settings['home_category_baner_2'], 'noimage.png', 'w-100');
-                    ?>
+                    <?php echo common_image_view('uploads/home_category','',$theme_settings['home_category_baner_2'],'noimage.png','w-100','','261','566');?>
                 </div>
                 <div class="col-sm-9">
                     <div class="products h-100">
                         <div class="swiper treasuresSlide">
                             <div class="swiper-wrapper">
-                            <?php
-                                echo get_category_id_by_product_show_home_slide($theme_settings['home_category_2']);
-                            ?>
+                            <?php echo get_category_id_by_product_show_home_slide($theme_settings['home_category_2']); ?>
                             </div>
                         </div>
                     </div>
@@ -177,17 +167,13 @@
             </div>
             <div class="row">
                 <div class="col-sm-3">
-                    <?php
-                        echo image_view('uploads/home_category', '', $theme_settings['home_category_baner_3'], 'noimage.png', 'w-100');
-                    ?>
+                    <?php echo common_image_view('uploads/home_category','',$theme_settings['home_category_baner_3'],'noimage.png','w-100','','261','566');?>
                 </div>
                 <div class="col-sm-9">
                     <div class="products h-100">
                         <div class="swiper bagSlide">
                             <div class="swiper-wrapper">
-                                <?php
-                                    echo get_category_id_by_product_show_home_slide($theme_settings['home_category_3']);
-                                ?> 
+                                <?php echo get_category_id_by_product_show_home_slide($theme_settings['home_category_3']); ?>
                             </div>
                         </div>
                     </div>
@@ -216,17 +202,13 @@
             </div>
             <div class="row">
                 <div class="col-sm-3">
-                    <?php
-                        echo image_view('uploads/home_category', '', $theme_settings['home_category_baner_4'], 'noimage.png', 'w-100');
-                    ?>
+                    <?php echo common_image_view('uploads/home_category','',$theme_settings['home_category_baner_4'],'noimage.png','w-100','','261','566');?>
                 </div>
                 <div class="col-sm-9">
                     <div class="products h-100">
                         <div class="swiper jewelrySlide">
                             <div class="swiper-wrapper">
-                            <?php
-                                echo get_category_id_by_product_show_home_slide($theme_settings['home_category_4']);
-                            ?>
+                            <?php echo get_category_id_by_product_show_home_slide($theme_settings['home_category_4']); ?>
                             </div>
                         </div>
                     </div>
@@ -255,17 +237,13 @@
             </div>
             <div class="row">
                 <div class="col-sm-3">
-                    <?php
-                        echo image_view('uploads/home_category', '', $theme_settings['home_category_baner_5'], 'noimage.png', 'w-100 ');
-                    ?>
+                    <?php echo common_image_view('uploads/home_category','',$theme_settings['home_category_baner_5'],'noimage.png','w-100','','261','566');?>
                 </div>
                 <div class="col-sm-9">
                     <div class="products h-100">
                         <div class="swiper shoesSlide">
                             <div class="swiper-wrapper">
-                            <?php
-                                echo get_category_id_by_product_show_home_slide($theme_settings['home_category_5']);
-                            ?>
+                            <?php echo get_category_id_by_product_show_home_slide($theme_settings['home_category_5']); ?>
                             </div>
                         </div>
                     </div>
@@ -273,9 +251,7 @@
             </div>
         </div>
         <div class="home-banner mb-5">
-            <?php
-                echo image_view('uploads/banner_bottom', '', $theme_settings['banner_bottom'], 'noimage.png', 'w-100');
-            ?>
+            <?php echo common_image_view('uploads/banner_bottom','',$theme_settings['banner_bottom'],'noimage.png','w-100','','1116','211');?>
         </div>
 
         <div class="brands-slide mb-5">
@@ -303,7 +279,7 @@
                     <div class="swiper-wrapper">
                     <?php foreach($brand as $br){ ?>
                         <div class="swiper-slide">
-                            <?php echo image_view('uploads/brand', '', $br->image, 'noimage.png', 'w-100') ?>
+                            <?php echo common_image_view('uploads/brand','',$br->image,'noimage.png','w-100','','133','80');?>
                         </div>
                         <?php } ?>
                     </div>
@@ -322,8 +298,7 @@
                 <div class="col mb-5">
                     <a href="<?php echo base_url('category/' . $valShop->prod_cat_id);?>" >
                     <div class="card p-4 border-0 text-center rounded-4">
-                        <div class="card-body p-0 d-flex flex-column justify-content-center align-items-center brand-icon">                                
-                            
+                        <div class="card-body p-0 d-flex flex-column justify-content-center align-items-center brand-icon">
                             <?php echo $valShop->code;?>
                             <h4><?php echo $valShop->category_name;  ?></h4>
                         </div>

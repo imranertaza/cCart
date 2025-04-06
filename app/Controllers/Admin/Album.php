@@ -39,7 +39,7 @@ class Album extends BaseController
         } else {
 
             $table = DB()->table('cc_album');
-            $data['album'] = $table->get()->getResult();
+            $data['album'] = $table->orderBy('album_id','DESC')->get()->getResult();
 
 
             //$perm = array('create','read','update','delete','mod_access');
@@ -104,7 +104,7 @@ class Album extends BaseController
 
 
             //image size array
-            $this->imageProcessing->sizeArray = array( array( 'width'=>'498', 'height'=>'498', ), array( 'width'=>'261', 'height'=>'261', ), array( 'width'=>'198', 'height'=>'198', ),array( 'width'=>'50', 'height'=>'50', ),);
+            $this->imageProcessing->sizeArray = array();
 
             if (!empty($_FILES['thumb']['name'])) {
                 $target_dir = FCPATH . '/uploads/album/'.$albumId.'/';
@@ -220,7 +220,8 @@ class Album extends BaseController
 
 
             //image size array
-            $this->imageProcessing->sizeArray = array( array( 'width'=>'498', 'height'=>'498', ),array( 'width'=>'261', 'height'=>'261', ), array( 'width'=>'198', 'height'=>'198', ),array( 'width'=>'50', 'height'=>'50', ),);
+//            $this->imageProcessing->sizeArray = array( array( 'width'=>'498', 'height'=>'498', ),array( 'width'=>'261', 'height'=>'261', ), array( 'width'=>'198', 'height'=>'198', ),array( 'width'=>'50', 'height'=>'50', ),);
+            $this->imageProcessing->sizeArray = array( );
 
             if (!empty($_FILES['thumb']['name'])) {
                 $target_dir = FCPATH . '/uploads/album/'.$album_id.'/';

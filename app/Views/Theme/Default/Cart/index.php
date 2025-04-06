@@ -8,7 +8,6 @@
             </div>
             <?php
             $modules = modules_access();
-            $img_size_100 = ($modules['watermark'] == '1')?'100_wm_':'100_';
             ?>
             <table class="cart-table w-100 text-center" >
                 <thead>
@@ -30,7 +29,7 @@
                         <td class="product-thumbnail">
                             <a href="#">
                                 <?php $img = get_data_by_id('image','cc_products','product_id',$val['id']); ?>
-                                <?php echo image_view('uploads/products',$val['id'],$img_size_100 .$img,'noimage.png','img-fluid')?>
+                                <?php echo product_image_view('uploads/products',$val['id'],$img,'noimage.png','img-fluid','','','100','100')?>
                             </a>
                         </td>
                         <td class="product-name text-start">

@@ -124,6 +124,7 @@
                 $modArrayPur = ['Reviews'];
                 $menuAccessPur = all_menu_permission_check($modArrayPur, $adRoleId);
                 if ($menuAccessPur == true) {
+                    if ($modules['review'] == 1) {
                 ?>
                     <li class="nav-item">
                         <a href="<?php echo base_url('admin/reviews'); ?>" class="nav-link">
@@ -133,7 +134,7 @@
                             </p>
                         </a>
                     </li>
-                <?php } ?>
+                <?php } } ?>
 
                 <li class="nav-header">Modules</li>
                 <?php

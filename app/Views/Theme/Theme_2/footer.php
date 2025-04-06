@@ -271,7 +271,6 @@
     </a>
     <?php
     $modules = modules_access();
-    $img_size_100 = ($modules['watermark'] == '1')?'100_wm_':'100_';
     ?>
     <div class="collapse toggle-body" id="miniCart">
         <div class="row body-count p-3">
@@ -284,7 +283,7 @@
                                     <?php
                                     $img = get_data_by_id('image', 'cc_products', 'product_id', $val['id']);
                                     ?>
-                                    <?php echo image_view('uploads/products', $val['id'], $img_size_100 . $img, 'noimage.png', 'img-fluid pro-img-ft') ?>
+                                    <?php echo product_image_view('uploads/products', $val['id'], $img, 'noimage.png', 'img-fluid pro-img-ft','','','100','100') ?>
                                 </div>
                             </div>
                         <?php } ?>

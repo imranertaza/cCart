@@ -31,7 +31,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;700&display=swap" rel="stylesheet">
 
-
+    <link href="<?php echo base_url() ?>/assets/datatable/datatables.min.css" rel="stylesheet"  >
 </head>
 <body>
     <div class="message_alert <?php echo (session()->getFlashdata('message') !== NULL) ? "display_block":''; ?>"  id="messAlt">
@@ -113,7 +113,7 @@
                         <div class="logo text-center text-sm-start">
                         <a href="<?php echo base_url() ?>">
                                 <?php $logoImg = get_lebel_by_value_in_theme_settings('side_logo');
-                                echo image_view('uploads/logo', '', $logoImg, 'noimage.png', 'img-fluid side_logo'); ?>
+                                echo common_image_view('uploads/logo', '', $logoImg, 'noimage.png', 'img-fluid side_logo','','261','70'); ?>
                             </a>
                         </div>
                     </div>

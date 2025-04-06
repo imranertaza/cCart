@@ -95,7 +95,7 @@
                                     Site Map</a></li>
                             </ul>
                             <div class="footer-logo">
-                                <img src="<?php echo base_url() ?>/assets/theme_3/img/logo-footer.png" class="img-fluid" alt="Logo">
+                                <?php echo common_image_view('assets/theme_3/img', '', 'logo-footer.png', 'noimage.png', 'img-fluid ','','190','61'); ?>
                             </div>
                         </div>
                     </div>
@@ -250,8 +250,9 @@
 
 <script src="<?php echo base_url() ?>/assets/theme_3/slick/slick.js" type="text/javascript" charset="utf-8"> </script>
 <script src="<?php echo base_url() ?>/assets/theme_3/lightbox-plus-jquery.min.js"></script>
-
+<script src="<?php echo base_url() ?>/assets/datatable/datatables.min.js" ></script>
 <script>
+    $("#tableReload").DataTable();
     function myFunction() {
         var dots = document.getElementById("dots");
         var moreText = document.getElementById("more");
@@ -587,6 +588,7 @@
                 $('#cartReload').load(location.href + " #cartReload");
                 $('#cartReload2').load(location.href + " #cartReload2");
                 $('#tableReload').load(location.href + " #tableReload");
+                $('#tableReload2').load(location.href + " #tableReload2");
                 $('#mesVal').html('Successfully remove to cart');
                 $('.btn-count').load(location.href + " .btn-count");
                 $('.body-count').load(location.href + " .body-count");

@@ -39,7 +39,7 @@ class Blog extends BaseController
         } else {
 
             $table = DB()->table('cc_blog');
-            $data['blog'] = $table->get()->getResult();
+            $data['blog'] = $table->orderBy('blog_id','DESC')->get()->getResult();
 
 
             //$perm = array('create','read','update','delete','mod_access');
@@ -114,7 +114,8 @@ class Blog extends BaseController
             $blogId = DB()->insertID();
 
             //image size array
-            $this->imageProcessing->sizeArray = [ ['width'=>'100', 'height'=>'100', ],['width'=>'300', 'height'=>'300', ],['width'=>'880', 'height'=>'400', ],];
+//            $this->imageProcessing->sizeArray = [ ['width'=>'100', 'height'=>'100', ],['width'=>'300', 'height'=>'300', ],['width'=>'880', 'height'=>'400', ],];
+            $this->imageProcessing->sizeArray = [];
 
             if (!empty($_FILES['image']['name'])) {
                 $target_dir = FCPATH . '/uploads/blog/'.$blogId.'/';
@@ -203,7 +204,7 @@ class Blog extends BaseController
             $table->where('blog_id', $blog_id)->update($data);
 
             //image size array
-            $this->imageProcessing->sizeArray = [ ['width'=>'100', 'height'=>'100', ],['width'=>'300', 'height'=>'300', ],['width'=>'880', 'height'=>'400', ],];
+            $this->imageProcessing->sizeArray = [ ];
 
             if (!empty($_FILES['image']['name'])) {
                 $target_dir = FCPATH . '/uploads/blog/'.$blog_id.'/';

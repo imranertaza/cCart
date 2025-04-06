@@ -415,7 +415,7 @@
                                         <div class="col-md-8">
                                             <div class="row ">
                                                 <div class="col-md-2 img_view">
-                                                <?php echo image_view('uploads/products',$prod->product_id,'100_'.$prod->image,'noimage.png',$class='img-100-100');?>
+                                                <?php echo product_image_view('uploads/products',$prod->product_id,$prod->image,'noimage.png',$class='img-100-100','','','100',100);?>
                                                 </div>
                                             </div>
                                             <div id="framesdef"></div><br>
@@ -432,7 +432,7 @@
                                             <div class="row mb-4" >
                                             <?php foreach ($prodimage as $img){ ?>
                                                 <div class="col-md-2 img_view">
-                                                    <?php echo multi_image_view('uploads/products', $img->product_id, $img->product_image_id, '100_' . $img->image, 'noimage.png', 'img-fluid');?>
+                                                    <?php echo multi_image_view('uploads/products', $img->product_id, $img->product_image_id, $img->image, 'noimage.png', 'img-fluid','100','100');?>
                                                     <a href="javascript:void(0)" onclick="removeImg(<?php echo $img->product_image_id;?>)" class="btn del-btn"><i class="fas fa-trash"></i> Delete</a>
                                                 </div>
                                             <?php } ?>

@@ -6,9 +6,6 @@
                 $theme_settings = get_theme_settings();
                 $modules = modules_access();
                 $symbol = get_lebel_by_value_in_settings('currency_symbol');
-                $img_size_100 = ($modules['watermark'] == '1')?'100_wm_':'100_';
-                $img_size_437 = ($modules['watermark'] == '1')?'437_wm_':'437_';
-                $img_size = ($modules['watermark'] == '1')?'191_wm_':'191_';
                 ?>
                 <div class="row">
                     <div class="col-lg-5 mb-3 mb-lg-0">
@@ -16,12 +13,12 @@
                             <div class="swiper-container gallery-slider">
                                 <div class="swiper-wrapper">
                                     <div class="swiper-slide">
-                                        <?php echo image_view('uploads/products',$products->product_id,$img_size_437 .$products->image,'noimage.png','img-fluid')?>
+                                        <?php echo product_image_view('uploads/products',$products->product_id,$products->image,'noimage.png','img-fluid','','','437','400')?>
                                     </div>
                                     <?php
                                     if (!empty($proImg)){
                                         foreach ($proImg as $imgval) {
-                                            echo '<div class="swiper-slide">'.multi_image_view('uploads/products', $imgval->product_id, $imgval->product_image_id, $img_size_437 . $imgval->image, 'noimage.png', 'img-fluid').'</div>';
+                                            echo '<div class="swiper-slide">'.multi_image_view('uploads/products', $imgval->product_id, $imgval->product_image_id, $imgval->image, 'noimage.png', 'img-fluid','437','400').'</div>';
                                         }
                                     }
                                     ?>
@@ -31,12 +28,12 @@
                             <div class="swiper-container gallery-thumbs">
                                 <div class="swiper-wrapper">
                                     <div class="swiper-slide">
-                                        <?php echo image_view('uploads/products',$products->product_id,$img_size_100 .$products->image,'noimage.png','img-fluid')?>
+                                        <?php echo product_image_view('uploads/products',$products->product_id,$products->image,'noimage.png','img-fluid','','','100','100')?>
                                     </div>
                                     <?php
                                         if (!empty($proImg)){
                                             foreach ($proImg as $imgval) {
-                                                echo '<div class="swiper-slide">'.multi_image_view('uploads/products', $imgval->product_id, $imgval->product_image_id, $img_size_100 . $imgval->image, 'noimage.png', 'img-fluid').'</div>';
+                                                echo '<div class="swiper-slide">'.multi_image_view('uploads/products', $imgval->product_id, $imgval->product_image_id, $imgval->image, 'noimage.png', 'img-fluid' ,'100','100').'</div>';
                                             }
                                         }
                                     ?>
@@ -201,7 +198,7 @@
                         <a href="javascript:void(0)" onclick="addToCart(<?php echo $relPro->product_id ?>)" class="btn-compare position-absolute start-0 top-0 mt-5 ms-2"><i class="fa-solid fa-code-compare"></i></a>
                         <?php } ?>
                         <div class="product-top">
-                            <?php echo image_view('uploads/products',$relPro->product_id,$img_size .$relPro->image,'noimage.png','img-fluid w-100')?>
+                            <?php echo product_image_view('uploads/products',$relPro->product_id,$relPro->image,'noimage.png','img-fluid w-100','','','191','191')?>
                             <div class="rating text-center my-2">
                                 <?php echo product_id_by_rating($relPro->product_id);?>
                             </div>
@@ -250,7 +247,7 @@
                                     <a href="javascript:void(0)" onclick="addToCart(<?php echo $rPro->product_id ?>)" class="btn-compare position-absolute start-0 top-0 mt-5 ms-2"><i class="fa-solid fa-code-compare"></i></a>
                                     <?php } ?>
                                     <div class="product-top">
-                                        <?php echo image_view('uploads/products',$rPro->product_id,$img_size .$rPro->image,'noimage.png','img-fluid w-100')?>
+                                        <?php echo product_image_view('uploads/products',$rPro->product_id,$rPro->image,'noimage.png','img-fluid w-100','','','191','191')?>
                                         <div class="rating text-center my-2">
                                             <?php echo product_id_by_rating($rPro->product_id);?>
                                         </div>

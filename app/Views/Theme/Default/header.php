@@ -81,7 +81,7 @@
                     <div class="logo">
                         <a href="<?php echo base_url()?>">
                             <?php $logoImg = get_lebel_by_value_in_theme_settings('side_logo');
-                            echo image_view('uploads/logo','',$logoImg,'noimage.png','img-fluid');?>
+                            echo common_image_view('uploads/logo','',$logoImg,'noimage.png','img-fluid','','260','70');?>
                         </a>
                     </div>
                 </div>

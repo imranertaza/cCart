@@ -13,7 +13,6 @@
                                 <span class="mt-3 con-tit">Total Order</span>
                                 <?php
                                     $modules = modules_access();
-                                    $img_size = ($modules['watermark'] == '1')?'100_wm_':'100_';
                                     $all = 0;
                                     foreach ($order as $acVal){ $all++;}
                                 ?>
@@ -85,7 +84,7 @@
                                     <tr>
                                         <td><?php
                                             $img = get_data_by_id('image','cc_products','product_id',$item->product_id);
-                                            echo image_view('uploads/products',$item->product_id,$img_size.$img,'noimage.png','');
+                                            echo product_image_view('uploads/products',$item->product_id,$img,'noimage.png','','','','100','100');
                                             ?>
 
                                         </td>
