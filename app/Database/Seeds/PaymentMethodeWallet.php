@@ -11,9 +11,9 @@ class PaymentMethodeWallet extends Seeder
         $data = [
             [
                 'payment_method_id' => 8,
-                'name' => 'eWallet',
-                'code' => 'u_wallet',
-                'status' => '1',
+                'name'              => 'eWallet',
+                'code'              => 'u_wallet',
+                'status'            => '1',
             ],
         ];
 

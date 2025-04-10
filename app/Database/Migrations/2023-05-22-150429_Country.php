@@ -3,7 +3,6 @@
 namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
-use CodeIgniter\Database\RawSql;
 
 class Country extends Migration
 {
@@ -21,11 +20,11 @@ class Country extends Migration
                 'constraint' => 128,
             ],
             'iso_code_2' => [
-                'type' => 'VARCHAR',
+                'type'       => 'VARCHAR',
                 'constraint' => 2,
             ],
             'iso_code_3' => [
-                'type' => 'VARCHAR',
+                'type'       => 'VARCHAR',
                 'constraint' => 3,
             ],
             'address_format' => [
@@ -33,13 +32,13 @@ class Country extends Migration
                 'null' => true,
             ],
             'postcode_required' => [
-                'type' => 'TINYINT',
+                'type'       => 'TINYINT',
                 'constraint' => 1,
             ],
             'status' => [
-                'type' => 'TINYINT',
+                'type'       => 'TINYINT',
                 'constraint' => 1,
-                'default' => 1,
+                'default'    => 1,
             ],
         ]);
 

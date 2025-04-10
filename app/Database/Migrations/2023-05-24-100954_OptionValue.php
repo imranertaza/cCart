@@ -20,17 +20,17 @@ class OptionValue extends Migration
                 'constraint' => 11,
             ],
             'name' => [
-                'type' => 'VARCHAR',
+                'type'       => 'VARCHAR',
                 'constraint' => 155,
             ],
             'image' => [
-                'type' => 'VARCHAR',
+                'type'       => 'VARCHAR',
                 'constraint' => 255,
-                'null' => true,
-                'default' => null,
+                'null'       => true,
+                'default'    => null,
             ],
             'sort_order' => [
-                'type' => 'INT',
+                'type'       => 'INT',
                 'constraint' => '3',
             ],
         ]);

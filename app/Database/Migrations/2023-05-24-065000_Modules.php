@@ -20,13 +20,13 @@ class Modules extends Migration
                 'constraint' => 155,
             ],
             'module_key' => [
-                'type' => 'VARCHAR',
+                'type'       => 'VARCHAR',
                 'constraint' => 155,
             ],
             'status' => [
-                'type' => 'ENUM',
+                'type'       => 'ENUM',
                 'constraint' => ['1', '0'],
-                'default' => '1',
+                'default'    => '1',
             ],
         ]);
 

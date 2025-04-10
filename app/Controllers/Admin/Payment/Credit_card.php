@@ -8,7 +8,6 @@ use CodeIgniter\HTTP\RedirectResponse;
 
 class Credit_card extends BaseController
 {
-
     protected $validation;
     protected $session;
     protected $crop;
@@ -18,8 +17,8 @@ class Credit_card extends BaseController
     public function __construct()
     {
         $this->validation = \Config\Services::validation();
-        $this->session = \Config\Services::session();
-        $this->crop = \Config\Services::image();
+        $this->session    = \Config\Services::session();
+        $this->crop       = \Config\Services::image();
         $this->permission = new Permission();
     }
 
@@ -31,24 +30,26 @@ class Credit_card extends BaseController
     public function settings($payment_method_id)
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
-        $adRoleId = $this->session->adRoleId;
-        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != TRUE) {
+        $adRoleId          = $this->session->adRoleId;
+
+        if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
-            $table = DB()->table('cc_payment_method');
+            $table           = DB()->table('cc_payment_method');
             $data['payment'] = $table->where('payment_method_id', $payment_method_id)->get()->getFirstRow();
 
-            $table = DB()->table('cc_payment_settings');
+            $table                    = DB()->table('cc_payment_settings');
             $data['payment_settings'] = $table->where('payment_method_id', $payment_method_id)->get()->getResult();
 
             $data['payment_method_id'] = $payment_method_id;
 
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
+
             foreach ($perm as $key => $val) {
                 $data[$key] = $this->permission->have_access($adRoleId, $this->module_name, $key);
             }
+
             if (isset($data['update']) and $data['update'] == 1) {
                 echo view('Admin/Payment/credit_card', $data);
             } else {
@@ -67,7 +68,8 @@ class Credit_card extends BaseController
 
         //settings update
         $label = $this->request->getPost('label[]');
-        $id = $this->request->getPost('id[]');
+        $id    = $this->request->getPost('id[]');
+
         if (!empty($label)) {
             foreach ($label as $key => $val) {
                 $table = DB()->table('cc_payment_settings');
@@ -80,12 +82,13 @@ class Credit_card extends BaseController
 
         if (!empty($_FILES['image']['name'])) {
             $target_dir = FCPATH . '/uploads/payment/';
+
             if (!file_exists($target_dir)) {
                 mkdir($target_dir, 0777);
             }
 
             //new image uplode
-            $pic = $this->request->getFile('image');
+            $pic     = $this->request->getFile('image');
             $namePic = $pic->getRandomName();
             $pic->move($target_dir, $namePic);
             $news_img = 'credit_card_' . $pic->getName();
@@ -96,11 +99,12 @@ class Credit_card extends BaseController
 
 
         $data['status'] = $this->request->getPost('status');
-        $table = DB()->table('cc_payment_method');
+        $table          = DB()->table('cc_payment_method');
         $table->where('payment_method_id', $payment_method_id)->update($data);
 
 
         $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Credit Card Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
         return redirect()->to('admin/payment/bank_transfer/' . $payment_method_id);
     }
 }

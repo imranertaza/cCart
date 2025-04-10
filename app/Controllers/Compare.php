@@ -2,80 +2,85 @@
 
 namespace App\Controllers;
 
-class Compare extends BaseController {
-
+class Compare extends BaseController
+{
     protected $validation;
     protected $session;
 
     public function __construct()
     {
         $this->validation = \Config\Services::validation();
-        $this->session = \Config\Services::session();
+        $this->session    = \Config\Services::session();
     }
 
     /**
      * @description This method provides compare page view
      * @return void
      */
-    public function index(){
+    public function index()
+    {
         $settings = get_settings();
         $arrayCom = $this->session->compare_session;
-        $proArray = array();
+        $proArray = [];
+
         if (isset($arrayCom)) {
-            foreach ($arrayCom as $key=>$val) {
-                $table = DB()->table('cc_products');
-                $prodata = $table->where('product_id', $val)->get()->getRow();
+            foreach ($arrayCom as $key => $val) {
+                $table          = DB()->table('cc_products');
+                $prodata        = $table->where('product_id', $val)->get()->getRow();
                 $proArray[$key] = $prodata;
             }
         }
         $data['products'] = $proArray;
 
-        $data['keywords'] = $settings['meta_keyword'];
+        $data['keywords']    = $settings['meta_keyword'];
         $data['description'] = $settings['meta_description'];
-        $data['title'] = 'Product Compare';
+        $data['title']       = 'Product Compare';
 
         $data['page_title'] = 'Compare list';
-        echo view('Theme/'.$settings['Theme'].'/header',$data);
-        echo view('Theme/'.$settings['Theme'].'/Compare/index',$data);
-        echo view('Theme/'.$settings['Theme'].'/footer');
+        echo view('Theme/' . $settings['Theme'] . '/header', $data);
+        echo view('Theme/' . $settings['Theme'] . '/Compare/index', $data);
+        echo view('Theme/' . $settings['Theme'] . '/footer');
     }
 
     /**
      * @description This method provides compare store data
      * @return void
      */
-    public function addtoCompare(){
-        $product_id = $this->request->getPost('product_id');
-        (empty($this->session->compare_session))?$compareArray = array():$compareArray = $this->session->compare_session;
-        array_push($compareArray,$product_id);
+    public function addtoCompare()
+    {
+        $product_id                                              = $this->request->getPost('product_id');
+        (empty($this->session->compare_session)) ? $compareArray = [] : $compareArray = $this->session->compare_session;
+        array_push($compareArray, $product_id);
 
-        if(empty($this->session->compare_session)){
-            $this->session->set('compare_session',$compareArray);
+        if (empty($this->session->compare_session)) {
+            $this->session->set('compare_session', $compareArray);
             print 'Successfully add to compare';
-        }else{
+        } else {
             foreach ($this->session->compare_session as $stored_product) {
                 $ids[] = $stored_product;
             }
-            if(!in_array($product_id, $ids)){
-                $this->session->set('compare_session',$compareArray);
+
+            if (!in_array($product_id, $ids)) {
+                $this->session->set('compare_session', $compareArray);
                 print 'Successfully add to compare';
-            }else{
+            } else {
                 print 'Already exists in compare';
             }
         }
-//        unset($_SESSION['compare_session']);
+        //        unset($_SESSION['compare_session']);
     }
 
     /**
      * @description This method provides compare remove data
      * @return void
      */
-    public function removeToCompare(){
+    public function removeToCompare()
+    {
         $key_id = $this->request->getPost('key_id');
-        if(isset($this->session->compare_session)){
+
+        if (isset($this->session->compare_session)) {
             unset($_SESSION['compare_session'][$key_id]);
             print 'Successfully remove to compare';
         }
     }
-
 }

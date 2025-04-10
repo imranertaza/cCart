@@ -6,8 +6,8 @@ use App\Libraries\Filter;
 use App\Models\CategoryproductsModel;
 use CodeIgniter\HTTP\RedirectResponse;
 
-class Category extends BaseController {
-
+class Category extends BaseController
+{
     protected $validation;
     protected $session;
     protected $filter;
@@ -15,10 +15,10 @@ class Category extends BaseController {
 
     public function __construct()
     {
-        $this->validation = \Config\Services::validation();
-        $this->session = \Config\Services::session();
+        $this->validation            = \Config\Services::validation();
+        $this->session               = \Config\Services::session();
         $this->categoryproductsModel = new CategoryproductsModel();
-        $this->filter = new Filter();
+        $this->filter                = new Filter();
     }
 
     /**
@@ -26,81 +26,82 @@ class Category extends BaseController {
      * @param int $cat_id
      * @return void
      */
-    public function index($cat_id){
-        $settings = get_settings();
-        $categoryWhere = !empty($this->request->getGetPost('category'))? 'category_id = '.$this->request->getGetPost('category'): 'category_id = '.$cat_id;
+    public function index($cat_id)
+    {
+        $settings      = get_settings();
+        $categoryWhere = !empty($this->request->getGetPost('category')) ? 'category_id = ' . $this->request->getGetPost('category') : 'category_id = ' . $cat_id;
 
-        $data['optionval'] = array();
-        $data['brandval'] = array();
-        $data['ratingval'] = array();
+        $data['optionval']     = [];
+        $data['brandval']      = [];
+        $data['ratingval']     = [];
         $data['keywordSearch'] = '';
 
         $limit = $settings['category_product_limit'];
 
-        $where = "$categoryWhere ";
-        $data['products'] = $this->categoryproductsModel->where($where)->orderBy('cc_products.product_id','DESC')->query()->paginate($limit);
-        $data['pager'] = $this->categoryproductsModel->pager;
-        $data['links'] = $data['pager']->links('default','custome_link');
+        $where            = "$categoryWhere ";
+        $data['products'] = $this->categoryproductsModel->where($where)->orderBy('cc_products.product_id', 'DESC')->query()->paginate($limit);
+        $data['pager']    = $this->categoryproductsModel->pager;
+        $data['links']    = $data['pager']->links('default', 'custome_link');
         $data['totalPro'] = $data['pager']->getTotal();
 
 
-        $table = DB()->table('cc_product_category');
-        $data['parent_Cat'] = $table->where('parent_id',$cat_id)->get()->getResult();
-        $data['main_Cat'] = $table->where('parent_id',null)->get()->getResult();
+        $table               = DB()->table('cc_product_category');
+        $data['parent_Cat']  = $table->where('parent_id', $cat_id)->get()->getResult();
+        $data['main_Cat']    = $table->where('parent_id', null)->get()->getResult();
         $data['prod_cat_id'] = $cat_id;
 
 
-        $data['keywords'] = $settings['meta_keyword'];
+        $data['keywords']    = $settings['meta_keyword'];
         $data['description'] = $settings['meta_description'];
-        $data['title'] = get_data_by_id('category_name','cc_product_category','prod_cat_id',$cat_id);
+        $data['title']       = get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $cat_id);
 
-        $productsArr = $this->categoryproductsModel->where($where)->orderBy('cc_products.product_id','DESC')->query()->findAll();
+        $productsArr = $this->categoryproductsModel->where($where)->orderBy('cc_products.product_id', 'DESC')->query()->findAll();
 
 
-        $filter = $this->filter->getSettings($productsArr);
-        $data['price'] = $filter->product_array_by_price_range();
-        $data['optionView'] = $filter->product_array_by_options($data['optionval']);
-        $data['brandView'] = $filter->product_array_by_brand($data['brandval']);
-        $data['ratingView'] = $filter->product_array_by_rating_view($data['ratingval']);
+        $filter              = $this->filter->getSettings($productsArr);
+        $data['price']       = $filter->product_array_by_price_range();
+        $data['optionView']  = $filter->product_array_by_options($data['optionval']);
+        $data['brandView']   = $filter->product_array_by_brand($data['brandval']);
+        $data['ratingView']  = $filter->product_array_by_rating_view($data['ratingval']);
         $data['productsArr'] = $productsArr;
 
-//        print_r($data['optionView']);
-//
-//        die();
-        setcookie('category_cookie',$cat_id,time()+86400, "/");
+        //        print_r($data['optionView']);
+        //
+        //        die();
+        setcookie('category_cookie', $cat_id, time() + 86400, "/");
 
         $data['page_title'] = 'Category products';
-        echo view('Theme/'.$settings['Theme'].'/header',$data);
-        echo view('Theme/'.$settings['Theme'].'/Category/index',$data);
-        echo view('Theme/'.$settings['Theme'].'/footer', $data);
+        echo view('Theme/' . $settings['Theme'] . '/header', $data);
+        echo view('Theme/' . $settings['Theme'] . '/Category/index', $data);
+        echo view('Theme/' . $settings['Theme'] . '/footer', $data);
     }
 
     /**
      * @description This method provides search url generate and redirect.
      * @return RedirectResponse
      */
-    public function url_generate(){
-
-        $prod_cat_id = $this->request->getPost('prod_cat_id');
-        $cat = $this->request->getPost('cat');
-        $shortBy = $this->request->getPost('shortBy');
-        $category = $this->request->getPost('category');
-        $options = $this->request->getPost('options[]');
-        $brand = $this->request->getPost('manufacturer[]');
-        $rating = $this->request->getPost('rating[]');
-        $price = $this->request->getPost('price');
-        $show = $this->request->getPost('show');
+    public function url_generate()
+    {
+        $prod_cat_id   = $this->request->getPost('prod_cat_id');
+        $cat           = $this->request->getPost('cat');
+        $shortBy       = $this->request->getPost('shortBy');
+        $category      = $this->request->getPost('category');
+        $options       = $this->request->getPost('options[]');
+        $brand         = $this->request->getPost('manufacturer[]');
+        $rating        = $this->request->getPost('rating[]');
+        $price         = $this->request->getPost('price');
+        $show          = $this->request->getPost('show');
         $global_search = $this->request->getPost('global_search');
 
         $category_cookie = isset($_COOKIE['category_cookie']) ? $_COOKIE['category_cookie'] : '';
-        $selCategory = !empty($category)?$category:$cat;
-        $vars = array();
+        $selCategory     = !empty($category) ? $category : $cat;
+        $vars            = [];
 
-        if (($category_cookie == $selCategory) || (!empty($global_search))){
-
+        if (($category_cookie == $selCategory) || (!empty($global_search))) {
             if (!empty($brand)) {
                 $menu = '';
-                foreach ($brand as  $brVal) {
+
+                foreach ($brand as $brVal) {
                     $menu .= $brVal . ',';
                 }
                 $vars ['manufacturer'] = rtrim($menu, ',');
@@ -108,7 +109,8 @@ class Category extends BaseController {
 
             if (!empty($options)) {
                 $option = '';
-                foreach ($options as  $optVal) {
+
+                foreach ($options as $optVal) {
                     $option .= $optVal . ',';
                 }
                 $vars ['option'] = rtrim($option, ',');
@@ -120,13 +122,14 @@ class Category extends BaseController {
 
             if (!empty($rating)) {
                 $rat = '';
+
                 foreach ($rating as $ratVal) {
                     $rat .= $ratVal . ',';
                 }
                 $vars ['rating'] = rtrim($rat, ',');
             }
-        }else{
-            setcookie('category_cookie',$category,time()+86400, "/");
+        } else {
+            setcookie('category_cookie', $category, time() + 86400, "/");
         }
 
         if (!empty($global_search)) {
@@ -140,15 +143,14 @@ class Category extends BaseController {
         if (!empty($shortBy)) {
             $vars ['shortBy'] = $shortBy;
         }
+
         if (!empty($show)) {
             $vars ['show'] = $show;
         }
 
 
         $querystring = http_build_query($vars);
-        return redirect()->to('products/search?cat='.$cat.'&'.$querystring);
 
+        return redirect()->to('products/search?cat=' . $cat . '&' . $querystring);
     }
-
-
 }

@@ -31,7 +31,7 @@
                     </div>
                     <div class="col-md-4"></div>
                     <div class="col-md-12" style="margin-top: 10px">
-                        <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message');
+                        <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message');
                         endif; ?>
                     </div>
                 </div>
@@ -51,11 +51,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $i = 1; foreach ($point as $val) { ?>
+                        <?php $i = 1;
+
+foreach ($point as $val) { ?>
                             <tr>
                                 <td width="40"><?php echo $i++; ?></td>
                                 <td><?php echo $val->particulars; ?></td>
-                                <td><a href="<?php echo base_url('admin/order_view/'.$val->order_id);?>" ><?php echo $val->order_id; ?></a></td>
+                                <td><a href="<?php echo base_url('admin/order_view/' . $val->order_id);?>" ><?php echo $val->order_id; ?></a></td>
                                 <td><?php echo ($val->trangaction_type == 'Cr.') ? 'Add' : 'Deducted'; ?></td>
                                 <td><?php echo saleDate($val->createdDtm); ?></td>
                                 <td><?php echo $val->point; ?></td>

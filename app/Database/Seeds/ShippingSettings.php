@@ -10,32 +10,32 @@ class ShippingSettings extends Seeder
     {
         $data = [
             [
-                'settings_id' => 1,
+                'settings_id'        => 1,
                 'shipping_method_id' => 1,
-                'label' => 'flat_rate_price',
-                'title' => 'Flat Rate',
-                'value' => '5',
+                'label'              => 'flat_rate_price',
+                'title'              => 'Flat Rate',
+                'value'              => '5',
             ],
             [
-                'settings_id' => 2,
+                'settings_id'        => 2,
                 'shipping_method_id' => 2,
-                'label' => 'in_dhaka',
-                'title' => 'Inside of Dhaka',
-                'value' => '80',
+                'label'              => 'in_dhaka',
+                'title'              => 'Inside of Dhaka',
+                'value'              => '80',
             ],
             [
-                'settings_id' => 3,
+                'settings_id'        => 3,
                 'shipping_method_id' => 2,
-                'label' => 'out_dhaka',
-                'title' => 'Outside of Dhaka',
-                'value' => '120',
+                'label'              => 'out_dhaka',
+                'title'              => 'Outside of Dhaka',
+                'value'              => '120',
             ],
             [
-                'settings_id' => 4,
+                'settings_id'        => 4,
                 'shipping_method_id' => 4,
-                'label' => 'zone_rate_method',
-                'title' => 'Zone Rate Method',
-                'value' => '1',
+                'label'              => 'zone_rate_method',
+                'title'              => 'Zone Rate Method',
+                'value'              => '1',
             ],
         ];
         // Using Query Builder

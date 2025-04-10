@@ -31,7 +31,7 @@
                     </div>
                     <div class="col-md-4"></div>
                     <div class="col-md-12" style="margin-top: 10px" id="message">
-                        <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message'); endif; ?>
+                        <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
                     </div>
                 </div>
             </div>
@@ -58,7 +58,8 @@
                         <div class="col-md-8">
                             <div class="row ">
                                 <div class="col-md-2 img_view">
-                                    <?php echo product_image_view('uploads/album',$album->album_id,$album->thumb,'noimage.png','img-w-h-100','','','198','198');?>
+                                    <?php echo product_image_view('uploads/album', $album->album_id, $album->thumb, 'noimage.png', 'img-w-h-100', '', '', '198', '198');?>
+
                                 </div>
                             </div>
                             <div id="framesdef"></div><br>
@@ -74,10 +75,10 @@
                         <div class="col-md-8 mt-3">
                             <div id="success"  style="display:none;"  class="alert alert-success alert-dismissible w-50 mb-1 text-center " role="alert">Update Success </div>
                             <div class="row mb-4" >
-                                <?php foreach ($albumAll as $img){ ?>
+                                <?php foreach ($albumAll as $img) { ?>
                                     <div class="col-md-2 img_view">
                                         <input type="text" onchange="album_image_sort_update('<?=$img->album_details_id?>',this.value)" class="form-control mb-2 text-center" style="height: 25px;" name="sort_order" value="<?= $img->sort_order;?>">
-                                        <?php echo multi_image_view('uploads/album', $img->album_id, $img->album_details_id, $img->image, 'noimage.png', 'img-fluid','96','96');?>
+                                        <?php echo multi_image_view('uploads/album', $img->album_id, $img->album_details_id, $img->image, 'noimage.png', 'img-fluid', '96', '96');?>
                                         <a href="javascript:void(0)" onclick="removeAlbumImg(<?php echo $img->album_details_id;?>)" class="btn del-btn"><i class="fas fa-trash"></i> Delete</a>
                                     </div>
                                 <?php } ?>

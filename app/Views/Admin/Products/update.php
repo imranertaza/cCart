@@ -36,7 +36,7 @@
                             <a href="<?php echo base_url($redirect_url) ?>" class="btn btn-danger float-right mr-2 " >Back</a>
                         </div>
                         <div class="col-md-12" id="message" style="margin-top: 10px">
-                            <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message'); endif; ?>
+                            <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
                         </div>
                     </div>
                 </div>
@@ -176,8 +176,8 @@
                                             <div class="form-group">
                                                 <label>Status</label>
                                                 <select name="status" class="form-control">
-                                                    <option value="Active" <?php echo ($prod->status == 'Active')?'selected':'';?> >Active</option>
-                                                    <option value="Inactive" <?php echo ($prod->status == 'Inactive')?'selected':'';?> >Inactive</option>
+                                                    <option value="Active" <?php echo ($prod->status == 'Active') ? 'selected' : '';?> >Active</option>
+                                                    <option value="Inactive" <?php echo ($prod->status == 'Inactive') ? 'selected' : '';?> >Inactive</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -190,10 +190,10 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Product Featured</label>
-                                                <input type="checkbox" name="product_featured" <?php echo ($prod->featured == 1)?'checked':'';?>  data-bootstrap-switch>
+                                                <input type="checkbox" name="product_featured" <?php echo ($prod->featured == 1) ? 'checked' : '';?>  data-bootstrap-switch>
                                                 <br><br>
                                                 <label>Free Delivery</label>
-                                                <input type="checkbox" name="product_free_delivery" <?php echo (!empty($free_delivery))?'checked':'';?>  data-bootstrap-switch>
+                                                <input type="checkbox" name="product_free_delivery" <?php echo (!empty($free_delivery)) ? 'checked' : '';?>  data-bootstrap-switch>
                                             </div>
                                             <div class="form-group">
                                                 <label>Brand</label>
@@ -206,8 +206,12 @@
                                             <div class="form-group category">
                                                 <label>Category <span class="requi">*</span></label>
                                                 <select class="select2bs4" name="categorys[]" multiple="multiple" data-placeholder="Select a State" style="width: 100%;" required>
-                                                    <?php $i=1; foreach ($prodCat as $key => $cat) { ?>
-                                                        <option value="<?php echo $cat->prod_cat_id; ?>" <?php foreach ($prodCatSel as $valC){ echo ($valC->category_id == $cat->prod_cat_id)?'selected':'';} ?> ><?php echo display_category_with_parent($cat->prod_cat_id); ?></option>
+                                                    <?php $i = 1;
+
+foreach ($prodCat as $key => $cat) { ?>
+                                                        <option value="<?php echo $cat->prod_cat_id; ?>" <?php foreach ($prodCatSel as $valC) {
+    echo ($valC->category_id == $cat->prod_cat_id) ? 'selected' : '';
+} ?> ><?php echo display_category_with_parent($cat->prod_cat_id); ?></option>
                                                     <?php }  ?>
 
                                                 </select>
@@ -217,8 +221,8 @@
                                                 <label>Related Product</label>
 
                                                 <select class="select2_pro" id="keyword" name="product_related[]" multiple="multiple" style="width: 100%;" >
-                                                    <?php foreach ($prodrelated as $rel){ ?>
-                                                        <option value="<?php echo $rel->related_id?>" selected ><?php echo get_data_by_id('name','cc_products','product_id',$rel->related_id)?> </option>
+                                                    <?php foreach ($prodrelated as $rel) { ?>
+                                                        <option value="<?php echo $rel->related_id?>" selected ><?php echo get_data_by_id('name', 'cc_products', 'product_id', $rel->related_id)?> </option>
                                                     <?php } ?>
                                                 </select>
                                             </div>
@@ -226,8 +230,8 @@
                                             <div class="form-group category">
                                                 <label>Bought Together Products</label>
                                                 <select class="bought_together_pro" id="keyword2" name="bought_together[]" multiple="multiple" style="width: 100%;" >
-                                                    <?php foreach ($prodBothTog as $both){ ?>
-                                                        <option value="<?php echo $both->related_id?>" selected ><?php echo get_data_by_id('name','cc_products','product_id',$both->related_id)?> </option>
+                                                    <?php foreach ($prodBothTog as $both) { ?>
+                                                        <option value="<?php echo $both->related_id?>" selected ><?php echo get_data_by_id('name', 'cc_products', 'product_id', $both->related_id)?> </option>
                                                     <?php } ?>
                                                 </select>
                                             </div>
@@ -242,9 +246,11 @@
                                     <div class="row">
                                         <div class="col-5 col-sm-3 h-100">
                                             <div class="nav flex-column nav-tabs h-100 text-right font-weight-bolder tab-link-ajax" id="vert-tabs-tab" role="tablist" aria-orientation="vertical">
-                                                <?php foreach ($prodOption as $key => $op){ $option = get_all_row_data_by_id('cc_option','option_id',$op->option_id); ?>
-                                                    <a class="nav-link  <?php echo ($key ==0)?'active':'';?> text-dark" id="<?php echo strtolower(str_replace(' ','',$option->name)); ?>_remove"  data-toggle="pill" href="#<?php echo strtolower(str_replace(' ','',$option->name)) ?>" role="tab" aria-controls="vert-tabs-home" aria-selected="true"><?php echo $option->name ?><button type="button" class="btn btn-sm" onclick="remove_option_new_ajax('<?php echo strtolower(str_replace(' ','',$option->name)) ?>_remove','<?php echo strtolower(str_replace(' ','',$option->name)) ?>')"><i class="fa fa-trash text-danger"></i></button></a>
-                                                <?php } ?>
+                                                <?php foreach ($prodOption as $key => $op) {
+    $option = get_all_row_data_by_id('cc_option', 'option_id', $op->option_id); ?>
+                                                    <a class="nav-link  <?php echo ($key == 0) ? 'active' : ''; ?> text-dark" id="<?php echo strtolower(str_replace(' ', '', $option->name)); ?>_remove"  data-toggle="pill" href="#<?php echo strtolower(str_replace(' ', '', $option->name)) ?>" role="tab" aria-controls="vert-tabs-home" aria-selected="true"><?php echo $option->name ?><button type="button" class="btn btn-sm" onclick="remove_option_new_ajax('<?php echo strtolower(str_replace(' ', '', $option->name)) ?>_remove','<?php echo strtolower(str_replace(' ', '', $option->name)) ?>')"><i class="fa fa-trash text-danger"></i></button></a>
+                                                <?php
+} ?>
                                             </div>
 
                                             <div class=" flex-column search mt-2 h-100">
@@ -255,24 +261,27 @@
                                         </div>
                                         <div class="col-7 col-sm-9">
                                             <div class="tab-content tab-content-ajax" id="vert-tabs-tabContent">
-                                                <?php foreach ($prodOption as $key => $op){ $option = get_all_row_data_by_id('cc_option','option_id',$op->option_id); ?>
-                                                    <div class="tab-pane text-left fade  show <?php echo ($key ==0)?'active':'';?>" id="<?php echo strtolower(str_replace(' ','',$option->name)) ?>" role="tabpanel" aria-labelledby="vert-tabs-home-tab">
+                                                <?php foreach ($prodOption as $key => $op) {
+        $option = get_all_row_data_by_id('cc_option', 'option_id', $op->option_id); ?>
+                                                    <div class="tab-pane text-left fade  show <?php echo ($key == 0) ? 'active' : ''; ?>" id="<?php echo strtolower(str_replace(' ', '', $option->name)) ?>" role="tabpanel" aria-labelledby="vert-tabs-home-tab">
                                                         <div class="col-md-12 mt-2"> <h5>Click on add option</h5></div><hr>
-                                                        <div id="<?php echo strtolower(str_replace(' ','',$option->name)) ?>_op">
+                                                        <div id="<?php echo strtolower(str_replace(' ', '', $option->name)) ?>_op">
                                                             <?php
-                                                            $opValue = option_id_or_product_id_by_option_value($op->option_id,$prod->product_id);
-                                                            $opVal = get_array_data_by_id('cc_option_value','option_id',$op->option_id);
-                                                            ?>
-                                                            <?php $i=101; foreach ($opValue as $val ){  ?>
-                                                                <div class='col-md-12 mt-3' id='new_<?php echo $i++.$option->name;?>' ><input type='hidden' name='option[]' value='<?php echo $val->option_id;?>' ><select name='opValue[]' id='valId_"+new_chq_no+"' style='padding: 3px;'><option value=''>Please select</option><?php foreach ($opVal as $p){ ?><option value='<?php echo $p->option_value_id; ?>'  <?php echo ($p->option_value_id == $val->option_value_id)?'selected':''; ?> ><?php echo $p->name; ?></option><?php } ?></select><select name='subtract[]' style='padding: 3px;'><option value='plus' <?php echo ($val->subtract == null)?'selected':'';?> >Plus</option><option value='minus' <?php echo ($val->subtract != null)?'selected':'';?> >Minus</option></select><input type='number' placeholder='Quantity' name='qty[]' value='<?php echo $val->quantity;?>' required> <input type='number' placeholder='Price' name='price_op[]' value='<?php echo $val->price;?>' required> <a href='javascript:void(0)' onclick='remove_option(this)' class='btn btn-sm btn-danger' style='margin-top: -5px;'>X</a></div>
+                                                                $opValue = option_id_or_product_id_by_option_value($op->option_id, $prod->product_id);
+        $opVal                                                           = get_array_data_by_id('cc_option_value', 'option_id', $op->option_id); ?>
+                                                            <?php $i     = 101;
+
+        foreach ($opValue as $val) {  ?>
+                                                                <div class='col-md-12 mt-3' id='new_<?php echo $i++ . $option->name;?>' ><input type='hidden' name='option[]' value='<?php echo $val->option_id;?>' ><select name='opValue[]' id='valId_"+new_chq_no+"' style='padding: 3px;'><option value=''>Please select</option><?php foreach ($opVal as $p) { ?><option value='<?php echo $p->option_value_id; ?>'  <?php echo ($p->option_value_id == $val->option_value_id) ? 'selected' : ''; ?> ><?php echo $p->name; ?></option><?php } ?></select><select name='subtract[]' style='padding: 3px;'><option value='plus' <?php echo ($val->subtract == null) ? 'selected' : '';?> >Plus</option><option value='minus' <?php echo ($val->subtract != null) ? 'selected' : '';?> >Minus</option></select><input type='number' placeholder='Quantity' name='qty[]' value='<?php echo $val->quantity;?>' required> <input type='number' placeholder='Price' name='price_op[]' value='<?php echo $val->price;?>' required> <a href='javascript:void(0)' onclick='remove_option(this)' class='btn btn-sm btn-danger' style='margin-top: -5px;'>X</a></div>
                                                             <?php } ?>
                                                         </div>
                                                         <input type="hidden" value="1" id="total_chq">
                                                         <div class="col-md-12 mt-2" >
-                                                            <a href="javascript:void(0)" style="float: right; margin-right: 150px;" onclick="add_option_new_ajax('<?php echo strtolower(str_replace(' ','',$option->name)) ?>_op','<?php echo $option->option_id ?>');"class="btn btn-sm btn-primary">Add option</a>
+                                                            <a href="javascript:void(0)" style="float: right; margin-right: 150px;" onclick="add_option_new_ajax('<?php echo strtolower(str_replace(' ', '', $option->name)) ?>_op','<?php echo $option->option_id ?>');"class="btn btn-sm btn-primary">Add option</a>
                                                         </div>
                                                     </div>
-                                                <?php } ?>
+                                                <?php
+    } ?>
                                             </div>
                                         </div>
 
@@ -291,11 +300,11 @@
                                         </div>
 
                                         <div id="new_att">
-                                            <?php foreach ($prodattribute as $attr){ ?>
+                                            <?php foreach ($prodattribute as $attr) { ?>
                                             <div class="col-md-12 mt-3" id="new_2">
                                                 <select name="attribute_group_id[]" style="padding: 3px; text-transform: capitalize;" required >
                                                     <option value="">Please select</option>
-                                                    <?php echo getListInOption( $attr->attribute_group_id, 'attribute_group_id', 'name', 'cc_product_attribute_group'); ?>
+                                                    <?php echo getListInOption($attr->attribute_group_id, 'attribute_group_id', 'name', 'cc_product_attribute_group'); ?>
                                                 </select>
                                                 <input type="text" placeholder="Name" name="name[]" value="<?php echo $attr->name;?>" required >
                                                 <input type="text" placeholder="Details" name="details[]" value="<?php echo $attr->details;?>" >
@@ -326,19 +335,19 @@
                                             <div class="form-group">
                                                 <label>Special Price </label>
                                                 <input type="text" name="special_price" class="form-control"
-                                                       placeholder="Special Price" value="<?php echo !empty($prodspecial->special_price)?$prodspecial->special_price:'';?>" >
+                                                       placeholder="Special Price" value="<?php echo !empty($prodspecial->special_price) ? $prodspecial->special_price : '';?>" >
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Start Date</label>
-                                                <input type="date" name="start_date" class="form-control" placeholder="Start Date" value="<?php echo !empty($prodspecial->start_date)?$prodspecial->start_date:'';?>" >
+                                                <input type="date" name="start_date" class="form-control" placeholder="Start Date" value="<?php echo !empty($prodspecial->start_date) ? $prodspecial->start_date : '';?>" >
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>End Date</label>
-                                                <input type="date" name="end_date" class="form-control" placeholder="End Date" value="<?php echo !empty($prodspecial->end_date)?$prodspecial->end_date:'';?>">
+                                                <input type="date" name="end_date" class="form-control" placeholder="End Date" value="<?php echo !empty($prodspecial->end_date) ? $prodspecial->end_date : '';?>">
                                             </div>
                                         </div>
 
@@ -362,8 +371,8 @@
                                                 <label>Documentation Pdf </label>
                                                 <input type="file" name="documentation_pdf" class="form-control" placeholder="Documentation Pdf"
                                                        >
-                                                <?php if (!empty($prod->documentation_pdf)){ ?>
-                                                <a href="<?php echo base_url('uploads/products/'.$prod->product_id.'/'.$prod->documentation_pdf)?>" target="_blank" download >Download PDF</a>
+                                                <?php if (!empty($prod->documentation_pdf)) { ?>
+                                                <a href="<?php echo base_url('uploads/products/' . $prod->product_id . '/' . $prod->documentation_pdf)?>" target="_blank" download >Download PDF</a>
                                                 <?php } ?>
                                             </div>
 
@@ -372,8 +381,8 @@
                                                 <label>Safety Pdf </label>
                                                 <input type="file" name="safety_pdf" class="form-control" placeholder="Safety Pdf"
                                                        >
-                                                <?php if (!empty($prod->safety_pdf)){ ?>
-                                                    <a href="<?php echo base_url('uploads/products/'.$prod->product_id.'/'.$prod->safety_pdf)?>" target="_blank" download >Download PDF</a>
+                                                <?php if (!empty($prod->safety_pdf)) { ?>
+                                                    <a href="<?php echo base_url('uploads/products/' . $prod->product_id . '/' . $prod->safety_pdf)?>" target="_blank" download >Download PDF</a>
                                                 <?php } ?>
                                             </div>
 
@@ -382,8 +391,8 @@
                                                 <label>Instructions Pdf </label>
                                                 <input type="file" name="instructions_pdf" class="form-control" placeholder="Instructions Pdf"
                                                        >
-                                                <?php if (!empty($prod->instructions_pdf)){ ?>
-                                                    <a href="<?php echo base_url('uploads/products/'.$prod->product_id.'/'.$prod->instructions_pdf)?>" target="_blank" download >Download PDF</a>
+                                                <?php if (!empty($prod->instructions_pdf)) { ?>
+                                                    <a href="<?php echo base_url('uploads/products/' . $prod->product_id . '/' . $prod->instructions_pdf)?>" target="_blank" download >Download PDF</a>
                                                 <?php } ?>
                                             </div>
 
@@ -393,8 +402,8 @@
                                                 <div id="framessingle"></div><br>
                                                 <input type="file" id="singleimage" name="description_image" class="form-control" >
                                                 <br>
-                                                <?php if (!empty($prod->description_image)){ ?>
-                                                    <?php echo image_view('uploads/products',$prod->product_id,$prod->description_image,'',$class='w-50');?>
+                                                <?php if (!empty($prod->description_image)) { ?>
+                                                    <?php echo image_view('uploads/products', $prod->product_id, $prod->description_image, '', $class = 'w-50');?>
                                                 <?php } ?>
                                             </div>
                                         </div>
@@ -415,7 +424,8 @@
                                         <div class="col-md-8">
                                             <div class="row ">
                                                 <div class="col-md-2 img_view">
-                                                <?php echo product_image_view('uploads/products',$prod->product_id,$prod->image,'noimage.png',$class='img-100-100','','','100',100);?>
+                                                <?php echo product_image_view('uploads/products', $prod->product_id, $prod->image, 'noimage.png', $class = 'img-100-100', '', '', '100', 100);?>
+
                                                 </div>
                                             </div>
                                             <div id="framesdef"></div><br>
@@ -430,9 +440,9 @@
                                         </div>
                                         <div class="col-md-8 mt-3" >
                                             <div class="row mb-4" >
-                                            <?php foreach ($prodimage as $img){ ?>
+                                            <?php foreach ($prodimage as $img) { ?>
                                                 <div class="col-md-2 img_view">
-                                                    <?php echo multi_image_view('uploads/products', $img->product_id, $img->product_image_id, $img->image, 'noimage.png', 'img-fluid','100','100');?>
+                                                    <?php echo multi_image_view('uploads/products', $img->product_id, $img->product_image_id, $img->image, 'noimage.png', 'img-fluid', '100', '100');?>
                                                     <a href="javascript:void(0)" onclick="removeImg(<?php echo $img->product_image_id;?>)" class="btn del-btn"><i class="fas fa-trash"></i> Delete</a>
                                                 </div>
                                             <?php } ?>

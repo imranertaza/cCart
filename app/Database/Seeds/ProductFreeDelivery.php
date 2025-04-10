@@ -11,33 +11,33 @@ class ProductFreeDelivery extends Seeder
         $data = [
             [
                 'product_free_delivery_id' => 1,
-                'product_id' => 1,
-                'sort_order' => '0',
+                'product_id'               => 1,
+                'sort_order'               => '0',
             ],
             [
                 'product_free_delivery_id' => 2,
-                'product_id' => 2,
-                'sort_order' => '0',
+                'product_id'               => 2,
+                'sort_order'               => '0',
             ],
             [
                 'product_free_delivery_id' => 3,
-                'product_id' => 3,
-                'sort_order' => '0',
+                'product_id'               => 3,
+                'sort_order'               => '0',
             ],
             [
                 'product_free_delivery_id' => 4,
-                'product_id' => 4,
-                'sort_order' => '0',
+                'product_id'               => 4,
+                'sort_order'               => '0',
             ],
             [
                 'product_free_delivery_id' => 5,
-                'product_id' => 5,
-                'sort_order' => '0',
+                'product_id'               => 5,
+                'sort_order'               => '0',
             ],
             [
                 'product_free_delivery_id' => 6,
-                'product_id' => 6,
-                'sort_order' => '0',
+                'product_id'               => 6,
+                'sort_order'               => '0',
             ],
         ];
 

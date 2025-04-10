@@ -24,7 +24,7 @@
                                                                 echo '<div class="thumbnail-image"><div class="thumbImg">' . multi_image_view('uploads/products', $imgval->product_id, $imgval->product_image_id, '100_' . $imgval->image, 'noimage.png', 'img-fluid') . '</div></div>';
                                                             }
                                                         }
-                                                        ?>
+                                                                ?>
                                                         <?php if (!empty($products->video)) { ?>
                                                         <div class="thumbnail-image">
                                                             <div class="thumbImg video-thum">
@@ -47,12 +47,12 @@
                                                         </div>
 
                                                         <?php
-                                                        if (!empty($proImg)) {
-                                                            foreach ($proImg as $imgval) {
-                                                                echo '<div class="slider-banner-image">' . multi_image_view('uploads/products', $imgval->product_id, $imgval->product_image_id, '437_' . $imgval->image, 'noimage.png', 'img-fluid') . '</div>';
-                                                            }
-                                                        }
-                                                        ?>
+                                                                if (!empty($proImg)) {
+                                                                    foreach ($proImg as $imgval) {
+                                                                        echo '<div class="slider-banner-image">' . multi_image_view('uploads/products', $imgval->product_id, $imgval->product_image_id, '437_' . $imgval->image, 'noimage.png', 'img-fluid') . '</div>';
+                                                                    }
+                                                                }
+                                                                ?>
 
                                                     </div>
                                                 </div>
@@ -106,12 +106,15 @@
                                     </div>
                                     <div class="price mb-3  " id="priceVal">
                                         <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $products->product_id);
-                                        if (empty($spPric)) { ?>
-                                        <?php $pp = $products->price;    echo currency_symbol($products->price); ?>
+
+                                                                if (empty($spPric)) { ?>
+                                        <?php $pp = $products->price;
+                                                                    echo currency_symbol($products->price); ?>
                                         <?php } else { ?>
                                         <small class="off-price-det">
                                             <del><?php echo currency_symbol($products->price); ?></del> </small>
-                                        <?php echo currency_symbol($spPric);$pp = $spPric;?>
+                                        <?php echo currency_symbol($spPric);
+                                            $pp = $spPric;?>
                                         <?php } ?>
 
                                     </div>
@@ -166,7 +169,8 @@
 
                             <div class="option mt-3">
                                 <table class="table table-responsive table-borderless" style="margin-bottom: unset;">
-                                    <?php foreach (attribute_array_by_product_id($products->product_id) as $key => $spec) { if ($key == 0){  ?>
+                                    <?php foreach (attribute_array_by_product_id($products->product_id) as $key => $spec) {
+                                                if ($key == 0) {  ?>
                                     <tr>
                                         <td width="110">
                                             <b><?php echo get_data_by_id('name', 'cc_product_attribute_group', 'attribute_group_id', $spec->attribute_group_id); ?>
@@ -174,10 +178,12 @@
                                         </td>
                                         <td><?php echo $spec->name; ?> <span id="dots"></span></td>
                                     </tr>
-                                    <?php  } }?>
+                                    <?php  }
+                                            }?>
                                 </table>
                                 <table class="table table-responsive table-borderless" id="more" style="display: none">
-                                    <?php foreach (attribute_array_by_product_id($products->product_id) as $key => $spec) { if ($key != 0){  ?>
+                                    <?php foreach (attribute_array_by_product_id($products->product_id) as $key => $spec) {
+                                                if ($key != 0) {  ?>
                                     <tr>
                                         <td width="110">
                                             <b><?php echo get_data_by_id('name', 'cc_product_attribute_group', 'attribute_group_id', $spec->attribute_group_id); ?>
@@ -185,7 +191,8 @@
                                         </td>
                                         <td><?php echo $spec->name; ?></td>
                                     </tr>
-                                    <?php  } }?>
+                                    <?php  }
+                                            }?>
                                 </table>
                                 <a href="javascript:void(0)" class="btn-see" onclick="myFunction()" id="myBtn">See more
                                 </a>
@@ -434,7 +441,7 @@
                             <form action="<?php echo base_url('review') ?>" method="post" class="product-review w-50">
                                 <p class="mb-4 mt-2"><strong>Your Rating</strong></p>
                                 <?php if (isset(newSession()->isLoggedInCustomer)) {
-                                    if (empty(check_review($products->product_id))) { ?>
+                                                if (empty(check_review($products->product_id))) { ?>
                                 <div class="rating ">
                                     <div class="ratingPiont"></div>
                                 </div>
@@ -447,9 +454,9 @@
                                 <button class="btn rounded-0 mt-3 px-4 py-2" type="submit">Submit Review
                                 </button>
                                 <?php } else {
-                                        echo '<p>Already Reviewed</p>';
-                                    }
-                                } else { ?>
+                                                    echo '<p>Already Reviewed</p>';
+                                                }
+                                            } else { ?>
                                 <a href="<?php echo base_url('login') ?>">Please login to continue</a>
                                 <?php } ?>
                             </form>
@@ -486,8 +493,9 @@
                                     <div class="products h-100">
                                         <div class="row mo-text-center both-pro-mob">
                                             <?php $totalPrice = 0;
-                                                $i = 1;
-                                                foreach ($bothProducts as $key => $both) { ?>
+            $i                                                = 1;
+
+            foreach ($bothProducts as $key => $both) { ?>
                                             <div class="col-lg-3 ">
                                                 <div
                                                     class="product-grid h-100 d-flex align-items-stretch flex-column position-relative">
@@ -504,7 +512,8 @@
                                                         </div>
                                                         <div class="price-2 mb-3">
                                                             <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $both->product_id);
-                                                                    if (empty($spPric)) { ?>
+
+                if (empty($spPric)) { ?>
                                                             <?php echo currency_symbol($both->price); ?>
                                                             <?php } else { ?>
                                                             <?php echo currency_symbol($spPric); ?>
@@ -514,8 +523,9 @@
                                                 </div>
                                             </div>
                                             <?php $totalPrice += !empty($spPric) ? $spPric : $both->price;
-                                                    $show = 3 / $i;
-                                                    if (($show != 1) && (array_key_exists($key + 1, $bothProducts))) { ?>
+                $show = 3 / $i;
+
+                if (($show != 1) && (array_key_exists($key + 1, $bothProducts))) { ?>
                                             <div class="col-lg-1 d-flex align-items-center ">
                                                 <div class="plus-icon w-100 text-center">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
@@ -528,12 +538,13 @@
                                                 </div>
                                             </div>
                                             <?php }
-                                                    if ($i >= 3) {
-                                                        $i = 1;
-                                                        continue;
-                                                    }
-                                                    $i++;
-                                                } ?>
+
+                if ($i >= 3) {
+                    $i = 1;
+                    continue;
+                }
+                $i++;
+            } ?>
 
 
                                         </div>
@@ -570,7 +581,8 @@
                 <div class="card-body pb-3">
                     <div class="products h-100">
                         <div class="row gx-0 row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-5 h-100 mo-text-center">
-                            <?php if (!empty($relProd)) { foreach ($relProd as $rPro) { ?>
+                            <?php if (!empty($relProd)) {
+                foreach ($relProd as $rPro) { ?>
                             <div class="col border p-2">
                                 <div
                                     class=" product-grid h-100 d-flex align-items-stretch flex-column position-relative">
@@ -610,7 +622,8 @@
                                         </div>
                                         <div class="price-new mb-3">
                                             <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $rPro->product_id);
-                                                    if (empty($spPric)) { ?>
+
+                                    if (empty($spPric)) { ?>
                                             <?php echo currency_symbol($rPro->price); ?>
                                             <?php } else { ?>
                                             <small class="off-price">
@@ -623,7 +636,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <?php } } ?>
+                            <?php }
+            } ?>
                         </div>
                     </div>
                 </div>
@@ -665,7 +679,7 @@
                     <div class="products h-100">
                         <div class="row gx-0 row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-5 h-100 mo-text-center">
                             <?php if (!empty($relProd)) {
-                                foreach ($relProd as $rPro) { ?>
+                foreach ($relProd as $rPro) { ?>
                             <div class="col border p-2">
                                 <div
                                     class=" product-grid h-100 d-flex align-items-stretch flex-column position-relative">
@@ -705,7 +719,8 @@
                                         </div>
                                         <div class="price-new mb-3">
                                             <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $rPro->product_id);
-                                                    if (empty($spPric)) { ?>
+
+                                    if (empty($spPric)) { ?>
                                             <?php echo currency_symbol($rPro->price); ?>
                                             <?php } else { ?>
                                             <small class="off-price">
@@ -718,7 +733,7 @@
                                 </div>
                             </div>
                             <?php }
-                            } ?>
+            } ?>
 
                         </div>
                     </div>

@@ -1,7 +1,7 @@
 <section class="main-container my-5" >
     <div class="container">
         <div class="col-md-12 px-5">
-            <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message'); endif; ?>
+            <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
         </div>
         <div class="cart">
             <div class="table-responsive">
@@ -19,7 +19,8 @@
                     </thead>
                     <tbody>
                         <?php $i = 1;
-                        foreach ($ledger as $val) { ?>
+
+            foreach ($ledger as $val) { ?>
                             <tr>
                                 <td width="40"><?php echo $i++; ?></td>
                                 <td><?php echo $val->particulars; ?></td>

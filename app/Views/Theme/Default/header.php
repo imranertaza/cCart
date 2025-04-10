@@ -60,13 +60,13 @@
                     </a>
                     <?php } ?>
 
-                    <?php if (!isset(newSession()->isLoggedInCustomer)){ ?>
+                    <?php if (!isset(newSession()->isLoggedInCustomer)) { ?>
                     <a class="me-3 py-3 pe-3 border-end d-flex" href="<?php echo base_url('register')?>">
                         <span><i class="fa-solid fa-user me-1"></i></span>
                         <span class="d-none d-sm-block">Create an account</span>
                     </a>
                     <a class="btn btn-signin text-white bg-black" href="<?php echo base_url('login')?>"><i class="fa-solid fa-arrow-right-to-bracket me-1"></i> Sign In</a>
-                    <?php }else{ ?>
+                    <?php } else { ?>
                         <a class="btn btn-signin text-white bg-black mt-2 mb-2" href="<?php echo base_url('dashboard')?>">Dashboard</a>
                     <?php }?>
 
@@ -81,7 +81,8 @@
                     <div class="logo">
                         <a href="<?php echo base_url()?>">
                             <?php $logoImg = get_lebel_by_value_in_theme_settings('side_logo');
-                            echo common_image_view('uploads/logo','',$logoImg,'noimage.png','img-fluid','','260','70');?>
+                            echo common_image_view('uploads/logo', '', $logoImg, 'noimage.png', 'img-fluid', '', '260', '70');?>
+
                         </a>
                     </div>
                 </div>
@@ -93,12 +94,14 @@
 <!--                                <select name="top_category"  class="form-select rounded-0">-->
                                 <select name="cat"  class="form-select rounded-0">
                                     <option value="">All Categories</option>
-                                    <?php foreach (getParentCategoryArray() as $catTop){ $tCat =  isset($top_category)?$top_category:'';?>
-                                    <option value="<?php echo $catTop->prod_cat_id;?>" <?php echo ($tCat == $catTop->prod_cat_id)?'selected':'';?> ><?php echo $catTop->category_name;?></option>
-                                    <?php } ?>
+                                    <?php foreach (getParentCategoryArray() as $catTop) {
+                                $tCat =  isset($top_category) ? $top_category : ''; ?>
+                                    <option value="<?php echo $catTop->prod_cat_id; ?>" <?php echo ($tCat == $catTop->prod_cat_id) ? 'selected' : ''; ?> ><?php echo $catTop->category_name; ?></option>
+                                    <?php
+                            } ?>
                                 </select>
                             </div>
-                            <input type="text" class="form-control" name="keywordTop" placeholder="Search term..." value="<?php echo isset($keywordTop)?$keywordTop:'';?>" required>
+                            <input type="text" class="form-control" name="keywordTop" placeholder="Search term..." value="<?php echo isset($keywordTop) ? $keywordTop : '';?>" required>
                             <span class="input-group-btn">
                                 <button class="btn btn-default border rounded-0 bg-black text-white" type="submit">
                                     <i class="fa-solid fa-search"></i>
@@ -131,28 +134,28 @@
         <div class="container">
             <div class="row gx-0">
                 <div class="col-xl-3 col-lg-4 col-md-6 col-8">
-                    <?php if(isset($home_menu)){  ?>
+                    <?php if (isset($home_menu)) {  ?>
                     <div class="allcategory h-100 w-100">
                         <button class="cat-btn-h btn bg-black text-white text-uppercase show fw-semibold dropdown-toggle rounded-0 h-100  border-0 text-center w-100" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fa-solid fa-bars me-3"></i>
                             Shop by Categories
                         </button>
                         <ul class="dropdown-menu show">
-                            <?php foreach (getParentCategoryArray() as $pcat){?>
+                            <?php foreach (getParentCategoryArray() as $pcat) {?>
                             <li>
-                                <a class="dropdown-item" href="<?php echo base_url('category/'.$pcat->prod_cat_id);?>">
+                                <a class="dropdown-item" href="<?php echo base_url('category/' . $pcat->prod_cat_id);?>">
                                     <span class="icon">
-                                        <?php echo get_data_by_id('code','cc_icons','icon_id',$pcat->icon_id); ?>
+                                        <?php echo get_data_by_id('code', 'cc_icons', 'icon_id', $pcat->icon_id); ?>
                                     </span>
                                     <?php echo $pcat->category_name; ?>
-                                    <?php  if(!empty(count(getCategoryBySubArray($pcat->prod_cat_id)))){ ?>
+                                    <?php  if (!empty(count(getCategoryBySubArray($pcat->prod_cat_id)))) { ?>
                                     <i class="fa-solid fa-angle-right  float-end"></i>
                                     <?php } ?>
                                 </a>
-                                <?php  if(!empty(count(getCategoryBySubArray($pcat->prod_cat_id)))){ ?>
+                                <?php  if (!empty(count(getCategoryBySubArray($pcat->prod_cat_id)))) { ?>
                                 <ul class="dropdown-menu dropdown-submenu">
-                                    <?php foreach (getCategoryBySubArray($pcat->prod_cat_id) as $sCat){ ?>
-                                    <li><a class="dropdown-item" href="<?php echo base_url('category/'.$sCat->prod_cat_id);?>"><?php echo $sCat->category_name; ?></a></li>
+                                    <?php foreach (getCategoryBySubArray($pcat->prod_cat_id) as $sCat) { ?>
+                                    <li><a class="dropdown-item" href="<?php echo base_url('category/' . $sCat->prod_cat_id);?>"><?php echo $sCat->category_name; ?></a></li>
                                     <?php } ?>
                                 </ul>
                                 <?php } ?>
@@ -160,11 +163,11 @@
                             <?php } ?>
                         </ul>
                     </div>
-                    <?php }else{ ?>
+                    <?php } else { ?>
                     <div class="breadcrumb mb-0 mt-3 d-flex align-items-center">
                             <a href="<?php echo base_url();?>">Home</a>
                             <i class="fa fa-angle-right mx-2"></i>
-                            <?php echo (isset($page_title))?$page_title:'';?>
+                            <?php echo (isset($page_title)) ? $page_title : '';?>
                         </div>
                     <?php } $modules = modules_access(); ?>
                 </div>

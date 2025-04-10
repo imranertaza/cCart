@@ -3,7 +3,6 @@
 namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
-use CodeIgniter\Database\RawSql;
 
 class ProductOption extends Migration
 {
@@ -29,30 +28,30 @@ class ProductOption extends Migration
                 'constraint'     => 11,
             ],
             'quantity' => [
-                'type' => 'INT',
+                'type'       => 'INT',
                 'constraint' => 3,
             ],
             'subtract' => [
-                'type' => 'tinyint',
+                'type'       => 'tinyint',
                 'constraint' => 1,
-                'null' => true,
-                'default' => null,
+                'null'       => true,
+                'default'    => null,
             ],
             'price' => [
-                'type' => 'decimal',
+                'type'       => 'decimal',
                 'constraint' => '15,4',
             ],
             'points' => [
-                'type' => 'INT',
+                'type'       => 'INT',
                 'constraint' => 8,
-                'null' => true,
-                'default' => null,
+                'null'       => true,
+                'default'    => null,
             ],
             'weight' => [
-                'type' => 'decimal',
+                'type'       => 'decimal',
                 'constraint' => '15,8',
-                'null' => true,
-                'default' => null,
+                'null'       => true,
+                'default'    => null,
             ],
         ]);
 

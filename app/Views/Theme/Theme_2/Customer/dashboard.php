@@ -5,7 +5,7 @@
                 <div class="card-body p-3 p-md-5">
                     <div class="row">
                         <div class="col-md-12 mb-4" id="message">
-                            <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message'); endif; ?>
+                            <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
                         </div>
 
                         <div class="col-md-6 col-lg-2 mb-4 mb-lg-0">
@@ -13,32 +13,43 @@
                                 <span class="mt-3 con-tit">Total Order</span>
                                 <?php
                                     $all = 0;
-                                    foreach ($order as $acVal){ $all++;}
-                                ?>
+
+                            foreach ($order as $acVal) {
+                                $all++;
+                            }
+                            ?>
                                 <span class="amount-or"><?php echo $all;?></span>
                             </div>
 
                             <div class="mt-2 d-flex justify-content-between">
                                 <span class="mt-3 con-tit">Total Complete <br>Order</span>
                                 <?php
-                                $complete = 0;
-                                foreach ($order as $acVal){
-                                    $orderSt = order_id_by_status($acVal->order_id);
-                                    if ($orderSt == 'Complete'){ $complete++; }
+                            $complete = 0;
+
+                            foreach ($order as $acVal) {
+                                $orderSt = order_id_by_status($acVal->order_id);
+
+                                if ($orderSt == 'Complete') {
+                                    $complete++;
                                 }
-                                ?>
+                            }
+                            ?>
                                 <span class="amount-or"><?php echo $complete;?></span>
                             </div>
 
                             <div class="mt-2 d-flex justify-content-between">
                                 <span class="mt-3 con-tit">Total Cancel <br>Order</span>
                                 <?php
-                                $canceled = 0;
-                                foreach ($order as $acVal){
-                                    $orderSt = order_id_by_status($acVal->order_id);
-                                    if ($orderSt == 'Canceled'){ $canceled++; }
+                            $canceled = 0;
+
+                            foreach ($order as $acVal) {
+                                $orderSt = order_id_by_status($acVal->order_id);
+
+                                if ($orderSt == 'Canceled') {
+                                    $canceled++;
                                 }
-                                ?>
+                            }
+                            ?>
                                 <span class="amount-or"><?php echo $canceled;?></span>
                             </div>
                         </div>
@@ -47,9 +58,9 @@
                             <p class="mb-3 con-or">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
                             <h4 class="ti-or-n">Newsletters</h4>
                             <p class="mb-3 con-or">You aren't subscribed to our newsletter.</p>
-                            <?php $check = get_data_by_id('newsletter','cc_customer','customer_id',newSession()->cusUserId);?>
+                            <?php $check = get_data_by_id('newsletter', 'cc_customer', 'customer_id', newSession()->cusUserId);?>
                             <div class="form-check">
-                                <input class="form-check-input" onclick="subscription()" <?php echo ($check == 1)?'checked':'';?> type="checkbox" value="" id="flexCheckDefault">
+                                <input class="form-check-input" onclick="subscription()" <?php echo ($check == 1) ? 'checked' : '';?> type="checkbox" value="" id="flexCheckDefault">
                                 <label class="form-check-label lab-st" for="flexCheckDefault">
                                     General Subscription
                                 </label>
@@ -76,24 +87,24 @@
                             </form>
                         </div>
                         <?php
-                        $modules = modules_access();
-                        $img_size_100 = ($modules['watermark'] == '1')?'100_wm_':'100_';
-                        ?>
+                        $modules          = modules_access();
+                            $img_size_100 = ($modules['watermark'] == '1') ? '100_wm_' : '100_';
+                            ?>
                         <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
                             <center><h4 class="ti-or-n">Recent Order</h4></center>
                             <table class="table table-borderless table-responsive">
                                 <tbody>
-                                <?php foreach ($orderItem as $item){ ?>
+                                <?php foreach ($orderItem as $item) { ?>
                                     <tr>
                                         <td><?php
-                                            $img = get_data_by_id('image','cc_products','product_id',$item->product_id);
-                                            echo product_image_view('uploads/products',$item->product_id,$img,'noimage.png','','','','100','100');
+                                            $img = get_data_by_id('image', 'cc_products', 'product_id', $item->product_id);
+                                            echo product_image_view('uploads/products', $item->product_id, $img, 'noimage.png', '', '', '', '100', '100');
                                             ?>
 
                                         </td>
                                         <td>
                                             <p class="p-date"><?php echo invoiceDateFormat($item->createdDtm);?></p>
-                                            <span class="p-sty"><?php echo get_data_by_id('name','cc_products','product_id',$item->product_id);;?></span>
+                                            <span class="p-sty"><?php echo get_data_by_id('name', 'cc_products', 'product_id', $item->product_id); ?></span>
                                         </td>
                                     </tr>
                                 <?php } ?>

@@ -31,7 +31,7 @@
                     </div>
                     <div class="col-md-4"> </div>
                     <div class="col-md-12" style="margin-top: 10px">
-                        <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message'); endif; ?>
+                        <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
                     </div>
                 </div>
             </div>
@@ -61,7 +61,7 @@
                             <div class="form-group " id="shippingMethod" style="display: none;">
                                 <label>Shipping Method</label>
 
-                                <?php foreach ($shipping_method as  $val){ ?>
+                                <?php foreach ($shipping_method as  $val) { ?>
                                 <div class="form-group form-check">
                                     <input type="checkbox" name="shipping_method[]" class="form-check-input" id="check_<?php echo $val->shipping_method_id;?>" value="<?php echo $val->shipping_method_id;?>">
                                     <label class="form-check-label" for="check_<?php echo $val->shipping_method_id;?>"><?php echo $val->name;?></label>

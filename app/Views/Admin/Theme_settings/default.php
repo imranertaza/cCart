@@ -7,13 +7,15 @@
                     <option value="">Please Select</option>
                     <?php
                     $catSel = get_lebel_by_value_in_theme_settings('home_category');
-                    $cat = get_all_data_array('cc_product_category');
-                    foreach ($cat as $val) {
-                        ?>
+        $cat                = get_all_data_array('cc_product_category');
+
+        foreach ($cat as $val) {
+            ?>
                         <option value="<?php echo $val->prod_cat_id; ?>"
                             <?php echo ($val->prod_cat_id == $catSel) ? 'selected' : ''; ?>><?php echo display_category_with_parent($val->prod_cat_id); ?>
                         </option>
-                    <?php } ?>
+                    <?php
+        } ?>
                 </select>
             </div>
 
@@ -24,8 +26,8 @@
             <div class="form-group mt-5">
                 <?php
                 $banner_1 = get_lebel_by_value_in_theme_settings('home_category_banner');
-                echo image_view('uploads/category_banner', '', $banner_1, 'noimage.png', 'w-25');
-                ?>
+        echo image_view('uploads/category_banner', '', $banner_1, 'noimage.png', 'w-25');
+        ?>
             </div>
             <div class="form-group">
                 <label>Home Category Banner</label>

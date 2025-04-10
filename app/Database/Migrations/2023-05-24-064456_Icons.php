@@ -19,13 +19,13 @@ class Icons extends Migration
                 'type' => 'text',
             ],
             'code' => [
-                'type' => 'text',
-                'null' => true,
+                'type'    => 'text',
+                'null'    => true,
                 'default' => null,
             ],
             'path' => [
-                'type' => 'text',
-                'null' => true,
+                'type'    => 'text',
+                'null'    => true,
                 'default' => null,
             ],
         ]);

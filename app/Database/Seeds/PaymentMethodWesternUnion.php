@@ -11,10 +11,10 @@ class PaymentMethodWesternUnion extends Seeder
         $data = [
             [
                 'payment_method_id' => 4,
-                'name' => 'Western Union',
-                'code' => 'western_union',
-                'image' => 'western_union_1693227784_6fff290ee998d1951995.png',
-                'status' => '1',
+                'name'              => 'Western Union',
+                'code'              => 'western_union',
+                'image'             => 'western_union_1693227784_6fff290ee998d1951995.png',
+                'status'            => '1',
             ],
         ];
         // Using Query Builder
@@ -23,11 +23,11 @@ class PaymentMethodWesternUnion extends Seeder
 
         $dataSettings = [
             [
-                'settings_id' => 4,
+                'settings_id'       => 4,
                 'payment_method_id' => $payment_method_id,
-                'label' => 'instruction',
-                'title' => 'Western Union Instruction',
-                'value' => 'A set of payment instructions will be sent to you shortly. Please check your spam or junk if you do not see it in your inbox. If no instruction is receive within 24 hours, please email us at amazinggadgets@gmail.com',
+                'label'             => 'instruction',
+                'title'             => 'Western Union Instruction',
+                'value'             => 'A set of payment instructions will be sent to you shortly. Please check your spam or junk if you do not see it in your inbox. If no instruction is receive within 24 hours, please email us at amazinggadgets@gmail.com',
             ],
         ];
         $this->db->table('cc_payment_settings')->insertBatch($dataSettings);

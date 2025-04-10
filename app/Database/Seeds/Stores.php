@@ -10,10 +10,10 @@ class Stores extends Seeder
     {
         $data = [
             [
-                'store_id' => '1',
-                'name' => 'Default',
+                'store_id'    => '1',
+                'name'        => 'Default',
                 'description' => 'Default Store Description',
-                'is_default' => '1'
+                'is_default'  => '1',
             ],
         ];
 

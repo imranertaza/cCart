@@ -3,12 +3,10 @@
         <div class="cart">
             <div class="row">
                 <div class="col-md-12 ">
-                    <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message'); endif; ?>
+                    <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
                 </div>
             </div>
-            <?php
-            $modules = modules_access();
-            ?>
+            <?php $modules = modules_access();  ?>
             <table class="cart-table w-100 text-center" >
                 <thead>
                 <tr>
@@ -21,15 +19,16 @@
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach (Cart()->contents() as $val ){ ?>
+                <?php foreach (Cart()->contents() as $val) { ?>
                     <tr>
                         <td class="product-remove">
                             <a href="javascript:void(0)" onclick="removeCart('<?php echo $val['rowid'];?>')" ><i class="fa-solid fa-trash-can"></i></a>
                         </td>
                         <td class="product-thumbnail">
                             <a href="#">
-                                <?php $img = get_data_by_id('image','cc_products','product_id',$val['id']); ?>
-                                <?php echo product_image_view('uploads/products',$val['id'],$img,'noimage.png','img-fluid','','','100','100')?>
+                                <?php $img = get_data_by_id('image', 'cc_products', 'product_id', $val['id']); ?>
+                                <?php echo product_image_view('uploads/products', $val['id'], $img, 'noimage.png', 'img-fluid', '', '', '100', '100')?>
+
                             </a>
                         </td>
                         <td class="product-name text-start">
@@ -77,24 +76,28 @@
                         <?php } ?>
                     </td>
                     <td class="border-end-0 " style="text-align:left;">
-                        <?php $disc = 0; if (isset(newSession()->coupon_discount)){ ?>
+                        <?php $disc = 0;
+
+                    if (isset(newSession()->coupon_discount)) { ?>
                         <span class="fs-4 ">Price</span><br>
                         <span class="fs-4 ">Discount</span><br>
                         <?php } ?>
                         <span class="fs-4 fw-bold">Total</span>
                     </td>
                     <td style="text-align:left;">
-                        <?php if (isset(newSession()->coupon_discount)){ $disc = round((Cart()->total() *newSession()->coupon_discount)/100); ?>
+                        <?php if (isset(newSession()->coupon_discount)) {
+                        $disc = round((Cart()->total() * newSession()->coupon_discount) / 100); ?>
                         <span class=" fs-4"><?php echo currency_symbol(Cart()->total()) ?></span><br>
                         <span class=" fs-4"><?php echo currency_symbol($disc) ?></span><br>
-                        <?php } $total = (isset(newSession()->coupon_discount))?Cart()->total() - $disc:Cart()->total();?>
+                        <?php
+                    } $total = (isset(newSession()->coupon_discount)) ? Cart()->total() - $disc : Cart()->total();?>
                         <span class="fw-bold fs-4"><?php echo currency_symbol($total) ?></span>
                     </td>
                 </tr>
 
                 </tbody>
             </table>
-            <?php if (!empty(Cart()->contents())){ ?>
+            <?php if (!empty(Cart()->contents())) { ?>
             <p class="text-end"><a href="<?php echo base_url('checkout')?>" class="btn btn-dark rounded-0 px-4 btn-checkout">Proceed to checkout</a></p>
             <?php } ?>
         </div>

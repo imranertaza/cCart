@@ -18,19 +18,19 @@ class Newsletter extends Migration
             'customer_id' => [
                 'type'       => 'VARCHAR',
                 'constraint' => 155,
-                'null' => true,
-                'default' => null,
+                'null'       => true,
+                'default'    => null,
             ],
             'email' => [
-                'type' => 'VARCHAR',
+                'type'       => 'VARCHAR',
                 'constraint' => 255,
-                'null' => true,
-                'default' => null,
+                'null'       => true,
+                'default'    => null,
             ],
             'status' => [
-                'type' => 'ENUM',
+                'type'       => 'ENUM',
                 'constraint' => ['1', '0'],
-                'default' => '1',
+                'default'    => '1',
             ],
         ]);
 

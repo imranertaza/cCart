@@ -6,12 +6,8 @@
                     <div class="d-flex justify-content-between">
                         <div class="logo">
                             <?php $logoImg = get_lebel_by_value_in_theme_settings('side_logo');
-                            echo common_image_view('uploads/logo','',$logoImg,'noimage.png','img-fluid','','268','72');?>
+                            echo common_image_view('uploads/logo', '', $logoImg, 'noimage.png', 'img-fluid', '', '268', '72');?>
                         </div>
-                        <?php
-                        $modules = modules_access();
-                        $img_size_100 = ($modules['watermark'] == '1')?'100_wm_':'100_';
-                        ?>
                         <div class="address">
                             <div class="icon float-start">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="20" viewBox="0 0 16 20" fill="none">
@@ -34,31 +30,32 @@
                             </div>
                             <div class="col-md-2 text-capitalize ">
                                 <p class="fw-bold">Bill to</p>
-                                <p><?php echo $order->payment_firstname .' '.$order->payment_lastname;?></p>
+                                <p><?php echo $order->payment_firstname . ' ' . $order->payment_lastname;?></p>
                                 <p><?php echo $order->payment_phone;?></p>
                                 <p><?php echo $order->payment_address_1;?></p>
                             </div>
                             <div class="col-md-2 text-capitalize">
                                 <p class="fw-bold">Ship to</p>
-                                <p><?php echo $order->shipping_firstname .' '.$order->shipping_lastname;?></p>
+                                <p><?php echo $order->shipping_firstname . ' ' . $order->shipping_lastname;?></p>
                                 <p><?php echo $order->shipping_phone;?></p>
                                 <p><?php echo $order->shipping_address_1;?></p>
                             </div>
                         </div>
                         <?php
-                            $status = order_id_by_status($order->order_id);
+                                $status = order_id_by_status($order->order_id);
 
                             $bacColor = 'bg-danger';
-                            $titleS = 'Unpaid';
-                            $pad ='padding:35px 20px;';
-                            if ($status == 'Complete'){
+                            $titleS   = 'Unpaid';
+                            $pad      = 'padding:35px 20px;';
+
+                            if ($status == 'Complete') {
                                 $bacColor = 'bg-success';
-                                $titleS = 'Paid';
-                                $pad ='padding: 35px 28px;';
+                                $titleS   = 'Paid';
+                                $pad      = 'padding: 35px 28px;';
                             }
 
 
-                        ?>
+                            ?>
                         <div class="round <?php echo $bacColor;?> bd-placeholder-img rounded-circle position-absolute " width="75" height="75" style="<?php echo $pad;?>">
                             <span><?php echo $titleS;?></span>
                         </div>
@@ -76,31 +73,35 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            <?php foreach ($orderItem as $item){ ?>
+                            <?php foreach ($orderItem as $item) { ?>
                                 <tr>
                                     <td width="700">
                                         <div class="img-table" style="width:12%; float:left;">
                                         <?php
-                                        $img = get_data_by_id('image','cc_products','product_id',$item->product_id);
-                                        echo product_image_view('uploads/products',$item->product_id,$img,'noimage.png','','','','100','100');
+                                        $img = get_data_by_id('image', 'cc_products', 'product_id', $item->product_id);
+                                        echo product_image_view('uploads/products', $item->product_id, $img, 'noimage.png', '', '', '', '100', '100');
                                         ?>
+
                                         </div>
                                         <div class="img-text" style="width:88%;float:left;">
-                                        <?php echo get_data_by_id('name','cc_products','product_id',$item->product_id) ;?>
+                                        <?php echo get_data_by_id('name', 'cc_products', 'product_id', $item->product_id) ;?>
                                             <br>
                                         <?php
-                                            $orOption = order_iten_id_by_order_options($item->order_item);
-                                            if (!empty($orOption)){
-                                            foreach ($orOption as $op){ ?>
-                                                <?php
-                                                $firstCar =  mb_substr($op->value, 0, 1); $length = strlen($op->value);
-                                                $isColor = (($firstCar == '#') && ($length == 7))?'':$op->value;
-                                                $style = empty($isColor)?"background-color: $op->value;padding: 13px 14px; border: unset;":"padding: 0px 4px;";
-                                                ?>
-                                            <span><?php echo $op->name?> :</span>
-                                            <label class="btn btn-outline-secondary"  style="<?php echo $style;?> border-radius: unset; margin-left:8px; " ><?php echo !empty($isColor)?$op->value:'';?></label>
+                                    $orOption = order_iten_id_by_order_options($item->order_item);
 
-                                        <?php } } ?>
+                                if (!empty($orOption)) {
+                                    foreach ($orOption as $op) { ?>
+                                                <?php
+                                        $firstCar =  mb_substr($op->value, 0, 1);
+                                        $length   = strlen($op->value);
+                                        $isColor  = (($firstCar == '#') && ($length == 7)) ? '' : $op->value;
+                                        $style    = empty($isColor) ? "background-color: $op->value;padding: 13px 14px; border: unset;" : "padding: 0px 4px;";
+                                        ?>
+                                            <span><?php echo $op->name?> :</span>
+                                            <label class="btn btn-outline-secondary"  style="<?php echo $style;?> border-radius: unset; margin-left:8px; " ><?php echo !empty($isColor) ? $op->value : '';?></label>
+
+                                        <?php }
+                                } ?>
 
                                         </div>
                                     </td>

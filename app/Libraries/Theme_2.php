@@ -1,16 +1,19 @@
-<?php namespace App\Libraries;
+<?php
 
-class Theme_2{
-    public $slider_width ='837';
-    public $slider_height ='394';
-    public $logo_width ='261';
-    public $logo_height ='70';
+namespace App\Libraries;
+
+class Theme_2
+{
+    public $slider_width  = '837';
+    public $slider_height = '394';
+    public $logo_width    = '261';
+    public $logo_height   = '70';
 
     /**
      * @description This method provides product all image size.
      * @var array[]
      */
-    public $product_image = array(
+    public $product_image = [
 //        array(
 //            'width'=>'191',
 //            'height'=>'191',
@@ -31,6 +34,5 @@ class Theme_2{
 //            'width'=>'50',
 //            'height'=>'50',
 //        ),
-    );
-
+    ];
 }

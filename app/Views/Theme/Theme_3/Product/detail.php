@@ -5,15 +5,14 @@
                 <div class="row ">
                     <!--image showing -->
                     <?php
-                    $symbol = get_lebel_by_value_in_settings('currency_symbol');
-                    $modules = modules_access();
-                    $img_size_437 = ($modules['watermark'] == '1')?'437_wm_':'437_';
-                    $img_size_191 = ($modules['watermark'] == '1')?'191_wm_':'191_';
+                    $symbol       = get_lebel_by_value_in_settings('currency_symbol');
+                    $modules      = modules_access();
                     ?>
                     <div class="col-md-6">
                         <div class="showing_image_area">
                             <div class="showing_image position-relative overflow-hidden" id="coverIMg">
-                                <?php echo product_image_view('uploads/products', $products->product_id, $products->image, 'noimage.png', 'img-fluid' ,'cover','leance','492','450') ?>
+                                <?php echo product_image_view('uploads/products', $products->product_id, $products->image, 'noimage.png', 'img-fluid', 'cover', 'leance', '492', '450') ?>
+
                                 <span class="lanse" leance id="lance" style="background: url('<?php echo base_url()?>/assets/assets_fl/tile._CB483369110_.gif');"></span>
                             </div>
                         </div>
@@ -36,17 +35,17 @@
 
                                 <div class="sub_img">
                                     <div class="other-image">
-                                        <?php echo product_image_view('uploads/products', $products->product_id, $products->image, 'noimage.png', 'img-opt','','','492','450') ?>
+                                        <?php echo product_image_view('uploads/products', $products->product_id, $products->image, 'noimage.png', 'img-opt', '', '', '492', '450') ?>
                                     </div>
                                 </div>
 
                                 <?php
                                 if (!empty($proImg)) {
                                     foreach ($proImg as $imgval) {
-                                        echo '<div class="sub_img"><div class="other-image">' . multi_image_view('uploads/products', $imgval->product_id, $imgval->product_image_id, $imgval->image, 'noimage.png', 'img-opt','492','450') . '</div></div>';
+                                        echo '<div class="sub_img"><div class="other-image">' . multi_image_view('uploads/products', $imgval->product_id, $imgval->product_image_id, $imgval->image, 'noimage.png', 'img-opt', '492', '450') . '</div></div>';
                                     }
                                 }
-                                ?>
+                    ?>
 
 
                             </div>
@@ -56,9 +55,9 @@
                     <div class="col-md-6">
                         <form id="addto-cart-form" action="<?php echo base_url('addtocartdetail') ?>" method="post">
                             <?php
-                                $stock = get_data_by_id('quantity', 'cc_products', 'product_id', $products->product_id);
-                                $brand = get_data_by_id('name', 'cc_brand', 'brand_id', $products->brand_id);
-                            ?>
+                    $stock = get_data_by_id('quantity', 'cc_products', 'product_id', $products->product_id);
+                    $brand = get_data_by_id('name', 'cc_brand', 'brand_id', $products->brand_id);
+                    ?>
                         <div class="product-settings position-relative">
                             <div id="zoomViewContainer">
                                 <div id="zoom-view"></div>
@@ -120,12 +119,15 @@
                                             <div class="col-6">
                                                 <div class="product-price text-end" id="priceVal">
                                                     <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $products->product_id);
-                                                    if (empty($spPric)) { ?>
-                                                        <?php $pp = $products->price;    echo currency_symbol_with_symbol($products->price,$symbol); ?>
+
+                    if (empty($spPric)) { ?>
+                                                        <?php $pp = $products->price;
+                        echo currency_symbol_with_symbol($products->price, $symbol); ?>
                                                     <?php } else { ?>
                                                         <small class="off-price-det">
-                                                            <del><?php echo currency_symbol_with_symbol($products->price,$symbol); ?></del> </small>
-                                                        <?php echo currency_symbol_with_symbol($spPric,$symbol);$pp = $spPric;?>
+                                                            <del><?php echo currency_symbol_with_symbol($products->price, $symbol); ?></del> </small>
+                                                        <?php echo currency_symbol_with_symbol($spPric, $symbol);
+                                                        $pp = $spPric;?>
                                                     <?php } ?>
                                                 </div>
                                             </div>
@@ -221,7 +223,7 @@
                             <div class="text-list" id="TextLIst">
                                 <?php echo $products->description; ?>
                             </div>
-                            <?php if (!empty($products->description)){ ?>
+                            <?php if (!empty($products->description)) { ?>
                             <div class="readMore">
                                 <span id="SeenMmore">See More Product Details</span>
                             </div>
@@ -230,7 +232,7 @@
                     </div>
                     <div class="col-sm-5">
                         <div class="image-contant">
-                            <?php echo product_image_view('uploads/products', $products->product_id, $products->image, 'noimage.png', 'img-fluid w-100','','','416','381') ?>
+                            <?php echo product_image_view('uploads/products', $products->product_id, $products->image, 'noimage.png', 'img-fluid w-100', '', '', '416', '381') ?>
                         </div>
                     </div>
                 </div>
@@ -244,21 +246,23 @@
                 </div>
                 <div class="related-products">
                     <div class="row">
-                        <?php if (!empty($relProd)) { foreach ($relProd as $rPro) { ?>
+                        <?php if (!empty($relProd)) {
+                                                            foreach ($relProd as $rPro) { ?>
                         <div class="col-6 col-lg-2 col-sm-4">
                             <div class="card rounded-0">
                                 <div class="r-product">
-                                    <a href="<?php echo base_url('detail/' . $rPro->product_id) ?>"><?php echo product_image_view('uploads/products', $rPro->product_id, $rPro->image, 'noimage.png', 'card-img-top rounded-0','','','181','181') ?></a>
+                                    <a href="<?php echo base_url('detail/' . $rPro->product_id) ?>"><?php echo product_image_view('uploads/products', $rPro->product_id, $rPro->image, 'noimage.png', 'card-img-top rounded-0', '', '', '181', '181') ?></a>
 
 
                                     <h5 class="card-title"><?php echo substr($rPro->name, 0, 60); ?></h5>
                                     <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $rPro->product_id);
-                                    if (empty($spPric)) { ?>
-                                       <p> <?php echo currency_symbol_with_symbol($rPro->price,$symbol); ?> </p>
+
+                                if (empty($spPric)) { ?>
+                                       <p> <?php echo currency_symbol_with_symbol($rPro->price, $symbol); ?> </p>
                                     <?php } else { ?>
                                         <small class="off-price">
-                                            <del><?php echo currency_symbol_with_symbol($rPro->price,$symbol); ?></del>
-                                        </small>/<?php echo currency_symbol_with_symbol($spPric,$symbol); ?>
+                                            <del><?php echo currency_symbol_with_symbol($rPro->price, $symbol); ?></del>
+                                        </small>/<?php echo currency_symbol_with_symbol($spPric, $symbol); ?>
                                     <?php } ?>
                                     <div class="addtocard text-center">
                                         <div class="addtoCardBtn m-auto"><a href="javascript:void(0)" onclick="addToCart('<?php echo $rPro->product_id;?>')" >Add to Cart</a></div>
@@ -267,7 +271,8 @@
                                 </div>
                             </div>
                         </div>
-                        <?php } } ?>
+                        <?php }
+                                                        } ?>
 
                     </div>
                 </div>

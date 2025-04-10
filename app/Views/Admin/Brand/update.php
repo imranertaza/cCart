@@ -31,7 +31,7 @@
                     </div>
                     <div class="col-md-4"></div>
                     <div class="col-md-12" style="margin-top: 10px">
-                        <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message'); endif; ?>
+                        <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
                     </div>
                 </div>
             </div>
@@ -62,7 +62,8 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Image</label><br>
-                            <?php echo common_image_view('uploads/brand','',$brand->image,'noimage.png','','','250','150');?>
+                            <?php echo common_image_view('uploads/brand', '', $brand->image, 'noimage.png', '', '', '250', '150');?>
+
                         </div>
                     </div>
                 </div>

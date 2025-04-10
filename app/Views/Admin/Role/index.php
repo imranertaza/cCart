@@ -33,7 +33,7 @@
                         <a href="<?php echo base_url('admin/role_create') ?>" class="btn btn-primary btn-block btn-xs"><i class="fas fa-plus"></i> Create</a>
                     </div>
                     <div class="col-md-12" style="margin-top: 10px">
-                        <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message'); endif; ?>
+                        <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
                     </div>
                 </div>
             </div>
@@ -47,14 +47,16 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <?php $i=1; foreach ($roles as $val){ ?>
+                    <?php $i = 1;
+
+foreach ($roles as $val) { ?>
                         <tr>
                             <td width="40"><?php echo $i++;?></td>
                             <td><?php echo $val->role;?></td>
                             <td width="180">
-                                <?php if ($val->is_default != 1){ ?>
-                                <a href="<?php echo base_url('admin/role_update/'.$val->role_id);?>" class="btn btn-primary btn-xs"><i class="fas fa-edit"></i> Update</a>
-                                <a href="<?php echo base_url('admin/role_delete/'.$val->role_id);?>" onclick="return confirm('Are you sure you want to Delete?')" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i> Delete</a>
+                                <?php if ($val->is_default != 1) { ?>
+                                <a href="<?php echo base_url('admin/role_update/' . $val->role_id);?>" class="btn btn-primary btn-xs"><i class="fas fa-edit"></i> Update</a>
+                                <a href="<?php echo base_url('admin/role_delete/' . $val->role_id);?>" onclick="return confirm('Are you sure you want to Delete?')" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i> Delete</a>
                                 <?php } ?>
                             </td>
                         </tr>

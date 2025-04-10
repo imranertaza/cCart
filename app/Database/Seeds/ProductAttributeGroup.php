@@ -11,13 +11,13 @@ class ProductAttributeGroup extends Seeder
         $data = [
             [
                 'attribute_group_id' => 1,
-                'name' => 'Brand',
-                'sort_order' => '0',
+                'name'               => 'Brand',
+                'sort_order'         => '0',
             ],
             [
                 'attribute_group_id' => 2,
-                'name' => 'Material',
-                'sort_order' => '0',
+                'name'               => 'Material',
+                'sort_order'         => '0',
             ],
         ];
 

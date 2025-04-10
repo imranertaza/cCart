@@ -3,7 +3,6 @@
 namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
-use CodeIgniter\Database\RawSql;
 
 class CreateThemeColumnInThemeSettingsTable extends Migration
 {
@@ -11,11 +10,11 @@ class CreateThemeColumnInThemeSettingsTable extends Migration
     {
         $fields = [
             'theme' => [
-                'type' => 'VARCHAR',
+                'type'       => 'VARCHAR',
                 'constraint' => 255,
-                'null' => true,
-                'default' => null,
-                'after' => 'value'
+                'null'       => true,
+                'default'    => null,
+                'after'      => 'value',
             ],
         ];
         $this->forge->addColumn('cc_theme_settings', $fields);
