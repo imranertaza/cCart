@@ -193,10 +193,11 @@
                             <div class="list-item d-flex gap-2 mb-2">
                                 <div class="d-flex gap-2 bg-gray p-2 rounded-2">
                                     <?php
-                            $img = get_data_by_id('image', 'cc_products', 'product_id', $val['id']);
-                            $des = get_data_by_id('description', 'cc_product_description', 'product_id', $val['id']);
-                            ?>
-                                    <?php echo image_view('uploads/products', $val['id'], $img_size_100 . $img, 'noimage.png', 'img-fluid') ?>
+                                    $img = get_data_by_id('image', 'cc_products', 'product_id', $val['id']);
+                                    $des = get_data_by_id('description', 'cc_product_description', 'product_id', $val['id']);
+                                    ?>
+                                    <?php echo product_image_view('uploads/products', $val['id'], $img, 'noimage.png', 'img-fluid', '', '', '100', '100') ?>
+
                                     <div>
                                         <p class="fw-semibold mb-2"><?php echo $val['name']; ?></p>
                                         <p class="lh-sm"><small><?php echo substr($des, 0, 80) ?></small></p>
@@ -239,9 +240,10 @@
         if (isset(newSession()->coupon_discount)) {
             $disc = round((Cart()->total() * newSession()->coupon_discount) / 100); ?>
                                 <span><?php echo currency_symbol($disc) ?></span>
-                            <?php } else {
-                                echo currency_symbol($disc);
-                            }
+                            <?php
+        } else {
+            echo currency_symbol($disc);
+        }
         $total = (isset(newSession()->coupon_discount)) ? number_format(Cart()->total() - $disc, 2) : Cart()->total(); ?>
                         </div>
                         <div class="d-flex justify-content-between mb-2">

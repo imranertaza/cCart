@@ -59,7 +59,7 @@ foreach ($reviews as $val) { ?>
                             <td><?php echo $val->feedback_star;?></td>
                             <td><?php echo $val->feedback_text;?></td>
                             <td>
-                                <select name="status" onchange="reviewStatusUpdate(this.value,<?php echo $val->product_feedback_id;?>)" >
+                                <select name="status" onchange="reviewStatusUpdate(this.value,'<?php echo $val->product_feedback_id;?>')" >
                                     <option value="Pending" <?php echo ($val->status == 'Pending') ? 'selected' : '';?> >Pending</option>
                                     <option value="Active" <?php echo ($val->status == 'Active') ? 'selected' : '';?> >Active</option>
                                 </select>
@@ -100,6 +100,22 @@ foreach ($reviews as $val) { ?>
 
 <?= $this->section('java_script') ?>
 <script>
+    function reviewStatusUpdate(val, feedback_id) {
+        $.ajax({
+            method: "POST",
+            url: "<?php echo base_url('admin/reviews_status_update') ?>",
+            data: {
+                feedback_id: feedback_id,
+                status: val
+            },
+            beforeSend: function() {
+                $("#loading-image").show();
+            },
+            success: function(data) {
+                $("#message").html(data);
 
+            }
+        });
+    }
 </script>
 <?= $this->endSection() ?>

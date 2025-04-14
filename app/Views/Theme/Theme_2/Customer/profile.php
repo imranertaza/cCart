@@ -98,7 +98,8 @@
                                     <label for="subscription" class="custom-control-label">General subscription</label>
                                 </div>
                             </div>
-                        <?php } ?>
+                        <?php
+        } ?>
                     </div>
                     <div class="col-md-12 text-center">
                         <div class="form-group mt-5">

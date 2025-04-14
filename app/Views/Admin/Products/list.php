@@ -32,14 +32,14 @@
                     <div class="col-md-6">
                         <form id="multisubmitform" action="<?php echo base_url('admin/product_copy_action'); ?>" method="post">
                             <a href="<?php echo base_url('admin/product_create') ?>" class="btn btn-primary btn-xs float-right"><i class="fas fa-plus"></i> Add</a>
-                            <?php if(modules_key_by_access('bulk_edit_products') == '1') {?>
+                            <?php if (modules_key_by_access('bulk_edit_products') == '1') {?>
                             <a href="<?php echo base_url('admin/bulk_edit_products') ?>" onclick="bulk_datatable_reset()" class="btn btn-info btn-xs float-right mr-2"><i class="fas fa-plus"></i> Bulk Edit Products</a>
                             <?php } ?>
                             <button type="submit" class="btn btn-secondary btn-xs float-right mr-2"><i class="nav-icon fas fa-copy"></i> Copy</button>
-                            <?php if(modules_key_by_access('image_crop') == '1') {?>
+                            <?php if (modules_key_by_access('image_crop') == '1') {?>
                             <button type="submit" id="save"  formaction="<?php echo base_url('admin/product_image_crop_action'); ?>" class="btn btn-info btn-xs float-right mr-2"><i class="fas fa-file"></i> Crop image</button>
                             <?php } ?>
-                            <?php if(modules_key_by_access('multi_status_update') == '1') {?>
+                            <?php if (modules_key_by_access('multi_status_update') == '1') {?>
                             <button type="submit" id="save"  formaction="<?php echo base_url('admin/product_status_update'); ?>" class="btn btn-primary btn-xs float-right mr-2"><i class="fas fa-file"></i> Status update</button>
                             <?php } ?>
                             <button type="submit"  formaction="<?php echo base_url('admin/product_multi_delete_action'); ?>" class="btn btn-danger btn-xs float-right mr-2"><i class="fas fa-trash"></i> Multi delete</button>
@@ -102,26 +102,28 @@
 foreach ($product as $val) {
     $img = str_replace("pro_", "", $val->image);
     $url = (!empty($val->image)) ? base_url('uploads/products/' . $val->product_id . '/' . $img) : base_url('uploads/products/noimage.png'); ?>
-                        <tr id="hide_<?php echo $val->product_id;?>">
+                        <tr id="hide_<?php echo $val->product_id; ?>">
                             <td>
-                                <input type="checkbox" name="productId[]" value="<?php echo $val->product_id;?>" form="multisubmitform" >
+                                <input type="checkbox" name="productId[]" value="<?php echo $val->product_id; ?>" form="multisubmitform" >
                             </td>
                             <td>
-                                <a class="product-image-link" href="<?= $url;?>" data-lightbox="product-set-<?= $val->product_id;?>">
-                                <?php echo image_view('uploads/products', $val->product_id, '50_' . $val->image, '50_noimage.png', '');?>
+                                <a class="product-image-link" href="<?= $url; ?>" data-lightbox="product-set-<?= $val->product_id; ?>">
+                                <?php echo product_image_view('uploads/products', $val->product_id, $val->image, 'noimage.png', '', '', '', '50', '50'); ?>
+
                                 </a>
                             </td>
-                            <td><?php echo $val->name;?></td>
-                            <td><?php echo $val->model;?></td>
-                            <td> <?php echo $val->quantity;?></td>
-                            <td> <?php echo $val->status;?></td>
+                            <td><?php echo $val->name; ?></td>
+                            <td><?php echo $val->model; ?></td>
+                            <td> <?php echo $val->quantity; ?></td>
+                            <td> <?php echo $val->status; ?></td>
                             <td width="200">
                                 <a href="<?php echo base_url('detail/' . $val->product_id)?>" target="_blank" class="btn btn-sm btn-primary">View</a>
                                 <a href="<?php echo base_url('admin/product_update/' . $val->product_id)?>" class="btn btn-sm btn-info">Edit</a>
-                                <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="product_delete('<?php echo $val->product_id;?>')">delete</a>
+                                <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="product_delete('<?php echo $val->product_id; ?>')">delete</a>
                             </td>
                         </tr>
-                        <?php } ?>
+                        <?php
+} ?>
                     </tbody>
 
                 </table>

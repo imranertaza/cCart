@@ -53,14 +53,15 @@
                                     <?php foreach ($permission as $key => $value) { ?>
                                         <li><?php echo $key; ?>
                                             <?php foreach ($value as $k => $v) {
-                                                //                                                        $isChecked = ($v == 1) ? 'checked="checked"' : '';
+    //                                                        $isChecked = ($v == 1) ? 'checked="checked"' : '';
                                                 $isChecked = ($v == 1) ? '' : ''; ?>
                                                 <div class="checkbox">
                                                     <label>
                                                         <input type="checkbox" <?php echo $isChecked; ?> name="permission[<?php print $key; ?>][<?php print $k; ?>]" value="1" > <?php echo $k ?></label>
                                                 </div>
 
-                                            <?php } ?>
+                                            <?php
+} ?>
                                         </li>
                                     <?php } ?>
                                 </ol>

@@ -87,9 +87,8 @@
                             </form>
                         </div>
                         <?php
-                        $modules          = modules_access();
-                            $img_size_100 = ($modules['watermark'] == '1') ? '100_wm_' : '100_';
-                            ?>
+                        $modules = modules_access();
+                        ?>
                         <div class="col-md-3 div-p" >
                             <center><h4 class="mt-4 ti-or-n">Recent Order</h4></center>
                             <table class="table table-borderless table-responsive">
@@ -97,9 +96,9 @@
                                 <?php foreach ($orderItem as $item) { ?>
                                     <tr>
                                         <td><?php
-                                                $img = get_data_by_id('image', 'cc_products', 'product_id', $item->product_id);
-                                    echo image_view('uploads/products', $item->product_id, $img_size_100 . $img, 'noimage.png', '');
-                                    ?>
+                                            $img = get_data_by_id('image', 'cc_products', 'product_id', $item->product_id);
+                                            echo product_image_view('uploads/products', $item->product_id, $img, 'noimage.png', '', '', '', '100', '100');
+                                            ?>
 
                                         </td>
                                         <td>

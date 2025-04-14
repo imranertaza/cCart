@@ -270,9 +270,8 @@
         </svg>
     </a>
     <?php
-    $modules                              = modules_access();
-                            $img_size_100 = ($modules['watermark'] == '1') ? '100_wm_' : '100_';
-                            ?>
+    $modules = modules_access();
+    ?>
     <div class="collapse toggle-body" id="miniCart">
         <div class="row body-count p-3">
             <div class="col-lg-7 col-md-5 col-4 col-sm-6 p-2 h-120 ">
@@ -282,9 +281,10 @@
                             <div class="pro-item">
                                 <div class="pro-imh-ct">
                                     <?php
-                                                            $img = get_data_by_id('image', 'cc_products', 'product_id', $val['id']);
-                            ?>
-                                    <?php echo image_view('uploads/products', $val['id'], $img_size_100 . $img, 'noimage.png', 'img-fluid pro-img-ft') ?>
+                                    $img = get_data_by_id('image', 'cc_products', 'product_id', $val['id']);
+                                    ?>
+                                    <?php echo product_image_view('uploads/products', $val['id'], $img, 'noimage.png', 'img-fluid pro-img-ft', '', '', '100', '100') ?>
+
                                 </div>
                             </div>
                         <?php } ?>
@@ -1037,7 +1037,7 @@
         //     '<h6 class="mt-2">Change information</h6><div class="form-group mt-4"><label>Current password</label><input type="password" name="current_password" class="form-control" placeholder="Current password" required></div><div class="form-group mt-4"><label>New password</label><input type="password" name="new_password" class="form-control" placeholder="New password" required></div><div class="form-group mt-4"><label>Confirm password</label><input type="password" name="confirm_password" class="form-control" placeholder="Confirm password" required></div>';
 
         let html = `<h6 class="mt-2">Change information</h6><div class="form-group mt-4"><label>Current password</label><input type="password" name="current_password" id="current_password" class="form-control in_err" placeholder="Current password" required><span class="text-danger d-inline-block err text-capitalize" id="password_err_mess"></span></div><div class="form-group "><label>New password</label><input type="password" name="new_password" class="form-control in_err" id="new_password" placeholder="New password" required><span class="text-danger d-inline-block err text-capitalize mb-4" id="new_password_err_mess"></span></div><div class="form-group "><label>Confirm password</label><input type="password" name="confirm_password" class="form-control in_err" id="confirm_password" placeholder="Confirm password" required> <span class="text-danger d-inline-block err text-capitalize mb-4" id="confirm_password_err_mess"></span></div>`;
-        
+
         if (val == '1') {
             $('#passReset').val(0);
             $('#pass-data').html(html);
@@ -1215,14 +1215,14 @@
 
     function optionPriceCalculate(product_id) {
         <?php foreach (get_all_data_array('cc_option') as $v) {
-            if ($v->type == 'radio') { ?>
+                                        if ($v->type == 'radio') { ?>
                 var <?php echo strtolower($v->name); ?> = $('input[name="<?php echo strtolower($v->name); ?>"]:checked').val();
             <?php }
 
-            if ($v->type == 'select') { ?>
+                                        if ($v->type == 'select') { ?>
                 var <?php echo strtolower($v->name); ?> = $('[name="<?php echo strtolower($v->name); ?>"]').val();
         <?php }
-            } ?>
+                                    } ?>
         $.ajax({
             method: "POST",
             url: "<?php echo base_url('optionPriceCalculate') ?>",

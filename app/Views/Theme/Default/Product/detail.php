@@ -6,9 +6,6 @@
                 $theme_settings = get_theme_settings();
                 $modules        = modules_access();
                 $symbol         = get_lebel_by_value_in_settings('currency_symbol');
-                $img_size_100   = ($modules['watermark'] == '1') ? '100_wm_' : '100_';
-                $img_size_437   = ($modules['watermark'] == '1') ? '437_wm_' : '437_';
-                $img_size       = ($modules['watermark'] == '1') ? '191_wm_' : '191_';
                 ?>
                 <div class="row">
                     <div class="col-lg-5 mb-3 mb-lg-0">
@@ -16,12 +13,13 @@
                             <div class="swiper-container gallery-slider">
                                 <div class="swiper-wrapper">
                                     <div class="swiper-slide">
-                                        <?php echo image_view('uploads/products', $products->product_id, $img_size_437 . $products->image, 'noimage.png', 'img-fluid')?>
+                                        <?php echo product_image_view('uploads/products', $products->product_id, $products->image, 'noimage.png', 'img-fluid', '', '', '437', '400')?>
+
                                     </div>
                                     <?php
                                     if (!empty($proImg)) {
                                         foreach ($proImg as $imgval) {
-                                            echo '<div class="swiper-slide">' . multi_image_view('uploads/products', $imgval->product_id, $imgval->product_image_id, $img_size_437 . $imgval->image, 'noimage.png', 'img-fluid') . '</div>';
+                                            echo '<div class="swiper-slide">' . multi_image_view('uploads/products', $imgval->product_id, $imgval->product_image_id, $imgval->image, 'noimage.png', 'img-fluid', '437', '400') . '</div>';
                                         }
                                     }
                 ?>
@@ -31,15 +29,16 @@
                             <div class="swiper-container gallery-thumbs">
                                 <div class="swiper-wrapper">
                                     <div class="swiper-slide">
-                                        <?php echo image_view('uploads/products', $products->product_id, $img_size_100 . $products->image, 'noimage.png', 'img-fluid')?>
+                                        <?php echo product_image_view('uploads/products', $products->product_id, $products->image, 'noimage.png', 'img-fluid', '', '', '100', '100')?>
                                     </div>
                                     <?php
-                    if (!empty($proImg)) {
-                        foreach ($proImg as $imgval) {
-                            echo '<div class="swiper-slide">' . multi_image_view('uploads/products', $imgval->product_id, $imgval->product_image_id, $img_size_100 . $imgval->image, 'noimage.png', 'img-fluid') . '</div>';
-                        }
-                    }
-                ?>
+                                        if (!empty($proImg)) {
+                                            foreach ($proImg as $imgval) {
+                                                echo '<div class="swiper-slide">' . multi_image_view('uploads/products', $imgval->product_id, $imgval->product_image_id, $imgval->image, 'noimage.png', 'img-fluid', '100', '100') . '</div>';
+                                            }
+                                        }
+                                    ?>
+
                                 </div>
                                 <div class="swiper-button-prev">
                                     <i class="fa-solid fa-angle-left"></i>
@@ -167,7 +166,7 @@
                             <form action="<?php echo base_url('review')?>" method="post" class="product-review w-50">
                                 <p class="mb-4 mt-2"><strong>Your Rating</strong></p>
                                 <?php if (isset(newSession()->isLoggedInCustomer)) {
-                                    if(empty(check_review($products->product_id))) {  ?>
+                    if (empty(check_review($products->product_id))) {  ?>
                                 <div class="rating ">
                                     <div class="ratingPiont"></div>
                                 </div>
@@ -178,9 +177,9 @@
                                     <input type="hidden" name="product_id" value="<?php echo $products->product_id;?>">
                                 <button class="btn rounded-0 mt-3 px-4 py-2" type="submit">Submit Review</button>
                                 <?php } else {
-                                    echo '<p>Already Reviewed</p>';
-                                }
-                                } else { ?>
+                        echo '<p>Already Reviewed</p>';
+                    }
+                } else { ?>
                                     <a href="<?php echo base_url('login')?>">Please login to continue</a>
                                 <?php }?>
                             </form>
@@ -193,8 +192,8 @@
             </div>
             <div class="col-lg-3">
                 <div class="products">
-                    <?php if(!empty($relProdSide)) {
-                        foreach ($relProdSide as $relPro) { ?>
+                    <?php if (!empty($relProdSide)) {
+                    foreach ($relProdSide as $relPro) { ?>
                     <div class="product-grid h-100 d-flex align-items-stretch flex-column position-relative text-white card p-3 rounded-0 mb-3">
                         <?php if (modules_key_by_access('wishlist') == 1) { ?>
                             <?php if (!isset(newSession()->isLoggedInCustomer)) { ?>
@@ -208,7 +207,8 @@
                         <a href="javascript:void(0)" onclick="addToCart(<?php echo $relPro->product_id ?>)" class="btn-compare position-absolute start-0 top-0 mt-5 ms-2"><i class="fa-solid fa-code-compare"></i></a>
                         <?php } ?>
                         <div class="product-top">
-                            <?php echo image_view('uploads/products', $relPro->product_id, $img_size . $relPro->image, 'noimage.png', 'img-fluid w-100')?>
+                            <?php echo product_image_view('uploads/products', $relPro->product_id, $relPro->image, 'noimage.png', 'img-fluid w-100', '', '', '191', '191')?>
+
                             <div class="rating text-center my-2">
                                 <?php echo product_id_by_rating($relPro->product_id);?>
                             </div>
@@ -233,7 +233,7 @@
                         </div>
                     </div>
                     <?php }
-                        } ?>
+                } ?>
                 </div>
             </div>
         </div>
@@ -245,8 +245,8 @@
                 <div class="card-body">
                     <div class="products h-100">
                         <div class="row gx-0 row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-5 h-100">
-                            <?php if(!empty($relProd)) {
-                                foreach ($relProd as $rPro) { ?>
+                            <?php if (!empty($relProd)) {
+                    foreach ($relProd as $rPro) { ?>
                             <div class="col border p-2">
                                 <div class="product-grid h-100 d-flex align-items-stretch flex-column position-relative">
                                     <?php if (modules_key_by_access('wishlist') == 1) { ?>
@@ -261,7 +261,8 @@
                                     <a href="javascript:void(0)" onclick="addToCart(<?php echo $rPro->product_id ?>)" class="btn-compare position-absolute start-0 top-0 mt-5 ms-2"><i class="fa-solid fa-code-compare"></i></a>
                                     <?php } ?>
                                     <div class="product-top">
-                                        <?php echo image_view('uploads/products', $rPro->product_id, $img_size . $rPro->image, 'noimage.png', 'img-fluid w-100')?>
+                                        <?php echo product_image_view('uploads/products', $rPro->product_id, $rPro->image, 'noimage.png', 'img-fluid w-100', '', '', '191', '191')?>
+
                                         <div class="rating text-center my-2">
                                             <?php echo product_id_by_rating($rPro->product_id);?>
                                         </div>
@@ -287,7 +288,7 @@
                                 </div>
                             </div>
                             <?php }
-                                } ?>
+                } ?>
                         </div>
                     </div>
                 </div>

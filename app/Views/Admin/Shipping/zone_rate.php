@@ -56,10 +56,11 @@
 foreach (zone_rate_type() as $key => $val) {
     ?>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="zone_rate_method" id="method_<?php echo $key;?>" value="<?php echo $key;?>" <?php echo ($sel == $key) ? 'checked' : ''; ?>  >
-                                    <label class="form-check-label" for="method_<?php echo $key;?>"><?php echo $val;?></label>
+                                    <input class="form-check-input" type="radio" name="zone_rate_method" id="method_<?php echo $key; ?>" value="<?php echo $key; ?>" <?php echo ($sel == $key) ? 'checked' : ''; ?>  >
+                                    <label class="form-check-label" for="method_<?php echo $key; ?>"><?php echo $val; ?></label>
                                 </div>
-                            <?php } ?>
+                            <?php
+} ?>
                         </div>
                         <div class="col-md-12 mt-3 mb-3">
                             <hr>
@@ -77,26 +78,27 @@ foreach (zone_rate_type() as $key => $val) {
                                 <div class="col-9 ">
                                     <div class="tab-content ml-4" id="v-pills-tabContent" >
                                         <?php foreach ($allZone as $key => $tabCon) {
-                                            $allRate = get_array_data_by_id('cc_geo_zone_shipping_rate', 'geo_zone_id', $tabCon->geo_zone_id); ?>
-                                        <div class="tab-pane fade  <?php echo ($key == '0') ? 'show active' : '';?> row" id="tabZone_<?php echo $tabCon->geo_zone_id;?>" role="tabpanel" aria-labelledby="v-pills-home-tab">
+        $allRate = get_array_data_by_id('cc_geo_zone_shipping_rate', 'geo_zone_id', $tabCon->geo_zone_id); ?>
+                                        <div class="tab-pane fade  <?php echo ($key == '0') ? 'show active' : ''; ?> row" id="tabZone_<?php echo $tabCon->geo_zone_id; ?>" role="tabpanel" aria-labelledby="v-pills-home-tab">
                                             <div class="col-md-12 text-center " >
                                                 <hr>
-                                                <a href="javascript:void(0)" style="float: right;" onclick="add_zone_rate('<?php echo $tabCon->geo_zone_id;?>');" class="btn btn-sm btn-primary ">+ Add Rate</a>
-                                                <h5 class="mt-2"><?php echo $tabCon->geo_zone_name;?> Rate Add </h5>
+                                                <a href="javascript:void(0)" style="float: right;" onclick="add_zone_rate('<?php echo $tabCon->geo_zone_id; ?>');" class="btn btn-sm btn-primary ">+ Add Rate</a>
+                                                <h5 class="mt-2"><?php echo $tabCon->geo_zone_name; ?> Rate Add </h5>
                                                 <hr>
                                             </div>
 
                                             <div class="col-md-12">
-                                                <div id="new_rate_<?php echo $tabCon->geo_zone_id;?>" class="row">
+                                                <div id="new_rate_<?php echo $tabCon->geo_zone_id; ?>" class="row">
                                                     <?php foreach ($allRate as $rate) { ?>
                                                     <div class='col-md-12 mt-2' ><input type='text' class='form-input' placeholder='Weight'  name='up_to_value[]' value="<?php echo $rate->up_to_value;?>" style='width: 40%; margin-right: 2px'><input type='text' class='form-input' value="<?php echo $rate->cost;?>"  name='cost[]' placeholder='Rate' style='width: 45%; margin-left: 3px;'><input type='hidden' value='<?php echo $tabCon->geo_zone_id;?>' name='geo_zone_id[]'><input type='hidden' value='<?php echo $rate->cc_geo_zone_shipping_rate_id;?>' name='cc_geo_zone_shipping_rate_id[]'> <a href='javascript:void(0)' onclick='remove_option(this),removeRate(<?php echo $rate->cc_geo_zone_shipping_rate_id;?>)' class='btn btn-danger' style='margin-top: -5px;width: 5%;'>X</a></div>
                                                     <?php } ?>
                                                 </div>
-                                                <input type="hidden" value="1" id="total_item_<?php echo $tabCon->geo_zone_id;?>">
+                                                <input type="hidden" value="1" id="total_item_<?php echo $tabCon->geo_zone_id; ?>">
                                             </div>
 
                                         </div>
-                                        <?php } ?>
+                                        <?php
+    } ?>
 
                                         <div class="tab-pane fade   row" id="Others" role="tabpanel" aria-labelledby="v-pills-home-tab">
                                             <div class="col-md-12 text-center " >

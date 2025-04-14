@@ -14,25 +14,25 @@ class Theme_2
      * @var array[]
      */
     public $product_image = [
-        [
-            'width'  => '191',
-            'height' => '191',
-        ],
-        [
-            'width'  => '198',
-            'height' => '198',
-        ],
-        [
-            'width'  => '100',
-            'height' => '100',
-        ],
-        [
-            'width'  => '437',
-            'height' => '400',
-        ],
-        [
-            'width'  => '50',
-            'height' => '50',
-        ],
+//        array(
+//            'width'=>'191',
+//            'height'=>'191',
+//        ),
+//        array(
+//            'width'=>'198',
+//            'height'=>'198',
+//        ),
+//        array(
+//            'width'=>'100',
+//            'height'=>'100',
+//        ),
+//        array(
+//            'width'=>'437',
+//            'height'=>'400',
+//        ),
+//        array(
+//            'width'=>'50',
+//            'height'=>'50',
+//        ),
     ];
 }

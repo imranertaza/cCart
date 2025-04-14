@@ -57,7 +57,7 @@
                             <a class="nav-link text-dark <?php echo (isset($_GET['selTab']) && $_GET['selTab'] == 'history') ? 'active' : ''; ?>"
                                 id="vert-tabs-settings-tab" data-toggle="pill" href="#vert-tabs-history" role="tab"
                                 aria-controls="vert-tabs-settings" aria-selected="false">History</a>
-                            <?php if(modules_key_by_access('point') == '1') { ?>
+                            <?php if (modules_key_by_access('point') == '1') { ?>
                             <a class="nav-link text-dark <?php echo (isset($_GET['selTab']) && $_GET['selTab'] == 'point') ? 'active' : ''; ?>" id="vert-tabs-point-tab" data-toggle="pill" href="#vert-tabs-point" role="tab"
                                aria-controls="vert-tabs-point" aria-selected="false">Point</a>
                             <?php } ?>
@@ -162,7 +162,8 @@ if (!empty($paymentDet)) {
                                             <b>CVC:</b> <?php echo $paymentDet->card_cvc; ?>
                                         </td>
                                     </tr>
-                                    <?php } ?>
+                                    <?php
+} ?>
 
                                 </table>
                             </div>
@@ -236,7 +237,7 @@ if (!empty($paymentDet)) {
                                                     style="<?php echo $style; ?> border-radius: unset; margin-left:8px;"><?php echo !empty($isColor) ? $op->value : ''; ?></label>
 
                                                 <?php }
-                                                } ?>
+                                            } ?>
                                             </td>
                                             <td><?php echo $vew->quantity; ?></td>
                                             <td><?php echo currency_symbol_with_symbol($vew->price, $symbol); ?></td>

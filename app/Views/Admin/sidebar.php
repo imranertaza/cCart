@@ -37,7 +37,8 @@
         ?>
                     <?php echo add_main_based_menu_with_permission('Dashboard', base_url('admin/dashboard'), $adRoleId, 'fa-tachometer-alt', 'Dashboard'); ?>
 
-                <?php } ?>
+                <?php
+    } ?>
 
                 <li class="nav-header">Products</li>
 
@@ -55,7 +56,8 @@
                             </p>
                         </a>
                     </li>
-                <?php } ?>
+                <?php
+    } ?>
 
                 <?php
         $modArrayPur = ['Products'];
@@ -90,7 +92,8 @@
 
                         </ul>
                     </li>
-                <?php } ?>
+                <?php
+    } ?>
 
                 <?php
         $modArrayPur = ['Album'];
@@ -107,8 +110,9 @@
                             </p>
                         </a>
                     </li>
-                <?php }
-        } ?>
+                <?php
+        }
+    } ?>
 
                 <?php
         $modArrayPur = ['Coupon'];
@@ -124,14 +128,16 @@
                             </p>
                         </a>
                     </li>
-                <?php } ?>
+                <?php
+    } ?>
 
                 <?php
-        $modArrayPur = ['Reviews'];
-    $menuAccessPur   = all_menu_permission_check($modArrayPur, $adRoleId);
+                $modArrayPur   = ['Reviews'];
+                $menuAccessPur = all_menu_permission_check($modArrayPur, $adRoleId);
 
-    if ($menuAccessPur == true) {
-        ?>
+                if ($menuAccessPur == true) {
+                    if ($modules['review'] == 1) {
+                        ?>
                     <li class="nav-item">
                         <a href="<?php echo base_url('admin/reviews'); ?>" class="nav-link">
                             <i class="nav-icon far fa-calendar-alt"></i>
@@ -140,7 +146,9 @@
                             </p>
                         </a>
                     </li>
-                <?php } ?>
+                <?php
+                    }
+                } ?>
 
                 <li class="nav-header">Modules</li>
                 <?php
@@ -188,7 +196,8 @@
                             </p>
                         </a>
                     </li>
-                <?php } ?>
+                <?php
+    } ?>
 
                 <li class="nav-header">Users</li>
 
@@ -206,7 +215,8 @@
                             </p>
                         </a>
                     </li>
-                <?php } ?>
+                <?php
+    } ?>
 
                 <?php
         $modArrayPur = ['Role'];
@@ -220,7 +230,8 @@
                             <p> User Role </p>
                         </a>
                     </li>
-                <?php } ?>
+                <?php
+    } ?>
 
                 <?php
         $modArrayPur = ['Customers'];
@@ -234,7 +245,8 @@
                             <p>Customers </p>
                         </a>
                     </li>
-                <?php } ?>
+                <?php
+    } ?>
 
                 <?php
         $modArrayPur = ['Fund_request'];
@@ -248,7 +260,8 @@
                             <p>Fund Request </p>
                         </a>
                     </li>
-                <?php } ?>
+                <?php
+    } ?>
                 <li class="nav-header">Blog</li>
                 <?php
         $modArrayPur = ['Blog_category'];
@@ -262,7 +275,8 @@
                             <p>Blog Category </p>
                         </a>
                     </li>
-                <?php } ?>
+                <?php
+    } ?>
                 <?php
                 $modArrayPur = ['Blog'];
     $menuAccessPur           = all_menu_permission_check($modArrayPur, $adRoleId);
@@ -277,7 +291,8 @@
                             </p>
                         </a>
                     </li>
-                <?php } ?>
+                <?php
+    } ?>
 
                 <li class="nav-header">System</li>
                 <?php
@@ -356,7 +371,8 @@
                             </p>
                         </a>
                     </li>
-                <?php } ?>
+                <?php
+    } ?>
 
                 <?php
         $modArrayPur = ['Email_send'];

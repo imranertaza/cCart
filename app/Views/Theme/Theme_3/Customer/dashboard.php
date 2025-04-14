@@ -12,14 +12,12 @@
                             <div class="d-flex justify-content-between">
                                 <span class="mt-3 con-tit">Total Order</span>
                                 <?php
-                                    $modules = modules_access();
-                            $img_size        = ($modules['watermark'] == '1') ? '100_wm_' : '100_';
-                            $all             = 0;
+                                    $all = 0;
 
-                            foreach ($order as $acVal) {
-                                $all++;
-                            }
-                            ?>
+                                    foreach ($order as $acVal) {
+                                        $all++;
+                                    }
+                                ?>
                                 <span class="amount-or"><?php echo $all;?></span>
                             </div>
 
@@ -95,9 +93,10 @@
                                 <?php foreach ($orderItem as $item) { ?>
                                     <tr>
                                         <td><?php
-                                        $img = get_data_by_id('image', 'cc_products', 'product_id', $item->product_id);
-                                    echo image_view('uploads/products', $item->product_id, $img_size . $img, 'noimage.png', '');
-                                    ?>
+                                            $img = get_data_by_id('image', 'cc_products', 'product_id', $item->product_id);
+                                            echo product_image_view('uploads/products', $item->product_id, $img, 'noimage.png', '', '', '', '100', '100');
+                                            ?>
+
 
                                         </td>
                                         <td>

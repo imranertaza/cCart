@@ -4,8 +4,8 @@
         <div class="product-category mb-5">
 
 
-                    <form action="<?php echo base_url('category_url_generate')?>" method="post" id="searchForm">
-                        <input type="hidden" name="global_search" value="<?php echo $keywordSearch;?>">
+                    <form action="<?php echo base_url('category_url_generate')?>" method="post" id="searchForm"></form>
+                        <input type="hidden" name="global_search" form="searchForm" value="<?php echo $keywordSearch;?>">
                     <div class="row">
                         <div class="col-md-3" id="side-data" >
 
@@ -24,7 +24,7 @@
                                     <div class="col-8 col-md-8">
                                         <div class="form-group float-end">
                                             <label class="d-none d-sm-inline">Sort By</label>
-                                            <select name="shortBy" onchange="formSubmit()" class="shortBy border">
+                                            <select name="shortBy" form="searchForm" onchange="formSubmit()" class="shortBy border">
                                                 <option value="" <?php echo ((isset($_GET['shortBy'])) && ($_GET['shortBy'] == '')) ? 'selected' : ''; ?>>Position</option>
                                                 <option value="name" <?php echo ((isset($_GET['shortBy'])) && ($_GET['shortBy'] == 'name')) ? 'selected' : ''; ?> >Product Name</option>
                                                 <option value="price_asc" <?php echo ((isset($_GET['shortBy'])) && ($_GET['shortBy'] == 'price_asc')) ? 'selected' : ''; ?>>Price(Low to High)</option>
@@ -33,7 +33,7 @@
                                         </div>
                                         <div class="form-group float-end me-2">
                                             <label class="d-none d-sm-inline">Show</label>
-                                            <select name="show" onchange="formSubmit()" class="shortBy border">
+                                            <select name="show" form="searchForm" onchange="formSubmit()" class="shortBy border">
                                                 <option value="<?php echo get_lebel_by_value_in_settings('category_product_limit');?>" <?php echo ((isset($_GET['show'])) && ($_GET['show'] == get_lebel_by_value_in_settings('category_product_limit'))) ? 'selected' : ''; ?>><?php echo get_lebel_by_value_in_settings('category_product_limit');?></option>
                                                 <option value="20" <?php echo ((isset($_GET['show'])) && ($_GET['show'] == '20')) ? 'selected' : ''; ?>>20</option>
                                                 <option value="25" <?php echo ((isset($_GET['show'])) && ($_GET['show'] == '25')) ? 'selected' : ''; ?>>25</option>
@@ -49,14 +49,12 @@
                             <?php
                             $modules = modules_access();
                     $symbol          = get_lebel_by_value_in_settings('currency_symbol');
-                    $img_size_198    = ($modules['watermark'] == '1') ? '198_wm_' : '198_';
-                    $img_size        = ($modules['watermark'] == '1') ? '191_wm_' : '191_';
                     ?>
 
                             <div class="products cat-pro-mob">
                                 <div class="row gx-0 row-cols-1 row-cols-sm-2 row-cols-md-3 h-100 " id="grid-view" >
                                     <?php if (!empty($products)) {
-                                        foreach ($products as $pro) { ?>
+                        foreach ($products as $pro) { ?>
                                         <div class="col border p-2">
                                             <div class="product-grid h-100 d-flex align-items-stretch flex-column position-relative">
                                                 <?php if ($modules['wishlist'] == 1) { ?>
@@ -83,7 +81,8 @@
                                                 <?php } ?>
 
                                                 <div class="product-top text-center">
-                                                    <a href="<?php echo base_url('detail/' . $pro->product_id)?>"><?php echo image_view('uploads/products', $pro->product_id, $img_size . $pro->image, 'noimage.png', 'img-fluid ')?></a>
+                                                    <a href="<?php echo base_url('detail/' . $pro->product_id)?>"><?php echo product_image_view('uploads/products', $pro->product_id, $pro->image, 'noimage.png', 'img-fluid ', '', '', '191', '191')?></a>
+
                                                     <div class="rating text-center my-2">
                                                         <?php echo product_id_by_rating($pro->product_id);?>
                                                     </div>
@@ -106,9 +105,9 @@
                                             </div>
                                         </div>
                                     <?php }
-                                        } else {
-                                            echo 'No product available';
-                                        } ?>
+                    } else {
+                        echo 'No product available';
+                    } ?>
                                 </div>
 
 
@@ -140,7 +139,8 @@
                                                 <?php } ?>
 
                                                 <div class="product-top text-center" style="width:40%;float:left; " >
-                                                    <a href="<?php echo base_url('detail/' . $pro->product_id)?>"><?php echo image_view('uploads/products', $pro->product_id, $img_size_198 . $pro->image, 'noimage.png', 'img-fluid ')?></a>
+                                                    <a href="<?php echo base_url('detail/' . $pro->product_id)?>"><?php echo product_image_view('uploads/products', $pro->product_id, $pro->image, 'noimage.png', 'img-fluid ', '', '', '198', '198')?></a>
+
 
                                                 </div>
 
@@ -182,12 +182,12 @@
                             <?php echo $links;?>
                         </div>
                     </div>
-                    </form>
+
 
         </div>
     </div>
 </section>
-
+<?php $sSel = !empty($searchPrice) ? 'form="searchForm"' : ''; ?>
 <script>
     if ($(window).width() > 767) {
         var sidebarDesktop = `<div class="d-none d-md-block">
@@ -199,18 +199,19 @@
             if (!empty($par_id)) {
                 $url = base_url('category/' . $par_id);
                 echo '<a href="' . $url . '">' . get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $par_id) . '</a> <i class="fa-solid fa-angle-right"></i>';
-            } $url2 = base_url('category/' . $prod_cat_id);
-            ?> <a href="<?php echo $url2;?>" ><?php echo get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $prod_cat_id);?> </a><?php } else {
-                echo 'Search Result';
-            } ?></span>
+            }
+            $url2 = base_url('category/' . $prod_cat_id); ?> <a href="<?php echo $url2; ?>" ><?php echo get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $prod_cat_id); ?> </a><?php
+        } else {
+            echo 'Search Result';
+        } ?></span>
                                 </div>
                                     <div class="card p-3 rounded-0 ">
                                     <?php if (empty($keywordSearch)) { ?>
                                         <div class="product-filter">
                                             <?php if (!empty($parent_Cat)) { ?>
                                             <p class="mb-2">Sub Category</p>
-                                            <input type="hidden" name="prod_cat_id" value="<?php echo $prod_cat_id?>">
-                                                <input type="hidden" name="cat" value="<?php echo $prod_cat_id?>">
+                                            <input type="hidden" form="searchForm" name="prod_cat_id" value="<?php echo $prod_cat_id?>">
+                                                <input type="hidden" form="searchForm" name="cat" value="<?php echo $prod_cat_id?>">
                                                     <ul class="list-unstyled lh-lg">
                                                         <?php $i = 1;
                                                 $j               = 1;
@@ -218,7 +219,7 @@
                                                 foreach ($parent_Cat as $cat) { ?>
                                                         <li>
                                                             <div class="form-check d-flex flex-row align-items-center gap-1">
-                                                                <input class="form-check-input" onclick="formSubmit()" <?php echo ((isset($_GET['category'])) && ($_GET['category'] == $cat->prod_cat_id)) ? 'checked' : ''; ?>  name="category" type="radio" value="<?php echo $cat->prod_cat_id;?>" id="flexCheck_<?php echo $i++;?>">
+                                                                <input class="form-check-input" form="searchForm" onclick="formSubmit()" <?php echo ((isset($_GET['category'])) && ($_GET['category'] == $cat->prod_cat_id)) ? 'checked' : ''; ?>  name="category" type="radio" value="<?php echo $cat->prod_cat_id;?>" id="flexCheck_<?php echo $i++;?>">
                                                                     <label class="form-check-label w-100 mb-0" for="flexCheck_<?php echo $j++;?>">
                                                                         <?php echo $cat->category_name;?> <span class="count"><?php echo category_id_by_product_count($cat->prod_cat_id)?></span>
                                                                     </label>
@@ -229,7 +230,7 @@
                                                         <?php } ?>
                                                     </ul>
                                                     <?php } else {
-                                                        if (!empty($main_Cat)) {?>
+                                                    if (!empty($main_Cat)) {?>
                                                     <p class="mb-2">Category</p>
                                                     <ul class="lh-lg text-capitalize">
                                                         <?php  foreach ($main_Cat as $cat) { ?>
@@ -238,7 +239,7 @@
                                                     </ul>
 
                                             <?php }
-                                                        }?>
+                                                }?>
                                         </div>
                                     <?php } ?>
                                     <?php if (!empty($productsArr)) { ?>
@@ -257,8 +258,8 @@
                                        <?php echo $brandView;?>
 
                                         <?php if ($modules['review'] == '1') {
-                                            echo $ratingView;
-                                        }?>
+                                                    echo $ratingView;
+                                                }?>
 
                                     </div>
                                 </div>`;
@@ -284,10 +285,11 @@
             if (!empty($par_id)) {
                 $url = base_url('category/' . $par_id);
                 echo '<a href="' . $url . '">' . get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $par_id) . '</a> <i class="fa-solid fa-angle-right"></i>';
-            } $url2 = base_url('category/' . $prod_cat_id);
-            ?> <a href="<?php echo $url2;?>" ><?php echo get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $prod_cat_id);?> </a><?php } else {
-                echo 'Search Result';
-            } ?></span>
+            }
+            $url2 = base_url('category/' . $prod_cat_id); ?> <a href="<?php echo $url2; ?>" ><?php echo get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $prod_cat_id); ?> </a><?php
+        } else {
+            echo 'Search Result';
+        } ?></span>
                                         </div>
                                         <div class="card p-3 rounded-0 ">
                                         <?php if (empty($keywordSearch)) { ?>
@@ -314,7 +316,7 @@
                                                     <?php } ?>
                                                 </ul>
                                                 <?php } else {
-                                                    if (!empty($main_Cat)) {?>
+                                                        if (!empty($main_Cat)) {?>
                                                     <p class="mb-2">Category</p>
                                                     <ul class="lh-lg text-capitalize">
                                                         <?php  foreach ($main_Cat as $cat) { ?>
@@ -342,8 +344,8 @@
                                         <?php echo $brandView;?>
 
                                         <?php if ($modules['review'] == '1') {
-                                            echo $ratingView;
-                                        }?>
+                                                        echo $ratingView;
+                                                    }?>
                                         </div>
                                     </div>
                                 </div>
@@ -364,6 +366,7 @@
             slide: function(event, ui) {
                 $("#amount").val("" + ui.values[0] + " - " + ui.values[1]);
                 $("#price").val("" + ui.values[0] + "," + ui.values[1]);
+                $("#price").attr('form','searchForm');
                 $("#searchForm").submit();
             }
         });

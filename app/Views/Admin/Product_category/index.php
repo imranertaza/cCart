@@ -56,25 +56,24 @@
 foreach ($category as $val) {
     $main_cat = (!empty($val->parent_id)) ? get_data_by_id('parent_id', 'cc_product_category', 'prod_cat_id', $val->parent_id) : '';
     $main     = (!empty($main_cat)) ? get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $main_cat) . '->' : '';
-    $parCat   = (!empty($val->parent_id)) ? get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $val->parent_id) . '-> ' : '';
-    ?>
+    $parCat   = (!empty($val->parent_id)) ? get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $val->parent_id) . '-> ' : ''; ?>
                             <tr>
                                 <td width="40"><?php echo $i++; ?></td>
                                 <td><?php echo display_category_with_parent($val->prod_cat_id); ?></td>
 
-                                <td><?php echo image_view('uploads/category', '', $val->image, 'noimage.png', 'width-80'); ?>
+                                <td><?php echo common_image_view('uploads/category', '', $val->image, 'noimage.png', 'width-80', '', '80', '80'); ?>
                                 </td>
                                 <td><?php
                 $icon = get_data_by_id('code', 'cc_icons', 'icon_id', $val->icon_id);
-    echo $icon; //image_view('icons', '', $icon, 'noimage.png', 'size-20x20');
-    ?> </td>
+    echo $icon; //image_view('icons', '', $icon, 'noimage.png', 'size-20x20');?> </td>
                                 <td width="100"><input type="text" class="border-0" onchange="updateSorting(this.value,'<?php echo $val->prod_cat_id ?>')" value="<?php echo $val->sort_order; ?>"></td>
                                 <td width="180">
                                     <a href="<?php echo base_url('admin/product_category_update/' . $val->prod_cat_id); ?>" class="btn btn-primary btn-xs"><i class="fas fa-edit"></i> Update</a>
                                     <a href="<?php echo base_url('admin/product_category_delete/' . $val->prod_cat_id); ?>" onclick="return confirm('Are you sure you want to Delete?')" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i> Delete</a>
                                 </td>
                             </tr>
-                        <?php } ?>
+                        <?php
+} ?>
 
                     </tbody>
                     <tfoot>

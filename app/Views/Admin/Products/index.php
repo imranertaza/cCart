@@ -29,11 +29,11 @@
                     <div class="col-md-6">
                         <a href="<?php echo base_url('admin/product_create') ?>" class="btn btn-primary btn-xs float-right"><i
                                 class="fas fa-plus"></i> Add</a>
-                        <?php if(modules_key_by_access('bulk_edit_products') == '1') {?>
+                        <?php if (modules_key_by_access('bulk_edit_products') == '1') {?>
                         <a href="<?php echo base_url('admin/bulk_edit_products') ?>" onclick="bulk_datatable_reset()" class="btn btn-info btn-xs float-right mr-2"><i class="fas fa-plus"></i> Bulk Edit Products</a>
                         <?php } ?>
                         <button type="submit" class="btn btn-secondary btn-xs float-right mr-2"><i class="nav-icon fas fa-copy"></i> Copy</button>
-                        <?php if(modules_key_by_access('image_crop') == '1') {?>
+                        <?php if (modules_key_by_access('image_crop') == '1') {?>
                             <button type="submit"  formaction="<?php echo base_url('admin/product_image_crop_action'); ?>" class="btn btn-info btn-xs float-right mr-2"><i class="fas fa-file"></i> Crop image</button>
                         <?php } ?>
                         <button type="submit"  formaction="<?php echo base_url('/admin/product_multi_delete_action'); ?>" class="btn btn-danger btn-xs float-right mr-2"><i class="fas fa-trash"></i> Multi delete</button>

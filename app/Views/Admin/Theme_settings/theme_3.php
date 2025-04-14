@@ -23,10 +23,11 @@
 
         foreach ($cat as $val) {
             ?>
-                    <option value="<?php echo $val->prod_cat_id;?>"
-                        <?php echo ($val->prod_cat_id == $catSel) ? 'selected' : '';?>><?php echo display_category_with_parent($val->prod_cat_id);?>
+                    <option value="<?php echo $val->prod_cat_id; ?>"
+                        <?php echo ($val->prod_cat_id == $catSel) ? 'selected' : ''; ?>><?php echo display_category_with_parent($val->prod_cat_id); ?>
                     </option>
-                    <?php } ?>
+                    <?php
+        } ?>
                 </select>
             </div>
 
@@ -65,10 +66,11 @@
 
         foreach ($cat as $val) {
             ?>
-                    <option value="<?php echo $val->prod_cat_id;?>"
-                        <?php echo ($val->prod_cat_id == $catSel2) ? 'selected' : '';?>><?php echo display_category_with_parent($val->prod_cat_id);?>
+                    <option value="<?php echo $val->prod_cat_id; ?>"
+                        <?php echo ($val->prod_cat_id == $catSel2) ? 'selected' : ''; ?>><?php echo display_category_with_parent($val->prod_cat_id); ?>
                     </option>
-                    <?php } ?>
+                    <?php
+        } ?>
                 </select>
             </div>
 
@@ -105,10 +107,11 @@
 
         foreach ($cat as $val) {
             ?>
-                    <option value="<?php echo $val->prod_cat_id;?>"
-                        <?php echo ($val->prod_cat_id == $catSel_1) ? 'selected' : '';?>><?php echo display_category_with_parent($val->prod_cat_id);?>
+                    <option value="<?php echo $val->prod_cat_id; ?>"
+                        <?php echo ($val->prod_cat_id == $catSel_1) ? 'selected' : ''; ?>><?php echo display_category_with_parent($val->prod_cat_id); ?>
                     </option>
-                    <?php } ?>
+                    <?php
+        } ?>
                 </select>
             </div>
 
@@ -143,10 +146,11 @@
 
         foreach ($cat as $val) {
             ?>
-                    <option value="<?php echo $val->prod_cat_id;?>"
-                        <?php echo ($val->prod_cat_id == $catSel_1) ? 'selected' : '';?>><?php echo display_category_with_parent($val->prod_cat_id);?>
+                    <option value="<?php echo $val->prod_cat_id; ?>"
+                        <?php echo ($val->prod_cat_id == $catSel_1) ? 'selected' : ''; ?>><?php echo display_category_with_parent($val->prod_cat_id); ?>
                     </option>
-                    <?php } ?>
+                    <?php
+        } ?>
                 </select>
             </div>
 
@@ -181,10 +185,11 @@
 
         foreach ($cat as $val) {
             ?>
-                    <option value="<?php echo $val->prod_cat_id;?>"
-                        <?php echo ($val->prod_cat_id == $catSel_1) ? 'selected' : '';?>><?php echo display_category_with_parent($val->prod_cat_id);?>
+                    <option value="<?php echo $val->prod_cat_id; ?>"
+                        <?php echo ($val->prod_cat_id == $catSel_1) ? 'selected' : ''; ?>><?php echo display_category_with_parent($val->prod_cat_id); ?>
                     </option>
-                    <?php } ?>
+                    <?php
+        } ?>
                 </select>
             </div>
 
@@ -219,10 +224,11 @@
 
         foreach ($cat as $val) {
             ?>
-                    <option value="<?php echo $val->prod_cat_id;?>"
-                        <?php echo ($val->prod_cat_id == $catSel_1) ? 'selected' : '';?>><?php echo display_category_with_parent($val->prod_cat_id);?>
+                    <option value="<?php echo $val->prod_cat_id; ?>"
+                        <?php echo ($val->prod_cat_id == $catSel_1) ? 'selected' : ''; ?>><?php echo display_category_with_parent($val->prod_cat_id); ?>
                     </option>
-                    <?php } ?>
+                    <?php
+        } ?>
                 </select>
             </div>
 
@@ -257,10 +263,11 @@
 
         foreach ($cat as $val) {
             ?>
-                    <option value="<?php echo $val->prod_cat_id;?>"
-                        <?php echo ($val->prod_cat_id == $catSel_1) ? 'selected' : '';?>><?php echo display_category_with_parent($val->prod_cat_id);?>
+                    <option value="<?php echo $val->prod_cat_id; ?>"
+                        <?php echo ($val->prod_cat_id == $catSel_1) ? 'selected' : ''; ?>><?php echo display_category_with_parent($val->prod_cat_id); ?>
                     </option>
-                    <?php } ?>
+                    <?php
+        } ?>
                 </select>
             </div>
 

@@ -63,7 +63,8 @@
                             if ($check == false) {
                                 ?>
                                 <a href="<?php echo base_url('admin/module_settings/' . $rows->module_id) ?>" class="btn btn-primary btn-xs"><i class="fas fa-cogs"></i> </a>
-                                <?php } ?>
+                                <?php
+                            } ?>
                             </td>
                         </tr>
                         <?php } ?>

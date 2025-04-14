@@ -56,13 +56,12 @@
 foreach ($category as $val) {
     $main_cat = (!empty($val->parent_id)) ? get_data_by_id('parent_id', 'cc_category', 'cat_id', $val->parent_id) : '';
     $main     = (!empty($main_cat)) ? get_data_by_id('category_name', 'cc_category', 'cat_id', $main_cat) . '->' : '';
-    $parCat   = (!empty($val->parent_id)) ? get_data_by_id('category_name', 'cc_category', 'cat_id', $val->parent_id) . '-> ' : '';
-    ?>
+    $parCat   = (!empty($val->parent_id)) ? get_data_by_id('category_name', 'cc_category', 'cat_id', $val->parent_id) . '-> ' : ''; ?>
                             <tr>
                                 <td width="40"><?php echo $i++; ?></td>
                                 <td><?php echo display_blog_category_with_parent($val->cat_id); ?></td>
 
-                                <td><?php echo image_view('uploads/blog_category', '', $val->image, 'noimage.png', 'width-80'); ?>
+                                <td><?php echo common_image_view('uploads/blog_category', '', $val->image, 'noimage.png', 'width-80', '', '166', '208'); ?>
                                 </td>
                                 <td><?php print get_data_by_id('code', 'cc_icons', 'icon_id', $val->icon_id); ?> </td>
                                 <td width="100"><input type="text" class="border-0" onchange="updateSorting(this.value,'<?php echo $val->cat_id ?>')" value="<?php echo $val->sort_order; ?>"></td>
@@ -71,7 +70,8 @@ foreach ($category as $val) {
                                     <a href="<?php echo base_url('admin/blog_category_delete/' . $val->cat_id); ?>" onclick="return confirm('Are you sure you want to Delete?')" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i> Delete</a>
                                 </td>
                             </tr>
-                        <?php } ?>
+                        <?php
+} ?>
 
                     </tbody>
                     <tfoot>
