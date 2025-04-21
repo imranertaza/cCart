@@ -56,7 +56,7 @@ $routes->group('admin', static function ($routes) {
     $routes->post('attribute_update_action', 'Admin\Attribute_group::update_action');
     $routes->get('attribute_update/(:num)', 'Admin\Attribute_group::update/$1');
     $routes->get('attribute_delete/(:num)', 'Admin\Attribute_group::delete/$1');
-    
+
     //Brand
     $routes->get('brand', 'Admin\Brand::index');
     $routes->get('brand_create', 'Admin\Brand::create');
@@ -64,7 +64,7 @@ $routes->group('admin', static function ($routes) {
     $routes->post('brand_update_action', 'Admin\Brand::update_action');
     $routes->get('brand_update/(:num)', 'Admin\Brand::update/$1');
     $routes->get('brand_delete/(:num)', 'Admin\Brand::delete/$1');
-    
+
     //Color_family
     $routes->get('color_family', 'Admin\Color_family::index');
     $routes->get('color_family_create', 'Admin\Color_family::create');
@@ -72,7 +72,7 @@ $routes->group('admin', static function ($routes) {
     $routes->post('color_family_update_action', 'Admin\Color_family::update_action');
     $routes->get('color_family_update/(:num)', 'Admin\Color_family::update/$1');
     $routes->get('color_family_delete/(:num)', 'Admin\Color_family::delete/$1');
-    
+
     //Product_category
     $routes->get('product_category', 'Admin\Product_category::index');
     $routes->get('product_category_create', 'Admin\Product_category::create');
@@ -82,7 +82,7 @@ $routes->group('admin', static function ($routes) {
     $routes->get('product_category_update/(:num)', 'Admin\Product_category::update/$1');
     $routes->get('product_category_delete/(:num)', 'Admin\Product_category::delete/$1');
     $routes->post('product_category_sort_update_action', 'Admin\Product_category::sort_update_action');
-    
+
     //Products
     $routes->get('products', 'Admin\Products::index');
     $routes->get('product_create', 'Admin\Products::create');
@@ -120,7 +120,7 @@ $routes->group('admin', static function ($routes) {
     $routes->post('user_image_action', 'Admin\User::image_action');
     $routes->get('user_update/(:num)', 'Admin\User::update/$1');
     $routes->get('user_delete/(:num)', 'Admin\User::delete/$1');
-    
+
     //Role
     $routes->get('role', 'Admin\Role::index');
     $routes->get('role_create', 'Admin\Role::create');
@@ -128,7 +128,7 @@ $routes->group('admin', static function ($routes) {
     $routes->post('role_update_action', 'Admin\Role::update_action');
     $routes->get('role_update/(:num)', 'Admin\Role::update/$1');
     $routes->get('role_delete/(:num)', 'Admin\Role::delete/$1');
-    
+
     //Customers
     $routes->get('customers', 'Admin\Customers::index');
     $routes->get('customers_create', 'Admin\Customers::create');
@@ -143,12 +143,13 @@ $routes->group('admin', static function ($routes) {
     // founds request
     $routes->get('fund_request', 'Admin\Fund_request::index');
     $routes->post('fund_request_action', 'Admin\Fund_request::fund_action');
-    
+
     //Settings
     $routes->get('settings', 'Admin\Settings::index');
     $routes->post('settings_update_action', 'Admin\Settings::update_action');
-    
-    
+    $routes->get('cache_delete', 'Admin\Settings::cache_delete');
+
+
     //Shipping
     $routes->get('shipping', 'Admin\Shipping\Shipping::index');
     $routes->get('shipping_settings/(:num)', 'Admin\Shipping\Shipping::shipping_settings/$1');
@@ -157,33 +158,33 @@ $routes->group('admin', static function ($routes) {
     $routes->post('remove_settings_weight', 'Admin\Shipping\Shipping::remove_settings_weight');
     $routes->post('zone_rate_update_action', 'Admin\Shipping\Shipping::zone_rate_update_action');
     $routes->post('zone_rate_delete', 'Admin\Shipping\Shipping::zone_rate_delete');
-    
-    
+
+
     //Payment method
     $routes->get('payment', 'Admin\Payment\Payment::index');
     $routes->post('payment_status_update', 'Admin\Payment\Payment::status_update');
-    
+
     $routes->get('payment/cash_on/(:num)', 'Admin\Payment\Cash_on_delivery::settings/$1');
     $routes->post('cash_on_update_action', 'Admin\Payment\Cash_on_delivery::update_action');
-    
+
     $routes->get('payment/bank_transfer/(:num)', 'Admin\Payment\Bank_transfer::bank_settings/$1');
     $routes->post('bank_transfer_update_action', 'Admin\Payment\Bank_transfer::update_action');
-    
+
     $routes->get('payment/paypal/(:num)', 'Admin\Payment\Paypal::settings/$1');
     $routes->post('paypal_update_action', 'Admin\Payment\Paypal::update_action');
-    
+
     $routes->get('payment/western_union/(:num)', 'Admin\Payment\Western_union::settings/$1');
     $routes->post('western_union_update_action', 'Admin\Payment\Western_union::update_action');
-    
+
     $routes->get('payment/moneyGram/(:num)', 'Admin\Payment\MoneyGram::settings/$1');
     $routes->post('moneyGram_update_action', 'Admin\Payment\MoneyGram::update_action');
-    
+
     $routes->get('payment/bitcoin/(:num)', 'Admin\Payment\Bitcoin::settings/$1');
     $routes->post('bitcoin_update_action', 'Admin\Payment\Bitcoin::update_action');
-    
+
     $routes->get('payment/credit_card/(:num)', 'Admin\Payment\Credit_card::settings/$1');
     $routes->post('credit_card_update_action', 'Admin\Payment\Credit_card::update_action');
-    
+
     $routes->get('payment/u_wallet/(:num)', 'Admin\Payment\U_wallet::settings/$1');
     $routes->post('u_wallet_update_action', 'Admin\Payment\U_wallet::update_action');
 
@@ -201,7 +202,7 @@ $routes->group('admin', static function ($routes) {
     $routes->get('page_delete/(:num)', 'Admin\Page_settings::delete/$1');
     $routes->post('page_create_action', 'Admin\Page_settings::create_action');
     $routes->post('page_update_action', 'Admin\Page_settings::update_action');
-    
+
     //Coupon
     $routes->get('coupon', 'Admin\Coupon::index');
     $routes->get('coupon_create', 'Admin\Coupon::create');
@@ -209,17 +210,17 @@ $routes->group('admin', static function ($routes) {
     $routes->post('coupon_update_action', 'Admin\Coupon::update_action');
     $routes->get('coupon_update/(:num)', 'Admin\Coupon::update/$1');
     $routes->get('coupon_delete/(:num)', 'Admin\Coupon::delete/$1');
-    
+
     //
     $routes->get('module', 'Admin\Module::index');
     $routes->post('module_update_action', 'Admin\Module::update_action');
     $routes->post('module_update', 'Admin\Ajax::module_update');
     $routes->get('module_settings/(:num)', 'Admin\Module::module_settings/$1');
     $routes->post('module_settings_action', 'Admin\Module::module_settings_action');
-    
+
     //
     $routes->get('newsletter', 'Admin\Newsletter::index');
-    
+
     $routes->get('option', 'Admin\Option::index');
     $routes->get('option_create', 'Admin\Option::create');
     $routes->post('option_create_action', 'Admin\Option::create_action');
@@ -227,16 +228,16 @@ $routes->group('admin', static function ($routes) {
     $routes->get('option_update/(:num)', 'Admin\Option::update/$1');
     $routes->get('option_delete/(:num)', 'Admin\Option::delete/$1');
     $routes->post('option_remove_action', 'Admin\Option::option_remove_action');
-    
+
     //Coupon
     $routes->get('order_list', 'Admin\Order::index');
     $routes->post('order_history_action', 'Admin\Order::history_action');
     $routes->post('order_payment_status_action', 'Admin\Order::payment_status_action');
     $routes->get('order_view/(:num)', 'Admin\Order::order_view/$1');
     $routes->post('order_point_action', 'Admin\Order::point_action');
-    
+
     //Theme Settings
-    
+
     $routes->get('theme_settings', 'Admin\Theme_settings::index');
     $routes->post('slider_update', 'Admin\Theme_settings::slider_update');
     $routes->post('logo_update', 'Admin\Theme_settings::logo_update');
@@ -246,13 +247,13 @@ $routes->group('admin', static function ($routes) {
     $routes->post('home_special_banner', 'Admin\Theme_settings::home_special_banner');
     $routes->post('home_left_side_banner', 'Admin\Theme_settings::home_left_side_banner');
     $routes->post('favicon_update', 'Admin\Theme_settings::favicon_update');
-    
-    
+
+
     $routes->post('header_section_one_update', 'Admin\Theme_settings_3::header_section_one_update');
     $routes->post('header_section_two_update', 'Admin\Theme_settings_3::header_section_two_update');
     $routes->post('home_category_update', 'Admin\Theme_settings_3::home_category_update');
     $routes->post('banner_bottom_update', 'Admin\Theme_settings_3::banner_bottom_update');
-    
+
     //Localization
     $routes->get('geo_zone', 'Admin\Geo_zone::index');
     $routes->get('geo_zone_create', 'Admin\Geo_zone::create');
@@ -261,16 +262,16 @@ $routes->group('admin', static function ($routes) {
     $routes->post('geo_zone_update_action', 'Admin\Geo_zone::update_action');
     $routes->get('geo_zone_delete/(:num)', 'Admin\Geo_zone::delete/$1');
     $routes->post('geo_zone_detail_delete', 'Admin\Geo_zone::geo_zone_detail_delete');
-    
+
     //Email_send
     $routes->get('email_send', 'Admin\Email_send::index');
     $routes->post('email_send_action', 'Admin\Email_send::email_send_action');
-    
+
     //Reviews
     $routes->get('reviews', 'Admin\Reviews::index');
     $routes->post('reviews_status_update', 'Admin\Reviews::reviews_status_update');
     $routes->get('reviews_delete/(:num)', 'Admin\Reviews::delete/$1');
-    
+
     //Advanced Products routes
     $routes->get('bulk_edit_products', 'Admin\Advanced_products::index');
     $routes->post('bulk_status_update', 'Admin\Advanced_products::bulk_status_update');

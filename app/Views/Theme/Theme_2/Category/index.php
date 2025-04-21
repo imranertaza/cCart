@@ -208,10 +208,10 @@
                                     <div class="card p-3 rounded-0 ">
                                     <?php if (empty($keywordSearch)) { ?>
                                         <div class="product-filter">
+                                        <input type="hidden" form="searchForm" name="cat" value="<?php echo $prod_cat_id?>">
                                             <?php if (!empty($parent_Cat)) { ?>
                                             <p class="mb-2">Sub Category</p>
-                                            <input type="hidden" form="searchForm" name="prod_cat_id" value="<?php echo $prod_cat_id?>">
-                                                <input type="hidden" form="searchForm" name="cat" value="<?php echo $prod_cat_id?>">
+                                                <input type="hidden" form="searchForm" name="prod_cat_id" value="<?php echo $prod_cat_id?>">
                                                     <ul class="list-unstyled lh-lg">
                                                         <?php $i = 1;
                                                 $j               = 1;
@@ -293,11 +293,12 @@
                                         </div>
                                         <div class="card p-3 rounded-0 ">
                                         <?php if (empty($keywordSearch)) { ?>
+                                        <input type="hidden" name="cat" value="<?php echo $prod_cat_id?>">
                                             <div class="product-filter">
                                                 <?php if (!empty($parent_Cat)) { ?>
                                                 <p class="mb-2">Sub Category</p>
                                                 <input type="hidden" name="prod_cat_id" value="<?php echo $prod_cat_id?>">
-                                                <input type="hidden" name="cat" value="<?php echo $prod_cat_id?>">
+
                                                 <ul class="list-unstyled lh-lg">
                                                     <?php $i = 1;
                                                     $j       = 1;
