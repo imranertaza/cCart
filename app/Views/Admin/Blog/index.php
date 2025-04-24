@@ -57,7 +57,8 @@ foreach ($blog as $val) { ?>
                             <td width="40"><?php echo $i++;?></td>
                             <td><?php echo $val->blog_title;?></td>
                             <td><?php echo $val->short_des;?></td>
-                            <td><?php echo image_view('uploads/blog', $val->blog_id, '100_' . $val->image, '50_noimage.png', '');?></td>
+                            <td><?php echo common_image_view('uploads/blog', $val->blog_id, $val->image, 'noimage.png', '', '', '100', '100');?></td>
+
                             <td><?php echo statusView($val->status);?></td>
                             <td width="180">
                                 <a href="<?php echo base_url('admin/blog_update/' . $val->blog_id);?>" class="btn btn-primary btn-xs"><i class="fas fa-edit"></i> Update</a>

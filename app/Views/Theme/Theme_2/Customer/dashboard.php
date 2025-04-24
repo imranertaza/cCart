@@ -97,9 +97,9 @@
                                 <?php foreach ($orderItem as $item) { ?>
                                     <tr>
                                         <td><?php
-                                                $img = get_data_by_id('image', 'cc_products', 'product_id', $item->product_id);
-                                    echo image_view('uploads/products', $item->product_id, $img_size_100 . $img, 'noimage.png', '');
-                                    ?>
+                                            $img = get_data_by_id('image', 'cc_products', 'product_id', $item->product_id);
+                                            echo product_image_view('uploads/products', $item->product_id, $img, 'noimage.png', '', '', '', '100', '100');
+                                            ?>
 
                                         </td>
                                         <td>

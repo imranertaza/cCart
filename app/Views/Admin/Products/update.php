@@ -210,8 +210,8 @@
 
 foreach ($prodCat as $key => $cat) { ?>
                                                         <option value="<?php echo $cat->prod_cat_id; ?>" <?php foreach ($prodCatSel as $valC) {
-                                                            echo ($valC->category_id == $cat->prod_cat_id) ? 'selected' : '';
-                                                        } ?> ><?php echo display_category_with_parent($cat->prod_cat_id); ?></option>
+    echo ($valC->category_id == $cat->prod_cat_id) ? 'selected' : '';
+} ?> ><?php echo display_category_with_parent($cat->prod_cat_id); ?></option>
                                                     <?php }  ?>
 
                                                 </select>
@@ -247,9 +247,10 @@ foreach ($prodCat as $key => $cat) { ?>
                                         <div class="col-5 col-sm-3 h-100">
                                             <div class="nav flex-column nav-tabs h-100 text-right font-weight-bolder tab-link-ajax" id="vert-tabs-tab" role="tablist" aria-orientation="vertical">
                                                 <?php foreach ($prodOption as $key => $op) {
-                                                    $option = get_all_row_data_by_id('cc_option', 'option_id', $op->option_id); ?>
-                                                    <a class="nav-link  <?php echo ($key == 0) ? 'active' : '';?> text-dark" id="<?php echo strtolower(str_replace(' ', '', $option->name)); ?>_remove"  data-toggle="pill" href="#<?php echo strtolower(str_replace(' ', '', $option->name)) ?>" role="tab" aria-controls="vert-tabs-home" aria-selected="true"><?php echo $option->name ?><button type="button" class="btn btn-sm" onclick="remove_option_new_ajax('<?php echo strtolower(str_replace(' ', '', $option->name)) ?>_remove','<?php echo strtolower(str_replace(' ', '', $option->name)) ?>')"><i class="fa fa-trash text-danger"></i></button></a>
-                                                <?php } ?>
+    $option = get_all_row_data_by_id('cc_option', 'option_id', $op->option_id); ?>
+                                                    <a class="nav-link  <?php echo ($key == 0) ? 'active' : ''; ?> text-dark" id="<?php echo strtolower(str_replace(' ', '', $option->name)); ?>_remove"  data-toggle="pill" href="#<?php echo strtolower(str_replace(' ', '', $option->name)) ?>" role="tab" aria-controls="vert-tabs-home" aria-selected="true"><?php echo $option->name ?><button type="button" class="btn btn-sm" onclick="remove_option_new_ajax('<?php echo strtolower(str_replace(' ', '', $option->name)) ?>_remove','<?php echo strtolower(str_replace(' ', '', $option->name)) ?>')"><i class="fa fa-trash text-danger"></i></button></a>
+                                                <?php
+} ?>
                                             </div>
 
                                             <div class=" flex-column search mt-2 h-100">
@@ -261,17 +262,16 @@ foreach ($prodCat as $key => $cat) { ?>
                                         <div class="col-7 col-sm-9">
                                             <div class="tab-content tab-content-ajax" id="vert-tabs-tabContent">
                                                 <?php foreach ($prodOption as $key => $op) {
-                                                    $option = get_all_row_data_by_id('cc_option', 'option_id', $op->option_id); ?>
-                                                    <div class="tab-pane text-left fade  show <?php echo ($key == 0) ? 'active' : '';?>" id="<?php echo strtolower(str_replace(' ', '', $option->name)) ?>" role="tabpanel" aria-labelledby="vert-tabs-home-tab">
+        $option = get_all_row_data_by_id('cc_option', 'option_id', $op->option_id); ?>
+                                                    <div class="tab-pane text-left fade  show <?php echo ($key == 0) ? 'active' : ''; ?>" id="<?php echo strtolower(str_replace(' ', '', $option->name)) ?>" role="tabpanel" aria-labelledby="vert-tabs-home-tab">
                                                         <div class="col-md-12 mt-2"> <h5>Click on add option</h5></div><hr>
                                                         <div id="<?php echo strtolower(str_replace(' ', '', $option->name)) ?>_op">
                                                             <?php
                                                                 $opValue = option_id_or_product_id_by_option_value($op->option_id, $prod->product_id);
-                                                    $opVal               = get_array_data_by_id('cc_option_value', 'option_id', $op->option_id);
-                                                    ?>
-                                                            <?php $i = 101;
+        $opVal                                                           = get_array_data_by_id('cc_option_value', 'option_id', $op->option_id); ?>
+                                                            <?php $i     = 101;
 
-                                                    foreach ($opValue as $val) {  ?>
+        foreach ($opValue as $val) {  ?>
                                                                 <div class='col-md-12 mt-3' id='new_<?php echo $i++ . $option->name;?>' ><input type='hidden' name='option[]' value='<?php echo $val->option_id;?>' ><select name='opValue[]' id='valId_"+new_chq_no+"' style='padding: 3px;'><option value=''>Please select</option><?php foreach ($opVal as $p) { ?><option value='<?php echo $p->option_value_id; ?>'  <?php echo ($p->option_value_id == $val->option_value_id) ? 'selected' : ''; ?> ><?php echo $p->name; ?></option><?php } ?></select><select name='subtract[]' style='padding: 3px;'><option value='plus' <?php echo ($val->subtract == null) ? 'selected' : '';?> >Plus</option><option value='minus' <?php echo ($val->subtract != null) ? 'selected' : '';?> >Minus</option></select><input type='number' placeholder='Quantity' name='qty[]' value='<?php echo $val->quantity;?>' required> <input type='number' placeholder='Price' name='price_op[]' value='<?php echo $val->price;?>' required> <a href='javascript:void(0)' onclick='remove_option(this)' class='btn btn-sm btn-danger' style='margin-top: -5px;'>X</a></div>
                                                             <?php } ?>
                                                         </div>
@@ -280,7 +280,8 @@ foreach ($prodCat as $key => $cat) { ?>
                                                             <a href="javascript:void(0)" style="float: right; margin-right: 150px;" onclick="add_option_new_ajax('<?php echo strtolower(str_replace(' ', '', $option->name)) ?>_op','<?php echo $option->option_id ?>');"class="btn btn-sm btn-primary">Add option</a>
                                                         </div>
                                                     </div>
-                                                <?php } ?>
+                                                <?php
+    } ?>
                                             </div>
                                         </div>
 
@@ -423,7 +424,8 @@ foreach ($prodCat as $key => $cat) { ?>
                                         <div class="col-md-8">
                                             <div class="row ">
                                                 <div class="col-md-2 img_view">
-                                                <?php echo image_view('uploads/products', $prod->product_id, '100_' . $prod->image, 'noimage.png', $class = 'img-100-100');?>
+                                                <?php echo product_image_view('uploads/products', $prod->product_id, $prod->image, 'noimage.png', $class = 'img-100-100', '', '', '100', 100);?>
+
                                                 </div>
                                             </div>
                                             <div id="framesdef"></div><br>
@@ -440,7 +442,7 @@ foreach ($prodCat as $key => $cat) { ?>
                                             <div class="row mb-4" >
                                             <?php foreach ($prodimage as $img) { ?>
                                                 <div class="col-md-2 img_view">
-                                                    <?php echo multi_image_view('uploads/products', $img->product_id, $img->product_image_id, '100_' . $img->image, 'noimage.png', 'img-fluid');?>
+                                                    <?php echo multi_image_view('uploads/products', $img->product_id, $img->product_image_id, $img->image, 'noimage.png', 'img-fluid', '100', '100');?>
                                                     <a href="javascript:void(0)" onclick="removeImg(<?php echo $img->product_image_id;?>)" class="btn del-btn"><i class="fas fa-trash"></i> Delete</a>
                                                 </div>
                                             <?php } ?>

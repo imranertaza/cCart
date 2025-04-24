@@ -44,12 +44,10 @@
             </div>
         </div>
         <?php
-        $theme_settings                       = get_theme_settings();
-                                $modules      = modules_access();
-                                $symbol       = get_lebel_by_value_in_settings('currency_symbol');
-                                $img_size_198 = ($modules['watermark'] == '1') ? '198_wm_' : '198_';
-                                $img_size     = ($modules['watermark'] == '1') ? '191_wm_' : '191_';
-                                ?>
+        $theme_settings = get_theme_settings();
+        $modules        = modules_access();
+        $symbol         = get_lebel_by_value_in_settings('currency_symbol');
+        ?>
         <div class="product-category mb-5">
             <div class="card rounded-0 p-5">
                 <div class="card-header py-3 bg-white border-0">
@@ -150,7 +148,7 @@
                             <div class="products">
                                 <div class="row gx-0 row-cols-1 row-cols-sm-2 row-cols-md-3 h-100 " id="grid-view" >
                                     <?php if (!empty($products)) {
-                                        foreach ($products as $pro) { ?>
+                                    foreach ($products as $pro) { ?>
                                         <div class="col border p-2">
                                             <div class="product-grid h-100 d-flex align-items-stretch flex-column position-relative">
                                                 <?php if ($modules['wishlist'] == 1) { ?>
@@ -165,7 +163,8 @@
                                                 <?php } ?>
 
                                                 <div class="product-top">
-                                                    <?php echo image_view('uploads/products', $pro->product_id, $img_size . $pro->image, 'noimage.png', 'img-fluid w-100')?>
+                                                    <?php echo product_image_view('uploads/products', $pro->product_id, $pro->image, 'noimage.png', 'img-fluid w-100', '', '', '191', '191')?>
+
                                                     <div class="rating text-center my-2">
                                                         <?php echo product_id_by_rating($pro->product_id);?>
                                                     </div>
@@ -191,9 +190,9 @@
                                             </div>
                                         </div>
                                     <?php }
-                                        } else {
-                                            echo 'No product available';
-                                        } ?>
+                                } else {
+                                    echo 'No product available';
+                                } ?>
                                 </div>
 
 
@@ -213,7 +212,8 @@
                                                 <?php } ?>
 
                                                 <div class="product-top" style="width:40%;float:left; " >
-                                                    <?php echo image_view('uploads/products', $pro->product_id, $img_size_198 . $pro->image, 'noimage.png', 'img-fluid w-100')?>
+                                                    <?php echo product_image_view('uploads/products', $pro->product_id, $pro->image, 'noimage.png', 'img-fluid w-100', '', '', '253', '253')?>
+
 
                                                 </div>
 

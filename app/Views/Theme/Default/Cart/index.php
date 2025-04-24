@@ -6,10 +6,7 @@
                     <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
                 </div>
             </div>
-            <?php
-            $modules              = modules_access();
-                    $img_size_100 = ($modules['watermark'] == '1') ? '100_wm_' : '100_';
-                    ?>
+            <?php $modules = modules_access();  ?>
             <table class="cart-table w-100 text-center" >
                 <thead>
                 <tr>
@@ -30,7 +27,8 @@
                         <td class="product-thumbnail">
                             <a href="#">
                                 <?php $img = get_data_by_id('image', 'cc_products', 'product_id', $val['id']); ?>
-                                <?php echo image_view('uploads/products', $val['id'], $img_size_100 . $img, 'noimage.png', 'img-fluid')?>
+                                <?php echo product_image_view('uploads/products', $val['id'], $img, 'noimage.png', 'img-fluid', '', '', '100', '100')?>
+
                             </a>
                         </td>
                         <td class="product-name text-start">
@@ -88,10 +86,11 @@
                     </td>
                     <td style="text-align:left;">
                         <?php if (isset(newSession()->coupon_discount)) {
-                            $disc = round((Cart()->total() * newSession()->coupon_discount) / 100); ?>
+                        $disc = round((Cart()->total() * newSession()->coupon_discount) / 100); ?>
                         <span class=" fs-4"><?php echo currency_symbol(Cart()->total()) ?></span><br>
                         <span class=" fs-4"><?php echo currency_symbol($disc) ?></span><br>
-                        <?php } $total = (isset(newSession()->coupon_discount)) ? Cart()->total() - $disc : Cart()->total();?>
+                        <?php
+                    } $total = (isset(newSession()->coupon_discount)) ? Cart()->total() - $disc : Cart()->total();?>
                         <span class="fw-bold fs-4"><?php echo currency_symbol($total) ?></span>
                     </td>
                 </tr>

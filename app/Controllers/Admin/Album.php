@@ -38,7 +38,8 @@ class Album extends BaseController
             return redirect()->to(site_url('admin'));
         } else {
             $table         = DB()->table('cc_album');
-            $data['album'] = $table->get()->getResult();
+            $data['album'] = $table->orderBy('album_id', 'DESC')->get()->getResult();
+
 
 
             //$perm = array('create','read','update','delete','mod_access');
@@ -108,7 +109,7 @@ class Album extends BaseController
 
 
             //image size array
-            $this->imageProcessing->sizeArray = [ [ 'width' => '498', 'height' => '498', ], [ 'width' => '261', 'height' => '261', ], [ 'width' => '198', 'height' => '198', ], [ 'width' => '50', 'height' => '50', ], ];
+            $this->imageProcessing->sizeArray = [];
 
             if (!empty($_FILES['thumb']['name'])) {
                 $target_dir = FCPATH . '/uploads/album/' . $albumId . '/';
@@ -223,7 +224,8 @@ class Album extends BaseController
 
 
             //image size array
-            $this->imageProcessing->sizeArray = [ [ 'width' => '498', 'height' => '498', ], [ 'width' => '261', 'height' => '261', ], [ 'width' => '198', 'height' => '198', ], [ 'width' => '50', 'height' => '50', ], ];
+//            $this->imageProcessing->sizeArray = array( array( 'width'=>'498', 'height'=>'498', ),array( 'width'=>'261', 'height'=>'261', ), array( 'width'=>'198', 'height'=>'198', ),array( 'width'=>'50', 'height'=>'50', ),);
+            $this->imageProcessing->sizeArray = [];
 
             if (!empty($_FILES['thumb']['name'])) {
                 $target_dir = FCPATH . '/uploads/album/' . $album_id . '/';
@@ -273,7 +275,7 @@ class Album extends BaseController
 
     /**
      * @description This method provides album delete
-     * @param int $color_family_id
+     * @param int $album_id
      * @return RedirectResponse
      */
     public function delete($album_id)

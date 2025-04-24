@@ -1,17 +1,15 @@
-<section class="main-container" id="tableReload">
+<section class="main-container" id="tableReload2">
     <div class="container">
         <div class="cart">
             <div class="row">
                 <div class="col-md-12 ">
-                    <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message');
-                    endif;
-                    $modules  = modules_access();
-                    $img_size = ($modules['watermark'] == '1') ? '100_wm_' : '100_';
+                    <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message');endif;
+                    $modules = modules_access();
                     ?>
                 </div>
             </div>
             <div class="table-responsive">
-                <table class="cart-table w-100 text-center ">
+                <table class="cart-table w-100 text-center " >
                     <thead>
                         <tr>
                             <th>Delete</th>
@@ -33,7 +31,7 @@
                                 <td class="product-thumbnail mo-text-center">
                                     <a href="#">
                                         <?php $img = get_data_by_id('image', 'cc_products', 'product_id', $val['id']); ?>
-                                        <?php echo image_view('uploads/products', $val['id'], $img_size . $img, 'noimage.png', 'img-fluid') ?>
+                                        <?php echo product_image_view('uploads/products', $val['id'], $img, 'noimage.png', 'img-fluid', '', '', '100', '100') ?>
                                     </a>
                                 </td>
                                 <td class="product-name text-start mo-text-center">
@@ -93,10 +91,11 @@
                             </td>
                             <td class="mo-text-center mo-amount" style="text-align:left; width: 170px">
                                 <?php if (isset(newSession()->coupon_discount)) {
-                                    $disc = number_format((Cart()->total() * newSession()->coupon_discount) / 100, 2); ?>
+                        $disc = number_format((Cart()->total() * newSession()->coupon_discount) / 100, 2); ?>
                                     <span class=" fs-4"><?php echo currency_symbol_with_symbol(Cart()->total(), $symbol) ?></span><br>
                                     <span class=" fs-4"><?php echo currency_symbol($disc) ?></span><br>
-                                <?php }
+                                <?php
+                    }
                                 $total = (isset(newSession()->coupon_discount)) ? Cart()->total() - $disc : Cart()->total(); ?>
                                 <span class="fw-bold fs-4"><?php echo currency_symbol_with_symbol($total, $symbol) ?></span>
                             </td>

@@ -105,12 +105,12 @@ $(function() {
                     results: $.map(data, function(item) {
                         var img = '<img src="<?php echo base_url('uploads/products')?>/'+item.product_id+'/100_'+item.image+'" class="" loading="lazy" />' + item.name;
                         // var img = "<span ><img src='<?php echo base_url('uploads/products')?>/"+item.product_id+"/100_"+item.image+"' c/>" + item.name+"</span >";
-                        return {                            
+                        return {
                             text: item.name,
                             id: item.product_id,
-                            
+
                         }
-                        
+
                     })
                 };
             },

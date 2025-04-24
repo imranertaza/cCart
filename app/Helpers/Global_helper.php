@@ -3,6 +3,7 @@
 use App\Libraries\Permission;
 use CodeIgniter\Database\BaseConnection;
 use CodeIgniter\Session\Session;
+use Config\Services;
 
 /**
  * @description This function provides database connection
@@ -236,24 +237,26 @@ function image_view($url, $slug, $image, $no_image, $class = '', $id = '', $attr
  * @param string $class
  * @return string
  */
-function multi_image_view($url, $slug, $slug2, $image, $no_image, $class = '')
+function multi_image_view($url, $slug, $slug2, $image, $no_image, $class = '', $width = '', $height = '')
 {
-    $bas_url = base_url();
+    $modules  = modules_access();
+    $img_size = ($modules['watermark'] == '1') ? '600_wm_' : '';
+    $imgMain  = str_replace("pro_", "", $image);
 
     $dir = FCPATH . '/' . $url . '/' . $slug . '/' . $slug2;
-    $img = $bas_url . '/' . $url . '/' . $slug . '/' . $slug2 . '/' . $image;
 
 
-    $no_img = $bas_url . '/' . $url . '/' . $no_image;
+    $no_img = image_cache($url . '/', $no_image, $width, $height);
 
     if (!empty($image)) {
         if (!file_exists($dir)) {
             $result = '<img data-sizes="auto" src="' . $no_img . '" class="' . $class . '" loading="lazy">';
         } else {
-            $imgPath = $dir . '/' . $image;
+            $imgPath = $dir . '/' . $imgMain;
 
             if (file_exists($imgPath)) {
-                $result = '<img data-sizes="auto" src="' . $img . '" class="' . $class . '" loading="lazy">';
+                $imgFinal = image_cache($url . '/' . $slug . '/' . $slug2 . '/', $img_size . $imgMain, $width, $height);
+                $result   = '<img data-sizes="auto" src="' . $imgFinal . '" class="' . $class . '" loading="lazy">';
             } else {
                 $result = '<img data-sizes="auto" src="' . $no_img . '" class="' . $class . '" loading="lazy">';
             }
@@ -979,12 +982,12 @@ function order_email_template($orderId)
         $logo
     </a>
     <p style='margin-top:0px;margin-bottom:20px'>
-        Thank you for your interest in        
+        Thank you for your interest in
         <span class='il'> $titleStore </span> products. Your
         <span class='il'>order</span>
         has been received and will be processed once payment has been confirmed.
     </p>
-    
+
     <table style='border-collapse:collapse;width:100%;border-top:1px solid #dddddd;border-left:1px solid #dddddd;margin-bottom:20px'>
         <thead>
         <tr>
@@ -1151,7 +1154,7 @@ function success_email_template($title, $message, $url)
     $view   = '';
     $view .= "<div style='width:680px'>
             <style> .logo-css{ margin-top:20px;border:none; } </style>
-    <div style='width:100%;background-color: #FFC107; min-height:250px; text-align: center;'>        
+    <div style='width:100%;background-color: #FFC107; min-height:250px; text-align: center;'>
         $logo
         <h1 style='color:#000000; '>Welcome!</h1>
         <center><p style='background-color: #ffffff;color:#000000;width: 300px;font-size: 20px;padding: 5px; '>
@@ -1346,17 +1349,18 @@ function get_category_id_by_product_show_home_slide($category_id)
 {
     $table = DB()->table('cc_products');
     $table->join('cc_product_to_category', 'cc_product_to_category.product_id = cc_products.product_id')->where('cc_products.status', 'Active');
-    $result   = $table->where('cc_product_to_category.category_id', $category_id)->orderBy('cc_products.product_id', 'DESC')->limit(20)->get()->getResult();
-    $modules  = modules_access();
-    $symbol   = get_lebel_by_value_in_settings('currency_symbol');
-    $img_size = ($modules['watermark'] == '1') ? '191_wm_' : '191_';
-    $view     = '';
-    $count    = 0;
+
+    $result  = $table->where('cc_product_to_category.category_id', $category_id)->orderBy('cc_products.product_id', 'DESC')->limit(20)->get()->getResult();
+    $modules = modules_access();
+    $symbol  = get_lebel_by_value_in_settings('currency_symbol');
+    $view    = '';
+    $count   = 0;
 
     foreach ($result as $pro) {
         if ($count % 2 == 0) {
             $view .= '<div class="swiper-slide">' . "\n";
         }
+
         $view .= '<div class="border p-3 product-grid h-100 d-flex align-items-stretch flex-column position-relative">
             <div class="product-grid position-relative">';
 
@@ -1379,7 +1383,7 @@ function get_category_id_by_product_show_home_slide($category_id)
         }
 
         $view .= '<div class="product-top mb-2">
-                    ' . image_view('uploads/products', $pro->product_id, $img_size . $pro->image, 'noimage.png', 'img-fluid w-100') . '                    
+                    ' . product_image_view("uploads/products", $pro->product_id, $pro->image, "noimage.png", "img-fluid w-100 ", "", "", "132", "132") . '
                 </div>
                 <div class="product-bottom mt-auto">
                     <div class="product-title product_title_area mb-2">
@@ -1388,7 +1392,7 @@ function get_category_id_by_product_show_home_slide($category_id)
                     <div class="price mb-2">' . currency_symbol_with_symbol($pro->price, $symbol) . '</div>';
 
         $view .= addToCartBtn($pro->product_id);
-        $view .= '</div>                                            
+        $view .= '</div>
             </div>  ';
         $view .= '</div>' . "\n";
 
@@ -1569,4 +1573,100 @@ function get_blog_category_name_by_id($cate_id)
     $cat   = $table->where('cat_id', $cate_id)->get()->getRow();
 
     return $cat->category_name;
+}
+
+/*
+ * @description This function provides image cache and return image.
+ */
+function image_cache($path, $imageName, $width, $height)
+{
+    $imageUrl = $path . $imageName;
+    $cache    = Services::cache(); // Get cache service
+    $cacheKey = 'image_' . md5($imageName . $width . $height); // Unique key for the image
+
+    // Check if image is already cached
+    $imagePath = $cache->get($cacheKey);
+
+    if (!$imagePath) {
+        // Image is not in cache, so generate it
+        $imagePath = WRITEPATH . 'cache/generated_image_' . md5(time()) . '.jpg'; // Cache path
+
+        // Load the image library
+        $img = \Config\Services::image();
+
+        // Create a simple image (e.g., image with text)
+        $img->withFile($imageUrl)
+            ->fit($width, $height, 'center')
+            ->save($imagePath);
+
+        // Save the image path to the cache
+        $cache->save($cacheKey, file_get_contents($imagePath), 86400); // Cache for 1 day (86400 seconds) 1 hour (3600 seconds)
+        unlink($imagePath);
+    }
+
+    // Serve the image
+    //return $this->response->setHeader('Content-Type', 'image/png')->setBody($cache->get($cacheKey));
+
+    $base64Image = base64_encode($cache->get($cacheKey));
+
+    return 'data:image/png;base64,' . $base64Image;
+}
+
+function product_image_view($url, $slug, $image, $no_image, $class = '', $id = '', $attr = '', $width = '', $height = "")
+{
+    $modules  = modules_access();
+    $img_size = ($modules['watermark'] == '1') ? '600_wm_' : '';
+    $imgMain  = str_replace("pro_", "", $image);
+
+    $dir = FCPATH . '/' . $url . '/' . $slug;
+
+    $no_img = image_cache($url . '/', $no_image, $width, $height);
+
+    if (!empty($image)) {
+        if (!file_exists($dir)) {
+            $result = '<img data-sizes="auto" id="' . $id . '" src="' . $no_img . '" class="' . $class . '" loading="lazy">';
+        } else {
+            $imgPath = $dir . '/' . $imgMain;
+
+            if (file_exists($imgPath)) {
+                $imgFinal = image_cache($url . '/' . $slug . '/', $img_size . $imgMain, $width, $height);
+                $result   = '<img data-sizes="auto" ' . $attr . ' id="' . $id . '" src="' . $imgFinal . '" class="' . $class . '" loading="lazy">';
+            } else {
+                $result = '<img data-sizes="auto" id="' . $id . '" src="' . $no_img . '" class="' . $class . '" loading="lazy">';
+            }
+        }
+    } else {
+        $result = '<img data-sizes="auto" id="' . $id . '" src="' . $no_img . '" class="' . $class . '" loading="lazy">';
+    }
+
+    return $result;
+}
+
+function common_image_view($url, $slug, $image, $no_image, $class = '', $id = '', $width = '', $height = "")
+{
+    $modules = modules_access();
+    $imgMain = str_replace("pro_", "", $image);
+
+    $dir = FCPATH . '/' . $url . '/' . $slug;
+
+    $no_img = image_cache($url . '/', $no_image, $width, $height);
+
+    if (!empty($image)) {
+        if (!file_exists($dir)) {
+            $result = '<img data-sizes="auto" id="' . $id . '" src="' . $no_img . '" class="' . $class . '" loading="lazy">';
+        } else {
+            $imgPath = $dir . '/' . $imgMain;
+
+            if (file_exists($imgPath)) {
+                $imgFinal = image_cache($url . '/' . $slug . '/', $imgMain, $width, $height);
+                $result   = '<img data-sizes="auto"  id="' . $id . '" src="' . $imgFinal . '" class="' . $class . '" loading="lazy">';
+            } else {
+                $result = '<img data-sizes="auto" id="' . $id . '" src="' . $no_img . '" class="' . $class . '" loading="lazy">';
+            }
+        }
+    } else {
+        $result = '<img data-sizes="auto" id="' . $id . '" src="' . $no_img . '" class="' . $class . '" loading="lazy">';
+    }
+
+    return $result;
 }

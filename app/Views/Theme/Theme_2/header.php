@@ -132,7 +132,8 @@
                         <div class="logo text-center text-md-start">
                             <a href="<?php echo base_url() ?>">
                                 <?php $logoImg = get_lebel_by_value_in_theme_settings('side_logo');
-    echo image_view('uploads/logo', '', $logoImg, 'noimage.png', 'img-fluid side_logo'); ?>
+                                echo common_image_view('uploads/logo', '', $logoImg, 'noimage.png', 'img-fluid side_logo', '', '253', '68'); ?>
+
                             </a>
                         </div>
                     </div>
@@ -146,11 +147,12 @@
                                     <select name="cat" id="first-cat" class="form-select rounded-0">
                                         <option value="">All Categories</option>
                                         <?php foreach (getParentCategoryArray() as $catTop) {
-                                            $tCat =  isset($top_category) ? $top_category : ''; ?>
+                                    $tCat =  isset($top_category) ? $top_category : ''; ?>
                                         <option value="<?php echo $catTop->prod_cat_id; ?>"
                                             <?php echo ($tCat == $catTop->prod_cat_id) ? 'selected' : ''; ?>>
                                             <?php echo $catTop->category_name; ?></option>
-                                        <?php } ?>
+                                        <?php
+                                } ?>
                                     </select>
                                 </div>
                                 <input type="text" class="form-control" id="first-keywordTop" name="keywordTop"
@@ -321,11 +323,12 @@
                                         <select name="cat" id="second-cat" class="form-select rounded-0">
                                             <option value="">All Categories</option>
                                             <?php foreach (getParentCategoryArray() as $catTop) {
-                                                $tCat =  isset($top_category) ? $top_category : ''; ?>
+        $tCat =  isset($top_category) ? $top_category : ''; ?>
                                             <option value="<?php echo $catTop->prod_cat_id; ?>"
                                                 <?php echo ($tCat == $catTop->prod_cat_id) ? 'selected' : ''; ?>>
                                                 <?php echo $catTop->category_name; ?></option>
-                                            <?php } ?>
+                                            <?php
+    } ?>
                                         </select>
                                     </div>
                                     <input type="text" class="form-control" id="second-keywordTop" name="keywordTop"

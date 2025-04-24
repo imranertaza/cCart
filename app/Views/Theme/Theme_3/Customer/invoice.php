@@ -6,9 +6,7 @@
                     <div class="d-flex justify-content-between">
                         <div class="logo">
                             <?php $logoImg = get_lebel_by_value_in_theme_settings('side_logo');
-                            echo image_view('uploads/logo', '', $logoImg, 'noimage.png', 'img-fluid');
-                            $modules  = modules_access();
-                            $img_size = ($modules['watermark'] == '1') ? '100_wm_' : '100_';
+                            echo common_image_view('uploads/logo', '', $logoImg, 'noimage.png', 'img-fluid', '', '268', '72');
                             ?>
                         </div>
                         <div class="address">
@@ -84,8 +82,9 @@
                                         <div class="img-table" style="width:12%; float:left;">
                                         <?php
                                         $img = get_data_by_id('image', 'cc_products', 'product_id', $item->product_id);
-                                echo image_view('uploads/products', $item->product_id, $img_size . $img, 'noimage.png', '');
-                                ?>
+                                        echo product_image_view('uploads/products', $item->product_id, $img, 'noimage.png', '', '', '', '82', '82');
+                                        ?>
+
                                         </div>
                                         <div class="img-text" style="width:88%;float:left;">
                                         <?php echo get_data_by_id('name', 'cc_products', 'product_id', $item->product_id) ;?>
@@ -105,7 +104,7 @@
                                             <label class="btn btn-outline-secondary"  style="<?php echo $style;?> border-radius: unset; margin-left:8px; " ><?php echo !empty($isColor) ? $op->value : '';?></label>
 
                                         <?php }
-                                    } ?>
+                                } ?>
 
                                         </div>
                                     </td>

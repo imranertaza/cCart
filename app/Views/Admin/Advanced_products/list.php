@@ -34,13 +34,13 @@
                             <a href="<?php echo base_url('admin/product_create') ?>" class="btn btn-primary  btn-xs float-right "><i class="fas fa-plus"></i> Add</a>
                             <a class="btn btn-xs btn-info float-right mr-2" data-toggle="collapse" href="#collapseProduct" role="button" aria-expanded="false" aria-controls="collapseProduct">Settings</a>
                             <form id="multiActionForm" action="<?= base_url('admin/bulk_product_multi_option_edit')?>" method="post">
-                                <?php if($modules['multi_option'] == '1') { ?>
+                                <?php if ($modules['multi_option'] == '1') { ?>
                                     <button type="submit"  class="btn btn-primary btn-xs float-right mr-2"><i class="fas fa-edit"></i> Multi option edit</button>
                                 <?php } ?>
-                                <?php if($modules['multi_attribute'] == '1') { ?>
+                                <?php if ($modules['multi_attribute'] == '1') { ?>
                                     <button type="submit" formaction="<?= base_url('admin/bulk_product_multi_attribute_edit'); ?>" class="btn btn-info btn-xs float-right mr-2"><i class="fas fa-edit"></i> Multi attribute edit</button>
                                 <?php } ?>
-                                <?php if($modules['multi_category'] == '1') { ?>
+                                <?php if ($modules['multi_category'] == '1') { ?>
                                     <button type="submit" formaction="<?= base_url('admin/bulk_multi_category_edit'); ?>" class="btn btn-success btn-xs float-right mr-2"><i class="fas fa-edit"></i> Multi category edit</button>
                                 <?php } ?>
                             </form>
@@ -195,7 +195,8 @@
                                         <input type="checkbox" name="productId[]" value="<?php echo $val->product_id;?>" form="multiActionForm" >
                                     </td>
                                     <td class="colum_id row_show "> <?php echo $val->product_id; ?></td>
-                                    <td class="colum_image row_show "> <?php echo image_view('uploads/products', $val->product_id, '50_' . $val->image, '50_noimage.png', '');?></td>
+                                    <td class="colum_image row_show "> <?php echo product_image_view('uploads/products', $val->product_id, $val->image, '50_noimage.png', '', '', '', '50', '50');?></td>
+
                                     <td class="colum_name row_show ">
                                         <p  onclick="updateFunction('<?php echo $val->product_id; ?>','name','<?php echo $val->name; ?>','view_name_<?php echo $val->product_id; ?>','bulkForm_name_<?php echo $val->product_id; ?>','update_<?php echo $val->product_id?>')">
                                             <?php echo !empty($val->name) ? $val->name : '<i style="color: #ccc;">NULL</i>'; ?></p>

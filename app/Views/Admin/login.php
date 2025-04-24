@@ -36,8 +36,8 @@
                     <div class="input-group mb-3">
                         <input type="email" name="email" class="form-control" placeholder="Email"
                             value="<?php if (isset($_COOKIE['login_email'])) {
-                                echo $_COOKIE['login_email'];
-                            } ?>"
+        echo $_COOKIE['login_email'];
+    } ?>"
                             required>
                         <div class="input-group-append">
                             <div class="input-group-text">
@@ -48,8 +48,8 @@
                     <div class="input-group mb-3">
                         <input type="password" name="password" class="form-control" placeholder="Password"
                             value="<?php if (isset($_COOKIE['login_password'])) {
-                                echo $_COOKIE['login_password'];
-                            } ?>"
+        echo $_COOKIE['login_password'];
+    } ?>"
                             required>
                         <div class="input-group-append">
                             <div class="input-group-text">
@@ -62,8 +62,8 @@
                             <div class="icheck-primary">
                                 <input type="checkbox" name="remember" id="remember"
                                     <?php if (isset($_COOKIE['login_email'])) {
-                                        echo 'checked';
-                                    } ?>>
+        echo 'checked';
+    } ?>>
                                 <label for="remember">
                                     Remember Me
                                 </label>

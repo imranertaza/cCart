@@ -102,7 +102,8 @@
                         <option value="<?php echo $val->prod_cat_id; ?>"
                             <?php echo ($val->prod_cat_id == $catSel) ? 'selected' : ''; ?>><?php echo display_category_with_parent($val->prod_cat_id); ?>
                         </option>
-                    <?php } ?>
+                    <?php
+        } ?>
                 </select>
                 <input type="hidden" name="label" value="hot_deals_category" required>
             </div>
@@ -124,7 +125,8 @@
                         <option value="<?php echo $val->prod_cat_id; ?>"
                             <?php echo ($val->prod_cat_id == $catSel) ? 'selected' : ''; ?>><?php echo display_category_with_parent($val->prod_cat_id); ?>
                         </option>
-                    <?php } ?>
+                    <?php
+        } ?>
                 </select>
                 <input type="hidden" name="label" value="trending_collection_category" required>
             </div>
@@ -146,7 +148,8 @@
                         <option value="<?php echo $val->prod_cat_id; ?>"
                             <?php echo ($val->prod_cat_id == $catSel) ? 'selected' : ''; ?>><?php echo display_category_with_parent($val->prod_cat_id); ?>
                         </option>
-                    <?php } ?>
+                    <?php
+        } ?>
                 </select>
                 <input type="hidden" name="label" value="special_category_one" required>
             </div>
@@ -167,7 +170,8 @@
                         <option value="<?php echo $val->prod_cat_id; ?>"
                             <?php echo ($val->prod_cat_id == $catSel) ? 'selected' : ''; ?>><?php echo display_category_with_parent($val->prod_cat_id); ?>
                         </option>
-                    <?php } ?>
+                    <?php
+        } ?>
                 </select>
                 <input type="hidden" name="label" value="special_category_two" required>
             </div>
@@ -188,7 +192,8 @@
                         <option value="<?php echo $val->prod_cat_id; ?>"
                             <?php echo ($val->prod_cat_id == $catSel) ? 'selected' : ''; ?>><?php echo display_category_with_parent($val->prod_cat_id); ?>
                         </option>
-                    <?php } ?>
+                    <?php
+        } ?>
                 </select>
                 <input type="hidden" name="label" value="special_category_three" required>
             </div>

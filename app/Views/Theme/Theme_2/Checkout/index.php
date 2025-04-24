@@ -261,16 +261,16 @@
                         <?php
         $modules      = modules_access();
         $symbol       = get_lebel_by_value_in_settings('currency_symbol');
-        $img_size_100 = ($modules['watermark'] == '1') ? '100_wm_' : '100_';
         ?>
                         <?php foreach (Cart()->contents() as $val) { ?>
                         <div class="list-item d-flex gap-2 mb-2">
                             <div class="d-flex gap-2 bg-gray p-2 rounded-2 pro-bg-check">
                                 <?php
-                    $img         = get_data_by_id('image', 'cc_products', 'product_id', $val['id']);
-                            $des = get_data_by_id('description', 'cc_product_description', 'product_id', $val['id']);
-                            ?>
-                                <?php echo image_view('uploads/products', $val['id'], $img_size_100 . $img, 'noimage.png', 'img-fluid w-h-100') ?>
+                                    $img = get_data_by_id('image', 'cc_products', 'product_id', $val['id']);
+                                    $des = get_data_by_id('description', 'cc_product_description', 'product_id', $val['id']);
+                                    ?>
+                                <?php echo product_image_view('uploads/products', $val['id'], $img, 'noimage.png', 'img-fluid w-h-100', '', '', '100', '100') ?>
+
                                 <div>
                                     <p class="fw-semibold mb-2"><?php echo $val['name']; ?></p>
                                     <p class="lh-sm">
@@ -319,9 +319,10 @@
         if (isset(newSession()->coupon_discount)) {
             $disc = round((Cart()->total() * newSession()->coupon_discount) / 100); ?>
                                 <span><?php echo currency_symbol_with_symbol($disc, $symbol) ?></span>
-                                <?php } else {
-                                    echo '<span>' . currency_symbol_with_symbol($disc, $symbol) . '</span>';
-                                }
+                                <?php
+        } else {
+            echo '<span>' . currency_symbol_with_symbol($disc, $symbol) . '</span>';
+        }
         $total = (isset(newSession()->coupon_discount)) ? number_format(Cart()->total() - $disc, 2) : Cart()->total(); ?>
                             </div>
                         </div>
@@ -385,7 +386,7 @@
 
                             <div class="d-flex flex-column">
                                 <?php foreach (get_all_data_array('cc_shipping_method') as $ship) {
-                                    if ($ship->status == '1') { ?>
+            if ($ship->status == '1') { ?>
                                 <div class="d-flex justify-content-between mt-3">
                                     <div class="form-check"><label class="form-check-label"><input
                                                 class="form-check-input" type="radio" name="shipping_method"
@@ -394,7 +395,7 @@
                                             <?php echo $ship->name; ?></label></div>
                                 </div>
                                 <?php }
-                                    } ?>
+        } ?>
                             </div>
 
                             <div class="d-flex justify-content-between mt-3">
@@ -431,7 +432,7 @@
                     </div>
                     <div class="payment-method group-check mb-4 pb-4">
                         <?php foreach (get_all_data_array('cc_payment_method') as $pay) {
-                            if ($pay->status == '1') { ?>
+            if ($pay->status == '1') { ?>
                         <div class="d-flex justify-content-between mt-3">
                             <div class="form-check"><label class="form-check-label"><input class="form-check-input"
                                         onclick="instruction_view(this.value,'<?php echo $pay->code; ?>'),cardForm('<?php echo $pay->code; ?>')"
@@ -441,7 +442,7 @@
                                 </label></div>
                         </div>
                         <?php }
-                            } ?>
+        } ?>
 
                     </div>
 

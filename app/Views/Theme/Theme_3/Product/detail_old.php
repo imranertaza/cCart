@@ -170,7 +170,7 @@
                             <div class="option mt-3">
                                 <table class="table table-responsive table-borderless" style="margin-bottom: unset;">
                                     <?php foreach (attribute_array_by_product_id($products->product_id) as $key => $spec) {
-                                        if ($key == 0) {  ?>
+                                                if ($key == 0) {  ?>
                                     <tr>
                                         <td width="110">
                                             <b><?php echo get_data_by_id('name', 'cc_product_attribute_group', 'attribute_group_id', $spec->attribute_group_id); ?>
@@ -179,11 +179,11 @@
                                         <td><?php echo $spec->name; ?> <span id="dots"></span></td>
                                     </tr>
                                     <?php  }
-                                    }?>
+                                            }?>
                                 </table>
                                 <table class="table table-responsive table-borderless" id="more" style="display: none">
                                     <?php foreach (attribute_array_by_product_id($products->product_id) as $key => $spec) {
-                                        if ($key != 0) {  ?>
+                                                if ($key != 0) {  ?>
                                     <tr>
                                         <td width="110">
                                             <b><?php echo get_data_by_id('name', 'cc_product_attribute_group', 'attribute_group_id', $spec->attribute_group_id); ?>
@@ -192,7 +192,7 @@
                                         <td><?php echo $spec->name; ?></td>
                                     </tr>
                                     <?php  }
-                                    }?>
+                                            }?>
                                 </table>
                                 <a href="javascript:void(0)" class="btn-see" onclick="myFunction()" id="myBtn">See more
                                 </a>
@@ -441,7 +441,7 @@
                             <form action="<?php echo base_url('review') ?>" method="post" class="product-review w-50">
                                 <p class="mb-4 mt-2"><strong>Your Rating</strong></p>
                                 <?php if (isset(newSession()->isLoggedInCustomer)) {
-                                    if (empty(check_review($products->product_id))) { ?>
+                                                if (empty(check_review($products->product_id))) { ?>
                                 <div class="rating ">
                                     <div class="ratingPiont"></div>
                                 </div>
@@ -454,9 +454,9 @@
                                 <button class="btn rounded-0 mt-3 px-4 py-2" type="submit">Submit Review
                                 </button>
                                 <?php } else {
-                                    echo '<p>Already Reviewed</p>';
-                                }
-                                } else { ?>
+                                                    echo '<p>Already Reviewed</p>';
+                                                }
+                                            } else { ?>
                                 <a href="<?php echo base_url('login') ?>">Please login to continue</a>
                                 <?php } ?>
                             </form>
@@ -582,7 +582,7 @@
                     <div class="products h-100">
                         <div class="row gx-0 row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-5 h-100 mo-text-center">
                             <?php if (!empty($relProd)) {
-                                foreach ($relProd as $rPro) { ?>
+                foreach ($relProd as $rPro) { ?>
                             <div class="col border p-2">
                                 <div
                                     class=" product-grid h-100 d-flex align-items-stretch flex-column position-relative">
@@ -637,7 +637,7 @@
                                 </div>
                             </div>
                             <?php }
-                                } ?>
+            } ?>
                         </div>
                     </div>
                 </div>
@@ -679,7 +679,7 @@
                     <div class="products h-100">
                         <div class="row gx-0 row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-5 h-100 mo-text-center">
                             <?php if (!empty($relProd)) {
-                                foreach ($relProd as $rPro) { ?>
+                foreach ($relProd as $rPro) { ?>
                             <div class="col border p-2">
                                 <div
                                     class=" product-grid h-100 d-flex align-items-stretch flex-column position-relative">
@@ -733,7 +733,7 @@
                                 </div>
                             </div>
                             <?php }
-                                } ?>
+            } ?>
 
                         </div>
                     </div>

@@ -46,14 +46,12 @@
                     <div class="products cat-pro-mob">
                         <div class="row gx-0 row-cols-1 row-cols-sm-2 row-cols-md-3 h-100 " id="grid-view" >
                             <?php
-                                $modules = modules_access();
-            $symbol                      = get_lebel_by_value_in_settings('currency_symbol');
-            $img_size                    = ($modules['watermark'] == '1') ? '191_wm_' : '191_';
-            $img_size2                   = ($modules['watermark'] == '1') ? '198_wm_' : '198_';
+                                $modules = modules_access(); $symbol = get_lebel_by_value_in_settings('currency_symbol');
 
-            if (!empty($products)) {
-                foreach ($products as $pro) {
-                    ?>
+                                if (!empty($products)) {
+                                    foreach ($products as $pro) {
+                                        ?>
+
                                 <div class="col border p-2">
                                     <div class="product-grid h-100 d-flex align-items-stretch flex-column position-relative">
                                         <?php if ($modules['wishlist'] == 1) { ?>
@@ -76,32 +74,34 @@
                                         <?php } ?>
 
                                         <div class="product-top text-center">
-                                            <a href="<?php echo base_url('detail/' . $pro->product_id)?>"><?php echo image_view('uploads/products', $pro->product_id, $img_size . $pro->image, 'noimage.png', 'img-fluid ')?></a>
+                                            <a href="<?php echo base_url('detail/' . $pro->product_id)?>"><?php echo product_image_view('uploads/products', $pro->product_id, $pro->image, 'noimage.png', 'img-fluid ', '', '', '191', '191'); ?></a>
+
                                             <div class="rating text-center my-2">
-                                                <?php echo product_id_by_rating($pro->product_id);?>
+                                                <?php echo product_id_by_rating($pro->product_id); ?>
                                             </div>
                                         </div>
                                         <div class="product-bottom mt-auto">
                                             <div class="product-title mb-2">
-                                                <a href="<?php echo base_url('detail/' . $pro->product_id)?>"><?php echo substr($pro->name, 0, 60);?></a>
+                                                <a href="<?php echo base_url('detail/' . $pro->product_id)?>"><?php echo substr($pro->name, 0, 60); ?></a>
                                             </div>
                                             <div class="price mb-3">
                                                 <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id);
 
-                    if (empty($spPric)) { ?>
+                                        if (empty($spPric)) { ?>
                                                     <?php echo currency_symbol_with_symbol($pro->price, $symbol);?>
                                                 <?php } else { ?>
                                                     <small class="off-price" > <del><?php echo currency_symbol_with_symbol($pro->price, $symbol);?></del></small> <?php echo currency_symbol_with_symbol($spPric, $symbol);?>
                                                 <?php } ?>
                                             </div>
-                                            <?php echo addToCartBtn($pro->product_id);?>
+                                            <?php echo addToCartBtn($pro->product_id); ?>
                                         </div>
                                     </div>
                                 </div>
-                            <?php }
-                } else {
-                    echo 'No product available';
-                } ?>
+                            <?php
+                                    }
+                                } else {
+                                    echo 'No product available';
+                                } ?>
                         </div>
 
 
@@ -133,7 +133,8 @@
                                         <?php } ?>
 
                                         <div class="product-top text-center" style="width:40%;float:left; " >
-                                            <a href="<?php echo base_url('detail/' . $pro->product_id)?>"><?php echo image_view('uploads/products', $pro->product_id, $img_size2 . $pro->image, 'noimage.png', 'img-fluid ')?></a>
+                                            <a href="<?php echo base_url('detail/' . $pro->product_id)?>"><?php echo product_image_view('uploads/products', $pro->product_id, $pro->image, 'noimage.png', 'img-fluid ', '', '', '198', '198');?></a>
+
                                         </div>
 
 
@@ -186,10 +187,11 @@ $sSel = !empty($searchPrice) ? 'form="searchForm"' : '';
                         if (!empty($par_id)) {
                             $url = base_url('category/' . $par_id);
                             echo '<a href="' . $url . '">' . get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $par_id) . '</a> <i class="fa-solid fa-angle-right"></i>';
-                        } $url2 = base_url('category/' . $prod_cat_id);
-                        ?> <a href="<?php echo $url2;?>" ><?php echo get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $prod_cat_id);?> </a><?php } else {
-                            echo 'Search Result';
-                        } ?></span>
+                        }
+                        $url2 = base_url('category/' . $prod_cat_id); ?> <a href="<?php echo $url2; ?>" ><?php echo get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $prod_cat_id); ?> </a><?php
+                    } else {
+                        echo 'Search Result';
+                    } ?></span>
                                 </div>
                                     <div class="card p-3 rounded-0 ">
                                     <?php if (empty($keywordSearch)) { ?>
@@ -217,7 +219,7 @@ $sSel = !empty($searchPrice) ? 'form="searchForm"' : '';
                                                         <?php } ?>
                                                     </ul>
                                                     <?php } else {
-                                                        if (!empty($main_Cat)) {?>
+                                                    if (!empty($main_Cat)) {?>
                                                     <p class="mb-2">Category</p>
                                                     <ul class="lh-lg text-capitalize">
                                                         <?php  foreach ($main_Cat as $cat) { ?>
@@ -226,7 +228,7 @@ $sSel = !empty($searchPrice) ? 'form="searchForm"' : '';
                                                     </ul>
 
                                             <?php }
-                                                        }?>
+                                                }?>
                                         </div>
                                     <?php } ?>
                                     <?php if (!empty($productsArr)) { ?>
@@ -245,8 +247,8 @@ $sSel = !empty($searchPrice) ? 'form="searchForm"' : '';
                                        <?php echo $brandView;?>
 
                                         <?php if ($modules['review'] == '1') {
-                                            echo $ratingView;
-                                        }?>
+                                                    echo $ratingView;
+                                                }?>
 
                                     </div>
                                 </div>`;
@@ -272,10 +274,11 @@ $sSel = !empty($searchPrice) ? 'form="searchForm"' : '';
             if (!empty($par_id)) {
                 $url = base_url('category/' . $par_id);
                 echo '<a href="' . $url . '">' . get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $par_id) . '</a> <i class="fa-solid fa-angle-right"></i>';
-            } $url2 = base_url('category/' . $prod_cat_id);
-            ?> <a href="<?php echo $url2;?>" ><?php echo get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $prod_cat_id);?> </a><?php } else {
-                echo 'Search Result';
-            } ?></span>
+            }
+            $url2 = base_url('category/' . $prod_cat_id); ?> <a href="<?php echo $url2; ?>" ><?php echo get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $prod_cat_id); ?> </a><?php
+        } else {
+            echo 'Search Result';
+        } ?></span>
                                         </div>
                                         <div class="card p-3 rounded-0 ">
                                         <?php if (empty($keywordSearch)) { ?>
@@ -303,7 +306,7 @@ $sSel = !empty($searchPrice) ? 'form="searchForm"' : '';
                                                     <?php } ?>
                                                 </ul>
                                                 <?php } else {
-                                                    if (!empty($main_Cat)) {?>
+                                                        if (!empty($main_Cat)) {?>
                                                     <p class="mb-2">Category</p>
                                                     <ul class="lh-lg text-capitalize">
                                                         <?php  foreach ($main_Cat as $cat) { ?>
@@ -331,8 +334,8 @@ $sSel = !empty($searchPrice) ? 'form="searchForm"' : '';
                                         <?php echo $brandView;?>
 
                                         <?php if ($modules['review'] == '1') {
-                                            echo $ratingView;
-                                        }?>
+                                                        echo $ratingView;
+                                                    }?>
                                         </div>
                                     </div>
                                 </div>

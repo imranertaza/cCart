@@ -640,8 +640,7 @@
                                 <?php
                         foreach ($populerCat as $key => $catPop) {
                             $icon_id = get_data_by_id('icon_id', 'cc_product_category', 'prod_cat_id', $catPop->prod_cat_id);
-                            $icon    = get_data_by_id('code', 'cc_icons', 'icon_id', $icon_id);
-                            ?>
+                            $icon    = get_data_by_id('code', 'cc_icons', 'icon_id', $icon_id); ?>
                                     <div class="swiper-slide">
                                         <div class="products  <?php echo ($key == '0') ? 'active' : ''; ?> p-md-4  text-center">
                                             <div class="ic-pp text-center position-relative p-2 p-md-4 ">
@@ -666,7 +665,8 @@
 
                                         </div>
                                     </div>
-                                <?php } ?>
+                                <?php
+                        } ?>
                             </div>
                         </div>
 
@@ -679,8 +679,7 @@
                             <?php
                             foreach ($populerCat as $catPop) {
                                 $icon_id = get_data_by_id('icon_id', 'cc_product_category', 'prod_cat_id', $catPop->prod_cat_id);
-                                $icon    = get_data_by_id('code', 'cc_icons', 'icon_id', $icon_id);
-                                ?>
+                                $icon    = get_data_by_id('code', 'cc_icons', 'icon_id', $icon_id); ?>
                                 <div class="col p-2 p-md-3 border position-relative">
                                     <a href="<?php echo base_url('category/' . $catPop->prod_cat_id); ?>">
                                         <span class="icon-cat-main"><?php echo $icon; ?></span>
@@ -691,7 +690,8 @@
                                         </h5>
                                     </a>
                                 </div>
-                            <?php } ?>
+                            <?php
+                            } ?>
 
                         </div>
                     </div>

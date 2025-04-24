@@ -6,12 +6,8 @@
                     <div class="d-flex justify-content-between">
                         <div class="logo">
                             <?php $logoImg = get_lebel_by_value_in_theme_settings('side_logo');
-                            echo image_view('uploads/logo', '', $logoImg, 'noimage.png', 'img-fluid');?>
+                            echo common_image_view('uploads/logo', '', $logoImg, 'noimage.png', 'img-fluid', '', '268', '72');?>
                         </div>
-                        <?php
-                        $modules          = modules_access();
-                            $img_size_100 = ($modules['watermark'] == '1') ? '100_wm_' : '100_';
-                            ?>
                         <div class="address">
                             <div class="icon float-start">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="20" viewBox="0 0 16 20" fill="none">
@@ -82,9 +78,10 @@
                                     <td width="700">
                                         <div class="img-table" style="width:12%; float:left;">
                                         <?php
-                                            $img = get_data_by_id('image', 'cc_products', 'product_id', $item->product_id);
-                                echo image_view('uploads/products', $item->product_id, $img_size_100 . $img, 'noimage.png', '');
-                                ?>
+                                        $img = get_data_by_id('image', 'cc_products', 'product_id', $item->product_id);
+                                        echo product_image_view('uploads/products', $item->product_id, $img, 'noimage.png', '', '', '', '100', '100');
+                                        ?>
+
                                         </div>
                                         <div class="img-text" style="width:88%;float:left;">
                                         <?php echo get_data_by_id('name', 'cc_products', 'product_id', $item->product_id) ;?>
@@ -104,7 +101,7 @@
                                             <label class="btn btn-outline-secondary"  style="<?php echo $style;?> border-radius: unset; margin-left:8px; " ><?php echo !empty($isColor) ? $op->value : '';?></label>
 
                                         <?php }
-                                    } ?>
+                                } ?>
 
                                         </div>
                                     </td>

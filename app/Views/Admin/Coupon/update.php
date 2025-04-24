@@ -64,8 +64,8 @@
                                 <?php foreach ($shipping_method as  $val) { ?>
                                     <div class="form-group form-check">
                                         <input type="checkbox" name="shipping_method[]" <?php foreach ($coupon_ship as $v) {
-                                            echo ($v->shipping_method_id == $val->shipping_method_id) ? 'checked' : '';
-                                        } ?>  class="form-check-input" id="check_<?php echo $val->shipping_method_id;?>" value="<?php echo $val->shipping_method_id;?>">
+    echo ($v->shipping_method_id == $val->shipping_method_id) ? 'checked' : '';
+} ?>  class="form-check-input" id="check_<?php echo $val->shipping_method_id;?>" value="<?php echo $val->shipping_method_id;?>">
                                         <label class="form-check-label" for="check_<?php echo $val->shipping_method_id;?>"><?php echo $val->name;?></label>
                                     </div>
                                 <?php } ?>

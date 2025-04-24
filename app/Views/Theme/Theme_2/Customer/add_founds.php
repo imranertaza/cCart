@@ -21,8 +21,8 @@
 
                             <div class="payment-method group-check mb-4 pb-4 mt-3">
                                 <?php foreach (get_all_data_array('cc_payment_method') as $pay) {
-                                    if ($pay->status == '1') {
-                                        if(($pay->code != 'cash_on') && ($pay->code != 'paypal') && ($pay->code != 'u_wallet')) { ?>
+                            if ($pay->status == '1') {
+                                if (($pay->code != 'cash_on') && ($pay->code != 'paypal') && ($pay->code != 'u_wallet')) { ?>
                                 <div class="d-flex justify-content-between mt-3">
                                     <div class="form-check"><label class="form-check-label"><input
                                                 class="form-check-input"
@@ -33,8 +33,8 @@
                                         </label></div>
                                 </div>
                                 <?php }
-                                        }
-                                } ?>
+                            }
+                        } ?>
 
                             </div>
 

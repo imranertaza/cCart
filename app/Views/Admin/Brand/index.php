@@ -54,7 +54,8 @@ foreach ($brand as $val) { ?>
                         <tr>
                             <td width="40"><?php echo $i++;?></td>
                             <td><?php echo $val->name;?></td>
-                            <td><?php echo image_view('uploads/brand', '', $val->image, 'noimage.png', 'width-80');?></td>
+                            <td><?php echo common_image_view('uploads/brand', '', $val->image, 'noimage.png', 'width-80', '', '250', '150');?></td>
+
                             <td width="180">
                                 <a href="<?php echo base_url('admin/brand_update/' . $val->brand_id);?>" class="btn btn-primary btn-xs"><i class="fas fa-edit"></i> Update</a>
                                 <a href="<?php echo base_url('admin/brand_delete/' . $val->brand_id);?>" onclick="return confirm('Are you sure you want to Delete?')" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i> Delete</a>

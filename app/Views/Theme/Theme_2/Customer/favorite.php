@@ -9,10 +9,6 @@
                     <div class="card-body">
                         <div class="products h-100">
                             <div class="row gx-0 row-cols-1 row-cols-sm-3 row-cols-lg-3 row-cols-xl-5 h-100">
-                                <?php
-                                $modules  = modules_access();
-                                $img_size = ($modules['watermark'] == '1') ? '191_wm_' : '191_';
-                                ?>
                                 <?php foreach ($allProd as $pro) { ?>
                                 <div class="col border p-2">
                                     <div class="product-grid h-100 d-flex align-items-stretch flex-column position-relative">
@@ -40,10 +36,11 @@
                                             </a>
 
                                         <?php } ?>
-                                        
-                                        
+
+
                                         <div class="product-top">
-                                            <a href="<?php echo base_url('detail/' . $pro['product_id'])?>"><?php echo image_view('uploads/products', $pro['product_id'], $img_size . $pro['image'], 'noimage.png', 'img-fluid w-100')?></a>
+                                            <a href="<?php echo base_url('detail/' . $pro['product_id'])?>"><?php echo product_image_view('uploads/products', $pro['product_id'], $pro['image'], 'noimage.png', 'img-fluid w-100', '', '', '191', '191')?></a>
+
                                             <div class="rating text-center my-2">
                                                 <?php echo product_id_by_rating($pro['product_id']);?>
                                             </div>

@@ -71,16 +71,17 @@
                                                 <label>Email</label>
                                                 <input type="email" name="email" class="form-control" placeholder="Email" value="<?php echo $user->email;?>" required>
                                             </div>
-                                                <?php if($user->is_default != 1) {
-                                                    ;?>
+                                                <?php if ($user->is_default != 1) {
+    ; ?>
                                             <div class="form-group">
                                                 <label>Role </label>
                                                 <select name="role_id" class="form-control" required>
                                                     <option value="">Please select</option>
-                                                    <?php echo getListInOption($user->role_id, 'role_id', 'role', 'cc_roles');?>
+                                                    <?php echo getListInOption($user->role_id, 'role_id', 'role', 'cc_roles'); ?>
                                                 </select>
                                             </div>
-                                                <?php } ?>
+                                                <?php
+} ?>
 
                                             <div class="form-group">
                                                 <label>Password</label>
@@ -120,7 +121,8 @@
                                         <div class="tab-pane fade" id="custom-tabs-four-messages" role="tabpanel" aria-labelledby="custom-tabs-four-messages-tab">
                                             <form action="<?php echo base_url('admin/user_image_action')?>" method="post" enctype="multipart/form-data" >
                                             <div class="form-group">
-                                                <?php echo image_view('uploads/user', '', $user->pic, 'noimage.png', '');?>
+                                                <?php echo common_image_view('uploads/user', '', $user->pic, 'noimage.png', '', '', '250', '150');?>
+
                                             </div>
                                             <div class="form-group">
                                                 <label>Image </label>

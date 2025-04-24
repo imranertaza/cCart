@@ -24,7 +24,8 @@
                                         <a href="javascript:void(0)" onclick="addToCompare(<?php echo $pro['product_id'] ?>)" class="btn-compare position-absolute start-0 top-0 mt-5 ms-2"><i class="fa-solid fa-code-compare"></i></a>
                                         <?php } ?>
                                         <div class="product-top">
-                                            <?php echo image_view('uploads/products', $pro['product_id'], '191_' . $pro['image'], 'noimage.png', 'img-fluid w-100')?>
+                                            <?php echo product_image_view('uploads/products', $pro['product_id'], $pro['image'], 'noimage.png', 'img-fluid w-100', '', '', '198', '198')?>
+
                                             <div class="rating text-center my-2">
                                                 <?php echo product_id_by_rating($pro['product_id']);?>
                                             </div>

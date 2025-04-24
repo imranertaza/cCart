@@ -16,7 +16,7 @@
                 <?php } ?>
                 <a href="<?php echo base_url('my-wallet'); ?>" class="btn btn-default border rounded-0 <?php echo ($menu_active == 'wallet') ? 'text-white bg-custom-color' : ''; ?>">Wallet</a>
                 <a href="<?php echo base_url('ledger'); ?>" class="btn btn-default border rounded-0 <?php echo ($menu_active == 'ledger') ? 'text-white bg-custom-color' : ''; ?>">Ledger</a>
-                <a href="<?php echo base_url('point_history'); ?>" class="btn btn-default border rounded-0 <?php echo ($menu_active == 'point_history') ? 'text-white bg-custom-color' : ''; ?>">Point History</a>
+                <a href="<?php echo base_url('point-history'); ?>" class="btn btn-default border rounded-0 <?php echo ($menu_active == 'point_history') ? 'text-white bg-custom-color' : ''; ?>">Point History</a>
                 <a href="<?php echo base_url('logout'); ?>" class="btn btn-default border rounded-0">Log out</a>
             </div>
         </div>

@@ -59,15 +59,15 @@ foreach ($fund_request as $val) { ?>
                             <td><?php echo get_data_by_id('name', 'cc_payment_method', 'payment_method_id', $val->payment_method_id);?></td>
                             <td><?php echo saleDate($val->createdDtm);?></td>
                             <td width="180">
-                                <?php if($val->status == 'Pending') { ?>
+                                <?php if ($val->status == 'Pending') { ?>
                                     <select name="status" id="status" onchange="found_request_update(this.value,'<?php echo $val->fund_request_id;?>')" >
                                         <option value="Pending" <?php echo ($val->status == 'Pending') ? 'selected' : '';?>>Pending</option>
                                         <option value="Complete" <?php echo ($val->status == 'Complete') ? 'selected' : '';?>>Complete</option>
                                         <option value="Canceled" <?php echo ($val->status == 'Canceled') ? 'selected' : '';?>>Canceled</option>
                                     </select>
                                 <?php } else {
-                                    echo $val->status;
-                                } ?>
+    echo $val->status;
+} ?>
 
                             </td>
                         </tr>

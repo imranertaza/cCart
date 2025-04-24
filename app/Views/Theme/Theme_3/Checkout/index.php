@@ -4,10 +4,7 @@
         <form id="checkout-form" onsubmit="return onchackoutsubmit()" action="<?php echo base_url('checkout_action')  ?>" method="post">
             <div class="row">
                 <div class="col-lg-12 ">
-                    <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif;
-        $modules  = modules_access();
-        $img_size = ($modules['watermark'] == '1') ? '100_wm_' : '100_';
-        ?>
+                    <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
                 </div>
                 <div class="col-lg-6">
                     <?php $isLoggedInCustomer = newSession()->isLoggedInCustomer;
@@ -183,7 +180,7 @@
                             <div class="col-lg-6">
                                 <div class="form-group mb-4">
                                     <label class="w-100" for="name">Last Name</label>
-                                    <input class="form-control rounded-0 in_err" 
+                                    <input class="form-control rounded-0 in_err"
                                         oninput="livenameView(this.value,'namVal')" type="text" name="shipping_lastname"
                                         id="lname" placeholder="Last Name">
                                         <span class="text-danger err d-inline-block text-capitalize" id="shipping_lastname_mess"></span>
@@ -267,10 +264,11 @@
                         <div class="list-item d-flex gap-2 mb-2">
                             <div class="d-flex gap-2 bg-gray p-2 rounded-2 pro-bg-check">
                                 <?php
-                    $img         = get_data_by_id('image', 'cc_products', 'product_id', $val['id']);
-                            $des = get_data_by_id('description', 'cc_product_description', 'product_id', $val['id']);
-                            ?>
-                                <?php echo image_view('uploads/products', $val['id'], $img_size . $img, 'noimage.png', 'img-fluid w-h-100') ?>
+                                    $img = get_data_by_id('image', 'cc_products', 'product_id', $val['id']);
+                                    $des = get_data_by_id('description', 'cc_product_description', 'product_id', $val['id']);
+                                    ?>
+                                <?php echo product_image_view('uploads/products', $val['id'], $img, 'noimage.png', 'img-fluid w-h-100', '', '', '100', '100') ?>
+
                                 <div>
                                     <p class="fw-semibold mb-2"><?php echo $val['name']; ?></p>
                                     <p class="lh-sm">
@@ -319,9 +317,10 @@
         if (isset(newSession()->coupon_discount)) {
             $disc = number_format((Cart()->total() * newSession()->coupon_discount) / 100, 2); ?>
                                 <span><?php echo $cSymbol . $disc ?></span>
-                                <?php } else {
-                                    echo '<span>' . $cSymbol . $disc . '</span>';
-                                }
+                                <?php
+        } else {
+            echo '<span>' . $cSymbol . $disc . '</span>';
+        }
         $total = (isset(newSession()->coupon_discount)) ? number_format(Cart()->total() - $disc, 2) : Cart()->total(); ?>
                             </div>
                         </div>
@@ -435,7 +434,7 @@
                     </div>
                     <div class="payment-method group-check mb-4 pb-4">
                         <?php foreach (get_all_data_array('cc_payment_method') as $pay) {
-                            if ($pay->status == '1') { ?>
+            if ($pay->status == '1') { ?>
                         <div class="d-flex justify-content-between mt-3">
                             <div class="form-check"><label class="form-check-label"><input class="form-check-input"
                                         onclick="instruction_view(this.value,'<?php echo $pay->code; ?>'),cardForm('<?php echo $pay->code; ?>')"
@@ -445,7 +444,7 @@
                                 </label></div>
                         </div>
                         <?php }
-                            } ?>
+        } ?>
 
                     </div>
 

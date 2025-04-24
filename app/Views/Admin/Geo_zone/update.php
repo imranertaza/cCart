@@ -65,20 +65,21 @@ $k                                     = 1;
 
 foreach ($geo_zone_detail as $val) {
     ?>
-                                    <div class="col-md-12 mt-3" id="new_<?php echo $i++;?>" >
-                                        <select class="form-input" name="country_id[]" onchange="zoneVal(this.value,'<?php echo $j++;?>' )" style="padding: 3px; width: 40%;" required>
+                                    <div class="col-md-12 mt-3" id="new_<?php echo $i++; ?>" >
+                                        <select class="form-input" name="country_id[]" onchange="zoneVal(this.value,'<?php echo $j++; ?>' )" style="padding: 3px; width: 40%;" required>
                                             <option value=''>Please select</option>
                                             <?php echo getListInOption($val->country_id, 'country_id', 'name', 'cc_country'); ?>
                                         </select>
-                                        <select class="form-input" name="zone_id[]" id="valId_<?php echo $k++;?>" style="padding: 3px; width: 40%;" required>
+                                        <select class="form-input" name="zone_id[]" id="valId_<?php echo $k++; ?>" style="padding: 3px; width: 40%;" required>
                                             <option value="">Please select</option>
-                                            <option value="0" <?php echo ($val->zone_id == 0) ? 'selected' : '';?> >All Zone</option>
-                                            <?php echo getIdByListInOption($val->zone_id, 'zone_id', 'name', 'cc_zone', 'country_id', $val->country_id);?>
+                                            <option value="0" <?php echo ($val->zone_id == 0) ? 'selected' : ''; ?> >All Zone</option>
+                                            <?php echo getIdByListInOption($val->zone_id, 'zone_id', 'name', 'cc_zone', 'country_id', $val->country_id); ?>
                                         </select>
-                                        <input type="hidden" value="<?php echo $val->geo_zone_details_id;?>" name="geo_zone_details_id[]">
-                                        <a href="javascript:void(0)" onclick="remove_option(this),deleteZone(<?php echo $val->geo_zone_details_id;?>)" class="btn  btn-danger" style="margin-top: -5px; width: 5%;">X</a>
+                                        <input type="hidden" value="<?php echo $val->geo_zone_details_id; ?>" name="geo_zone_details_id[]">
+                                        <a href="javascript:void(0)" onclick="remove_option(this),deleteZone(<?php echo $val->geo_zone_details_id; ?>)" class="btn  btn-danger" style="margin-top: -5px; width: 5%;">X</a>
                                     </div>
-                                    <?php } ?>
+                                    <?php
+} ?>
 
                                 </div>
                                 <input type="hidden" value="<?php echo count($geo_zone_detail)?>" id="total_zone">

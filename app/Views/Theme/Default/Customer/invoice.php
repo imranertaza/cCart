@@ -6,7 +6,8 @@
                     <div class="d-flex justify-content-between">
                         <div class="logo">
                             <?php $logoImg = get_lebel_by_value_in_theme_settings('side_logo');
-                            echo image_view('uploads/logo', '', $logoImg, 'noimage.png', 'img-fluid');?>
+                            echo common_image_view('uploads/logo', '', $logoImg, 'noimage.png', 'img-fluid', '', '286', '72');?>
+
                         </div>
                         <div class="address">
                             <div class="icon float-start">
@@ -79,10 +80,11 @@
                         <?php foreach ($orderItem as $item) { ?>
                             <tr>
                                 <td><?php
-                                                $img = get_data_by_id('image', 'cc_products', 'product_id', $item->product_id);
-                            echo image_view('uploads/products', $item->product_id, $img_size_100 . $img, 'noimage.png', '');
-                            ?>
+                                    $img = get_data_by_id('image', 'cc_products', 'product_id', $item->product_id);
+                                    echo product_image_view('uploads/products', $item->product_id, $img, 'noimage.png', '', '', '', '100', '100');
+                                ?>
                                     <?php echo get_data_by_id('name', 'cc_products', 'product_id', $item->product_id) ;?>
+
                                 </td>
                                 <td><?php echo currency_symbol($item->price);?></td>
                                 <td><?php echo $item->quantity;?></td>
