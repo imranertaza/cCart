@@ -4,7 +4,7 @@
             <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
         </div>
         <div class="cart">
-            <table class="cart-table w-100 text-center" id="tableReload">
+            <table class="cart-table w-100 text-center" id="tabledata">
                 <thead>
                 <tr>
                     <th>Order Date</th>

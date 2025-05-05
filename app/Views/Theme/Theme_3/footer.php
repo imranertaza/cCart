@@ -70,7 +70,7 @@
         </div>
 
         <div class="footer-middle">
-            <div class="container">  
+            <div class="container">
                 <div class="row">
                     <div class="col-md-3 col-12">
                         <h4 class="f-title toggleButton">Customer Service</h4>
@@ -129,7 +129,7 @@
                                     </svg>
                                     Terms & conditions</a></li>
                             </ul>
-                        </div>                    
+                        </div>
                     </div>
                     <div class="col-md-3 col-12">
                         <h4 class="f-title toggleButton">Extras</h4>
@@ -161,13 +161,13 @@
                                     </svg>
                                     Newsletter</a></li>
                             </ul>
-                        </div>                        
+                        </div>
                     </div>
                     <?php $settings = get_settings();?>
                     <div class="col-md-3 col-12">
                         <h4 class="f-title toggleButton">Contact Us</h4>
                         <div class="elementToToggle d-none d-md-block">
-                            <ul class="list-unstyled ul-link-2 mt-md-4">                                
+                            <ul class="list-unstyled ul-link-2 mt-md-4">
                                 <li class="d-flex fot-about">
                                     <span><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"
                                             fill="none">
@@ -177,7 +177,7 @@
                                     <span class="f-text-add">(+1) <?php echo $settings['phone']; ?></span>
                                 </li>
                                 <li class="d-flex fot-about">
-                                    <span>                                        
+                                    <span>
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M9 3.75V7.5H7.5V6H3V19.5H4.5V20.25C4.5 21.4834 5.5166 22.5 6.75 22.5C7.9834 22.5 9 21.4834 9 20.25V19.5H21V7.5H18V3.75H9ZM10.5 5.25H16.5V9H10.5V5.25ZM4.5 7.5H6V18H4.5V7.5ZM7.5 9H9V10.5H18V9H19.5V18H7.5V9ZM9.75 12V13.5H11.25V12H9.75ZM12.75 12V13.5H14.25V12H12.75ZM15.75 12V13.5H17.25V12H15.75ZM9.75 15V16.5H11.25V15H9.75ZM12.75 15V16.5H14.25V15H12.75ZM15.75 15V16.5H17.25V15H15.75ZM6 19.5H7.5V20.25C7.5 20.666 7.16602 21 6.75 21C6.33398 21 6 20.666 6 20.25V19.5Z" fill="white"/>
                                         </svg>
@@ -202,7 +202,7 @@
                                     <span class="f-text-add">
                                         <?php echo $settings['address']; ?>
                                     </span>
-                                </li>    
+                                </li>
                                 <?php if (modules_key_by_access('contact_with_whatsapp') == 1) {
     $modulId = get_data_by_id('module_id', 'cc_modules', 'module_key', 'contact_with_whatsapp'); ?>
                                 <li class="d-flex fot-about">
@@ -217,14 +217,14 @@
                                     <span class="f-text-add">
                                         Contact With Whatsapp
                                     </span></a>
-                                </li>      
+                                </li>
                                 <?php
-} ?>                      
+} ?>
                             </ul>
                         </div>
-                        
+
                     </div>
-    
+
                 </div>
             </div>
         </div>
@@ -351,7 +351,7 @@
     function  buyNow(){
         location.replace("<?php echo base_url('checkout') ?>");
     }
-    
+
      function addToCompare(pro_id) {
         $.ajax({
             method: "POST",
@@ -563,6 +563,7 @@
             success: function(response) {
                 $('#cartReload').load(location.href + " #cartReload");
                 $('#tableReload').load(location.href + " #tableReload");
+                $('#tableReload2').load(location.href + " #tableReload2");
                 $('#cartReload2').load(location.href + " #cartReload2");
                 $('#mesVal').html(response.message);
                 $('.btn-count').load(location.href + " .btn-count");
@@ -638,7 +639,7 @@
         //     '<h6 class="mt-2">Change information</h6><div class="form-group mt-4"><label>Current password</label><input type="password" name="current_password" id="current_password" class="form-control" placeholder="Current password" required></div><div class="form-group mt-4"><label>New password</label><input type="password" name="new_password" class="form-control" placeholder="New password" required></div><div class="form-group mt-4"><label>Confirm password</label><input type="password" name="confirm_password" class="form-control" placeholder="Confirm password" required></div>';
 
         let html = `<h6 class="mt-2">Change information</h6><div class="form-group mt-4"><label>Current password</label><input type="password" name="current_password" id="current_password" class="form-control in_err" placeholder="Current password" required><span class="text-danger d-inline-block err text-capitalize" id="password_err_mess"></span></div><div class="form-group "><label>New password</label><input type="password" name="new_password" class="form-control in_err" id="new_password" placeholder="New password" required><span class="text-danger d-inline-block err text-capitalize mb-4" id="new_password_err_mess"></span></div><div class="form-group "><label>Confirm password</label><input type="password" name="confirm_password" class="form-control in_err" id="confirm_password" placeholder="Confirm password" required> <span class="text-danger d-inline-block err text-capitalize mb-4" id="confirm_password_err_mess"></span></div>`;
-        
+
         if (val == '1') {
             $('#passReset').val(0);
             $('#pass-data').html(html);

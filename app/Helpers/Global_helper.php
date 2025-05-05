@@ -1586,7 +1586,8 @@ function image_cache($path, $imageName, $width, $height)
 
     // Check if image is already cached
     $imagePath = $cache->get($cacheKey);
-    $seconds = 30 * 24 * 60 * 60;
+    $seconds   = 30 * 24 * 60 * 60;
+
     if (!$imagePath) {
         // Image is not in cache, so generate it
         $imagePath = WRITEPATH . 'cache/generated_image_' . md5(time()) . '.jpg'; // Cache path

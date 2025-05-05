@@ -23,13 +23,13 @@
                                     <p>100</p>
                                 </div>
                             </div> -->
-                            
+
 
                         </div>
 
                         <div class="col-md-12 px-5 mt-5">
 
-                            <table class="cart-table w-100 text-center">
+                            <table class="cart-table w-100 text-center" id="tabledata">
                                 <thead>
                                     <tr>
                                         <th>Sl</th>

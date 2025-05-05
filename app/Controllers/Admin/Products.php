@@ -1084,6 +1084,7 @@ class Products extends BaseController
             if (!empty($product_related)) {
                 $proReltableDel = DB()->table('cc_product_related');
                 $proReltableDel->where('product_id', $product_id)->delete();
+
                 $proRelData = [];
 
                 foreach ($product_related as $key => $relp) {
@@ -1107,6 +1108,7 @@ class Products extends BaseController
             if (!empty($bought_together)) {
                 $boughtTogetherDel = DB()->table('cc_product_bought_together');
                 $boughtTogetherDel->where('product_id', $product_id)->delete();
+
                 $proBothData = [];
 
                 foreach ($bought_together as $key => $bothp) {

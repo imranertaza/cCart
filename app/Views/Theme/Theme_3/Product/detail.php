@@ -248,7 +248,7 @@
                     <div class="row">
                         <?php if (!empty($relProd)) {
                                                             foreach ($relProd as $rPro) { ?>
-                        <div class="col-6 col-lg-2 col-sm-4">
+                        <div class="col-6 col-lg-3 col-sm-4">
                             <div class="card rounded-0">
                                 <div class="r-product">
                                     <a href="<?php echo base_url('detail/' . $rPro->product_id) ?>"><?php echo product_image_view('uploads/products', $rPro->product_id, $rPro->image, 'noimage.png', 'card-img-top rounded-0', '', '', '181', '181') ?></a>
