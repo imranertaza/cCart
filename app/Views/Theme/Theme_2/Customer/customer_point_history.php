@@ -16,7 +16,7 @@
                 <div class="col-md-12   mt-3">
                     <h3>Point History</h3>
                     <div class="table-responsive mt-3">
-                    <table class="cart-table w-100 text-center" id="tableReload">
+                    <table class="cart-table w-100 text-center" id="tabledata">
                         <thead>
                             <tr>
                                 <th>Sl</th>

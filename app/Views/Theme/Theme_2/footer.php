@@ -321,8 +321,10 @@
 
 <script src="<?php echo base_url() ?>/assets/theme_2/slick/slick.js" type="text/javascript" charset="utf-8"> </script>
 <script src="<?php echo base_url() ?>/assets/theme_2/owl.carousel.js"></script>
+<script src="<?php echo base_url() ?>/assets/datatable/datatables.min.js" ></script>
 
 <script>
+    $("#tabledata").DataTable();
     function myFunction() {
         var dots = document.getElementById("dots");
         var moreText = document.getElementById("more");
