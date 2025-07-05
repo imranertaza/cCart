@@ -1586,6 +1586,7 @@ function image_cache($path, $imageName, $width, $height)
 
     // Check if image is already cached
     $imagePath = $cache->get($cacheKey);
+    $seconds   = 30 * 24 * 60 * 60;
 
     if (!$imagePath) {
         // Image is not in cache, so generate it
@@ -1600,7 +1601,7 @@ function image_cache($path, $imageName, $width, $height)
             ->save($imagePath);
 
         // Save the image path to the cache
-        $cache->save($cacheKey, file_get_contents($imagePath), 86400); // Cache for 1 day (86400 seconds) 1 hour (3600 seconds)
+        $cache->save($cacheKey, file_get_contents($imagePath), $seconds); // $seconds Cache for 1 day (86400 seconds) 1 hour (3600 seconds) 30 day (2592000 seconds)
         unlink($imagePath);
     }
 

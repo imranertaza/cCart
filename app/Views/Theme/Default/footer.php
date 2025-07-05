@@ -59,8 +59,9 @@
     </div>
 </footer>
 
-
+<script src="<?php echo base_url() ?>/assets/datatable/datatables.min.js" ></script>
 <script>
+    $("#tabledata").DataTable();
     $('.ratingPiont').starRating({
         starSize: 1.5,
         showInfo: true

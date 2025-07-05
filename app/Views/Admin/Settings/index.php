@@ -30,6 +30,7 @@
                         <h3 class="card-title">Settings </h3>
                     </div>
                     <div class="col-md-4 text-right">
+                        <a href="<?php echo base_url('admin/cache_delete')?>" class="btn btn-info btn-sm " >Cache clear </a>
                         <button type="submit" class="btn btn-primary btn-sm " >Save</button>
                     </div>
                     <div class="col-md-12" style="margin-top: 10px">

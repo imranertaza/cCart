@@ -4,7 +4,11 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Libraries\Permission;
+use CodeIgniter\Cache\Handlers\FileHandler;
 use CodeIgniter\HTTP\RedirectResponse;
+use FilesystemIterator;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 
 class Settings extends BaseController
 {
@@ -120,6 +124,52 @@ class Settings extends BaseController
 
 
         $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Settings Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
+        return redirect()->to('admin/settings');
+    }
+
+    public function cache_delete()
+    {
+
+//        $config = config('Cache');
+//        $fileCache = new FileHandler($config);
+//        $cachePath = $config->storePath ?? WRITEPATH . 'cache/';
+//
+//        if (!is_dir($cachePath)) {
+//            return;
+//        }
+//
+//        $files = glob($cachePath . '*');
+//
+//        foreach ($files as $file) {
+//            if (is_file($file)) {
+//                $contents = file_get_contents($file);
+//                if (preg_match('/TS--(\d+)/', $contents, $matches)) {
+//                    $timestamp = (int)$matches[1];
+//                    print $timestamp.'<br>';
+//                    if ($timestamp !== 0 && $timestamp < time()) {
+//                        unlink($file); // File expired
+//                    }
+//                }
+//            }
+//        }
+        ////        die();
+
+        $seconds = 30 * 24 * 60 * 60; // 30 day (2592000 seconds)
+        $path    = WRITEPATH . 'cache/'; // Default cache folder
+
+        $files = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS),
+            RecursiveIteratorIterator::CHILD_FIRST
+        );
+
+        foreach ($files as $file) {
+            if ($file->isFile() && time() - $file->getMTime() > $seconds) { // older than 30 day
+                unlink($file->getRealPath());
+            }
+        }
+
+        $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Cache Clear Successfully <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 
         return redirect()->to('admin/settings');
     }

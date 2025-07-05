@@ -31,6 +31,7 @@
     <script src="<?php echo base_url() ?>/assets/theme_1/jquery-3.6.0.js"></script>
     <script src="<?php echo base_url() ?>/assets/theme_1/jquery-ui.js"></script>
     <script src="<?php echo base_url() ?>/assets/theme_1/jquery.star-rating.js"></script>
+    <link href="<?php echo base_url() ?>/assets/datatable/datatables.min.css" rel="stylesheet"  >
 
 </head>
 <body>

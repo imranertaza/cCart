@@ -5,7 +5,7 @@
         </div>
         <div class="cart">
             <div class="table-responsive">
-                <table class="cart-table w-100 text-center" id="tableReload">
+                <table class="cart-table w-100 text-center" id="tabledata">
                     <thead>
                     <tr>
                         <th>Order Date</th>
