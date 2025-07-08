@@ -290,6 +290,14 @@ class Album extends BaseController
             delete_files($target_dir, true);
             rmdir($target_dir);
         }
+
+        $targetDirCache = FCPATH . '/cache/uploads/album/' . $album_id;
+
+        if (file_exists($targetDirCache)) {
+            delete_files($targetDirCache, true);
+            rmdir($targetDirCache);
+        }
+
         $table = DB()->table('cc_album');
         $table->where('album_id', $album_id)->delete();
 
@@ -335,6 +343,13 @@ class Album extends BaseController
         if (file_exists($target_dir)) {
             delete_files($target_dir, true);
             rmdir($target_dir);
+        }
+
+        $targetDirCache = FCPATH . '/cache/uploads/album/' . $data->album_id . '/' . $album_details_id;
+
+        if (file_exists($targetDirCache)) {
+            delete_files($targetDirCache, true);
+            rmdir($targetDirCache);
         }
 
         $table->where('album_details_id', $album_details_id)->delete();

@@ -1383,7 +1383,7 @@ function get_category_id_by_product_show_home_slide($category_id)
         }
 
         $view .= '<div class="product-top mb-2">
-                    ' . product_image_view("uploads/products", $pro->product_id, $pro->image, "noimage.png", "img-fluid w-100 ", "", "", "132", "132") . '
+                    ' . productImageView("uploads/products", $pro->product_id, $pro->image, "noimage.png", "img-fluid w-100 ", "", "", "132", "132") . '
                 </div>
                 <div class="product-bottom mt-auto">
                     <div class="product-title product_title_area mb-2">
@@ -1667,6 +1667,143 @@ function common_image_view($url, $slug, $image, $no_image, $class = '', $id = ''
         }
     } else {
         $result = '<img data-sizes="auto" id="' . $id . '" src="' . $no_img . '" class="' . $class . '" loading="lazy">';
+    }
+
+    return $result;
+}
+
+function commonImageView($url, $slug, $image, $no_image, $class = '', $id = '', $width = '', $height = "")
+{
+    $imgMain = str_replace("pro_", "", $image);
+
+    $dir = FCPATH . '/' . $url . '/' . $slug;
+
+    $imageNo   = explode('.', $no_image);
+    $pathNewNo = 'cache/' . $url . '/' . $width . 'x' . $height . '_' . $imageNo[0] . '.webp';
+
+    if (file_exists($pathNewNo)) {
+        $no_img = base_url($pathNewNo);
+    } else {
+        $urlNewNo = base64_encode($url . '/');
+        $no_img   = base_url('image-resize/' . $urlNewNo . '/' . $width . 'x' . $height . '/' . $no_image);
+    }
+
+    if (!empty($image)) {
+        if (!file_exists($dir)) {
+            $result = '<img data-sizes="auto" id="' . $id . '" src="' . $no_img . '" class="' . $class . '" loading="lazy">';
+        } else {
+            $imgPath = $dir . '/' . $imgMain;
+
+            if (file_exists($imgPath)) {
+                $image   = explode('.', $imgMain);
+                $pathNew = 'cache/' . $url . '/' . $slug . '/' . $width . 'x' . $height . '_' . $image[0] . '.webp';
+
+                if (file_exists($pathNew)) {
+                    $imgFinal = base_url($pathNew);
+                } else {
+                    $urlNew   = base64_encode($url . '/' . $slug . '/');
+                    $imgFinal = base_url('image-resize/' . $urlNew . '/' . $width . 'x' . $height . '/' . $imgMain);
+                }
+
+                $result   = '<img data-sizes="auto"  id="' . $id . '" src="' . $imgFinal . '" class="' . $class . '" loading="lazy">';
+            } else {
+                $result = '<img data-sizes="auto" id="' . $id . '" src="' . $no_img . '" class="' . $class . '" loading="lazy">';
+            }
+        }
+    } else {
+        $result = '<img data-sizes="auto" id="' . $id . '" src="' . $no_img . '" class="' . $class . '" loading="lazy">';
+    }
+
+    return $result;
+}
+function productImageView($url, $slug, $image, $no_image, $class = '', $id = '', $attr = '', $width = '', $height = "")
+{
+    $modules = modules_access();
+    $im      = str_replace("pro_", "", $image);
+    $imgMain = ($modules['watermark'] == '1') ? '600_wm_' . $im : $im;
+
+    $dir = FCPATH . '/' . $url . '/' . $slug;
+
+    $imageNo   = explode('.', $no_image);
+    $pathNewNo = 'cache/' . $url . '/' . $width . 'x' . $height . '_' . $imageNo[0] . '.webp';
+
+    if (file_exists($pathNewNo)) {
+        $no_img = base_url($pathNewNo);
+    } else {
+        $urlNewNo = base64_encode($url . '/');
+        $no_img   = base_url('image-resize/' . $urlNewNo . '/' . $width . 'x' . $height . '/' . $no_image);
+    }
+
+    if (!empty($image)) {
+        if (!file_exists($dir)) {
+            $result = '<img data-sizes="auto" id="' . $id . '" src="' . $no_img . '" class="' . $class . '" loading="lazy">';
+        } else {
+            $imgPath = $dir . '/' . $imgMain;
+
+            if (file_exists($imgPath)) {
+                $image   = explode('.', $imgMain);
+                $pathNew = 'cache/' . $url . '/' . $slug . '/' . $width . 'x' . $height . '_' . $image[0] . '.webp';
+
+                if (file_exists($pathNew)) {
+                    $imgFinal = base_url($pathNew);
+                } else {
+                    $urlNew   = base64_encode($url . '/' . $slug . '/');
+                    $imgFinal = base_url('image-resize/' . $urlNew . '/' . $width . 'x' . $height . '/' . $imgMain);
+                }
+                $result   = '<img data-sizes="auto" ' . $attr . ' id="' . $id . '" src="' . $imgFinal . '" class="' . $class . '" loading="lazy">';
+            } else {
+                $result = '<img data-sizes="auto" id="' . $id . '" src="' . $no_img . '" class="' . $class . '" loading="lazy">';
+            }
+        }
+    } else {
+        $result = '<img data-sizes="auto" id="' . $id . '" src="' . $no_img . '" class="' . $class . '" loading="lazy">';
+    }
+
+    return $result;
+}
+function productMultiImageView($url, $slug, $slug2, $image, $no_image, $class = '', $width = '', $height = '', $id = '')
+{
+    $modules = modules_access();
+    $im      = str_replace("pro_", "", $image);
+    $imgMain = ($modules['watermark'] == '1') ? '600_wm_' . $im : $im;
+
+    $dir = FCPATH . '/' . $url . '/' . $slug . '/' . $slug2;
+
+
+
+    $imageNo   = explode('.', $no_image);
+    $pathNewNo = 'cache/' . $url . '/' . $width . 'x' . $height . '_' . $imageNo[0] . '.webp';
+
+    if (file_exists($pathNewNo)) {
+        $no_img = base_url($pathNewNo);
+    } else {
+        $urlNewNo = base64_encode($url . '/');
+        $no_img   = base_url('image-resize/' . $urlNewNo . '/' . $width . 'x' . $height . '/' . $no_image);
+    }
+
+    if (!empty($image)) {
+        if (!file_exists($dir)) {
+            $result = '<img data-sizes="auto" src="' . $no_img . '" class="' . $class . '" id="' . $id . '" loading="lazy">';
+        } else {
+            $imgPath = $dir . '/' . $imgMain;
+
+            if (file_exists($imgPath)) {
+                $image   = explode('.', $imgMain);
+                $pathNew = 'cache/' . $url . '/' . $slug . '/' . $slug2 . '/' . $width . 'x' . $height . '_' . $image[0] . '.webp';
+
+                if (file_exists($pathNew)) {
+                    $imgFinal = base_url($pathNew);
+                } else {
+                    $urlNew   = base64_encode($url . '/' . $slug . '/' . $slug2 . '/');
+                    $imgFinal = base_url('image-resize/' . $urlNew . '/' . $width . 'x' . $height . '/' . $imgMain);
+                }
+                $result   = '<img data-sizes="auto" src="' . $imgFinal . '" class="' . $class . '" id="' . $id . '" loading="lazy">';
+            } else {
+                $result = '<img data-sizes="auto" src="' . $no_img . '" class="' . $class . '" id="' . $id . '" loading="lazy">';
+            }
+        }
+    } else {
+        $result = '<img data-sizes="auto" src="' . $no_img . '" class="' . $class . '" id="' . $id . '" loading="lazy">';
     }
 
     return $result;

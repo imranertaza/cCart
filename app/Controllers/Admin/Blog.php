@@ -253,6 +253,14 @@ class Blog extends BaseController
             delete_files($target_dir, true);
             rmdir($target_dir);
         }
+
+        $targetDirCache = FCPATH . '/cache/uploads/blog/' . $blog_id;
+
+        if (file_exists($targetDirCache)) {
+            delete_files($targetDirCache, true);
+            rmdir($targetDirCache);
+        }
+
         $table = DB()->table('cc_blog');
         $table->where('blog_id', $blog_id)->delete();
 

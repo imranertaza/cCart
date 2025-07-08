@@ -134,7 +134,7 @@
                         <div class="logo text-center text-md-start">
                             <a href="<?php echo base_url() ?>">
                                 <?php $logoImg = get_lebel_by_value_in_theme_settings('side_logo');
-                                echo common_image_view('uploads/logo', '', $logoImg, 'noimage.png', 'img-fluid side_logo', '', '253', '68'); ?>
+                                echo commonImageView('uploads/logo', '', $logoImg, 'noimage.png', 'img-fluid side_logo', '', '253', '68'); ?>
 
                             </a>
                         </div>
