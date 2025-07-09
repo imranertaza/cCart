@@ -87,7 +87,7 @@ class Blog_category extends BaseController
      * @description This method store product category
      * @return RedirectResponse
      */
-    public function create_action()
+    public function createAction()
     {
         $data['category_name'] = $this->request->getPost('category_name');
         $data['icon_id']       = !empty($this->request->getPost('icon_id')) ? $this->request->getPost('icon_id') : null;
@@ -134,7 +134,7 @@ class Blog_category extends BaseController
      * @param int $cat_id
      * @return RedirectResponse|void
      */
-    public function update($cat_id)
+    public function update($catId)
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId          = $this->session->adRoleId;
@@ -143,10 +143,10 @@ class Blog_category extends BaseController
             return redirect()->to(site_url('admin'));
         } else {
             $table            = DB()->table('cc_category');
-            $data['category'] = $table->where('cat_id', $cat_id)->get()->getRow();
+            $data['category'] = $table->where('cat_id', $catId)->get()->getRow();
 
             $table2              = DB()->table('cc_category');
-            $data['allcategory'] = $table2->where('cat_id !=', $cat_id)->get()->getResult();
+            $data['allcategory'] = $table2->where('cat_id !=', $catId)->get()->getResult();
 
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
@@ -167,9 +167,9 @@ class Blog_category extends BaseController
      * @description This method update product category
      * @return RedirectResponse
      */
-    public function update_action()
+    public function updateAction()
     {
-        $cat_id                = $this->request->getPost('cat_id');
+        $catId                 = $this->request->getPost('cat_id');
         $data['category_name'] = $this->request->getPost('category_name');
         $data['icon_id']       = !empty($this->request->getPost('icon_id')) ? $this->request->getPost('icon_id') : null;
         $data['parent_id']     = !empty($this->request->getPost('parent_id')) ? $this->request->getPost('parent_id') : null;
@@ -183,42 +183,42 @@ class Blog_category extends BaseController
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 
-            return redirect()->to('admin/blog_category_update/' . $cat_id);
+            return redirect()->to('admin/blog_category_update/' . $catId);
         } else {
             if (!empty($_FILES['image']['name'])) {
-                $target_dir = FCPATH . '/uploads/blog_category/';
+                $targetDir = FCPATH . '/uploads/blog_category/';
 
-                if (!file_exists($target_dir)) {
-                    mkdir($target_dir, 0777);
+                if (!file_exists($targetDir)) {
+                    mkdir($targetDir, 0777);
                 }
 
                 //old image unlink
-                $old_img = get_data_by_id('image', 'cc_category', 'cat_id', $cat_id);
+                $oldImg = get_data_by_id('image', 'cc_category', 'cat_id', $catId);
 
-                if (!empty($old_img)) {
-                    $imgPath = $target_dir . $old_img;
+                if (!empty($oldImg)) {
+                    $imgPath = $targetDir . $oldImg;
 
                     if (file_exists($imgPath)) {
-                        unlink($target_dir . $old_img);
+                        unlink($targetDir . $oldImg);
                     }
                 }
 
                 //new image uplode
                 $pic     = $this->request->getFile('image');
                 $namePic = $pic->getRandomName();
-                $pic->move($target_dir, $namePic);
-                $news_img = 'category_' . $pic->getName();
-                $this->crop->withFile($target_dir . $namePic)->fit(166, 208, 'center')->save($target_dir . $news_img);
-                unlink($target_dir . $namePic);
-                $data['image'] = $news_img;
+                $pic->move($targetDir, $namePic);
+                $newsImg = 'category_' . $pic->getName();
+                $this->crop->withFile($targetDir . $namePic)->fit(166, 208, 'center')->save($targetDir . $newsImg);
+                unlink($targetDir . $namePic);
+                $data['image'] = $newsImg;
             }
 
             $table = DB()->table('cc_category');
-            $table->where('cat_id', $cat_id)->update($data);
+            $table->where('cat_id', $catId)->update($data);
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Update Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 
-            return redirect()->to('admin/blog_category_update/' . $cat_id);
+            return redirect()->to('admin/blog_category_update/' . $catId);
         }
     }
 
@@ -226,9 +226,9 @@ class Blog_category extends BaseController
      * @description This method update product category
      * @return RedirectResponse
      */
-    public function update_action_others()
+    public function updateActionOthers()
     {
-        $cat_id                   = $this->request->getPost('cat_id');
+        $catId                    = $this->request->getPost('cat_id');
         $data['meta_title']       = $this->request->getPost('meta_title');
         $data['meta_keyword']     = $this->request->getPost('meta_keyword');
         $data['meta_description'] = $this->request->getPost('meta_description');
@@ -246,14 +246,14 @@ class Blog_category extends BaseController
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 
-            return redirect()->to('admin/blog_category_update/' . $cat_id);
+            return redirect()->to('admin/blog_category_update/' . $catId);
         } else {
             $table = DB()->table('cc_category');
-            $table->where('cat_id', $cat_id)->update($data);
+            $table->where('cat_id', $catId)->update($data);
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Update Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 
-            return redirect()->to('admin/blog_category_update/' . $cat_id);
+            return redirect()->to('admin/blog_category_update/' . $catId);
         }
     }
 
@@ -262,51 +262,44 @@ class Blog_category extends BaseController
      * @param int $cat_id
      * @return RedirectResponse
      */
-    public function delete($cat_id)
+    public function delete($catId)
     {
-        $target_dir = FCPATH . '/uploads/blog_category/';
+        $targetDir = FCPATH . '/uploads/blog_category/';
         //old image unlink
-        $old_img = get_data_by_id('image', 'cc_category', 'cat_id', $cat_id);
+        $oldImg = get_data_by_id('image', 'cc_category', 'cat_id', $catId);
 
-        if (!empty($old_img)) {
-            $imgPath = $target_dir . $old_img;
+        if (!empty($oldImg)) {
+            $imgPath = $targetDir . $oldImg;
 
             if (file_exists($imgPath)) {
-                unlink($target_dir . $old_img);
-            }
-
-            $targetDirCache = FCPATH . '/cache/uploads/blog_category/' . $old_img;
-
-            if (file_exists($targetDirCache)) {
-                unlink($targetDirCache);
+                unlink($targetDir . $oldImg);
             }
         }
-
 
         DB()->transStart();
         //delete child category
         $tableCheck  = DB()->table('cc_category');
-        $checkParent = $tableCheck->where('parent_id', $cat_id)->countAllResults();
+        $checkParent = $tableCheck->where('parent_id', $catId)->countAllResults();
 
         if (!empty($checkParent)) {
             $categoryUpdateData['parent_id'] = null;
             $tableUpdate                     = DB()->table('cc_category');
-            $tableUpdate->where('parent_id', $cat_id)->update($categoryUpdateData);
+            $tableUpdate->where('parent_id', $catId)->update($categoryUpdateData);
         }
 
         //delete blog category
         $tableCheckBlog = DB()->table('cc_blog');
-        $checkBlog      = $tableCheckBlog->where('cat_id', $cat_id)->countAllResults();
+        $checkBlog      = $tableCheckBlog->where('cat_id', $catId)->countAllResults();
 
         if (!empty($checkBlog)) {
             $blogUpdateData['cat_id'] = 0;
             $tableUpdateBlog          = DB()->table('cc_blog');
-            $tableUpdateBlog->where('cat_id', $cat_id)->update($blogUpdateData);
+            $tableUpdateBlog->where('cat_id', $catId)->update($blogUpdateData);
         }
 
         //delete category
         $table = DB()->table('cc_category');
-        $table->where('cat_id', $cat_id)->delete();
+        $table->where('cat_id', $catId)->delete();
         DB()->transComplete();
 
         $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Delete Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
@@ -318,15 +311,15 @@ class Blog_category extends BaseController
      * @description This method update product category
      * @return void
      */
-    public function sort_update_action()
+    public function sortUpdateAction()
     {
-        $cat_id = $this->request->getPost('cat_id');
-        $value  = $this->request->getPost('value');
+        $catId = $this->request->getPost('cat_id');
+        $value = $this->request->getPost('value');
 
         $data['sort_order'] = $value;
 
         $table = DB()->table('cc_category');
-        $table->where('cat_id', $cat_id)->update($data);
+        $table->where('cat_id', $catId)->update($data);
         print '<div class="alert alert-success alert-dismissible" role="alert">Update Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
     }
 }
