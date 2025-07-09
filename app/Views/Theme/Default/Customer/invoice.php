@@ -6,7 +6,7 @@
                     <div class="d-flex justify-content-between">
                         <div class="logo">
                             <?php $logoImg = get_lebel_by_value_in_theme_settings('side_logo');
-                            echo common_image_view('uploads/logo', '', $logoImg, 'noimage.png', 'img-fluid', '', '286', '72');?>
+                            echo commonImageView('uploads/logo', '', $logoImg, 'noimage.png', 'img-fluid', '', '286', '72');?>
 
                         </div>
                         <div class="address">
@@ -81,7 +81,7 @@
                             <tr>
                                 <td><?php
                                     $img = get_data_by_id('image', 'cc_products', 'product_id', $item->product_id);
-                                    echo product_image_view('uploads/products', $item->product_id, $img, 'noimage.png', '', '', '', '100', '100');
+                                    echo productImageView('uploads/products', $item->product_id, $img, 'noimage.png', '', '', '', '100', '100');
                                 ?>
                                     <?php echo get_data_by_id('name', 'cc_products', 'product_id', $item->product_id) ;?>
 

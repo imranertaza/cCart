@@ -274,7 +274,14 @@ class Blog_category extends BaseController
             if (file_exists($imgPath)) {
                 unlink($target_dir . $old_img);
             }
+
+            $targetDirCache = FCPATH . '/cache/uploads/blog_category/' . $old_img;
+
+            if (file_exists($targetDirCache)) {
+                unlink($targetDirCache);
+            }
         }
+
 
         DB()->transStart();
         //delete child category

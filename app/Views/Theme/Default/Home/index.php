@@ -5,11 +5,11 @@
                 <div class="swiper bannerSlide">
                     <div class="swiper-wrapper">
                         <?php $sli_1 = get_lebel_by_value_in_theme_settings('slider_1'); ?>
-                        <div class="swiper-slide"><?php echo common_image_view('uploads/slider', '', $sli_1, 'noimage.png', 'img-fluid w-100', '', '837', '394');?></div>
+                        <div class="swiper-slide"><?php echo commonImageView('uploads/slider', '', $sli_1, 'noimage.png', 'img-fluid w-100', '', '837', '394');?></div>
                         <?php $sli_2 = get_lebel_by_value_in_theme_settings('slider_2'); ?>
-                        <div class="swiper-slide"><?php echo common_image_view('uploads/slider', '', $sli_2, 'noimage.png', 'img-fluid w-100', '', '837', '394');?></div>
+                        <div class="swiper-slide"><?php echo commonImageView('uploads/slider', '', $sli_2, 'noimage.png', 'img-fluid w-100', '', '837', '394');?></div>
                         <?php $sli_3 = get_lebel_by_value_in_theme_settings('slider_3'); ?>
-                        <div class="swiper-slide"><?php echo common_image_view('uploads/slider', '', $sli_3, 'noimage.png', 'img-fluid w-100', '', '837', '394');?></div>
+                        <div class="swiper-slide"><?php echo commonImageView('uploads/slider', '', $sli_3, 'noimage.png', 'img-fluid w-100', '', '837', '394');?></div>
                     </div>
                     <div class="swiper-pagination"></div>
                 </div>
@@ -123,7 +123,7 @@
                 <div class="row gx-0">
                     <div class="col-lg-3">
                         <div class="deal-box position-relative h-100">
-                            <?php echo common_image_view('uploads/category_banner', '', $theme_settings['home_category_banner'], 'noimage.png', 'w-100 h-100', '', '279', '438'); ?>
+                            <?php echo commonImageView('uploads/category_banner', '', $theme_settings['home_category_banner'], 'noimage.png', 'w-100 h-100', '', '279', '438'); ?>
 
                             <div class="deal-content position-absolute top-0 d-flex align-items-stretch h-100 w-100 flex-column p-4">
                                 <p class="mt-auto text-center"><a href="#" class="btn btn-shop">Shop Now <i class="fa-solid fa-angle-right"></i></a></p>
@@ -147,7 +147,7 @@
                                         <a href="javascript:void(0)" onclick="addToCompare(<?php echo $pro->product_id ?>)" class="btn-compare position-absolute start-0 top-0 mt-5 ms-2"><i class="fa-solid fa-code-compare"></i></a>
                                         <?php } ?>
                                         <div class="product-top">
-                                            <?php echo product_image_view('uploads/products', $pro->product_id, $pro->image, 'noimage.png', 'img-fluid w-100', '', '', '191', '191')?>
+                                            <?php echo productImageView('uploads/products', $pro->product_id, $pro->image, 'noimage.png', 'img-fluid w-100', '', '', '191', '191')?>
 
                                             <div class="rating text-center my-2">
                                                 <?php echo product_id_by_rating($pro->product_id);?>
@@ -206,7 +206,7 @@
                                     <a href="javascript:void(0)" onclick="addToCompare(<?php echo $fetPro->product_id ?>)" class="btn-compare position-absolute start-0 top-0 mt-5 ms-2"><i class="fa-solid fa-code-compare"></i></a>
                                     <?php } ?>
                                     <div class="product-top">
-                                        <?php echo product_image_view('uploads/products', $fetPro->product_id, $fetPro->image, 'noimage.png', 'img-fluid w-100', '', '', '198', '198')?>
+                                        <?php echo productImageView('uploads/products', $fetPro->product_id, $fetPro->image, 'noimage.png', 'img-fluid w-100', '', '', '198', '198')?>
 
                                         <div class="rating text-center my-2">
                                             <?php echo product_id_by_rating($fetPro->product_id);?>

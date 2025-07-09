@@ -22,7 +22,7 @@
                     <th></th>
                     <?php foreach ($products as $pro) { ?>
                     <td>
-                        <p><?php echo product_image_view('uploads/products', $pro->product_id, $pro->image, 'noimage.png', 'img-fluid', '', '', '191', '191')?></p>
+                        <p><?php echo productImageView('uploads/products', $pro->product_id, $pro->image, 'noimage.png', 'img-fluid', '', '', '191', '191')?></p>
                         <p><a href="<?php echo base_url('detail/' . $pro->product_id)?>"><?php echo $pro->name;?></a></p>
 
                         <div class="">

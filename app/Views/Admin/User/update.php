@@ -121,7 +121,7 @@
                                         <div class="tab-pane fade" id="custom-tabs-four-messages" role="tabpanel" aria-labelledby="custom-tabs-four-messages-tab">
                                             <form action="<?php echo base_url('admin/user_image_action')?>" method="post" enctype="multipart/form-data" >
                                             <div class="form-group">
-                                                <?php echo common_image_view('uploads/user', '', $user->pic, 'noimage.png', '', '', '250', '150');?>
+                                                <?php echo commonImageView('uploads/user', '', $user->pic, 'noimage.png', '', '', '250', '150');?>
 
                                             </div>
                                             <div class="form-group">
