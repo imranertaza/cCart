@@ -62,7 +62,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Image</label><br>
-                            <?php echo common_image_view('uploads/brand', '', $brand->image, 'noimage.png', '', '', '250', '150');?>
+                            <?php echo commonImageView('uploads/brand', '', $brand->image, 'noimage.png', '', '', '250', '150');?>
 
                         </div>
                     </div>

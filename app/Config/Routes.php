@@ -148,6 +148,7 @@ $routes->group('admin', static function ($routes) {
     $routes->get('settings', 'Admin\Settings::index');
     $routes->post('settings_update_action', 'Admin\Settings::update_action');
     $routes->get('cache_delete', 'Admin\Settings::cache_delete');
+    $routes->get('cache_image_remove', 'Admin\Settings::cacheImageRemove');
 
 
     //Shipping
@@ -444,6 +445,10 @@ $routes->get('/blog-view/(:num)', 'Blog::view/$1');
 //ajax controller
 $routes->post('get_state', 'Admin\Ajax::get_state');
 $routes->post('get_zone_value', 'Admin\Ajax::get_zone_value');
+
+$routes->get('/image-resize/(:any)/(:any)/(:any)', 'Image::resize/$1/$2/$3');
+
+
 
 
 /*

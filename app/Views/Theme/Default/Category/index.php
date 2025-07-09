@@ -163,7 +163,7 @@
                                                 <?php } ?>
 
                                                 <div class="product-top">
-                                                    <?php echo product_image_view('uploads/products', $pro->product_id, $pro->image, 'noimage.png', 'img-fluid w-100', '', '', '191', '191')?>
+                                                    <?php echo productImageView('uploads/products', $pro->product_id, $pro->image, 'noimage.png', 'img-fluid w-100', '', '', '191', '191')?>
 
                                                     <div class="rating text-center my-2">
                                                         <?php echo product_id_by_rating($pro->product_id);?>
@@ -212,7 +212,7 @@
                                                 <?php } ?>
 
                                                 <div class="product-top" style="width:40%;float:left; " >
-                                                    <?php echo product_image_view('uploads/products', $pro->product_id, $pro->image, 'noimage.png', 'img-fluid w-100', '', '', '253', '253')?>
+                                                    <?php echo productImageView('uploads/products', $pro->product_id, $pro->image, 'noimage.png', 'img-fluid w-100', '', '', '253', '253')?>
 
 
                                                 </div>

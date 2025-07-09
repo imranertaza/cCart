@@ -6,7 +6,7 @@
 <!--                    <h3 class="text-capitalize mb-4"> Blog</h3>-->
                 </div>
                 <div class="col-12 text-center">
-                    <?php echo common_image_view('uploads/blog', $blog->blog_id, $blog->image, 'noimage.png', '', '', '880', '400'); ?>
+                    <?php echo commonImageView('uploads/blog', $blog->blog_id, $blog->image, 'noimage.png', '', '', '880', '400'); ?>
 
                 </div>
                 <div class="col-12 pad-detail">

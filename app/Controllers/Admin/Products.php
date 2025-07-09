@@ -1153,6 +1153,13 @@ class Products extends BaseController
             rmdir($target_dir);
         }
 
+        $targetDirCache = FCPATH . '/cache/uploads/products/' . $product_id;
+
+        if (file_exists($targetDirCache)) {
+            delete_files($targetDirCache, true);
+            rmdir($targetDirCache);
+        }
+
         $proTable = DB()->table('cc_products');
         $proTable->where('product_id', $product_id)->delete();
 
@@ -1250,6 +1257,13 @@ class Products extends BaseController
             rmdir($target_dir);
         }
 
+        $targetDirCache = FCPATH . '/cache/uploads/products/' . $data->product_id . '/' . $product_image_id;
+
+        if (file_exists($targetDirCache)) {
+            delete_files($targetDirCache, true);
+            rmdir($targetDirCache);
+        }
+
         $table->where('product_image_id', $product_image_id)->delete();
         print '<div class="alert alert-success alert-dismissible" role="alert">Products Image Delete Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
     }
@@ -1297,66 +1311,6 @@ class Products extends BaseController
      * @description This method provides product image crop
      * @return RedirectResponse
      */
-    //    public function image_crop(){
-    //
-    //        $allProductId =  $this->request->getPost('productId[]');
-    //        $modules = modules_access();
-    //        if (!empty($allProductId)) {
-    //
-    //            foreach ($allProductId as $productId) {
-    //
-    //                //product main image crop
-    //                $target_dir = FCPATH . '/uploads/products/' . $productId . '/';
-    //                $oldImg = get_data_by_id('image', 'cc_products', 'product_id', $productId);
-    //                if ((!empty($oldImg)) && (file_exists($target_dir))) {
-    //                    $mainImg = str_replace('pro_', '', $oldImg);
-    //                    if (file_exists($target_dir . '/' . $mainImg)) {
-    //
-    //                        $this->imageProcessing->image_crop($target_dir,$mainImg,$oldImg);
-    //
-    //                        if ($modules['watermark'] == '1') {
-    //                            $this->imageProcessing->watermark_main_image($target_dir, $mainImg);
-    //
-    //                            $this->imageProcessing->watermark_on_resized_image($target_dir, $mainImg);
-    //                            $this->imageProcessing->image_crop($target_dir, '600_wm_' . $mainImg, 'wm_' . $oldImg);
-    //                        }
-    //
-    //                    }
-    //                }
-    //                //product main image crop end
-    //
-    //
-    //                //multi image crop
-    //                $allImage = get_array_data_by_id('cc_product_image', 'product_id', $productId);
-    //                if (!empty($allImage)) {
-    //                    foreach ($allImage as $val) {
-    //                        $target_dir_mult = FCPATH . '/uploads/products/' . $productId . '/' . $val->product_image_id . "/";
-    //                        $oldImgMul = $val->image;
-    //                        if ((!empty($oldImgMul)) && (file_exists($target_dir_mult))) {
-    //                            $mainImgMul = str_replace('pro_', '', $oldImgMul);
-    //                            if (file_exists($target_dir_mult . '/' . $mainImgMul)) {
-    //                                $this->imageProcessing->image_crop($target_dir_mult,$mainImgMul,$oldImgMul);
-    //
-    //                                if ($modules['watermark'] == '1') {
-    //                                    $this->imageProcessing->watermark_main_image($target_dir_mult, $mainImgMul);
-    //
-    //                                    $this->imageProcessing->watermark_on_resized_image($target_dir_mult, $mainImgMul);
-    //                                    $this->imageProcessing->image_crop($target_dir_mult, '600_wm_' . $mainImgMul, 'wm_' . $oldImgMul);
-    //                                }
-    //                            }
-    //                        }
-    //                    }
-    //                }
-    //            }
-    //
-    //            $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Update Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-    //            return redirect()->back();
-    //        }else{
-    //            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Please select any product <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-    //            return redirect()->back();
-    //        }
-    //    }
-
     public function image_crop()
     {
         $allProductId =  $this->request->getPost('productId[]');
@@ -1512,6 +1466,12 @@ class Products extends BaseController
                 if (file_exists($target_dir)) {
                     delete_files($target_dir, true);
                     rmdir($target_dir);
+                }
+                $targetDirCache = FCPATH . '/cache/uploads/products/' . $product_id;
+
+                if (file_exists($targetDirCache)) {
+                    delete_files($targetDirCache, true);
+                    rmdir($targetDirCache);
                 }
 
                 $proTable = DB()->table('cc_products');

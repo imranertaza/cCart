@@ -7,15 +7,15 @@
                     <div class="swiper-wrapper">
                         <?php $sli_1 = get_lebel_by_value_in_theme_settings('slider_1'); ?>
                         <div class="swiper-slide">
-                            <?php echo common_image_view('uploads/slider', '', $sli_1, 'noimage.png', 'img-fluid w-100 slider-image-height', '', '837', '394'); ?>
+                            <?php echo commonImageView('uploads/slider', '', $sli_1, 'noimage.png', 'img-fluid w-100 slider-image-height', '', '837', '394'); ?>
                         </div>
                         <?php $sli_2 = get_lebel_by_value_in_theme_settings('slider_2'); ?>
                         <div class="swiper-slide">
-                            <?php echo common_image_view('uploads/slider', '', $sli_2, 'noimage.png', 'img-fluid w-100 slider-image-height', '', '837', '394'); ?>
+                            <?php echo commonImageView('uploads/slider', '', $sli_2, 'noimage.png', 'img-fluid w-100 slider-image-height', '', '837', '394'); ?>
                         </div>
                         <?php $sli_3 = get_lebel_by_value_in_theme_settings('slider_3'); ?>
                         <div class="swiper-slide">
-                            <?php echo common_image_view('uploads/slider', '', $sli_3, 'noimage.png', 'img-fluid w-100 slider-image-height', '', '837', '394'); ?>
+                            <?php echo commonImageView('uploads/slider', '', $sli_3, 'noimage.png', 'img-fluid w-100 slider-image-height', '', '837', '394'); ?>
                         </div>
                     </div>
                     <div class="swiper-pagination"></div>
@@ -56,7 +56,7 @@
                                         <div class="swiper-slide">
                                             <div class="product-grid d-flex align-items-stretch flex-column position-relative text-center">
                                                 <div class="product-top">
-                                                    <a href="<?php echo base_url('detail/' . $pro->product_id) ?>"><?php echo product_image_view('uploads/products', $pro->product_id, $pro->image, 'noimage.png', 'img-fluid', '', '', '100', '100') ?></a>
+                                                    <a href="<?php echo base_url('detail/' . $pro->product_id) ?>"><?php echo productImageView('uploads/products', $pro->product_id, $pro->image, 'noimage.png', 'img-fluid', '', '', '100', '100') ?></a>
                                                     <div class="rating text-center my-2">
                                                         <?php echo product_id_by_rating($pro->product_id); ?>
                                                     </div>
@@ -121,7 +121,7 @@
                                                 </a>
                                             <?php } ?>
                                             <div class="product-top text-center">
-                                                <a href="<?php echo base_url('detail/' . $pro->product_id) ?>"><?php echo product_image_view('uploads/products', $pro->product_id, $pro->image, 'noimage.png', 'img-fluid ', '', '', '191', '191') ?></a>
+                                                <a href="<?php echo base_url('detail/' . $pro->product_id) ?>"><?php echo productImageView('uploads/products', $pro->product_id, $pro->image, 'noimage.png', 'img-fluid ', '', '', '191', '191') ?></a>
                                                 <div class="rating text-center my-2">
                                                     <?php echo product_id_by_rating($pro->product_id); ?>
                                                 </div>
@@ -177,7 +177,7 @@
                                         <div class="swiper-slide">
                                             <div class="product-grid d-flex align-items-stretch flex-column position-relative text-center">
                                                 <div class="product-top">
-                                                    <a href="<?php echo base_url('detail/' . $pro->product_id) ?>"><?php echo product_image_view('uploads/products', $pro->product_id, $pro->image, 'noimage.png', 'img-fluid', '', '', '100', '100') ?></a>
+                                                    <a href="<?php echo base_url('detail/' . $pro->product_id) ?>"><?php echo productImageView('uploads/products', $pro->product_id, $pro->image, 'noimage.png', 'img-fluid', '', '', '100', '100') ?></a>
                                                     <div class="rating text-center my-2">
                                                         <?php echo product_id_by_rating($pro->product_id); ?>
                                                     </div>
@@ -229,7 +229,7 @@
                             <?php foreach ($specialPro as $pro) { ?>
                                 <div class="row border-top mt-3 pt-1 pb-1" style="margin-left: -8px !important;margin-right: -8px !important;margin-top: -8px !important;">
                                     <div class="col-2 col-md-4 p-2">
-                                        <a href="<?php echo base_url('detail/' . $pro->product_id) ?>"><?php echo product_image_view('uploads/products', $pro->product_id, $pro->image, 'noimage.png', 'img-fluid  ', '', '', '71', '71') ?></a>
+                                        <a href="<?php echo base_url('detail/' . $pro->product_id) ?>"><?php echo productImageView('uploads/products', $pro->product_id, $pro->image, 'noimage.png', 'img-fluid  ', '', '', '71', '71') ?></a>
                                     </div>
                                     <div class="col-10 col-md-8 p-2">
                                         <div class="product-title-special mb-2 text-capitalize">
@@ -257,7 +257,7 @@
                         <div class="banner">
                             <?php
                             $special_banner_1 = $theme_settings['special_banner'];
-                            echo common_image_view('uploads/special_banner', '', $special_banner_1, 'noimage.png', 'w-100', '', '837', '190');
+                            echo commonImageView('uploads/special_banner', '', $special_banner_1, 'noimage.png', 'w-100', '', '837', '190');
                             ?>
                         </div>
                         <div class="products mt-5 ">
@@ -303,7 +303,7 @@
 
                                                     <?php } ?>
                                                     <div class="product-top text-center">
-                                                        <a href="<?php echo base_url('detail/' . $pro->product_id) ?>"><?php echo product_image_view('uploads/products', $pro->product_id, $pro->image, 'noimage.png', 'img-fluid ', '', '', '191', '191') ?></a>
+                                                        <a href="<?php echo base_url('detail/' . $pro->product_id) ?>"><?php echo productImageView('uploads/products', $pro->product_id, $pro->image, 'noimage.png', 'img-fluid ', '', '', '191', '191') ?></a>
                                                         <div class="rating text-center my-2">
                                                             <?php echo product_id_by_rating($pro->product_id); ?>
                                                         </div>
@@ -360,7 +360,7 @@
 
                                                     <?php } ?>
                                                     <div class="product-top text-center">
-                                                        <a href="<?php echo base_url('detail/' . $pro->product_id) ?>"><?php echo product_image_view('uploads/products', $pro->product_id, $pro->image, 'noimage.png', 'img-fluid ', '', '', '191', '191') ?></a>
+                                                        <a href="<?php echo base_url('detail/' . $pro->product_id) ?>"><?php echo productImageView('uploads/products', $pro->product_id, $pro->image, 'noimage.png', 'img-fluid ', '', '', '191', '191') ?></a>
                                                         <div class="rating text-center my-2">
                                                             <?php echo product_id_by_rating($pro->product_id); ?>
                                                         </div>
@@ -417,7 +417,7 @@
 
                                                     <?php } ?>
                                                     <div class="product-top text-center">
-                                                        <a href="<?php echo base_url('detail/' . $pro->product_id) ?>"><?php echo product_image_view('uploads/products', $pro->product_id, $pro->image, 'noimage.png', 'img-fluid ', '', '', '191', '191') ?></a>
+                                                        <a href="<?php echo base_url('detail/' . $pro->product_id) ?>"><?php echo productImageView('uploads/products', $pro->product_id, $pro->image, 'noimage.png', 'img-fluid ', '', '', '191', '191') ?></a>
                                                         <div class="rating text-center my-2">
                                                             <?php echo product_id_by_rating($pro->product_id); ?>
                                                         </div>
@@ -459,13 +459,13 @@
                     <div class="deal-box border position-relative  h-100 me-3 mo-m-r-0">
                         <div class="regular-4 w-100">
                             <div class="carousel-item w-100">
-                                <?php echo common_image_view('uploads/left_side_banner', '', $theme_settings['left_side_banner_one'], 'noimage.png', 'w-100 h-100', '', '261', '418'); ?>
+                                <?php echo commonImageView('uploads/left_side_banner', '', $theme_settings['left_side_banner_one'], 'noimage.png', 'w-100 h-100', '', '261', '418'); ?>
                             </div>
                             <div class="carousel-item w-100">
-                                <?php echo common_image_view('uploads/left_side_banner', '', $theme_settings['left_side_banner_two'], 'noimage.png', 'w-100 h-100', '', '261', '418'); ?>
+                                <?php echo commonImageView('uploads/left_side_banner', '', $theme_settings['left_side_banner_two'], 'noimage.png', 'w-100 h-100', '', '261', '418'); ?>
                             </div>
                             <div class="carousel-item w-100">
-                                <?php echo common_image_view('uploads/left_side_banner', '', $theme_settings['left_side_banner_three'], 'noimage.png', 'w-100 h-100', '', '261', '418'); ?>
+                                <?php echo commonImageView('uploads/left_side_banner', '', $theme_settings['left_side_banner_three'], 'noimage.png', 'w-100 h-100', '', '261', '418'); ?>
 
                             </div>
                         </div>
@@ -510,7 +510,7 @@
 
                                             <?php } ?>
                                             <div class="product-top text-center">
-                                                <a href="<?php echo base_url('detail/' . $pro->product_id) ?>"><?php echo product_image_view('uploads/products', $pro->product_id, $pro->image, 'noimage.png', 'img-fluid ', '', '', '191', '191') ?></a>
+                                                <a href="<?php echo base_url('detail/' . $pro->product_id) ?>"><?php echo productImageView('uploads/products', $pro->product_id, $pro->image, 'noimage.png', 'img-fluid ', '', '', '191', '191') ?></a>
                                                 <div class="rating text-center my-2">
                                                     <?php echo product_id_by_rating($pro->product_id); ?>
                                                 </div>
@@ -581,7 +581,7 @@
 
                                     while ($j <= $l) {
                                         if (array_key_exists($j - 1, $brand)) {
-                                            echo '<div class="col-6 brand-item  mt-2  no-padding">' . common_image_view('uploads/brand', '', $brand[$j - 1]->image, 'noimage.png', 'brand-img px-2 ', '', '119', '71') . '</div>';
+                                            echo '<div class="col-6 brand-item  mt-2  no-padding">' . commonImageView('uploads/brand', '', $brand[$j - 1]->image, 'noimage.png', 'brand-img px-2 ', '', '119', '71') . '</div>';
                                         }
                                         $j++;
                                     }

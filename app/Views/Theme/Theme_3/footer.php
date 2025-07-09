@@ -95,7 +95,7 @@
                                     Site Map</a></li>
                             </ul>
                             <div class="footer-logo">
-                                <?php echo common_image_view('assets/theme_3/img', '', 'logo-footer.png', 'noimage.png', 'img-fluid ', '', '190', '61'); ?>
+                                <?php echo commonImageView('assets/theme_3/img', '', 'logo-footer.png', 'noimage.png', 'img-fluid ', '', '190', '61'); ?>
                             </div>
                         </div>
                     </div>

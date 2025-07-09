@@ -8,7 +8,7 @@
                 <?php foreach ($qcpicture as $val) { ?>
                 <div class="col-3 col-md-3 mt-4 text-center">
                     <a href="<?= base_url('qc-picture-view/' . $val->album_id);?>">
-                        <?php echo product_image_view('uploads/album', $val->album_id, $val->thumb, 'noimage.png', '', '', '', '261', '261');?>
+                        <?php echo productImageView('uploads/album', $val->album_id, $val->thumb, 'noimage.png', '', '', '', '261', '261');?>
 
                         <p class="text-capitalize text-black mt-3"><b><?php echo $val->name; ?></b></p>
                     </a>
