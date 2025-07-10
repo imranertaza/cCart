@@ -11,7 +11,7 @@
                     <div class="col-md-6">
                         <div class="showing_image_area">
                             <div class="showing_image position-relative overflow-hidden" id="coverIMg">
-                                <?php echo product_image_view('uploads/products', $products->product_id, $products->image, 'noimage.png', 'img-fluid', 'cover', 'leance', '492', '450') ?>
+                                <?php echo productImageView('uploads/products', $products->product_id, $products->image, 'noimage.png', 'img-fluid', 'cover', 'leance', '492', '450') ?>
 
                                 <span class="lanse" leance id="lance" style="background: url('<?php echo base_url()?>/assets/assets_fl/tile._CB483369110_.gif');"></span>
                             </div>
@@ -35,14 +35,14 @@
 
                                 <div class="sub_img">
                                     <div class="other-image">
-                                        <?php echo product_image_view('uploads/products', $products->product_id, $products->image, 'noimage.png', 'img-opt', '', '', '492', '450') ?>
+                                        <?php echo productImageView('uploads/products', $products->product_id, $products->image, 'noimage.png', 'img-opt', '', '', '492', '450') ?>
                                     </div>
                                 </div>
 
                                 <?php
                                 if (!empty($proImg)) {
                                     foreach ($proImg as $imgval) {
-                                        echo '<div class="sub_img"><div class="other-image">' . multi_image_view('uploads/products', $imgval->product_id, $imgval->product_image_id, $imgval->image, 'noimage.png', 'img-opt', '492', '450') . '</div></div>';
+                                        echo '<div class="sub_img"><div class="other-image">' . productMultiImageView('uploads/products', $imgval->product_id, $imgval->product_image_id, $imgval->image, 'noimage.png', 'img-opt', '492', '450') . '</div></div>';
                                     }
                                 }
                     ?>
@@ -232,7 +232,7 @@
                     </div>
                     <div class="col-sm-5">
                         <div class="image-contant">
-                            <?php echo product_image_view('uploads/products', $products->product_id, $products->image, 'noimage.png', 'img-fluid w-100', '', '', '416', '381') ?>
+                            <?php echo productImageView('uploads/products', $products->product_id, $products->image, 'noimage.png', 'img-fluid w-100', '', '', '416', '381') ?>
                         </div>
                     </div>
                 </div>
@@ -251,7 +251,7 @@
                         <div class="col-6 col-lg-3 col-sm-4">
                             <div class="card rounded-0">
                                 <div class="r-product">
-                                    <a href="<?php echo base_url('detail/' . $rPro->product_id) ?>"><?php echo product_image_view('uploads/products', $rPro->product_id, $rPro->image, 'noimage.png', 'card-img-top rounded-0', '', '', '181', '181') ?></a>
+                                    <a href="<?php echo base_url('detail/' . $rPro->product_id) ?>"><?php echo productImageView('uploads/products', $rPro->product_id, $rPro->image, 'noimage.png', 'card-img-top rounded-0', '', '', '181', '181') ?></a>
 
 
                                     <h5 class="card-title"><?php echo substr($rPro->name, 0, 60); ?></h5>

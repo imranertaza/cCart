@@ -283,7 +283,7 @@
                                     <?php
                                     $img = get_data_by_id('image', 'cc_products', 'product_id', $val['id']);
                                     ?>
-                                    <?php echo product_image_view('uploads/products', $val['id'], $img, 'noimage.png', 'img-fluid pro-img-ft', '', '', '100', '100') ?>
+                                    <?php echo productImageView('uploads/products', $val['id'], $img, 'noimage.png', 'img-fluid pro-img-ft', '', '', '100', '100') ?>
 
                                 </div>
                             </div>

@@ -27,7 +27,7 @@
                         <td class="product-thumbnail">
                             <a href="#">
                                 <?php $img = get_data_by_id('image', 'cc_products', 'product_id', $val['id']); ?>
-                                <?php echo product_image_view('uploads/products', $val['id'], $img, 'noimage.png', 'img-fluid', '', '', '100', '100')?>
+                                <?php echo productImageView('uploads/products', $val['id'], $img, 'noimage.png', 'img-fluid', '', '', '100', '100')?>
 
                             </a>
                         </td>

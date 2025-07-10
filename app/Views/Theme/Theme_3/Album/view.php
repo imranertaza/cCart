@@ -9,7 +9,7 @@
                     <?php $img = str_replace("pro_", "", $album->thumb);
                     $url       = base_url('uploads/album/' . $album->album_id . '/wm_' . $img); ?>
                     <a class="example-image-link" href="<?= $url;?>" data-lightbox="example-set">
-                    <?php echo product_image_view('uploads/album', $album->album_id, $album->thumb, 'noimage.png', '', '', '', '261', '261');?>
+                    <?php echo productImageView('uploads/album', $album->album_id, $album->thumb, 'noimage.png', '', '', '', '261', '261');?>
 
                     </a>
                 </div>
@@ -18,7 +18,7 @@
                         $url2 = base_url('uploads/album/' . $val->album_id . '/' . $val->album_details_id . '/wm_' . $img2); ?>
                 <div class="col-4 col-md-3 mt-4 text-center ">
                     <a class="example-image-link" href="<?= $url2; ?>" data-lightbox="example-set" >
-                    <?php echo multi_image_view('uploads/album', $val->album_id, $val->album_details_id, $val->image, 'noimage.png', 'img-fluid', '261', '261'); ?>
+                    <?php echo productMultiImageView('uploads/album', $val->album_id, $val->album_details_id, $val->image, 'noimage.png', 'img-fluid', '261', '261'); ?>
                     </a>
                 </div>
                 <?php

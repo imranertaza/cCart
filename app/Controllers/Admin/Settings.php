@@ -173,4 +173,34 @@ class Settings extends BaseController
 
         return redirect()->to('admin/settings');
     }
+
+    public function cacheImageRemove()
+    {
+        $directory = FCPATH . 'cache/uploads';
+        $days      = 30;
+        $now       = time();
+
+        $files = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator($directory, RecursiveDirectoryIterator::SKIP_DOTS),
+            RecursiveIteratorIterator::CHILD_FIRST
+        );
+
+        foreach ($files as $file) {
+            if ($file->isFile()) {
+                $lastModified = $file->getMTime();
+
+                if ($lastModified < ($now - ($days * 86400))) {
+                    unlink($file->getRealPath());
+                }
+            } elseif ($file->isDir()) {
+                if (iterator_count(new FilesystemIterator($file->getRealPath())) === 0) {
+                    rmdir($file->getRealPath());
+                }
+            }
+        }
+
+        $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Cache Image Remove Successfully <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
+        return redirect()->to('admin/settings');
+    }
 }

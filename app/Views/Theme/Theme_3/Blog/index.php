@@ -8,7 +8,7 @@
                 <?php foreach ($blog as $val) { ?>
                     <div class="col-sm-12 col-md-3 mt-4 blog-list-view">
                         <a href="<?= base_url('blog-view/' . $val->blog_id);?>">
-                            <?php echo common_image_view('uploads/blog', $val->blog_id, $val->image, 'noimage.png', '', '', '261', '261');?>
+                            <?php echo commonImageView('uploads/blog', $val->blog_id, $val->image, 'noimage.png', '', '', '261', '261');?>
 
                             <p class="text-capitalize text-black mt-3 blog-list-title "><?php echo $val->blog_title; ?></p>
                             <p class="text-capitalize text-black mt-2 blog-list-text" ><b>Date:</b> <?php echo invoiceDateFormat($val->publish_date); ?></p>
