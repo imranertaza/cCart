@@ -11,7 +11,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="<?php echo base_url('admin/dashboard') ?>">Home</a></li>
+                        <li class="breadcrumb-item"><a href="<?php echo base_url('dashboard') ?>">Home</a></li>
                         <li class="breadcrumb-item active">Blog List</li>
                     </ol>
                 </div>
@@ -57,7 +57,7 @@ foreach ($blog as $val) { ?>
                             <td width="40"><?php echo $i++;?></td>
                             <td><?php echo $val->blog_title;?></td>
                             <td><?php echo $val->short_des;?></td>
-                            <td><?php echo commonImageView('uploads/blog', $val->blog_id, $val->image, 'noimage.png', '', '', '100', '100');?></td>
+                            <td><?php echo common_image_view('uploads/blog', $val->blog_id, $val->image, 'noimage.png', '', '', '100', '100');?></td>
 
                             <td><?php echo statusView($val->status);?></td>
                             <td width="180">

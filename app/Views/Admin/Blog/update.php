@@ -11,7 +11,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="<?php echo base_url('admin/dashboard')?>">Home</a></li>
+                        <li class="breadcrumb-item"><a href="<?php echo base_url('dashboard')?>">Home</a></li>
                         <li class="breadcrumb-item active">Blog Update</li>
                     </ol>
                 </div>
@@ -30,7 +30,7 @@
                         <h3 class="card-title">Blog Update</h3>
                     </div>
                     <div class="col-md-4"> </div>
-                    <div class="col-md-12" style="margin-top: 10px">
+                    <div class="col-md-12" style="margin-top: 10px" id="message">
                         <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
                     </div>
                 </div>
@@ -62,21 +62,22 @@
                             </div>
 
                             <div class="form-group">
-                                <?php echo commonImageView('uploads/blog', $blog->blog_id, $blog->image, 'noimage.png', '', '', '100', '100');?><br>
+                                <?php echo common_image_view('uploads/blog', $blog->blog_id, $blog->image, 'noimage.png', '', '', '100', '100');?><br>
 
                                 <label>Image </label>
                                 <input type="file" name="image"  class="form-control" placeholder="Image" >
                                 <span>Recommended Size (900x500)</span>
                             </div>
 
-
-
-
                             <div class="form-group">
                                 <label>Short Description</label>
                                 <textarea name="short_des" class="form-control" placeholder="Short Description" ><?php echo $blog->short_des;?></textarea>
                             </div>
 
+                            <div class="form-group">
+                                <label>Description</label>
+                                <textarea name="description" id="editor" rows="4" class="form-control" placeholder="Description" ><?php echo $blog->description;?></textarea>
+                            </div>
                             <div class="form-group">
                                 <label>Status <span class="requi">*</span></label>
                                 <select name="status" class="form-control">
@@ -85,13 +86,12 @@
                             </div>
                             <input type="hidden" name="blog_id"  class="form-control" placeholder="blog_id" value="<?php echo $blog->blog_id;?>" >
                             <button class="btn btn-primary" >Update</button>
-                            <a href="<?php echo base_url('admin/blog')?>" class="btn btn-danger" >Back</a>
+                            <a href="<?php echo base_url('admin/admin-blog')?>" class="btn btn-danger" >Back</a>
                         </div>
                         <div class="col-md-6">
-
                             <div class="form-group">
-                                <label>Description</label>
-                                <textarea name="description" id="editor" rows="4" class="form-control" placeholder="Description" ><?php echo $blog->description;?></textarea>
+                                <label>Video Id </label>
+                                <input type="text" name="video_id"  class="form-control" placeholder="embed(I85ET56TEWT)" value="<?php echo $blog->video_id;?>" >
                             </div>
 
                             <div class="form-group">
@@ -107,6 +107,21 @@
                             <div class="form-group">
                                 <label>Meta Description</label>
                                 <textarea name="meta_description" rows="3" class="form-control" placeholder="Meta Description"><?php echo $blog->meta_keyword;?></textarea>
+                            </div>
+
+                            <div class="form-group ">
+                                <br><label>Carousel Image</label>
+                                <div id="frames"></div><br>
+                                <input type="file" class="form-control" id="image" name="multiImage[]" multiple />
+                                <div class="row" id="reloadImg">
+                                    <?php foreach ($crassulaImage as $img) { ?>
+                                        <div class="col-md-4 position-relative">
+                                            <?php echo common_image_view('uploads/blog', $blog->blog_id . '/' . $img->blog_crassula_image_id, $img->image, 'noimage.png', 'mt-2', '100', '150', '100');?>
+                                            <a href="javascript:void(0);" onclick="removeBlogImage('<?php echo $img->blog_crassula_image_id;?>','<?php echo $blog->blog_id;?>')" class="btn btn-danger remove_btn" >X</a>
+                                        </div>
+                                    <?php } ?>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -131,6 +146,20 @@
                 .replace(/ /g, '-')
                 .replace(/[^\w-]+/g, '');
             $("#slug").val(slug);
+        }
+        function removeBlogImage(id,blogid){
+            var result = confirm("Want to delete?");
+            if (result) {
+                $.ajax({
+                    method: 'POST',
+                    url: "<?php echo base_url('admin/blog_image_remove_action')?>",
+                    data: {id:id,blogId:blogid},
+                    success: function(response) {
+                        $("#message").html(response);
+                        $('#reloadImg').load(document.URL + ' #reloadImg');
+                    }
+                });
+            }
         }
     </script>
 <?= $this->endSection() ?>
