@@ -1808,3 +1808,30 @@ function productMultiImageView($url, $slug, $slug2, $image, $no_image, $class = 
 
     return $result;
 }
+
+
+
+
+/**
+ * @description This function provides count comment by blog_id.
+ * @param int $blog_id
+ * @return int|string
+ */
+function count_comment_by_blog_id($blog_id)
+{
+    $table = DB()->table('cc_blog_comments');
+
+    return $table->where('blog_id', $blog_id)->countAllResults();
+}
+
+/**
+ * @description This function provides comment id by reply comment.
+ * @param int $comment_id
+ * @return array
+ */
+function comment_id_by_reply_comment($comment_id)
+{
+    $table = DB()->table('cc_blog_comments');
+
+    return $table->where('	comment_parent_id', $comment_id)->get()->getResult();
+}

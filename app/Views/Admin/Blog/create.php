@@ -11,7 +11,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="<?php echo base_url('admin/dashboard')?>">Home</a></li>
+                        <li class="breadcrumb-item"><a href="<?php echo base_url('dashboard')?>">Home</a></li>
                         <li class="breadcrumb-item active">Blog create</li>
                     </ol>
                 </div>
@@ -72,16 +72,22 @@
                                 <label>Short Description</label>
                                 <textarea name="short_des" class="form-control" placeholder="Short Description" ></textarea>
                             </div>
+                            <div class="form-group">
+                                <label>Description</label>
+                                <textarea name="description" id="editor" rows="8"  class="form-control" placeholder="Description" ></textarea>
+                            </div>
+
+
 
 
                             <button class="btn btn-primary" >Create</button>
-                            <a href="<?php echo base_url('admin/blog')?>" class="btn btn-danger" >Back</a>
+                            <a href="<?php echo base_url('admin/admin-blog')?>" class="btn btn-danger" >Back</a>
                         </div>
                         <div class="col-md-6">
 
                             <div class="form-group">
-                                <label>Description</label>
-                                <textarea name="description" id="editor" rows="8"  class="form-control" placeholder="Description" ></textarea>
+                                <label>Video Id </label>
+                                <input type="text" name="video_id"  class="form-control" placeholder="embed(I85ET56TEWT)" >
                             </div>
 
                             <div class="form-group">
@@ -97,6 +103,12 @@
                             <div class="form-group">
                                 <label>Meta Description</label>
                                 <textarea name="meta_description" rows="3" class="form-control" placeholder="Meta Description"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Carousel Image</label>
+                                <div id="frames"></div><br>
+                                <input type="file" class="form-control" id="image" name="multiImage[]" multiple />
                             </div>
                         </div>
                     </div>

@@ -11,7 +11,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="<?php echo base_url('admin/dashboard') ?>">Home</a></li>
+                        <li class="breadcrumb-item"><a href="<?php echo base_url('dashboard') ?>">Home</a></li>
                         <li class="breadcrumb-item active">Blog Category List</li>
                     </ol>
                 </div>
@@ -61,7 +61,7 @@ foreach ($category as $val) {
                                 <td width="40"><?php echo $i++; ?></td>
                                 <td><?php echo display_blog_category_with_parent($val->cat_id); ?></td>
 
-                                <td><?php echo commonImageView('uploads/blog_category', '', $val->image, 'noimage.png', 'width-80', '', '166', '208'); ?>
+                                <td><?php echo common_image_view('uploads/blog_category', '', $val->image, 'noimage.png', 'width-80', '', '166', '208'); ?>
                                 </td>
                                 <td><?php print get_data_by_id('code', 'cc_icons', 'icon_id', $val->icon_id); ?> </td>
                                 <td width="100"><input type="text" class="border-0" onchange="updateSorting(this.value,'<?php echo $val->cat_id ?>')" value="<?php echo $val->sort_order; ?>"></td>
