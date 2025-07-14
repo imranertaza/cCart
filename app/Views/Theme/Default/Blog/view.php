@@ -113,7 +113,7 @@
 
 
                     <div class="form-group mt-3">
-                        <button type="submit" class="btn btn-post w-100" >Post Comment</button>
+                        <button type="button" onclick="commentAction('commentForm')" class="btn btn-post w-100" >Post Comment</button>
                     </div>
                 </form>
             </div>

@@ -77,6 +77,9 @@
                                         <input type="text" class="form-control w-auto rounded-0 me-1" name="coupon" placeholder="Coupon Code" required>
                                         <input class="btn bg-custom-color rounded-0 px-4 text-white" type="submit" name="submit" value="Apply Coupon">
                                     </div>
+                                    <?php if (isset(newSession()->coupon_discount_shipping)){ ?>
+                                        <small class="mt-3 text-danger" style="float: left;">Shipping coupon discount will show up after you checkout.</small>
+                                    <?php } ?>
                                 </form>
                                 <?php } ?>
                             </td>
@@ -91,9 +94,18 @@
                             </td>
                             <td class="mo-text-center mo-amount" style="text-align:left; width: 170px">
                                 <?php if (isset(newSession()->coupon_discount)) {
-                        $disc = number_format((Cart()->total() * newSession()->coupon_discount) / 100, 2); ?>
+                                    if (newSession()->discount_type == 'Percentage') {
+                                        $disc = (Cart()->total() * newSession()->coupon_discount / 100);
+                                    }else{
+                                        if (Cart()->total() > newSession()->coupon_discount) {
+                                            $disc = newSession()->coupon_discount;
+                                        }else{
+                                            $disc = Cart()->total();
+                                        }
+                                    }
+                                ?>
                                     <span class=" fs-4"><?php echo currency_symbol_with_symbol(Cart()->total(), $symbol) ?></span><br>
-                                    <span class=" fs-4"><?php echo currency_symbol($disc) ?></span><br>
+                                    <span class=" fs-4"><?php echo currency_symbol_with_symbol($disc,$symbol) ?></span><br>
                                 <?php
                     }
                                 $total = (isset(newSession()->coupon_discount)) ? Cart()->total() - $disc : Cart()->total(); ?>

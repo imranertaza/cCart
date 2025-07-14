@@ -281,6 +281,7 @@
             slide: function(event, ui) {
                 $("#amount").val("" + ui.values[0] + " - " + ui.values[1]);
                 $("#price").val("" + ui.values[0] + "," + ui.values[1]);
+                $("#price").attr('form','searchForm');
                 $("#searchForm").submit();
             }
         });

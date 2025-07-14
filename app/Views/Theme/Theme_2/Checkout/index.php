@@ -317,13 +317,21 @@
                                 <?php $disc = 0;
 
         if (isset(newSession()->coupon_discount)) {
-            $disc = round((Cart()->total() * newSession()->coupon_discount) / 100); ?>
+            if (newSession()->discount_type == 'Percentage') {
+                $disc = (Cart()->total() * newSession()->coupon_discount) / 100;
+            }else{
+                if (Cart()->total() > newSession()->coupon_discount) {
+                    $disc = newSession()->coupon_discount;
+                }else{
+                    $disc = Cart()->total();
+                }
+            } ?>
                                 <span><?php echo currency_symbol_with_symbol($disc, $symbol) ?></span>
                                 <?php
         } else {
             echo '<span>' . currency_symbol_with_symbol($disc, $symbol) . '</span>';
         }
-        $total = (isset(newSession()->coupon_discount)) ? number_format(Cart()->total() - $disc, 2) : Cart()->total(); ?>
+        $total = (isset(newSession()->coupon_discount)) ?  Cart()->total() - $disc  : Cart()->total(); ?>
                             </div>
                         </div>
 
