@@ -207,27 +207,40 @@ class Profile extends BaseController
      */
     public function newsletter_action()
     {
-        $check = get_data_by_id('newsletter', 'cc_customer', 'customer_id', $this->session->cusUserId);
+        $checked = $this->request->getPost('value');
 
-        if ($check == '0') {
-            $email                  = get_data_by_id('email', 'cc_customer', 'customer_id', $this->session->cusUserId);
-            $newData['customer_id'] = $this->session->cusUserId;
-            $newData['email']       = $email;
-            $newAd                  = DB()->table('cc_newsletter');
-            $newAd->insert($newData);
+        if ($checked == 'checked') {
+            $check = get_data_by_id('newsletter', 'cc_customer', 'customer_id', $this->session->cusUserId);
+
+            if ($check == '0') {
+                $email                  = get_data_by_id('email', 'cc_customer', 'customer_id', $this->session->cusUserId);
+                $newData['customer_id'] = $this->session->cusUserId;
+                $newData['email']       = $email;
+                $newAd                  = DB()->table('cc_newsletter');
+                $newAd->insert($newData);
 
 
-            $cusData['newsletter'] = '1';
+                $cusData['newsletter'] = '1';
+                $table                 = DB()->table('cc_customer');
+                $table->where('customer_id', $this->session->cusUserId)->update($cusData);
+
+                $subject = 'Subscription';
+                $message = "Thank you.Your subscription has been successfully completed";
+                email_send($email, $subject, $message);
+
+                print '<div class="alert-success-m alert-success alert-dismissible" role="alert">Your subscription has been successfully completed </div>';
+            } else {
+                print '<div class="alert alert-danger alert-dismissible text-white " role="alert">Your email already exists</div>';
+            }
+        } else {
+            $newAd = DB()->table('cc_newsletter');
+            $newAd->where('customer_id', $this->session->cusUserId)->delete();
+
+
+            $cusData['newsletter'] = '0';
             $table                 = DB()->table('cc_customer');
             $table->where('customer_id', $this->session->cusUserId)->update($cusData);
-
-            $subject = 'Subscription';
-            $message = "Thank you.Your subscription has been successfully completed";
-            email_send($email, $subject, $message);
-
-            print '<div class="alert-success-m alert-success alert-dismissible" role="alert">Your subscription has been successfully completed </div>';
-        } else {
-            print '<div class="alert alert-danger alert-dismissible text-white " role="alert">Your email already exists</div>';
+            print '<div class="alert-success-m alert-success alert-dismissible" role="alert">Your subscription has been successfully removed </div>';
         }
     }
 }

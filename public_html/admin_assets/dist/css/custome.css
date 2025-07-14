@@ -74,3 +74,9 @@
     width: 100px !important;
     height: 100px !important;
 }
+
+.remove_btn {
+    position: absolute;
+    right: 19px;
+    top: 8px;
+}

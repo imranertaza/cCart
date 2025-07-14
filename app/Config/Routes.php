@@ -296,19 +296,21 @@ $routes->group('admin', static function ($routes) {
 
     $routes->get('blog_category', 'Admin\Blog_category::index');
     $routes->get('blog_category_create', 'Admin\Blog_category::create');
-    $routes->post('blog_category_create_action', 'Admin\Blog_category::create_action');
-    $routes->post('blog_category_update_action', 'Admin\Blog_category::update_action');
-    $routes->post('blog_category_update_action_others', 'Admin\Blog_category::update_action_others');
+    $routes->post('blog_category_create_action', 'Admin\Blog_category::createAction');
+    $routes->post('blog_category_update_action', 'Admin\Blog_category::updateAction');
+    $routes->post('blog_category_update_action_others', 'Admin\Blog_category::updateActionOthers');
     $routes->get('blog_category_update/(:num)', 'Admin\Blog_category::update/$1');
     $routes->get('blog_category_delete/(:num)', 'Admin\Blog_category::delete/$1');
-    $routes->post('blog_category_sort_update_action', 'Admin\Blog_category::sort_update_action');
+    $routes->post('blog_category_sort_update_action', 'Admin\Blog_category::sortUpdateAction');
 
-    $routes->get('blog', 'Admin\Blog::index');
+//blog
+    $routes->get('admin-blog', 'Admin\Blog::index');
     $routes->get('blog_create', 'Admin\Blog::create');
-    $routes->post('blog_create_action', 'Admin\Blog::create_action');
-    $routes->post('blog_update_action', 'Admin\Blog::update_action');
+    $routes->post('blog_create_action', 'Admin\Blog::createAction');
+    $routes->post('blog_update_action', 'Admin\Blog::updateAction');
     $routes->get('blog_update/(:num)', 'Admin\Blog::update/$1');
     $routes->get('blog_delete/(:num)', 'Admin\Blog::delete/$1');
+    $routes->post('blog_image_remove_action', 'Admin\Blog::imageRemoveAction');
 
 });
 
@@ -438,9 +440,13 @@ $routes->post('/top_search', 'Search::search_action');
 $routes->get('/qc-picture', 'Album::index');
 $routes->get('/qc-picture-view/(:num)', 'Album::view/$1');
 
+
 //Blog
 $routes->get('/blog', 'Blog::index');
+$routes->get('/blog-category/(:num)', 'Blog::category/$1');
 $routes->get('/blog-view/(:num)', 'Blog::view/$1');
+$routes->post('/blog-comment-action', 'Blog::commentAction');
+$routes->post('/blog-comment-reply-action', 'Blog::commentReplyAction');
 
 //ajax controller
 $routes->post('get_state', 'Admin\Ajax::get_state');

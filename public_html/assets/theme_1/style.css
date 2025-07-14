@@ -865,3 +865,149 @@ a {
 .pad-detail{
     padding: 10px 170px;
 }
+
+
+
+
+.div-pad {
+    padding: 20px;
+}
+.class-border {
+    border: 1px solid #eaeaea;
+    border-radius: 10px;
+}
+.mob-view-text {
+    padding-top: 8px;
+}
+.img-redu {
+    border-radius: 10px 0 0 10px;
+}
+.date-box {
+    position: absolute;
+    background-color: #2396e6;
+    padding: 5px;
+    border-radius: 5px;
+    color: #fff;
+    bottom: 18px;
+    left: 25px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 100%;
+}
+.date-text, .text-label {
+    margin-left: 10px;
+    margin-top: 2px;
+}
+.b-title {
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 32px;
+    margin-top: 11px;
+}
+.b-text {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 26px;
+    color: #858585;
+}
+.btn-blog-category {
+    border: 1px solid #193a50 !important;
+    border-radius: 50px;
+    margin-left: 15px;
+}
+.btn-selected {
+    background-color: #e3f4ff;
+}
+.btn-cat {
+    background-color: #2396e6;
+    color: #fff;
+}
+.b-d-title {
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 50px;
+    margin-top: 20px;
+}
+.b-d-text {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 100%;
+    margin-left: 5px;
+    margin-top: 3px;
+}
+.carousel .carousel-indicators button {
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+}
+.desc-text, .desc-text p {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 26px;
+    letter-spacing: 0;
+    padding-top: 40px;
+}
+.hr-ce {
+    color: #000 !important;
+    margin-top: 35px;
+}
+.btn-post {
+    background-color: #2396e6;
+    color: #fff;
+}
+.t-com {
+    margin-left: 10px;
+    margin-top: 5px;
+}
+.name-comment {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 100%;
+    letter-spacing: 0;
+    color: #3c3c3c;
+    text-transform: capitalize;
+}
+.btn-d {
+    border: none;
+    color: #848484;
+    font-size: 14px !important;
+    font-weight: 400;
+    line-height: 100%;
+    letter-spacing: 0;
+}
+.text-comment {
+    font-weight: 400;
+    line-height: 100%;
+    letter-spacing: 0;
+}
+.comment-replay {
+    margin-left: 50px;
+    border: 1px solid #e2e2e2;
+    padding: 15px;
+    width: 370px;
+    border-radius: 5px;
+    background-color: #fff;
+}
+.name-comment {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 100%;
+    letter-spacing: 0;
+    color: #3c3c3c;
+    text-transform: capitalize;
+}
+.btn-reply {
+    background-color: #2396e6;
+    color: #fff;
+    width: 400px;
+    height: 30px;
+    padding: 0;
+}
+.input-c {
+    border-radius: 5px;
+    border: 1px solid #dbdbdb;
+}
+.input-te {
+    width: 400px;
+    height: 40px;
+}

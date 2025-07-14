@@ -90,11 +90,12 @@ class Blog extends BaseController
      * @description This method provides album create action
      * @return RedirectResponse
      */
-    public function create_action()
+    public function createAction()
     {
         $data['blog_title']       = $this->request->getPost('blog_title');
         $data['slug']             = $this->request->getPost('slug');
         $data['cat_id']           = $this->request->getPost('cat_id');
+        $data['video_id']         = $this->request->getPost('video_id');
         $data['short_des']        = $this->request->getPost('short_des');
         $data['description']      = $this->request->getPost('description');
         $data['meta_title']       = $this->request->getPost('meta_title');
@@ -113,30 +114,57 @@ class Blog extends BaseController
 
             return redirect()->to('admin/blog_create');
         } else {
+            DB()->transStart();
             $table = DB()->table('cc_blog');
             $table->insert($data);
             $blogId = DB()->insertID();
 
             //image size array
-            //$this->imageProcessing->sizeArray = [ ['width'=>'100', 'height'=>'100', ],['width'=>'300', 'height'=>'300', ],['width'=>'880', 'height'=>'400', ],];
             $this->imageProcessing->sizeArray = [];
 
             if (!empty($_FILES['image']['name'])) {
-                $target_dir = FCPATH . '/uploads/blog/' . $blogId . '/';
-                $this->imageProcessing->directory_create($target_dir);
+                $targetDir = FCPATH . '/uploads/blog/' . $blogId . '/';
+                $this->imageProcessing->directory_create($targetDir);
 
                 //new image upload
                 $pic = $this->request->getFile('image');
 
-                $news_img = $this->imageProcessing->image_upload_and_crop_all_size($pic, $target_dir);
+                $newsImg = $this->imageProcessing->image_upload_and_crop_all_size($pic, $targetDir);
 
-                $dataImg['image'] = $news_img;
+                $dataImg['image'] = $newsImg;
 
                 $albumTable = DB()->table('cc_blog');
                 $albumTable->where('blog_id', $blogId)->update($dataImg);
             }
             //album table data insert(end)
 
+            //multi image upload(start)
+            if ($this->request->getFileMultiple('multiImage')) {
+                $targetDir = FCPATH . '/uploads/blog/' . $blogId . '/';
+                $this->imageProcessing->directory_create($targetDir);
+
+                $files = $this->request->getFileMultiple('multiImage');
+
+                foreach ($files as $file) {
+                    if ($file->isValid() && !$file->hasMoved()) {
+                        $dataMultiImg['blog_id'] = $blogId;
+                        $blogImgTable            = DB()->table('cc_blog_carousel_image');
+                        $blogImgTable->insert($dataMultiImg);
+                        $blogCrassulaImageId = DB()->insertID();
+
+                        $targetDirMulti = FCPATH . '/uploads/blog/' . $blogId . '/' . $blogCrassulaImageId . '/';
+                        $this->imageProcessing->directory_create($targetDirMulti);
+
+                        $newsImgName                 = $this->imageProcessing->product_image_upload_and_crop_all_size($file, $targetDirMulti);
+                        $dataMultiImgUpdate['image'] = $newsImgName;
+
+                        $blogImgUpTable = DB()->table('cc_blog_carousel_image');
+                        $blogImgUpTable->where('blog_crassula_image_id', $blogCrassulaImageId)->update($dataMultiImgUpdate);
+                    }
+                }
+            }
+            //multi image upload(start)
+            DB()->transComplete();
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Create Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 
@@ -149,7 +177,7 @@ class Blog extends BaseController
      * @param int $blog_id
      * @return RedirectResponse|void
      */
-    public function update($blog_id)
+    public function update($blogId)
     {
         $isLoggedInEcAdmin = $this->session->isLoggedInEcAdmin;
         $adRoleId          = $this->session->adRoleId;
@@ -162,8 +190,10 @@ class Blog extends BaseController
 
 
             $table        = DB()->table('cc_blog');
-            $data['blog'] = $table->where('blog_id', $blog_id)->get()->getRow();
+            $data['blog'] = $table->where('blog_id', $blogId)->get()->getRow();
 
+            $tableImg              = DB()->table('cc_blog_carousel_image');
+            $data['crassulaImage'] = $tableImg->where('blog_id', $blogId)->get()->getResult();
 
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
@@ -184,12 +214,13 @@ class Blog extends BaseController
      * @description This method provides color family update action
      * @return RedirectResponse
      */
-    public function update_action()
+    public function updateAction()
     {
-        $blog_id                  = $this->request->getPost('blog_id');
+        $blogId                   = $this->request->getPost('blog_id');
         $data['blog_title']       = $this->request->getPost('blog_title');
         $data['slug']             = $this->request->getPost('slug');
         $data['cat_id']           = $this->request->getPost('cat_id');
+        $data['video_id']         = $this->request->getPost('video_id');
         $data['short_des']        = $this->request->getPost('short_des');
         $data['description']      = $this->request->getPost('description');
         $data['meta_title']       = $this->request->getPost('meta_title');
@@ -206,33 +237,60 @@ class Blog extends BaseController
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 
-            return redirect()->to('admin/blog_update/' . $blog_id);
+            return redirect()->to('admin/blog_update/' . $blogId);
         } else {
+            DB()->transStart();
             $table = DB()->table('cc_blog');
-            $table->where('blog_id', $blog_id)->update($data);
+            $table->where('blog_id', $blogId)->update($data);
 
             //image size array
             $this->imageProcessing->sizeArray = [];
 
             if (!empty($_FILES['image']['name'])) {
-                $target_dir = FCPATH . '/uploads/blog/' . $blog_id . '/';
+                $targetDir = FCPATH . '/uploads/blog/' . $blogId . '/';
                 //unlink
-                $oldImg   = get_data_by_id('image', 'cc_blog', 'blog_id', $blog_id);
-                $pic      = $this->request->getFile('image');
-                $news_img = $this->imageProcessing->single_product_image_unlink($target_dir, $oldImg)->directory_create($target_dir)->image_upload_and_crop_all_size($pic, $target_dir);
+                $oldImg  = get_data_by_id('image', 'cc_blog', 'blog_id', $blogId);
+                $pic     = $this->request->getFile('image');
+                $newsImg = $this->imageProcessing->single_product_image_unlink($targetDir, $oldImg)->directory_create($targetDir)->image_upload_and_crop_all_size($pic, $targetDir);
 
-                $dataImg['image'] = $news_img;
+                $dataImg['image'] = $newsImg;
 
                 $proUpTable = DB()->table('cc_blog');
-                $proUpTable->where('blog_id', $blog_id)->update($dataImg);
+                $proUpTable->where('blog_id', $blogId)->update($dataImg);
             }
             //product table data insert(end)
 
+            //multi image upload(start)
+            if ($this->request->getFileMultiple('multiImage')) {
+                $targetDir = FCPATH . '/uploads/blog/' . $blogId . '/';
+                $this->imageProcessing->directory_create($targetDir);
 
+                $files = $this->request->getFileMultiple('multiImage');
+
+                foreach ($files as $file) {
+                    if ($file->isValid() && !$file->hasMoved()) {
+                        $dataMultiImg['blog_id'] = $blogId;
+                        $blogImgTable            = DB()->table('cc_blog_carousel_image');
+                        $blogImgTable->insert($dataMultiImg);
+                        $blogCrassulaImageId = DB()->insertID();
+
+                        $targetDirMulti = FCPATH . '/uploads/blog/' . $blogId . '/' . $blogCrassulaImageId . '/';
+                        $this->imageProcessing->directory_create($targetDirMulti);
+
+                        $newsImgName                 = $this->imageProcessing->product_image_upload_and_crop_all_size($file, $targetDirMulti);
+                        $dataMultiImgUpdate['image'] = $newsImgName;
+
+                        $blogImgUpTable = DB()->table('cc_blog_carousel_image');
+                        $blogImgUpTable->where('blog_crassula_image_id', $blogCrassulaImageId)->update($dataMultiImgUpdate);
+                    }
+                }
+            }
+            //multi image upload(start)
+            DB()->transComplete();
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Update Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 
-            return redirect()->to('admin/blog_update/' . $blog_id);
+            return redirect()->to('admin/blog_update/' . $blogId);
         }
     }
 
@@ -241,34 +299,67 @@ class Blog extends BaseController
      * @param int $blog_id
      * @return RedirectResponse
      */
-    public function delete($blog_id)
+    public function delete($blogId)
     {
         helper('filesystem');
 
         DB()->transStart();
 
-        $target_dir = FCPATH . '/uploads/blog/' . $blog_id;
+        $targetDir = FCPATH . '/uploads/blog/' . $blogId;
 
-        if (file_exists($target_dir)) {
-            delete_files($target_dir, true);
-            rmdir($target_dir);
+        if (file_exists($targetDir)) {
+            delete_files($targetDir, true);
+            rmdir($targetDir);
         }
+        //cache delete
+        $targetDirCash = FCPATH . '/cache/uploads/blog/' . $blogId;
 
-        $targetDirCache = FCPATH . '/cache/uploads/blog/' . $blog_id;
-
-        if (file_exists($targetDirCache)) {
-            delete_files($targetDirCache, true);
-            rmdir($targetDirCache);
+        if (file_exists($targetDirCash)) {
+            delete_files($targetDirCash, true);
+            rmdir($targetDirCash);
         }
 
         $table = DB()->table('cc_blog');
-        $table->where('blog_id', $blog_id)->delete();
+        $table->where('blog_id', $blogId)->delete();
+
+        $tableImage = DB()->table('cc_blog_carousel_image');
+        $tableImage->where('blog_id', $blogId)->delete();
 
         DB()->transComplete();
 
 
         $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Delete Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 
-        return redirect()->to('admin/blog');
+        return redirect()->to('admin/admin-blog');
+    }
+
+    /**
+     * @description This method provides blog image remove
+     * @return void
+     */
+    public function imageRemoveAction()
+    {
+        helper('filesystem');
+        $id     = $this->request->getPost('id');
+        $blogId = $this->request->getPost('blogId');
+
+        $targetDir = FCPATH . '/uploads/blog/' . $blogId . '/' . $id;
+
+        if (file_exists($targetDir)) {
+            delete_files($targetDir, true);
+            rmdir($targetDir);
+        }
+        //cache delete
+        $targetDirCash = FCPATH . '/cache/uploads/blog/' . $blogId . '/' . $id;
+
+        if (file_exists($targetDirCash)) {
+            delete_files($targetDirCash, true);
+            rmdir($targetDirCash);
+        }
+
+        $tableImage = DB()->table('cc_blog_carousel_image');
+        $tableImage->where('blog_crassula_image_id', $id)->delete();
+
+        print '<div class="alert alert-success alert-dismissible" role="alert">Delete Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
     }
 }
