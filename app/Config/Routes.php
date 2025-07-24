@@ -432,6 +432,7 @@ $routes->post('/removeToCompare', 'Compare::removeToCompare');
 //Category
 $routes->get('/category/(:num)', 'Category::index/$1');
 $routes->Post('/category_url_generate', 'Category::url_generate');
+$routes->get('/category-not-found', 'Category::categoryNotFound');
 
 //Search top
 $routes->post('/top_search', 'Search::search_action');

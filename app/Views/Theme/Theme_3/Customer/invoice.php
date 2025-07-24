@@ -78,15 +78,15 @@
 
                             foreach ($orderItem as $item) { ?>
                                 <tr>
-                                    <td width="700">
-                                        <div class="img-table" style="width:12%; float:left;">
+                                    <td width="700" class="d-flex">
+                                        <div class="img-table" >
                                         <?php
                                         $img = get_data_by_id('image', 'cc_products', 'product_id', $item->product_id);
                                         echo productImageView('uploads/products', $item->product_id, $img, 'noimage.png', '', '', '', '82', '82');
                                         ?>
 
                                         </div>
-                                        <div class="img-text" style="width:88%;float:left;">
+                                        <div class="img-text" style="margin-left: 10px;">
                                         <?php echo get_data_by_id('name', 'cc_products', 'product_id', $item->product_id) ;?>
                                             <br>
                                         <?php
@@ -107,6 +107,7 @@
                                 } ?>
 
                                         </div>
+
                                     </td>
                                     <td><?php echo currency_symbol_with_symbol($item->price, $symbol);?></td>
                                     <td><?php echo $item->quantity;?></td>

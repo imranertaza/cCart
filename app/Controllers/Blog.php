@@ -29,7 +29,8 @@ class Blog extends BaseController
         $data['pager'] = $this->blogModel->pager;
         $data['links'] = $data['pager']->links('default', 'custome_link');
 
-        $table            = DB()->table('cc_category');
+        $table            = DB()->table('cc_blog');
+        $table->join('cc_category', 'cc_category.cat_id = cc_blog.cat_id')->where('cc_blog.status', '1');
         $data['category'] = $table->get()->getResult();
 
         $data['catBtn']      = 'All';
@@ -49,7 +50,8 @@ class Blog extends BaseController
         $data['pager'] = $this->blogModel->pager;
         $data['links'] = $data['pager']->links('default', 'custome_link');
 
-        $table            = DB()->table('cc_category');
+        $table            = DB()->table('cc_blog');
+        $table->join('cc_category', 'cc_category.cat_id = cc_blog.cat_id')->where('cc_blog.status', '1');
         $data['category'] = $table->get()->getResult();
 
         $data['catBtn']      = $cat_id;
