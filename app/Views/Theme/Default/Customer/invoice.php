@@ -79,12 +79,35 @@
                         <tbody>
                         <?php foreach ($orderItem as $item) { ?>
                             <tr>
-                                <td><?php
-                                    $img = get_data_by_id('image', 'cc_products', 'product_id', $item->product_id);
-                                    echo productImageView('uploads/products', $item->product_id, $img, 'noimage.png', '', '', '', '100', '100');
-                                ?>
-                                    <?php echo get_data_by_id('name', 'cc_products', 'product_id', $item->product_id) ;?>
+                                <td width="700" class="d-flex">
+                                    <div class="img-table" >
+                                        <?php
+                                        $img = get_data_by_id('image', 'cc_products', 'product_id', $item->product_id);
+                                        echo productImageView('uploads/products', $item->product_id, $img, 'noimage.png', '', '', '', '100', '100');
+                                        ?>
 
+                                    </div>
+                                    <div class="img-text" style="margin-left: 10px;">
+                                        <?php echo get_data_by_id('name', 'cc_products', 'product_id', $item->product_id) ;?>
+                                        <br>
+                                        <?php
+                                        $orOption = order_iten_id_by_order_options($item->order_item);
+
+                                        if (!empty($orOption)) {
+                                            foreach ($orOption as $op) { ?>
+                                                <?php
+                                                $firstCar =  mb_substr($op->value, 0, 1);
+                                                $length   = strlen($op->value);
+                                                $isColor  = (($firstCar == '#') && ($length == 7)) ? '' : $op->value;
+                                                $style    = empty($isColor) ? "background-color: $op->value;padding: 13px 14px; border: unset;" : "padding: 0px 4px;";
+                                                ?>
+                                                <span><?php echo $op->name?> :</span>
+                                                <label class="btn btn-outline-secondary"  style="<?php echo $style;?> border-radius: unset; margin-left:8px; " ><?php echo !empty($isColor) ? $op->value : '';?></label>
+
+                                            <?php }
+                                        } ?>
+
+                                    </div>
                                 </td>
                                 <td><?php echo currency_symbol($item->price);?></td>
                                 <td><?php echo $item->quantity;?></td>

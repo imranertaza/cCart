@@ -29,6 +29,14 @@ class Category extends BaseController
     public function index($cat_id)
     {
         $settings      = get_settings();
+
+        //category exist check
+        $table = DB()->table('cc_product_category');
+        $check = $table->where('status','1')->where('prod_cat_id',$cat_id)->countAllResults();
+        if (empty($check)){
+            return redirect()->to('category-not-found');
+        }
+
         $categoryWhere = !empty($this->request->getGetPost('category')) ? 'category_id = ' . $this->request->getGetPost('category') : 'category_id = ' . $cat_id;
 
         $data['optionval']     = [];
@@ -46,8 +54,8 @@ class Category extends BaseController
 
 
         $table               = DB()->table('cc_product_category');
-        $data['parent_Cat']  = $table->where('parent_id', $cat_id)->get()->getResult();
-        $data['main_Cat']    = $table->where('parent_id', null)->get()->getResult();
+        $data['parent_Cat']  = $table->where('status','1')->where('parent_id', $cat_id)->get()->getResult();
+        $data['main_Cat']    = $table->where('status','1')->where('parent_id', null)->get()->getResult();
         $data['prod_cat_id'] = $cat_id;
 
 
@@ -153,4 +161,20 @@ class Category extends BaseController
 
         return redirect()->to('products/search?cat=' . $cat . '&' . $querystring);
     }
+
+    public function categoryNotFound(){
+        $settings = get_settings();
+
+        $data['keywords'] = $settings['meta_keyword'];
+        $data['description'] = $settings['meta_description'];
+        $data['title'] = !empty($settings['meta_title'])?$settings['meta_title']:$settings['store_name'];
+
+        $data['page_title'] = 'Category Not Found';
+        echo view('Theme/'.$settings['Theme'].'/header',$data);
+        echo view('Theme/'.$settings['Theme'].'/Category/not_found');
+        echo view('Theme/'.$settings['Theme'].'/footer');
+    }
+
+
+
 }

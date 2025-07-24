@@ -267,11 +267,20 @@ class OisbizcraftController extends BaseController
 
         if (isset($this->session->coupon_discount)) {
             $disc = ($this->cart->total() * $this->session->coupon_discount) / 100;
+            if ($this->session->discount_type == 'Percentage') {
+                $disc = ($this->cart->total() * $this->session->coupon_discount) / 100;
+            }else{
+                if ($this->cart->total() > $this->session->coupon_discount) {
+                    $disc = $this->session->coupon_discount;
+                }else{
+                    $disc = $this->cart->total();
+                }
+            }
         }
 
         if (!empty($data['shipping_charge'])) {
             if (isset($this->session->coupon_discount_shipping)) {
-                $disc = $this->session->shipping_discount_charge;
+                $disc = $this->shipping_discount_calculate($data['shipping_charge'],$data['shipping_method']);
             }
         }
 
@@ -412,7 +421,42 @@ class OisbizcraftController extends BaseController
         //        $this->session->setFlashdata('message', '<div class="alert-success-m alert-success alert-dismissible" role="alert">Your order has been successfully placed </div>');
         //        return redirect()->to('checkout_success');
     }
+    private function shipping_discount_calculate($charge,$shippingCode){
+        $shipping_method_id = get_data_by_id('shipping_method_id','cc_shipping_method','code',$shippingCode);
 
+        $table = DB()->table('cc_coupon_shipping');
+        $check = $table->where('coupon_id',newSession()->coupon_id)->countAllResults();
+
+        if (!empty($check)){
+            $table2 = DB()->table('cc_coupon_shipping');
+            $checkShipping = $table2->where('coupon_id',newSession()->coupon_id)->where('shipping_method_id',$shipping_method_id)->countAllResults();
+            if (!empty($checkShipping)) {
+                if (newSession()->discount_type == 'Percentage') {
+                    $dis = ($charge * newSession()->coupon_discount_shipping) / 100;
+                }else{
+                    if ($charge > newSession()->coupon_discount_shipping) {
+                        $dis = newSession()->coupon_discount_shipping;
+                    }else{
+                        $dis = $charge;
+                    }
+                }
+            }else{
+                $dis =  0;
+            }
+        }else{
+            if (newSession()->discount_type == 'Percentage') {
+                $dis = ($charge * newSession()->coupon_discount_shipping) / 100;
+            }else{
+                if ($charge > newSession()->coupon_discount_shipping) {
+                    $dis = newSession()->coupon_discount_shipping;
+                }else{
+                    $dis = $charge;
+                }
+            }
+        }
+
+        return $dis;
+    }
     /**
      * @description This method provides all data store session array.
      * @return array
