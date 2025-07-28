@@ -551,7 +551,7 @@ function getCategoryBySubArray($cat_id)
 {
     $table = DB()->table('cc_product_category');
 
-    return $table->where('parent_id', $cat_id)->orderBy('sort_order', 'ASC')->get()->getResult();
+    return $table->where('parent_id', $cat_id)->where('status','1')->orderBy('sort_order', 'ASC')->get()->getResult();
 }
 
 /**
@@ -1168,7 +1168,7 @@ function success_email_template($title, $message, $url)
             <p style='margin-bottom: 30px;'>
                 $message
             </p>
-            <center><a href='$url' target='_blank' style='background-color: #000000;border: none;padding: 10px 98px;color: #ffffff;font-size: 20px;text-decoration: none; '>Visit</a></center>
+            <center><a href='$url' target='_blank' style='background-color: #000000;border: none;padding: 10px 30px;color: #ffffff;font-size: 20px;text-decoration: none; '>Visit</a></center>
             <hr style='margin-top: 30px;margin-bottom: 30px;border: 2px solid #d5d5d5;'>
             <center> <a href='#'>$fbIcon</a> <a href='#'>$twi</a> <a href='#'>$link</a></center>
             <center> <p>$address</p></center>
@@ -1205,7 +1205,7 @@ function getSideMenuArray()
     $table = DB()->table('cc_product_category');
     $table->join('cc_icons', 'cc_icons.icon_id = cc_product_category.icon_id');
 
-    return $table->where('cc_product_category.side_menu', 1)->orderBy('cc_product_category.sort_order', 'ASC')->get()->getResult();
+    return $table->where('cc_product_category.side_menu', 1)->where('cc_product_category.status','1')->orderBy('cc_product_category.sort_order', 'ASC')->get()->getResult();
 }
 
 /**

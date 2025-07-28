@@ -8,7 +8,7 @@
                 </div>
                 <div class="col-lg-6">
                     <?php $isLoggedInCustomer = newSession()->isLoggedInCustomer;
-
+                    $symbol = get_lebel_by_value_in_settings('currency_symbol');
         if (!isset($isLoggedInCustomer) || $isLoggedInCustomer != true) { ?>
                     <p><a class="btn bg-custom-color w-100 text-white rounded-0"
                             href="<?php echo base_url('login') ?>">Log In</a></p>
@@ -307,7 +307,7 @@
                         <div class="group-check mb-4">
                             <div class="d-flex justify-content-between mb-2">
                                 <span>Price</span>
-                                <span id="check_total"><?php echo $cSymbol . number_format(Cart()->total(), 2) ?></span>
+                                <span id="check_total"><?php echo currency_symbol_with_symbol(Cart()->total(), $symbol) ?></span>
                             </div>
 
                             <div class="d-flex justify-content-between mb-2">
@@ -315,13 +315,22 @@
                                 <?php $disc = 0;
 
         if (isset(newSession()->coupon_discount)) {
-            $disc = number_format((Cart()->total() * newSession()->coupon_discount) / 100, 2); ?>
-                                <span><?php echo $cSymbol . $disc ?></span>
+            if (newSession()->discount_type == 'Percentage') {
+                $disc = (Cart()->total() * newSession()->coupon_discount) / 100;
+            }else{
+                if (Cart()->total() > newSession()->coupon_discount) {
+                    $disc = newSession()->coupon_discount;
+                }else{
+                    $disc = Cart()->total();
+                }
+            }
+            ?>
+                                <span><?php echo currency_symbol_with_symbol($disc, $symbol) ?></span>
                                 <?php
         } else {
-            echo '<span>' . $cSymbol . $disc . '</span>';
+            echo '<span>' . currency_symbol_with_symbol($disc, $symbol) . '</span>';
         }
-        $total = (isset(newSession()->coupon_discount)) ? number_format(Cart()->total() - $disc, 2) : Cart()->total(); ?>
+        $total = (isset(newSession()->coupon_discount)) ? Cart()->total() - $disc : Cart()->total(); ?>
                             </div>
                         </div>
 

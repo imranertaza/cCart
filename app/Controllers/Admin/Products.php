@@ -142,7 +142,10 @@ class Products extends BaseController
             $data['products'] = $protable->get()->getResult();
 
             $table           = DB()->table('cc_product_category');
-            $data['prodCat'] = $table->get()->getResult();
+            $data['prodCat'] = $table->where('status','1')->get()->getResult();
+
+            $tableBrand = DB()->table('cc_brand');
+            $data['brands'] = $tableBrand->where('status','Active')->orderBy('name','ASC')->get()->getResult();
 
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
@@ -698,10 +701,13 @@ class Products extends BaseController
             $data['prod'] = $table->where('cc_products.product_id', $product_id)->get()->getRow();
 
             $table           = DB()->table('cc_product_category');
-            $data['prodCat'] = $table->get()->getResult();
+            $data['prodCat'] = $table->where('status','1')->get()->getResult();
 
             $tablecat           = DB()->table('cc_product_to_category');
             $data['prodCatSel'] = $tablecat->where('product_id', $product_id)->get()->getResult();
+
+            $tableBrand = DB()->table('cc_brand');
+            $data['brands'] = $tableBrand->where('status','Active')->orderBy('name','ASC')->get()->getResult();
 
             $tablefreeDel          = DB()->table('cc_product_free_delivery');
             $data['free_delivery'] = $tablefreeDel->where('product_id', $product_id)->countAllResults();
