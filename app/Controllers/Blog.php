@@ -29,9 +29,9 @@ class Blog extends BaseController
         $data['pager'] = $this->blogModel->pager;
         $data['links'] = $data['pager']->links('default', 'custome_link');
 
-        $table            = DB()->table('cc_blog');
+        $table = DB()->table('cc_blog');
         $table->join('cc_category', 'cc_category.cat_id = cc_blog.cat_id')->where('cc_blog.status', '1');
-        $data['category'] = $table->get()->getResult();
+        $data['category'] = $table->groupBy('cc_category.cat_id')->get()->getResult();
 
         $data['catBtn']      = 'All';
         $data['keywords']    = $settings['meta_keyword'];
@@ -50,9 +50,9 @@ class Blog extends BaseController
         $data['pager'] = $this->blogModel->pager;
         $data['links'] = $data['pager']->links('default', 'custome_link');
 
-        $table            = DB()->table('cc_blog');
+        $table = DB()->table('cc_blog');
         $table->join('cc_category', 'cc_category.cat_id = cc_blog.cat_id')->where('cc_blog.status', '1');
-        $data['category'] = $table->get()->getResult();
+        $data['category'] = $table->groupBy('cc_category.cat_id')->get()->getResult();
 
         $data['catBtn']      = $cat_id;
         $data['keywords']    = $settings['meta_keyword'];

@@ -32,7 +32,9 @@
                         <div class="col-md-4" style="text-align: right;">
                             <?php $redirect_url = isset($_COOKIE['product_url_path']) ? $_COOKIE['product_url_path'] : 'admin/products'; ?>
                             <button type="submit" class="btn btn-primary float-right mr-2 ">Update</button>
+                            <a href="<?php echo base_url('detail/' . $prod->product_id)?>" target="_blank" class="btn btn-info float-right mr-2">View</a>
                             <a href="<?php echo base_url('admin/product_create');?>" class="btn btn-warning float-right mr-2 "> Add New</a>
+
                             <a href="<?php echo base_url($redirect_url) ?>" class="btn btn-danger float-right mr-2 " >Back</a>
                         </div>
                         <div class="col-md-12" id="message" style="margin-top: 10px">
