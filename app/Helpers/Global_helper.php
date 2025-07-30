@@ -539,7 +539,7 @@ function getParentCategoryArray()
 {
     $table = DB()->table('cc_product_category');
 
-    return $table->where('parent_id', null)->get()->getResult();
+    return $table->where('parent_id', null)->where('status','1')->get()->getResult();
 }
 
 /**

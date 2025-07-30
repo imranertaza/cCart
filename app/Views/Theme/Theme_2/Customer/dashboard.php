@@ -70,15 +70,15 @@
                             <h4 class="ti-or-n">Change Password</h4>
                             <form action="<?php echo base_url('password_action_update')?>" method="post" onsubmit="return resetPassword()">
                                 <div class="mb-3 mt-3">
-                                    <input type="password" name="current_password" class="form-control con-or text-center in_err" placeholder="Current Password*" id="current_password" required >
+                                    <input type="password" name="current_password" class="form-control con-or text-center in_err" placeholder="Current Password*" id="current_password"  >
                                     <span class="text-danger d-inline-block err text-capitalize" id="password_err_mess"></span>
                                 </div>
                                 <div class="mb-3">
-                                    <input type="password" name="new_password" class="form-control con-or text-center in_err"  placeholder="New Password*" id="new_password" required >
+                                    <input type="password" name="new_password" class="form-control con-or text-center in_err"  placeholder="New Password*" id="new_password"  >
                                     <span class="text-danger d-inline-block err text-capitalize" id="new_password_err_mess"></span>
                                 </div>
                                 <div class="mb-3">
-                                    <input type="password" name="confirm_password"  class="form-control con-or text-center in_err" placeholder="Confirm Password*" id="confirm_password" required >
+                                    <input type="password" name="confirm_password"  class="form-control con-or text-center in_err" placeholder="Confirm Password*" id="confirm_password"  >
                                     <span class="text-danger d-inline-block err text-capitalize" id="confirm_password_err_mess"></span>
                                 </div>
                                 <div class="mb-3">

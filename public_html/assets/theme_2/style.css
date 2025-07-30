@@ -2488,3 +2488,31 @@ input[type='radio']:checked{
     width: 400px;
     height: 40px;
 }
+
+/*top btn*/
+#scrollToTopBtn {
+    visibility: hidden;
+    position: fixed;
+    bottom: 137px;
+    right: 30px;
+    z-index: 99;
+    font-size: 18px;
+    border: none;
+    outline: 0;
+    cursor: pointer;
+    padding: 5px 14px;
+    opacity: 0;
+    transition: opacity .3s, visibility .3s;
+}
+
+#scrollToTopBtn {
+    background-color: #1795e2;
+    color: #fff;
+}
+#scrollToTopBtn.show {
+    opacity: 1;
+    visibility: visible;
+}
+.w-16{
+    width: 16px;
+}
