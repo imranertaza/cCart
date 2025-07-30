@@ -101,21 +101,20 @@ class Settings extends BaseController
         $data['meta_keyword']     = $this->request->getPost('meta_keyword');
         $data['meta_description'] = $this->request->getPost('meta_description');
 
-        //        if (!empty($_FILES['store_logo']['name'])) {
-        //            $target_dir = FCPATH . '/uploads/store/';
-        //            if (!file_exists($target_dir)) {
-        //                mkdir($target_dir, 0777);
-        //            }
-        //
-        //            //new image upload
-        //            $pic = $this->request->getFile('store_logo');
-        //            $namePic = $pic->getRandomName();
-        //            $pic->move($target_dir, $namePic);
-        //            $news_img = 'logo_' . $pic->getName();
-        //            $this->crop->withFile($target_dir . '' . $namePic)->fit(200, 100, 'center')->save($target_dir . $news_img);
-        //            unlink($target_dir . '' . $namePic);
-        //            $data['store_logo'] = $news_img;
-        //        }
+        if (!empty($_FILES['watermark_image']['name'])) {
+            $target_dir = FCPATH . '/uploads/products/';
+            if (!file_exists($target_dir)) {
+                mkdir($target_dir, 0777);
+            }
+            //new image upload
+            $pic = $this->request->getFile('watermark_image');
+            $namePic = $pic->getRandomName();
+            $pic->move($target_dir, $namePic);
+            $news_img = 'wm_' . $pic->getName();
+            $this->crop->withFile($target_dir . $namePic)->fit(268, 72, 'center')->save($target_dir . $news_img);
+            unlink($target_dir . $namePic);
+            $data['watermark_image'] = $news_img;
+        }
 
         foreach ($data as $key => $val) {
             $table = DB()->table('cc_settings');

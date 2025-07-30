@@ -119,6 +119,7 @@ class Checkout extends BaseController
                                 $couponArray = [
                                     'coupon_id'       => $query->coupon_id,
                                     'coupon_discount' => $query->discount,
+                                    'discount_type' => $query->discount_type
                                 ];
                                 $this->session->set($couponArray);
                                 $this->session->setFlashdata('message', 'Coupon code applied successfully ');
@@ -146,6 +147,7 @@ class Checkout extends BaseController
                         $couponArray = [
                             'coupon_id'       => $query->coupon_id,
                             'coupon_discount' => $query->discount,
+                            'discount_type' => $query->discount_type
                         ];
                         $this->session->set($couponArray);
                         $this->session->setFlashdata('message', 'Coupon code applied successfully ');
@@ -166,6 +168,7 @@ class Checkout extends BaseController
                             $couponArray = [
                                 'coupon_id'                => $query->coupon_id,
                                 'coupon_discount_shipping' => $query->discount,
+                                'discount_type' => $query->discount_type
                             ];
                             $this->session->set($couponArray);
                             $this->session->setFlashdata('message', 'Coupon code applied successfully ');
@@ -194,6 +197,7 @@ class Checkout extends BaseController
                                 $couponArray = [
                                     'coupon_id'                => $query->coupon_id,
                                     'coupon_discount_shipping' => $query->discount,
+                                    'discount_type' => $query->discount_type
                                 ];
                                 $this->session->set($couponArray);
                                 $this->session->setFlashdata('message', 'Coupon code applied successfully ');
@@ -221,6 +225,7 @@ class Checkout extends BaseController
                         $couponArray = [
                             'coupon_id'                => $query->coupon_id,
                             'coupon_discount_shipping' => $query->discount,
+                            'discount_type' => $query->discount_type
                         ];
                         $this->session->set($couponArray);
                         $this->session->setFlashdata('message', 'Coupon code applied successfully ');

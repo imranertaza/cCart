@@ -96,18 +96,19 @@ $settingsTitle                            = get_settings_title();
                                                     <input type="text" name="address" class="form-control" value="<?php echo $settings['address'];?>"  required>
                                                 </div>
 
+
+                                                <div class="form-group">
+                                                    <label><?php echo $settingsTitle['email'];?></label>
+                                                    <input type="text" name="email" class="form-control" value="<?php echo $settings['email'];?>"  required>
+                                                </div>
+
                                                 <div class="form-group">
                                                     <label><?php echo $settingsTitle['category_product_limit'];?></label>
                                                     <input type="text" name="category_product_limit" class="form-control" value="<?php echo $settings['category_product_limit'];?>"  required>
                                                 </div>
 
-
                                             </div>
                                             <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label><?php echo $settingsTitle['email'];?></label>
-                                                    <input type="text" name="email" class="form-control" value="<?php echo $settings['email'];?>"  required>
-                                                </div>
 
                                                 <div class="form-group">
                                                     <label><?php echo $settingsTitle['phone'];?></label>
@@ -120,6 +121,15 @@ $settingsTitle                            = get_settings_title();
                                                     <select name="Theme" class="form-control" required>
                                                         <?php echo available_theme($settings['Theme']);?>
                                                     </select>
+                                                </div>
+
+                                                <div class="form-group text-center border p-2">
+                                                    <?php echo commonImageView('uploads/products', '', $settings['watermark_image'], 'noimage.png', '', '', '268', '72');?>
+                                                </div>
+                                                <div class="form-group ">
+                                                    <label><?php echo $settingsTitle['watermark_image'];?></label>
+                                                    <input type="file" name="watermark_image" class="form-control"  >
+                                                    <small>Size: 268 x 72 </small>
                                                 </div>
 
                                             </div>
