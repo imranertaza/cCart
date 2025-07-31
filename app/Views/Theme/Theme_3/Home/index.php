@@ -29,9 +29,7 @@
                             <h4><?php echo $theme_settings['head_side_title_1'];?></h4>
                             <a class="btn btn-sidebanner" href="<?php echo base_url('category/' . $theme_settings['head_side_category_1']); ?>">
                                 Shop Now
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M5 12L17.25 12L12 6.75L12.66 6L19.16 12.5L12.66 19L12 18.25L17.25 13L5 13L5 12Z" fill="#818181"/>
-                                </svg>
+                                <img src="<?php echo base_url('svg/arrowIcon.svg')?>" alt="date">
                             </a>
                         </div>
                     </div>
@@ -44,9 +42,7 @@
                             <h4><?php echo $theme_settings['head_side_title_2'];?></h4>
                             <a class="btn btn-sidebanner" href="<?php echo base_url('category/' . $theme_settings['head_side_category_2']); ?>" >
                                 Shop Now
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M5 12L17.25 12L12 6.75L12.66 6L19.16 12.5L12.66 19L12 18.25L17.25 13L5 13L5 12Z" fill="#818181"/>
-                                </svg>
+                                <img src="<?php echo base_url('svg/arrowIcon.svg')?>" alt="date">
                             </a>
                         </div>
                     </div>
@@ -86,14 +82,10 @@
                     </div>
                     <div class="col-6 col-md-9 d-flex justify-content-end align-items-center">
                         <div class="apparels-button-prev">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M14 18L8 12L14 6L15.4 7.4L10.8 12L15.4 16.6L14 18Z" fill="#141414"/>
-                            </svg>
+                            <img src="<?php echo base_url('svg/prevArrowIcon.svg')?>" alt="date">
                         </div>
                         <div class="apparels-button-next">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9.4 18L8 16.6L12.6 12L8 7.4L9.4 6L15.4 12L9.4 18Z" fill="#141414"/>
-                            </svg>
+                            <img src="<?php echo base_url('svg/nextArrowIcon.svg')?>" alt="date">
                         </div>
                     </div>
                 </div>
@@ -123,14 +115,10 @@
                     </div>
                     <div class="col-6 col-md-9 d-flex justify-content-end align-items-center">
                         <div class="treasures-button-prev">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M14 18L8 12L14 6L15.4 7.4L10.8 12L15.4 16.6L14 18Z" fill="#141414"/>
-                            </svg>
+                            <img src="<?php echo base_url('svg/prevArrowIcon.svg')?>" alt="date">
                         </div>
                         <div class="treasures-button-next">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9.4 18L8 16.6L12.6 12L8 7.4L9.4 6L15.4 12L9.4 18Z" fill="#141414"/>
-                            </svg>
+                            <img src="<?php echo base_url('svg/nextArrowIcon.svg')?>" alt="date">
                         </div>
                     </div>
                 </div>
@@ -159,14 +147,10 @@
                     </div>
                     <div class="col-6 col-md-9 d-flex justify-content-end align-items-center">
                         <div class="bag-button-prev">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M14 18L8 12L14 6L15.4 7.4L10.8 12L15.4 16.6L14 18Z" fill="#141414"/>
-                            </svg>
+                            <img src="<?php echo base_url('svg/prevArrowIcon.svg')?>" alt="date">
                         </div>
                         <div class="bag-button-next">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9.4 18L8 16.6L12.6 12L8 7.4L9.4 6L15.4 12L9.4 18Z" fill="#141414"/>
-                            </svg>
+                            <img src="<?php echo base_url('svg/nextArrowIcon.svg')?>" alt="date">
                         </div>
                     </div>
                 </div>
@@ -195,14 +179,10 @@
                     </div>
                     <div class="col-6 col-md-9 d-flex justify-content-end align-items-center">
                         <div class="jewelry-button-prev">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M14 18L8 12L14 6L15.4 7.4L10.8 12L15.4 16.6L14 18Z" fill="#141414"/>
-                            </svg>
+                            <img src="<?php echo base_url('svg/prevArrowIcon.svg')?>" alt="date">
                         </div>
                         <div class="jewelry-button-next">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9.4 18L8 16.6L12.6 12L8 7.4L9.4 6L15.4 12L9.4 18Z" fill="#141414"/>
-                            </svg>
+                            <img src="<?php echo base_url('svg/nextArrowIcon.svg')?>" alt="date">
                         </div>
                     </div>
                 </div>
@@ -231,14 +211,10 @@
                     </div>
                     <div class="col-6 col-md-9 d-flex justify-content-end align-items-center">
                         <div class="shoes-button-prev">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M14 18L8 12L14 6L15.4 7.4L10.8 12L15.4 16.6L14 18Z" fill="#141414"/>
-                            </svg>
+                            <img src="<?php echo base_url('svg/prevArrowIcon.svg')?>" alt="date">
                         </div>
                         <div class="shoes-button-next">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9.4 18L8 16.6L12.6 12L8 7.4L9.4 6L15.4 12L9.4 18Z" fill="#141414"/>
-                            </svg>
+                            <img src="<?php echo base_url('svg/nextArrowIcon.svg')?>" alt="date">
                         </div>
                     </div>
                 </div>
@@ -272,14 +248,10 @@
                     </div>
                     <div class="col-6 col-md-9 d-flex justify-content-end align-items-center">
                         <div class="brands-button-prev">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M14 18L8 12L14 6L15.4 7.4L10.8 12L15.4 16.6L14 18Z" fill="#141414"/>
-                            </svg>
+                            <img src="<?php echo base_url('svg/prevArrowIcon.svg')?>" alt="date">
                         </div>
                         <div class="brands-button-next">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9.4 18L8 16.6L12.6 12L8 7.4L9.4 6L15.4 12L9.4 18Z" fill="#141414"/>
-                            </svg>
+                            <img src="<?php echo base_url('svg/nextArrowIcon.svg')?>" alt="date">
                         </div>
                     </div>
                 </div>
