@@ -26,6 +26,7 @@ jobs:
           TARGET: ${{ secrets.FTP_TARGET }}
         run: |
           lftp -u "$USERNAME","$PASSWORD" -p $PORT ftp://$HOST <<EOF
+          set ssl:verify-certificate no
           mirror -R ./ $TARGET --delete --verbose
           bye
           EOF
