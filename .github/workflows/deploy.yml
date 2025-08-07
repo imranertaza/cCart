@@ -1,4 +1,4 @@
-name: 🚀 Deploy to cPanel via FTP
+name: 🚀 FTP Deploy
 
 on:
   push:
@@ -7,26 +7,24 @@ on:
 
 jobs:
   deploy:
-    name: Upload to cPanel Server via FTP
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install lftp
-        run: sudo apt-get install -y lftp
-
-      - name: Deploy via FTP
-        env:
-          HOST: ${{ secrets.FTP_HOST }}
-          PORT: ${{ secrets.FTP_PORT }}
-          USERNAME: ${{ secrets.FTP_USERNAME }}
-          PASSWORD: ${{ secrets.FTP_PASSWORD }}
-          TARGET: ${{ secrets.FTP_TARGET }}
-        run: |
-          lftp -u "$USERNAME","$PASSWORD" -p $PORT ftp://$HOST <<EOF
-          set ssl:verify-certificate no
-          mirror -R ./ $TARGET --delete --verbose
-          bye
-          EOF
+      - name: Deploy to FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: ${{ secrets.FTP_PORT }}
+          server-dir: ${{ secrets.FTP_TARGET }}
+          protocol: ftp
+          exclude: |
+            **/.git*
+            **/.github/**
+            **/.env
+          dangerous-clean-slate: false
+          passive: true
