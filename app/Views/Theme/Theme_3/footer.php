@@ -80,7 +80,7 @@
                                     Site Map</a></li>
                             </ul>
                             <div class="footer-logo">
-                                <?php echo commonImageView('assets/theme_3/img', '', 'logo-footer.png', 'noimage.png', 'img-fluid ', '', '190', '61'); ?>
+                                <?php echo commonImageView('assets/theme_3/img', '', 'logo-footer.png', 'noimage.png', 'img-fluid ', '', '211', '53'); ?>
                             </div>
                         </div>
                     </div>
@@ -307,6 +307,7 @@
             success: function(response) {
                 $('#mesVal').html(response);
                 $('.message_alert').show();
+                $('#comparetReload').load(location.href + " #comparetReload");
                 setTimeout(function() {
                     $("#messAlt").fadeOut(1500);
                 }, 600);
@@ -323,6 +324,7 @@
             },
             success: function(response) {
                 $('#compReload').load(location.href + " #compReload");
+                $('#comparetReload').load(location.href + " #comparetReload");
                 $('#mesVal').html(response);
                 $('.message_alert').show();
                 setTimeout(function() {

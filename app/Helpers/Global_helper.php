@@ -935,8 +935,8 @@ function currency_symbol($amount) // Deprecated
     $symbol = get_lebel_by_value_in_settings('currency_symbol');
     $cur    = !empty($amount) ? $amount : 0;
     $split  = explode('.', $cur);
-    $flot   = empty($split[1]) ? '00' : $split[1];
-    $result = $symbol . '' . $split[0] . '<sup>' . $flot . '</sup>';
+    $flot   = empty($split[1]) ? '' : $split[1];
+    $result = $symbol . '' . $split[0] .'<sup>' . $flot . '</sup>';
 
     return $result;
 }
@@ -951,7 +951,7 @@ function currency_symbol_with_symbol($amount, $symbol)
 {
     $cur    = !empty($amount) ? number_format($amount, 2) : 0;
     $split  = explode('.', $cur);
-    $flot   = empty($split[1]) ? '00' : $split[1];
+    $flot   = empty($split[1]) ? '' : $split[1];
     $result = $symbol . '' . $split[0] . '<sup>' . $flot . '</sup>';
 
     return $result;
