@@ -18,7 +18,7 @@ class Image_processing
     public function __construct()
     {
         helper('Global');
-        $this->wm        = imagecreatefrompng(FCPATH . '/uploads/products/'.get_lebel_by_value_in_settings('watermark_image'));
+        $this->wm        = imagecreatefrompng(FCPATH . '/uploads/products/' . get_lebel_by_value_in_settings('watermark_image'));
         $this->sx        = imagesx($this->wm);
         $this->sy        = imagesy($this->wm);
         $this->crop      = Services::image();

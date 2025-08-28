@@ -73,8 +73,8 @@
                             <div class="form-group">
                                 <label>Discount Type</label>
                                 <select name="discount_type" class="form-control"  >
-                                    <option value="Percentage" <?php echo ($coupon->discount_type == 'Percentage')?'selected':''; ?> >Percentage</option>
-                                    <option value="Flat" <?php echo ($coupon->discount_type == 'Flat')?'selected':''; ?> >Flat</option>
+                                    <option value="Percentage" <?php echo ($coupon->discount_type == 'Percentage') ? 'selected' : ''; ?> >Percentage</option>
+                                    <option value="Flat" <?php echo ($coupon->discount_type == 'Flat') ? 'selected' : ''; ?> >Flat</option>
                                 </select>
                             </div>
 

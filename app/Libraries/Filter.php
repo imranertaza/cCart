@@ -126,7 +126,7 @@ class Filter
 
             if (!empty($brandArray)) {
                 $table->whereIn('brand_id', $brandArray)
-                    ->where('status','Active')
+                    ->where('status', 'Active')
                     ->orderBy('name');
 
                 $result = $table->get()->getResult();

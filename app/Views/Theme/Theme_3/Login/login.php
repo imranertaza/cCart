@@ -37,8 +37,8 @@
                     <div class="row mt-4">
                         <div class="form-group col-md-6">
                             <input type="checkbox" name="remember" value="1" class="form-check-input" id="remember1" <?php if (isset($_COOKIE['login_email_web'])) {
-        echo 'checked';
-    } ?> >
+    echo 'checked';
+} ?> >
                             <label class="form-check-label" for="remember1">Remember me</label>
                         </div>
                         <div class="form-group text-end col-md-6">

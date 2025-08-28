@@ -539,7 +539,7 @@ function getParentCategoryArray()
 {
     $table = DB()->table('cc_product_category');
 
-    return $table->where('parent_id', null)->where('status','1')->get()->getResult();
+    return $table->where('parent_id', null)->where('status', '1')->get()->getResult();
 }
 
 /**
@@ -551,7 +551,7 @@ function getCategoryBySubArray($cat_id)
 {
     $table = DB()->table('cc_product_category');
 
-    return $table->where('parent_id', $cat_id)->where('status','1')->orderBy('sort_order', 'ASC')->get()->getResult();
+    return $table->where('parent_id', $cat_id)->where('status', '1')->orderBy('sort_order', 'ASC')->get()->getResult();
 }
 
 /**
@@ -936,7 +936,7 @@ function currency_symbol($amount) // Deprecated
     $cur    = !empty($amount) ? $amount : 0;
     $split  = explode('.', $cur);
     $flot   = empty($split[1]) ? '' : $split[1];
-    $result = $symbol . '' . $split[0] .'<sup>' . $flot . '</sup>';
+    $result = $symbol . '' . $split[0] . '<sup>' . $flot . '</sup>';
 
     return $result;
 }
@@ -1205,7 +1205,7 @@ function getSideMenuArray()
     $table = DB()->table('cc_product_category');
     $table->join('cc_icons', 'cc_icons.icon_id = cc_product_category.icon_id');
 
-    return $table->where('cc_product_category.side_menu', 1)->where('cc_product_category.status','1')->orderBy('cc_product_category.sort_order', 'ASC')->get()->getResult();
+    return $table->where('cc_product_category.side_menu', 1)->where('cc_product_category.status', '1')->orderBy('cc_product_category.sort_order', 'ASC')->get()->getResult();
 }
 
 /**

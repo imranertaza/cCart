@@ -189,7 +189,7 @@
         <div class="copyright">
             <div class="container">
                 <!-- Copyright@<a href="https://dnationsoft.com/" target="_blank">DNationSoft</a> -->
-                Copyright © Finerlabels 2023 | All Rights Reserved
+                Copyright © <?php echo $settings['store_name'];?> <?php echo date('Y');?> | All Rights Reserved
             </div>
         </div>
     </section>
