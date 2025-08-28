@@ -237,7 +237,7 @@
                             <a  href="<?php echo base_url('compare') ?>">
                                 <div class="mini-cart d-flex position-relative" id="comparetReload">
                                     <img src="<?php echo base_url('svg/compareMenuIcon.svg')?>" alt="date">
-                                    <span class="cart-item position-absolute rounded-5 d-flex align-items-center justify-content-center bg-white text-black"><?php print count(newSession()->compare_session) ?></span>
+                                    <span class="cart-item position-absolute rounded-5 d-flex align-items-center justify-content-center bg-white text-black"><?php print (isset(newSession()->compare_session))?count(newSession()->compare_session):'0'; ?></span>
                                 </div>
                             </a>
                         <?php } ?>
