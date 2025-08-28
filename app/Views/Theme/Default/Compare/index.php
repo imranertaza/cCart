@@ -2,13 +2,12 @@
     <div class="container">
         <h1 class="page-title mb-3">Compare Products</h1>
         <div class="card p-3 rounded-0">
-<!--            <p class="text-end"><a href="#">Print This Page</a></p>-->
-
+            <div class="table-responsive">
             <?php
             $modules = modules_access();
             ?>
             <?php if (!empty($products)) { ?>
-            <table class="table table-bordered table-hover" id="compReload">
+            <table class="table table-responsive table-bordered table-hover" id="compReload">
                 <tr>
                     <th style="width: 40%;"></th>
                     <?php foreach ($products as $key => $pro) { ?>
@@ -73,6 +72,7 @@
                 </tr>
             </table>
             <?php } ?>
+            </div>
         </div>
 
     </div>

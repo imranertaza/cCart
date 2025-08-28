@@ -31,16 +31,16 @@
                     <h3>Get in touch</h3>
                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
 <!--                    <form id="contact-form" action="--><?php //echo base_url('contact_form_action')?><!--" method="post" class="contact-form" onsubmit="return contactForm()" >-->
-                        <div class="mb-3">
+                        <div class=" mt-3">
                             <input class="form-control in_err" id="email" name="email" type="text" placeholder="Email">
                             <span class="text-danger err d-inline-block text-capitalize" id="emailError"></span>
                         </div>
-                        <div class="mb-3">
+                        <div class="">
                             <textarea name="message" class="form-control in_err" id="message" cols="30" rows="6" placeholder="Question"></textarea>
                             <span class="text-danger err d-inline-block text-capitalize" id="messageERR"></span>
                         </div>
 
-                        <div class="mb-3">
+                        <div class="">
                             <div id="captcha" class="form_div">
                                 <input type="hidden" id="genaretCapt" >
                                 <div class="preview"></div>
@@ -54,7 +54,7 @@
                             </div>
                         </div>
 
-                        <div class="mb-3">
+                        <div class="">
                             <input type="submit" value="Get a Quary" onclick="contactFormSubmit()" class="btn bg-custom-color text-white rounded-0">
                         </div>
 <!--                    </form>-->

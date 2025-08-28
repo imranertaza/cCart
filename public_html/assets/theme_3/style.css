@@ -2256,15 +2256,6 @@ input[type='radio']:checked{
     overflow: hidden;
 }
 
-button, input, optgroup, select, textarea {
-    font-family: none !important;
-}
-
-
-
-
-
-
 
 
 
@@ -2608,4 +2599,8 @@ ul > li:last-child {
 }
 .w-16{
     width: 16px;
+}
+.dt-length label{
+    margin-left: 10px;
+    text-transform:capitalize;
 }

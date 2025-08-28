@@ -240,10 +240,10 @@
         if (isset(newSession()->coupon_discount)) {
             if (newSession()->discount_type == 'Percentage') {
                 $disc = (Cart()->total() * newSession()->coupon_discount) / 100;
-            }else{
+            } else {
                 if (Cart()->total() > newSession()->coupon_discount) {
                     $disc = newSession()->coupon_discount;
-                }else{
+                } else {
                     $disc = Cart()->total();
                 }
             } ?>

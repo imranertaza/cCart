@@ -125,7 +125,7 @@
 
                 </div>
                 <div class="col-md-3 col-12">
-                    <h4 class="mb-0 f-title toggleButton">About amazing gadget</h4>
+                    <h4 class="mb-0 f-title toggleButton">About <?php echo get_lebel_by_value_in_settings('store_name');?></h4>
                     <div class="elementToToggle d-none d-md-block">
                         <ul class="list-unstyled ul-link-2 mt-md-4">
                             <li class="d-flex fot-about">
@@ -164,7 +164,7 @@
     <div class="container py-2">
         <div class="row mt-3 copy-fot">
             <div class="col-sm-3 col-12">
-                <span class="copyright">Copyright@<a href="https://dnationsoft.com/" target="_blank">DNationSoft</a></span>
+                <span class="copyright">Copyright© <?php echo get_lebel_by_value_in_settings('store_name');?> <?php echo date('Y');?> </span>
             </div>
             <div class="col-sm-5 col-12 ft-link">
                 <a target="_blank" href="<?php echo get_lebel_by_value_in_settings('fb_url'); ?>"><i class="fa-brands fa-facebook-f"></i></a>

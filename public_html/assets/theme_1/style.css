@@ -1029,10 +1029,24 @@ a {
 }
 
 #scrollToTopBtn {
-    background-color: #1795e2;
+    background-color: #4c4c4c;
     color: #fff;
 }
 #scrollToTopBtn.show {
     opacity: 1;
     visibility: visible;
+}
+.text-color-r{
+    color: #626262 !important;
+}
+.form-check-input:checked{
+    background-color: #000000 !important;
+    border-color: #000000 !important;
+}
+input[type=checkbox]{
+    accent-color: #000000 !important;
+}
+.dt-length label{
+    margin-left: 10px;
+    text-transform:capitalize;
 }
