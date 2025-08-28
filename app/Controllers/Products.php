@@ -194,10 +194,10 @@ class Products extends BaseController
         $data['lstPrice']    = !empty($price[1]) ? $price[1] : $data['price']['maxPrice'];
 
         $table              = DB()->table('cc_product_category');
-        $data['parent_Cat'] = $table->where('status','1')->where('parent_id', $cat_id)->get()->getResult();
+        $data['parent_Cat'] = $table->where('status', '1')->where('parent_id', $cat_id)->get()->getResult();
 
         $table            = DB()->table('cc_product_category');
-        $data['main_Cat'] = $table->where('status','1')->where('parent_id', null)->get()->getResult();
+        $data['main_Cat'] = $table->where('status', '1')->where('parent_id', null)->get()->getResult();
 
 
         $data['prod_cat_id'] = $cat_id;

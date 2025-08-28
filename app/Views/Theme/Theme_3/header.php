@@ -18,9 +18,11 @@
     <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>/assets/theme_3/slick/slick-theme.css">
     <link rel="stylesheet" href="<?php echo base_url() ?>/assets/theme_3/lightbox.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;700&display=swap" rel="stylesheet">
+
     <link href="<?php echo base_url() ?>/assets/datatable/datatables.min.css" rel="stylesheet"  >
     <link rel="stylesheet" href="<?php echo base_url() ?>/assets/theme_3/style.css">
     <link rel="stylesheet" href="<?php echo base_url() ?>/assets/theme_3/details.css">
@@ -111,7 +113,7 @@
                         <div class="logo text-center text-sm-start">
                         <a href="<?php echo base_url() ?>">
                                 <?php $logoImg = get_lebel_by_value_in_theme_settings('side_logo');
-                                echo commonImageView('uploads/logo', '', $logoImg, 'noimage.png', 'img-fluid side_logo', '', '261', '70'); ?>
+                                echo commonImageView('uploads/logo', '', $logoImg, 'noimage.png', 'img-fluid side_logo', '', '269', '68'); ?>
 
                             </a>
                         </div>
@@ -235,7 +237,7 @@
                             <a  href="<?php echo base_url('compare') ?>">
                                 <div class="mini-cart d-flex position-relative" id="comparetReload">
                                     <img src="<?php echo base_url('svg/compareMenuIcon.svg')?>" alt="date">
-                                    <span class="cart-item position-absolute rounded-5 d-flex align-items-center justify-content-center bg-white text-black">0</span>
+                                    <span class="cart-item position-absolute rounded-5 d-flex align-items-center justify-content-center bg-white text-black"><?php print count(newSession()->compare_session) ?></span>
                                 </div>
                             </a>
                         <?php } ?>

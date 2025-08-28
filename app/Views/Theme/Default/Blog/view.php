@@ -32,7 +32,7 @@
             </div>
 
             <div class="col-md-12 mt-5">
-                <div id="carouselExampleIndicators" class="carousel slide">
+                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2000">
                     <div class="carousel-indicators">
                         <?php foreach ($image as $key => $val) { ?>
                         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="<?php echo $key;?>"
