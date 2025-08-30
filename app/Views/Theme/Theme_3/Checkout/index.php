@@ -8,7 +8,8 @@
                 </div>
                 <div class="col-lg-6">
                     <?php $isLoggedInCustomer = newSession()->isLoggedInCustomer;
-                    $symbol = get_lebel_by_value_in_settings('currency_symbol');
+                    $symbol                   = get_lebel_by_value_in_settings('currency_symbol');
+
         if (!isset($isLoggedInCustomer) || $isLoggedInCustomer != true) { ?>
                     <p><a class="btn bg-custom-color w-100 text-white rounded-0"
                             href="<?php echo base_url('login') ?>">Log In</a></p>
@@ -290,14 +291,13 @@
         if (isset(newSession()->coupon_discount)) {
             if (newSession()->discount_type == 'Percentage') {
                 $disc = (Cart()->total() * newSession()->coupon_discount) / 100;
-            }else{
+            } else {
                 if (Cart()->total() > newSession()->coupon_discount) {
                     $disc = newSession()->coupon_discount;
-                }else{
+                } else {
                     $disc = Cart()->total();
                 }
-            }
-            ?>
+            } ?>
                                 <span><?php echo currency_symbol_with_symbol($disc, $symbol) ?></span>
                                 <?php
         } else {

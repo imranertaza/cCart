@@ -103,11 +103,12 @@ class Settings extends BaseController
 
         if (!empty($_FILES['watermark_image']['name'])) {
             $target_dir = FCPATH . '/uploads/products/';
+
             if (!file_exists($target_dir)) {
                 mkdir($target_dir, 0777);
             }
             //new image upload
-            $pic = $this->request->getFile('watermark_image');
+            $pic     = $this->request->getFile('watermark_image');
             $namePic = $pic->getRandomName();
             $pic->move($target_dir, $namePic);
             $news_img = 'wm_' . $pic->getName();

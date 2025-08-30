@@ -176,7 +176,7 @@ class Product_category extends BaseController
         $data['icon_id']       = !empty($this->request->getPost('icon_id')) ? $this->request->getPost('icon_id') : null;
         $data['parent_id']     = !empty($this->request->getPost('parent_id')) ? $this->request->getPost('parent_id') : null;
         $data['description']   = $this->request->getPost('description');
-        $data['status']     = $this->request->getPost('status');
+        $data['status']        = $this->request->getPost('status');
         $data['updatedBy']     = $this->session->adUserId;
 
         $this->validation->setRules([

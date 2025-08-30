@@ -53,8 +53,8 @@
                         <div class="form-group">
                             <label>Status</label>
                             <select name="status" class="form-control">
-                                <option value="Active" <?php echo ($brand->status == 'Active')?'selected':'';?> >Active</option>
-                                <option value="Inactive" <?php echo ($brand->status == 'Inactive')?'selected':'';?> >Inactive</option>
+                                <option value="Active" <?php echo ($brand->status == 'Active') ? 'selected' : '';?> >Active</option>
+                                <option value="Inactive" <?php echo ($brand->status == 'Inactive') ? 'selected' : '';?> >Inactive</option>
                             </select>
                         </div>
 

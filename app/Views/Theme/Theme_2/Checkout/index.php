@@ -292,10 +292,10 @@
         if (isset(newSession()->coupon_discount)) {
             if (newSession()->discount_type == 'Percentage') {
                 $disc = (Cart()->total() * newSession()->coupon_discount) / 100;
-            }else{
+            } else {
                 if (Cart()->total() > newSession()->coupon_discount) {
                     $disc = newSession()->coupon_discount;
-                }else{
+                } else {
                     $disc = Cart()->total();
                 }
             } ?>
@@ -304,7 +304,7 @@
         } else {
             echo '<span>' . currency_symbol_with_symbol($disc, $symbol) . '</span>';
         }
-        $total = (isset(newSession()->coupon_discount)) ?  Cart()->total() - $disc  : Cart()->total(); ?>
+        $total = (isset(newSession()->coupon_discount)) ? Cart()->total() - $disc : Cart()->total(); ?>
                             </div>
                         </div>
 
