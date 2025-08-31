@@ -1,5 +1,4 @@
-<section class="main-container checkout" >
-<!--    id="tableReload"-->
+<section class="main-container checkout" id="tableReload2" >
     <div class="container">
         <form id="checkout-form" onsubmit="return onchackoutsubmit()" action="<?php echo base_url('checkout_action')  ?>" method="post">
             <div class="row">
@@ -281,29 +280,34 @@
                         <div class="group-check mb-4">
                             <div class="d-flex justify-content-between mb-2">
                                 <span>Price</span>
-                                <span id="check_total"><?php echo currency_symbol_with_symbol(Cart()->total(), $symbol) ?></span>
+                                <span ><?php echo currency_symbol_with_symbol(Cart()->total(), $symbol) ?></span>
                             </div>
 
                             <div class="d-flex justify-content-between mb-2">
                                 <span>Discount</span>
                                 <?php $disc = 0;
+                                    $offerdisc = 0;
+                                    if (isset(newSession()->coupon_discount) || !empty($offer['discount_amount'])) {
+                                        if (newSession()->discount_type == 'Percentage') {
+                                            $disc = (Cart()->total() * newSession()->coupon_discount) / 100;
+                                        } else {
+                                            if (Cart()->total() > newSession()->coupon_discount) {
+                                                $disc = newSession()->coupon_discount;
+                                            } else {
+                                                $disc = Cart()->total();
+                                            }
+                                        }
 
-        if (isset(newSession()->coupon_discount)) {
-            if (newSession()->discount_type == 'Percentage') {
-                $disc = (Cart()->total() * newSession()->coupon_discount) / 100;
-            } else {
-                if (Cart()->total() > newSession()->coupon_discount) {
-                    $disc = newSession()->coupon_discount;
-                } else {
-                    $disc = Cart()->total();
-                }
-            } ?>
-                                <span><?php echo currency_symbol_with_symbol($disc, $symbol) ?></span>
+                                        $offerdisc = $offer['discount_amount'];
+                                        $totalDiscount = $disc + $offerdisc;
+                                        $finalDiscount = (Cart()->total() > $totalDiscount)?$totalDiscount:Cart()->total();
+                                ?>
+                                <span><?php echo currency_symbol_with_symbol($finalDiscount, $symbol) ?></span>
                                 <?php
-        } else {
-            echo '<span>' . currency_symbol_with_symbol($disc, $symbol) . '</span>';
-        }
-        $total = (isset(newSession()->coupon_discount)) ? Cart()->total() - $disc : Cart()->total(); ?>
+                                    } else {
+                                        echo '<span>' . currency_symbol_with_symbol($disc, $symbol) . '</span>';
+                                    }
+                                $total = (isset(newSession()->coupon_discount) || !empty($offer['discount_amount'])) ? Cart()->total() - $finalDiscount : Cart()->total(); ?>
                             </div>
                         </div>
 

@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Libraries\Flat_shipping;
 use App\Libraries\Mycart;
+use App\Libraries\Offer_calculate;
 use App\Libraries\Weight_shipping;
 use App\Libraries\Zone_rate_shipping;
 use App\Libraries\Zone_shipping;
@@ -20,6 +21,7 @@ class Checkout extends BaseController
     protected $flat_shipping;
     protected $weight_shipping;
     protected $zone_rate_shipping;
+    protected $offer_calculate;
     protected $cart;
 
     public function __construct()
@@ -32,6 +34,7 @@ class Checkout extends BaseController
         $this->weight_shipping    = new Weight_shipping();
         $this->zone_rate_shipping = new Zone_rate_shipping();
         $this->cart               = new Mycart();
+        $this->offer_calculate = new Offer_calculate();
     }
 
     /**
@@ -47,7 +50,7 @@ class Checkout extends BaseController
 
             $tableSet            = DB()->table('cc_payment_settings');
             $data['paypalEmail'] = $tableSet->where('payment_method_id', '3')->where('label', 'email')->get()->getRow();
-
+            $data['offer'] = $this->offer_calculate->offer_discount($this->cart);
             $data['keywords']    = $settings['meta_keyword'];
             $data['description'] = $settings['meta_description'];
             $data['title']       = 'Checkout';
@@ -323,37 +326,62 @@ class Checkout extends BaseController
                     $data['customer_id'] = $this->session->cusUserId;
                 }
 
-                $disc = null;
-
+                //Coupon product amount all discount calculate
+                $discCouponProduct = null;
                 if (isset($this->session->coupon_discount)) {
                     if (newSession()->discount_type == 'Percentage') {
-                        $disc = ($this->cart->total() * $this->session->coupon_discount) / 100;
-                    } else {
+                        $discCouponProduct = ($this->cart->total() * $this->session->coupon_discount) / 100;
+                    }else{
                         if ($this->cart->total() > $this->session->coupon_discount) {
-                            $disc = $this->session->coupon_discount;
-                        } else {
-                            $disc = $this->cart->total();
+                            $discCouponProduct = $this->session->coupon_discount;
+                        }else{
+                            $discCouponProduct = $this->cart->total();
                         }
                     }
                 }
 
+                //Coupon shipping amount all discount calculate
+                $discCouponShipping = null;
                 if (!empty($shipping_charge)) {
                     if (isset($this->session->coupon_discount_shipping)) {
-                        $disc = $this->shipping_discount_calculate($shipping_charge, $data['shipping_method']);
+                        $discCouponShipping = $this->shipping_discount_calculate($shipping_charge,$data['shipping_method']);
                     }
                 }
 
-                if (!empty($disc)) {
-                    $oldQtyCup                   = get_data_by_id('total_used', 'cc_coupon', 'coupon_id', $this->session->coupon_id);
+                if (!empty($disc)){
+                    $oldQtyCup = get_data_by_id('total_used','cc_coupon','coupon_id',$this->session->coupon_id);
                     $newQtyCupUsed['total_used'] = $oldQtyCup + 1;
-                    $table                       = DB()->table('cc_coupon');
-                    $table->where('coupon_id', $this->session->coupon_id)->update($newQtyCupUsed);
+                    $table = DB()->table('cc_coupon');
+                    $table->where('coupon_id',$this->session->coupon_id)->update($newQtyCupUsed);
                 }
 
-                $finalAmo = $this->cart->total() - $disc;
+                //offer discount calculate
+                $geo_zone_id = $this->zone_rate_shipping->zone_id($data['payment_country_id'], $data['payment_city']);
+                $offer = $this->offer_calculate->offer_discount($this->cart,$shipping_charge,$geo_zone_id);
 
+                //offer all product amount discount calculate
+                $offerDiscountProduct = $offer['discount_amount'];
+                //offer all shipping amount discount calculate
+                $offerDiscountShipping = $offer['discount_shipping_amount'];
+
+                //total coupon or offer product amount discount calculate
+                $totalProductDiscount = $discCouponProduct + $offerDiscountProduct;
+
+                //total coupon or offer product shipping discount calculate
+                $totalShippingDiscount = $discCouponShipping + $offerDiscountShipping;
+
+                //maximum discount calculate
+                $finalProductDiscount = ($this->cart->total() > $totalProductDiscount)?$totalProductDiscount:$this->cart->total();
+
+                //final product amount calculate
+                $finalAmo = number_format($this->cart->total() - $finalProductDiscount,2);
+
+                $finalShippingDiscount = null;
                 if (!empty($shipping_charge)) {
-                    $finalAmo = number_format(($this->cart->total() + $shipping_charge) - $disc, 2);
+                    //maximum discount calculate
+                    $finalShippingDiscount = ($shipping_charge > $totalShippingDiscount)?$totalShippingDiscount:$shipping_charge;
+                    //final product and shipping amount calculate
+                    $finalAmo = number_format(($this->cart->total() + $shipping_charge) - $finalShippingDiscount - $finalProductDiscount,2);
                 }
 
                 if ($data['payment_method'] == '8') {
@@ -394,7 +422,7 @@ class Checkout extends BaseController
 
                 $data['status']       = $order_status_id;
                 $data['total']        = $this->cart->total();
-                $data['discount']     = $disc;
+                $data['discount']     = $finalProductDiscount + $finalShippingDiscount;
                 $data['final_amount'] = $finalAmo;
 
 
@@ -533,7 +561,7 @@ class Checkout extends BaseController
             $city_id = $shipCityId;
         }
         $data['charge'] = 0;
-
+        $geo_zone_id = 0;
         if ($paymethod == 'flat') {
             $data['charge'] = $this->flat_shipping->getSettings()->calculateShipping();
         }
@@ -550,10 +578,25 @@ class Checkout extends BaseController
             $data['charge'] = $this->zone_rate_shipping->getSettings($city_id)->calculateShipping();
         }
 
+        if(!empty($city_id)) {
+            $country_id = get_data_by_id('country_id', 'cc_zone', 'zone_id', $city_id);
+            $geo_zone_id = $this->zone_rate_shipping->zone_id($country_id, $city_id);
+        }
+
         $data['discount'] = 0;
 
         if (isset(newSession()->coupon_discount_shipping)) {
             $data['discount'] = $this->shipping_discount_calculate($data['charge'], $paymethod);
+        }
+        $offer = $this->offer_calculate->offer_discount($this->cart,$data['charge'],$geo_zone_id);
+        if (!empty($offer['discount_shipping_amount']) && !empty($data['charge'])){
+            $data['discount'] += $offer['discount_shipping_amount'];
+        }
+
+        if ($data['charge'] > $data['discount']){
+            $data['discount'] = $data['discount'];
+        }else{
+            $data['discount'] = $data['charge'];
         }
 
         return $this->response->setJSON($data);
@@ -561,35 +604,34 @@ class Checkout extends BaseController
 
     public function shipping_discount_calculate($charge, $shippingCode)
     {
-        $shipping_method_id = get_data_by_id('shipping_method_id', 'cc_shipping_method', 'code', $shippingCode);
+        $shipping_method_id = get_data_by_id('shipping_method_id','cc_shipping_method','code',$shippingCode);
 
         $table = DB()->table('cc_coupon_shipping');
-        $check = $table->where('coupon_id', newSession()->coupon_id)->countAllResults();
+        $check = $table->where('coupon_id',newSession()->coupon_id)->countAllResults();
 
-        if (!empty($check)) {
-            $table2        = DB()->table('cc_coupon_shipping');
-            $checkShipping = $table2->where('coupon_id', newSession()->coupon_id)->where('shipping_method_id', $shipping_method_id)->countAllResults();
-
+        if (!empty($check)){
+            $table2 = DB()->table('cc_coupon_shipping');
+            $checkShipping = $table2->where('coupon_id',newSession()->coupon_id)->where('shipping_method_id',$shipping_method_id)->countAllResults();
             if (!empty($checkShipping)) {
                 if (newSession()->discount_type == 'Percentage') {
                     $dis = ($charge * newSession()->coupon_discount_shipping) / 100;
-                } else {
+                }else{
                     if ($charge > newSession()->coupon_discount_shipping) {
                         $dis = newSession()->coupon_discount_shipping;
-                    } else {
+                    }else{
                         $dis = $charge;
                     }
                 }
-            } else {
+            }else{
                 $dis =  0;
             }
-        } else {
+        }else{
             if (newSession()->discount_type == 'Percentage') {
                 $dis = ($charge * newSession()->coupon_discount_shipping) / 100;
-            } else {
+            }else{
                 if ($charge > newSession()->coupon_discount_shipping) {
                     $dis = newSession()->coupon_discount_shipping;
-                } else {
+                }else{
                     $dis = $charge;
                 }
             }

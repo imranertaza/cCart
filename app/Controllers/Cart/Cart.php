@@ -4,6 +4,7 @@ namespace App\Controllers\Cart;
 
 use App\Controllers\BaseController;
 use App\Libraries\Mycart;
+use App\Libraries\Offer_calculate;
 use CodeIgniter\HTTP\ResponseInterface;
 
 class Cart extends BaseController
@@ -11,12 +12,14 @@ class Cart extends BaseController
     protected $validation;
     protected $session;
     protected $cart;
+    protected $offer_calculate;
 
     public function __construct()
     {
         $this->validation = \Config\Services::validation();
         $this->session    = \Config\Services::session();
         $this->cart       = new Mycart();
+        $this->offer_calculate = new Offer_calculate();
     }
 
     /**
@@ -29,6 +32,7 @@ class Cart extends BaseController
         $data['keywords']    = $settings['meta_keyword'];
         $data['description'] = $settings['meta_description'];
         $data['title']       = 'Shopping Cart';
+        $data['offer'] = $this->offer_calculate->offer_discount($this->cart);
 
         $data['page_title'] = 'Cart';
         echo view('Theme/' . $settings['Theme'] . '/header', $data);
