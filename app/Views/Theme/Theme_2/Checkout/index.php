@@ -288,7 +288,8 @@
                             <div class="d-flex justify-content-between mb-2">
                                 <span>Discount</span>
                                 <?php $disc = 0;
-                                $offerdisc = 0;
+                                $offerdisc  = 0;
+
                                 if (isset(newSession()->coupon_discount) || !empty($offer['discount_amount'])) {
                                     if (newSession()->discount_type == 'Percentage') {
                                         $disc = (Cart()->total() * newSession()->coupon_discount) / 100;
@@ -299,11 +300,9 @@
                                             $disc = Cart()->total();
                                         }
                                     }
-                                    $offerdisc = $offer['discount_amount'];
+                                    $offerdisc     = $offer['discount_amount'];
                                     $totalDiscount = $disc + $offerdisc;
-                                    $finalDiscount = (Cart()->total() > $totalDiscount)?$totalDiscount:Cart()->total();
-
-                                    ?>
+                                    $finalDiscount = (Cart()->total() > $totalDiscount) ? $totalDiscount : Cart()->total(); ?>
                                                         <span><?php echo currency_symbol_with_symbol($finalDiscount, $symbol) ?></span>
                                                         <?php
                                 } else {
@@ -361,7 +360,7 @@
 
                             <div class="d-flex flex-column">
                                 <?php foreach (get_all_data_array('cc_shipping_method') as $ship) {
-            if ($ship->status == '1') { ?>
+                                if ($ship->status == '1') { ?>
                                 <div class="d-flex justify-content-between mt-3">
                                     <div class="form-check"><label class="form-check-label"><input
                                                 class="form-check-input" type="radio" name="shipping_method"
@@ -370,7 +369,7 @@
                                             <?php echo $ship->name; ?></label></div>
                                 </div>
                                 <?php }
-        } ?>
+                            } ?>
                             </div>
 
                             <div class="d-flex justify-content-between mt-3">
@@ -402,7 +401,7 @@
                     </div>
                     <div class="payment-method group-check mb-4 pb-4">
                         <?php foreach (get_all_data_array('cc_payment_method') as $pay) {
-            if ($pay->status == '1') { ?>
+                                if ($pay->status == '1') { ?>
                         <div class="d-flex justify-content-between mt-3">
                             <div class="form-check"><label class="form-check-label"><input class="form-check-input"
                                         onclick="instruction_view(this.value,'<?php echo $pay->code; ?>'),cardForm('<?php echo $pay->code; ?>')"
@@ -412,7 +411,7 @@
                                 </label></div>
                         </div>
                         <?php }
-        } ?>
+                            } ?>
 
                     </div>
 

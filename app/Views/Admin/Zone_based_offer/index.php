@@ -33,7 +33,7 @@
                             <a href="<?php echo base_url('admin/zone_based_offer_create') ?>" class="btn btn-primary btn-block btn-xs"><i class="fas fa-plus"></i> Create</a>
                         </div>
                         <div class="col-md-12" style="margin-top: 10px">
-                            <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message'); endif; ?>
+                            <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
                         </div>
                     </div>
                 </div>
@@ -52,7 +52,9 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <?php $i=1; foreach ($offer as $val){ ?>
+                        <?php $i = 1;
+
+foreach ($offer as $val) { ?>
                             <tr>
                                 <td><?php echo $i++;?></td>
                                 <td><?php echo $val->name;?></td>
@@ -62,8 +64,8 @@
                                 <td><?php echo bdDateFormat($val->expire_date);?></td>
                                 <td><?php echo commonImageView('uploads/offer', $val->offer_id, $val->banner, 'noimage.png', '', '', '50', '50');?></td>
                                 <td width="180">
-                                    <a href="<?php echo base_url('admin/zone_based_offer_update/'.$val->offer_id);?>" class="btn btn-primary btn-xs"><i class="fas fa-edit"></i> Update</a>
-                                    <a href="<?php echo base_url('admin/zone_based_offer_delete/'.$val->offer_id);?>" onclick="return confirm('Are you sure you want to Delete?')" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i> Delete</a>
+                                    <a href="<?php echo base_url('admin/zone_based_offer_update/' . $val->offer_id);?>" class="btn btn-primary btn-xs"><i class="fas fa-edit"></i> Update</a>
+                                    <a href="<?php echo base_url('admin/zone_based_offer_delete/' . $val->offer_id);?>" onclick="return confirm('Are you sure you want to Delete?')" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i> Delete</a>
                                 </td>
                             </tr>
                         <?php }?>

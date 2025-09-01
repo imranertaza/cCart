@@ -80,7 +80,8 @@
                     </td>
                     <td class="border-end-0 " style="text-align:left;">
                         <?php $disc = 0;
-                        $offerdisc = 0;
+                        $offerdisc  = 0;
+
                         if (isset(newSession()->coupon_discount) || !empty($offer['discount_amount'])) { ?>
                         <span class="fs-4 ">Price</span><br>
                         <span class="fs-4 ">Discount</span><br>
@@ -89,24 +90,23 @@
                     </td>
                     <td style="text-align:left;">
                         <?php if (isset(newSession()->coupon_discount) || !empty($offer['discount_amount'])) {
-                        if (newSession()->discount_type == 'Percentage') {
-                            $disc = (Cart()->total() * newSession()->coupon_discount / 100);
-                        } else {
-                            if (Cart()->total() > newSession()->coupon_discount) {
-                                $disc = newSession()->coupon_discount;
+                            if (newSession()->discount_type == 'Percentage') {
+                                $disc = (Cart()->total() * newSession()->coupon_discount / 100);
                             } else {
-                                $disc = Cart()->total();
+                                if (Cart()->total() > newSession()->coupon_discount) {
+                                    $disc = newSession()->coupon_discount;
+                                } else {
+                                    $disc = Cart()->total();
+                                }
                             }
-                        }
                             $offerdisc = $offer['discount_amount'];
 
                             $totalDiscount = $disc + $offerdisc;
-                            $finalDiscount = (Cart()->total() > $totalDiscount)?$totalDiscount:Cart()->total();
-                        ?>
+                            $finalDiscount = (Cart()->total() > $totalDiscount) ? $totalDiscount : Cart()->total(); ?>
                         <span class=" fs-4"><?php echo currency_symbol(Cart()->total()) ?></span><br>
                         <span class=" fs-4"><?php echo currency_symbol($finalDiscount) ?></span><br>
                         <?php
-                    } $total = (isset(newSession()->coupon_discount) || !empty($offer['discount_amount']) ) ? Cart()->total() - $finalDiscount : Cart()->total();?>
+                        } $total = (isset(newSession()->coupon_discount) || !empty($offer['discount_amount'])) ? Cart()->total() - $finalDiscount : Cart()->total();?>
                         <span class="fw-bold fs-4"><?php echo currency_symbol($total) ?></span>
                     </td>
                 </tr>

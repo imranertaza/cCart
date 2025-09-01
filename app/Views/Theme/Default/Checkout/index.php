@@ -4,6 +4,7 @@
             <div class="row">
                 <div class="col-lg-6">
                     <?php $isLoggedInCustomer = newSession()->isLoggedInCustomer;
+
                     if (!isset($isLoggedInCustomer) || $isLoggedInCustomer != true) { ?>
                     <p><a class="btn bg-black w-100 text-white rounded-0 in_err" href="<?php echo base_url('login') ?>">Log In</a></p>
                     <p class="text-center">Or</p>
@@ -232,7 +233,8 @@
                         <div class="d-flex justify-content-between mb-2">
                             <span>Discount</span>
                             <?php $disc = 0;
-                            $offerdisc = 0;
+                            $offerdisc  = 0;
+
                             if (isset(newSession()->coupon_discount) || !empty($offer['discount_amount'])) {
                                 if (newSession()->discount_type == 'Percentage') {
                                     $disc = (Cart()->total() * newSession()->coupon_discount) / 100;
@@ -243,10 +245,9 @@
                                         $disc = Cart()->total();
                                     }
                                 }
-                                $offerdisc = $offer['discount_amount'];
+                                $offerdisc     = $offer['discount_amount'];
                                 $totalDiscount = $disc + $offerdisc;
-                                $finalDiscount = (Cart()->total() > $totalDiscount)?$totalDiscount:Cart()->total();
-                                ?>
+                                $finalDiscount = (Cart()->total() > $totalDiscount) ? $totalDiscount : Cart()->total(); ?>
                                 <span><?php echo currency_symbol($finalDiscount) ?></span>
                             <?php
                             } else {

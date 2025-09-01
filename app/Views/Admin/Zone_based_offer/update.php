@@ -31,7 +31,7 @@
                         </div>
                         <div class="col-md-4"> </div>
                         <div class="col-md-12" style="margin-top: 10px">
-                            <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message'); endif; ?>
+                            <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
                         </div>
                     </div>
                 </div>
@@ -60,8 +60,8 @@
                                 <div class="form-group">
                                     <label>Offer Type</label>
                                     <select class="form-control" name="offer_type">
-                                        <option value="distinct" <?= ($offer->offer_type === 'distinct' )?'selected':''; ?> >Distinct</option>
-                                        <option value="indistinct" <?= ($offer->offer_type === 'indistinct' )?'selected':''; ?>>Indistinct</option>
+                                        <option value="distinct" <?= ($offer->offer_type === 'distinct') ? 'selected' : ''; ?> >Distinct</option>
+                                        <option value="indistinct" <?= ($offer->offer_type === 'indistinct') ? 'selected' : ''; ?>>Indistinct</option>
                                     </select>
                                 </div>
                             </div>
@@ -86,47 +86,55 @@
                                 <div class="form-group 	">
                                     <label>Offer On</label><br>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" onchange="offerOn('product')" <?= ($offer->offer_on == 'product')?'checked':'';?> name="offer_on" id="offer1" checked value="product">
+                                        <input class="form-check-input" type="radio" onchange="offerOn('product')" <?= ($offer->offer_on == 'product') ? 'checked' : '';?> name="offer_on" id="offer1" checked value="product">
                                         <label class="form-check-label" for="offer1">Product</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" onchange="offerOn('amount')" name="offer_on" id="offer2" <?= ($offer->offer_on == 'amount')?'checked':'';?> value="amount">
+                                        <input class="form-check-input" type="radio" onchange="offerOn('amount')" name="offer_on" id="offer2" <?= ($offer->offer_on == 'amount') ? 'checked' : '';?> value="amount">
                                         <label class="form-check-label" for="offer2">Amount</label>
                                     </div>
                                 </div>
 
-                                <div class="form-group category" id="offer_product_all" <?= ($offer->offer_on == 'product')?'style="display:block"':'style="display:none"';?>>
+                                <div class="form-group category" id="offer_product_all" <?= ($offer->offer_on == 'product') ? 'style="display:block"' : 'style="display:none"';?>>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input allPro" onclick="selectAllProduct()" type="checkbox" <?php foreach ($offer_product as $val){ echo (($val->brand_id == null) && ($val->prod_cat_id == null) && ($val->product_id == null) )?'checked':''; } ?>  name="allProduct" id="all2" value="1">
+                                        <input class="form-check-input allPro" onclick="selectAllProduct()" type="checkbox" <?php foreach ($offer_product as $val) {
+    echo (($val->brand_id == null) && ($val->prod_cat_id == null) && ($val->product_id == null)) ? 'checked' : '';
+} ?>  name="allProduct" id="all2" value="1">
                                         <label class="form-check-label" for="all2">All Products</label>
                                     </div>
                                 </div>
 
-                                <div class="form-group category" id="offer_product_brand" <?= ($offer->offer_on == 'product')?'style="display:block"':'style="display:none"';?>>
+                                <div class="form-group category" id="offer_product_brand" <?= ($offer->offer_on == 'product') ? 'style="display:block"' : 'style="display:none"';?>>
                                     <label>Brand </label>
                                     <select class="select2bs4" name="brand[]" id="brand" multiple="multiple" data-placeholder="Select a Brand" style="width: 100%;"  >
                                         <?php foreach ($brand as $br) { ?>
-                                            <option value="<?php echo $br->brand_id; ?>" <?php foreach ($offer_product as $val){ echo ($val->brand_id == $br->brand_id)?'selected':''; } ?>><?php echo $br->name; ?></option>
+                                            <option value="<?php echo $br->brand_id; ?>" <?php foreach ($offer_product as $val) {
+    echo ($val->brand_id == $br->brand_id) ? 'selected' : '';
+} ?>><?php echo $br->name; ?></option>
                                         <?php } ?>
 
                                     </select>
                                 </div>
 
-                                <div class="form-group category" id="offer_product_category" <?= ($offer->offer_on == 'product')?'style="display:block"':'style="display:none"';?>>
+                                <div class="form-group category" id="offer_product_category" <?= ($offer->offer_on == 'product') ? 'style="display:block"' : 'style="display:none"';?>>
                                     <label>Category </label>
                                     <select class="select2bs4" name="categorys[]" id="category" multiple="multiple" data-placeholder="Select a Category" style="width: 100%;" >
                                         <?php foreach ($prodCat as $cat) {  ?>
-                                            <option value="<?php echo $cat->prod_cat_id; ?>" <?php foreach ($offer_product as $val){ echo ($val->prod_cat_id == $cat->prod_cat_id)?'selected':''; } ?> ><?php echo display_category_with_parent($cat->prod_cat_id); ?></option>
+                                            <option value="<?php echo $cat->prod_cat_id; ?>" <?php foreach ($offer_product as $val) {
+    echo ($val->prod_cat_id == $cat->prod_cat_id) ? 'selected' : '';
+} ?> ><?php echo display_category_with_parent($cat->prod_cat_id); ?></option>
                                         <?php } ?>
 
                                     </select>
                                 </div>
-                                <div class="form-group" id="offer_product" <?= ($offer->offer_on == 'product')?'style="display:block"':'style="display:none"';?>>
+                                <div class="form-group" id="offer_product" <?= ($offer->offer_on == 'product') ? 'style="display:block"' : 'style="display:none"';?>>
                                     <label>Products</label>
                                     <select class="select2_pro" id="keyword" name="products[]" multiple="multiple" style="width: 100%;" >
-                                        <?php foreach ($offer_product as $val){ if (!empty($val->product_id)){ ?>
-                                            <option value="<?php echo $val->product_id;?>" selected ><?php echo get_data_by_id('name','cc_products','product_id',$val->product_id);?> </option>
-                                        <?php } } ?>
+                                        <?php foreach ($offer_product as $val) {
+    if (!empty($val->product_id)) { ?>
+                                            <option value="<?php echo $val->product_id;?>" selected ><?php echo get_data_by_id('name', 'cc_products', 'product_id', $val->product_id);?> </option>
+                                        <?php }
+} ?>
                                     </select>
                                 </div>
                                 <div class="form-group" id="offer_qty">
@@ -135,7 +143,7 @@
                                 </div>
 
 
-                                <div class="form-group" id="offer_amount"  <?= ($offer->offer_on == 'amount')?'style="display:block"':'style="display:none"';?> >
+                                <div class="form-group" id="offer_amount"  <?= ($offer->offer_on == 'amount') ? 'style="display:block"' : 'style="display:none"';?> >
                                     <label>On Amount</label>
                                     <input type="number" name="on_amount" class="form-control" value="<?= $offer->on_amount?>" placeholder="Amount" >
 
@@ -155,23 +163,35 @@
                                     </div>
                                 </div>
                                 <?php $allZone = get_all_data_array('cc_geo_zone');?>
-                                <?php foreach ($allZone as $zone){ ?>
+                                <?php foreach ($allZone as $zone) { ?>
                                 <div class="form-group 	">
                                     <label><?php echo $zone->geo_zone_name;?></label><br>
                                     <div class="form-group " >
                                         <label>Discount Type</label><br>
                                         <div class="form-check form-check-inline" >
-                                            <input class="form-check-input" type="radio"  <?php foreach ($offer_discount as $dis){if ($zone->geo_zone_id == $dis->geo_zone_id){ echo ($dis->discount_calculate_on == 'percentage')?'checked':'';  }} ?>  name="dis_<?php echo $zone->geo_zone_id;?>" id="discountType1_<?php echo $zone->geo_zone_id;?>"  value="discount_percent">
+                                            <input class="form-check-input" type="radio"  <?php foreach ($offer_discount as $dis) {
+    if ($zone->geo_zone_id == $dis->geo_zone_id) {
+        echo ($dis->discount_calculate_on == 'percentage') ? 'checked' : '';
+    }
+} ?>  name="dis_<?php echo $zone->geo_zone_id;?>" id="discountType1_<?php echo $zone->geo_zone_id;?>"  value="discount_percent">
                                             <label class="form-check-label" for="discountType1_<?php echo $zone->geo_zone_id;?>">Percent</label>
                                         </div>
                                         <div class="form-check form-check-inline" >
-                                            <input class="form-check-input" type="radio" <?php foreach ($offer_discount as $dis){if ($zone->geo_zone_id == $dis->geo_zone_id){ echo ($dis->discount_calculate_on == 'fixed')?'checked':'';  }} ?> name="dis_<?php echo $zone->geo_zone_id;?>" id="discountType2_<?php echo $zone->geo_zone_id;?>" value="discount_amount">
+                                            <input class="form-check-input" type="radio" <?php foreach ($offer_discount as $dis) {
+    if ($zone->geo_zone_id == $dis->geo_zone_id) {
+        echo ($dis->discount_calculate_on == 'fixed') ? 'checked' : '';
+    }
+} ?> name="dis_<?php echo $zone->geo_zone_id;?>" id="discountType2_<?php echo $zone->geo_zone_id;?>" value="discount_amount">
                                             <label class="form-check-label" for="discountType2_<?php echo $zone->geo_zone_id;?>">Flat rate</label>
                                         </div>
                                     </div>
                                     <div class="form-group"  >
                                         <label>Amount</label>
-                                        <input type="number" name="amount_<?php echo $zone->geo_zone_id;?>" value="<?php foreach ($offer_discount as $dis){if ($zone->geo_zone_id == $dis->geo_zone_id){ echo $dis->discount_amount;}} ?>" class="form-control" placeholder="Amount" >
+                                        <input type="number" name="amount_<?php echo $zone->geo_zone_id;?>" value="<?php foreach ($offer_discount as $dis) {
+    if ($zone->geo_zone_id == $dis->geo_zone_id) {
+        echo $dis->discount_amount;
+    }
+} ?>" class="form-control" placeholder="Amount" >
                                     </div>
                                 </div>
                                 <?php } ?>

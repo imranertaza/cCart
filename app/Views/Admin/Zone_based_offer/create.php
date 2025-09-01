@@ -31,7 +31,7 @@
                         </div>
                         <div class="col-md-4"> </div>
                         <div class="col-md-12" style="margin-top: 10px">
-                            <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message'); endif; ?>
+                            <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
                         </div>
                     </div>
                 </div>
@@ -144,7 +144,7 @@
                                     </div>
                                 </div>
                                 <?php $allZone = get_all_data_array('cc_geo_zone');?>
-                                <?php foreach ($allZone as $zone){ ?>
+                                <?php foreach ($allZone as $zone) { ?>
                                 <div class="form-group 	">
                                     <label><?php echo $zone->geo_zone_name;?></label><br>
                                     <div class="form-group " >

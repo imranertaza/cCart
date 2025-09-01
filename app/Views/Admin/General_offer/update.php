@@ -31,7 +31,7 @@
                         </div>
                         <div class="col-md-4"> </div>
                         <div class="col-md-12" style="margin-top: 10px">
-                            <?php if (session()->getFlashdata('message') !== NULL) : echo session()->getFlashdata('message'); endif; ?>
+                            <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
                         </div>
                     </div>
                 </div>
@@ -62,8 +62,8 @@
                                 <div class="form-group">
                                     <label>Offer Type</label>
                                     <select class="form-control" name="offer_type">
-                                        <option value="distinct" <?= ($offer->offer_type === 'distinct' )?'selected':''; ?> >Distinct</option>
-                                        <option value="indistinct" <?= ($offer->offer_type === 'indistinct' )?'selected':''; ?>>Indistinct</option>
+                                        <option value="distinct" <?= ($offer->offer_type === 'distinct') ? 'selected' : ''; ?> >Distinct</option>
+                                        <option value="indistinct" <?= ($offer->offer_type === 'indistinct') ? 'selected' : ''; ?>>Indistinct</option>
                                     </select>
                                 </div>
 
@@ -95,57 +95,65 @@
                                 <div class="form-group 	">
                                     <label>Offer On</label><br>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" onchange="offerOn('product')" name="offer_on" id="offer1" <?= ($offer->offer_on == 'product')?'checked':'';?>  value="product">
+                                        <input class="form-check-input" type="radio" onchange="offerOn('product')" name="offer_on" id="offer1" <?= ($offer->offer_on == 'product') ? 'checked' : '';?>  value="product">
                                         <label class="form-check-label" for="offer1">Product</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" onchange="offerOn('amount')" name="offer_on" id="offer2" <?= ($offer->offer_on == 'amount')?'checked':'';?> value="amount">
+                                        <input class="form-check-input" type="radio" onchange="offerOn('amount')" name="offer_on" id="offer2" <?= ($offer->offer_on == 'amount') ? 'checked' : '';?> value="amount">
                                         <label class="form-check-label" for="offer2">Amount</label>
                                     </div>
                                 </div>
 
-                                <div class="form-group category" id="offer_product_all" <?= ($offer->offer_on == 'product')?'style="display:block"':'style="display:none"';?>>
+                                <div class="form-group category" id="offer_product_all" <?= ($offer->offer_on == 'product') ? 'style="display:block"' : 'style="display:none"';?>>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input allPro" onclick="selectAllProduct()" type="checkbox" <?php foreach ($offer_product as $val){ echo (($val->brand_id == null) && ($val->prod_cat_id == null) && ($val->product_id == null) )?'checked':''; } ?>  name="allProduct" id="all2" value="1">
+                                        <input class="form-check-input allPro" onclick="selectAllProduct()" type="checkbox" <?php foreach ($offer_product as $val) {
+    echo (($val->brand_id == null) && ($val->prod_cat_id == null) && ($val->product_id == null)) ? 'checked' : '';
+} ?>  name="allProduct" id="all2" value="1">
                                         <label class="form-check-label" for="all2">All Products</label>
                                     </div>
                                 </div>
 
-                                <div class="form-group category" id="offer_product_brand" <?= ($offer->offer_on == 'product')?'style="display:block"':'style="display:none"';?>>
+                                <div class="form-group category" id="offer_product_brand" <?= ($offer->offer_on == 'product') ? 'style="display:block"' : 'style="display:none"';?>>
                                     <label>Brand </label>
                                     <select class="select2bs4" name="brand[]" id="brand" multiple="multiple" data-placeholder="Select a Brand" style="width: 100%;"  >
                                         <?php foreach ($brand as $br) { ?>
-                                            <option value="<?php echo $br->brand_id; ?>" <?php foreach ($offer_product as $val){ echo ($val->brand_id == $br->brand_id)?'selected':''; } ?>><?php echo $br->name; ?></option>
+                                            <option value="<?php echo $br->brand_id; ?>" <?php foreach ($offer_product as $val) {
+    echo ($val->brand_id == $br->brand_id) ? 'selected' : '';
+} ?>><?php echo $br->name; ?></option>
                                         <?php } ?>
 
                                     </select>
                                 </div>
 
-                                <div class="form-group category" id="offer_product_category" <?= ($offer->offer_on == 'product')?'style="display:block"':'style="display:none"';?>>
+                                <div class="form-group category" id="offer_product_category" <?= ($offer->offer_on == 'product') ? 'style="display:block"' : 'style="display:none"';?>>
                                     <label>Category </label>
                                     <select class="select2bs4" name="categorys[]" id="category" multiple="multiple" data-placeholder="Select a Category" style="width: 100%;" >
                                         <?php foreach ($prodCat as $cat) {  ?>
-                                            <option value="<?php echo $cat->prod_cat_id; ?>" <?php foreach ($offer_product as $val){ echo ($val->prod_cat_id == $cat->prod_cat_id)?'selected':''; } ?> ><?php echo display_category_with_parent($cat->prod_cat_id); ?></option>
+                                            <option value="<?php echo $cat->prod_cat_id; ?>" <?php foreach ($offer_product as $val) {
+    echo ($val->prod_cat_id == $cat->prod_cat_id) ? 'selected' : '';
+} ?> ><?php echo display_category_with_parent($cat->prod_cat_id); ?></option>
                                         <?php } ?>
 
                                     </select>
                                 </div>
 
-                                <div class="form-group" id="offer_product" <?= ($offer->offer_on == 'product')?'style="display:block"':'style="display:none"';?> >
+                                <div class="form-group" id="offer_product" <?= ($offer->offer_on == 'product') ? 'style="display:block"' : 'style="display:none"';?> >
                                     <label>Products</label>
                                     <select class="select2_pro" id="keyword" name="products[]" multiple="multiple" style="width: 100%;" >
-                                        <?php foreach ($offer_product as $val){ if (!empty($val->product_id)){ ?>
-                                            <option value="<?php echo $val->product_id;?>" selected ><?php echo get_data_by_id('name','cc_products','product_id',$val->product_id);?> </option>
-                                        <?php } } ?>
+                                        <?php foreach ($offer_product as $val) {
+    if (!empty($val->product_id)) { ?>
+                                            <option value="<?php echo $val->product_id;?>" selected ><?php echo get_data_by_id('name', 'cc_products', 'product_id', $val->product_id);?> </option>
+                                        <?php }
+} ?>
                                     </select>
                                 </div>
-                                <div class="form-group" id="offer_qty" <?= ($offer->offer_on == 'product')?'style="display:block"':'style="display:none"';?> >
+                                <div class="form-group" id="offer_qty" <?= ($offer->offer_on == 'product') ? 'style="display:block"' : 'style="display:none"';?> >
                                     <label>Quantity</label>
                                     <input type="number" name="qty" class="form-control" placeholder="Qty" min="1" value="<?= $offer->qty?>">
                                 </div>
 
 
-                                <div class="form-group" id="offer_amount"  <?= ($offer->offer_on == 'amount')?'style="display:block"':'style="display:none"';?>  >
+                                <div class="form-group" id="offer_amount"  <?= ($offer->offer_on == 'amount') ? 'style="display:block"' : 'style="display:none"';?>  >
                                     <label>Amount</label>
                                     <input type="number" name="on_amount" class="form-control" placeholder="Amount" value="<?= $offer->on_amount?>" >
                                 </div>
@@ -159,32 +167,32 @@
                                 <div class="form-group 	">
                                     <label>Discount On</label><br>
                                     <div class="form-check form-check-inline" id="dis_product">
-                                        <input class="form-check-input" type="radio" onchange="discType('product')" name="discount_on" id="discount1" <?= ($offer->discount_on == 'product')?'checked':'';?>  value="product">
+                                        <input class="form-check-input" type="radio" onchange="discType('product')" name="discount_on" id="discount1" <?= ($offer->discount_on == 'product') ? 'checked' : '';?>  value="product">
                                         <label class="form-check-label" for="discount1">Product</label>
                                     </div>
                                     <div class="form-check form-check-inline" >
-                                        <input class="form-check-input" type="radio" onchange="discType('product_amount')"  name="discount_on" id="discount2" <?= ($offer->discount_on == 'product_amount')?'checked':'';?> value="product_amount">
+                                        <input class="form-check-input" type="radio" onchange="discType('product_amount')"  name="discount_on" id="discount2" <?= ($offer->discount_on == 'product_amount') ? 'checked' : '';?> value="product_amount">
                                         <label class="form-check-label" for="discount2">Product Amount</label>
                                     </div>
                                     <div class="form-check form-check-inline" >
-                                        <input class="form-check-input" type="radio" onchange="discType('shipping_amount')" name="discount_on" id="discount3" <?= ($offer->discount_on == 'shipping_amount')?'checked':'';?> value="shipping_amount">
+                                        <input class="form-check-input" type="radio" onchange="discType('shipping_amount')" name="discount_on" id="discount3" <?= ($offer->discount_on == 'shipping_amount') ? 'checked' : '';?> value="shipping_amount">
                                         <label class="form-check-label" for="discount3">Shipping Amount</label>
                                     </div>
                                 </div>
 
-                                <div class="form-group " id="discType"  <?= ($offer->discount_on == 'product')?'style="display: none;"':'style="display: block;"';?> >
+                                <div class="form-group " id="discType"  <?= ($offer->discount_on == 'product') ? 'style="display: none;"' : 'style="display: block;"';?> >
                                     <label>Discount Type</label><br>
                                     <div class="form-check form-check-inline" >
-                                        <input class="form-check-input" type="radio" name="discount_type" id="discountType1" <?= ($discount->discount_calculate_on == 'percentage')?'checked':'';?>  value="discount_percent">
+                                        <input class="form-check-input" type="radio" name="discount_type" id="discountType1" <?= ($discount->discount_calculate_on == 'percentage') ? 'checked' : '';?>  value="discount_percent">
                                         <label class="form-check-label" for="discountType1">Percent</label>
                                     </div>
                                     <div class="form-check form-check-inline" >
-                                        <input class="form-check-input" type="radio" name="discount_type" id="discountType2" <?= ($discount->discount_calculate_on == 'fixed')?'checked':'';?> value="discount_amount">
+                                        <input class="form-check-input" type="radio" name="discount_type" id="discountType2" <?= ($discount->discount_calculate_on == 'fixed') ? 'checked' : '';?> value="discount_amount">
                                         <label class="form-check-label" for="discountType2">Flat rate</label>
                                     </div>
                                 </div>
 
-                                <div class="form-group" id="amount" <?= ($offer->discount_on == 'product')?'style="display: none;"':'style="display: block;"';?> >
+                                <div class="form-group" id="amount" <?= ($offer->discount_on == 'product') ? 'style="display: none;"' : 'style="display: block;"';?> >
                                     <label>Amount</label>
                                     <input type="number" name="amount" class="form-control" placeholder="Amount" value="<?= $discount->discount_amount; ?>">
                                 </div>

@@ -15,17 +15,17 @@
                                                 $symbol       = get_lebel_by_value_in_settings('currency_symbol');
                                                 ?>
                                                 <div class="col-2 col-sm-3 col-md-2 col-lg-3 px-0">
-                                                    <div class="slider slider-nav thumb-image">
+                                                    <div class="slider slider-nav thumb-image" style="height: 332px !important;">
                                                         <div class="thumbnail-image">
                                                             <div class="thumbImg">
-                                                                <?php echo productImageView('uploads/products', $products->product_id, $products->image, 'noimage.png', 'img-fluid', '', '', '363', '332') ?>
+                                                                <?php echo productImageView('uploads/products', $products->product_id, $products->image, 'noimage.png', 'img-fluid', '', '', '100', '92') ?>
                                                             </div>
                                                         </div>
 
                                                         <?php
                                                         if (!empty($proImg)) {
                                                             foreach ($proImg as $imgval) {
-                                                                echo '<div class="thumbnail-image"><div class="thumbImg">' . productMultiImageView('uploads/products', $imgval->product_id, $imgval->product_image_id, $imgval->image, 'noimage.png', 'img-fluid', '363', '332') . '</div></div>';
+                                                                echo '<div class="thumbnail-image"><div class="thumbImg">' . productMultiImageView('uploads/products', $imgval->product_id, $imgval->product_image_id, $imgval->image, 'noimage.png', 'img-fluid', '100', '92') . '</div></div>';
                                                             }
                                                         }
                                                 ?>
@@ -34,7 +34,7 @@
                                                             <div class="thumbImg video-thum">
                                                                 <a href="javascript:void(0)" data-bs-toggle="modal"
                                                                     data-bs-target="#videoeModal">
-                                                                    <?php echo productImageView('uploads/products', $products->product_id, $products->image, 'noimage.png', 'img-fluid', '', '', '363', '332') ?>
+                                                                    <?php echo productImageView('uploads/products', $products->product_id, $products->image, 'noimage.png', 'img-fluid', '', '', '100', '92') ?>
                                                                     <img src="<?php echo base_url('uploads/play.png') ?>"
                                                                         alt="" class="play-image">
                                                                 </a>

@@ -6,16 +6,20 @@
                     <h3 class="text-capitalize mb-4"> <?= $album->name?></h3>
                 </div>
                 <div class="col-4 col-md-4 mt-4 text-center ">
-                    <?php $img = str_replace("pro_", "", $album->thumb);
-                    $url       = base_url('uploads/album/' . $album->album_id . '/wm_' . $img); ?>
+                    <?php
+                    $modules = modules_access();
+                    $img     = str_replace("pro_", "", $album->thumb);
+                    $image   = ($modules['watermark'] == '1') ? '600_wm_' . $img : $img;
+                    $url     = base_url('uploads/album/' . $album->album_id . '/' . $image); ?>
                     <a class="example-image-link" href="<?= $url;?>" data-lightbox="example-set">
                     <?php echo productImageView('uploads/album', $album->album_id, $album->thumb, 'noimage.png', 'img-fluid', '', '', '324', '324');?>
 
                     </a>
                 </div>
                 <?php foreach ($albumAll as $val) {
-                        $img2 = str_replace("pro_", "", $val->image);
-                        $url2 = base_url('uploads/album/' . $val->album_id . '/' . $val->album_details_id . '/wm_' . $img2); ?>
+                        $img2   = str_replace("pro_", "", $val->image);
+                        $image2 = ($modules['watermark'] == '1') ? '600_wm_' . $img2 : $img2;
+                        $url2   = base_url('uploads/album/' . $val->album_id . '/' . $val->album_details_id . '/' . $image2); ?>
                 <div class="col-4 col-md-4 mt-4 text-center ">
                     <a class="example-image-link" href="<?= $url2; ?>" data-lightbox="example-set" >
                     <?php echo productMultiImageView('uploads/album', $val->album_id, $val->album_details_id, $val->image, 'noimage.png', 'img-fluid', '324', '324'); ?>

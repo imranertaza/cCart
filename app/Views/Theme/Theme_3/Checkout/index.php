@@ -285,8 +285,9 @@
 
                             <div class="d-flex justify-content-between mb-2">
                                 <span>Discount</span>
-                                <?php $disc = 0;
+                                <?php $disc    = 0;
                                     $offerdisc = 0;
+
                                     if (isset(newSession()->coupon_discount) || !empty($offer['discount_amount'])) {
                                         if (newSession()->discount_type == 'Percentage') {
                                             $disc = (Cart()->total() * newSession()->coupon_discount) / 100;
@@ -298,10 +299,9 @@
                                             }
                                         }
 
-                                        $offerdisc = $offer['discount_amount'];
+                                        $offerdisc     = $offer['discount_amount'];
                                         $totalDiscount = $disc + $offerdisc;
-                                        $finalDiscount = (Cart()->total() > $totalDiscount)?$totalDiscount:Cart()->total();
-                                ?>
+                                        $finalDiscount = (Cart()->total() > $totalDiscount) ? $totalDiscount : Cart()->total(); ?>
                                 <span><?php echo currency_symbol_with_symbol($finalDiscount, $symbol) ?></span>
                                 <?php
                                     } else {

@@ -99,7 +99,8 @@ class Filter
             $table->join('cc_option_value', 'cc_option_value.option_value_id = cc_product_option.option_value_id')
                 ->whereIn('cc_product_option.product_id', $productIds)
                 ->whereIn('cc_product_option.option_id', $optionIds)
-                ->groupBy('cc_option_value.option_value_id');
+                ->groupBy('cc_option_value.option_value_id')
+                ->orderBy('cc_option_value.	name');
 
             $option = $table->get()->getResult();
 
