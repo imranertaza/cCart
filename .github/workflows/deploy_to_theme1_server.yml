@@ -26,6 +26,5 @@ jobs:
             **/.git*
             **/.github/**
             **/.env
-            **/public_html/uploads/**
-          dangerous-clean-slate: true
+          dangerous-clean-slate: false
           passive: true
