@@ -25,6 +25,5 @@ jobs:
           exclude: |
             **/.git*
             **/.github/**
-            **/.env
           dangerous-clean-slate: false
           passive: true
