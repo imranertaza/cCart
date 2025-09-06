@@ -124,7 +124,7 @@ $settingsTitle                            = get_settings_title();
                                                 </div>
 
                                                 <div class="form-group text-center border p-2">
-                                                    <?php echo commonImageView('uploads/products', '', $settings['watermark_image'], 'noimage.png', '', '', '268', '72');?>
+                                                    <?php echo image_view('uploads/products', '', $settings['watermark_image'], 'noimage.png');?>
                                                 </div>
                                                 <div class="form-group ">
                                                     <label><?php echo $settingsTitle['watermark_image'];?></label>

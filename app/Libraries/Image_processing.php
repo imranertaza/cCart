@@ -226,7 +226,7 @@ class Image_processing
 
         if ($modules['watermark'] == '1') {
             //image watermark
-            $this->watermark_main_image($dir, $image);
+//            $this->watermark_main_image($dir, $image);
             $this->watermark_on_resized_image($dir, $image);
             //image watermark crop
             $this->image_crop($dir, '600_wm_' . $image, 'wm_' . $news_img);

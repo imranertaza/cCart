@@ -303,7 +303,7 @@ $routes->group('admin', static function ($routes) {
     $routes->get('blog_category_delete/(:num)', 'Admin\Blog_category::delete/$1');
     $routes->post('blog_category_sort_update_action', 'Admin\Blog_category::sortUpdateAction');
 
-//blog
+    //blog
     $routes->get('admin-blog', 'Admin\Blog::index');
     $routes->get('blog_create', 'Admin\Blog::create');
     $routes->post('blog_create_action', 'Admin\Blog::createAction');
@@ -311,6 +311,21 @@ $routes->group('admin', static function ($routes) {
     $routes->get('blog_update/(:num)', 'Admin\Blog::update/$1');
     $routes->get('blog_delete/(:num)', 'Admin\Blog::delete/$1');
     $routes->post('blog_image_remove_action', 'Admin\Blog::imageRemoveAction');
+
+    //offers
+    $routes->get('general_offer', 'Admin\General_offer::index');
+    $routes->get('general_offer_create', 'Admin\General_offer::create');
+    $routes->post('general_offer_create_action', 'Admin\General_offer::create_action');
+    $routes->post('general_offer_update_action', 'Admin\General_offer::update_action');
+    $routes->get('general_offer_update/(:num)', 'Admin\General_offer::update/$1');
+    $routes->get('general_offer_delete/(:num)', 'Admin\General_offer::delete/$1');
+
+    $routes->get('zone_based_offer', 'Admin\Zone_based_offer::index');
+    $routes->get('zone_based_offer_create', 'Admin\Zone_based_offer::create');
+    $routes->post('zone_based_offer_create_action', 'Admin\Zone_based_offer::create_action');
+    $routes->post('zone_based_offer_update_action', 'Admin\Zone_based_offer::update_action');
+    $routes->get('zone_based_offer_update/(:num)', 'Admin\Zone_based_offer::update/$1');
+    $routes->get('zone_based_offer_delete/(:num)', 'Admin\Zone_based_offer::delete/$1');
 
 });
 

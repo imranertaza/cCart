@@ -1,7 +1,7 @@
 <footer class="footer py-5">
     <div class="container">
         <div class="footer-logo mb-5">
-            <img src="<?php echo base_url() ?>/assets/theme_1/img/logo-footer.png" alt="Amazing Gadgets" class="img-fluid">
+            <img src="<?php echo base_url() ?>/assets/theme_1/img/logo-footer.png" alt="footer logo" class="img-fluid">
         </div>
         <div class="row gx-5">
             <div class="col-sm-6 col-xl-4 mb-4 mb-xl-0 pe-5">
@@ -61,7 +61,9 @@
 
 <script src="<?php echo base_url() ?>/assets/datatable/datatables.min.js" ></script>
 <script>
-    $("#tabledata").DataTable();
+    $("#tabledata").DataTable({
+        order: [[3, 'desc']]
+    })
     $('.ratingPiont').starRating({
         starSize: 1.5,
         showInfo: true

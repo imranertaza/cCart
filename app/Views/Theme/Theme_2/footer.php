@@ -324,7 +324,9 @@
 <script src="<?php echo base_url() ?>/assets/datatable/datatables.min.js" ></script>
 
 <script>
-    $("#tabledata").DataTable();
+    $("#tabledata").DataTable({
+            order: [[3, 'desc']]
+        })
     function myFunction() {
         var dots = document.getElementById("dots");
         var moreText = document.getElementById("more");

@@ -1835,3 +1835,12 @@ function comment_id_by_reply_comment($comment_id)
 
     return $table->where('	comment_parent_id', $comment_id)->get()->getResult();
 }
+/**
+ * @description This function provides bd date format
+ * @param string $data
+ * @return false|string
+ */
+function bdDateFormat($data = '0000-00-00')
+{
+    return ($data == '0000-00-00') ? 'Unknown' : date('d/m/y', strtotime($data));
+}
