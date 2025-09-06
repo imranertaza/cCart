@@ -1,11 +1,11 @@
-<section class="main-container checkout" >
+<section class="main-container checkout" id="tableReload" >
     <div class="container">
         <form action="<?php echo base_url('checkout_action') ?>" method="post" onsubmit="return onchackoutsubmit()">
             <div class="row">
                 <div class="col-lg-6">
                     <?php $isLoggedInCustomer = newSession()->isLoggedInCustomer;
 
-        if (!isset($isLoggedInCustomer) || $isLoggedInCustomer != true) { ?>
+                    if (!isset($isLoggedInCustomer) || $isLoggedInCustomer != true) { ?>
                     <p><a class="btn bg-black w-100 text-white rounded-0 in_err" href="<?php echo base_url('login') ?>">Log In</a></p>
                     <p class="text-center">Or</p>
                     <div class="create-box mb-5">
@@ -183,10 +183,7 @@
                         </div>
                     </div>
                 </div>
-                <?php
-                $modules = modules_access();
-        $img_size_100    = ($modules['watermark'] == '1') ? '100_wm_' : '100_';
-        ?>
+                <?php $modules = modules_access(); ?>
                 <div class="col-lg-6">
                     <div class="checkout-items mb-4">
                         <?php foreach (Cart()->contents() as $val) { ?>
@@ -230,29 +227,33 @@
                     <div class="summery">
                         <div class="d-flex justify-content-between mb-2">
                             <span>Price</span>
-                            <span id="check_total"><?php echo currency_symbol(Cart()->total()) ?></span>
+                            <span ><?php echo currency_symbol(Cart()->total()) ?></span>
                         </div>
 
                         <div class="d-flex justify-content-between mb-2">
                             <span>Discount</span>
                             <?php $disc = 0;
+                            $offerdisc  = 0;
 
-        if (isset(newSession()->coupon_discount)) {
-            if (newSession()->discount_type == 'Percentage') {
-                $disc = (Cart()->total() * newSession()->coupon_discount) / 100;
-            } else {
-                if (Cart()->total() > newSession()->coupon_discount) {
-                    $disc = newSession()->coupon_discount;
-                } else {
-                    $disc = Cart()->total();
-                }
-            } ?>
-                                <span><?php echo currency_symbol($disc) ?></span>
+                            if (isset(newSession()->coupon_discount) || !empty($offer['discount_amount'])) {
+                                if (newSession()->discount_type == 'Percentage') {
+                                    $disc = (Cart()->total() * newSession()->coupon_discount) / 100;
+                                } else {
+                                    if (Cart()->total() > newSession()->coupon_discount) {
+                                        $disc = newSession()->coupon_discount;
+                                    } else {
+                                        $disc = Cart()->total();
+                                    }
+                                }
+                                $offerdisc     = $offer['discount_amount'];
+                                $totalDiscount = $disc + $offerdisc;
+                                $finalDiscount = (Cart()->total() > $totalDiscount) ? $totalDiscount : Cart()->total(); ?>
+                                <span><?php echo currency_symbol($finalDiscount) ?></span>
                             <?php
-        } else {
-            echo currency_symbol($disc);
-        }
-        $total = (isset(newSession()->coupon_discount)) ? Cart()->total() - $disc : Cart()->total(); ?>
+                            } else {
+                                echo currency_symbol($disc);
+                            }
+                            $total = (isset(newSession()->coupon_discount) || !empty($offer['discount_amount'])) ? Cart()->total() - $finalDiscount : Cart()->total(); ?>
                         </div>
                         <div class="d-flex justify-content-between mb-2">
                             <span>Shipping Method</span>

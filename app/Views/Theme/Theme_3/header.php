@@ -113,7 +113,7 @@
                         <div class="logo text-center text-sm-start">
                         <a href="<?php echo base_url() ?>">
                                 <?php $logoImg = get_lebel_by_value_in_theme_settings('side_logo');
-                                echo commonImageView('uploads/logo', '', $logoImg, 'noimage.png', 'img-fluid side_logo', '', '269', '68'); ?>
+                                echo image_view('uploads/logo', '', $logoImg, 'noimage.png', 'img-fluid side_logo'); ?>
 
                             </a>
                         </div>
@@ -237,7 +237,7 @@
                             <a  href="<?php echo base_url('compare') ?>">
                                 <div class="mini-cart d-flex position-relative" id="comparetReload">
                                     <img src="<?php echo base_url('svg/compareMenuIcon.svg')?>" alt="date">
-                                    <span class="cart-item position-absolute rounded-5 d-flex align-items-center justify-content-center bg-white text-black"><?php print (isset(newSession()->compare_session))?count(newSession()->compare_session):'0'; ?></span>
+                                    <span class="cart-item position-absolute rounded-5 d-flex align-items-center justify-content-center bg-white text-black"><?php print (isset(newSession()->compare_session)) ? count(newSession()->compare_session) : '0'; ?></span>
                                 </div>
                             </a>
                         <?php } ?>

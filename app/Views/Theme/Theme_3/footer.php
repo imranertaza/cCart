@@ -80,7 +80,7 @@
                                     Site Map</a></li>
                             </ul>
                             <div class="footer-logo">
-                                <?php echo commonImageView('assets/theme_3/img', '', 'logo-footer.png', 'noimage.png', 'img-fluid ', '', '211', '53'); ?>
+                                <?php echo image_view('assets/theme_3/img', '', 'logo-footer.png', 'noimage.png', 'img-fluid '); ?>
                             </div>
                         </div>
                     </div>
@@ -199,7 +199,9 @@
 <script src="<?php echo base_url() ?>/assets/theme_3/lightbox-plus-jquery.min.js"></script>
 <script src="<?php echo base_url() ?>/assets/datatable/datatables.min.js" ></script>
 <script>
-    $("#tableReload").DataTable();
+    $("#tableReload").DataTable({
+        order: [[3, 'desc']]
+    })
     function myFunction() {
         var dots = document.getElementById("dots");
         var moreText = document.getElementById("more");
