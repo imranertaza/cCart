@@ -6,15 +6,15 @@
                     <div class="swiper-wrapper">
                     <?php $sli_1 = get_lebel_by_value_in_theme_settings('slider_1'); ?>
                         <div class="swiper-slide">
-                            <img data-sizes="auto" src="<?= commonImageViewUrl('uploads/slider', '', $sli_1, 'noimage.png', '605', '401');?>" class="img-fluid" alt="<?= get_lebel_by_alt_name_in_theme_settings('slider_1')?>" loading="lazy">
+                            <img data-sizes="auto" src="<?= commonImageViewUrl('uploads/slider', '', $sli_1, 'noimage.png', '605', '401');?>" class="img-fluid" alt="<?= getLebelByAltNameInThemeSettings('slider_1')?>" loading="lazy">
                         </div>
                         <?php $sli_2 = get_lebel_by_value_in_theme_settings('slider_2'); ?>
                         <div class="swiper-slide">
-                            <img data-sizes="auto" src="<?= commonImageViewUrl('uploads/slider', '', $sli_2, 'noimage.png', '605', '401');?>" class="img-fluid" alt="<?= get_lebel_by_alt_name_in_theme_settings('slider_2')?>" loading="lazy">
+                            <img data-sizes="auto" src="<?= commonImageViewUrl('uploads/slider', '', $sli_2, 'noimage.png', '605', '401');?>" class="img-fluid" alt="<?= getLebelByAltNameInThemeSettings('slider_2')?>" loading="lazy">
                         </div>
                         <?php $sli_3 = get_lebel_by_value_in_theme_settings('slider_3'); ?>
                         <div class="swiper-slide">
-                            <img data-sizes="auto" src="<?= commonImageViewUrl('uploads/slider', '', $sli_3, 'noimage.png', '605', '401');?>" class="img-fluid" alt="<?= get_lebel_by_alt_name_in_theme_settings('slider_3')?>" loading="lazy">
+                            <img data-sizes="auto" src="<?= commonImageViewUrl('uploads/slider', '', $sli_3, 'noimage.png', '605', '401');?>" class="img-fluid" alt="<?= getLebelByAltNameInThemeSettings('slider_3')?>" loading="lazy">
                         </div>
                     </div>
                     <div class="swiper-pagination"></div>

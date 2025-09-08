@@ -879,7 +879,7 @@ function get_lebel_by_title_in_theme_settings($lable)
  * @param string $lable
  * @return string
  */
-function get_lebel_by_alt_name_in_theme_settings($lable)
+function getLebelByAltNameInThemeSettings($lable)
 {
     $table = DB()->table('cc_theme_settings');
     $data  = $table->where('label', $lable)->get()->getRow();

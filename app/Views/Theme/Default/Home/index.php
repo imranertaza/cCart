@@ -5,11 +5,11 @@
                 <div class="swiper bannerSlide">
                     <div class="swiper-wrapper">
                         <?php $sli_1 = get_lebel_by_value_in_theme_settings('slider_1'); ?>
-                        <div class="swiper-slide"><img data-sizes="auto" src="<?= commonImageViewUrl('uploads/slider', '', $sli_1, 'noimage.png', '837', '394');?>" alt="<?= get_lebel_by_alt_name_in_theme_settings('slider_1');?>" class="img-fluid" loading="lazy"></div>
+                        <div class="swiper-slide"><img data-sizes="auto" src="<?= commonImageViewUrl('uploads/slider', '', $sli_1, 'noimage.png', '837', '394');?>" alt="<?= getLebelByAltNameInThemeSettings('slider_1');?>" class="img-fluid" loading="lazy"></div>
                         <?php $sli_2 = get_lebel_by_value_in_theme_settings('slider_2'); ?>
-                        <div class="swiper-slide"><img data-sizes="auto" src="<?= commonImageViewUrl('uploads/slider', '', $sli_2, 'noimage.png', '837', '394');?>" alt="<?= get_lebel_by_alt_name_in_theme_settings('slider_2');?>" class="img-fluid" loading="lazy"></div>
+                        <div class="swiper-slide"><img data-sizes="auto" src="<?= commonImageViewUrl('uploads/slider', '', $sli_2, 'noimage.png', '837', '394');?>" alt="<?= getLebelByAltNameInThemeSettings('slider_2');?>" class="img-fluid" loading="lazy"></div>
                         <?php $sli_3 = get_lebel_by_value_in_theme_settings('slider_3'); ?>
-                        <div class="swiper-slide"><img data-sizes="auto" src="<?= commonImageViewUrl('uploads/slider', '', $sli_3, 'noimage.png', '837', '394');?>" alt="<?= get_lebel_by_alt_name_in_theme_settings('slider_3');?>" class="img-fluid" loading="lazy"></div>
+                        <div class="swiper-slide"><img data-sizes="auto" src="<?= commonImageViewUrl('uploads/slider', '', $sli_3, 'noimage.png', '837', '394');?>" alt="<?= getLebelByAltNameInThemeSettings('slider_3');?>" class="img-fluid" loading="lazy"></div>
                     </div>
                     <div class="swiper-pagination"></div>
                 </div>

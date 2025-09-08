@@ -83,7 +83,7 @@ echo image_view('uploads/slider', '', $sli_1, 'noimage.png', 'width-full-100');
                                             </div>
                                             <div class="form-group">
                                                 <label>ALT Name</label>
-                                                <input type="text" name="alt_name" class="form-control" placeholder="Alt Name" value="<?php echo get_lebel_by_alt_name_in_theme_settings('slider_1'); ?>" >
+                                                <input type="text" name="alt_name" class="form-control" placeholder="Alt Name" value="<?php echo getLebelByAltNameInThemeSettings('slider_1'); ?>" >
                                             </div>
 
                                             <button type="submit" class="btn btn-primary">Save</button>
@@ -106,7 +106,7 @@ echo image_view('uploads/slider', '', $sli_3, 'noimage.png', 'width-full-100');
                                             </div>
                                             <div class="form-group">
                                                 <label>ALT Name</label>
-                                                <input type="text" name="alt_name" class="form-control" placeholder="Alt Name" value="<?php echo get_lebel_by_alt_name_in_theme_settings('slider_3'); ?>" >
+                                                <input type="text" name="alt_name" class="form-control" placeholder="Alt Name" value="<?php echo getLebelByAltNameInThemeSettings('slider_3'); ?>" >
                                             </div>
                                             <button type="submit" class="btn btn-primary">Save</button>
                                         </form>
@@ -129,7 +129,7 @@ echo image_view('uploads/slider', '', $sli_2, 'noimage.png', 'width-full-100');
                                             </div>
                                             <div class="form-group">
                                                 <label>ALT Name</label>
-                                                <input type="text" name="alt_name" class="form-control" placeholder="Alt Name" value="<?php echo get_lebel_by_alt_name_in_theme_settings('slider_2'); ?>" >
+                                                <input type="text" name="alt_name" class="form-control" placeholder="Alt Name" value="<?php echo getLebelByAltNameInThemeSettings('slider_2'); ?>" >
                                             </div>
                                             <button type="submit" class="btn btn-primary">Save</button>
                                         </form>
@@ -156,7 +156,7 @@ echo image_view('uploads/logo', '', $side_logo, 'noimage.png', '');
                                             </div>
                                             <div class="form-group">
                                                 <label>ALT Name</label>
-                                                <input type="text" name="alt_name" class="form-control" placeholder="Alt Name" value="<?php echo get_lebel_by_alt_name_in_theme_settings('side_logo'); ?>" >
+                                                <input type="text" name="alt_name" class="form-control" placeholder="Alt Name" value="<?php echo getLebelByAltNameInThemeSettings('side_logo'); ?>" >
                                             </div>
                                             <button type="submit" class="btn btn-primary">Save</button>
                                         </form>
