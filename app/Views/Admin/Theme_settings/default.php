@@ -25,7 +25,8 @@
         <form action="<?php echo base_url('admin/home_category_banner') ?>" method="post" enctype="multipart/form-data">
             <div class="form-group mt-5">
                 <?php
-                $banner_1 = get_lebel_by_value_in_theme_settings('home_category_banner');
+                $themeAtlName = get_theme_alt_name_settings();
+                $banner_1     = get_lebel_by_value_in_theme_settings('home_category_banner');
         echo image_view('uploads/category_banner', '', $banner_1, 'noimage.png', 'w-25');
         ?>
             </div>
@@ -33,7 +34,11 @@
                 <label>Home Category Banner</label>
                 <br>
                 <small>width-280 x height-440</small>
-                <input type="file" name="home_category_banner" class="form-control" required>
+                <input type="file" name="home_category_banner" class="form-control" >
+            </div>
+            <div class="form-group">
+                <label>ALT Name</label>
+                <input type="text" name="alt_name" class="form-control" placeholder="Alt Name" value="<?php echo $themeAtlName['home_category_banner']; ?>" >
             </div>
             <button type="submit" class="btn btn-primary">Save</button>
         </form>

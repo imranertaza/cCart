@@ -39,7 +39,7 @@
 
 
                                         <div class="product-top">
-                                            <a href="<?php echo base_url('detail/' . $pro['product_id'])?>"><?php echo productImageView('uploads/products', $pro['product_id'], $pro['image'], 'noimage.png', 'img-fluid w-100', '', '', '191', '191')?></a>
+                                            <a href="<?php echo base_url('detail/' . $pro['product_id'])?>"><img data-sizes="auto" src="<?= productImageViewUrl('uploads/products', $pro['product_id'], $pro['image'], 'noimage.png', '191', '191');?>" alt="<?= $pro['alt_name'];?>" class="img-fluid" loading="lazy"></a>
 
                                             <div class="rating text-center my-2">
                                                 <?php echo product_id_by_rating($pro['product_id']);?>

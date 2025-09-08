@@ -195,7 +195,7 @@ function getIdByListInOption($selected, $tblId, $needCol, $table, $where, $needw
  * @param int $id
  * @return string
  */
-function image_view($url, $slug, $image, $no_image, $class = '', $id = '', $attr = '')
+function image_view($url, $slug, $image, $no_image, $class = '', $alt = '', $id = '', $attr = '')
 {
     $bas_url = base_url();
 
@@ -210,18 +210,18 @@ function image_view($url, $slug, $image, $no_image, $class = '', $id = '', $attr
 
     if (!empty($image)) {
         if (!file_exists($dir)) {
-            $result = '<img data-sizes="auto" id="' . $id . '" src="' . $no_img . '" class="' . $class . '" loading="lazy">';
+            $result = '<img data-sizes="auto" alt="' . $alt . '" id="' . $id . '" src="' . $no_img . '" class="' . $class . '" loading="lazy">';
         } else {
             $imgPath = $dir . '/' . $image;
 
             if (file_exists($imgPath)) {
-                $result = '<img data-sizes="auto" ' . $attr . ' id="' . $id . '" src="' . $img . '" class="' . $class . '" loading="lazy">';
+                $result = '<img data-sizes="auto" ' . $attr . ' id="' . $id . '" src="' . $img . '" alt="' . $alt . '" class="' . $class . '" loading="lazy">';
             } else {
-                $result = '<img data-sizes="auto" id="' . $id . '" src="' . $no_img . '" class="' . $class . '" loading="lazy">';
+                $result = '<img data-sizes="auto" id="' . $id . '" src="' . $no_img . '" alt="' . $alt . '" class="' . $class . '" loading="lazy">';
             }
         }
     } else {
-        $result = '<img data-sizes="auto" id="' . $id . '" src="' . $no_img . '" class="' . $class . '" loading="lazy">';
+        $result = '<img data-sizes="auto" id="' . $id . '" src="' . $no_img . '" alt="' . $alt . '" class="' . $class . '" loading="lazy">';
     }
 
     return $result;
@@ -457,6 +457,29 @@ function get_theme_title_settings()
         foreach ($val as $k => $v) {
             if ($k == 'label') {
                 $settings[$v] = $data[$key]->title;
+            }
+        }
+    }
+
+    return $settings;
+}
+
+/**
+ * @description This function provides theme settings title data.
+ * @return array
+ */
+function get_theme_alt_name_settings()
+{
+    $settings = get_settings();
+    $theme    = $settings['Theme'];
+    $table    = DB()->table('cc_theme_settings');
+    $data     = $table->where('theme', $theme)->get()->getResult();
+    $settings = [];
+
+    foreach ($data as $key => $val) {
+        foreach ($val as $k => $v) {
+            if ($k == 'label') {
+                $settings[$v] = $data[$key]->alt_name;
             }
         }
     }
@@ -851,6 +874,18 @@ function get_lebel_by_title_in_theme_settings($lable)
 
     return !empty($data) ? $data->title : '';
 }
+/**
+ * @description This function provides theme settings value by label.
+ * @param string $lable
+ * @return string
+ */
+function get_lebel_by_alt_name_in_theme_settings($lable)
+{
+    $table = DB()->table('cc_theme_settings');
+    $data  = $table->where('label', $lable)->get()->getRow();
+
+    return !empty($data) ? $data->alt_name : '';
+}
 
 /**
  * @description This function provides theme settings title with theme by label.
@@ -1221,13 +1256,13 @@ function addToCartBtn($product_id)
 
     if (!empty($qtyCheck)) {
         if ($optionCheck == true) {
-            $btn = '<a href="javascript:void(0)" onclick="addToCart(' . $product_id . ')" class="btn btn-cart w-100 rounded-0 mt-auto">Add to Cart</a>';
+            $btn = '<button onclick="addToCart(' . $product_id . ')" class="btn btn-cart w-100 rounded-0 mt-auto">Add to Cart</button>';
         } else {
             $url = base_url('detail/' . $product_id);
             $btn = '<a href="' . $url . '"  class="btn btn-cart w-100 rounded-0 mt-auto">Add to Cart</a>';
         }
     } else {
-        $btn = '<a href="javascript:void(0)"  class="btn btn-cart w-100 rounded-0 mt-auto">Out of Stock</a>';
+        $btn = '<button  class="btn btn-cart w-100 rounded-0 mt-auto">Out of Stock</button>';
     }
 
     return $btn;
@@ -1247,13 +1282,13 @@ function addToCartBtnIcon($product_id)
 
     if (!empty($qtyCheck)) {
         if ($optionCheck == true) {
-            $btn = '<a href="javascript:void(0)" onclick="addToCart(' . $product_id . ')" class="btn btn-cart bg-custom-color text-white rounded-0 mt-3">' . $icon . '</a>';
+            $btn = '<button onclick="addToCart(' . $product_id . ')" class="btn btn-cart bg-custom-color text-white rounded-0 mt-3">' . $icon . '</button>';
         } else {
             $url = base_url('detail/' . $product_id);
             $btn = '<a href="' . $url . '"  class="btn btn-cart bg-custom-color text-white rounded-0 mt-3">' . $icon . '</a>';
         }
     } else {
-        $btn = '<a href="javascript:void(0)"  class="btn btn-cart bg-black text-white rounded-0 mt-3">' . $icon . '</a>';
+        $btn = '<button  class="btn btn-cart bg-black text-white rounded-0 mt-3">' . $icon . '</button>';
     }
 
     return $btn;
@@ -1377,13 +1412,13 @@ function get_category_id_by_product_show_home_slide($category_id)
         }
 
         if ($modules['compare'] == 1) {
-            $view .= '<a href="javascript:void(0)" onclick="addToCompare(' . $pro->product_id . ')" class="btn-compare position-absolute  mt-5 ms-2"><i class="fa-solid fa-code-compare"></i>
+            $view .= '<button onclick="addToCompare(' . $pro->product_id . ')" class="btn-compare position-absolute  mt-5 ms-2"><i class="fa-solid fa-code-compare"></i>
                     <span class="btn-compare-text position-absolute  mt-5 ms-2">Compare</span>
-                </a>';
+                </button>';
         }
 
         $view .= '<div class="product-top mb-2">
-                    ' . productImageView("uploads/products", $pro->product_id, $pro->image, "noimage.png", "img-fluid w-100 ", "", "", "132", "132") . '
+                    <img data-sizes="auto" src="' . productImageViewUrl("uploads/products", $pro->product_id, $pro->image, "noimage.png", "132", "132") . '" class="img-fluid" alt="' . $pro->alt_name . '" loading="lazy">
                 </div>
                 <div class="product-bottom mt-auto">
                     <div class="product-title product_title_area mb-2">
@@ -1809,8 +1844,126 @@ function productMultiImageView($url, $slug, $slug2, $image, $no_image, $class = 
     return $result;
 }
 
+function commonImageViewUrl($url, $slug, $image, $no_image, $width, $height)
+{
+    $imgMain = str_replace("pro_", "", $image);
+
+    $dir = FCPATH . '/' . $url . '/' . $slug;
+
+    $imageNo   = explode('.', $no_image);
+    $pathNewNo = 'cache/' . $url . '/' . $width . 'x' . $height . '_' . $imageNo[0] . '.webp';
+
+    if (file_exists($pathNewNo)) {
+        $no_img = base_url($pathNewNo);
+    } else {
+        $urlNewNo = base64_encode($url . '/');
+        $no_img   = base_url('image-resize/' . $urlNewNo . '/' . $width . 'x' . $height . '/' . $no_image);
+    }
+    $result = $no_img;
+
+    if (!empty($image)) {
+        if (file_exists($dir)) {
+            $imgPath = $dir . '/' . $imgMain;
+
+            if (file_exists($imgPath)) {
+                $image   = explode('.', $imgMain);
+                $pathNew = 'cache/' . $url . '/' . $slug . '/' . $width . 'x' . $height . '_' . $image[0] . '.webp';
+
+                if (file_exists($pathNew)) {
+                    $imgFinal = base_url($pathNew);
+                } else {
+                    $urlNew   = base64_encode($url . '/' . $slug . '/');
+                    $imgFinal = base_url('image-resize/' . $urlNew . '/' . $width . 'x' . $height . '/' . $imgMain);
+                }
+                $result   = $imgFinal;
+            }
+        }
+    }
+
+    return $result;
+}
+function productImageViewUrl($url, $slug, $image, $no_image, $width, $height)
+{
+    $modules = modules_access();
+    $im      = str_replace("pro_", "", $image);
+    $imgMain = ($modules['watermark'] == '1') ? '600_wm_' . $im : $im;
+
+    $dir = FCPATH . '/' . $url . '/' . $slug;
+
+    $imageNo   = explode('.', $no_image);
+    $pathNewNo = 'cache/' . $url . '/' . $width . 'x' . $height . '_' . $imageNo[0] . '.webp';
+
+    if (file_exists($pathNewNo)) {
+        $no_img = base_url($pathNewNo);
+    } else {
+        $urlNewNo = base64_encode($url . '/');
+        $no_img   = base_url('image-resize/' . $urlNewNo . '/' . $width . 'x' . $height . '/' . $no_image);
+    }
+    $result = $no_img;
+
+    if (!empty($image)) {
+        if (file_exists($dir)) {
+            $imgPath = $dir . '/' . $imgMain;
+
+            if (file_exists($imgPath)) {
+                $image   = explode('.', $imgMain);
+                $pathNew = 'cache/' . $url . '/' . $slug . '/' . $width . 'x' . $height . '_' . $image[0] . '.webp';
+
+                if (file_exists($pathNew)) {
+                    $imgFinal = base_url($pathNew);
+                } else {
+                    $urlNew   = base64_encode($url . '/' . $slug . '/');
+                    $imgFinal = base_url('image-resize/' . $urlNew . '/' . $width . 'x' . $height . '/' . $imgMain);
+                }
+                $result   = $imgFinal;
+            }
+        }
+    }
+
+    return $result;
+}
+function productMultiImageViewUrl($url, $slug, $slug2, $image, $no_image, $width, $height)
+{
+    $modules = modules_access();
+    $im      = str_replace("pro_", "", $image);
+    $imgMain = ($modules['watermark'] == '1') ? '600_wm_' . $im : $im;
+
+    $dir = FCPATH . '/' . $url . '/' . $slug . '/' . $slug2;
 
 
+
+    $imageNo   = explode('.', $no_image);
+    $pathNewNo = 'cache/' . $url . '/' . $width . 'x' . $height . '_' . $imageNo[0] . '.webp';
+
+    if (file_exists($pathNewNo)) {
+        $no_img = base_url($pathNewNo);
+    } else {
+        $urlNewNo = base64_encode($url . '/');
+        $no_img   = base_url('image-resize/' . $urlNewNo . '/' . $width . 'x' . $height . '/' . $no_image);
+    }
+    $result = $no_img;
+
+    if (!empty($image)) {
+        if (file_exists($dir)) {
+            $imgPath = $dir . '/' . $imgMain;
+
+            if (file_exists($imgPath)) {
+                $image   = explode('.', $imgMain);
+                $pathNew = 'cache/' . $url . '/' . $slug . '/' . $slug2 . '/' . $width . 'x' . $height . '_' . $image[0] . '.webp';
+
+                if (file_exists($pathNew)) {
+                    $imgFinal = base_url($pathNew);
+                } else {
+                    $urlNew   = base64_encode($url . '/' . $slug . '/' . $slug2 . '/');
+                    $imgFinal = base_url('image-resize/' . $urlNew . '/' . $width . 'x' . $height . '/' . $imgMain);
+                }
+                $result   = $imgFinal;
+            }
+        }
+    }
+
+    return $result;
+}
 
 /**
  * @description This function provides count comment by blog_id.

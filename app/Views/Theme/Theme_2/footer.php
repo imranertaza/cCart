@@ -281,10 +281,10 @@
                             <div class="pro-item">
                                 <div class="pro-imh-ct">
                                     <?php
-                                    $img = get_data_by_id('image', 'cc_products', 'product_id', $val['id']);
+                                    $img      = get_data_by_id('image', 'cc_products', 'product_id', $val['id']);
+                                    $alt_name = get_data_by_id('alt_name', 'cc_products', 'product_id', $val['id']);
                                     ?>
-                                    <?php echo productImageView('uploads/products', $val['id'], $img, 'noimage.png', 'img-fluid pro-img-ft', '', '', '100', '100') ?>
-
+                                    <img data-sizes="auto" src="<?= productImageViewUrl('uploads/products', $val['id'], $img, 'noimage.png', '100', '100');?>" alt="<?= $alt_name;?>" class="img-fluid pro-img-ft" loading="lazy">
                                 </div>
                             </div>
                         <?php } ?>
@@ -319,8 +319,8 @@
 
 
 
-<script src="<?php echo base_url() ?>/assets/theme_2/slick/slick.js" type="text/javascript" charset="utf-8"> </script>
-<script src="<?php echo base_url() ?>/assets/theme_2/owl.carousel.js"></script>
+<script src="<?php echo base_url() ?>/assets/theme_2/slick/slick.min.js" type="text/javascript" charset="utf-8"> </script>
+<script src="<?php echo base_url() ?>/assets/theme_2/owl.carousel.min.js"></script>
 <script src="<?php echo base_url() ?>/assets/datatable/datatables.min.js" ></script>
 
 <script>

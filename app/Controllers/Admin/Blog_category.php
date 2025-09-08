@@ -90,6 +90,7 @@ class Blog_category extends BaseController
     public function createAction()
     {
         $data['category_name'] = $this->request->getPost('category_name');
+        $data['alt_name']      = $this->request->getPost('category_name');
         $data['icon_id']       = !empty($this->request->getPost('icon_id')) ? $this->request->getPost('icon_id') : null;
         $data['parent_id']     = !empty($this->request->getPost('parent_id')) ? $this->request->getPost('parent_id') : null;
         $data['createdBy']     = $this->session->adUserId;
@@ -171,6 +172,7 @@ class Blog_category extends BaseController
     {
         $catId                 = $this->request->getPost('cat_id');
         $data['category_name'] = $this->request->getPost('category_name');
+        $data['alt_name']      = $this->request->getPost('alt_name');
         $data['icon_id']       = !empty($this->request->getPost('icon_id')) ? $this->request->getPost('icon_id') : null;
         $data['parent_id']     = !empty($this->request->getPost('parent_id')) ? $this->request->getPost('parent_id') : null;
         $data['description']   = $this->request->getPost('description');

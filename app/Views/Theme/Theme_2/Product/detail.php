@@ -18,14 +18,14 @@
                                                     <div class="slider slider-nav thumb-image" style="height: 332px !important;">
                                                         <div class="thumbnail-image">
                                                             <div class="thumbImg">
-                                                                <?php echo productImageView('uploads/products', $products->product_id, $products->image, 'noimage.png', 'img-fluid', '', '', '100', '92') ?>
+                                                                <img data-sizes="auto" src="<?= productImageViewUrl('uploads/products', $products->product_id, $products->image, 'noimage.png', '100', '92');?>" alt="<?= $products->alt_name;?>" class="img-fluid" loading="lazy">
                                                             </div>
                                                         </div>
 
                                                         <?php
                                                         if (!empty($proImg)) {
                                                             foreach ($proImg as $imgval) {
-                                                                echo '<div class="thumbnail-image"><div class="thumbImg">' . productMultiImageView('uploads/products', $imgval->product_id, $imgval->product_image_id, $imgval->image, 'noimage.png', 'img-fluid', '100', '92') . '</div></div>';
+                                                                echo '<div class="thumbnail-image"><div class="thumbImg"><img data-sizes="auto" src="' . productMultiImageViewUrl('uploads/products', $imgval->product_id, $imgval->product_image_id, $imgval->image, 'noimage.png', '100', '92') . '" class="img-fluid" loading="lazy"></div></div>';
                                                             }
                                                         }
                                                 ?>
@@ -34,7 +34,7 @@
                                                             <div class="thumbImg video-thum">
                                                                 <a href="javascript:void(0)" data-bs-toggle="modal"
                                                                     data-bs-target="#videoeModal">
-                                                                    <?php echo productImageView('uploads/products', $products->product_id, $products->image, 'noimage.png', 'img-fluid', '', '', '100', '92') ?>
+                                                                    <img data-sizes="auto" src="<?= productImageViewUrl('uploads/products', $products->product_id, $products->image, 'noimage.png', '100', '92');?>" alt="<?= $products->alt_name;?>" class="img-fluid" loading="lazy">
                                                                     <img src="<?php echo base_url('uploads/play.png') ?>"
                                                                         alt="" class="play-image">
                                                                 </a>
@@ -47,13 +47,13 @@
                                                 <div class="col-10 col-sm-9 col-md-10 col-lg-9">
                                                     <div class="slider slider-for slider-cus-css">
                                                         <div class="slider-banner-image">
-                                                            <?php echo productImageView('uploads/products', $products->product_id, $products->image, 'noimage.png', 'img-fluid', '', '', '363', '332') ?>
+                                                            <img data-sizes="auto" src="<?= productImageViewUrl('uploads/products', $products->product_id, $products->image, 'noimage.png', '363', '332');?>" alt="<?= $products->alt_name;?>" class="img-fluid" loading="lazy">
                                                         </div>
 
                                                         <?php
                                                         if (!empty($proImg)) {
                                                             foreach ($proImg as $imgval) {
-                                                                echo '<div class="slider-banner-image">' . productMultiImageView('uploads/products', $imgval->product_id, $imgval->product_image_id, $imgval->image, 'noimage.png', 'img-fluid', '363', '332') . '</div>';
+                                                                echo '<div class="slider-banner-image"><img data-sizes="auto" src="' . productMultiImageViewUrl('uploads/products', $imgval->product_id, $imgval->product_image_id, $imgval->image, 'noimage.png', '363', '332') . '" alt="' . $imgval->alt_name . '" class="img-fluid" loading="lazy"></div>';
                                                             }
                                                         }
                                                         ?>
@@ -145,10 +145,10 @@
                                 <?php } ?>
 
                                 <?php if (modules_key_by_access('compare') == 1) { ?>
-                                <a href="javascript:void(0)" class="btn btn-wishlist-2 rounded-0 mt-2 ms-1"
+                                <button class="btn btn-wishlist-2 rounded-0 mt-2 ms-1"
                                     onclick="addToCompare(<?php echo $products->product_id ?>)">
                                     <img src="<?php echo base_url('svg/compareIcon.svg')?>" alt="date">
-                                    Add to Compare</a>
+                                    Add to Compare</button>
                                 <?php } ?>
 
                             </div>
@@ -180,8 +180,8 @@
                                     <?php  }
                                             }?>
                                 </table>
-                                <a href="javascript:void(0)" class="btn-see" onclick="myFunction()" id="myBtn">See more
-                                </a>
+                                <button class="btn-see" onclick="myFunction()" id="myBtn">See more
+                                </button>
                             </div>
 
                         </div>
@@ -357,7 +357,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4 mb-3">
-                    <?php echo productImageView('uploads/products', $products->product_id, $products->image, 'noimage.png', 'img-fluid w-100', '', '', '356', '326') ?>
+                    <img data-sizes="auto" src="<?= productImageViewUrl('uploads/products', $products->product_id, $products->image, 'noimage.png', '356', '326');?>" alt="<?= $products->alt_name;?>" class="img-fluid" loading="lazy">
                 </div>
             </div>
         </div>
@@ -394,7 +394,7 @@
                                                 <div
                                                     class="product-grid h-100 d-flex align-items-stretch flex-column position-relative">
                                                     <div class="product-top border p-2">
-                                                        <?php echo productImageView('uploads/products', $both->product_id, $both->image, 'noimage.png', 'img-fluid w-100', '', '', '191', '191') ?>
+                                                        <img data-sizes="auto" src="<?= productImageViewUrl('uploads/products', $both->product_id, $both->image, 'noimage.png', '191', '191');?>" alt="<?= $both->alt_name;?>" class="img-fluid" loading="lazy">
                                                         <input type="checkbox" name="both_product[]"
                                                             onchange="bothPriceCalculat()"
                                                             class="form-check-input check-input"
@@ -497,15 +497,15 @@
                                     <?php } ?>
                                     <?php } ?>
                                     <?php if (modules_key_by_access('compare') == 1) { ?>
-                                    <a href="javascript:void(0)" onclick="addToCompare(<?php echo $rPro->product_id ?>)"
+                                    <button onclick="addToCompare(<?php echo $rPro->product_id ?>)"
                                         class="btn-compare position-absolute  mt-5 ms-2"><i
                                             class="fa-solid fa-code-compare"></i>
                                         <span class="btn-compare-text position-absolute  mt-5 ms-2">Compare</span>
-                                    </a>
+                                    </button>
                                     <?php } ?>
                                     <div class="product-top text-center">
                                         <a
-                                            href="<?php echo base_url('detail/' . $rPro->product_id) ?>"><?php echo productImageView('uploads/products', $rPro->product_id, $rPro->image, 'noimage.png', 'img-fluid ', '', '', '191', '191') ?></a>
+                                            href="<?php echo base_url('detail/' . $rPro->product_id) ?>"><img data-sizes="auto" src="<?= productImageViewUrl('uploads/products', $rPro->product_id, $rPro->image, 'noimage.png', '191', '191');?>" alt="<?= $rPro->alt_name;?>" class="img-fluid" loading="lazy"></a>
                                         <div class="rating text-center my-2">
                                             <?php echo product_id_by_rating($rPro->product_id); ?>
                                         </div>
@@ -595,15 +595,15 @@
                                     <?php } ?>
                                     <?php } ?>
                                     <?php if (modules_key_by_access('compare') == 1) { ?>
-                                    <a href="javascript:void(0)" onclick="addToCompare(<?php echo $rPro->product_id ?>)"
+                                    <button onclick="addToCompare(<?php echo $rPro->product_id ?>)"
                                         class="btn-compare position-absolute  mt-5 ms-2"><i
                                             class="fa-solid fa-code-compare"></i>
                                         <span class="btn-compare-text position-absolute  mt-5 ms-2">Compare</span>
-                                    </a>
+                                    </button>
                                     <?php } ?>
                                     <div class="product-top text-center">
                                         <a
-                                            href="<?php echo base_url('detail/' . $rPro->product_id) ?>"><?php echo productImageView('uploads/products', $rPro->product_id, $rPro->image, 'noimage.png', 'img-fluid ', '', '', '191', '191') ?></a>
+                                            href="<?php echo base_url('detail/' . $rPro->product_id) ?>"><img data-sizes="auto" src="<?= productImageViewUrl('uploads/products', $rPro->product_id, $rPro->image, 'noimage.png', '191', '191');?>" alt="<?= $rPro->alt_name;?>" class="img-fluid" loading="lazy"></a>
                                         <div class="rating text-center my-2">
                                             <?php echo product_id_by_rating($rPro->product_id); ?>
                                         </div>

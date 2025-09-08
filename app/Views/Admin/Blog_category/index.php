@@ -61,7 +61,8 @@ foreach ($category as $val) {
                                 <td width="40"><?php echo $i++; ?></td>
                                 <td><?php echo display_blog_category_with_parent($val->cat_id); ?></td>
 
-                                <td><?php echo common_image_view('uploads/blog_category', '', $val->image, 'noimage.png', 'width-80', '', '166', '208'); ?>
+                                <td>
+                                    <img data-sizes="auto" src="<?= commonImageViewUrl('uploads/blog_category', '', $val->image, 'noimage.png', '166', '208'); ?>" alt="<?= $val->alt_name; ?>" class="width-80" loading="lazy">
                                 </td>
                                 <td><?php print get_data_by_id('code', 'cc_icons', 'icon_id', $val->icon_id); ?> </td>
                                 <td width="100"><input type="text" class="border-0" onchange="updateSorting(this.value,'<?php echo $val->cat_id ?>')" value="<?php echo $val->sort_order; ?>"></td>

@@ -80,7 +80,7 @@
                                     Site Map</a></li>
                             </ul>
                             <div class="footer-logo">
-                                <?php echo image_view('assets/theme_3/img', '', 'logo-footer.png', 'noimage.png', 'img-fluid '); ?>
+                                <?php echo image_view('assets/theme_3/img', '', 'logo-footer.png', 'noimage.png', 'img-fluid ', 'footer logo'); ?>
                             </div>
                         </div>
                     </div>
@@ -194,8 +194,8 @@
         </div>
     </section>
 
-<script src="<?php echo base_url() ?>/assets/theme_3/script.js"></script>
-<script src="<?php echo base_url() ?>/assets/theme_3/slick/slick.js" type="text/javascript" charset="utf-8"> </script>
+<script src="<?php echo base_url() ?>/assets/theme_3/script.min.js"></script>
+<script src="<?php echo base_url() ?>/assets/theme_3/slick/slick.min.js" type="text/javascript" charset="utf-8"> </script>
 <script src="<?php echo base_url() ?>/assets/theme_3/lightbox-plus-jquery.min.js"></script>
 <script src="<?php echo base_url() ?>/assets/datatable/datatables.min.js" ></script>
 <script>

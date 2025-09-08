@@ -5,11 +5,11 @@
                 <div class="swiper bannerSlide">
                     <div class="swiper-wrapper">
                         <?php $sli_1 = get_lebel_by_value_in_theme_settings('slider_1'); ?>
-                        <div class="swiper-slide"><?php echo commonImageView('uploads/slider', '', $sli_1, 'noimage.png', 'img-fluid w-100', '', '837', '394');?></div>
+                        <div class="swiper-slide"><img data-sizes="auto" src="<?= commonImageViewUrl('uploads/slider', '', $sli_1, 'noimage.png', '837', '394');?>" alt="<?= get_lebel_by_alt_name_in_theme_settings('slider_1');?>" class="img-fluid" loading="lazy"></div>
                         <?php $sli_2 = get_lebel_by_value_in_theme_settings('slider_2'); ?>
-                        <div class="swiper-slide"><?php echo commonImageView('uploads/slider', '', $sli_2, 'noimage.png', 'img-fluid w-100', '', '837', '394');?></div>
+                        <div class="swiper-slide"><img data-sizes="auto" src="<?= commonImageViewUrl('uploads/slider', '', $sli_2, 'noimage.png', '837', '394');?>" alt="<?= get_lebel_by_alt_name_in_theme_settings('slider_2');?>" class="img-fluid" loading="lazy"></div>
                         <?php $sli_3 = get_lebel_by_value_in_theme_settings('slider_3'); ?>
-                        <div class="swiper-slide"><?php echo commonImageView('uploads/slider', '', $sli_3, 'noimage.png', 'img-fluid w-100', '', '837', '394');?></div>
+                        <div class="swiper-slide"><img data-sizes="auto" src="<?= commonImageViewUrl('uploads/slider', '', $sli_3, 'noimage.png', '837', '394');?>" alt="<?= get_lebel_by_alt_name_in_theme_settings('slider_3');?>" class="img-fluid" loading="lazy"></div>
                     </div>
                     <div class="swiper-pagination"></div>
                 </div>
@@ -20,6 +20,7 @@
 
 <?php
     $theme_settings = get_theme_settings();
+    $theme_alt_name = get_theme_alt_name_settings();
     $modules        = modules_access();
     $symbol         = get_lebel_by_value_in_settings('currency_symbol');
 ?>
@@ -33,19 +34,17 @@
                 </div>
                 <div class="card-body p-0">
                     <div class="row gx-0 row-cols-2 row-cols-sm-4 row-cols-lg-6 text-center">
+                        <?php foreach ($populerCat as $catPop) {
+    $icon_id = get_data_by_id('icon_id', 'cc_product_category', 'prod_cat_id', $catPop->prod_cat_id);
+    $icon    = get_data_by_id('code', 'cc_icons', 'icon_id', $icon_id); ?>
+                                <div class="col border p-5">
+                                    <a href="<?php echo base_url('category/' . $catPop->prod_cat_id); ?>">
+                                    <?php echo $icon; ?>
+                                    <h5 class="mt-3"><a href="#"><?php echo get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $catPop->prod_cat_id); ?></a></h5>
+                                    </a>
+                                </div>
                         <?php
-
-                                                    foreach ($populerCat as $catPop) {
-                                                        $icon_id = get_data_by_id('icon_id', 'cc_product_category', 'prod_cat_id', $catPop->prod_cat_id);
-                                                        $icon    = get_data_by_id('code', 'cc_icons', 'icon_id', $icon_id); ?>
-                        <div class="col border p-5">
-                            <a href="<?php echo base_url('category/' . $catPop->prod_cat_id); ?>">
-                            <?php echo $icon; ?>
-                            <h5 class="mt-3"><a href="#"><?php echo get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $catPop->prod_cat_id); ?></a></h5>
-                            </a>
-                        </div>
-                        <?php
-                                                    } ?>
+} ?>
 
                     </div>
                 </div>
@@ -123,8 +122,7 @@
                 <div class="row gx-0">
                     <div class="col-lg-3">
                         <div class="deal-box position-relative h-100">
-                            <?php echo commonImageView('uploads/category_banner', '', $theme_settings['home_category_banner'], 'noimage.png', 'w-100 h-100', '', '279', '438'); ?>
-
+                            <img data-sizes="auto" src="<?= commonImageViewUrl('uploads/category_banner', '', $theme_settings['home_category_banner'], 'noimage.png', '279', '438');?>" alt="<?= $theme_alt_name['home_category_banner']?>" class="img-fluid" loading="lazy">
                             <div class="deal-content position-absolute top-0 d-flex align-items-stretch h-100 w-100 flex-column p-4">
                                 <p class="mt-auto text-center"><a href="#" class="btn btn-shop">Shop Now <i class="fa-solid fa-angle-right"></i></a></p>
                             </div>
@@ -144,11 +142,10 @@
                                             <?php } ?>
                                         <?php } ?>
                                         <?php if ($modules['compare'] == 1) { ?>
-                                        <a href="javascript:void(0)" onclick="addToCompare(<?php echo $pro->product_id ?>)" class="btn-compare position-absolute start-0 top-0 mt-5 ms-2"><i class="fa-solid fa-code-compare"></i></a>
+                                        <button onclick="addToCompare(<?php echo $pro->product_id ?>)" class="btn-compare position-absolute start-0 top-0 mt-5 ms-2"><i class="fa-solid fa-code-compare"></i></button>
                                         <?php } ?>
                                         <div class="product-top">
-                                            <?php echo productImageView('uploads/products', $pro->product_id, $pro->image, 'noimage.png', 'img-fluid w-100', '', '', '191', '191')?>
-
+                                            <img data-sizes="auto" src="<?= productImageViewUrl('uploads/products', $pro->product_id, $pro->image, 'noimage.png', '191', '191');?>" alt="<?= $pro->alt_name;?>" class="img-fluid" loading="lazy">
                                             <div class="rating text-center my-2">
                                                 <?php echo product_id_by_rating($pro->product_id);?>
                                             </div>
@@ -169,7 +166,7 @@
                                                     <small> <del><?php echo currency_symbol_with_symbol($pro->price, $symbol);?></del></small>/<?php echo currency_symbol_with_symbol($spPric, $symbol);?>
                                                 <?php } ?>
                                             </div>
-                                            <a href="javascript:void(0)" onclick="addToCart(<?php echo $pro->product_id ?>)" class="btn btn-cart w-100 rounded-0 mt-3">Add to Cart</a>
+                                            <button onclick="addToCart(<?php echo $pro->product_id ?>)" class="btn btn-cart w-100 rounded-0 mt-3">Add to Cart</button>
                                         </div>
                                     </div>
                                 </div>
@@ -203,11 +200,10 @@
                                     <?php } ?>
 
                                     <?php if ($modules['compare'] == 1) { ?>
-                                    <a href="javascript:void(0)" onclick="addToCompare(<?php echo $fetPro->product_id ?>)" class="btn-compare position-absolute start-0 top-0 mt-5 ms-2"><i class="fa-solid fa-code-compare"></i></a>
+                                    <button onclick="addToCompare(<?php echo $fetPro->product_id ?>)" class="btn-compare position-absolute start-0 top-0 mt-5 ms-2"><i class="fa-solid fa-code-compare"></i></button>
                                     <?php } ?>
                                     <div class="product-top">
-                                        <?php echo productImageView('uploads/products', $fetPro->product_id, $fetPro->image, 'noimage.png', 'img-fluid w-100', '', '', '198', '198')?>
-
+                                        <img data-sizes="auto" src="<?= productImageViewUrl('uploads/products', $fetPro->product_id, $fetPro->image, 'noimage.png', '198', '198');?>" alt="<?= $fetPro->alt_name;?>" class="img-fluid" loading="lazy">
                                         <div class="rating text-center my-2">
                                             <?php echo product_id_by_rating($fetPro->product_id);?>
                                         </div>
@@ -228,7 +224,7 @@
                                                 <small> <del><?php echo currency_symbol_with_symbol($fetPro->price, $symbol);?></del></small>/<?php echo currency_symbol_with_symbol($spPricFut, $symbol);?>
                                             <?php } ?>
                                         </div>
-                                        <a href="javascript:void(0)" onclick="addToCart(<?php echo $fetPro->product_id ?>)" class="btn btn-cart w-100 rounded-0 mt-3">Add to Cart</a>
+                                        <button onclick="addToCart(<?php echo $fetPro->product_id ?>)" class="btn btn-cart w-100 rounded-0 mt-3">Add to Cart</button>
                                     </div>
                                 </div>
                             </div>

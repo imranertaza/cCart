@@ -11,8 +11,8 @@
                     <div class="col-md-6">
                         <div class="showing_image_area">
                             <div class="showing_image position-relative overflow-hidden" id="coverIMg">
-                                <?php echo productImageView('uploads/products', $products->product_id, $products->image, 'noimage.png', 'img-fluid', 'cover', 'leance', '492', '450') ?>
 
+                                <img data-sizes="auto" src="<?= productImageViewUrl('uploads/products', $products->product_id, $products->image, 'noimage.png', '492', '450')?>" alt="<?= $products->alt_name;?>" class="img-fluid" id="cover" leance loading="lazy">
                                 <span class="lanse" leance id="lance" style="background: url('<?php echo base_url()?>/assets/assets_fl/tile._CB483369110_.gif');"></span>
                             </div>
                         </div>
@@ -28,18 +28,17 @@
 
                                 <div class="sub_img">
                                     <div class="other-image">
-                                        <?php echo productImageView('uploads/products', $products->product_id, $products->image, 'noimage.png', 'img-opt', '', '', '492', '450') ?>
+                                        <img data-sizes="auto" src="<?= productImageViewUrl('uploads/products', $products->product_id, $products->image, 'noimage.png', '492', '450')?>" alt="<?= $products->alt_name;?>" class="img-opt"  loading="lazy">
                                     </div>
                                 </div>
 
                                 <?php
                                 if (!empty($proImg)) {
                                     foreach ($proImg as $imgval) {
-                                        echo '<div class="sub_img"><div class="other-image">' . productMultiImageView('uploads/products', $imgval->product_id, $imgval->product_image_id, $imgval->image, 'noimage.png', 'img-opt', '492', '450') . '</div></div>';
+                                        echo '<div class="sub_img"><div class="other-image"> <img data-sizes="auto" src="' . productMultiImageViewUrl('uploads/products', $imgval->product_id, $imgval->product_image_id, $imgval->image, 'noimage.png', '492', '450') . '" alt="' . $imgval->alt_name . '" class="img-opt"  loading="lazy"></div></div>';
                                     }
                                 }
-                    ?>
-
+                                ?>
 
                             </div>
                         </div>
@@ -142,12 +141,12 @@
 
                                             <?php if ($modules['compare'] == 1) { ?>
                                             <div class="addto-card-3btn">
-                                                <a href="javascript:void(0)" class="btn rounded-0" onclick="addToCompare(<?php echo $products->product_id ?>)" >
+                                                <button class="btn rounded-0" onclick="addToCompare(<?php echo $products->product_id ?>)" >
                                                         <span>
                                                             <img src="<?php echo base_url('svg/compareIcon.svg')?>" alt="date">
                                                         </span>
                                                     <span>Add to Compare</span>
-                                                </a>
+                                                </button>
                                             </div>
                                             <?php } ?>
                                         </div>
@@ -215,7 +214,7 @@
                     </div>
                     <div class="col-sm-5">
                         <div class="image-contant">
-                            <?php echo productImageView('uploads/products', $products->product_id, $products->image, 'noimage.png', 'img-fluid w-100', '', '', '416', '381') ?>
+                            <img data-sizes="auto" src="<?= productImageViewUrl('uploads/products', $products->product_id, $products->image, 'noimage.png', '416', '381');?>" alt="<?= $products->alt_name;?>" class="img-fluid" loading="lazy">
                         </div>
                     </div>
                 </div>
@@ -234,7 +233,7 @@
                         <div class="col-6 col-lg-3 col-sm-4">
                             <div class="card rounded-0">
                                 <div class="r-product">
-                                    <a href="<?php echo base_url('detail/' . $rPro->product_id) ?>"><?php echo productImageView('uploads/products', $rPro->product_id, $rPro->image, 'noimage.png', 'card-img-top rounded-0', '', '', '181', '181') ?></a>
+                                    <a href="<?php echo base_url('detail/' . $rPro->product_id) ?>"><img data-sizes="auto" src="<?= productImageViewUrl('uploads/products', $rPro->product_id, $rPro->image, 'noimage.png', '181', '181');?>" alt="<?= $rPro->alt_name;?>" class="card-img-top rounded-0" loading="lazy"></a>
 
 
                                     <h5 class="card-title"><?php echo substr($rPro->name, 0, 60); ?></h5>
@@ -248,7 +247,7 @@
                                         </small>/<?php echo currency_symbol_with_symbol($spPric, $symbol); ?>
                                     <?php } ?>
                                     <div class="addtocard text-center">
-                                        <div class="addtoCardBtn m-auto"><a href="javascript:void(0)" onclick="addToCart('<?php echo $rPro->product_id;?>')" >Add to Cart</a></div>
+                                        <div class="addtoCardBtn m-auto"><button class="btnCart" onclick="addToCart('<?php echo $rPro->product_id;?>')" >Add to Cart</button></div>
                                     </div>
 
                                 </div>

@@ -86,13 +86,14 @@ class User extends BaseController
      */
     public function create_action()
     {
-        $data['name']         = $this->request->getPost('name');
-        $data['email']        = $this->request->getPost('email');
-        $data['role_id']      = $this->request->getPost('role_id');
-        $data['pass']         = $this->request->getPost('password');
-        $data['password']     = $this->request->getPost('password');
-        $data['con_password'] = $this->request->getPost('con_password');
-        $data['createdBy']    = $this->session->adUserId;
+        $data['name']             = $this->request->getPost('name');
+        $data['alt_name']         = $this->request->getPost('name');
+        $data['email']            = $this->request->getPost('email');
+        $data['role_id']          = $this->request->getPost('role_id');
+        $data['pass']             = $this->request->getPost('password');
+        $data['password']         = $this->request->getPost('password');
+        $data['con_password']     = $this->request->getPost('con_password');
+        $data['createdBy']        = $this->session->adUserId;
 
         $this->validation->setRules([
             'name'         => ['label' => 'Name', 'rules' => 'required'],
@@ -246,7 +247,8 @@ class User extends BaseController
      */
     public function image_action()
     {
-        $user_id = $this->request->getPost('user_id');
+        $user_id          = $this->request->getPost('user_id');
+        $data['alt_name'] = $this->request->getPost('alt_name');
 
         if (!empty($_FILES['pic']['name'])) {
             $target_dir = FCPATH . '/uploads/user/';
@@ -274,18 +276,14 @@ class User extends BaseController
             $this->crop->withFile($target_dir . $namePic)->fit(250, 150, 'center')->save($target_dir . $news_img);
             unlink($target_dir . $namePic);
             $data['pic'] = $news_img;
-
-            $table = DB()->table('cc_users');
-            $table->where('user_id', $user_id)->update($data);
-
-            $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Image Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
-            return redirect()->to('admin/user_update/' . $user_id);
-        } else {
-            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">No image selected!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
-            return redirect()->to('admin/user_update/' . $user_id);
         }
+
+        $table = DB()->table('cc_users');
+        $table->where('user_id', $user_id)->update($data);
+
+        $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Update Successfully <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
+        return redirect()->to('admin/user_update/' . $user_id);
     }
 
     /**

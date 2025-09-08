@@ -395,6 +395,7 @@ a {
     right: 17px;
     background-color: #ffffff;
     padding: 7px 10px;
+    border: none;
 }
 .btn-compare-text{
     bottom: 20%;
@@ -2603,4 +2604,12 @@ ul > li:last-child {
 .dt-length label{
     margin-left: 10px;
     text-transform:capitalize;
+}
+.btnCart{
+    border: none;
+    background-color: unset;
+    width: 100%;
+}
+.btnCart:hover{
+    color: #ffffff;
 }

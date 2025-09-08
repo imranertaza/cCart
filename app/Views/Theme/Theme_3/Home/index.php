@@ -6,24 +6,26 @@
                     <div class="swiper-wrapper">
                     <?php $sli_1 = get_lebel_by_value_in_theme_settings('slider_1'); ?>
                         <div class="swiper-slide">
-                            <?php echo commonImageView('uploads/slider', '', $sli_1, 'noimage.png', 'img-fluid w-100', '', '605', '401');?>
+                            <img data-sizes="auto" src="<?= commonImageViewUrl('uploads/slider', '', $sli_1, 'noimage.png', '605', '401');?>" class="img-fluid" alt="<?= get_lebel_by_alt_name_in_theme_settings('slider_1')?>" loading="lazy">
                         </div>
                         <?php $sli_2 = get_lebel_by_value_in_theme_settings('slider_2'); ?>
                         <div class="swiper-slide">
-                            <?php echo commonImageView('uploads/slider', '', $sli_2, 'noimage.png', 'img-fluid w-100', '', '605', '401');?>
+                            <img data-sizes="auto" src="<?= commonImageViewUrl('uploads/slider', '', $sli_2, 'noimage.png', '605', '401');?>" class="img-fluid" alt="<?= get_lebel_by_alt_name_in_theme_settings('slider_2')?>" loading="lazy">
                         </div>
                         <?php $sli_3 = get_lebel_by_value_in_theme_settings('slider_3'); ?>
                         <div class="swiper-slide">
-                            <?php echo commonImageView('uploads/slider', '', $sli_3, 'noimage.png', 'img-fluid w-100', '', '605', '401');?>
+                            <img data-sizes="auto" src="<?= commonImageViewUrl('uploads/slider', '', $sli_3, 'noimage.png', '605', '401');?>" class="img-fluid" alt="<?= get_lebel_by_alt_name_in_theme_settings('slider_3')?>" loading="lazy">
                         </div>
                     </div>
                     <div class="swiper-pagination"></div>
                 </div>
                 <div class="side-banner d-flex flex-column flex-sm-row flex-lg-column gap-1">
                     <div class="side-banner-box position-relative custom-d-50 w-100">
-                        <?php $theme_settings = get_theme_settings(); ?>
-
-                        <?php echo commonImageView('uploads/top_side_baner', '', $theme_settings['head_side_baner_1'], 'noimage.png', 'img-fluid w-100', '', '226', '199');?>
+                        <?php
+                            $theme_settings = get_theme_settings();
+                            $theme_alt_name = get_theme_alt_name_settings();
+                        ?>
+                        <img data-sizes="auto" src="<?= commonImageViewUrl('uploads/top_side_baner', '', $theme_settings['head_side_baner_1'], 'noimage.png', '226', '199');?>" class="img-fluid" alt="<?= $theme_alt_name['head_side_baner_1']?>" loading="lazy">
 
                         <div class="position-absolute top-0 p-3">
                             <h4><?php echo $theme_settings['head_side_title_1'];?></h4>
@@ -34,9 +36,7 @@
                         </div>
                     </div>
                     <div class="side-banner-box position-relative custom-d-50 w-100">
-
-                        <?php echo commonImageView('uploads/top_side_baner', '', $theme_settings['head_side_baner_2'], 'noimage.png', 'img-fluid w-100', '', '226', '199');?>
-
+                        <img data-sizes="auto" src="<?= commonImageViewUrl('uploads/top_side_baner', '', $theme_settings['head_side_baner_2'], 'noimage.png', '226', '199');?>" class="img-fluid" alt="<?= $theme_alt_name['head_side_baner_2']?>" loading="lazy">
 
                         <div class="position-absolute top-0 p-3">
                             <h4><?php echo $theme_settings['head_side_title_2'];?></h4>
@@ -66,8 +66,7 @@
             <?php  foreach ($populerCat as $key => $catPop) {  ?>
                 <div class="col">
                     <a href="<?php echo base_url('category/' . $catPop->prod_cat_id) ?>">
-                    <?php echo commonImageView('uploads/category', '', $catPop->image, 'noimage.png', 'w-100', '', '166', '208');?>
-
+                        <img data-sizes="auto" src="<?= commonImageViewUrl('uploads/category', '', $catPop->image, 'noimage.png', '166', '208');?>" class="img-fluid" alt="<?= $catPop->alt_name?>" loading="lazy">
                     <div class="category-title"><?php echo $catPop->category_name;?></div>
                     </a>
                 </div>
@@ -92,8 +91,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-3">
-                    <?php echo commonImageView('uploads/home_category', '', $theme_settings['home_category_baner_1'], 'noimage.png', 'w-100', '', '261', '566');?>
-
+                    <img data-sizes="auto" src="<?= commonImageViewUrl('uploads/home_category', '', $theme_settings['home_category_baner_1'], 'noimage.png', '261', '578');?>" class="img-fluid h-100 " alt="<?= $theme_alt_name['home_category_baner_1']?>" loading="lazy">
                 </div>
                 <div class="col-sm-9">
                     <div class="products h-100">
@@ -125,7 +123,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-3">
-                    <?php echo commonImageView('uploads/home_category', '', $theme_settings['home_category_baner_2'], 'noimage.png', 'w-100', '', '261', '566');?>
+                    <img data-sizes="auto" src="<?= commonImageViewUrl('uploads/home_category', '', $theme_settings['home_category_baner_2'], 'noimage.png', '261', '578');?>" class="img-fluid h-100 " alt="<?= $theme_alt_name['home_category_baner_2']?>" loading="lazy">
                 </div>
                 <div class="col-sm-9">
                     <div class="products h-100">
@@ -157,7 +155,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-3">
-                    <?php echo commonImageView('uploads/home_category', '', $theme_settings['home_category_baner_3'], 'noimage.png', 'w-100', '', '261', '566');?>
+                    <img data-sizes="auto" src="<?= commonImageViewUrl('uploads/home_category', '', $theme_settings['home_category_baner_3'], 'noimage.png', '261', '578');?>" class="img-fluid h-100 " alt="<?= $theme_alt_name['home_category_baner_3']?>" loading="lazy">
                 </div>
                 <div class="col-sm-9">
                     <div class="products h-100">
@@ -189,7 +187,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-3">
-                    <?php echo commonImageView('uploads/home_category', '', $theme_settings['home_category_baner_4'], 'noimage.png', 'w-100', '', '261', '566');?>
+                    <img data-sizes="auto" src="<?= commonImageViewUrl('uploads/home_category', '', $theme_settings['home_category_baner_4'], 'noimage.png', '261', '578');?>" class="img-fluid h-100 " alt="<?= $theme_alt_name['home_category_baner_4']?>" loading="lazy">
                 </div>
                 <div class="col-sm-9">
                     <div class="products h-100">
@@ -221,7 +219,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-3">
-                    <?php echo commonImageView('uploads/home_category', '', $theme_settings['home_category_baner_5'], 'noimage.png', 'w-100', '', '261', '566');?>
+                    <img data-sizes="auto" src="<?= commonImageViewUrl('uploads/home_category', '', $theme_settings['home_category_baner_5'], 'noimage.png', '261', '578');?>" class="img-fluid h-100 " alt="<?= $theme_alt_name['home_category_baner_5']?>" loading="lazy">
                 </div>
                 <div class="col-sm-9">
                     <div class="products h-100">
@@ -236,7 +234,7 @@
             </div>
         </div>
         <div class="home-banner mb-5">
-            <?php echo commonImageView('uploads/banner_bottom', '', $theme_settings['banner_bottom'], 'noimage.png', 'w-100', '', '1116', '211');?>
+            <img data-sizes="auto" src="<?= commonImageViewUrl('uploads/banner_bottom', '', $theme_settings['banner_bottom'], 'noimage.png', '1116', '211');?>" class="img-fluid" alt="<?= $theme_alt_name['banner_bottom']?>" loading="lazy">
 
         </div>
 
@@ -261,7 +259,7 @@
                     <div class="swiper-wrapper">
                     <?php foreach ($brand as $br) { ?>
                         <div class="swiper-slide">
-                            <?php echo commonImageView('uploads/brand', '', $br->image, 'noimage.png', 'w-100', '', '133', '80');?>
+                            <img data-sizes="auto" src="<?= commonImageViewUrl('uploads/brand', '', $br->image, 'noimage.png', '133', '80');?>" class="img-fluid" alt="<?= $br->alt_name?>" loading="lazy">
                         </div>
                         <?php } ?>
                     </div>

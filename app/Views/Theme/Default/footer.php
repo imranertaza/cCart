@@ -152,13 +152,6 @@
             },
         },
     });
-    document.querySelector('.trend-button-prev').addEventListener('click', function () {
-        swiper.slidePrev();
-    });
-
-    document.querySelector('.trend-button-next').addEventListener('click', function () {
-        swiper.slideNext();
-    });
 
     $(document).ready(function(){
 
@@ -537,8 +530,10 @@
     window.onscroll = function () {
         if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
             scrollToTopBtn.classList.add("show");
+            console.log('ok');
         } else {
             scrollToTopBtn.classList.remove("show");
+            console.log('not ok');
         }
     };
 

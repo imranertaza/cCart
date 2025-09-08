@@ -30,8 +30,11 @@
                                 </td>
                                 <td class="product-thumbnail mo-text-center">
                                     <a href="#">
-                                        <?php $img = get_data_by_id('image', 'cc_products', 'product_id', $val['id']); ?>
-                                        <?php echo productImageView('uploads/products', $val['id'], $img, 'noimage.png', 'img-fluid', '', '', '100', '100') ?>
+                                        <?php
+                                        $img      = get_data_by_id('image', 'cc_products', 'product_id', $val['id']);
+                                        $alt_name = get_data_by_id('alt_name', 'cc_products', 'product_id', $val['id']);
+                                        ?>
+                                        <img data-sizes="auto" src="<?= productImageViewUrl('uploads/products', $val['id'], $img, 'noimage.png', '100', '100');?>" alt="<?= $alt_name?>" class="img-fluid" loading="lazy">
                                     </a>
                                 </td>
                                 <td class="product-name text-start mo-text-center">

@@ -120,18 +120,22 @@
                                         </div>
                                         <div class="tab-pane fade" id="custom-tabs-four-messages" role="tabpanel" aria-labelledby="custom-tabs-four-messages-tab">
                                             <form action="<?php echo base_url('admin/user_image_action')?>" method="post" enctype="multipart/form-data" >
-                                            <div class="form-group">
-                                                <?php echo commonImageView('uploads/user', '', $user->pic, 'noimage.png', '', '', '250', '150');?>
+                                                <div class="form-group">
+                                                    <?php echo commonImageView('uploads/user', '', $user->pic, 'noimage.png', '', '', '250', '150');?>
 
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Image </label>
-                                                <input type="file" class="form-control" name="pic" required>
-                                            </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Image </label>
+                                                    <input type="file" class="form-control" name="pic" >
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>ALT Name</label>
+                                                    <input type="text" name="alt_name" class="form-control" placeholder="Alt Name" value="<?php echo $user->alt_name; ?>" >
+                                                </div>
 
-                                            <input type="hidden" name="user_id" value="<?php echo $user->user_id;?>" required>
-                                            <button class="btn btn-primary" >Update</button>
-                                            <a href="<?php echo base_url('admin/user')?>" class="btn btn-danger" >Back</a>
+                                                <input type="hidden" name="user_id" value="<?php echo $user->user_id;?>" required>
+                                                <button class="btn btn-primary" >Update</button>
+                                                <a href="<?php echo base_url('admin/user')?>" class="btn btn-danger" >Back</a>
                                             </form>
                                         </div>
                                     </div>

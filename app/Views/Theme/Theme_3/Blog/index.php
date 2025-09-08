@@ -14,7 +14,7 @@
                     <div class="col-md-6 mt-4 div-pad">
                         <div class="row class-border">
                             <div class="col-md-5 col-sm-12 position-relative mob-view-img">
-                                <?php echo commonImageView('uploads/blog', $val->blog_id, $val->image, 'noimage.png', 'img-fluid img-redu', '', '214', '220');?>
+                                <img data-sizes="auto" src="<?= commonImageViewUrl('uploads/blog', $val->blog_id, $val->image, 'noimage.png', '214', '220');?>" class="img-fluid img-redu" alt="<?= $val->alt_name?>" loading="lazy">
                                 <div class="date-box d-flex">
                                     <img src="<?php echo base_url('svg/dateIcon.svg')?>" alt="date">
                                     <span class="date-text"><?php echo invoiceDateFormat($val->publish_date)?></span>
