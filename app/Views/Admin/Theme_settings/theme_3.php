@@ -6,7 +6,7 @@
                 $theme     = get_lebel_by_value_in_settings('Theme');
         $themeSetting      = get_theme_settings();
         $themeSettingTitle = get_theme_title_settings();
-        $themeAtlName      = get_theme_alt_name_settings();
+        $themeAtlName      = getThemeAltNameSettings();
         $cat               = get_all_data_array('cc_product_category');
         ?>
             <div class="form-group">

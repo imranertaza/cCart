@@ -5,7 +5,7 @@
         $cat                = get_all_data_array('cc_product_category');
         $themeSettings      = get_theme_settings();
         $themeSettingsTitle = get_theme_title_settings();
-        $themeAtlName       = get_theme_alt_name_settings();
+        $themeAtlName       = getThemeAltNameSettings();
 
         ?>
 

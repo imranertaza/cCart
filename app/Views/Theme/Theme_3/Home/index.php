@@ -23,7 +23,7 @@
                     <div class="side-banner-box position-relative custom-d-50 w-100">
                         <?php
                             $theme_settings = get_theme_settings();
-                            $theme_alt_name = get_theme_alt_name_settings();
+                            $theme_alt_name = getThemeAltNameSettings();
                         ?>
                         <img data-sizes="auto" src="<?= commonImageViewUrl('uploads/top_side_baner', '', $theme_settings['head_side_baner_1'], 'noimage.png', '226', '199');?>" class="img-fluid" alt="<?= $theme_alt_name['head_side_baner_1']?>" loading="lazy">
 

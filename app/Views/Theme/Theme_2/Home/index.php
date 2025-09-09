@@ -26,7 +26,7 @@
 </section>
 <?php
     $theme_settings                   = get_theme_settings();
-    $theme_alt_name                   = get_theme_alt_name_settings();
+    $theme_alt_name                   = getThemeAltNameSettings();
     $modules                          = modules_access();
     $symbol                           = get_lebel_by_value_in_settings('currency_symbol');
 ?>

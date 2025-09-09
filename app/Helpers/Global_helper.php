@@ -468,7 +468,7 @@ function get_theme_title_settings()
  * @description This function provides theme settings title data.
  * @return array
  */
-function get_theme_alt_name_settings()
+function getThemeAltNameSettings()
 {
     $settings = get_settings();
     $theme    = $settings['Theme'];

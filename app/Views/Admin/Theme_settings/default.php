@@ -25,7 +25,7 @@
         <form action="<?php echo base_url('admin/home_category_banner') ?>" method="post" enctype="multipart/form-data">
             <div class="form-group mt-5">
                 <?php
-                $themeAtlName = get_theme_alt_name_settings();
+                $themeAtlName = getThemeAltNameSettings();
                 $banner_1     = get_lebel_by_value_in_theme_settings('home_category_banner');
         echo image_view('uploads/category_banner', '', $banner_1, 'noimage.png', 'w-25');
         ?>
