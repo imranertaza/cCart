@@ -101,6 +101,19 @@ foreach ($fund_request as $val) { ?>
 
 <?= $this->section('java_script') ?>
 <script>
-
+    function found_request_update(val,id){
+        $.ajax({
+            url: '<?php echo base_url('admin/fund_request_action') ?>',
+            type: "POST",
+            data: {
+                status: val,
+                fund_request_id: id
+            },
+            success: function(data) {
+                $("#message").html(data);
+                $('#tablereload').load(document.URL + ' #example1');
+            }
+        });
+    }
 </script>
 <?= $this->endSection() ?>

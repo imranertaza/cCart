@@ -109,12 +109,12 @@ class Settings extends BaseController
             }
             //new image upload
             $pic     = $this->request->getFile('watermark_image');
-            $namePic = $pic->getRandomName();
+            $namePic = 'wm_' . $pic->getRandomName();
             $pic->move($target_dir, $namePic);
-            $news_img = 'wm_' . $pic->getName();
-            $this->crop->withFile($target_dir . $namePic)->fit(268, 72, 'center')->save($target_dir . $news_img);
-            unlink($target_dir . $namePic);
-            $data['watermark_image'] = $news_img;
+//            $news_img = 'wm_' . $pic->getName();
+//            $this->crop->withFile($target_dir . $namePic)->fit(268, 72, 'center')->save($target_dir . $news_img);
+//            unlink($target_dir . $namePic);
+            $data['watermark_image'] = $namePic;
         }
 
         foreach ($data as $key => $val) {
