@@ -114,7 +114,7 @@
                         <a href="<?php echo base_url() ?>">
                                 <?php $logoImg = get_lebel_by_value_in_theme_settings('side_logo');
                                 $alt_name      = getLebelByAltNameInThemeSettings('side_logo');
-                                echo image_view('uploads/logo', '', $logoImg, 'noimage.png', 'img-fluid side_logo', $alt_name,'logo'); ?>
+                                echo image_view('uploads/logo', '', $logoImg, 'noimage.png', 'img-fluid side_logo', $alt_name, 'logo'); ?>
 
                             </a>
                         </div>

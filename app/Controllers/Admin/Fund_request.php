@@ -35,7 +35,7 @@ class Fund_request extends BaseController
             return redirect()->to(site_url('admin'));
         } else {
             $table                = DB()->table('cc_fund_request');
-            $data['fund_request'] = $table->orderBy('fund_request_id','DESC')->get()->getResult();
+            $data['fund_request'] = $table->orderBy('fund_request_id', 'DESC')->get()->getResult();
 
             //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);

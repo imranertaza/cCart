@@ -310,7 +310,8 @@ class Order extends BaseController
         }
     }
 
-    public function delete($id){
+    public function delete($id)
+    {
         DB()->transStart();
         $table = DB()->table('cc_order_option');
         $table->where('order_id', $id)->delete();
@@ -329,6 +330,7 @@ class Order extends BaseController
         DB()->transComplete();
 
         $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Order Delete Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
         return redirect()->to('admin/order_list');
     }
 }

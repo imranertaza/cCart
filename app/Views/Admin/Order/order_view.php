@@ -221,14 +221,12 @@ if (!empty($paymentDet)) {
                                     </thead>
                                     <tbody>
                                         <?php foreach ($orderItem as $vew) {
-
-                                            $product = get_all_row_data_by_id('cc_products', 'product_id', $vew->product_id);
-                                            $img = str_replace("pro_", "", $product->image);
-                                            $url = (!empty($product->image)) ? base_url('uploads/products/' . $vew->product_id . '/' . $img):base_url('uploads/products/noimage.png' );
-                                        ?>
+        $product = get_all_row_data_by_id('cc_products', 'product_id', $vew->product_id);
+        $img     = str_replace("pro_", "", $product->image);
+        $url     = (!empty($product->image)) ? base_url('uploads/products/' . $vew->product_id . '/' . $img) : base_url('uploads/products/noimage.png'); ?>
                                         <tr>
                                             <td>
-                                                <a class="product-image-link" href="<?= $url;?>" data-lightbox="product-set-<?= $vew->product_id;?>">
+                                                <a class="product-image-link" href="<?= $url; ?>" data-lightbox="product-set-<?= $vew->product_id; ?>">
                                                     <img data-sizes="auto" src="<?php echo productImageViewUrl('uploads/products', $vew->product_id, $product->image, 'noimage.png', '50', '50') ?>" alt="<?php echo $product->alt_name?>" class="img-fluid" loading="lazy">
                                                 </a>
                                             </td>
@@ -237,8 +235,8 @@ if (!empty($paymentDet)) {
                                                 <?php
                     $orOption = order_iten_id_by_order_options($vew->order_item);
 
-                                            if (!empty($orOption)) {
-                                                foreach ($orOption as $op) { ?>
+        if (!empty($orOption)) {
+            foreach ($orOption as $op) { ?>
                                                 <?php
                                                     $firstCar =  mb_substr($op->value, 0, 1);
                                                     $length   = strlen($op->value);
@@ -250,13 +248,14 @@ if (!empty($paymentDet)) {
                                                     style="<?php echo $style; ?> border-radius: unset; margin-left:8px;"><?php echo !empty($isColor) ? $op->value : ''; ?></label>
 
                                                 <?php }
-                                            } ?>
+        } ?>
                                             </td>
                                             <td><?php echo $vew->quantity; ?></td>
                                             <td><?php echo currency_symbol_with_symbol($vew->price, $symbol); ?></td>
                                             <td><?php echo currency_symbol_with_symbol($vew->final_price, $symbol); ?></td>
                                         </tr>
-                                        <?php } ?>
+                                        <?php
+    } ?>
 
                                         <tr>
                                             <td class="text-right" colspan="4">Sub-Total:</td>

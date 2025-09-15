@@ -80,7 +80,7 @@
                                     Site Map</a></li>
                             </ul>
                             <div class="footer-logo">
-                                <?php echo image_view('assets/theme_3/img', '', 'logo-footer.png', 'noimage.png', 'img-fluid ', 'footer logo','footer'); ?>
+                                <?php echo image_view('assets/theme_3/img', '', 'logo-footer.png', 'noimage.png', 'img-fluid ', 'footer logo', 'footer'); ?>
                             </div>
                         </div>
                     </div>
