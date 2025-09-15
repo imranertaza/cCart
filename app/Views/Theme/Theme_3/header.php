@@ -114,7 +114,7 @@
                         <a href="<?php echo base_url() ?>">
                                 <?php $logoImg = get_lebel_by_value_in_theme_settings('side_logo');
                                 $alt_name      = getLebelByAltNameInThemeSettings('side_logo');
-                                echo image_view('uploads/logo', '', $logoImg, 'noimage.png', 'img-fluid side_logo', $alt_name); ?>
+                                echo image_view('uploads/logo', '', $logoImg, 'noimage.png', 'img-fluid side_logo', $alt_name,'logo'); ?>
 
                             </a>
                         </div>
@@ -125,7 +125,7 @@
                                 <span class="navbar-toggler-icon"></span>
                               </button>
                               <div class="collapse navbar-collapse" id="navbarNav">
-                                <button type="button" class="btn-close d-lg-none"id="navClose" aria-label="Close"></button>
+                                <button type="button" class="btn-close d-lg-none" id="navClose" aria-label="Close"></button>
                                 <ul class="navbar-nav d-flex justify-content-center">
                                   <li class="nav-item">
                                     <a class="nav-link" aria-current="page" href="<?php echo base_url() ?>">Home</a>

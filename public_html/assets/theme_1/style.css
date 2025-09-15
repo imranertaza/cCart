@@ -1053,3 +1053,13 @@ input[type=checkbox]{
     margin-left: 10px;
     text-transform:capitalize;
 }
+.title-checkout .bg-custom-color{
+    background-color: #000000;
+}
+.title-checkout .group-check{
+    border: 1px solid #757575 !important;
+    padding: 10px;
+}
+.title-checkout .btn:hover{
+    background-color: #000000;
+}

@@ -115,7 +115,7 @@
                                                 <?php } ?>
                                             <?php } ?>
                                             <?php if ($modules['compare'] == 1) { ?>
-                                                <button href="javascript:void(0)" onclick="addToCompare(<?php echo $pro->product_id ?>)" class="btn-compare position-absolute  mt-5 ms-2"><i class="fa-solid fa-code-compare"></i>
+                                                <button  onclick="addToCompare(<?php echo $pro->product_id ?>)" class="btn-compare position-absolute  mt-5 ms-2"><i class="fa-solid fa-code-compare"></i>
                                                     <span class="btn-compare-text position-absolute  mt-5 ms-2">Compare</span>
                                                 </button>
                                             <?php } ?>
@@ -677,7 +677,7 @@
                                 <div class="col p-2 p-md-3 border position-relative">
                                     <a href="<?php echo base_url('category/' . $catPop->prod_cat_id); ?>">
                                         <span class="icon-cat-main"><?php echo $icon; ?></span>
-                                        <h5 class="mt-2 mt-md-4 cat-name"><a href="#"><?php echo get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $catPop->prod_cat_id); ?></a>
+                                        <h5 class="mt-2 mt-md-4 cat-name"><?php echo get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $catPop->prod_cat_id); ?>
                                         </h5>
                                     </a>
                                 </div>

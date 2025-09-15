@@ -238,6 +238,7 @@ $routes->group('admin', static function ($routes) {
     $routes->post('order_payment_status_action', 'Admin\Order::payment_status_action');
     $routes->get('order_view/(:num)', 'Admin\Order::order_view/$1');
     $routes->post('order_point_action', 'Admin\Order::point_action');
+    $routes->get('order_delete/(:num)', 'Admin\Order::delete/$1');
 
     //Theme Settings
 
