@@ -17,8 +17,8 @@
     <link rel="stylesheet" href="<?php echo base_url() ?>/assets/theme_3/lightbox.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
     <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>/assets/theme_2/slick/slick.css">
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>/assets/theme_2/slick/slick-theme.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>/assets/theme_2/slick/slick.min.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>/assets/theme_2/slick/slick-theme.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -26,15 +26,15 @@
     <link rel="stylesheet" href="<?php echo base_url() ?>/assets/theme_2/owl.carousel.min.css">
     <link rel="stylesheet" href="<?php echo base_url() ?>/assets/theme_2/owl.theme.default.min.css">
     <link href="<?php echo base_url() ?>/assets/datatable/datatables.min.css" rel="stylesheet"  >
-    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/theme_2/style.css">
+    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/theme_2/style.min.css">
 
     <script src="<?php echo base_url() ?>/assets/theme_2/jquery.min.js"></script>
     <script src="<?php echo base_url() ?>/assets/theme_2/bootstrap.bundle.min.js"></script>
     <script src="<?php echo base_url() ?>/assets/theme_2/swiper-bundle.min.js"></script>
     <script src="<?php echo base_url() ?>/assets/theme_3/lightbox-plus-jquery.min.js"></script>
-    <script src="<?php echo base_url() ?>/assets/theme_2/jquery-3.6.0.js"></script>
-    <script src="<?php echo base_url() ?>/assets/theme_2/jquery-ui.js"></script>
-    <script src="<?php echo base_url() ?>/assets/theme_2/jquery.star-rating.js"></script>
+    <script src="<?php echo base_url() ?>/assets/theme_2/jquery-3.6.0.min.js"></script>
+    <script src="<?php echo base_url() ?>/assets/theme_2/jquery-ui.min.js"></script>
+    <script src="<?php echo base_url() ?>/assets/theme_2/jquery.star-rating.min.js"></script>
 
 </head>
 
@@ -127,7 +127,8 @@
                         <div class="logo text-center text-md-start">
                             <a href="<?php echo base_url() ?>">
                                 <?php $logoImg = get_lebel_by_value_in_theme_settings('side_logo');
-                                echo image_view('uploads/logo', '', $logoImg, 'noimage.png', 'img-fluid side_logo', ); ?>
+                                $alt_name      = getLebelByAltNameInThemeSettings('side_logo');
+                                echo image_view('uploads/logo', '', $logoImg, 'noimage.png', 'img-fluid side_logo', $alt_name, 'side_log'); ?>
 
                             </a>
                         </div>
@@ -304,7 +305,7 @@
                             <div class="logo">
                                 <a href="<?php echo base_url() ?>">
                                     <?php $logoImg = get_lebel_by_value_in_theme_settings('side_logo');
-    echo image_view('uploads/logo', '', $logoImg, 'noimage.png', 'img-fluid side_logo img-30'); ?>
+    echo image_view('uploads/logo', '', $logoImg, 'noimage.png', 'img-fluid side_logo img-30', $alt_name, 'side_logo'); ?>
                                 </a>
                             </div>
                         </div>

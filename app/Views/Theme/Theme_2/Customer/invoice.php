@@ -6,7 +6,7 @@
                     <div class="d-flex justify-content-between">
                         <div class="logo">
                             <?php $logoImg = get_lebel_by_value_in_theme_settings('side_logo');
-                            echo commonImageView('uploads/logo', '', $logoImg, 'noimage.png', 'img-fluid', '', '268', '72');?>
+                            echo image_view('uploads/logo', '', $logoImg, 'noimage.png', 'img-fluid');?>
                         </div>
                         <div class="address">
                             <div class="icon float-start">
@@ -77,10 +77,8 @@
                                 <tr>
                                     <td width="700" class="d-flex">
                                         <div class="img-table" >
-                                        <?php
-                                        $img = get_data_by_id('image', 'cc_products', 'product_id', $item->product_id);
-                                        echo productImageView('uploads/products', $item->product_id, $img, 'noimage.png', '', '', '', '100', '100');
-                                        ?>
+                                            <?php $product = get_all_row_data_by_id('cc_products', 'product_id', $item->product_id); ?>
+                                            <img data-sizes="auto" src="<?= productImageViewUrl('uploads/products', $item->product_id, $product->image, 'noimage.png', '100', '100');?>" alt="<?= $product->alt_name;?>" class="img-fluid" loading="lazy">
 
                                         </div>
                                         <div class="img-text" style="margin-left: 10px;">

@@ -280,11 +280,8 @@
                         <?php foreach (Cart()->contents() as $val) { ?>
                             <div class="pro-item">
                                 <div class="pro-imh-ct">
-                                    <?php
-                                    $img = get_data_by_id('image', 'cc_products', 'product_id', $val['id']);
-                                    ?>
-                                    <?php echo productImageView('uploads/products', $val['id'], $img, 'noimage.png', 'img-fluid pro-img-ft', '', '', '100', '100') ?>
-
+                                    <?php $product = get_all_row_data_by_id('cc_products', 'product_id', $val['id']); ?>
+                                    <img data-sizes="auto" src="<?= productImageViewUrl('uploads/products', $val['id'], $product->image, 'noimage.png', '100', '100');?>" alt="<?= $product->alt_name;?>" class="img-fluid pro-img-ft" loading="lazy">
                                 </div>
                             </div>
                         <?php } ?>
@@ -319,8 +316,8 @@
 
 
 
-<script src="<?php echo base_url() ?>/assets/theme_2/slick/slick.js" type="text/javascript" charset="utf-8"> </script>
-<script src="<?php echo base_url() ?>/assets/theme_2/owl.carousel.js"></script>
+<script src="<?php echo base_url() ?>/assets/theme_2/slick/slick.min.js" type="text/javascript" charset="utf-8"> </script>
+<script src="<?php echo base_url() ?>/assets/theme_2/owl.carousel.min.js"></script>
 <script src="<?php echo base_url() ?>/assets/datatable/datatables.min.js" ></script>
 
 <script>
@@ -1236,14 +1233,14 @@
 
     function optionPriceCalculate(product_id) {
         <?php foreach (get_all_data_array('cc_option') as $v) {
-                                        if ($v->type == 'radio') { ?>
+        if ($v->type == 'radio') { ?>
                 var <?php echo strtolower($v->name); ?> = $('input[name="<?php echo strtolower($v->name); ?>"]:checked').val();
             <?php }
 
-                                        if ($v->type == 'select') { ?>
+        if ($v->type == 'select') { ?>
                 var <?php echo strtolower($v->name); ?> = $('[name="<?php echo strtolower($v->name); ?>"]').val();
         <?php }
-                                    } ?>
+    } ?>
         $.ajax({
             method: "POST",
             url: "<?php echo base_url('optionPriceCalculate') ?>",

@@ -52,7 +52,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="input-group">
-                            <input type="text" name="subscribe_email" id="subscribe_email"  class="form-control" placeholder="Enter your Email address" aria-label="Search" aria-describedby="search-addon" />
+                            <input type="text" name="subscribe_email" id="subscribe_email"  class="form-control" placeholder="Enter your Email address" aria-label="Search" >
                             <button type="button" class="btn btn-subscribe" onclick="subscribe()" >Subscribe Now</button>
                         </div>
                     </div>
@@ -80,7 +80,7 @@
                                     Site Map</a></li>
                             </ul>
                             <div class="footer-logo">
-                                <?php echo image_view('assets/theme_3/img', '', 'logo-footer.png', 'noimage.png', 'img-fluid '); ?>
+                                <?php echo image_view('assets/theme_3/img', '', 'logo-footer.png', 'noimage.png', 'img-fluid ', 'footer logo', 'footer'); ?>
                             </div>
                         </div>
                     </div>
@@ -194,8 +194,8 @@
         </div>
     </section>
 
-<script src="<?php echo base_url() ?>/assets/theme_3/script.js"></script>
-<script src="<?php echo base_url() ?>/assets/theme_3/slick/slick.js" type="text/javascript" charset="utf-8"> </script>
+<script src="<?php echo base_url() ?>/assets/theme_3/script.min.js"></script>
+<script src="<?php echo base_url() ?>/assets/theme_3/slick/slick.min.js" > </script>
 <script src="<?php echo base_url() ?>/assets/theme_3/lightbox-plus-jquery.min.js"></script>
 <script src="<?php echo base_url() ?>/assets/datatable/datatables.min.js" ></script>
 <script>
@@ -1026,6 +1026,6 @@
     });
 
 </script>
-<script src="<?php echo base_url() ?>/assets/theme_3/validation.js" type="text/javascript" ></script>
+<script src="<?php echo base_url() ?>/assets/theme_3/validation.js" ></script>
 </body>
 </html>

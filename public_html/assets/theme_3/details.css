@@ -192,7 +192,7 @@
   margin: 10px 0;
 }
 
-.addto-card-3btn a {
+.addto-card-3btn button{
   display: flex;
   width: 132px;
   padding: 10px 5px;
@@ -207,6 +207,22 @@
   line-height: normal;
   text-transform: capitalize;
   border: 1px solid #444;
+}
+.addto-card-3btn button, a {
+    display: flex;
+    width: 132px;
+    padding: 10px 5px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    color: #444;
+    font-family: Roboto;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-transform: capitalize;
+    border: 1px solid #444;
 }
 
 .service-nifo-area {

@@ -2,7 +2,7 @@
     <input type="checkbox" name="productId[]" value="<?php echo $val->product_id;?>" form="multiActionForm" >
 </td>
 <td class="colum_id row_show "> <?php echo $val->product_id; ?></td>
-<td class="colum_image row_show "> <?php echo productImageView('uploads/products', $val->product_id, $val->image, '50_noimage.png', '', '', '', '50', '50');?></td>
+<td class="colum_image row_show "> <img data-sizes="auto" src="<?= productImageViewUrl('uploads/products', $val->product_id, $val->image, 'noimage.png', '50', '50');?>" alt="<?= $val->alt_name;?>" class="img-fluid" loading="lazy"></td>
 
 <td class="colum_name row_show ">
     <p  onclick="updateFunction('<?php echo $val->product_id; ?>','name','<?php echo $val->name; ?>','view_name_<?php echo $val->product_id; ?>','bulkForm_name_<?php echo $val->product_id; ?>','update_<?php echo $val->product_id?>')">

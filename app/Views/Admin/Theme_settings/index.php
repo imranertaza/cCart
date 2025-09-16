@@ -76,12 +76,16 @@ echo image_view('uploads/slider', '', $sli_1, 'noimage.png', 'width-full-100');
                                             </div>
                                             <div class="form-group">
                                                 <label>Slider 1</label>
-                                                <input type="file" name="slider" class="form-control" required>
+                                                <input type="file" name="slider" class="form-control" >
                                                 <input type="hidden" name="nameslider" class="form-control"
                                                        value="slider_1" required>
                                                        <small>Size: <?php echo $theme_libraries->slider_width; ?> x <?php echo $theme_libraries->slider_height; ?></small>
                                             </div>
-                                            
+                                            <div class="form-group">
+                                                <label>ALT Name</label>
+                                                <input type="text" name="alt_name" class="form-control" placeholder="Alt Name" value="<?php echo getLebelByAltNameInThemeSettings('slider_1'); ?>" >
+                                            </div>
+
                                             <button type="submit" class="btn btn-primary">Save</button>
                                         </form>
 
@@ -95,10 +99,14 @@ echo image_view('uploads/slider', '', $sli_3, 'noimage.png', 'width-full-100');
                                             </div>
                                             <div class="form-group">
                                                 <label>Slider 3</label>
-                                                <input type="file" name="slider" class="form-control" required>
+                                                <input type="file" name="slider" class="form-control" >
                                                 <input type="hidden" name="nameslider" class="form-control"
                                                        value="slider_3" required>
                                                 <small>Size: <?php echo $theme_libraries->slider_width; ?> x <?php echo $theme_libraries->slider_height; ?></small>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>ALT Name</label>
+                                                <input type="text" name="alt_name" class="form-control" placeholder="Alt Name" value="<?php echo getLebelByAltNameInThemeSettings('slider_3'); ?>" >
                                             </div>
                                             <button type="submit" class="btn btn-primary">Save</button>
                                         </form>
@@ -114,10 +122,14 @@ echo image_view('uploads/slider', '', $sli_2, 'noimage.png', 'width-full-100');
                                             </div>
                                             <div class="form-group">
                                                 <label>Slider 2</label>
-                                                <input type="file" name="slider" class="form-control" required>
+                                                <input type="file" name="slider" class="form-control" >
                                                 <input type="hidden" name="nameslider" class="form-control"
                                                        value="slider_2" required>
                                                 <small>Size: <?php echo $theme_libraries->slider_width; ?> x <?php echo $theme_libraries->slider_height; ?></small>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>ALT Name</label>
+                                                <input type="text" name="alt_name" class="form-control" placeholder="Alt Name" value="<?php echo getLebelByAltNameInThemeSettings('slider_2'); ?>" >
                                             </div>
                                             <button type="submit" class="btn btn-primary">Save</button>
                                         </form>
@@ -139,8 +151,12 @@ echo image_view('uploads/logo', '', $side_logo, 'noimage.png', '');
                                             </div>
                                             <div class="form-group">
                                                 <label>Logo</label>
-                                                <input type="file" name="side_logo" class="form-control" required>
+                                                <input type="file" name="side_logo" class="form-control" >
                                                 <small>Size: <?php echo $theme_libraries->logo_width; ?> x <?php echo $theme_libraries->logo_height; ?></small>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>ALT Name</label>
+                                                <input type="text" name="alt_name" class="form-control" placeholder="Alt Name" value="<?php echo getLebelByAltNameInThemeSettings('side_logo'); ?>" >
                                             </div>
                                             <button type="submit" class="btn btn-primary">Save</button>
                                         </form>
@@ -166,16 +182,16 @@ echo image_view('uploads/logo', '', $favicon, 'noimage.png', '');
                                     </div>
 
                                 </div>
-                            </div>                           
+                            </div>
 
                             <div class="tab-pane fade <?php echo (isset($_GET['sel']) && $_GET['sel'] == 'home_settings') ? 'active show' : ''; ?>" id="custom-tabs-four-messages" role="tabpanel"
                                  aria-labelledby="custom-tabs-four-messages-tab">
                                 <?php echo $theme_view;?>
                             </div>
 
-                            
 
-                            
+
+
                         </div>
                     </div>
                     <!-- /.card -->

@@ -5,6 +5,7 @@
         $cat                = get_all_data_array('cc_product_category');
         $themeSettings      = get_theme_settings();
         $themeSettingsTitle = get_theme_title_settings();
+        $themeAtlName       = getThemeAltNameSettings();
 
         ?>
 
@@ -44,7 +45,11 @@
                 <label><?php echo $themeSettingsTitle['special_banner']; ?></label>
                 <br>
                 <small>width-837 x height-190</small>
-                <input type="file" name="special_banner" class="form-control" required>
+                <input type="file" name="special_banner" class="form-control" >
+            </div>
+            <div class="form-group">
+                <label>ALT Name</label>
+                <input type="text" name="alt_name" class="form-control" placeholder="Alt Name" value="<?php echo $themeAtlName['special_banner']; ?>" >
             </div>
             <button type="submit" class="btn btn-primary">Save</button>
         </form>
@@ -60,8 +65,12 @@
                 <label><?php echo $themeSettingsTitle['left_side_banner_one']; ?></label>
                 <br>
                 <small>width-262 x height-420</small>
-                <input type="file" name="left_side_banner" class="form-control" required>
-                <input type="hidden" name="label" class="form-control" value="left_side_banner_one" required>
+                <input type="file" name="left_side_banner" class="form-control" >
+                <input type="hidden" name="label" class="form-control" value="left_side_banner_one" >
+            </div>
+            <div class="form-group">
+                <label>ALT Name</label>
+                <input type="text" name="alt_name" class="form-control" placeholder="Alt Name" value="<?php echo $themeAtlName['left_side_banner_one']; ?>" >
             </div>
             <button type="submit" class="btn btn-primary">Save</button>
         </form>
@@ -77,8 +86,12 @@
                 <label><?php echo $themeSettingsTitle['left_side_banner_three']; ?></label>
                 <br>
                 <small>width-262 x height-420</small>
-                <input type="file" name="left_side_banner" class="form-control" required>
-                <input type="hidden" name="label" class="form-control" value="left_side_banner_three" required>
+                <input type="file" name="left_side_banner" class="form-control" >
+                <input type="hidden" name="label" class="form-control" value="left_side_banner_three" >
+            </div>
+            <div class="form-group">
+                <label>ALT Name</label>
+                <input type="text" name="alt_name" class="form-control" placeholder="Alt Name" value="<?php echo $themeAtlName['left_side_banner_three']; ?>" >
             </div>
             <button type="submit" class="btn btn-primary">Save</button>
         </form>
@@ -212,8 +225,12 @@
                 <label><?php echo $themeSettingsTitle['left_side_banner_two']; ?></label>
                 <br>
                 <small>width-262 x height-420</small>
-                <input type="file" name="left_side_banner" class="form-control" required>
+                <input type="file" name="left_side_banner" class="form-control" >
                 <input type="hidden" name="label" class="form-control" value="left_side_banner_two" required>
+            </div>
+            <div class="form-group">
+                <label>ALT Name</label>
+                <input type="text" name="alt_name" class="form-control" placeholder="Alt Name" value="<?php echo $themeAtlName['left_side_banner_two']; ?>" >
             </div>
             <button type="submit" class="btn btn-primary">Save</button>
         </form>

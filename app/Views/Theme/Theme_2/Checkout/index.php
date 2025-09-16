@@ -239,10 +239,10 @@
                         <div class="list-item d-flex gap-2 mb-2">
                             <div class="d-flex gap-2 bg-gray p-2 rounded-2 pro-bg-check">
                                 <?php
-                                    $img = get_data_by_id('image', 'cc_products', 'product_id', $val['id']);
-                                    $des = get_data_by_id('description', 'cc_product_description', 'product_id', $val['id']);
+                                    $product  = get_all_row_data_by_id('cc_products', 'product_id', $val['id']);
+                                    $des      = get_data_by_id('description', 'cc_product_description', 'product_id', $val['id']);
                                     ?>
-                                <?php echo productImageView('uploads/products', $val['id'], $img, 'noimage.png', 'img-fluid w-h-100', '', '', '100', '100') ?>
+                                <img data-sizes="auto" src="<?= productImageViewUrl('uploads/products', $val['id'], $product->image, 'noimage.png', '100', '100');?>" alt="<?= $product->alt_name;?>" class="img-fluid" loading="lazy">
 
                                 <div>
                                     <p class="fw-semibold mb-2"><?php echo $val['name']; ?></p>

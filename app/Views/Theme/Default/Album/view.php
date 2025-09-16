@@ -12,8 +12,7 @@
                     $image   = ($modules['watermark'] == '1') ? '600_wm_' . $img : $img;
                     $url     = base_url('uploads/album/' . $album->album_id . '/' . $image); ?>
                     <a class="example-image-link" href="<?= $url;?>" data-lightbox="example-set">
-                    <?php echo productImageView('uploads/album', $album->album_id, $album->thumb, 'noimage.png', 'img-fluid', '', '', '324', '324');?>
-
+                        <img data-sizes="auto" src="<?= productImageViewUrl('uploads/album', $album->album_id, $album->thumb, 'noimage.png', '324', '324');?>" alt="<?= $album->alt_name;?>" class="img-fluid" loading="lazy">
                     </a>
                 </div>
                 <?php foreach ($albumAll as $val) {
@@ -22,7 +21,7 @@
                         $url2   = base_url('uploads/album/' . $val->album_id . '/' . $val->album_details_id . '/' . $image2); ?>
                 <div class="col-4 col-md-4 mt-4 text-center ">
                     <a class="example-image-link" href="<?= $url2; ?>" data-lightbox="example-set" >
-                    <?php echo productMultiImageView('uploads/album', $val->album_id, $val->album_details_id, $val->image, 'noimage.png', 'img-fluid', '324', '324'); ?>
+                        <img data-sizes="auto" src="<?= productMultiImageViewUrl('uploads/album', $val->album_id, $val->album_details_id, $val->image, 'noimage.png', '324', '324'); ?>" alt="<?= $val->alt_name; ?>" class="img-fluid" loading="lazy">
                     </a>
                 </div>
                 <?php
