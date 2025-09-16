@@ -29,7 +29,9 @@
                     <div class="col-md-8">
                         <h3 class="card-title">Order View</h3>
                     </div>
-                    <div class="col-md-4"></div>
+                    <div class="col-md-4 ">
+                        <a href="<?php echo base_url('admin/order_list');?>" class="btn btn-danger btn-sm float-right " >Back</a>
+                    </div>
                     <div class="col-md-12" style="margin-top: 10px" id="message">
                         <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message');
                         endif; ?>
@@ -210,6 +212,7 @@ if (!empty($paymentDet)) {
                                 <table class="table  table-striped text-capitalize">
                                     <thead>
                                         <tr>
+                                            <th>Image</th>
                                             <th>Product</th>
                                             <th>Quantity</th>
                                             <th>Unit Price</th>
@@ -217,15 +220,23 @@ if (!empty($paymentDet)) {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach ($orderItem as $vew) { ?>
+                                        <?php foreach ($orderItem as $vew) {
+        $product = get_all_row_data_by_id('cc_products', 'product_id', $vew->product_id);
+        $img     = str_replace("pro_", "", $product->image);
+        $url     = (!empty($product->image)) ? base_url('uploads/products/' . $vew->product_id . '/' . $img) : base_url('uploads/products/noimage.png'); ?>
                                         <tr>
+                                            <td>
+                                                <a class="product-image-link" href="<?= $url; ?>" data-lightbox="product-set-<?= $vew->product_id; ?>">
+                                                    <img data-sizes="auto" src="<?php echo productImageViewUrl('uploads/products', $vew->product_id, $product->image, 'noimage.png', '50', '50') ?>" alt="<?php echo $product->alt_name?>" class="img-fluid" loading="lazy">
+                                                </a>
+                                            </td>
                                             <td width="400">
                                                 <?php echo get_data_by_id('name', 'cc_products', 'product_id', $vew->product_id); ?><br>
                                                 <?php
                     $orOption = order_iten_id_by_order_options($vew->order_item);
 
-                                            if (!empty($orOption)) {
-                                                foreach ($orOption as $op) { ?>
+        if (!empty($orOption)) {
+            foreach ($orOption as $op) { ?>
                                                 <?php
                                                     $firstCar =  mb_substr($op->value, 0, 1);
                                                     $length   = strlen($op->value);
@@ -237,28 +248,29 @@ if (!empty($paymentDet)) {
                                                     style="<?php echo $style; ?> border-radius: unset; margin-left:8px;"><?php echo !empty($isColor) ? $op->value : ''; ?></label>
 
                                                 <?php }
-                                            } ?>
+        } ?>
                                             </td>
                                             <td><?php echo $vew->quantity; ?></td>
                                             <td><?php echo currency_symbol_with_symbol($vew->price, $symbol); ?></td>
                                             <td><?php echo currency_symbol_with_symbol($vew->final_price, $symbol); ?></td>
                                         </tr>
-                                        <?php } ?>
+                                        <?php
+    } ?>
 
                                         <tr>
-                                            <td class="text-right" colspan="3">Sub-Total:</td>
+                                            <td class="text-right" colspan="4">Sub-Total:</td>
                                             <td><?php echo currency_symbol_with_symbol($order->total, $symbol); ?></td>
                                         </tr>
                                         <tr>
-                                            <td class="text-right" colspan="3">Discount:</td>
+                                            <td class="text-right" colspan="4">Discount:</td>
                                             <td><?php echo currency_symbol_with_symbol($order->discount, $symbol); ?></td>
                                         </tr>
                                         <tr>
-                                            <td class="text-right" colspan="3">Shipping Charge:</td>
+                                            <td class="text-right" colspan="4">Shipping Charge:</td>
                                             <td><?php echo currency_symbol_with_symbol($order->shipping_charge, $symbol); ?></td>
                                         </tr>
                                         <tr>
-                                            <td class="text-right" colspan="3">Total:</td>
+                                            <td class="text-right" colspan="4">Total:</td>
                                             <td><?php echo currency_symbol_with_symbol($order->final_amount, $symbol); ?></td>
                                         </tr>
                                     </tbody>

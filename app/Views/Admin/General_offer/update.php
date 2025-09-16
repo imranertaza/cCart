@@ -76,7 +76,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <?= commonImageView('uploads/offer', $offer->offer_id, $offer->banner, 'noimage.png', '', '', '50', '50');?>
+                                    <img data-sizes="auto" src="<?= commonImageViewUrl('uploads/offer', $offer->offer_id, $offer->banner, 'noimage.png', '50', '50');?>" alt="<?= $offer->alt_name;?>" class="img-fluid" loading="lazy">
                                 </div>
 
                                 <div class="form-group">

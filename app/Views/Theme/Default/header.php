@@ -20,15 +20,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link href="<?php echo base_url() ?>/assets/datatable/datatables.min.css" rel="stylesheet"  >
     <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/theme_1/style.css">
+    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/theme_1/style.min.css">
 
     <script src="<?php echo base_url() ?>/assets/theme_3/lightbox-plus-jquery.min.js"></script>
     <script src="<?php echo base_url() ?>/assets/theme_1/jquery.min.js"></script>
     <script src="<?php echo base_url() ?>/assets/theme_1/bootstrap.bundle.min.js"></script>
     <script src="<?php echo base_url() ?>/assets/theme_1/swiper-bundle.min.js"></script>
-    <script src="<?php echo base_url() ?>/assets/theme_1/jquery-3.6.0.js"></script>
-    <script src="<?php echo base_url() ?>/assets/theme_1/jquery-ui.js"></script>
-    <script src="<?php echo base_url() ?>/assets/theme_1/jquery.star-rating.js"></script>
+    <script src="<?php echo base_url() ?>/assets/theme_1/jquery-3.6.0.min.js"></script>
+    <script src="<?php echo base_url() ?>/assets/theme_1/jquery-ui.min.js"></script>
+    <script src="<?php echo base_url() ?>/assets/theme_1/jquery.star-rating.min.js"></script>
 
 
 </head>
@@ -79,8 +79,10 @@
                 <div class="col-6 col-md-3 order-1 mb-3 mb-md-0">
                     <div class="logo">
                         <a href="<?php echo base_url()?>">
-                            <?php $logoImg = get_lebel_by_value_in_theme_settings('side_logo');
-                            echo image_view('uploads/logo', '', $logoImg, 'noimage.png', 'img-fluid');?>
+                            <?php
+                            $logoImg  = get_lebel_by_value_in_theme_settings('side_logo');
+                            $alt_name = getLebelByAltNameInThemeSettings('side_logo');
+                            echo image_view('uploads/logo', '', $logoImg, 'noimage.png', 'img-fluid', $alt_name);?>
 
                         </a>
                     </div>

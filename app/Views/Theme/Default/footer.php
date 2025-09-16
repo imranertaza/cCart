@@ -152,13 +152,6 @@
             },
         },
     });
-    document.querySelector('.trend-button-prev').addEventListener('click', function () {
-        swiper.slidePrev();
-    });
-
-    document.querySelector('.trend-button-next').addEventListener('click', function () {
-        swiper.slideNext();
-    });
 
     $(document).ready(function(){
 
@@ -537,14 +530,51 @@
     window.onscroll = function () {
         if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
             scrollToTopBtn.classList.add("show");
+            console.log('ok');
         } else {
             scrollToTopBtn.classList.remove("show");
+            console.log('not ok');
         }
     };
 
     scrollToTopBtn.addEventListener("click", function () {
         window.scrollTo({ top: 0, behavior: "smooth" });
     });
+
+    function instruction_view(id, code) {
+        if (code == 'paypal') {
+            $('#checkout-form').attr('action', '<?php echo base_url('payment_paypal'); ?>');
+            $('#checkout-form').attr('method', 'GET');
+        }else if(code == 'stripe'){
+            $('#checkout-form').attr('action', '<?php echo base_url('payment_stripe'); ?>');
+            $('#checkout-form').attr('method', 'POST');
+        } else {
+            $('#checkout-form').attr('action', '<?php echo base_url('checkout_action'); ?>');
+            $('#checkout-form').attr('method', 'POST');
+        }
+        $.ajax({
+            method: "POST",
+            url: "<?php echo base_url('payment_instruction') ?>",
+            data: {
+                id: id
+            },
+            success: function(response) {
+                $('#instruction').html(response);
+                if (code != 'credit_card') {
+                    $('#cardForm').html('');
+                }
+            }
+        });
+    }
+
+    function cardForm(code) {
+        var view =
+            '<div class="title-checkout"><label class="btn bg-custom-color text-white w-100 rounded-0"><span class="text-label">Credit Card</span></label></div><div class="payment-method group-check mb-4 pb-4"><div class="row px-5 py-2"><div class="form-group mb-4 col-md-12"><label class="w-100" for="name">Card Name</label><input class="form-control rounded-0" type="text" id="card_name" name="card_name" placeholder="" required=""></div><div class="form-group mb-4 col-md-12"><label class="w-100" for="name">Card Number</label><input class="form-control rounded-0" type="number" id="card_number" name="card_number" placeholder="" required=""></div><div class="form-group mb-4 col-md-6"><label class="w-100" for="name">Expiration (mm/yy)</label><input class="form-control rounded-0" type="text"   id="card_expiration" name="card_expiration" placeholder="" required="" pattern="[0-9]*" inputmode="numeric"></div><div class="form-group mb-4 col-md-6"><label class="w-100" for="name">CVC</label><input class="form-control rounded-0" type="number" id="card_cvc" name="card_cvc" placeholder="" required=""></div></div></div>';
+        if (code == 'credit_card') {
+            $('#cardForm').html(view);
+        }
+    }
+
 </script>
 <script src="<?php echo base_url() ?>/assets/theme_3/validation.js" type="text/javascript" ></script>
 </body>

@@ -96,10 +96,8 @@
                                 <tbody>
                                 <?php foreach ($orderItem as $item) { ?>
                                     <tr>
-                                        <td><?php
-                                            $img = get_data_by_id('image', 'cc_products', 'product_id', $item->product_id);
-                                            echo productImageView('uploads/products', $item->product_id, $img, 'noimage.png', '', '', '', '100', '100');
-                                            ?>
+                                        <td><?php $product = get_all_row_data_by_id('cc_products', 'product_id', $item->product_id); ?>
+                                            <img data-sizes="auto" src="<?= productImageViewUrl('uploads/products', $item->product_id, $product->image, 'noimage.png', '100', '100');?>" alt="<?= $product->alt_name;?>" class="img-fluid" loading="lazy">
 
                                         </td>
                                         <td>

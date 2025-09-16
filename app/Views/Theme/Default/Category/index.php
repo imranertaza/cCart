@@ -159,12 +159,11 @@
                                                 <?php } ?>
                                                 <?php } ?>
                                                 <?php if ($modules['compare'] == 1) { ?>
-                                                <a href="javascript:void(0)" onclick="addToCompare(<?php echo $pro->product_id ?>)" class="btn-compare position-absolute start-0 top-0 mt-5 ms-2"><i class="fa-solid fa-code-compare"></i></a>
+                                                <button onclick="addToCompare(<?php echo $pro->product_id ?>)" class="btn-compare position-absolute start-0 top-0 mt-5 ms-2"><i class="fa-solid fa-code-compare"></i></button>
                                                 <?php } ?>
 
                                                 <div class="product-top">
-                                                    <?php echo productImageView('uploads/products', $pro->product_id, $pro->image, 'noimage.png', 'img-fluid w-100', '', '', '191', '191')?>
-
+                                                    <img data-sizes="auto" src="<?= productImageViewUrl('uploads/products', $pro->product_id, $pro->image, 'noimage.png', '191', '191');?>" alt="<?= $pro->alt_name;?>" class="img-fluid" loading="lazy">
                                                     <div class="rating text-center my-2">
                                                         <?php echo product_id_by_rating($pro->product_id);?>
                                                     </div>
@@ -185,7 +184,7 @@
                                                             <small> <del><?php echo currency_symbol_with_symbol($pro->price, $symbol);?></del></small>/<?php echo currency_symbol_with_symbol($spPric, $symbol);?>
                                                         <?php } ?>
                                                     </div>
-                                                    <a href="javascript:void(0)" onclick="addToCart(<?php echo $pro->product_id ?>)" class="btn btn-cart w-100 rounded-0 mt-3">Add to Cart</a>
+                                                    <button onclick="addToCart(<?php echo $pro->product_id ?>)" class="btn btn-cart w-100 rounded-0 mt-3">Add to Cart</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -208,12 +207,11 @@
                                                     <?php } ?>
                                                 <?php } ?>
                                                 <?php if ($modules['compare'] == 1) { ?>
-                                                    <a href="javascript:void(0)" onclick="addToCompare(<?php echo $pro->product_id ?>)" class="btn-compare position-absolute start-0 top-0 mt-5 ms-2"><i class="fa-solid fa-code-compare"></i></a>
+                                                    <button onclick="addToCompare(<?php echo $pro->product_id ?>)" class="btn-compare position-absolute start-0 top-0 mt-5 ms-2"><i class="fa-solid fa-code-compare"></i></button>
                                                 <?php } ?>
 
                                                 <div class="product-top" style="width:40%;float:left; " >
-                                                    <?php echo productImageView('uploads/products', $pro->product_id, $pro->image, 'noimage.png', 'img-fluid w-100', '', '', '253', '253')?>
-
+                                                    <img data-sizes="auto" src="<?= productImageViewUrl('uploads/products', $pro->product_id, $pro->image, 'noimage.png', '253', '253');?>" alt="<?= $pro->alt_name;?>" class="img-fluid" loading="lazy">
 
                                                 </div>
 
@@ -240,7 +238,7 @@
                                                             <small> <del><?php echo currency_symbol_with_symbol($pro->price, $symbol);?></del></small>/<?php echo currency_symbol_with_symbol($spPric, $symbol);?>
                                                         <?php } ?>
                                                     </div>
-                                                    <a href="javascript:void(0)" onclick="addToCart(<?php echo $pro->product_id ?>)" class="btn btn-cart w-100 rounded-0 mt-3">Add to Cart</a>
+                                                    <button onclick="addToCart(<?php echo $pro->product_id ?>)" class="btn btn-cart w-100 rounded-0 mt-3">Add to Cart</button>
                                                 </div>
                                             </div>
                                         </div>

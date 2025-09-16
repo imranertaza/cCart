@@ -90,8 +90,9 @@ class Album extends BaseController
      */
     public function create_action()
     {
-        $data['name']      = $this->request->getPost('name');
-        $data['createdBy'] = $this->session->adUserId;
+        $data['name']          = $this->request->getPost('name');
+        $data['alt_name']      = $this->request->getPost('name');
+        $data['createdBy']     = $this->session->adUserId;
 
         $this->validation->setRules([
             'name' => ['label' => 'Name', 'rules' => 'required'],
@@ -137,6 +138,7 @@ class Album extends BaseController
                 foreach ($files as $file) {
                     if ($file->isValid() && ! $file->hasMoved()) {
                         $dataMultiImg['album_id'] = $albumId;
+                        $dataMultiImg['alt_name'] = $data['name'];
                         $albumImgTable            = DB()->table('cc_album_details');
                         $albumImgTable->insert($dataMultiImg);
                         $albumImgId = DB()->insertID();
@@ -205,9 +207,10 @@ class Album extends BaseController
      */
     public function update_action()
     {
-        $album_id           = $this->request->getPost('album_id');
-        $data['name']       = $this->request->getPost('name');
-        $data['sort_order'] = $this->request->getPost('sort_order_al');
+        $album_id               = $this->request->getPost('album_id');
+        $data['name']           = $this->request->getPost('name');
+        $data['alt_name']       = $this->request->getPost('alt_name');
+        $data['sort_order']     = $this->request->getPost('sort_order_al');
 
         $this->validation->setRules([
             'name' => ['label' => 'Name', 'rules' => 'required'],
@@ -251,6 +254,7 @@ class Album extends BaseController
                 foreach ($files as $file) {
                     if ($file->isValid() && ! $file->hasMoved()) {
                         $dataMultiImg['album_id'] = $album_id;
+                        $dataMultiImg['alt_name'] = $data['alt_name'];
                         $proImgTable              = DB()->table('cc_album_details');
                         $proImgTable->insert($dataMultiImg);
                         $albumImgId = DB()->insertID();
@@ -354,5 +358,18 @@ class Album extends BaseController
 
         $table->where('album_details_id', $album_details_id)->delete();
         print '<div class="alert alert-success alert-dismissible" role="alert">Album Image Delete Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+    }
+
+    /**
+     * @description This method provides album alt name action
+     * @return void
+     */
+    public function albumImageAltNameAction()
+    {
+        $album_details_id = $this->request->getPost('album_details_id');
+
+        $data['alt_name'] = $this->request->getPost('value');
+        $table            = DB()->table('cc_album_details');
+        $table->where('album_details_id', $album_details_id)->update($data);
     }
 }

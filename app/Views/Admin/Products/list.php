@@ -108,8 +108,7 @@ foreach ($product as $val) {
                             </td>
                             <td>
                                 <a class="product-image-link" href="<?= $url; ?>" data-lightbox="product-set-<?= $val->product_id; ?>">
-                                <?php echo productImageView('uploads/products', $val->product_id, $val->image, 'noimage.png', '', '', '', '50', '50'); ?>
-
+                                    <img data-sizes="auto" src="<?= productImageViewUrl('uploads/products', $val->product_id, $val->image, 'noimage.png', '50', '50'); ?>" alt="<?= $val->alt_name; ?>" class="img-fluid" loading="lazy">
                                 </a>
                             </td>
                             <td><?php echo $val->name; ?></td>

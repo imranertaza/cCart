@@ -100,6 +100,7 @@ $routes->group('admin', static function ($routes) {
 
     $routes->post('product_status_update', 'Admin\Products::status_update');
     $routes->post('product_status_update_action', 'Admin\Products::status_update_action');
+    $routes->post('product_image_alt_name_action', 'Admin\Products::productImageAltNameAction');
 
     //Album
     $routes->get('album', 'Admin\Album::index');
@@ -110,6 +111,7 @@ $routes->group('admin', static function ($routes) {
     $routes->get('album_delete/(:num)', 'Admin\Album::delete/$1');
     $routes->post('album_image_sort_action', 'Admin\Album::album_image_sort_action');
     $routes->post('album_image_delete', 'Admin\Album::image_delete');
+    $routes->post('album_image_alt_name_action', 'Admin\Album::albumImageAltNameAction');
 
     //User
     $routes->get('user', 'Admin\User::index');
@@ -236,6 +238,7 @@ $routes->group('admin', static function ($routes) {
     $routes->post('order_payment_status_action', 'Admin\Order::payment_status_action');
     $routes->get('order_view/(:num)', 'Admin\Order::order_view/$1');
     $routes->post('order_point_action', 'Admin\Order::point_action');
+    $routes->get('order_delete/(:num)', 'Admin\Order::delete/$1');
 
     //Theme Settings
 
@@ -311,6 +314,7 @@ $routes->group('admin', static function ($routes) {
     $routes->get('blog_update/(:num)', 'Admin\Blog::update/$1');
     $routes->get('blog_delete/(:num)', 'Admin\Blog::delete/$1');
     $routes->post('blog_image_remove_action', 'Admin\Blog::imageRemoveAction');
+    $routes->post('blog_image_alt_name_action', 'Admin\Blog::imageAltNameAction');
 
     //offers
     $routes->get('general_offer', 'Admin\General_offer::index');

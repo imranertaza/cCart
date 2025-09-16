@@ -62,7 +62,7 @@ foreach ($offer as $val) { ?>
                                 <td><?php echo $val->discount_on;?></td>
                                 <td><?php echo bdDateFormat($val->start_date);?></td>
                                 <td><?php echo bdDateFormat($val->expire_date);?></td>
-                                <td><?php echo commonImageView('uploads/offer', $val->offer_id, $val->banner, 'noimage.png', '', '', '50', '50');?></td>
+                                <td><img data-sizes="auto" src="<?= commonImageViewUrl('uploads/offer', $val->offer_id, $val->banner, 'noimage.png', '50', '50');?>" alt="<?= $val->alt_name;?>" class="img-fluid" loading="lazy"></td>
                                 <td width="180">
                                     <a href="<?php echo base_url('admin/zone_based_offer_update/' . $val->offer_id);?>" class="btn btn-primary btn-xs"><i class="fas fa-edit"></i> Update</a>
                                     <a href="<?php echo base_url('admin/zone_based_offer_delete/' . $val->offer_id);?>" onclick="return confirm('Are you sure you want to Delete?')" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i> Delete</a>

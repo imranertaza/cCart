@@ -74,14 +74,14 @@
                                                 <?php } ?>
                                                 <?php if ($modules['compare'] == 1) { ?>
 
-                                                    <a href="javascript:void(0)" onclick="addToCompare(<?php echo $pro->product_id ?>)" class="btn-compare position-absolute  mt-5 ms-2"><i class="fa-solid fa-code-compare"></i>
+                                                    <button onclick="addToCompare(<?php echo $pro->product_id ?>)" class="btn-compare position-absolute  mt-5 ms-2"><i class="fa-solid fa-code-compare"></i>
                                                         <span class="btn-compare-text position-absolute  mt-5 ms-2">Compare</span>
-                                                    </a>
+                                                    </button>
 
                                                 <?php } ?>
 
                                                 <div class="product-top text-center">
-                                                    <a href="<?php echo base_url('detail/' . $pro->product_id)?>"><?php echo productImageView('uploads/products', $pro->product_id, $pro->image, 'noimage.png', 'img-fluid ', '', '', '191', '191')?></a>
+                                                    <a href="<?php echo base_url('detail/' . $pro->product_id)?>"><img data-sizes="auto" src="<?= productImageViewUrl('uploads/products', $pro->product_id, $pro->image, 'noimage.png', '191', '191');?>" alt="<?= $pro->alt_name;?>" class="img-fluid" loading="lazy"></a>
 
                                                     <div class="rating text-center my-2">
                                                         <?php echo product_id_by_rating($pro->product_id);?>
@@ -132,14 +132,14 @@
                                                 <?php } ?>
                                                 <?php if ($modules['compare'] == 1) { ?>
 
-                                                    <a href="javascript:void(0)" onclick="addToCompare(<?php echo $pro->product_id ?>)" class="btn-compare position-absolute  mt-5 ms-2"><i class="fa-solid fa-code-compare"></i>
+                                                    <button onclick="addToCompare(<?php echo $pro->product_id ?>)" class="btn-compare position-absolute  mt-5 ms-2"><i class="fa-solid fa-code-compare"></i>
                                                         <span class="btn-compare-text position-absolute  mt-5 ms-2">Compare</span>
-                                                    </a>
+                                                    </button>
 
                                                 <?php } ?>
 
                                                 <div class="product-top text-center" style="width:40%;float:left; " >
-                                                    <a href="<?php echo base_url('detail/' . $pro->product_id)?>"><?php echo productImageView('uploads/products', $pro->product_id, $pro->image, 'noimage.png', 'img-fluid ', '', '', '198', '198')?></a>
+                                                    <a href="<?php echo base_url('detail/' . $pro->product_id)?>"><img data-sizes="auto" src="<?= productImageViewUrl('uploads/products', $pro->product_id, $pro->image, 'noimage.png', '198', '198');?>" alt="<?= $pro->alt_name;?>" class="img-fluid" loading="lazy"></a>
 
 
                                                 </div>

@@ -63,14 +63,18 @@
                             <input type="file" name="image" class="form-control" placeholder="image" >
                         </div>
 
+                        <div class="form-group">
+                            <label>ALT Name</label>
+                            <input type="text" name="alt_name" class="form-control" placeholder="Alt Name" value="<?php echo $brand->alt_name; ?>" >
+                        </div>
+
                         <button class="btn btn-primary" >Update</button>
                         <a href="<?php echo base_url('admin/brand')?>" class="btn btn-danger" >Back</a>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Image</label><br>
-                            <?php echo commonImageView('uploads/brand', '', $brand->image, 'noimage.png', '', '', '250', '150');?>
-
+                            <img data-sizes="auto" src="<?= commonImageViewUrl('uploads/brand', '', $brand->image, 'noimage.png', '250', '150');?>" alt="<?= $brand->alt_name;?>" class="img-fluid" loading="lazy">
                         </div>
                     </div>
                 </div>

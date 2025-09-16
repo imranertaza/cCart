@@ -73,6 +73,7 @@ class Home extends BaseController
         $table->join('cc_product_to_category', 'cc_product_to_category.product_id = cc_products.product_id')->where('cc_products.status', 'Active');
         $data['hotProSide'] = $table->where('cc_product_to_category.category_id', $hot_deals_category)->limit(20)->get()->getResult();
 
+        $table              = DB()->table('cc_products');
         $table->join('cc_product_to_category', 'cc_product_to_category.product_id = cc_products.product_id')->where('cc_products.status', 'Active');
         $data['hotProlimit'] = $table->where('cc_product_to_category.category_id', $hot_deals_category)->limit(3)->get()->getResult();
 
@@ -136,9 +137,9 @@ class Home extends BaseController
             $otp     = rand(100000, 999999);
             $url     = base_url('user_subscribe_verify?email=' . urlencode($this->encrypter->encrypt($email)) . '&code=' . urlencode($this->encrypter->encrypt($otp)));
             $subject = 'Please Verify Your Email Address to Complete Your Subscription!';
-            $message = "Thank you for subscribing to " . $name . "! Before we can start sending you our updates, we just need to confirm your email address.<br>                    
-                Please verify your email by clicking the link below: <a href='" . $url . "'>Verify My Email Address</a><br>                    
-                If you did not sign up for this subscription, please disregard this email.<br>                    
+            $message = "Thank you for subscribing to " . $name . "! Before we can start sending you our updates, we just need to confirm your email address.<br>
+                Please verify your email by clicking the link below: <a href='" . $url . "'>Verify My Email Address</a><br>
+                If you did not sign up for this subscription, please disregard this email.<br>
                 Thank you for choosing " . $name . "!";
 
             $sessionArray = [
