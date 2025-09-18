@@ -275,7 +275,7 @@ class Products extends BaseController
 
         foreach ($data as $opVal) {
             $fildName = str_replace(' ', '', $name);
-            $view .= '<li class="mt-2"><input type="radio" class="btn-check" oninput="optionPriceCalculate(' . $product_id . ')"  name="' . strtolower($fildName) . '" id="option_' . $opVal->option_value_id . '" value="' . $opVal->option_value_id . '"  autocomplete="off" required>';
+            $view .= '<li class="mt-2"><input type="radio" class="btn-check" oninput="optionPriceCalculate(' . $product_id . ')"  name="' . strtolower($fildName) . '" id="option_' . $opVal->option_value_id . '" value="' . $opVal->option_value_id . '"  required>';
 
             $nameVal  = get_data_by_id('name', 'cc_option_value', 'option_value_id', $opVal->option_value_id);
             $firstCar =  mb_substr($nameVal, 0, 1);

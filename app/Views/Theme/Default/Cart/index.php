@@ -26,9 +26,8 @@
                         </td>
                         <td class="product-thumbnail">
                             <a href="#">
-                                <?php $img = get_data_by_id('image', 'cc_products', 'product_id', $val['id']); ?>
-                                <?php echo productImageView('uploads/products', $val['id'], $img, 'noimage.png', 'img-fluid', '', '', '100', '100')?>
-
+                                <?php $product = get_all_row_data_by_id('cc_products', 'product_id', $val['id']); ?>
+                                <img data-sizes="auto" src="<?= productImageViewUrl('uploads/products', $val['id'], $product->image, 'noimage.png', '100', '100');?>" alt="<?= $product->alt_name;?>" class="img-fluid" loading="lazy">
                             </a>
                         </td>
                         <td class="product-name text-start">

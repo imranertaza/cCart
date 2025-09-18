@@ -6,17 +6,18 @@
                 $theme     = get_lebel_by_value_in_settings('Theme');
         $themeSetting      = get_theme_settings();
         $themeSettingTitle = get_theme_title_settings();
+        $themeAtlName      = getThemeAltNameSettings();
         $cat               = get_all_data_array('cc_product_category');
         ?>
             <div class="form-group">
                 <label><?php echo $themeSettingTitle['head_side_title_1'];?></label>
-                <input type="text" class="form-control" required name="head_side_title_1"
+                <input type="text" class="form-control"  name="head_side_title_1"
                     value="<?php echo $themeSetting['head_side_title_1'];?>">
             </div>
 
             <div class="form-group">
                 <label><?php echo $themeSettingTitle['head_side_category_1'];?></label>
-                <select name="head_side_category_1" class="form-control" required>
+                <select name="head_side_category_1" class="form-control" >
                     <option value="">Please Select</option>
                     <?php
                     $catSel = $themeSetting['head_side_category_1'];
@@ -42,6 +43,11 @@
             </div>
 
             <div class="form-group">
+                <label>ALT Name</label>
+                <input type="text" name="alt_name" class="form-control" placeholder="Alt Name" value="<?php echo $themeAtlName['head_side_baner_1']; ?>" >
+            </div>
+
+            <div class="form-group">
                 <button class="btn btn-primary">Save</button>
             </div>
         </form>
@@ -53,13 +59,13 @@
 
             <div class="form-group">
                 <label><?php echo $themeSettingTitle['head_side_title_2'];?></label>
-                <input type="text" class="form-control" required name="head_side_title_2"
+                <input type="text" class="form-control"  name="head_side_title_2"
                     value="<?php echo $themeSetting['head_side_title_2'];?>">
             </div>
 
             <div class="form-group">
                 <label><?php echo $themeSettingTitle['head_side_category_2'];?></label>
-                <select name="head_side_category_2" class="form-control" required>
+                <select name="head_side_category_2" class="form-control" >
                     <option value="">Please Select</option>
                     <?php
                 $catSel2 = $themeSetting['head_side_category_2'];
@@ -83,6 +89,10 @@
                 <input type="file" class="form-control" name="head_side_baner_2">
                 <span>Recommended Size: 228 x 199</span>
             </div>
+            <div class="form-group">
+                <label>ALT Name</label>
+                <input type="text" name="alt_name" class="form-control" placeholder="Alt Name" value="<?php echo $themeAtlName['head_side_baner_2']; ?>" >
+            </div>
 
             <div class="form-group">
                 <button class="btn btn-primary">Save</button>
@@ -95,12 +105,12 @@
             <h3>Category Section One</h3>
             <div class="form-group">
                 <label><?php echo $themeSettingTitle['home_category_title_1'];?></label>
-                <input type="text" class="form-control" required name="home_category_title_1"
+                <input type="text" class="form-control"  name="home_category_title_1"
                     value="<?php echo $themeSetting['home_category_title_1'];?>">
             </div>
             <div class="form-group">
                 <label><?php echo $themeSettingTitle['home_category_1'];?> </label>
-                <select name="home_category_1" class="form-control" required>
+                <select name="home_category_1" class="form-control" >
                     <option value="">Please Select</option>
                     <?php
                 $catSel_1 = $themeSetting['home_category_1'];
@@ -124,6 +134,10 @@
                 <input type="file" class="form-control" name="home_category_baner_1">
                 <span>Recommended Size: 228 x 199</span>
             </div>
+            <div class="form-group">
+                <label>ALT Name</label>
+                <input type="text" name="alt_name" class="form-control" placeholder="Alt Name" value="<?php echo $themeAtlName['home_category_baner_1']; ?>" >
+            </div>
             <input type="hidden" class="form-control" required name="prefix" value="1">
             <button class="btn btn-primary">Save</button>
         </form>
@@ -134,12 +148,12 @@
             <h3>Category Section Two</h3>
             <div class="form-group">
                 <label><?php echo $themeSettingTitle['home_category_title_2'];?></label>
-                <input type="text" class="form-control" required name="home_category_title_2"
+                <input type="text" class="form-control"  name="home_category_title_2"
                     value="<?php echo $themeSetting['home_category_title_2'];?>">
             </div>
             <div class="form-group">
                 <label><?php echo $themeSettingTitle['home_category_2'];?> </label>
-                <select name="home_category_2" class="form-control" required>
+                <select name="home_category_2" class="form-control" >
                     <option value="">Please Select</option>
                     <?php
                 $catSel_1 = $themeSetting['home_category_2'];
@@ -163,7 +177,12 @@
                 <input type="file" class="form-control" name="home_category_baner_2">
                 <span>Recommended Size: 228 x 199</span>
             </div>
-            <input type="hidden" class="form-control" required name="prefix" value="2">
+            <div class="form-group">
+                <label>ALT Name</label>
+                <input type="text" name="alt_name" class="form-control" placeholder="Alt Name" value="<?php echo $themeAtlName['home_category_baner_2']; ?>" >
+            </div>
+
+            <input type="hidden" class="form-control"  name="prefix" value="2">
             <button class="btn btn-primary">Save</button>
         </form>
     </div>
@@ -173,12 +192,12 @@
             <h3>Category Section Three</h3>
             <div class="form-group">
                 <label><?php echo $themeSettingTitle['home_category_title_3'];?></label>
-                <input type="text" class="form-control" required name="home_category_title_3"
+                <input type="text" class="form-control"  name="home_category_title_3"
                     value="<?php echo $themeSetting['home_category_title_3'];?>">
             </div>
             <div class="form-group">
                 <label><?php echo $themeSettingTitle['home_category_3'];?> </label>
-                <select name="home_category_3" class="form-control" required>
+                <select name="home_category_3" class="form-control" >
                     <option value="">Please Select</option>
                     <?php
                 $catSel_1 = $themeSetting['home_category_3'];
@@ -202,6 +221,10 @@
                 <input type="file" class="form-control" name="home_category_baner_3">
                 <span>Recommended Size: 228 x 199</span>
             </div>
+            <div class="form-group">
+                <label>ALT Name</label>
+                <input type="text" name="alt_name" class="form-control" placeholder="Alt Name" value="<?php echo $themeAtlName['home_category_baner_3']; ?>" >
+            </div>
             <input type="hidden" class="form-control" required name="prefix" value="3">
             <button class="btn btn-primary">Save</button>
         </form>
@@ -212,12 +235,12 @@
             <h3>Category Section Four</h3>
             <div class="form-group">
                 <label><?php echo $themeSettingTitle['home_category_title_4'];?></label>
-                <input type="text" class="form-control" required name="home_category_title_4"
+                <input type="text" class="form-control"  name="home_category_title_4"
                     value="<?php echo $themeSetting['home_category_title_4'];?>">
             </div>
             <div class="form-group">
                 <label><?php echo $themeSettingTitle['home_category_4'];?> </label>
-                <select name="home_category_4" class="form-control" required>
+                <select name="home_category_4" class="form-control" >
                     <option value="">Please Select</option>
                     <?php
                 $catSel_1 = $themeSetting['home_category_4'];
@@ -241,6 +264,10 @@
                 <input type="file" class="form-control" name="home_category_baner_4">
                 <span>Recommended Size: 228 x 199</span>
             </div>
+            <div class="form-group">
+                <label>ALT Name</label>
+                <input type="text" name="alt_name" class="form-control" placeholder="Alt Name" value="<?php echo $themeAtlName['home_category_baner_4']; ?>" >
+            </div>
             <input type="hidden" class="form-control" required name="prefix" value="4">
             <button class="btn btn-primary">Save</button>
         </form>
@@ -251,12 +278,12 @@
             <h3>Category Section Five</h3>
             <div class="form-group">
                 <label><?php echo $themeSettingTitle['home_category_title_5'];?></label>
-                <input type="text" class="form-control" required name="home_category_title_5"
+                <input type="text" class="form-control"  name="home_category_title_5"
                     value="<?php echo $themeSetting['home_category_title_5'];?>">
             </div>
             <div class="form-group">
                 <label><?php echo $themeSettingTitle['home_category_5'];?> </label>
-                <select name="home_category_5" class="form-control" required>
+                <select name="home_category_5" class="form-control" >
                     <option value="">Please Select</option>
                     <?php
                 $catSel_1 = get_lebel_by_value_in_theme_settings('home_category_5');
@@ -280,6 +307,11 @@
                 <input type="file" class="form-control" name="home_category_baner_5">
                 <span>Recommended Size: 228 x 199</span>
             </div>
+            <div class="form-group">
+                <label>ALT Name</label>
+                <input type="text" name="alt_name" class="form-control" placeholder="Alt Name" value="<?php echo $themeAtlName['home_category_baner_5']; ?>" >
+            </div>
+
             <input type="hidden" class="form-control" required name="prefix" value="5">
             <button class="btn btn-primary">Save</button>
         </form>
@@ -296,6 +328,10 @@
                 <label><?php echo $themeSettingTitle['banner_bottom'];?></label>
                 <input type="file" class="form-control" name="banner_bottom">
                 <span>Recommended Size: 1116 x 211</span>
+            </div>
+            <div class="form-group">
+                <label>ALT Name</label>
+                <input type="text" name="alt_name" class="form-control" placeholder="Alt Name" value="<?php echo $themeAtlName['banner_bottom']; ?>" >
             </div>
             <button class="btn btn-primary">Save</button>
 

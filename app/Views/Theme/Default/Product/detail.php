@@ -13,13 +13,12 @@
                             <div class="swiper-container gallery-slider">
                                 <div class="swiper-wrapper">
                                     <div class="swiper-slide">
-                                        <?php echo productImageView('uploads/products', $products->product_id, $products->image, 'noimage.png', 'img-fluid', '', '', '437', '400')?>
-
+                                        <img data-sizes="auto" src="<?= productImageViewUrl('uploads/products', $products->product_id, $products->image, 'noimage.png', '437', '400');?>" alt="<?= $products->alt_name;?>" class="img-fluid" loading="lazy">
                                     </div>
                                     <?php
                                     if (!empty($proImg)) {
                                         foreach ($proImg as $imgval) {
-                                            echo '<div class="swiper-slide">' . productMultiImageView('uploads/products', $imgval->product_id, $imgval->product_image_id, $imgval->image, 'noimage.png', 'img-fluid', '437', '400') . '</div>';
+                                            echo '<div class="swiper-slide"> <img data-sizes="auto" src="' . productMultiImageViewUrl('uploads/products', $imgval->product_id, $imgval->product_image_id, $imgval->image, 'noimage.png', '437', '400') . '" alt="' . $imgval->alt_name . '" class="img-fluid" loading="lazy"></div>';
                                         }
                                     }
                 ?>
@@ -29,12 +28,12 @@
                             <div class="swiper-container gallery-thumbs">
                                 <div class="swiper-wrapper">
                                     <div class="swiper-slide">
-                                        <?php echo productImageView('uploads/products', $products->product_id, $products->image, 'noimage.png', 'img-fluid', '', '', '100', '100')?>
+                                        <img data-sizes="auto" src="<?= productImageViewUrl('uploads/products', $products->product_id, $products->image, 'noimage.png', '100', '100');?>" alt="<?= $products->alt_name;?>"  class="img-fluid" loading="lazy">
                                     </div>
                                     <?php
                                         if (!empty($proImg)) {
                                             foreach ($proImg as $imgval) {
-                                                echo '<div class="swiper-slide">' . productMultiImageView('uploads/products', $imgval->product_id, $imgval->product_image_id, $imgval->image, 'noimage.png', 'img-fluid', '100', '100') . '</div>';
+                                                echo '<div class="swiper-slide"><img data-sizes="auto" src="' . productMultiImageViewUrl('uploads/products', $imgval->product_id, $imgval->product_image_id, $imgval->image, 'noimage.png', '100', '100') . '" alt="' . $imgval->alt_name . '" class="img-fluid" loading="lazy"></div>';
                                             }
                                         }
                                     ?>
@@ -77,7 +76,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="javascript:void(0)" class="btn btn-cart rounded-0 mt-3 width-100" onclick="addToCart(<?php echo $products->product_id ?>)">Add to Cart</a>
+                        <button class="btn btn-cart rounded-0 mt-3 width-100" onclick="addToCart(<?php echo $products->product_id ?>)">Add to Cart</button>
                         <?php if (modules_key_by_access('wishlist') == 1) { ?>
                             <?php if (!isset(newSession()->isLoggedInCustomer)) { ?>
                                 <a href="<?php echo base_url('login');?>" class="btn btn-wi  btn-default border rounded-0 mt-3"  ><i class="fa-solid fa-heart me-1"></i> Add to Wishlist</a>
@@ -87,7 +86,7 @@
                         <?php } ?>
 
                         <?php if (modules_key_by_access('compare') == 1) { ?>
-                        <a href="javascript:void(0)" onclick="addToCompare(<?php echo $products->product_id ?>)" class="btn btn-wi  btn-default border  rounded-0 mt-3"  ><i class="fa-solid fa-code-compare"></i> Add to compare</a>
+                        <button onclick="addToCompare(<?php echo $products->product_id ?>)" class="btn btn-wi  btn-default border  rounded-0 mt-3"  ><i class="fa-solid fa-code-compare"></i> Add to compare</button>
                         <?php } ?>
                     </div>
                     <div class="col-lg-3">
@@ -204,11 +203,10 @@
                         <?php } ?>
 
                         <?php if (modules_key_by_access('compare') == 1) { ?>
-                        <a href="javascript:void(0)" onclick="addToCart(<?php echo $relPro->product_id ?>)" class="btn-compare position-absolute start-0 top-0 mt-5 ms-2"><i class="fa-solid fa-code-compare"></i></a>
+                        <button onclick="addToCompare(<?php echo $relPro->product_id ?>)" class="btn-compare position-absolute start-0 top-0 mt-5 ms-2"><i class="fa-solid fa-code-compare"></i></button>
                         <?php } ?>
                         <div class="product-top">
-                            <?php echo productImageView('uploads/products', $relPro->product_id, $relPro->image, 'noimage.png', 'img-fluid w-100', '', '', '191', '191')?>
-
+                            <img data-sizes="auto" src="<?= productImageViewUrl('uploads/products', $relPro->product_id, $relPro->image, 'noimage.png', '191', '191');?>" alt="<?= $relPro->alt_name;?>"  class="img-fluid" loading="lazy">
                             <div class="rating text-center my-2">
                                 <?php echo product_id_by_rating($relPro->product_id);?>
                             </div>
@@ -229,7 +227,7 @@
                                     <small> <del><?php echo currency_symbol($relPro->price);?></del></small>/<?php echo currency_symbol($spPric2);?>
                                 <?php } ?>
                             </div>
-                            <a href="javascript:void(0)" onclick="addToCart(<?php echo $relPro->product_id ?>)" class="btn btn-cart w-100 rounded-0 mt-3">Add to Cart</a>
+                            <button onclick="addToCart(<?php echo $relPro->product_id ?>)" class="btn btn-cart w-100 rounded-0 mt-3">Add to Cart</button>
                         </div>
                     </div>
                     <?php }
@@ -258,10 +256,10 @@
                                     <?php } ?>
 
                                     <?php if (modules_key_by_access('compare') == 1) { ?>
-                                    <a href="javascript:void(0)" onclick="addToCart(<?php echo $rPro->product_id ?>)" class="btn-compare position-absolute start-0 top-0 mt-5 ms-2"><i class="fa-solid fa-code-compare"></i></a>
+                                    <button onclick="addToCompare(<?php echo $rPro->product_id ?>)" class="btn-compare position-absolute start-0 top-0 mt-5 ms-2"><i class="fa-solid fa-code-compare"></i></button>
                                     <?php } ?>
                                     <div class="product-top">
-                                        <?php echo productImageView('uploads/products', $rPro->product_id, $rPro->image, 'noimage.png', 'img-fluid w-100', '', '', '191', '191')?>
+                                        <img data-sizes="auto" src="<?= productImageViewUrl('uploads/products', $rPro->product_id, $rPro->image, 'noimage.png', '191', '191');?>" alt="<?= $rPro->alt_name;?>" class="img-fluid" loading="lazy">
 
                                         <div class="rating text-center my-2">
                                             <?php echo product_id_by_rating($rPro->product_id);?>
@@ -283,7 +281,7 @@
                                                 <small> <del><?php echo currency_symbol($rPro->price);?></del></small>/<?php echo currency_symbol($spPric);?>
                                             <?php } ?>
                                         </div>
-                                        <a href="javascript:void(0)" onclick="addToCart(<?php echo $rPro->product_id ?>)" class="btn btn-cart w-100 rounded-0 mt-3">Add to Cart</a>
+                                        <button onclick="addToCart(<?php echo $rPro->product_id ?>)" class="btn btn-cart w-100 rounded-0 mt-3">Add to Cart</button>
                                     </div>
                                 </div>
                             </div>

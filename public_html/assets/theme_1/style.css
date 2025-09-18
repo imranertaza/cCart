@@ -286,8 +286,11 @@ a {
     font-size: 18px;
 }
 .btn-wishlist {display: none; transition: all 1s;}
-.btn-compare {display: none; transition: all 1s;}
+.btn-compare {background-color: unset;border: none; display: none; transition: all 1s;}
 .product-grid:hover .btn-wishlist, .product-grid:hover .btn-compare{
+    padding-left: 10px;
+    background-color: unset;
+    border: none;
     display: block;
     color: #000000;
 }
@@ -1049,4 +1052,14 @@ input[type=checkbox]{
 .dt-length label{
     margin-left: 10px;
     text-transform:capitalize;
+}
+.title-checkout .bg-custom-color{
+    background-color: #000000;
+}
+.title-checkout .group-check{
+    border: 1px solid #757575 !important;
+    padding: 10px;
+}
+.title-checkout .btn:hover{
+    background-color: #000000;
 }

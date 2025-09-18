@@ -192,20 +192,21 @@ class Products extends BaseController
             DB()->transStart();
 
             //product table data insert(start)
-            $storeId               = get_data_by_id('store_id', 'cc_stores', 'is_default', '1');
-            $proData['store_id']   = $storeId;
-            $proData['name']       = $data['pro_name'];
-            $proData['model']      = $data['model'];
-            $proData['brand_id']   = !empty($this->request->getPost('brand_id')) ? $this->request->getPost('brand_id') : null;
-            $proData['price']      = $data['price'];
-            $proData['weight']     = $this->request->getPost('weight');
-            $proData['length']     = $this->request->getPost('length');
-            $proData['width']      = $this->request->getPost('width');
-            $proData['height']     = $this->request->getPost('height');
-            $proData['sort_order'] = $this->request->getPost('sort_order');
-            $proData['status']     = $this->request->getPost('status');
-            $proData['quantity']   = $this->request->getPost('quantity');
-            $proData['createdBy']  = $adUserId;
+            $storeId                   = get_data_by_id('store_id', 'cc_stores', 'is_default', '1');
+            $proData['store_id']       = $storeId;
+            $proData['name']           = $data['pro_name'];
+            $proData['alt_name']       = $data['pro_name'];
+            $proData['model']          = $data['model'];
+            $proData['brand_id']       = !empty($this->request->getPost('brand_id')) ? $this->request->getPost('brand_id') : null;
+            $proData['price']          = $data['price'];
+            $proData['weight']         = $this->request->getPost('weight');
+            $proData['length']         = $this->request->getPost('length');
+            $proData['width']          = $this->request->getPost('width');
+            $proData['height']         = $this->request->getPost('height');
+            $proData['sort_order']     = $this->request->getPost('sort_order');
+            $proData['status']         = $this->request->getPost('status');
+            $proData['quantity']       = $this->request->getPost('quantity');
+            $proData['createdBy']      = $adUserId;
 
             $product_featured = $this->request->getPost('product_featured');
 
@@ -244,6 +245,7 @@ class Products extends BaseController
                 foreach ($files as $file) {
                     if ($file->isValid() && ! $file->hasMoved()) {
                         $dataMultiImg['product_id'] = $productId;
+                        $dataMultiImg['alt_name']   = $data['pro_name'];
                         $proImgTable                = DB()->table('cc_product_image');
                         $proImgTable->insert($dataMultiImg);
                         $proImgId = DB()->insertID();
@@ -757,6 +759,7 @@ class Products extends BaseController
         $product_id = $this->request->getPost('product_id');
 
         $data['pro_name']  = $this->request->getPost('pro_name');
+        $data['alt_name']  = $this->request->getPost('alt_name');
         $data['model']     = $this->request->getPost('model');
         $data['categorys'] = $this->request->getPost('categorys[]');
         $data['price']     = $this->request->getPost('price');
@@ -778,17 +781,18 @@ class Products extends BaseController
             DB()->transStart();
 
             //product table data insert(start)
-            $proData['name']       = $data['pro_name'];
-            $proData['model']      = $data['model'];
-            $proData['brand_id']   = !empty($this->request->getPost('brand_id')) ? $this->request->getPost('brand_id') : null;
-            $proData['price']      = $data['price'];
-            $proData['weight']     = $this->request->getPost('weight');
-            $proData['length']     = $this->request->getPost('length');
-            $proData['width']      = $this->request->getPost('width');
-            $proData['height']     = $this->request->getPost('height');
-            $proData['sort_order'] = $this->request->getPost('sort_order');
-            $proData['status']     = $this->request->getPost('status');
-            $proData['quantity']   = $this->request->getPost('quantity');
+            $proData['name']           = $data['pro_name'];
+            $proData['alt_name']       = $data['alt_name'];
+            $proData['model']          = $data['model'];
+            $proData['brand_id']       = !empty($this->request->getPost('brand_id')) ? $this->request->getPost('brand_id') : null;
+            $proData['price']          = $data['price'];
+            $proData['weight']         = $this->request->getPost('weight');
+            $proData['length']         = $this->request->getPost('length');
+            $proData['width']          = $this->request->getPost('width');
+            $proData['height']         = $this->request->getPost('height');
+            $proData['sort_order']     = $this->request->getPost('sort_order');
+            $proData['status']         = $this->request->getPost('status');
+            $proData['quantity']       = $this->request->getPost('quantity');
 
             $product_featured = $this->request->getPost('product_featured');
 
@@ -829,6 +833,7 @@ class Products extends BaseController
                 foreach ($files as $file) {
                     if ($file->isValid() && ! $file->hasMoved()) {
                         $dataMultiImg['product_id'] = $product_id;
+                        $dataMultiImg['alt_name']   =  $data['alt_name'];
                         $proImgTable                = DB()->table('cc_product_image');
                         $proImgTable->insert($dataMultiImg);
                         $proImgId = DB()->insertID();
@@ -1580,5 +1585,17 @@ class Products extends BaseController
         $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Product status update successfully <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 
         return redirect()->to($redirect_url);
+    }
+    /**
+     * @description This method provides product image alt name action
+     * @return void
+     */
+    public function productImageAltNameAction()
+    {
+        $product_image_id = $this->request->getPost('product_image_id');
+
+        $data['alt_name'] = $this->request->getPost('value');
+        $table            = DB()->table('cc_product_image');
+        $table->where('product_image_id', $product_image_id)->update($data);
     }
 }

@@ -58,13 +58,17 @@
                         <div class="col-md-8">
                             <div class="row ">
                                 <div class="col-md-4 img_view">
-                                    <?php echo productImageView('uploads/album', $album->album_id, $album->thumb, 'noimage.png', 'img-w-h-100', '', '', '198', '198');?>
-
+                                    <img data-sizes="auto" src="<?= productImageViewUrl('uploads/album', $album->album_id, $album->thumb, 'noimage.png', '198', '198');?>" alt="<?= $album->alt_name;?>" class="img-fluid" loading="lazy">
                                 </div>
                             </div>
                             <div id="framesdef"></div><br>
                             <input type="file" id="defimage" name="thumb" accept="image/*" class="form-control" >
                             <span>Recommended Size (800x800)</span>
+
+                            <div class="form-group">
+                                <label>ALT Name</label>
+                                <input type="text" name="alt_name" class="form-control" placeholder="Alt Name" value="<?php echo $album->alt_name; ?>" >
+                            </div>
                         </div>
                         <div class="col-md-12">
                             <hr>
@@ -78,7 +82,8 @@
                                 <?php foreach ($albumAll as $img) { ?>
                                     <div class="col-md-2 img_view">
                                         <input type="text" onchange="album_image_sort_update('<?=$img->album_details_id?>',this.value)" class="form-control mb-2 text-center" style="height: 25px;" name="sort_order" value="<?= $img->sort_order;?>">
-                                        <?php echo productMultiImageView('uploads/album', $img->album_id, $img->album_details_id, $img->image, 'noimage.png', 'img-fluid', '96', '96');?>
+                                        <img data-sizes="auto" src="<?= productMultiImageViewUrl('uploads/album', $img->album_id, $img->album_details_id, $img->image, 'noimage.png', '96', '96');?>" alt="<?= $img->alt_name;?>" class="img-fluid" loading="lazy">
+                                        <input type="text" onchange="album_image_alt_name_update('<?=$img->album_details_id?>',this.value)" class="form-control mt-2 mb-2 text-center" style="height: 25px;" placeholder="Alt Name" value="<?= $img->alt_name;?>">
                                         <a href="javascript:void(0)" onclick="removeAlbumImg(<?php echo $img->album_details_id;?>)" class="btn del-btn"><i class="fas fa-trash"></i> Delete</a>
                                     </div>
                                 <?php } ?>
@@ -145,6 +150,20 @@
                     $('#reloadImg').load(document.URL + ' #reloadImg');
                 }
 
+            });
+        }
+
+        function album_image_alt_name_update(album_details_id,val){
+            $.ajax({
+                method: "POST",
+                url: "<?php echo base_url('admin/album_image_alt_name_action') ?>",
+                data: {album_details_id: album_details_id,value:val},
+                beforeSend: function () {
+                    $("#loading-image").show();
+                },
+                success: function (data) {
+                    $("#success").show(0).delay(1000).fadeOut();
+                }
             });
         }
 
