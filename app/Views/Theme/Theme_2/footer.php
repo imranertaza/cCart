@@ -76,7 +76,7 @@
             <div class="row gx-0">
                 <div class="col-md-6 col-12">
                     <div class="input-group weekly-newsletter-foot" style="width: 79%;">
-                        <input type="text" name="subscribe_email" id="subscribe_email" class="form-control news-sub border-0 rounded-0" placeholder="Enter your Email address" aria-label="Search" aria-describedby="search-addon" />
+                        <input type="text" name="subscribe_email" id="subscribe_email" class="form-control news-sub border-0 rounded-0" placeholder="Enter your Email address" aria-label="Search"  >
                         <button type="button" class="btn bg-custom-color text-white rounded-0 sub-btn" onclick="subscribe()">Subscribe Now</button>
                     </div>
                 </div>
@@ -316,13 +316,13 @@
 
 
 
-<script src="<?php echo base_url() ?>/assets/theme_2/slick/slick.min.js" type="text/javascript" charset="utf-8"> </script>
+<script src="<?php echo base_url() ?>/assets/theme_2/slick/slick.min.js" > </script>
 <script src="<?php echo base_url() ?>/assets/theme_2/owl.carousel.min.js"></script>
 <script src="<?php echo base_url() ?>/assets/datatable/datatables.min.js" ></script>
 
 <script>
     $("#tabledata").DataTable({
-            order: [[3, 'desc']]
+            order: [[0, 'desc']]
         })
     function myFunction() {
         var dots = document.getElementById("dots");
@@ -1433,7 +1433,7 @@
     });
 
 </script>
-<script src="<?php echo base_url() ?>/assets/theme_3/validation.js" type="text/javascript" ></script>
+<script src="<?php echo base_url() ?>/assets/theme_3/validation.js" ></script>
 </body>
 
 </html>

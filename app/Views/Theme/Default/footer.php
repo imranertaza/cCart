@@ -39,7 +39,6 @@
                     <li><a href="<?php echo base_url('page/terms-and-conditions')?>" class="nav-link">Terms and Conditions</a></li>
                     <li><a href="<?php echo base_url('page/returns-policy')?>" class="nav-link">Returns/Exchange</a></li>
                     <li><a href="<?php echo base_url('page/about-us');?>" class="nav-link">About Us</a></li>
-                    <li><a href="#" class="nav-link">Top Searches</a></li>
                 </ul>
             </div>
             <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
@@ -62,7 +61,7 @@
 <script src="<?php echo base_url() ?>/assets/datatable/datatables.min.js" ></script>
 <script>
     $("#tabledata").DataTable({
-        order: [[3, 'desc']]
+        order: [[0, 'desc']]
     })
     $('.ratingPiont').starRating({
         starSize: 1.5,
@@ -576,6 +575,6 @@
     }
 
 </script>
-<script src="<?php echo base_url() ?>/assets/theme_3/validation.js" type="text/javascript" ></script>
+<script src="<?php echo base_url() ?>/assets/theme_3/validation.js" ></script>
 </body>
 </html>

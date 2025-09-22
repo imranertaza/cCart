@@ -419,7 +419,7 @@
                                         aria-expanded="false" aria-label="Toggle navigation">
                                         <span class="navbar-toggler-icon"></span>
                                     </button>
-                                    <div class="collapse w-100 show  nav-menu-collapse " id="navbarNav">
+                                    <div class="collapse w-100 show  nav-menu-collapse " id="navbarNav2">
                                         <button type="button" class="btn-close d-xl-none" id="navClose"
                                             aria-label="Close"></button>
                                         <ul

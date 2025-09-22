@@ -208,7 +208,7 @@
                 </div>
                 <div class="col-md-9 col-12">
                     <div class="video h-100">
-                        <iframe class="h-100 w-100" src="<?php echo $theme_settings['trending_youtube_video']; ?>" title="My sunconure flock flewed high in sky for more then 5min||sunconure freefly training in india||" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        <iframe class="h-100 w-100" src="<?php echo $theme_settings['trending_youtube_video']; ?>" title="My sunconure flock flewed high in sky for more then 5min||sunconure freefly training in india||"  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                     </div>
                 </div>
             </div>
@@ -269,7 +269,7 @@
                             </div>
 
                             <div class="tab-content" id="nav-tabContent">
-                                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" >
 
                                     <!--                                    <div class="row mt-3 regular">-->
                                     <div class=" mt-3 owl-carousel owl-theme">
@@ -327,7 +327,7 @@
                                     </div>
                                 </div>
 
-                                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                <div class="tab-pane fade" id="nav-profile" role="tabpanel" >
                                     <!--                                    <div class="row mt-3 regular-2">-->
                                     <div class="mt-3 owl-carousel owl-theme">
                                         <?php foreach ($special_category_twoPro as $key => $pro) { ?>
@@ -384,7 +384,7 @@
                                     </div>
                                 </div>
 
-                                <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                                <div class="tab-pane fade" id="nav-contact" role="tabpanel" >
                                     <!--                                    <div class="row mt-3 regular-3">-->
                                     <div class=" mt-3 owl-carousel owl-theme">
                                         <?php foreach ($special_category_threePro as $key => $pro) { ?>
@@ -607,7 +607,7 @@
                 </div>
                 <div class="col-md-9 col-12">
                     <div class="video h-100">
-                        <iframe class="h-100 w-100" style="min-height:370px;" src="<?php echo $theme_settings['brands_youtube_video']; ?>" title="My sunconure flock flewed high in sky for more then 5min||sunconure freefly training in india||" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        <iframe class="h-100 w-100" style="min-height:370px;" src="<?php echo $theme_settings['brands_youtube_video']; ?>" title="My sunconure flock flewed high in sky for more then 5min||sunconure freefly training in india||"  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                     </div>
                 </div>
             </div>

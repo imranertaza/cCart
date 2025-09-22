@@ -35,7 +35,7 @@
                                 <div class="title-b">
                                     <p class="b-title"><?php echo $val->blog_title;?></p>
                                     <p class="b-text mt-2"><?php echo substr_replace($val->short_des, "...", 70);?></p>
-                                    <a href="<?php echo base_url('blog-view/' . $val->blog_id)?>">Read More</a>
+                                    Read More
                                 </div>
                                 </a>
                             </div>

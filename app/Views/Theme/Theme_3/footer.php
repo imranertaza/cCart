@@ -200,7 +200,7 @@
 <script src="<?php echo base_url() ?>/assets/datatable/datatables.min.js" ></script>
 <script>
     $("#tableReload").DataTable({
-        order: [[3, 'desc']]
+        order: [[0, 'desc']]
     })
     function myFunction() {
         var dots = document.getElementById("dots");
