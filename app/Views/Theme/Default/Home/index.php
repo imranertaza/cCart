@@ -40,7 +40,7 @@
                                 <div class="col border p-5">
                                     <a href="<?php echo base_url('category/' . $catPop->prod_cat_id); ?>">
                                     <?php echo $icon; ?>
-                                    <h5 class="mt-3"><a href="#"><?php echo get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $catPop->prod_cat_id); ?></a></h5>
+                                    <h5 class="mt-3"><?php echo get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $catPop->prod_cat_id); ?></h5>
                                     </a>
                                 </div>
                         <?php
@@ -68,49 +68,49 @@
                     <div class="swiper trendSlide text-center swiper-initialized swiper-horizontal swiper-pointer-events swiper-backface-hidden">
                         <div class="swiper-wrapper" id="swiper-wrapper-74251e9ed2a9b87c" aria-live="polite" style="transform: translate3d(-1113px, 0px, 0px); transition-duration: 0ms;"><div class="swiper-slide swiper-slide-duplicate swiper-slide-duplicate-next" data-swiper-slide-index="1" role="group" aria-label="2 / 4" style="width: 340px; margin-right: 31px;">
                                 <img src="<?php echo base_url()?>/assets/img/trend2.png" alt="" class="img-fluid w-100">
-                                <h3 class="my-3"><a href="#">The Premium-Weight Crew</a></h3>
-                                <p><a href="#" class="btn btn-shop w-100">Shop Now</a></p>
+                                <h3 class="my-3">The Premium-Weight Crew</h3>
+                                <p><button class="btn btn-shop w-100">Shop Now</button></p>
                             </div><div class="swiper-slide swiper-slide-duplicate" data-swiper-slide-index="2" role="group" aria-label="3 / 4" style="width: 340px; margin-right: 31px;">
                                 <img src="<?php echo base_url()?>/assets/img/trend3.png" alt="" class="img-fluid w-100">
-                                <h3 class="my-3"><a href="#">The Forever High-Top</a></h3>
-                                <p><a href="#" class="btn btn-shop w-100">Shop Now</a></p>
+                                <h3 class="my-3">The Forever High-Top</h3>
+                                <p><button class="btn btn-shop w-100">Shop Now</button></p>
                             </div><div class="swiper-slide swiper-slide-duplicate swiper-slide-prev" data-swiper-slide-index="3" role="group" aria-label="4 / 4" style="width: 340px; margin-right: 31px;">
                                 <img src="<?php echo base_url()?>/assets/img/trend3.png" alt="" class="img-fluid w-100">
-                                <h3 class="my-3"><a href="#">The Forever High-Top</a></h3>
-                                <p><a href="#" class="btn btn-shop w-100">Shop Now</a></p>
+                                <h3 class="my-3"><button>The Forever High-Top</button></h3>
+                                <p><button class="btn btn-shop w-100">Shop Now</button></p>
                             </div>
                             <div class="swiper-slide swiper-slide-active" data-swiper-slide-index="0" role="group" aria-label="1 / 4" style="width: 340px; margin-right: 31px;">
                                 <img src="<?php echo base_url()?>/assets/img/trend1.png" alt="" class="img-fluid w-100">
-                                <h3 class="my-3"><a href="#">The Oversized Alpaca Crew</a></h3>
-                                <p><a href="#" class="btn btn-shop w-100">Shop Now</a></p>
+                                <h3 class="my-3"><button class="border-0">The Oversized Alpaca Crew</button></h3>
+                                <p><button class="btn btn-shop w-100">Shop Now</button></p>
                             </div>
                             <div class="swiper-slide swiper-slide-next" data-swiper-slide-index="1" role="group" aria-label="2 / 4" style="width: 340px; margin-right: 31px;">
                                 <img src="<?php echo base_url()?>/assets/img/trend2.png" alt="" class="img-fluid w-100">
-                                <h3 class="my-3"><a href="#">The Premium-Weight Crew</a></h3>
-                                <p><a href="#" class="btn btn-shop w-100">Shop Now</a></p>
+                                <h3 class="my-3"><button class="border-0">The Premium-Weight Crew</button></h3>
+                                <p><button class="btn btn-shop w-100">Shop Now</button></p>
                             </div>
                             <div class="swiper-slide" data-swiper-slide-index="2" role="group" aria-label="3 / 4" style="width: 340px; margin-right: 31px;">
                                 <img src="<?php echo base_url()?>/assets/img/trend3.png" alt="" class="img-fluid w-100">
-                                <h3 class="my-3"><a href="#">The Forever High-Top</a></h3>
-                                <p><a href="#" class="btn btn-shop w-100">Shop Now</a></p>
+                                <h3 class="my-3"><button class="border-0">The Forever High-Top</button></h3>
+                                <p><button class="btn btn-shop w-100">Shop Now</button></p>
                             </div>
                             <div class="swiper-slide swiper-slide-duplicate-prev" data-swiper-slide-index="3" role="group" aria-label="4 / 4" style="width: 340px; margin-right: 31px;">
                                 <img src="<?php echo base_url()?>/assets/img/trend3.png" alt="" class="img-fluid w-100">
-                                <h3 class="my-3"><a href="#">The Forever High-Top</a></h3>
-                                <p><a href="#" class="btn btn-shop w-100">Shop Now</a></p>
+                                <h3 class="my-3"><button class="border-0">The Forever High-Top</button></h3>
+                                <p><button class="btn btn-shop w-100">Shop Now</button></p>
                             </div>
                             <div class="swiper-slide swiper-slide-duplicate swiper-slide-duplicate-active" data-swiper-slide-index="0" role="group" aria-label="1 / 4" style="width: 340px; margin-right: 31px;">
                                 <img src="<?php echo base_url()?>/assets/img/trend1.png" alt="" class="img-fluid w-100">
-                                <h3 class="my-3"><a href="#">The Oversized Alpaca Crew</a></h3>
-                                <p><a href="#" class="btn btn-shop w-100">Shop Now</a></p>
+                                <h3 class="my-3"><button class="border-0">The Oversized Alpaca Crew</button></h3>
+                                <p><button class="btn btn-shop w-100">Shop Now</button></p>
                             </div><div class="swiper-slide swiper-slide-duplicate swiper-slide-duplicate-next" data-swiper-slide-index="1" role="group" aria-label="2 / 4" style="width: 340px; margin-right: 31px;">
                                 <img src="<?php echo base_url()?>/assets/img/trend2.png" alt="" class="img-fluid w-100">
-                                <h3 class="my-3"><a href="#">The Premium-Weight Crew</a></h3>
-                                <p><a href="#" class="btn btn-shop w-100">Shop Now</a></p>
+                                <h3 class="my-3"><button class="border-0">The Premium-Weight Crew</button></h3>
+                                <p><button class="btn btn-shop w-100">Shop Now</button></p>
                             </div><div class="swiper-slide swiper-slide-duplicate" data-swiper-slide-index="2" role="group" aria-label="3 / 4" style="width: 340px; margin-right: 31px;">
                                 <img src="<?php echo base_url()?>/assets/img/trend3.png" alt="" class="img-fluid w-100">
-                                <h3 class="my-3"><a href="#">The Forever High-Top</a></h3>
-                                <p><a href="#" class="btn btn-shop w-100">Shop Now</a></p>
+                                <h3 class="my-3"><button class="border-0">The Forever High-Top</button></h3>
+                                <p><button class="btn btn-shop w-100">Shop Now</button></p>
                             </div></div>
 
                         <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
@@ -124,7 +124,7 @@
                         <div class="deal-box position-relative h-100">
                             <img data-sizes="auto" src="<?= commonImageViewUrl('uploads/category_banner', '', $theme_settings['home_category_banner'], 'noimage.png', '279', '438');?>" alt="<?= $theme_alt_name['home_category_banner']?>" class="img-fluid" loading="lazy">
                             <div class="deal-content position-absolute top-0 d-flex align-items-stretch h-100 w-100 flex-column p-4">
-                                <p class="mt-auto text-center"><a href="#" class="btn btn-shop">Shop Now <i class="fa-solid fa-angle-right"></i></a></p>
+                                <button class="btn btn-shop mt-auto text-center">Shop Now <i class="fa-solid fa-angle-right"></i></button>
                             </div>
                         </div>
                     </div>

@@ -70,7 +70,7 @@
                                 <div class="input-group-prepend">
                                     <button class="btn btn-dark btn-sm" id="minus-btn" onclick="minusItem('plus')"><i class="fa fa-minus"></i></button>
                                 </div>
-                                <input type="text" id="qty_input" name="qty" class="form-control form-control-sm item_plus" value="1" min="1">
+                                <input type="text" id="qty_input" name="qty" class="form-control form-control-sm item_plus" value="1" >
                                 <div class="input-group-prepend">
                                     <button class="btn btn-dark btn-sm" id="plus-btn" onclick="plusItem('plus')"><i class="fa fa-plus"></i></button>
                                 </div>

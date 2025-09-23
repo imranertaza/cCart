@@ -271,7 +271,7 @@ class Products extends BaseController
     {
         $table = DB()->table('cc_product_option');
         $data  = $table->where('option_id', $option_id)->where('product_id', $product_id)->get()->getResult();
-        $view  = '<ul class="list-unstyled filter-items mb-3">';
+        $view  = '<ul class="list-unstyled filter-items filter-items-sort mb-3"  >';
 
         foreach ($data as $opVal) {
             $fildName = str_replace(' ', '', $name);

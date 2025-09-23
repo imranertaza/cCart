@@ -199,8 +199,28 @@
 <script src="<?php echo base_url() ?>/assets/theme_3/lightbox-plus-jquery.min.js"></script>
 <script src="<?php echo base_url() ?>/assets/datatable/datatables.min.js" ></script>
 <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Get all ULs with the class
+        let lists = document.querySelectorAll(".filter-items-sort");
+
+        lists.forEach(function(ul) {
+            // Grab <li> elements
+            let items = Array.from(ul.getElementsByTagName("li"));
+
+            // Sort by <label> text
+            items.sort((a, b) => {
+                let textA = a.querySelector("label").textContent.trim();
+                let textB = b.querySelector("label").textContent.trim();
+                return textA.localeCompare(textB, undefined, { numeric: true });
+            });
+
+            // Re-append sorted items
+            items.forEach(li => ul.appendChild(li));
+        });
+    });
+
     $("#tableReload").DataTable({
-        order: [[3, 'desc']]
+        order: [[0, 'desc']]
     })
     function myFunction() {
         var dots = document.getElementById("dots");
