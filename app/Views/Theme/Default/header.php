@@ -82,7 +82,7 @@
                             <?php
                             $logoImg  = get_lebel_by_value_in_theme_settings('side_logo');
                             $alt_name = getLebelByAltNameInThemeSettings('side_logo');
-                            echo image_view('uploads/logo', '', $logoImg, 'noimage.png', 'img-fluid', $alt_name,'logo');?>
+                            echo image_view('uploads/logo', '', $logoImg, 'noimage.png', 'img-fluid', $alt_name, 'logo');?>
 
                         </a>
                     </div>
@@ -142,7 +142,7 @@
                             Shop by Categories
                         </button>
                         <ul class="dropdown-menu show">
-                            <?php foreach (getParentCategoryArray() as $pcat) {?>
+                            <?php foreach (getSideMenuArray() as $pcat) {?>
                             <li>
                                 <a class="dropdown-item" href="<?php echo base_url('category/' . $pcat->prod_cat_id);?>">
                                     <span class="icon">
