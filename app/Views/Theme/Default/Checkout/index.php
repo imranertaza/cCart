@@ -251,16 +251,18 @@
                                 <span><?php echo currency_symbol($finalDiscount) ?></span>
                             <?php
                             } else {
-                                echo currency_symbol($disc);
+                                echo '<span>' . currency_symbol($disc) . '</span>';
                             }
                             $total = (isset(newSession()->coupon_discount) || !empty($offer['discount_amount'])) ? Cart()->total() - $finalDiscount : Cart()->total(); ?>
                         </div>
                         <div class="d-flex justify-content-between mb-2">
                             <span>Shipping Method</span>
                             <div class="d-flex flex-column text-end">
-                                <?php foreach (get_all_data_array('cc_shipping_method') as $ship) { ?>
+                                <?php foreach (get_all_data_array('cc_shipping_method') as $ship) {
+                                if ($ship->status == '1') { ?>
                                 <span><label><?php echo $ship->name;?> <input type="radio" name="shipping_method" oninput="shippingCharge()" id="shipping_method" value="<?php echo $ship->code;?>" required></label></span>
-                                <?php } ?>
+                                <?php }
+                            } ?>
                             </div>
                         </div>
                         <div class="d-flex justify-content-between mt-3">
@@ -282,11 +284,15 @@
                         </div>
                     </div>
                     <div class="payment-method mt-5 mb-4 p-3">
-                        <?php foreach (get_all_data_array('cc_payment_method') as $pay) { ?>
-                        <p><label><input type="radio" name="payment_method" id="payment_method" value="<?php echo $pay->payment_method_id;?>" required> <?php echo $pay->name;?> </label></p>
-                        <?php } ?>
+                        <?php foreach (get_all_data_array('cc_payment_method') as $pay) {
+                                if ($pay->status == '1') { ?>
+                        <p><label><input type="radio" onclick="instruction_view(this.value,'<?php echo $pay->code; ?>'),cardForm('<?php echo $pay->code; ?>')" name="payment_method" id="payment_method" value="<?php echo $pay->payment_method_id;?>" required> <?php echo $pay->name;?> </label></p>
+                        <?php }
+                            } ?>
 
                     </div>
+                    <div id="instruction"></div>
+                    <div id="cardForm"> </div>
                     <p>
                         <button type="submit" class="btn bg-black text-white w-100 rounded-0">Confirm Order</button>
                     </p>
