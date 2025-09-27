@@ -1,3 +1,5 @@
+<?= $this->extend('Theme/Theme_2/layout') ?>
+<?= $this->section('content') ?>
 <section class="main-container">
     <div class="container">
         <h1 class="page-title mb-3">Compare Products</h1>
@@ -78,3 +80,8 @@
 
     </div>
 </section>
+<?= $this->endSection() ?>
+<?= $this->section('java_script') ?>
+<script>
+</script>
+<?= $this->endSection() ?>

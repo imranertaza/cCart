@@ -1,4 +1,6 @@
-<section class="banner-m">
+<?= $this->extend('Theme/Theme_2/layout') ?>
+<?= $this->section('content') ?>
+<div class="banner-m">
     <div class="container">
         <div class="row gx-0">
 
@@ -23,14 +25,14 @@
             </div>
         </div>
     </div>
-</section>
+</div>
 <?php
     $theme_settings                   = get_theme_settings();
     $theme_alt_name                   = getThemeAltNameSettings();
     $modules                          = modules_access();
     $symbol                           = get_lebel_by_value_in_settings('currency_symbol');
 ?>
-<section class="main-container my-5">
+<div class="main-container my-5">
     <div class="container">
 
         <div class="weekly-deals marg-top-90 Hot-Deals  mb-5">
@@ -693,4 +695,273 @@
 
 
     </div>
-</section>
+</div>
+<?= $this->endSection() ?>
+<?= $this->section('java_script') ?>
+<script>
+    var slider = new Swiper('.gallery-slider', {
+        slidesPerView: 1,
+        centeredSlides: true,
+        loop: true,
+        loopedSlides: 4,
+    });
+
+    var thumbs = new Swiper('.gallery-thumbs', {
+        slidesPerView: 'auto',
+        spaceBetween: 10,
+        loopedSlides: 4,
+        centeredSlides: true,
+        loop: true,
+        slideToClickedSlide: true,
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
+    slider.controller.control = thumbs;
+    thumbs.controller.control = slider;
+
+    const formSelect = document.getElementById('form-select');
+    // Update the custom select
+    // FancySelect.update(formSelect);
+
+    $('#navbarPopUp').click(function() {
+        $('#navbarNav').addClass('offcanvas offcanvas-end text-bg-dark');
+        $('.navbar-primary ul.navbar-nav').addClass('offcanvas-body');
+    });
+    $('#navClose').click(function() {
+        $("#navbarNav").removeClass('show');
+
+    });
+    var swiper = new Swiper(".bannerSlide", {
+        loop: true,
+        autoplay: {
+            delay: 5000,
+        },
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        }
+    });
+    var swiper = new Swiper(".trendSlide", {
+        slidesPerView: 3,
+        spaceBetween: 15,
+        loop: true,
+        navigation: {
+            nextEl: ".trend-button-next",
+            prevEl: ".trend-button-prev",
+        },
+        breakpoints: {
+            992: {
+                slidesPerView: 3,
+                spaceBetween: 15,
+            },
+            768: {
+                slidesPerView: 2,
+                spaceBetween: 15,
+            },
+            0: {
+                slidesPerView: 1,
+                spaceBetween: 15,
+            },
+        },
+    });
+
+
+    var swiper = new Swiper("#hotDells", {
+        slidesPerView: 1,
+        spaceBetween: 15,
+        responsive: true,
+        autoplay: {
+            delay: 2500,
+            disableOnInteraction: false,
+        },
+        navigation: {
+            nextEl: ".hotdeal-button-next",
+            prevEl: ".hotdeal-button-prev",
+        },
+        breakpoints: {
+            0: {
+                slidesPerView: 1,
+                spaceBetween: 15,
+            },
+            480: {
+                slidesPerView: 2,
+                spaceBetween: 15,
+            },
+            768: {
+                slidesPerView: 1,
+                spaceBetween: 15,
+            },
+        },
+    });
+
+    var swiper = new Swiper("#hotPro", {
+        slidesPerView: 1,
+        spaceBetween: 0,
+        responsive: true,
+        navigation: {
+            nextEl: ".hotpro-button-next",
+            prevEl: ".hotpro-button-prev",
+        },
+        breakpoints: {
+            0: {
+                slidesPerView: 1,
+            },
+            576: {
+                slidesPerView: 3,
+            },
+            768: {
+                slidesPerView: 3,
+            },
+        },
+    });
+    var swiper = new Swiper("#etcPro", {
+        slidesPerView: 1,
+        spaceBetween: 0,
+        responsive: true,
+        navigation: {
+            nextEl: ".etcpro-button-next",
+            prevEl: ".etcpro-button-prev",
+        },
+        breakpoints: {
+            0: {
+                slidesPerView: 1,
+            },
+            576: {
+                slidesPerView: 3,
+            },
+            768: {
+                slidesPerView: 3,
+            },
+        },
+    });
+
+    var swiper = new Swiper("#trandCol", {
+        slidesPerView: 1,
+        spaceBetween: 15,
+        responsive: true,
+        autoplay: {
+            delay: 2500,
+            disableOnInteraction: false,
+        },
+        navigation: {
+            nextEl: ".trend-button-next",
+            prevEl: ".trend-button-prev",
+        },
+        breakpoints: {
+            0: {
+                slidesPerView: 1,
+                spaceBetween: 15,
+            },
+            480: {
+                slidesPerView: 2,
+                spaceBetween: 15,
+            },
+            768: {
+                slidesPerView: 1,
+                spaceBetween: 15,
+            },
+        },
+    });
+
+
+
+    var swiper = new Swiper("#brands", {
+        slidesPerView: 6,
+        slidesPerColumn: 3,
+        spaceBetween: 15,
+        responsive: true,
+        autoplay: {
+            delay: 2500,
+            disableOnInteraction: false,
+        },
+        navigation: {
+            nextEl: ".brands-button-next",
+            prevEl: ".brands-button-prev",
+        },
+        breakpoints: {
+            0: {
+                slidesPerView: 6,
+                slidesPerColumn: 2,
+                spaceBetween: 20,
+            },
+            480: {
+                slidesPerView: 6,
+                slidesPerColumn: 2,
+                spaceBetween: 15,
+            },
+            768: {
+                slidesPerView: 6,
+                slidesPerColumn: 2,
+                spaceBetween: 15,
+            },
+        },
+    });
+
+    var swiper = new Swiper("#populatCat", {
+        slidesPerView: 1,
+        spaceBetween: 15,
+        responsive: true,
+        autoplay: {
+            delay: 2500,
+            disableOnInteraction: false,
+        },
+        navigation: {
+            nextEl: ".popcat-button-next",
+            prevEl: ".popcat-button-prev",
+        },
+        breakpoints: {
+            0: {
+                slidesPerView: 2,
+                spaceBetween: 20,
+            },
+            480: {
+                slidesPerView: 2,
+                spaceBetween: 15,
+            },
+            768: {
+                slidesPerView: 1,
+                spaceBetween: 15,
+            },
+        },
+    });
+    $(document).ready(function() {
+        iconRotate();
+
+        $('.owl-carousel').owlCarousel({
+            loop: true,
+            margin: 10,
+            responsiveClass: true,
+            autoplay: true,
+            dots: false,
+            nav: true,
+            navText: [
+                '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M7.5 16.5L0 9L7.5 1.5L8.83125 2.83125L2.6625 9L8.83125 15.1687L7.5 16.5Z" fill="#2E2E2E"/></svg>',
+                '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M5.3623 15.825C5.1748 15.6375 5.08105 15.4155 5.08105 15.159C5.08105 14.903 5.1748 14.6813 5.3623 14.4938L10.8561 9L5.34355 3.4875C5.16855 3.3125 5.08105 3.09375 5.08105 2.83125C5.08105 2.56875 5.1748 2.34375 5.3623 2.15625C5.5498 1.96875 5.7718 1.875 6.0283 1.875C6.2843 1.875 6.50605 1.96875 6.69355 2.15625L12.9936 8.475C13.0686 8.55 13.1218 8.63125 13.1533 8.71875C13.1843 8.80625 13.1998 8.9 13.1998 9C13.1998 9.1 13.1843 9.19375 13.1533 9.28125C13.1218 9.36875 13.0686 9.45 12.9936 9.525L6.6748 15.8438C6.4998 16.0188 6.2843 16.1063 6.0283 16.1063C5.7718 16.1063 5.5498 16.0125 5.3623 15.825Z" fill="#2E2E2E"/></svg>'
+            ],
+            responsive: {
+                0: {
+                    items: 1,
+                },
+                600: {
+                    items: 2,
+                },
+                1000: {
+                    items: 3,
+                }
+            }
+        })
+
+        $(".regular-4").slick({
+            dots: false,
+            arrows: false,
+            infinite: true,
+            autoplay: true,
+            speed: 500,
+            fade: true,
+            cssEase: 'linear'
+        });
+    })
+</script>
+<?= $this->endSection() ?>

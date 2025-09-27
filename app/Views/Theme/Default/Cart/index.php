@@ -1,4 +1,6 @@
-<section class="main-container" id="tableReload">
+<?= $this->extend('Theme/Default/layout') ?>
+<?= $this->section('content') ?>
+<div class="main-container" id="tableReload">
     <div class="container">
         <div class="cart">
             <div class="row">
@@ -117,4 +119,9 @@
             <?php } ?>
         </div>
     </div>
-</section>
+</div>
+<?= $this->endSection() ?>
+<?= $this->section('java_script') ?>
+<script>
+</script>
+<?= $this->endSection() ?>

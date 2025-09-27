@@ -1,4 +1,6 @@
-<section class="banner">
+<?= $this->extend('Theme/Default/layout') ?>
+<?= $this->section('content') ?>
+<div class="banner">
     <div class="container">
         <div class="row gx-0">
             <div class="col-lg-9 offset-lg-3">
@@ -16,7 +18,7 @@
             </div>
         </div>
     </div>
-</section>
+</div>
 
 <?php
     $theme_settings = get_theme_settings();
@@ -25,7 +27,7 @@
     $symbol         = get_lebel_by_value_in_settings('currency_symbol');
 ?>
 
-<section class="main-container my-5">
+<div class="main-container my-5">
     <div class="container">
         <div class="popular-category mb-5">
             <div class="card rounded-0 border-0">
@@ -235,4 +237,9 @@
             </div>
         </div>
     </div>
-</section>
+</div>
+<?= $this->endSection() ?>
+<?= $this->section('java_script') ?>
+<script>
+</script>
+<?= $this->endSection() ?>

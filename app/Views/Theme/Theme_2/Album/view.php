@@ -1,3 +1,5 @@
+<?= $this->extend('Theme/Theme_2/layout') ?>
+<?= $this->section('content') ?>
 <section class="main-container my-0">
     <div class="container">
         <div class="contact-form bg-white  p-4 p-lg-5 mb-5 mt-5">
@@ -37,3 +39,8 @@
     <img class="modal-content" id="img01">
     <div id="caption"></div>
 </div>
+<?= $this->endSection() ?>
+<?= $this->section('java_script') ?>
+<script>
+</script>
+<?= $this->endSection() ?>

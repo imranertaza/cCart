@@ -56,9 +56,9 @@ class Checkout extends BaseController
             $data['title']       = 'Checkout';
 
             $data['page_title'] = 'Checkout';
-            echo view('Theme/' . $settings['Theme'] . '/header', $data);
+//            echo view('Theme/' . $settings['Theme'] . '/header', $data);
             echo view('Theme/' . $settings['Theme'] . '/Checkout/index', $data);
-            echo view('Theme/' . $settings['Theme'] . '/footer');
+//            echo view('Theme/' . $settings['Theme'] . '/footer');
         } else {
             return redirect()->to('cart');
         }
@@ -658,9 +658,9 @@ class Checkout extends BaseController
         $data['title']       = 'Order Success';
 
         $data['page_title'] = 'Checkout Success';
-        echo view('Theme/' . $settings['Theme'] . '/header', $data);
+//        echo view('Theme/' . $settings['Theme'] . '/header', $data);
         echo view('Theme/' . $settings['Theme'] . '/Checkout/success', $data);
-        echo view('Theme/' . $settings['Theme'] . '/footer');
+//        echo view('Theme/' . $settings['Theme'] . '/footer');
     }
 
     /**
@@ -675,9 +675,9 @@ class Checkout extends BaseController
         $data['title']       = 'Order Failed';
 
         $data['page_title'] = 'Checkout Failed';
-        echo view('Theme/' . $settings['Theme'] . '/header', $data);
+//        echo view('Theme/' . $settings['Theme'] . '/header', $data);
         echo view('Theme/' . $settings['Theme'] . '/Checkout/failed', $data);
-        echo view('Theme/' . $settings['Theme'] . '/footer');
+//        echo view('Theme/' . $settings['Theme'] . '/footer');
     }
 
     /**
@@ -692,9 +692,9 @@ class Checkout extends BaseController
         $data['title']       = 'Order Canceled';
 
         $data['page_title'] = 'Checkout Canceled';
-        echo view('Theme/' . $settings['Theme'] . '/header', $data);
+//        echo view('Theme/' . $settings['Theme'] . '/header', $data);
         echo view('Theme/' . $settings['Theme'] . '/Checkout/canceled', $data);
-        echo view('Theme/' . $settings['Theme'] . '/footer');
+//        echo view('Theme/' . $settings['Theme'] . '/footer');
     }
 
     /**
