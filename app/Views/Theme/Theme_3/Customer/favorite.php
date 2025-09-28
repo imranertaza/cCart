@@ -1,6 +1,9 @@
+<?= $this->extend('Theme/Theme_3/layout') ?>
+<?= $this->section('content') ?>
+<?= $this->include('Theme/Theme_3/Customer/menu'); ?>
 <section class="main-container my-5" id="reloadDiv">
     <div class="container">
-        <div class="popular-category mb-5">
+        <div class="mb-5">
 
             <div class="card rounded-0">
                 <div class="card-header py-3 bg-white">
@@ -80,3 +83,8 @@
         </div>
     </div>
 </section>
+<?= $this->endSection() ?>
+<?= $this->section('java_script') ?>
+<script>
+</script>
+<?= $this->endSection() ?>

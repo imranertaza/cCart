@@ -1,3 +1,5 @@
+<?= $this->extend('Theme/Theme_2/layout') ?>
+<?= $this->section('content') ?>
 <section class="main-container">
     <div class="container">
         <div class="product-details">
@@ -660,3 +662,59 @@
         </div>
     </div>
 </div>
+<?= $this->endSection() ?>
+<?= $this->section('java_script') ?>
+<script>
+    function buyNowAction(){
+        $("#addto-cart-form").on('submit', (function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: $(this).attr('action'),
+                type: "POST",
+                data: new FormData(this),
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(response) {
+                    $('#cartReload').load(location.href + " #cartReload");
+                    $('#cartReload2').load(location.href + " #cartReload2");
+                    $('#mesVal').html(response);
+                    $('.btn-count').load(location.href + " .btn-count");
+                    $('.body-count').load(location.href + " .body-count");
+                    $('#carticon2').css('transform', 'rotate(90deg)');
+                    $('#collapseExample').addClass('show');
+                    buyNow();
+                    $('.message_alert').show();
+                    setTimeout(function() {
+                        $("#messAlt").fadeOut(1500);
+                    }, 600);
+
+                }
+            });
+        }));
+
+    }
+    function  buyNow(){
+        location.replace("<?php echo base_url('checkout') ?>");
+    }
+    document.addEventListener("DOMContentLoaded", function() {
+        // Get all ULs with the class
+        let lists = document.querySelectorAll(".filter-items-sort");
+
+        lists.forEach(function(ul) {
+            // Grab <li> elements
+            let items = Array.from(ul.getElementsByTagName("li"));
+
+            // Sort by <label> text
+            items.sort((a, b) => {
+                let textA = a.querySelector("label").textContent.trim();
+                let textB = b.querySelector("label").textContent.trim();
+                return textA.localeCompare(textB, undefined, { numeric: true });
+            });
+
+            // Re-append sorted items
+            items.forEach(li => ul.appendChild(li));
+        });
+    });
+</script>
+<?= $this->endSection() ?>

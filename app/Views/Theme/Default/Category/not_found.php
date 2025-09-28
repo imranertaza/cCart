@@ -1,3 +1,5 @@
+<?= $this->extend('Theme/Default/layout') ?>
+<?= $this->section('content') ?>
 <main class="main_sec_details">
     <div class="container">
         <div class="content_box text-center p-5">
@@ -5,3 +7,8 @@
         </div>
     </div>
 </main>
+<?= $this->endSection() ?>
+<?= $this->section('java_script') ?>
+    <script>
+    </script>
+<?= $this->endSection() ?>

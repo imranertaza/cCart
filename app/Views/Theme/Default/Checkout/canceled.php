@@ -1,3 +1,5 @@
+<?= $this->extend('Theme/Default/layout') ?>
+<?= $this->section('content') ?>
 <section class="main-container checkout" id="tableReload">
     <div class="container">
         <div class="row">
@@ -15,3 +17,8 @@
         </div>
     </div>
 </section>
+<?= $this->endSection() ?>
+<?= $this->section('java_script') ?>
+    <script>
+    </script>
+<?= $this->endSection() ?>

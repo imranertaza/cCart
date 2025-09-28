@@ -206,8 +206,8 @@ class Products extends BaseController
         $data['description'] = $settings['meta_description'];
         $data['title']       = (!empty($cat_id)) ? get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $cat_id) : 'Search';
 
-        echo view('Theme/' . $settings['Theme'] . '/header', $data);
+//        echo view('Theme/' . $settings['Theme'] . '/header', $data);
         echo view('Theme/' . $settings['Theme'] . '/Category/index', $data);
-        echo view('Theme/' . $settings['Theme'] . '/footer', $data);
+//        echo view('Theme/' . $settings['Theme'] . '/footer', $data);
     }
 }

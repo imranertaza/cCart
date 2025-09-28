@@ -1,3 +1,5 @@
+<?= $this->extend('Theme/Default/layout') ?>
+<?= $this->section('content') ?>
 <section class="main-container">
     <div class="container">
         <div class="row align-items-center">
@@ -30,7 +32,7 @@
                             </div>
                         </div>
                     </div>
-                    <span class="text-danger d-inline-block err text-capitalize mb-4" id="confirm_password_err_mess"></span>    
+                    <span class="text-danger d-inline-block err text-capitalize mb-4" id="confirm_password_err_mess"></span>
                     <div class="form-group">
                         <input type="submit" value="Set Password" class="btn btn-sign bg-transparent border-1 rounded-2 w-100 text-black fw-bold fs-5 border-dark">
                     </div>
@@ -39,3 +41,8 @@
         </div>
     </div>
 </section>
+<?= $this->endSection() ?>
+<?= $this->section('java_script') ?>
+    <script>
+    </script>
+<?= $this->endSection() ?>

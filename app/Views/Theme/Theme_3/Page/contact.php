@@ -1,3 +1,5 @@
+<?= $this->extend('Theme/Theme_3/layout') ?>
+<?= $this->section('content') ?>
 <section class="main-container my-0">
     <div class="container">
         <div class="contact-info py-5">
@@ -64,6 +66,9 @@
     </div>
 </section>
 
+
+<?= $this->endSection() ?>
+<?= $this->section('java_script') ?>
 <script>
     (function(){
         const fonts = ["cursive"];
@@ -103,4 +108,38 @@
         initCaptcha();
 
     })();
+
+    function contactFormSubmit(){
+        if (contactForm() == true){
+            let inputcaptchavalue = $('#captcha_form').val();
+            let captchaValue = $('#genaretCapt').val();
+            if (inputcaptchavalue === captchaValue) {
+                let email = $('#email').val();
+                let message = $('#message').val();
+
+                $.ajax({
+                    method: "POST",
+                    url: "<?php echo base_url('contact_form_action') ?>",
+                    data: {
+                        email: email,
+                        message: message,
+                    },
+                    success: function (response) {
+                        // alert(response);
+                        $('#email').val('');
+                        $('#message').val('');
+                        $('#mesVal').html('Your message was successfully submitted');
+                        $('.message_alert').show();
+                        setTimeout(function () {
+                            $("#messAlt").fadeOut(1500);
+                        }, 600);
+                    }
+                })
+            }else {
+                error("#messageRecaptcha", "Please Enter Valid Captcha");
+                return false;
+            }
+        }
+    }
 </script>
+<?= $this->endSection() ?>

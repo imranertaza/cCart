@@ -1,3 +1,6 @@
+<?= $this->extend('Theme/Theme_2/layout') ?>
+<?= $this->section('content') ?>
+<?= $this->include('Theme/Theme_2/Customer/menu'); ?>
 <section class="main-container my-5" id="reloadDiv">
     <div class="container">
         <div class="popular-category mb-5">
@@ -75,3 +78,8 @@
         </div>
     </div>
 </section>
+<?= $this->endSection() ?>
+<?= $this->section('java_script') ?>
+<script>
+</script>
+<?= $this->endSection() ?>

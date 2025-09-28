@@ -35,9 +35,9 @@ class Cart extends BaseController
         $data['offer']       = $this->offer_calculate->offer_discount($this->cart);
 
         $data['page_title'] = 'Cart';
-        echo view('Theme/' . $settings['Theme'] . '/header', $data);
-        echo view('Theme/' . $settings['Theme'] . '/Cart/index');
-        echo view('Theme/' . $settings['Theme'] . '/footer');
+//        echo view('Theme/' . $settings['Theme'] . '/header', $data);
+        echo view('Theme/' . $settings['Theme'] . '/Cart/index', $data);
+//        echo view('Theme/' . $settings['Theme'] . '/footer');
     }
 
     /**

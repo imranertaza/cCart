@@ -1,4 +1,6 @@
-<section class="main-container checkout" id="tableReload2" >
+<?= $this->extend('Theme/Theme_3/layout') ?>
+<?= $this->section('content') ?>
+<div class="main-container checkout" id="tableReload2" >
     <div class="container">
         <form id="checkout-form" onsubmit="return onchackoutsubmit()" action="<?php echo base_url('checkout_action')  ?>" method="post">
             <div class="row">
@@ -431,10 +433,102 @@
             </div>
         </form>
     </div>
-</section>
+</div>
 
-<script>
-    $(document).ready(function() {
-        shippingCharge();
-    });
-</script>
+<?php $settings = get_settings();?>
+<?= $this->endSection() ?>
+<?= $this->section('java_script') ?>
+    <script>
+        $(document).ready(function() {
+            shippingCharge();
+        });
+
+        function shippingCharge(tA) {
+            var paymethod = $('#shipping_method:checked').val();
+            var cityId = $('#stateView').val();
+            if (tA == undefined) {
+                var totalAmount = $('#totalamo').val();
+            }else{
+                var totalAmount = tA;
+            }
+            var shipcityId = $('#sh_stateView').val();
+
+
+            $('#totalamo').val(totalAmount);
+            $('#total').html('<?php echo $symbol; ?> ' + totalAmount);
+            $('#check_total').html('<?php echo $symbol; ?> ' + totalAmount);
+
+            <?php $symbol = $settings['currency_symbol']; ?>
+            $.ajax({
+                method: "POST",
+                url: "<?php echo base_url('shipping_rate') ?>",
+                data: {
+                    amount: totalAmount,
+                    city_id: cityId,
+                    shipCityId: shipcityId,
+                    paymethod: paymethod
+                },
+                dataType: 'json',
+                success: function(data) {
+                    var dis = Number(data.discount);
+                    var charge = Number(data.charge);
+
+                    var total = Number(totalAmount);
+                    var amount = total + charge - dis;
+
+
+                    $('#discount_charge').val(dis);
+                    $('#chargeDisSh').html('<?php echo $symbol; ?> ' + dis);
+                    $('#chargeShip').html('<?php echo $symbol; ?> ' + data.charge);
+                    $('#total').html('<?php echo $symbol; ?> ' + parseFloat(amount.toFixed(2)));
+                    $('#totalamo').val(total);
+                    $('#check_total').html('<?php echo $symbol; ?> ' + total);
+                    $('#shipping_charge').val(charge);
+                    $('#shipping_tot').val(parseFloat(amount.toFixed(2)));
+                }
+            });
+        }
+
+        function checkout_data_calculate(data){
+            <?php $symbol = $settings['currency_symbol']; ?>
+
+            var total = Number(data);
+
+            $('#check_total').html('<?php echo $symbol ?>'+ total );
+            $('#totalamo').val(total);
+
+            var shipping_charge = $('#shipping_charge').val();
+            var total_with_shipping = Number(total) + Number(shipping_charge);
+
+            $('#total').html('<?php echo $symbol; ?> ' + total_with_shipping);
+            $('#shipping_tot').val(total_with_shipping);
+        }
+
+        function user_create() {
+
+            var createNew = $('#createNew').val();
+            var html =
+                '<div class="row"><div class="col-lg-6"><div class="form-group mb-4"><label class="w-100" for="password">Password</label><input class="form-control rounded-0" type="password" name="password" id="password" placeholder="Password"  required></div></div> <div class="col-lg-6"><div class="form-group mb-4"><label class="w-100" for="password">Confirm Password</label><input class="form-control rounded-0" type="password" name="confirm_password" id="confirm_password" placeholder="Confirm Password"  required></div></div></div>'
+            if (createNew == 0) {
+                $('#createNew').val(1);
+                $('#regData').html(html);
+            } else {
+                $('#createNew').val(0);
+                $('#regData').html('');
+            }
+        }
+
+        function selectState(country_id, id) {
+            $.ajax({
+                method: "POST",
+                url: "<?php echo base_url('checkout_country_zoon') ?>",
+                data: {
+                    country_id: country_id
+                },
+                success: function(data) {
+                    $('#' + id).html(data);
+                }
+            });
+        }
+    </script>
+<?= $this->endSection() ?>

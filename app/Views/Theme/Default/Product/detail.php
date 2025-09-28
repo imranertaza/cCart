@@ -1,3 +1,5 @@
+<?= $this->extend('Theme/Default/layout') ?>
+<?= $this->section('content') ?>
 <section class="main-container">
     <div class="container">
         <div class="product-details">
@@ -295,3 +297,8 @@
 
     </div>
 </section>
+<?= $this->endSection() ?>
+<?= $this->section('java_script') ?>
+<script>
+</script>
+<?= $this->endSection() ?>

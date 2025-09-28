@@ -1,3 +1,5 @@
+<?= $this->extend('Theme/Theme_3/layout') ?>
+<?= $this->section('content') ?>
 <section class="main-container my-0">
     <div class="container">
         <div class="contact-form bg-white  py-4  mb-5 mt-5">
@@ -21,3 +23,8 @@
         </div>
     </div>
 </section>
+<?= $this->endSection() ?>
+<?= $this->section('java_script') ?>
+<script>
+</script>
+<?= $this->endSection() ?>

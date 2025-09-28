@@ -1,3 +1,6 @@
+<?= $this->extend('Theme/Default/layout') ?>
+<?= $this->section('content') ?>
+<?= $this->include('Theme/Default/Customer/menu'); ?>
 <section class="main-container my-5">
     <div class="container">
 
@@ -56,3 +59,9 @@
 
     </div>
 </section>
+<?= $this->endSection() ?>
+<?= $this->section('java_script') ?>
+    <script>
+    </script>
+<?= $this->endSection() ?>
+

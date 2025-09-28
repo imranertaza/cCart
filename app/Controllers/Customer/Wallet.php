@@ -44,10 +44,10 @@ class Wallet extends BaseController
 
             $data['page_title']  = 'Wallet';
             $data['menu_active'] = 'wallet';
-            echo view('Theme/' . $settings['Theme'] . '/header', $data);
-            echo view('Theme/' . $settings['Theme'] . '/Customer/menu');
-            echo view('Theme/' . $settings['Theme'] . '/Customer/walllet');
-            echo view('Theme/' . $settings['Theme'] . '/footer');
+//            echo view('Theme/' . $settings['Theme'] . '/header', $data);
+//            echo view('Theme/' . $settings['Theme'] . '/Customer/menu');
+            echo view('Theme/' . $settings['Theme'] . '/Customer/walllet', $data);
+//            echo view('Theme/' . $settings['Theme'] . '/footer');
         }
     }
 
@@ -75,10 +75,10 @@ class Wallet extends BaseController
             $data['title']       = 'Account Add Fund';
             $data['page_title']  = 'Dashboard';
             $data['menu_active'] = 'wallet';
-            echo view('Theme/' . $settings['Theme'] . '/header', $data);
-            echo view('Theme/' . $settings['Theme'] . '/Customer/menu');
-            echo view('Theme/' . $settings['Theme'] . '/Customer/add_funds');
-            echo view('Theme/' . $settings['Theme'] . '/footer');
+//            echo view('Theme/' . $settings['Theme'] . '/header', $data);
+//            echo view('Theme/' . $settings['Theme'] . '/Customer/menu');
+            echo view('Theme/' . $settings['Theme'] . '/Customer/add_funds', $data);
+//            echo view('Theme/' . $settings['Theme'] . '/footer');
         }
     }
 
@@ -132,10 +132,10 @@ class Wallet extends BaseController
             $data['title']       = 'Account Add Fund';
             $data['page_title']  = 'Wallet';
             $data['menu_active'] = 'wallet';
-            echo view('Theme/' . $settings['Theme'] . '/header', $data);
-            echo view('Theme/' . $settings['Theme'] . '/Customer/menu');
-            echo view('Theme/' . $settings['Theme'] . '/Customer/success');
-            echo view('Theme/' . $settings['Theme'] . '/footer');
+//            echo view('Theme/' . $settings['Theme'] . '/header', $data);
+//            echo view('Theme/' . $settings['Theme'] . '/Customer/menu');
+            echo view('Theme/' . $settings['Theme'] . '/Customer/success', $data);
+//            echo view('Theme/' . $settings['Theme'] . '/footer');
         }
     }
     public function wallet_canceled()
@@ -152,10 +152,10 @@ class Wallet extends BaseController
             $data['title']       = 'Account Add Fund';
             $data['page_title']  = 'Wallet';
             $data['menu_active'] = 'wallet';
-            echo view('Theme/' . $settings['Theme'] . '/header', $data);
-            echo view('Theme/' . $settings['Theme'] . '/Customer/menu');
-            echo view('Theme/' . $settings['Theme'] . '/Customer/canceled');
-            echo view('Theme/' . $settings['Theme'] . '/footer');
+//            echo view('Theme/' . $settings['Theme'] . '/header', $data);
+//            echo view('Theme/' . $settings['Theme'] . '/Customer/menu');
+            echo view('Theme/' . $settings['Theme'] . '/Customer/canceled', $data);
+//            echo view('Theme/' . $settings['Theme'] . '/footer');
         }
     }
     public function wallet_failed()
@@ -172,10 +172,10 @@ class Wallet extends BaseController
             $data['title']       = 'Account Add Fund';
             $data['page_title']  = 'Wallet';
             $data['menu_active'] = 'wallet';
-            echo view('Theme/' . $settings['Theme'] . '/header', $data);
-            echo view('Theme/' . $settings['Theme'] . '/Customer/menu');
-            echo view('Theme/' . $settings['Theme'] . '/Customer/failed');
-            echo view('Theme/' . $settings['Theme'] . '/footer');
+//            echo view('Theme/' . $settings['Theme'] . '/header', $data);
+//            echo view('Theme/' . $settings['Theme'] . '/Customer/menu');
+            echo view('Theme/' . $settings['Theme'] . '/Customer/failed', $data);
+//            echo view('Theme/' . $settings['Theme'] . '/footer');
         }
     }
 }
