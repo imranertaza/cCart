@@ -1,3 +1,6 @@
+<?= $this->extend('Theme/Theme_2/layout') ?>
+<?= $this->section('content') ?>
+<?= $this->include('Theme/Theme_2/Customer/menu'); ?>
 <section class="main-container my-5">
     <div class="container">
         <form action="<?php echo base_url('profile_update_action')?>" method="Post"  onsubmit="return onProfileForm()">
@@ -113,3 +116,8 @@
         </form>
     </div>
 </section>
+<?= $this->endSection() ?>
+<?= $this->section('java_script') ?>
+<script>
+</script>
+<?= $this->endSection() ?>

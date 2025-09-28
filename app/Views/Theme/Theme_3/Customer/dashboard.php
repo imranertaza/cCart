@@ -1,6 +1,9 @@
+<?= $this->extend('Theme/Theme_3/layout') ?>
+<?= $this->section('content') ?>
+<?= $this->include('Theme/Theme_3/Customer/menu'); ?>
 <section class="main-container my-3 my-md-5">
     <div class="container">
-        <div class="popular-category mb-5">
+        <div class="mb-5">
             <div class="card rounded-0 border">
                 <div class="card-body p-3 p-md-5">
                     <div class="row">
@@ -111,3 +114,8 @@
         </div>
     </div>
 </section>
+<?= $this->endSection() ?>
+<?= $this->section('java_script') ?>
+<script>
+</script>
+<?= $this->endSection() ?>

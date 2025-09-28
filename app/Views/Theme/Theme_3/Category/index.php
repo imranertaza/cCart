@@ -1,4 +1,6 @@
-<section class="main-container">
+<?= $this->extend('Theme/Theme_3/layout') ?>
+<?= $this->section('content') ?>
+<div class="main-container">
     <div class="container">
         <div class="product-category mb-5">
             <form action="<?php echo base_url('category_url_generate')?>" method="post" id="searchForm"> </form>
@@ -172,10 +174,8 @@
 
         </div>
     </div>
-</section>
-<?php
-$sSel = !empty($searchPrice) ? 'form="searchForm"' : '';
-            ?>
+</div>
+<?php $sSel = !empty($searchPrice) ? 'form="searchForm"' : ''; ?>
 <script>
     if ($(window).width() > 767) {
         var sidebarDesktop = `<div class="d-none d-md-block">
@@ -366,3 +366,8 @@ $sSel = !empty($searchPrice) ? 'form="searchForm"' : '';
             "," + $(".slider-range").slider("values", 1));
     });
 </script>
+<?= $this->endSection() ?>
+<?= $this->section('java_script') ?>
+    <script>
+    </script>
+<?= $this->endSection() ?>

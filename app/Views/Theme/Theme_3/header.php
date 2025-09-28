@@ -265,5 +265,4 @@
             </div>
         </div>
     </header>
-
     <button id="scrollToTopBtn" title="Go to top">↑</button>

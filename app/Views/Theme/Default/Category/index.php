@@ -1,4 +1,6 @@
-<section class="main-container">
+<?= $this->extend('Theme/Default/layout') ?>
+<?= $this->section('content') ?>
+<div class="main-container">
     <div class="container">
         <div class="trend-collection mb-5">
             <div class="card rounded-0">
@@ -265,7 +267,7 @@
             </div>
         </div>
     </div>
-</section>
+</div>
 <?php $sSel = !empty($searchPrice) ? 'form="searchForm"' : ''; ?>
 <script>
     jQuery(function($) {
@@ -289,3 +291,8 @@
             "," + $(".slider-range").slider("values", 1));
     });
 </script>
+<?= $this->endSection() ?>
+<?= $this->section('java_script') ?>
+<script>
+</script>
+<?= $this->endSection() ?>

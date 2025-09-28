@@ -1,3 +1,5 @@
+<?= $this->extend('Theme/Theme_3/layout') ?>
+<?= $this->section('content') ?>
 <main class="main_sec_details">
     <div class="container">
         <div class="content_box">
@@ -264,4 +266,91 @@
 
 </main>
 
+
+<?= $this->endSection() ?>
+<?= $this->section('java_script') ?>
 <script src="<?php echo base_url() ?>/assets/theme_3/details.js"></script>
+<script>
+    function buyNowAction(){
+        $("#addto-cart-form").on('submit', (function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: $(this).attr('action'),
+                type: "POST",
+                data: new FormData(this),
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(response) {
+                    $('#cartReload').load(location.href + " #cartReload");
+                    $('#cartReload2').load(location.href + " #cartReload2");
+                    $('#mesVal').html(response);
+                    $('.btn-count').load(location.href + " .btn-count");
+                    $('.body-count').load(location.href + " .body-count");
+                    $('#carticon2').css('transform', 'rotate(90deg)');
+                    $('#collapseExample').addClass('show');
+                    buyNow();
+                    $('.message_alert').show();
+                    setTimeout(function() {
+                        $("#messAlt").fadeOut(1500);
+                    }, 600);
+
+                }
+            });
+        }));
+
+    }
+    function  buyNow(){
+        location.replace("<?php echo base_url('checkout') ?>");
+    }
+    function optionPriceCalculate(product_id) {
+        <?php foreach (get_all_data_array('cc_option') as $v) {
+                                                            $fildName = str_replace(' ', '', $v->name);
+
+                                                            if ($v->type == 'radio') { ?>
+        var <?php echo strtolower($fildName); ?> = $('input[name="<?php echo strtolower($fildName); ?>"]:checked').val();
+        <?php }
+
+                                                            if ($v->type == 'select') { ?>
+        var <?php echo strtolower($fildName); ?> = $('[name="<?php echo strtolower($fildName); ?>"]').val();
+        <?php }
+                                                        } ?>
+        $.ajax({
+            method: "POST",
+            url: "<?php echo base_url('optionPriceCalculate') ?>",
+            data: {
+                product_id: product_id,
+        <?php foreach (get_all_data_array('cc_option') as $vl) {
+                                                            $fildName2 = str_replace(' ', '', $vl->name); ?>
+        <?php echo strtolower($fildName2); ?>: <?php echo strtolower($fildName2); ?>,
+        <?php
+                                                        } ?>
+    },
+        success: function(data) {
+            $('#priceVal').html(data);
+        }
+    });
+    }
+    // filter items sort
+    document.addEventListener("DOMContentLoaded", function() {
+        // Get all ULs with the class
+        let lists = document.querySelectorAll(".filter-items-sort");
+
+        lists.forEach(function(ul) {
+            // Grab <li> elements
+            let items = Array.from(ul.getElementsByTagName("li"));
+
+            // Sort by <label> text
+            items.sort((a, b) => {
+                let textA = a.querySelector("label").textContent.trim();
+                let textB = b.querySelector("label").textContent.trim();
+                return textA.localeCompare(textB, undefined, { numeric: true });
+            });
+
+            // Re-append sorted items
+            items.forEach(li => ul.appendChild(li));
+        });
+    });
+
+</script>
+<?= $this->endSection() ?>

@@ -1,4 +1,6 @@
-<section class="main-container">
+<?= $this->extend('Theme/Theme_2/layout') ?>
+<?= $this->section('content') ?>
+<div class="main-container">
     <div class="container">
 
         <div class="product-category mb-5">
@@ -186,7 +188,7 @@
 
         </div>
     </div>
-</section>
+</div>
 <?php $sSel = !empty($searchPrice) ? 'form="searchForm"' : ''; ?>
 <script>
     if ($(window).width() > 767) {
@@ -377,3 +379,8 @@
             "," + $(".slider-range").slider("values", 1));
     });
 </script>
+<?= $this->endSection() ?>
+<?= $this->section('java_script') ?>
+<script>
+</script>
+<?= $this->endSection() ?>
