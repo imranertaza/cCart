@@ -1,4 +1,6 @@
-<section class="banner">
+<?= $this->extend('Theme/Theme_3/layout') ?>
+<?= $this->section('content') ?>
+<div class="banner">
     <div class="container">
         <div class="row gx-0">
             <div class="col-xl-9 offset-xl-3 d-flex flex-column flex-lg-row">
@@ -50,9 +52,8 @@
             </div>
         </div>
     </div>
-</section>
-
-<section class="main-container">
+</div>
+<div class="main-container">
     <div class="container">
         <div class="featured-category mb-5">
             <div class="cat-title">
@@ -289,4 +290,9 @@
             </div>
         </div>
     </div>
-</section>
+</div>
+<?= $this->endSection() ?>
+<?= $this->section('java_script') ?>
+<script>
+</script>
+<?= $this->endSection() ?>

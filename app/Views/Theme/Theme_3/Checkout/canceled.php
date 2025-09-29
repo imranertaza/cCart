@@ -1,3 +1,5 @@
+<?= $this->extend('Theme/Theme_3/layout') ?>
+<?= $this->section('content') ?>
 <section class="main-container checkout" id="tableReload">
     <div class="container">
         <div class="row">
@@ -15,3 +17,4 @@
         </div>
     </div>
 </section>
+<?= $this->endSection() ?>

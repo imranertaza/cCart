@@ -43,10 +43,10 @@ class Profile extends BaseController
 
             $data['menu_active'] = 'profile';
             $data['page_title']  = 'Profile';
-            echo view('Theme/' . $settings['Theme'] . '/header', $data);
-            echo view('Theme/' . $settings['Theme'] . '/Customer/menu');
+//            echo view('Theme/' . $settings['Theme'] . '/header', $data);
+//            echo view('Theme/' . $settings['Theme'] . '/Customer/menu');
             echo view('Theme/' . $settings['Theme'] . '/Customer/profile', $data);
-            echo view('Theme/' . $settings['Theme'] . '/footer');
+//            echo view('Theme/' . $settings['Theme'] . '/footer');
         }
     }
 

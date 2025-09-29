@@ -1,3 +1,5 @@
+<?= $this->extend('Theme/Theme_3/layout') ?>
+<?= $this->section('content') ?>
 <section class="main-container">
     <div class="container">
         <div class="row align-items-center">
@@ -20,7 +22,7 @@
                         </div>
                         <span class="text-danger d-inline-block err text-capitalize mb-4" id="new_password_err_mess">
                     </div>
-                    
+
                     <div class="form-group">
                         <div class="input-group d-flex align-items-center bg-white border rounded-2 px-3 in_err">
                             <input class="form-control border-0" id="confirm_password" name="confirm_password" type="password" placeholder="Confirm Password" required>
@@ -32,7 +34,7 @@
                         </div>
                         <span class="text-danger d-inline-block err text-capitalize mb-4" id="confirm_password_err_mess">
                     </div>
-                   
+
                     <div class="form-group">
                         <input type="submit" value="Set Password" class="btn btn-sign bg-transparent border-1 rounded-2 w-100 text-black fw-bold fs-5 border-dark">
                     </div>
@@ -41,3 +43,8 @@
         </div>
     </div>
 </section>
+<?= $this->endSection() ?>
+<?= $this->section('java_script') ?>
+    <script>
+    </script>
+<?= $this->endSection() ?>

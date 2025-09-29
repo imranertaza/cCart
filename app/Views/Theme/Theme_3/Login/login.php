@@ -1,4 +1,5 @@
-
+<?= $this->extend('Theme/Theme_3/layout') ?>
+<?= $this->section('content') ?>
 
 <section class="main-container">
     <div class="container">
@@ -56,3 +57,8 @@
 
     </div>
 </section>
+<?= $this->endSection() ?>
+<?= $this->section('java_script') ?>
+    <script>
+    </script>
+<?= $this->endSection() ?>

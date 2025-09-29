@@ -41,9 +41,9 @@ class Search extends BaseController
         $data['description'] = $settings['meta_description'];
         $data['title']       = 'Search';
         $data['home_menu']   = true;
-        echo view('Theme/' . $settings['Theme'] . '/header', $data);
+//        echo view('Theme/' . $settings['Theme'] . '/header', $data);
         echo view('Theme/' . $settings['Theme'] . '/Home/index', $data);
-        echo view('Theme/' . $settings['Theme'] . '/footer');
+//        echo view('Theme/' . $settings['Theme'] . '/footer');
     }
 
     /**
@@ -75,8 +75,8 @@ class Search extends BaseController
         $data['description'] = $settings['meta_description'];
         $data['title']       = 'Search';
         $data['page_title']  = 'Search';
-        echo view('Theme/' . $settings['Theme'] . '/header', $data);
+//        echo view('Theme/' . $settings['Theme'] . '/header', $data);
         echo view('Theme/' . $settings['Theme'] . '/Search/index', $data);
-        echo view('Theme/' . $settings['Theme'] . '/footer');
+//        echo view('Theme/' . $settings['Theme'] . '/footer');
     }
 }

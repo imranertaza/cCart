@@ -1,3 +1,5 @@
+<?= $this->extend('Theme/Theme_2/layout') ?>
+<?= $this->section('content') ?>
 <section class="main-container checkout" id="tableReload" >
     <div class="container">
         <form id="checkout-form" action="<?php echo base_url('checkout_action')  ?>" method="post" onsubmit="return onchackoutsubmit()">
@@ -431,3 +433,109 @@
         </form>
     </div>
 </section>
+<?= $this->endSection() ?>
+<?= $this->section('java_script') ?>
+<script>
+    function checkout_data_calculate(data){
+        <?php $symbol = get_lebel_by_value_in_settings('currency_symbol'); ?>
+
+        var total = Number(data);
+
+        $('#check_total').html('<?php echo $symbol ?>'+ total );
+        $('#totalamo').val(total);
+
+        var shipping_charge = $('#shipping_charge').val();
+        var total_with_shipping = Number(total) + Number(shipping_charge);
+
+        $('#total').html('<?php echo $symbol; ?> ' + total_with_shipping);
+        $('#shipping_tot').val(total_with_shipping);
+    }
+
+    function pass_show(val) {
+        // var html =
+        //     '<h6 class="mt-2">Change information</h6><div class="form-group mt-4"><label>Current password</label><input type="password" name="current_password" class="form-control" placeholder="Current password" required></div><div class="form-group mt-4"><label>New password</label><input type="password" name="new_password" class="form-control" placeholder="New password" required></div><div class="form-group mt-4"><label>Confirm password</label><input type="password" name="confirm_password" class="form-control" placeholder="Confirm password" required></div>';
+
+        let html = `<h6 class="mt-2">Change information</h6><div class="form-group mt-4"><label>Current password</label><input type="password" name="current_password" id="current_password" class="form-control in_err" placeholder="Current password" required><span class="text-danger d-inline-block err text-capitalize" id="password_err_mess"></span></div><div class="form-group "><label>New password</label><input type="password" name="new_password" class="form-control in_err" id="new_password" placeholder="New password" required><span class="text-danger d-inline-block err text-capitalize mb-4" id="new_password_err_mess"></span></div><div class="form-group "><label>Confirm password</label><input type="password" name="confirm_password" class="form-control in_err" id="confirm_password" placeholder="Confirm password" required> <span class="text-danger d-inline-block err text-capitalize mb-4" id="confirm_password_err_mess"></span></div>`;
+
+        if (val == '1') {
+            $('#passReset').val(0);
+            $('#pass-data').html(html);
+        } else {
+            $('#passReset').val(1);
+            $('#pass-data').html('');
+        }
+    }
+
+    function selectState(country_id, id) {
+        $.ajax({
+            method: "POST",
+            url: "<?php echo base_url('checkout_country_zoon') ?>",
+            data: {
+                country_id: country_id
+            },
+            success: function(data) {
+                $('#' + id).html(data);
+            }
+        });
+    }
+
+    function user_create() {
+
+        var createNew = $('#createNew').val();
+        var html =
+            '<div class="row"><div class="col-lg-6"><div class="form-group mb-4"><label class="w-100" for="password">Password</label><input class="form-control rounded-0" type="password" name="password" id="password" placeholder="Password"  required></div></div> <div class="col-lg-6"><div class="form-group mb-4"><label class="w-100" for="password">Confirm Password</label><input class="form-control rounded-0" type="password" name="confirm_password" id="confirm_password" placeholder="Confirm Password"  required></div></div></div>'
+        if (createNew == 0) {
+            $('#createNew').val(1);
+            $('#regData').html(html);
+        } else {
+            $('#createNew').val(0);
+            $('#regData').html('');
+        }
+    }
+
+    function shippingCharge(tA) {
+        var paymethod = $('#shipping_method:checked').val();
+        var cityId = $('#stateView').val();
+        if (tA == undefined) {
+            var totalAmount = $('#totalamo').val();
+        }else{
+            var totalAmount = tA;
+        }
+        var shipcityId = $('#sh_stateView').val();
+
+
+        $('#totalamo').val(totalAmount);
+        $('#total').html('<?php echo $symbol; ?> ' + totalAmount);
+        $('#check_total').html('<?php echo $symbol; ?> ' + totalAmount);
+
+        <?php $symbol = get_lebel_by_value_in_settings('currency_symbol'); ?>
+        $.ajax({
+            method: "POST",
+            url: "<?php echo base_url('shipping_rate') ?>",
+            data: {
+                amount: totalAmount,
+                city_id: cityId,
+                shipCityId: shipcityId,
+                paymethod: paymethod
+            },
+            dataType: 'json',
+            success: function(data) {
+                var charge = Number(data.charge);
+                var dis = Number(data.discount);
+
+                var total = Number(totalAmount);
+                var amount = Number(total) + Number(charge) - dis;
+
+                $('#discount_charge').val(dis);
+                $('#chargeDisSh').html('<?php echo $symbol; ?> ' + dis);
+                $('#chargeShip').html('<?php echo $symbol; ?> ' + data.charge);
+                $('#total').html('<?php echo $symbol; ?> ' + amount);
+                $('#totalamo').val(total);
+                $('#check_total').html('<?php echo $symbol; ?> ' + parseFloat(amount.toFixed(2)));
+                $('#shipping_charge').val(charge);
+                $('#shipping_tot').val(parseFloat(amount.toFixed(2)));
+            }
+        });
+    }
+</script>
+<?= $this->endSection() ?>

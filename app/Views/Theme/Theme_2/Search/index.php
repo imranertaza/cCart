@@ -1,3 +1,5 @@
+<?= $this->extend('Theme/Theme_2/layout') ?>
+<?= $this->section('content') ?>
 <section class="main-container">
     <div class="container">
         <div class="trend-collection mb-5">
@@ -208,3 +210,8 @@
         </div>
     </div>
 </section>
+<?= $this->endSection() ?>
+<?= $this->section('java_script') ?>
+<script>
+</script>
+<?= $this->endSection() ?>
