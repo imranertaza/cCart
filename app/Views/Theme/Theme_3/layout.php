@@ -452,14 +452,14 @@
     </div>
     <div class="footer-social">
         <div class="container text-center">
-            <a class="facebook" target="_blank" href="<?php echo $settings['fb_url']; ?>"><i
-                    class="fa-brands fa-facebook-f"></i></a>
-            <a class="ms-4 twitter" target="_blank" href="<?php echo $settings['twitter_url']; ?>"><i
-                    class="fa-brands fa-twitter"></i></a>
-            <a class="ms-4 tiktok" target="_blank" href="<?php echo $settings['tiktok_url']; ?>"><i
-                    class="fa-brands fa-tiktok"></i></a>
-            <a class="ms-4 instagram" target="_blank" href="<?php echo $settings['instagram_url']; ?>"><i
-                    class="fa-brands fa-instagram"></i></a>
+            <a class="facebook" target="_blank" href="<?php echo $settings['fb_url']; ?>" rel="noopener noreferrer" aria-label="Visit our Facebook page"><i
+                    class="fa-brands fa-facebook-f" aria-hidden="true"></i></a>
+            <a class="ms-4 twitter" target="_blank" href="<?php echo $settings['twitter_url']; ?>" rel="noopener noreferrer" aria-label="Visit our Twitter page"><i
+                    class="fa-brands fa-twitter" aria-hidden="true"></i></a>
+            <a class="ms-4 tiktok" target="_blank" href="<?php echo $settings['tiktok_url']; ?>" rel="noopener noreferrer" aria-label="Visit our Tiktok page"><i
+                    class="fa-brands fa-tiktok" aria-hidden="true"></i></a>
+            <a class="ms-4 instagram" target="_blank" href="<?php echo $settings['instagram_url']; ?>" rel="noopener noreferrer" aria-label="Visit our Instagram page"><i
+                    class="fa-brands fa-instagram" aria-hidden="true"></i></a>
         </div>
     </div>
     <div class="copyright">

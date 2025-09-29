@@ -272,10 +272,10 @@
             <div class="col-sm-6 col-xl-2">
                 <h3>Social Media</h3>
                 <div class="social">
-                    <a target="_blank" href="<?php echo get_lebel_by_value_in_settings('fb_url');?>"><i class="fa-brands fa-facebook-f"></i></a>
-                    <a target="_blank" href="<?php echo get_lebel_by_value_in_settings('twitter_url');?>"><i class="fa-brands fa-twitter"></i></a>
-                    <a target="_blank" href="<?php echo get_lebel_by_value_in_settings('tiktok_url');?>"><i class="fa-brands fa-tiktok"></i></a>
-                    <a target="_blank" href="<?php echo get_lebel_by_value_in_settings('instagram_url');?>"><i class="fa-brands fa-instagram"></i></a>
+                    <a target="_blank" href="<?php echo get_lebel_by_value_in_settings('fb_url');?>" rel="noopener noreferrer" aria-label="Visit our Facebook page"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a>
+                    <a target="_blank" href="<?php echo get_lebel_by_value_in_settings('twitter_url');?>" rel="noopener noreferrer" aria-label="Visit our Twitter page"><i class="fa-brands fa-twitter" aria-hidden="true"></i></a>
+                    <a target="_blank" href="<?php echo get_lebel_by_value_in_settings('tiktok_url');?>" rel="noopener noreferrer" aria-label="Visit our Tiktok page"><i class="fa-brands fa-tiktok" aria-hidden="true"></i></a>
+                    <a target="_blank" href="<?php echo get_lebel_by_value_in_settings('instagram_url');?>" rel="noopener noreferrer" aria-label="Visit our Instagram page"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
                 </div>
             </div>
         </div>
