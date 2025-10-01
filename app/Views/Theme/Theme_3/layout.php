@@ -479,11 +479,6 @@
 
 <script>
 
-
-    $("#tableReload").DataTable({
-        order: [[0, 'desc']]
-    })
-
     function myFunction() {
         var dots = document.getElementById("dots");
         var moreText = document.getElementById("more");

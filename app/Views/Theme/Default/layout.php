@@ -286,9 +286,7 @@
 <script src="<?php echo base_url() ?>/assets/theme_3/validation.js" ></script>
 
 <script>
-    $("#tabledata").DataTable({
-        order: [[0, 'desc']]
-    })
+
     $('.ratingPiont').starRating({
         starSize: 1.5,
         showInfo: true
