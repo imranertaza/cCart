@@ -64,7 +64,7 @@ a {
 .mini-search .form-select option {
     padding: 5px;
     background-color: var(--color-secondary);
-    color: #FFF;
+    /*color: #FFF;*/
 }
 .mini-search .form-select option:hover,
 .mini-search .form-select option:focus,

@@ -30,7 +30,7 @@
     <script src="<?php echo base_url() ?>/assets/theme_1/jquery-ui.min.js"></script>
     <script src="<?php echo base_url() ?>/assets/theme_1/jquery.star-rating.min.js"></script>
 
-
+    <?= $this->renderSection('php-code') ?>
 </head>
 <body>
 <div class="message_alert" id="messAlt" >
@@ -286,9 +286,7 @@
 <script src="<?php echo base_url() ?>/assets/theme_3/validation.js" ></script>
 
 <script>
-    $("#tabledata").DataTable({
-        order: [[0, 'desc']]
-    })
+
     $('.ratingPiont').starRating({
         starSize: 1.5,
         showInfo: true

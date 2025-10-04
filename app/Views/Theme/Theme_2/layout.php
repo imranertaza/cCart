@@ -36,6 +36,7 @@
     <script src="<?php echo base_url() ?>/assets/theme_2/jquery-ui.min.js"></script>
     <script src="<?php echo base_url() ?>/assets/theme_2/jquery.star-rating.min.js"></script>
 
+    <?= $this->renderSection('php-code') ?>
 </head>
 
 <body>
@@ -782,10 +783,6 @@
 <script src="<?php echo base_url() ?>/assets/theme_3/validation.js" ></script>
 
 <script>
-
-    $("#tabledata").DataTable({
-        order: [[0, 'desc']]
-    })
     function myFunction() {
         var dots = document.getElementById("dots");
         var moreText = document.getElementById("more");

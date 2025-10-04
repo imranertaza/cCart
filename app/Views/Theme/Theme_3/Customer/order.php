@@ -8,9 +8,10 @@
         </div>
         <div class="cart">
             <div class="table-responsive">
-                <table class="cart-table w-100 text-center" id="tableReload">
+                <table class="cart-table w-100 text-center" id="tableData">
                     <thead>
                     <tr>
+                        <th>Id</th>
                         <th>Order Date</th>
                         <th>Total</th>
                         <th>Discount</th>
@@ -25,6 +26,7 @@
 
             foreach ($order as $val) { ?>
                         <tr>
+                            <td><?php echo $val->order_id;?></td>
                             <td><?php echo $val->createdDtm;?></td>
                             <td><?php echo currency_symbol_with_symbol($val->total, $symbol);?></td>
                             <td><?php echo currency_symbol_with_symbol($val->discount, $symbol);?></td>
@@ -45,5 +47,8 @@
 <?= $this->endSection() ?>
 <?= $this->section('java_script') ?>
 <script>
+    $("#tableData").DataTable({
+        order: [[0, 'desc']]
+    })
 </script>
 <?= $this->endSection() ?>

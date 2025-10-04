@@ -5,7 +5,7 @@
             <span class="order-1 order-md-2">My Account</span>
         </div>
         <div class="elementToToggle d-none d-md-block">
-            <div class="d-flex flex-column flex-md-row gap-2">
+            <div class="d-flex flex-column flex-md-row gap-2 cusmenu">
                 <a href="<?php echo base_url('dashboard'); ?>" class="btn btn-default border rounded-0 <?php echo ($menu_active == 'dashboard') ? 'text-black bg-custom-color' : ''; ?>">Dashboard</a>
                 <a href="<?php echo base_url('profile'); ?>" class="btn btn-default border rounded-0 <?php echo ($menu_active == 'profile') ? 'text-black bg-custom-color' : ''; ?>">Profile</a>
                 <a href="<?php echo base_url('my-order'); ?>" class="btn btn-default border rounded-0 <?php echo ($menu_active == 'order') ? 'text-black bg-custom-color' : ''; ?>">My
