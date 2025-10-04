@@ -60,5 +60,8 @@
 <?= $this->endSection() ?>
 <?= $this->section('java_script') ?>
 <script>
+    $("#tableReload").DataTable({
+        // order: [[0, 'desc']]
+    })
 </script>
 <?= $this->endSection() ?>

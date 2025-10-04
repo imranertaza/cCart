@@ -8,10 +8,9 @@
         </div>
         <div class="cart">
             <div class="table-responsive">
-                <table class="cart-table w-100 text-center" id="tabledata">
+                <table class="cart-table w-100 text-center" id="tableDataTab">
                 <thead>
                         <tr>
-                            <th>Sl</th>
                             <th>Particulars</th>
                             <th>Trangaction Type</th>
                             <th>Date</th>
@@ -26,7 +25,6 @@
 
             foreach ($ledger as $val) { ?>
                             <tr>
-                                <td width="40"><?php echo $i++; ?></td>
                                 <td><?php echo $val->particulars; ?></td>
                                 <td><?php echo ($val->trangaction_type == 'Cr.') ? 'Deposit' : 'Purchase'; ?></td>
                                 <td><?php echo saleDate($val->createdDtm); ?></td>
@@ -45,5 +43,6 @@
 <?= $this->endSection() ?>
 <?= $this->section('java_script') ?>
 <script>
+    $("#tableDataTab").DataTable({ })
 </script>
 <?= $this->endSection() ?>

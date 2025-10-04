@@ -46,7 +46,7 @@
                                     <div class="input-group-prepend">
                                         <button class="btn btn-dark btn-sm" onclick="minusItem('<?php echo $val['rowid'];?>')" id="minus-btn"><i class="fa fa-minus"></i></button>
                                     </div>
-                                    <input type="text" id="qty_input" name="qty" class="form-control form-control-sm item_<?php echo $val['rowid'];?>" value="<?php echo $val['qty'];?>" min="1">
+                                    <input type="text" id="item_<?php echo $val['rowid'];?>" name="qty" class="form-control form-control-sm item_<?php echo $val['rowid'];?>" value="<?php echo $val['qty'];?>" min="1">
 <!--                                    <input type="hidden"  name="rowid[]"  value="--><?php //echo $val['rowid'];?><!--" >-->
                                     <div class="input-group-prepend">
                                         <button class="btn btn-dark btn-sm" onclick="plusItem('<?php echo $val['rowid'];?>')" id="plus-btn"><i class="fa fa-plus"></i></button>

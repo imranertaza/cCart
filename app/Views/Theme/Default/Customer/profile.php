@@ -116,5 +116,15 @@
 <?= $this->endSection() ?>
 <?= $this->section('java_script') ?>
 <script>
+    function selectState(country_id,id){
+        $.ajax({
+            method: "POST",
+            url: "<?php echo base_url('checkout_country_zoon')?>",
+            data: {country_id:country_id},
+            success: function(data){
+                $('#'+id).html(data);
+            }
+        });
+    }
 </script>
 <?= $this->endSection() ?>

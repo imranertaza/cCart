@@ -36,6 +36,7 @@
     <script src="<?php echo base_url() ?>/assets/theme_2/jquery-ui.min.js"></script>
     <script src="<?php echo base_url() ?>/assets/theme_2/jquery.star-rating.min.js"></script>
 
+    <?= $this->renderSection('php-code') ?>
 </head>
 
 <body>
@@ -627,10 +628,10 @@
                 <span class="copyright">Copyright© <?php echo get_lebel_by_value_in_settings('store_name');?> <?php echo date('Y');?> </span>
             </div>
             <div class="col-sm-5 col-12 ft-link">
-                <a target="_blank" href="<?php echo get_lebel_by_value_in_settings('fb_url'); ?>"><i class="fa-brands fa-facebook-f"></i></a>
-                <a class="ms-4" target="_blank" href="<?php echo get_lebel_by_value_in_settings('twitter_url'); ?>"><i class="fa-brands fa-twitter"></i></a>
-                <a class="ms-4" target="_blank" href="<?php echo get_lebel_by_value_in_settings('tiktok_url'); ?>"><i class="fa-brands fa-tiktok"></i></a>
-                <a class="ms-4" target="_blank" href="<?php echo get_lebel_by_value_in_settings('instagram_url'); ?>"><i class="fa-brands fa-instagram"></i></a>
+                <a target="_blank" href="<?php echo get_lebel_by_value_in_settings('fb_url'); ?>" rel="noopener noreferrer" aria-label="Visit our Facebook page"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a>
+                <a class="ms-4" target="_blank" href="<?php echo get_lebel_by_value_in_settings('twitter_url'); ?>" rel="noopener noreferrer" aria-label="Visit our Twitter page"><i class="fa-brands fa-twitter" aria-hidden="true"></i></a>
+                <a class="ms-4" target="_blank" href="<?php echo get_lebel_by_value_in_settings('tiktok_url'); ?>" rel="noopener noreferrer" aria-label="Visit our Tiktok page"><i class="fa-brands fa-tiktok" aria-hidden="true"></i></a>
+                <a class="ms-4" target="_blank" href="<?php echo get_lebel_by_value_in_settings('instagram_url'); ?>" rel="noopener noreferrer" aria-label="Visit our Instagram page"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
             </div>
             <div class="col-sm-4 col-12 text-right">
                 <svg xmlns="http://www.w3.org/2000/svg" width="333" height="35" viewBox="0 0 333 35" fill="none">
@@ -782,10 +783,6 @@
 <script src="<?php echo base_url() ?>/assets/theme_3/validation.js" ></script>
 
 <script>
-
-    $("#tabledata").DataTable({
-        order: [[0, 'desc']]
-    })
     function myFunction() {
         var dots = document.getElementById("dots");
         var moreText = document.getElementById("more");

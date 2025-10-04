@@ -1,41 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title><?php echo $title;?></title>
-    <meta name="description" content="<?php echo $description;?>">
-    <meta name="keywords" content="<?php echo $keywords;?>">
-
-
-    <link rel="shortcut icon" href="<?php echo base_url() ?>/uploads/logo/<?php echo get_lebel_by_value_in_theme_settings('favicon');?>">
-
-    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/theme_3/bootstrap.min.css">
-    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/theme_3/swiper-bundle.min.css">
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>/assets/theme_3/slick/slick.min.css">
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>/assets/theme_3/slick/slick-theme.min.css">
-    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/theme_3/lightbox.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;700&display=swap" rel="stylesheet">
-
-    <link href="<?php echo base_url() ?>/assets/datatable/datatables.min.css" rel="stylesheet"  >
-    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/theme_3/style.min.css">
-    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/theme_3/details.min.css">
-
-    <script src="<?php echo base_url() ?>/assets/theme_3/jquery.min.js"></script>
-    <script src="<?php echo base_url() ?>/assets/theme_3/bootstrap.bundle.min.js"></script>
-    <script src="<?php echo base_url() ?>/assets/theme_3/swiper-bundle.min.js"></script>
-    <script src="<?php echo base_url() ?>/assets/theme_3/jquery.star-rating.min.js"></script>
-    <script src="<?php echo base_url() ?>/assets/theme_3/jquery-ui.min.js"></script>
-
-
-</head>
-<body>
+<?= $this->extend('Theme/Theme_3/app') ?>
+<?= $this->section('master-layout') ?>
 <div class="message_alert <?php echo (session()->getFlashdata('message') !== null) ? "display_block" : ''; ?>"  id="messAlt">
     <div class="alert-success_web py-2 px-3 border-0 text-white fs-5 text-capitalize" id="mesVal">
         <?php echo (session()->getFlashdata('message') !== null) ? session()->getFlashdata('message') : 'Successfully update to cart';  ?>
@@ -115,7 +80,9 @@
                             <?php $logoImg = get_lebel_by_value_in_theme_settings('side_logo');
                             $alt_name      = getLebelByAltNameInThemeSettings('side_logo');
                             echo image_view('uploads/logo', '', $logoImg, 'noimage.png', 'img-fluid side_logo', $alt_name, 'logo'); ?>
-
+                            <?= $this->section('php-code') ?>
+                            <link rel="preload" href="<?= base_url('uploads/logo/'.$logoImg);?>" as="image">
+                            <?= $this->endSection() ?>
                         </a>
                     </div>
                 </div>
@@ -452,14 +419,14 @@
     </div>
     <div class="footer-social">
         <div class="container text-center">
-            <a class="facebook" target="_blank" href="<?php echo $settings['fb_url']; ?>"><i
-                    class="fa-brands fa-facebook-f"></i></a>
-            <a class="ms-4 twitter" target="_blank" href="<?php echo $settings['twitter_url']; ?>"><i
-                    class="fa-brands fa-twitter"></i></a>
-            <a class="ms-4 tiktok" target="_blank" href="<?php echo $settings['tiktok_url']; ?>"><i
-                    class="fa-brands fa-tiktok"></i></a>
-            <a class="ms-4 instagram" target="_blank" href="<?php echo $settings['instagram_url']; ?>"><i
-                    class="fa-brands fa-instagram"></i></a>
+            <a class="facebook" target="_blank" href="<?php echo $settings['fb_url']; ?>" rel="noopener noreferrer" aria-label="Visit our Facebook page"><i
+                    class="fa-brands fa-facebook-f" aria-hidden="true"></i></a>
+            <a class="ms-4 twitter" target="_blank" href="<?php echo $settings['twitter_url']; ?>" rel="noopener noreferrer" aria-label="Visit our Twitter page"><i
+                    class="fa-brands fa-twitter" aria-hidden="true"></i></a>
+            <a class="ms-4 tiktok" target="_blank" href="<?php echo $settings['tiktok_url']; ?>" rel="noopener noreferrer" aria-label="Visit our Tiktok page"><i
+                    class="fa-brands fa-tiktok" aria-hidden="true"></i></a>
+            <a class="ms-4 instagram" target="_blank" href="<?php echo $settings['instagram_url']; ?>" rel="noopener noreferrer" aria-label="Visit our Instagram page"><i
+                    class="fa-brands fa-instagram" aria-hidden="true"></i></a>
         </div>
     </div>
     <div class="copyright">
@@ -478,11 +445,6 @@
 
 
 <script>
-
-
-    $("#tableReload").DataTable({
-        order: [[0, 'desc']]
-    })
 
     function myFunction() {
         var dots = document.getElementById("dots");
@@ -1030,7 +992,5 @@
     });
 
 </script>
-<?= $this->renderSection('java_script') ?>
+<?= $this->endSection() ?>
 
-</body>
-</html>
