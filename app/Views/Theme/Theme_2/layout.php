@@ -36,6 +36,7 @@
     <script src="<?php echo base_url() ?>/assets/theme_2/jquery-ui.min.js"></script>
     <script src="<?php echo base_url() ?>/assets/theme_2/jquery.star-rating.min.js"></script>
 
+    <?= $this->renderSection('php-code') ?>
 </head>
 
 <body>
