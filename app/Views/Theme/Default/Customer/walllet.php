@@ -25,7 +25,7 @@
 
                         <div class="col-md-12 px-5 mt-5">
 
-                            <table class="cart-table w-100 text-center" id="tabledata">
+                            <table class="cart-table w-100 text-center" id="tableDataTab">
                                 <thead>
                                     <tr>
                                         <th>Sl</th>
@@ -63,5 +63,8 @@
 <?= $this->endSection() ?>
 <?= $this->section('java_script') ?>
 <script>
+    $("#tableDataTab").DataTable({
+        order: [[0, 'desc']]
+    })
 </script>
 <?= $this->endSection() ?>

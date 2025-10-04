@@ -125,7 +125,7 @@
                                     <div class="col-md-8  ">
                                         <div class="form-group " style="float: right;">
                                             <label>Sort By</label>
-                                            <select name="shortBy" form="searchForm" onclick="formSubmit()" class="shortBy border">
+                                            <select name="shortBy" form="searchForm" onchange="formSubmit()" class="shortBy border">
                                                 <option value="" <?php echo ((isset($_GET['shortBy'])) && ($_GET['shortBy'] == '')) ? 'selected' : ''; ?>>Position</option>
                                                 <option value="name" <?php echo ((isset($_GET['shortBy'])) && ($_GET['shortBy'] == 'name')) ? 'selected' : ''; ?> >Product Name</option>
                                                 <option value="price" <?php echo ((isset($_GET['shortBy'])) && ($_GET['shortBy'] == 'price')) ? 'selected' : ''; ?>>Price</option>
@@ -134,7 +134,7 @@
                                         </div>
                                         <div class="form-group float-end me-2">
                                             <label class="d-none d-sm-inline">Show</label>
-                                            <select name="show" form="searchForm" onclick="formSubmit()" class="shortBy border">
+                                            <select name="show" form="searchForm" onchange="formSubmit()" class="shortBy border">
                                                 <option value="<?php echo get_lebel_by_value_in_settings('category_product_limit');?>" <?php echo ((isset($_GET['show'])) && ($_GET['show'] == get_lebel_by_value_in_settings('category_product_limit'))) ? 'selected' : ''; ?>><?php echo get_lebel_by_value_in_settings('category_product_limit');?></option>
                                                 <option value="10" <?php echo ((isset($_GET['show'])) && ($_GET['show'] == '10')) ? 'selected' : ''; ?>>10</option>
                                                 <option value="20" <?php echo ((isset($_GET['show'])) && ($_GET['show'] == '20')) ? 'selected' : ''; ?>>20</option>

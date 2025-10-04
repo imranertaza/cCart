@@ -42,5 +42,8 @@
 <?= $this->endSection() ?>
 <?= $this->section('java_script') ?>
 <script>
+    $("#tabledata").DataTable({
+        order: [[0, 'desc']]
+    })
 </script>
 <?= $this->endSection() ?>

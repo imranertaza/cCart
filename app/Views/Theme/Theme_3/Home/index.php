@@ -21,6 +21,8 @@
                     </div>
                     <div class="swiper-pagination"></div>
                 </div>
+
+
                 <div class="side-banner d-flex flex-column flex-sm-row flex-lg-column gap-1">
                     <div class="side-banner-box position-relative custom-d-50 w-100">
                         <?php
@@ -49,10 +51,20 @@
                         </div>
                     </div>
                 </div>
+
+
             </div>
         </div>
     </div>
 </div>
+<?= $this->section('php-code') ?>
+<link rel="preload" href="<?= commonImageViewUrl('uploads/slider', '', $sli_1, 'noimage.png', '605', '401');?>" as="image">
+<link rel="preload" href="<?= commonImageViewUrl('uploads/slider', '', $sli_2, 'noimage.png', '605', '401');?>" as="image">
+<link rel="preload" href="<?= commonImageViewUrl('uploads/slider', '', $sli_3, 'noimage.png', '605', '401');?>" as="image">
+
+<link rel="preload" href="<?= commonImageViewUrl('uploads/top_side_baner', '', $theme_settings['head_side_baner_1'], 'noimage.png', '226', '199');?>" as="image">
+<link rel="preload" href="<?= commonImageViewUrl('uploads/top_side_baner', '', $theme_settings['head_side_baner_2'], 'noimage.png', '226', '199');?>" as="image">
+<?= $this->endSection() ?>
 <div class="main-container">
     <div class="container">
         <div class="featured-category mb-5">
@@ -64,6 +76,7 @@
                 </div>
             </div>
             <div class="row row-cols-lg-6 row-cols-md-3 row-cols-sm-3 row-cols-2 row-cols-1">
+
             <?php  foreach ($populerCat as $key => $catPop) {  ?>
                 <div class="col">
                     <a href="<?php echo base_url('category/' . $catPop->prod_cat_id) ?>">
@@ -71,7 +84,11 @@
                     <div class="category-title"><?php echo $catPop->category_name;?></div>
                     </a>
                 </div>
+                <?= $this->section('php-code') ?>
+                <link rel="preload" href="<?= commonImageViewUrl('uploads/category', '', $catPop->image, 'noimage.png', '166', '208');?>" as="image">
+                <?= $this->endSection() ?>
             <?php } ?>
+
             </div>
         </div>
         <div class="product-category mb-5">
@@ -291,6 +308,9 @@
         </div>
     </div>
 </div>
+
+
+
 <?= $this->endSection() ?>
 <?= $this->section('java_script') ?>
 <script>

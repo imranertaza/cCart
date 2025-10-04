@@ -23,6 +23,11 @@
                     <div class="swiper-pagination"></div>
                 </div>
             </div>
+            <?= $this->section('php-code') ?>
+            <link rel="preload" href="<?= commonImageViewUrl('uploads/slider', '', $sli_1, 'noimage.png', '837', '394');?>" as="image">
+            <link rel="preload" href="<?= commonImageViewUrl('uploads/slider', '', $sli_2, 'noimage.png', '837', '394');?>" as="image">
+            <link rel="preload" href="<?= commonImageViewUrl('uploads/slider', '', $sli_3, 'noimage.png', '837', '394');?>" as="image">
+            <?= $this->endSection() ?>
         </div>
     </div>
 </div>

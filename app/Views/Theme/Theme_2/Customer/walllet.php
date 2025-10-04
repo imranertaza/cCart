@@ -20,19 +20,12 @@
                                     <p><?php echo currency_symbol($cust->balance);?></p>
                                 </div>
                             </div>
-                            <!-- <div class="card " style="width: 18rem; float:left;margin-left: 15px;">
-                                <div class="card-body text-center">
-                                    <h5 class="card-title">Pending request</h5>
-                                    <p>100</p>
-                                </div>
-                            </div> -->
-
 
                         </div>
 
                         <div class="col-md-12 px-5 mt-5">
 
-                            <table class="cart-table w-100 text-center" id="tabledata">
+                            <table class="cart-table w-100 text-center" id="tableDataTab">
                                 <thead>
                                     <tr>
                                         <th>Sl</th>
@@ -69,5 +62,8 @@
 <?= $this->endSection() ?>
 <?= $this->section('java_script') ?>
 <script>
+    $("#tableDataTab").DataTable({
+        order: [[0, 'desc']]
+    })
 </script>
 <?= $this->endSection() ?>
