@@ -444,12 +444,6 @@
             val = 'checked';
         }
 
-        var val = 'unchecked';
-        var checkBox = document.getElementById("flexCheckDefault");
-
-        if (checkBox.checked) {
-            val = 'checked';
-        }
         $.ajax({
             method: "POST",
             url: "<?php echo base_url('newsletter_action'); ?>",
