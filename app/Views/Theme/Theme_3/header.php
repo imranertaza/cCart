@@ -63,7 +63,7 @@
                             <a href="tel:<?php echo $settings['phone']; ?>">
                                 <img src="<?php echo base_url('svg/phoneHeaderIcon.svg')?>" alt="date">
                             </a>
-                            <a class="d-none d-md-block" target="_blank" href="https://wa.me/<?php echo $settings['phone']; ?>"> +88<?php echo $settings['phone']; ?></a>
+                            <a class="d-none d-md-block" href="tel:<?php echo $settings['phone']; ?>"> +88<?php echo $settings['phone']; ?></a>
                         </div>
                         <div class="vr"></div>
                         <div class="top-email d-flex flex-sm-column flex-md-row gap-2">
