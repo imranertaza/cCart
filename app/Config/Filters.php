@@ -24,7 +24,7 @@ class Filters extends BaseConfig
         'honeypot'      => Honeypot::class,
         'invalidchars'  => InvalidChars::class,
         'secureheaders' => SecureHeaders::class,
-        'minify'        => MinifyHtml::class,
+//        'minify'        => MinifyHtml::class,
     ];
 
     /**
@@ -41,7 +41,7 @@ class Filters extends BaseConfig
         ],
         'after' => [
             'toolbar',
-            'minify' => ['except' => ['api/*']],
+//            'minify' => ['except' => ['api/*']],
             // 'honeypot',
             // 'secureheaders',
         ],
