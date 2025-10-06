@@ -10,6 +10,7 @@ class MinifyHtml implements FilterInterface
 {
     public function before(RequestInterface $request, $arguments = null)
     {
+        // nothing before
     }
 
     public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
@@ -22,10 +23,10 @@ class MinifyHtml implements FilterInterface
 
         $output = $response->getBody();
 
-        // Remove HTML comments (except IE conditionals)
+        // Remove HTML comments (except IE)
         $output = preg_replace('/<!--(?!\[if).*?-->/', '', $output);
 
-        // Minify inline CSS
+        // Minify inline CSS safely
         $output = preg_replace_callback('/<style\b[^>]*>(.*?)<\/style>/is', function ($matches) {
             $css = $matches[1];
             $css = preg_replace('!/\*.*?\*/!s', '', $css);
@@ -35,17 +36,15 @@ class MinifyHtml implements FilterInterface
             return '<style>' . trim($css) . '</style>';
         }, $output);
 
-        // Minify inline JavaScript safely
-        $output = preg_replace_callback('/<script\b[^>]*>(.*?)<\/script>/is', function ($matches) {
-            $js = $matches[1];
-            $js = preg_replace('/\s+/', ' ', $js);
-            return '<script>' . trim($js) . '</script>';
-        }, $output);
+        // ❌ Skip JS minify — too risky for inline scripts
 
-        // Minify HTML structure
-        $output = preg_replace('/>\s+</', '><', $output);
-        $output = preg_replace('/\s{2,}/', ' ', $output);
-        $output = preg_replace('/\n|\r/', '', $output);
+
+        // Minify HTML structure only
+        $output = preg_replace('/>\s+</', '><', $output); // remove spaces between tags
+
+        // Remove spaces before/after tags
+        $output = preg_replace(['/\>[^\S ]+/s', '/[^\S ]+\</s'], ['>', '<'], $output);
+
 
         $response->setBody($output);
         return $response;
