@@ -38,10 +38,13 @@ class MinifyHtml implements FilterInterface
 
         // ❌ Skip JS minify — too risky for inline scripts
 
+
         // Minify HTML structure only
         $output = preg_replace('/>\s+</', '><', $output); // remove spaces between tags
-        $output = preg_replace('/\n|\r|\t/', '', $output); // remove newlines
-        $output = preg_replace('/\s{2,}/', ' ', $output);  // collapse multiple spaces
+
+        // Remove spaces before/after tags
+        $output = preg_replace(['/\>[^\S ]+/s', '/[^\S ]+\</s'], ['>', '<'], $output);
+
 
         $response->setBody($output);
         return $response;
