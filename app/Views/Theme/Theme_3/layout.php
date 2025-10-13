@@ -81,7 +81,7 @@
                             $alt_name      = getLebelByAltNameInThemeSettings('side_logo');
                             echo image_view('uploads/logo', '', $logoImg, 'noimage.png', 'img-fluid side_logo', $alt_name, 'logo'); ?>
                             <?= $this->section('php-code') ?>
-                            <link rel="preload" href="<?= base_url('uploads/logo/'.$logoImg);?>" as="image">
+                            <link rel="preload" href="<?= base_url('uploads/logo/' . $logoImg);?>" as="image">
                             <?= $this->endSection() ?>
                         </a>
                     </div>
