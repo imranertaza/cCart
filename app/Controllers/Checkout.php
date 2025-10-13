@@ -304,13 +304,13 @@ class Checkout extends BaseController
             ]);
 
             if ($shipping_else == 'on') {
-                $data['shipping_firstname']  = $this->request->getPost('shipping_firstname');
-                $data['shipping_lastname']  = $this->request->getPost('shipping_lastname');
-                $data['shipping_phone']  = $this->request->getPost('shipping_phone');
+                $data['shipping_firstname']   = $this->request->getPost('shipping_firstname');
+                $data['shipping_lastname']    = $this->request->getPost('shipping_lastname');
+                $data['shipping_phone']       = $this->request->getPost('shipping_phone');
                 $data['shipping_country_id']  = $this->request->getPost('shipping_country_id');
-                $data['shipping_city']  = $this->request->getPost('shipping_city');
-                $data['shipping_postcode']  = $this->request->getPost('shipping_postcode');
-                $data['shipping_address_1']  = $this->request->getPost('shipping_address_1');
+                $data['shipping_city']        = $this->request->getPost('shipping_city');
+                $data['shipping_postcode']    = $this->request->getPost('shipping_postcode');
+                $data['shipping_address_1']   = $this->request->getPost('shipping_address_1');
                 $this->validation->setRules([
                     'shipping_firstname'  => ['label' => 'Shipping First name', 'rules' => 'required'],
                     'shipping_lastname'   => ['label' => 'Shipping Last name', 'rules' => 'required'],
