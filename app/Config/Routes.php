@@ -42,7 +42,6 @@ $routes->get('/user_subscribe_verify', 'Home::verify');
 
 
 $routes->group('admin', static function ($routes) {
-
     $routes->get('/', 'Admin\Login::index');
     $routes->post('login_action', 'Admin\Login::login_action');
     $routes->get('logout', 'Admin\Login::logout');
@@ -330,7 +329,6 @@ $routes->group('admin', static function ($routes) {
     $routes->post('zone_based_offer_update_action', 'Admin\Zone_based_offer::update_action');
     $routes->get('zone_based_offer_update/(:num)', 'Admin\Zone_based_offer::update/$1');
     $routes->get('zone_based_offer_delete/(:num)', 'Admin\Zone_based_offer::delete/$1');
-
 });
 
 

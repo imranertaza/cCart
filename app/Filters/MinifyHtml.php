@@ -33,6 +33,7 @@ class MinifyHtml implements FilterInterface
             $css = preg_replace('/\s+/', ' ', $css);
             $css = preg_replace('/\s*([:;{},])\s*/', '$1', $css);
             $css = str_replace(';}', '}', $css);
+
             return '<style>' . trim($css) . '</style>';
         }, $output);
 
@@ -47,6 +48,7 @@ class MinifyHtml implements FilterInterface
 
 
         $response->setBody($output);
+
         return $response;
     }
 }

@@ -83,6 +83,10 @@
             "php-cs-fixer fix --ansi --verbose --diff --config=.php-cs-fixer.user-guide.php",
             "php-cs-fixer fix --ansi --verbose --diff --config=.php-cs-fixer.no-header.php",
             "php-cs-fixer fix --ansi --verbose --diff"
+        ],
+        "pre-push": [
+            "php-cs-fixer fix app/ --dry-run",
+            "phpunit"
         ]
     },
     "support": {
