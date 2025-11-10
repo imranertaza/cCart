@@ -152,7 +152,7 @@ class Profile extends BaseController
 
 
 
-            $this->session->setFlashdata('message', '<div class="alert-success-m alert-success alert-dismissible" role="alert">Profile Update successfully </div>');
+            $this->session->setFlashdata('message', '<div class="alert-success-m alert alert-success alert-dismissible" role="alert">Profile Update successfully </div>');
 
             return redirect()->to('profile');
         }

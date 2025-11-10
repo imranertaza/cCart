@@ -123,6 +123,17 @@ class Home extends BaseController
 
         return $data;
     }
+    private function Theme_4()
+    {
+        $data['blogs'] = DB()->table('cc_blog')
+            ->where('status', '1')
+            ->orderBy('blog_id', 'ASC')
+            ->limit(4)
+            ->get()->getResult();
+
+        $data['all'] = '';
+        return $data;
+    }
 
     /**
      * @description This method provides user subscription store

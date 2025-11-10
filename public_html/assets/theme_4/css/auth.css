@@ -1,0 +1,187 @@
+.details-navbar {
+    margin-bottom: 68px;
+}
+
+.signup-section {
+    /* min-height: 100vh; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* .signup-card {
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      border-radius: 12px;
+      overflow: hidden;
+    } */
+
+.signup-image img {
+    /* background-size: contain; */
+    height: 100%;
+transition: transform 0.3s ease;
+z-index: 1;
+
+}
+.signup-image img:hover {
+    transform: scale(1.002);
+  }
+.auth-title {
+    color: #2B2B2B;
+
+    font-family: 'Poppins', sans-serif;
+    font-size: 26px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 160%;
+    /* 41.6px */
+    text-align: center;
+    margin-bottom: 40px !important;
+}
+
+.form-control::placeholder {
+    color: #aaa;
+}
+
+.form-control {
+    padding: 10px 22px;
+    margin-bottom: 20px;
+
+}
+
+.google-btn {
+    font-family: 'Poppins', sans-serif;
+    color: #353535;
+
+    text-align: center;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 120%;
+    display: flex;
+    height: 58px;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    align-self: stretch;
+    border-radius: 10px;
+    border: 1px solid #000;
+    background-color: #fff;
+    transition: all 0.3s ease;
+}
+
+.google-btn:hover {
+    background-color: #000;
+    /* Background changes to black */
+    color: #fff;
+    /* Text color changes to white for contrast */
+    border-color: #fff;
+    /* Border color changes to white */
+    transform: translateY(-1px);
+    /* Slight lift effect */
+}
+
+.google-btn:hover svg {
+    filter: invert(1);
+    /* Invert SVG colors to white */
+}
+
+.separator {
+    text-align: center;
+    margin: 40px 0;
+    position: relative;
+}
+
+.separator span {
+    color: #555;
+}
+
+.separator::before,
+.separator::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 40%;
+    height: 1px;
+    background: #C2C2C2;
+}
+
+.separator::before {
+    left: 0;
+}
+
+.auth-action-btn {
+    background-color: #081A70;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 17px 0;
+    color: #FFF;
+
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 120%;
+}
+
+.auth-action-btn:hover {
+    color: #FFF;
+    transform: translateY(-1px);
+    transition: all 0.3s ease;
+}
+
+.separator::after {
+    right: 0;
+}
+
+.separator span {
+    background: #fff;
+    padding: 0 10px;
+    color: #666;
+}
+
+.back-link {
+    position: absolute;
+    top: 20px;
+    left: 14px;
+    z-index: 999;
+}
+
+.back-link:hover {
+    transform: translateY(-2px); 
+    color: #007bff;
+    transition: all 0.3s ease;
+  }
+
+header .brand-content h4 {
+    color: #081A70;
+}
+
+footer .brand-content h4 {
+    color: #fff;
+}
+
+.auth-link {
+    color: #081A70;
+}
+
+.remember {
+    color: #565656;
+}
+
+.auth-other {
+    margin-top: 37px !important;
+    margin-bottom: 0px;
+}
+
+.form-check {
+    margin-bottom: 45px;
+}
+
+@media (max-width: 1200px) {
+    .signup-image {
+        display: none;
+    }
+}

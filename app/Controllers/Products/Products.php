@@ -3,6 +3,7 @@
 namespace App\Controllers\Products;
 
 use App\Controllers\BaseController;
+use App\Models\ReviewModel;
 use CodeIgniter\HTTP\RedirectResponse;
 
 class Products extends BaseController
@@ -10,12 +11,14 @@ class Products extends BaseController
     protected $validation;
     protected $session;
     protected $cart;
+    protected $reviewModel;
 
     public function __construct()
     {
         $this->validation = \Config\Services::validation();
         $this->session    = \Config\Services::session();
         $this->cart       = \Config\Services::cart();
+        $this->reviewModel = new ReviewModel();
     }
 
     /**
@@ -127,7 +130,7 @@ class Products extends BaseController
 
         $data['page_title'] = 'Product Not Found';
 //        echo view('Theme/' . $settings['Theme'] . '/header', $data);
-        echo view('Theme/' . $settings['Theme'] . '/Product/not_found');
+        echo view('Theme/' . $settings['Theme'] . '/Product/not_found', $data);
 //        echo view('Theme/' . $settings['Theme'] . '/footer');
     }
 
@@ -319,4 +322,97 @@ class Products extends BaseController
 
         return $view;
     }
+
+    public function reviewData($product_id){
+
+        $page = $this->request->getGet('pageNumber') ?? 1;
+        $pageSize = $this->request->getGet('pageSize') ?? 3;
+
+        $offset = ($page - 1) * $pageSize;
+
+        $total = $this->reviewModel->where('product_id', $product_id)->countAllResults(false);
+        $items = $this->reviewModel->where('product_id', $product_id)
+            ->orderBy('product_feedback_id', 'DESC')
+            ->findAll($pageSize, $offset);
+
+
+        $data = array();
+        foreach ($items as $key => $comments) {
+            $customer = get_all_row_data_by_id('cc_customer','customer_id',$comments->customer_id);
+            $data[] ='<div class="review-content">
+                <p>
+                    '. ratingViewByFeedbackStar($comments->feedback_star).'
+                </p>
+                <h6 class="review-text">'. $comments->feedback_text .'</h6>
+                <p class=" subtitle my-0">'. invoiceDateFormat($comments->createdDtm).'</p>
+                <div class="profile-container mt-md-4 d-flex justify-content-between align-items-center">
+                    <div class="user-profile">
+                        <img class="img-fluid"
+                             src="'.base_url().'/assets/theme_4/images/peoduct-details/users/user-1.png"
+                             alt="Product Image"
+                             loading="lazy">
+                        <h6 class="py-0 my-0">'.$customer->firstname.' '.$customer->lastname.'</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="hr-container hr-review-filter">
+                <div class="hr"></div>
+            </div>';
+        }
+
+
+        return $this->response->setJSON([
+            'items' => $data,
+            'totalNumber' => $total
+        ]);
+
+    }
+    public function reviewCommentSearch()
+    {
+        $feedback_star = $this->request->getPost('feedback_star');
+        $product_id = $this->request->getPost('product_id');
+
+        $items = $this->reviewModel
+            ->where('product_id', $product_id)
+            ->where('feedback_star', $feedback_star)
+            ->orderBy('product_feedback_id', 'DESC')
+            ->findAll();
+
+        // If no reviews found, show message and exit early
+        if (empty($items)) {
+            echo '<div class="no-review text-center py-3">
+                <p>No reviews found for this rating.</p>
+              </div>';
+            return;
+        }
+
+        $html = '';
+
+        foreach ($items as $comments) {
+            $customer = get_all_row_data_by_id('cc_customer', 'customer_id', $comments->customer_id);
+
+            $html .= '
+        <div class="review-content">
+            <p>' . ratingViewByFeedbackStar($comments->feedback_star) . '</p>
+            <h6 class="review-text">' . esc($comments->feedback_text) . '</h6>
+            <p class="subtitle my-0">' . invoiceDateFormat($comments->createdDtm) . '</p>
+            <div class="profile-container mt-md-4 d-flex justify-content-between align-items-center">
+                <div class="user-profile">
+                    <img class="img-fluid"
+                         src="' . base_url('/assets/theme_4/images/peoduct-details/users/user-1.png') . '"
+                         alt="User Image"
+                         loading="lazy">
+                    <h6 class="py-0 my-0">' . esc($customer->firstname . ' ' . $customer->lastname) . '</h6>
+                </div>
+            </div>
+        </div>
+        <div class="hr-container hr-review-filter">
+            <div class="hr"></div>
+        </div>';
+        }
+
+        echo $html;
+    }
+
+
 }

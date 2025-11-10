@@ -75,7 +75,7 @@ a {
 }
 .navbar-primary .navbar-nav .nav-link {
     padding: 10px 15px;
-    color: #B9B9B9;
+    color: #606060;
     border-bottom: 2px  solid transparent;
 }
 .navbar-primary .navbar-nav .nav-link:hover,
@@ -270,7 +270,7 @@ a {
 
 .category-title {
     box-shadow: 0px 5px 11px 0px #8F8F8F1A;
-    color: #A1A1A1;
+    color: #5A5959;
     text-align: center;
     padding: 5px;
 }
@@ -375,7 +375,7 @@ a {
     line-height: 1.2;
 }
 .products .price {
-    color: #8C8C8C;
+    color: #716D6D;
     font-size: 18px;
 }
 .btn-wishlist {display: none; transition: all 1s;}
@@ -1264,7 +1264,7 @@ a {
     font-weight: 500;
     font-size: 18px;
     line-height: 21px;
-    color: #8C8C8C;
+    color: #716D6D;
 }
 .product-title-special{
     font-family: 'Roboto';

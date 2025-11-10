@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use App\Libraries\Permission;
 use App\Libraries\Theme_2;
 use App\Libraries\Theme_3;
+use App\Libraries\Theme_4;
 use App\Libraries\Theme_default;
 use CodeIgniter\HTTP\RedirectResponse;
 
@@ -17,6 +18,7 @@ class Theme_settings extends BaseController
     protected $permission;
     protected $theme_3;
     protected $theme_2;
+    protected $theme_4;
     protected $theme_default;
     private $module_name = 'Theme_settings';
 
@@ -28,6 +30,7 @@ class Theme_settings extends BaseController
         $this->permission    = new Permission();
         $this->theme_3       = new Theme_3();
         $this->theme_2       = new Theme_2();
+        $this->theme_4       = new Theme_4();
         $this->theme_default = new Theme_default();
     }
 
@@ -48,19 +51,29 @@ class Theme_settings extends BaseController
 
             $theme = get_lebel_by_value_in_settings('Theme');
 
+            if ($theme == 'Theme_4') {
+                $data['theme_libraries'] = $this->theme_4;
+                $data['theme_view']      = view('Admin/Theme_settings/theme_4', $data);
+                $data['themeSlider']      = view('Admin/Theme_settings/slider_4', $data);
+
+            }
+
             if ($theme == 'Theme_3') {
                 $data['theme_libraries'] = $this->theme_3;
                 $data['theme_view']      = view('Admin/Theme_settings/theme_3', $data);
+                $data['themeSlider']      = view('Admin/Theme_settings/slider_3', $data);
             }
 
             if ($theme == 'Default') {
                 $data['theme_libraries'] = $this->theme_default;
                 $data['theme_view']      = view('Admin/Theme_settings/default', $data);
+                $data['themeSlider']      = view('Admin/Theme_settings/default_slider', $data);
             }
 
             if ($theme == 'Theme_2') {
                 $data['theme_libraries'] = $this->theme_2;
                 $data['theme_view']      = view('Admin/Theme_settings/theme_2', $data);
+                $data['themeSlider']      = view('Admin/Theme_settings/slider_2', $data);
             }
 
 
@@ -89,6 +102,10 @@ class Theme_settings extends BaseController
         $data['alt_name'] = $this->request->getPost('alt_name');
 
         $theme = get_lebel_by_value_in_settings('Theme');
+
+        if ($theme == 'Theme_4') {
+            $theme_libraries = $this->theme_4;
+        }
 
         if ($theme == 'Theme_3') {
             $theme_libraries = $this->theme_3;
