@@ -99,8 +99,8 @@ class Album extends BaseController
         ]);
 
         if ($this->validation->run($data) == false) {
-            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+            $this->session->setFlashdata('success', false);
+            $this->session->setFlashdata('message', $this->validation->listErrors());
             return redirect()->to('admin/album_create');
         } else {
             $table = DB()->table('cc_album');
@@ -160,8 +160,8 @@ class Album extends BaseController
 
 
 
-            $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Album Create Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+            $this->session->setFlashdata('success', true);
+            $this->session->setFlashdata('message', 'Album Create Success!');
             return redirect()->to('admin/album_create');
         }
     }
@@ -217,8 +217,9 @@ class Album extends BaseController
         ]);
 
         if ($this->validation->run($data) == false) {
-            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 
+            $this->session->setFlashdata('success', false);
+            $this->session->setFlashdata('message', $this->validation->listErrors());
             return redirect()->to('admin/album_update/' . $album_id);
         } else {
             $table = DB()->table('cc_album');
@@ -271,7 +272,9 @@ class Album extends BaseController
             }
             //multi image upload(start)
 
-            $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Album Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
+            $this->session->setFlashdata('success', true);
+            $this->session->setFlashdata('message', 'Album Update Success!');
 
             return redirect()->to('admin/album_update/' . $album_id);
         }
@@ -310,10 +313,8 @@ class Album extends BaseController
 
         DB()->transComplete();
 
-
-        $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Album Delete Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
-        //        return redirect()->to('admin/album');
+        $this->session->setFlashdata('success', true);
+        $this->session->setFlashdata('message', 'Album Delete Success!');
         return redirect()->back();
     }
 

@@ -103,8 +103,9 @@ class Customers extends BaseController
         ]);
 
         if ($this->validation->run($data) == false) {
-            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 
+            $this->session->setFlashdata('success', false);
+            $this->session->setFlashdata('message', $this->validation->listErrors());
             return redirect()->to('admin/customers_create');
         } else {
             $check  = is_exists('cc_customer', 'phone', $data['phone']);
@@ -122,12 +123,12 @@ class Customers extends BaseController
                 $table = DB()->table('cc_customer');
                 $table->insert($data2);
 
-                $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Customers Create Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+                $this->session->setFlashdata('success', true);
+                $this->session->setFlashdata('message', 'Customers Create Success!');
                 return redirect()->to('admin/customers_create');
             } else {
-                $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Email Or Phone already exists <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+                $this->session->setFlashdata('success', false);
+                $this->session->setFlashdata('message', 'Email Or Phone already exists!');
                 return redirect()->to('admin/customers_create');
             }
         }
@@ -181,8 +182,9 @@ class Customers extends BaseController
             $data['password'] = SHA1($this->request->getPost('password'));
 
             if ($this->request->getPost('password') != $this->request->getPost('con_password')) {
-                $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Password and Confirm Password do not match <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 
+                $this->session->setFlashdata('success', false);
+                $this->session->setFlashdata('message', 'Password and Confirm Password do not match!');
                 return redirect()->to('admin/customers_update/' . $customer_id);
             }
         }
@@ -196,7 +198,8 @@ class Customers extends BaseController
         ]);
 
         if ($this->validation->run($data) == false) {
-            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            $this->session->setFlashdata('success', false);
+            $this->session->setFlashdata('message', $this->validation->listErrors());
 
             return redirect()->to('admin/customers_update/' . $customer_id);
         } else {
@@ -207,12 +210,12 @@ class Customers extends BaseController
                 $table = DB()->table('cc_customer');
                 $table->where('customer_id', $customer_id)->update($data);
 
-                $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Customers Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+                $this->session->setFlashdata('success', true);
+                $this->session->setFlashdata('message', 'Customers Update Success!');
                 return redirect()->to('admin/customers_update/' . $customer_id);
             } else {
-                $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Email Or Phone already exists <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+                $this->session->setFlashdata('success', false);
+                $this->session->setFlashdata('message', 'Email Or Phone already exists!');
                 return redirect()->to('admin/customers_update/' . $customer_id);
             }
         }
@@ -237,15 +240,15 @@ class Customers extends BaseController
         ]);
 
         if ($this->validation->run($data) == false) {
-            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+            $this->session->setFlashdata('success', false);
+            $this->session->setFlashdata('message', $this->validation->listErrors());
             return redirect()->to('admin/customers_update/' . $customer_id);
         } else {
             $table = DB()->table('cc_customer');
             $table->where('customer_id', $customer_id)->update($data);
 
-            $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Customers General Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+            $this->session->setFlashdata('success', true);
+            $this->session->setFlashdata('message', 'Customers General Update Success!');
             return redirect()->to('admin/customers_update/' . $customer_id);
         }
     }
@@ -288,12 +291,12 @@ class Customers extends BaseController
             $table = DB()->table('cc_customer');
             $table->where('customer_id', $customer_id)->update($data);
 
-            $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Customers Image Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+            $this->session->setFlashdata('success', true);
+            $this->session->setFlashdata('message', 'Customers Image Update Success!');
             return redirect()->to('admin/customers_update/' . $customer_id);
         } else {
-            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">No image selected!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+            $this->session->setFlashdata('success', false);
+            $this->session->setFlashdata('message', 'No image selected!');
             return redirect()->to('admin/customers_update/' . $customer_id);
         }
     }
@@ -308,8 +311,8 @@ class Customers extends BaseController
         $table = DB()->table('cc_customer');
         $table->where('customer_id', $customer_id)->delete();
 
-        $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Customers Delete Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+        $this->session->setFlashdata('success', true);
+        $this->session->setFlashdata('message', 'Customers Delete Success!');
         return redirect()->to('admin/customers');
     }
 

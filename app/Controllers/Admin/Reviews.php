@@ -78,8 +78,8 @@ class Reviews extends BaseController
         $table = DB()->table('cc_product_feedback');
         $table->where('product_feedback_id', $feedback_id)->delete();
 
-        $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert"> Reviews Delete Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+        $this->session->setFlashdata('success', true);
+        $this->session->setFlashdata('message', 'Reviews Delete Record Success!');
         return redirect()->to('admin/reviews');
     }
 }

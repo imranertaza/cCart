@@ -103,8 +103,8 @@ class User extends BaseController
         ]);
 
         if ($this->validation->run($data) == false) {
-            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+            $this->session->setFlashdata('success', false);
+            $this->session->setFlashdata('message', $this->validation->listErrors());
             return redirect()->to('admin/user_create');
         } else {
             $check = is_exists('cc_users', 'email', $data['email']);
@@ -121,12 +121,12 @@ class User extends BaseController
                 $table = DB()->table('cc_users');
                 $table->insert($data2);
 
-                $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">User Create Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+                $this->session->setFlashdata('success', true);
+                $this->session->setFlashdata('message', 'User Create Success!');
                 return redirect()->to('admin/user_create');
             } else {
-                $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Email already exists <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+                $this->session->setFlashdata('success', false);
+                $this->session->setFlashdata('message', 'Email already exists!');
                 return redirect()->to('admin/user_create');
             }
         }
@@ -190,8 +190,8 @@ class User extends BaseController
         ]);
 
         if ($this->validation->run($data) == false) {
-            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+            $this->session->setFlashdata('success', false);
+            $this->session->setFlashdata('message', $this->validation->listErrors());
             return redirect()->to('admin/user_update/' . $user_id);
         } else {
             $check = is_exists_update('cc_users', 'email', $data['email'], 'user_id', $user_id);
@@ -200,12 +200,12 @@ class User extends BaseController
                 $table = DB()->table('cc_users');
                 $table->where('user_id', $user_id)->update($data);
 
-                $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">User Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+                $this->session->setFlashdata('success', true);
+                $this->session->setFlashdata('message', 'User Update Success!');
                 return redirect()->to('admin/user_update/' . $user_id);
             } else {
-                $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Email already exists <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+                $this->session->setFlashdata('success', false);
+                $this->session->setFlashdata('message', 'Email already exists!');
                 return redirect()->to('admin/user_update/' . $user_id);
             }
         }
@@ -228,15 +228,15 @@ class User extends BaseController
         ]);
 
         if ($this->validation->run($data) == false) {
-            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+            $this->session->setFlashdata('success', false);
+            $this->session->setFlashdata('message', $this->validation->listErrors());
             return redirect()->to('admin/user_update/' . $user_id);
         } else {
             $table = DB()->table('cc_users');
             $table->where('user_id', $user_id)->update($data);
 
-            $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">General Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+            $this->session->setFlashdata('success', true);
+            $this->session->setFlashdata('message', 'General Update Success!');
             return redirect()->to('admin/user_update/' . $user_id);
         }
     }
@@ -281,8 +281,8 @@ class User extends BaseController
         $table = DB()->table('cc_users');
         $table->where('user_id', $user_id)->update($data);
 
-        $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Update Successfully <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+        $this->session->setFlashdata('success', true);
+        $this->session->setFlashdata('message', 'Update Success!');
         return redirect()->to('admin/user_update/' . $user_id);
     }
 
@@ -305,12 +305,11 @@ class User extends BaseController
             }
         }
 
-
         $table = DB()->table('cc_users');
         $table->where('user_id', $user_id)->delete();
 
-        $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">User Delete Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+        $this->session->setFlashdata('success', true);
+        $this->session->setFlashdata('message', 'User Delete Success!');
         return redirect()->to('admin/user');
     }
 }

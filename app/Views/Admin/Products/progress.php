@@ -41,7 +41,6 @@
                     $('.progress-bar').css('width', '0%');
                     setTimeout(function(){
                         $('#message').html('');
-                        //window.location.href = '<?php //= site_url($redirect_url);?>//';
                     }, 1000);
 
                 }

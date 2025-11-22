@@ -7,7 +7,14 @@
         <div class="card border-start border-end border-top border-bottom-0  rounded-0 ">
             <div class="row mb-4">
                 <div class="col-md-12 px-5">
-                    <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
+                    <?php if (session()->getFlashdata('message')): ?>
+                        <div class="alert <?= session()->getFlashdata('success') ? 'alert-success' : 'alert-danger'; ?> alert-dismissible fade show" role="alert">
+                            <?= session()->getFlashdata('message'); ?>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    <?php endif; ?>
                 </div>
                 <div class="col-md-6 px-5">
                     <h6 class="mt-4">Contact information</h6>

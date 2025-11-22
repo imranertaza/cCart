@@ -46,7 +46,14 @@
                         </form>
                     </div>
                     <div class="col-md-12" style="margin-top: 10px" id="message">
-                        <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
+                        <?php if (session()->getFlashdata('message')): ?>
+                            <div class="alert <?= session()->getFlashdata('success') ? 'alert-success' : 'alert-danger'; ?> alert-dismissible fade show" role="alert">
+                                <?= session()->getFlashdata('message'); ?>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        <?php endif; ?>
 
                         <div class="form-group" id="process" style="display:none;">
                             <div class="progress">

@@ -31,8 +31,14 @@
                         </div>
                         <div class="col-md-8"> </div>
                         <div class="col-md-12" id="message" style="margin-top: 10px">
-                            <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message');
-                            endif; ?>
+                            <?php if (session()->getFlashdata('message')): ?>
+                                <div class="alert <?= session()->getFlashdata('success') ? 'alert-success' : 'alert-danger'; ?> alert-dismissible fade show" role="alert">
+                                    <?= session()->getFlashdata('message'); ?>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            <?php endif; ?>
                             <span id="mess" style="display: none"><div class="alert alert-success alert-dismissible" role="alert">Update Successfully <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div></span>
                         </div>
                     </div>

@@ -27,10 +27,14 @@
             </div>
             <div class="card-body">
                 <p class="login-box-msg">Sign in to start your session</p>
-                <?php $message = isset($_SESSION['message']) ? $_SESSION['message'] : 0;
-
-    if ($message) { ?>
-                <?php print $message; ?> <?php } ?>
+                <?php if (session()->getFlashdata('message')): ?>
+                    <div class="alert <?= session()->getFlashdata('success') ? 'alert-success' : 'alert-danger'; ?> alert-dismissible fade show" role="alert">
+                        <?= session()->getFlashdata('message'); ?>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                <?php endif; ?>
 
                 <form action="<?php echo base_url()?>/admin/login_action" method="post">
                     <div class="input-group mb-3">

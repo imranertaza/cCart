@@ -93,14 +93,15 @@ class Attribute_group extends BaseController
         ]);
 
         if ($this->validation->run($data) == false) {
-            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+            $this->session->setFlashdata('success', false);
+            $this->session->setFlashdata('message', $this->validation->listErrors());
             return redirect()->to('admin/attribute_create');
         } else {
             $table = DB()->table('cc_product_attribute_group');
             $table->insert($data);
 
-            $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Attribute Group Create Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            $this->session->setFlashdata('success', true);
+            $this->session->setFlashdata('message', 'Attribute Group Create Success!');
 
             return redirect()->to('admin/attribute_create');
         }
@@ -153,14 +154,16 @@ class Attribute_group extends BaseController
         ]);
 
         if ($this->validation->run($data) == false) {
-            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 
+            $this->session->setFlashdata('success', false);
+            $this->session->setFlashdata('message', $this->validation->listErrors());
             return redirect()->to('admin/attribute_update/' . $attribute_group_id);
         } else {
             $table = DB()->table('cc_product_attribute_group');
             $table->where('attribute_group_id', $attribute_group_id)->update($data);
 
-            $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Attribute Group Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            $this->session->setFlashdata('success', true);
+            $this->session->setFlashdata('message', 'Attribute Group Update Success!');
 
             return redirect()->to('admin/attribute_update/' . $attribute_group_id);
         }
@@ -179,12 +182,14 @@ class Attribute_group extends BaseController
             $table = DB()->table('cc_product_attribute_group');
             $table->where('attribute_group_id', $attribute_group_id)->delete();
 
-            $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Attribute Group Delete Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 
+            $this->session->setFlashdata('success', true);
+            $this->session->setFlashdata('message', 'Attribute Group Delete Success!');
             return redirect()->to('admin/attribute_group');
         } else {
-            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Already used in another table <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 
+            $this->session->setFlashdata('success', false);
+            $this->session->setFlashdata('message', 'Already used in another table!');
             return redirect()->to('admin/attribute_group');
         }
     }

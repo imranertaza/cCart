@@ -89,8 +89,8 @@ class Theme_settings_3 extends BaseController
         $table                         = DB()->table('cc_theme_settings');
         $table->where('label', 'head_side_baner_1')->update($dataAltNameUpdate);
 
-        $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Header Section Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+        $this->session->setFlashdata('success', true);
+        $this->session->setFlashdata('message', 'Header Section Update Success!');
         return redirect()->to('admin/theme_settings?sel=home_settings');
     }
 
@@ -130,8 +130,8 @@ class Theme_settings_3 extends BaseController
         $table                         = DB()->table('cc_theme_settings');
         $table->where('label', 'head_side_baner_2')->update($dataAltNameUpdate);
 
-        $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Header Section Two Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+        $this->session->setFlashdata('success', true);
+        $this->session->setFlashdata('message', 'Header Section Two Update Success!');
         return redirect()->to('admin/theme_settings?sel=home_settings');
     }
 
@@ -171,8 +171,8 @@ class Theme_settings_3 extends BaseController
         $table                         = DB()->table('cc_theme_settings');
         $table->where('label', 'home_category_baner_' . $prefix)->update($dataAltNameUpdate);
 
-        $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Home Category Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+        $this->session->setFlashdata('success', true);
+        $this->session->setFlashdata('message', 'Home Category Update Success!');
         return redirect()->to('admin/theme_settings?sel=home_settings');
     }
 
@@ -202,9 +202,8 @@ class Theme_settings_3 extends BaseController
         $table            = DB()->table('cc_theme_settings');
         $table->where('label', 'banner_bottom')->update($data);
 
-
-        $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Banner Bottom Update  Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+        $this->session->setFlashdata('success', true);
+        $this->session->setFlashdata('message', 'Banner Bottom Update  Success!');
         return redirect()->to('admin/theme_settings?sel=home_settings');
     }
 
@@ -235,12 +234,13 @@ class Theme_settings_3 extends BaseController
             $table = DB()->table('cc_theme_settings');
             $table->where('label', $nameslider)->update($data);
 
-            $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Slider Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+            $this->session->setFlashdata('success', true);
+            $this->session->setFlashdata('message', 'Slider Update Success!');
             return redirect()->to('admin/theme_settings');
         } else {
-            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Image required <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 
+            $this->session->setFlashdata('success', false);
+            $this->session->setFlashdata('message', 'Image required!');
             return redirect()->to('admin/theme_settings');
         }
     }
@@ -267,12 +267,12 @@ class Theme_settings_3 extends BaseController
             $table = DB()->table('cc_theme_settings');
             $table->where('label', 'side_logo')->update($data);
 
-            $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Logo Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+            $this->session->setFlashdata('success', true);
+            $this->session->setFlashdata('message', 'Logo Update Success!');
             return redirect()->to('admin/theme_settings');
         } else {
-            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Logo required <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+            $this->session->setFlashdata('success', false);
+            $this->session->setFlashdata('message', 'Image required!');
             return redirect()->to('admin/theme_settings');
         }
     }
@@ -302,12 +302,12 @@ class Theme_settings_3 extends BaseController
             $table = DB()->table('cc_theme_settings');
             $table->where('label', 'home_category_banner')->update($data);
 
-            $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Category Banner Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+            $this->session->setFlashdata('success', true);
+            $this->session->setFlashdata('message', 'Category Banner Update Success!');
             return redirect()->to('admin/theme_settings');
         } else {
-            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Logo required <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+            $this->session->setFlashdata('success', false);
+            $this->session->setFlashdata('message', 'Logo required!');
             return redirect()->to('admin/theme_settings');
         }
     }
@@ -325,15 +325,15 @@ class Theme_settings_3 extends BaseController
         ]);
 
         if ($this->validation->run($data) == false) {
-            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+            $this->session->setFlashdata('success', false);
+            $this->session->setFlashdata('message', $this->validation->listErrors());
             return redirect()->to('admin/theme_settings?sel=home_settings');
         } else {
             $table = DB()->table('cc_theme_settings');
             $table->where('label', 'home_category')->update($data);
 
-            $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Home Category Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+            $this->session->setFlashdata('success', true);
+            $this->session->setFlashdata('message', 'Home Category Update Success!');
             return redirect()->to('admin/theme_settings?sel=home_settings');
         }
     }
@@ -350,8 +350,8 @@ class Theme_settings_3 extends BaseController
         $table = DB()->table('cc_theme_settings');
         $table->where('label', $label)->update($data);
 
-        $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Settings Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+        $this->session->setFlashdata('success', true);
+        $this->session->setFlashdata('message', 'Settings Update Success!');
         return redirect()->to('admin/theme_settings?sel=home_settings');
 
         //new image uplode
@@ -389,12 +389,12 @@ class Theme_settings_3 extends BaseController
             $table = DB()->table('cc_theme_settings');
             $table->where('label', 'special_banner')->update($data);
 
-            $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Special Banner Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+            $this->session->setFlashdata('success', true);
+            $this->session->setFlashdata('message', 'Special Banner Update Success!');
             return redirect()->to('admin/theme_settings?sel=home_settings');
         } else {
-            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Special Banner required <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+            $this->session->setFlashdata('success', false);
+            $this->session->setFlashdata('message', 'Special Banner required!');
             return redirect()->to('admin/theme_settings?sel=home_settings');
         }
     }
@@ -426,12 +426,12 @@ class Theme_settings_3 extends BaseController
             $table = DB()->table('cc_theme_settings');
             $table->where('label', $label)->update($data);
 
-            $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Side Banner Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+            $this->session->setFlashdata('success', true);
+            $this->session->setFlashdata('message', 'Side Banner Update Success!');
             return redirect()->to('admin/theme_settings?sel=home_settings');
         } else {
-            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Side Banner required <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+            $this->session->setFlashdata('success', false);
+            $this->session->setFlashdata('message', 'Side Banner required!');
             return redirect()->to('admin/theme_settings?sel=home_settings');
         }
     }

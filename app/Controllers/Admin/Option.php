@@ -96,8 +96,9 @@ class Option extends BaseController
         ]);
 
         if ($this->validation->run($data) == false) {
-            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 
+            $this->session->setFlashdata('success', false);
+            $this->session->setFlashdata('message', $this->validation->listErrors());
             return redirect()->to('admin/option');
         } else {
             $table = DB()->table('cc_option');
@@ -115,8 +116,8 @@ class Option extends BaseController
             $tableVal = DB()->table('cc_option_value');
             $tableVal->insertBatch($dataval);
 
-            $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Option Create Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+            $this->session->setFlashdata('success', true);
+            $this->session->setFlashdata('message', 'Option Create Success!');
             return redirect()->to('admin/option');
         }
     }
@@ -174,8 +175,8 @@ class Option extends BaseController
         ]);
 
         if ($this->validation->run($data) == false) {
-            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+            $this->session->setFlashdata('success', false);
+            $this->session->setFlashdata('message', $this->validation->listErrors());
             return redirect()->to('admin/option_update/' . $option_id);
         } else {
             if (!empty($value)) {
@@ -196,12 +197,12 @@ class Option extends BaseController
                     }
                 }
 
-                $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Option Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+                $this->session->setFlashdata('success', true);
+                $this->session->setFlashdata('message', 'Option Update Success!');
                 return redirect()->to('admin/option_update/' . $option_id);
             } else {
-                $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert"> Please Add Value ! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+                $this->session->setFlashdata('success', false);
+                $this->session->setFlashdata('message', 'Please Add Value!');
                 return redirect()->to('admin/option_update/' . $option_id);
             }
         }
@@ -223,9 +224,8 @@ class Option extends BaseController
         $table = DB()->table('cc_option');
         $table->where('option_id', $option_id)->delete();
 
-
-        $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Option Delete Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+        $this->session->setFlashdata('success', true);
+        $this->session->setFlashdata('message', 'Option Delete Success!');
         return redirect()->to('admin/option');
     }
 

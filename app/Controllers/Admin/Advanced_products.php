@@ -354,8 +354,9 @@ class Advanced_products extends BaseController
 
             echo view('Admin/Advanced_products/multi_option', $data);
         } else {
-            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Please select any product <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 
+            $this->session->setFlashdata('success', false);
+            $this->session->setFlashdata('message', 'Please select any product!');
             return redirect()->back();
         }
     }
@@ -397,12 +398,14 @@ class Advanced_products extends BaseController
                 $optionTable = DB()->table('cc_product_option');
                 $optionTable->insertBatch($optionData);
             }
-            $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Multi Option Update Successfully <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 
+            $this->session->setFlashdata('success', true);
+            $this->session->setFlashdata('message', 'Multi Option Update Successfully!');
             return redirect()->to($redirect_url);
         } else {
-            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Invalid input! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 
+            $this->session->setFlashdata('success', false);
+            $this->session->setFlashdata('message', 'Invalid input!');
             return redirect()->to($redirect_url);
         }
     }
@@ -424,7 +427,9 @@ class Advanced_products extends BaseController
 
             echo view('Admin/Advanced_products/multi_attribute', $data);
         } else {
-            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Please select any product <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
+            $this->session->setFlashdata('success', false);
+            $this->session->setFlashdata('message', 'Please select any product!');
 
             return redirect()->back();
         }
@@ -460,11 +465,15 @@ class Advanced_products extends BaseController
                 }
             }
 
-            $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Multi Attribute Update Successfully <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
+            $this->session->setFlashdata('success', true);
+            $this->session->setFlashdata('message', 'Multi Attribute Update Successfully!');
 
             return redirect()->to($redirect_url);
         } else {
-            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Invalid input! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
+            $this->session->setFlashdata('success', false);
+            $this->session->setFlashdata('message', 'Invalid input!');
 
             return redirect()->to($redirect_url);
         }
@@ -487,8 +496,9 @@ class Advanced_products extends BaseController
 
             echo view('Admin/Advanced_products/category_edit', $data);
         } else {
-            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Please select any product <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 
+            $this->session->setFlashdata('success', false);
+            $this->session->setFlashdata('message', 'Please select any product!');
             return redirect()->back();
         }
     }
@@ -518,11 +528,14 @@ class Advanced_products extends BaseController
 
             $catTable->insertBatch($arrayData);
 
-            $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Multi Category Update Successfully <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 
+            $this->session->setFlashdata('success', true);
+            $this->session->setFlashdata('message', 'Multi Category Update Successfully!');
             return redirect()->to($redirect_url);
         } else {
-            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Please select any category <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
+            $this->session->setFlashdata('success', false);
+            $this->session->setFlashdata('message', 'Please select any category!');
 
             return redirect()->to($redirect_url);
         }

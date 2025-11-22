@@ -85,8 +85,8 @@ class Profile extends BaseController
         ]);
 
         if ($this->validation->run($data) == false) {
-            $this->session->setFlashdata('message', '<div class="alert text-white alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . '</div>');
-
+            $this->session->setFlashdata('success', false);
+            $this->session->setFlashdata('message', $this->validation->listErrors());
             return redirect()->to('profile');
         } else {
             if (!empty($this->request->getPost('subscription'))) {
@@ -149,11 +149,8 @@ class Profile extends BaseController
                 $tabAd->where('customer_id', $this->session->cusUserId)->update($addData);
             }
 
-
-
-
-            $this->session->setFlashdata('message', '<div class="alert-success-m alert alert-success alert-dismissible" role="alert">Profile Update successfully </div>');
-
+            $this->session->setFlashdata('success', true);
+            $this->session->setFlashdata('message', 'Profile Update successfully!');
             return redirect()->to('profile');
         }
     }
@@ -175,7 +172,8 @@ class Profile extends BaseController
         ]);
 
         if ($this->validation->run($data) == false) {
-            $this->session->setFlashdata('message', '<div class="alert text-white  alert-dismissible" role="alert">' . $this->validation->listErrors() . '</div>');
+            $this->session->setFlashdata('success', false);
+            $this->session->setFlashdata('message', $this->validation->listErrors());
 
             return redirect()->to('dashboard');
         } else {
@@ -194,9 +192,8 @@ class Profile extends BaseController
             $table = DB()->table('cc_customer');
             $table->where('customer_id', $this->session->cusUserId)->update($cusData);
 
-
-            $this->session->setFlashdata('message', '<div class="alert-success-m alert-success alert-dismissible" role="alert">Update successfully </div>');
-
+            $this->session->setFlashdata('success', true);
+            $this->session->setFlashdata('message', 'Update Success!');
             return redirect()->to('dashboard');
         }
     }

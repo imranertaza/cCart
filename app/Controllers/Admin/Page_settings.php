@@ -101,31 +101,16 @@ class Page_settings extends BaseController
         ]);
 
         if ($this->validation->run($data) == false) {
-            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+            $this->session->setFlashdata('success', false);
+            $this->session->setFlashdata('message', $this->validation->listErrors());
             return redirect()->to('admin/page_create');
         } else {
-            //            if (!empty($_FILES['f_image']['name'])) {
-            //                $target_dir = FCPATH . '/uploads/page/';
-            //                if (!file_exists($target_dir)) {
-            //                    mkdir($target_dir, 0777);
-            //                }
-            //
-            //                //new image uplode
-            //                $pic = $this->request->getFile('f_image');
-            //                $namePic = $pic->getRandomName();
-            //                $pic->move($target_dir, $namePic);
-            //                $news_img = 'page_' . $pic->getName();
-            //                $this->crop->withFile($target_dir . '' . $namePic)->fit(250, 150, 'center')->save($target_dir . '' . $news_img);
-            //                unlink($target_dir . '' . $namePic);
-            //                $data['f_image'] = $news_img;
-            //            }
 
             $table = DB()->table('cc_pages');
             $table->insert($data);
 
-            $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Page Settings Create Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+            $this->session->setFlashdata('success', true);
+            $this->session->setFlashdata('message', 'Page Settings Create Success!');
             return redirect()->to('admin/page_create');
         }
     }
@@ -185,15 +170,15 @@ class Page_settings extends BaseController
         ]);
 
         if ($this->validation->run($data) == false) {
-            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+            $this->session->setFlashdata('success', false);
+            $this->session->setFlashdata('message', $this->validation->listErrors());
             return redirect()->to('admin/page_update/' . $page_id);
         } else {
             $table = DB()->table('cc_pages');
             $table->where('page_id', $page_id)->update($data);
 
-            $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Page Settings Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+            $this->session->setFlashdata('success', true);
+            $this->session->setFlashdata('message', 'Page Settings Update Success!');
             return redirect()->to('admin/page_update/' . $page_id);
         }
     }
@@ -208,8 +193,8 @@ class Page_settings extends BaseController
         $table = DB()->table('cc_pages');
         $table->where('page_id', $page_id)->delete();
 
-        $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Page Settings Delete Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+        $this->session->setFlashdata('success', true);
+        $this->session->setFlashdata('message', 'Page Settings Delete Success!');
         return redirect()->to('admin/page_list');
     }
 }

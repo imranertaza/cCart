@@ -100,8 +100,8 @@ class Product_category extends BaseController
         ]);
 
         if ($this->validation->run($data) == false) {
-            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+            $this->session->setFlashdata('success', false);
+            $this->session->setFlashdata('message', $this->validation->listErrors());
             return redirect()->to('admin/product_category_create');
         } else {
             if (!empty($_FILES['image']['name'])) {
@@ -124,8 +124,8 @@ class Product_category extends BaseController
             $table = DB()->table('cc_product_category');
             $table->insert($data);
 
-            $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Product Category Create Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+            $this->session->setFlashdata('success', true);
+            $this->session->setFlashdata('message', 'Product Category Create Success!');
             return redirect()->to('admin/product_category_create');
         }
     }
@@ -186,8 +186,8 @@ class Product_category extends BaseController
         ]);
 
         if ($this->validation->run($data) == false) {
-            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+            $this->session->setFlashdata('success', false);
+            $this->session->setFlashdata('message', $this->validation->listErrors());
             return redirect()->to('admin/product_category_update/' . $prod_cat_id);
         } else {
             $checkPop = is_exists('cc_product_category_popular', 'prod_cat_id', $prod_cat_id);
@@ -252,8 +252,8 @@ class Product_category extends BaseController
             $table = DB()->table('cc_product_category');
             $table->where('prod_cat_id', $prod_cat_id)->update($data);
 
-            $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Product Category Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+            $this->session->setFlashdata('success', true);
+            $this->session->setFlashdata('message', 'Product Category Update Success!');
             return redirect()->to('admin/product_category_update/' . $prod_cat_id);
         }
     }
@@ -280,15 +280,15 @@ class Product_category extends BaseController
         ]);
 
         if ($this->validation->run($data) == false) {
-            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+            $this->session->setFlashdata('success', false);
+            $this->session->setFlashdata('message', $this->validation->listErrors());
             return redirect()->to('admin/product_category_update/' . $prod_cat_id);
         } else {
             $table = DB()->table('cc_product_category');
             $table->where('prod_cat_id', $prod_cat_id)->update($data);
 
-            $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Product Category Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+            $this->session->setFlashdata('success', true);
+            $this->session->setFlashdata('message', 'Product Category Update Success!');
             return redirect()->to('admin/product_category_update/' . $prod_cat_id);
         }
     }
@@ -330,8 +330,8 @@ class Product_category extends BaseController
         $table = DB()->table('cc_product_category');
         $table->where('prod_cat_id', $prod_cat_id)->delete();
 
-        $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Product Category Delete Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+        $this->session->setFlashdata('success', true);
+        $this->session->setFlashdata('message', 'Product Category Delete Success!');
         return redirect()->to('admin/product_category');
     }
 

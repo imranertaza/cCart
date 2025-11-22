@@ -92,8 +92,8 @@ class Theme_settings_4 extends BaseController
         $table                         = DB()->table('cc_theme_settings');
         $table->where('label', 'top_category_left_image')->update($dataAltNameUpdate);
 
-        $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Update Successfully <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+        $this->session->setFlashdata('success', true);
+        $this->session->setFlashdata('message', 'Update Success!');
         return redirect()->to('admin/theme_settings?sel=home_settings');
     }
     public function topCategorySectionTwoUpdate()
@@ -129,7 +129,8 @@ class Theme_settings_4 extends BaseController
         $table                         = DB()->table('cc_theme_settings');
         $table->where('label', 'top_category_right_image')->update($dataAltNameUpdate);
 
-        $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Update Successfully <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+        $this->session->setFlashdata('success', true);
+        $this->session->setFlashdata('message', 'Update Success!');
 
         return redirect()->to('admin/theme_settings?sel=home_settings');
     }
@@ -166,7 +167,8 @@ class Theme_settings_4 extends BaseController
         $table                         = DB()->table('cc_theme_settings');
         $table->where('label', 'recent_product_image')->update($dataAltNameUpdate);
 
-        $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Update Successfully <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+        $this->session->setFlashdata('success', true);
+        $this->session->setFlashdata('message', 'Update Success!');
 
         return redirect()->to('admin/theme_settings?sel=home_settings');
     }
@@ -203,7 +205,8 @@ class Theme_settings_4 extends BaseController
         $table                         = DB()->table('cc_theme_settings');
         $table->where('label', 'section_one_image')->update($dataAltNameUpdate);
 
-        $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Update Successfully <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+        $this->session->setFlashdata('success', true);
+        $this->session->setFlashdata('message', 'Update Success!');
 
         return redirect()->to('admin/theme_settings?sel=home_settings');
     }
@@ -240,7 +243,8 @@ class Theme_settings_4 extends BaseController
         $table                         = DB()->table('cc_theme_settings');
         $table->where('label', 'section_two_image')->update($dataAltNameUpdate);
 
-        $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Update Successfully <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+        $this->session->setFlashdata('success', true);
+        $this->session->setFlashdata('message', 'Update Success!');
 
         return redirect()->to('admin/theme_settings?sel=home_settings');
     }
@@ -254,7 +258,8 @@ class Theme_settings_4 extends BaseController
             $table->where('label', $key)->update($dataUpdate);
         }
 
-        $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Update Successfully <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+        $this->session->setFlashdata('success', true);
+        $this->session->setFlashdata('message', 'Update Success!');
 
         return redirect()->to('admin/theme_settings?sel=home_settings');
     }
@@ -268,7 +273,8 @@ class Theme_settings_4 extends BaseController
             $table->where('label', $key)->update($dataUpdate);
         }
 
-        $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Update Successfully <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+        $this->session->setFlashdata('success', true);
+        $this->session->setFlashdata('message', 'Update Success!');
 
         return redirect()->to('admin/theme_settings?sel=home_settings');
     }
@@ -312,7 +318,8 @@ class Theme_settings_4 extends BaseController
             $table->where('label', $key)->update($value);
         }
 
-        $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Slider Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+        $this->session->setFlashdata('success', true);
+        $this->session->setFlashdata('message', 'Slider Update Success!');
 
         return redirect()->to('admin/theme_settings?sel=slider');
     }
