@@ -11,7 +11,6 @@
         "ext-json": "*",
         "ext-mbstring": "*",
         "jason-napolitano/codeigniter4-cart-module": "^1.1",
-        "laminas/laminas-escaper": "^2.9",
         "stripe/stripe-php": "*"
     },
     "require-dev": {
