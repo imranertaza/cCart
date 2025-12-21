@@ -108,10 +108,13 @@ foreach ($reviews as $val) { ?>
 <?= $this->section('java_script') ?>
 <script>
     function reviewStatusUpdate(val, feedback_id) {
+        let csrfName = $('meta[name="csrf-name"]').attr('content');
+        let csrfHash = $('meta[name="csrf-token"]').attr('content');
         $.ajax({
             method: "POST",
             url: "<?php echo base_url('admin/reviews_status_update') ?>",
             data: {
+                [csrfName]: csrfHash,
                 feedback_id: feedback_id,
                 status: val
             },

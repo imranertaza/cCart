@@ -63,7 +63,7 @@
                                 ?> <?php echo get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $prod_cat_id); ?></h4>
                 </div>
                 <div class="card-body">
-                    <form action="<?php echo base_url('category_url_generate')?>" method="post" id="searchForm"></form>
+                    <form action="<?php echo base_url('category_url_generate')?>" method="post" id="searchForm"><?= csrf_field() ?></form>
                         <input type="hidden" name="global_search" form="searchForm" value="<?php echo $keywordSearch;?>">
 
                     <div class="row">

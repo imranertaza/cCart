@@ -43,6 +43,7 @@
             </div>
             <div class="card-body">
                 <form action="<?php echo base_url('admin/module_settings_action') ?>" method="post">
+                    <?= csrf_field() ?>
                     <div class="row">
                         <?php foreach ($modulesSettings as $val) { ?>
                         <div class="col-md-6">

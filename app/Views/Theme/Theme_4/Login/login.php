@@ -181,6 +181,7 @@
                 <div class="separator"><span>or</span></div>
 
                 <form action="<?php echo base_url('login_action')?>" method="post" class="sing-up" onsubmit="return onsubmitHendler()">
+                    <?= csrf_field() ?>
                     <div class="mb-3 in_err">
                         <label for="email" class="form-label required">Email Address</label>
                         <input type="email" name="email" class="form-control" id="email" placeholder="Demo@gmail.com" value="<?php if (isset($_COOKIE['login_email_web'])) { echo $_COOKIE['login_email_web']; } ?>">

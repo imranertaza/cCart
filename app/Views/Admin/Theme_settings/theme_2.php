@@ -11,7 +11,7 @@
 
 
         <form action="<?php echo base_url('admin/settings_update') ?>" method="post" enctype="multipart/form-data">
-
+            <?= csrf_field() ?>
             <div class="form-group mt-2">
                 <label><?php echo $themeSettingsTitle['trending_youtube_video']; ?></label>
                 <input type="text" name="value" class="form-control"
@@ -22,7 +22,7 @@
             <button class="btn btn-primary">Save</button>
         </form>
         <form action="<?php echo base_url('admin/settings_update') ?>" method="post" enctype="multipart/form-data">
-
+            <?= csrf_field() ?>
             <div class="form-group mt-2">
                 <label><?php echo $themeSettingsTitle['brands_youtube_video']; ?></label>
                 <input type="text" name="value" class="form-control"
@@ -35,6 +35,7 @@
 
 
         <form action="<?php echo base_url('admin/home_special_banner') ?>" method="post" enctype="multipart/form-data">
+            <?= csrf_field() ?>
             <div class="form-group mt-5">
                 <?php
                 $special_banner_1 = $themeSettings['special_banner'];
@@ -55,6 +56,7 @@
         </form>
 
         <form action="<?php echo base_url('admin/home_left_side_banner') ?>" method="post" enctype="multipart/form-data">
+            <?= csrf_field() ?>
             <div class="form-group mt-5">
                 <?php
         $special_banner_1 = $themeSettings['left_side_banner_one'];
@@ -76,6 +78,7 @@
         </form>
 
         <form action="<?php echo base_url('admin/home_left_side_banner') ?>" method="post" enctype="multipart/form-data">
+            <?= csrf_field() ?>
             <div class="form-group mt-5">
                 <?php
         $banner_1 = $themeSettings['left_side_banner_three'];
@@ -102,7 +105,7 @@
     <div class="col-md-6 ">
 
         <form action="<?php echo base_url('admin/settings_update') ?>" method="post" enctype="multipart/form-data">
-
+            <?= csrf_field() ?>
             <div class="form-group mt-2">
                 <label><?php echo $themeSettingsTitle['hot_deals_category']; ?></label>
                 <select name="value" class="form-control" required>
@@ -125,7 +128,7 @@
         </form>
 
         <form action="<?php echo base_url('admin/settings_update') ?>" method="post" enctype="multipart/form-data">
-
+            <?= csrf_field() ?>
             <div class="form-group mt-2">
                 <label><?php echo $themeSettingsTitle['trending_collection_category']; ?></label>
                 <select name="value" class="form-control" required>
@@ -148,7 +151,7 @@
         </form>
 
         <form action="<?php echo base_url('admin/settings_update') ?>" method="post" enctype="multipart/form-data">
-
+            <?= csrf_field() ?>
             <div class="form-group mt-2">
                 <label><?php echo $themeSettingsTitle['special_category_one']; ?></label>
                 <select name="value" class="form-control" required>
@@ -170,7 +173,7 @@
             <button class="btn btn-primary">Save</button>
         </form>
         <form action="<?php echo base_url('admin/settings_update') ?>" method="post" enctype="multipart/form-data">
-
+            <?= csrf_field() ?>
             <div class="form-group mt-2">
                 <label><?php echo $themeSettingsTitle['special_category_two']; ?></label>
                 <select name="value" class="form-control" required>
@@ -192,7 +195,7 @@
             <button class="btn btn-primary">Save</button>
         </form>
         <form action="<?php echo base_url('admin/settings_update') ?>" method="post" enctype="multipart/form-data">
-
+            <?= csrf_field() ?>
             <div class="form-group mt-2">
                 <label><?php echo $themeSettingsTitle['special_category_three']; ?></label>
                 <select name="value" class="form-control" required>
@@ -215,6 +218,7 @@
         </form>
 
         <form action="<?php echo base_url('admin/home_left_side_banner') ?>" method="post" enctype="multipart/form-data">
+            <?= csrf_field() ?>
             <div class="form-group mt-5">
                 <?php
                 $banner_1 = $themeSettings['left_side_banner_two'];

@@ -22,6 +22,7 @@
     <!-- Main content -->
     <section class="content">
         <form method="post" action="<?php echo base_url('admin/settings_update_action')?>" enctype="multipart/form-data">
+            <?= csrf_field() ?>
         <!-- Default box -->
         <div class="card">
             <div class="card-header">
@@ -356,10 +357,13 @@ $settingsTitle                            = get_settings_title();
 <?= $this->section('java_script') ?>
     <script>
         function selectState(country_id) {
+            let csrfName = $('meta[name="csrf-name"]').attr('content');
+            let csrfHash = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
                 method: "POST",
                 url: "<?php echo base_url('get_state') ?>",
                 data: {
+                    [csrfName]: csrfHash,
                     country_id: country_id
                 },
                 beforeSend: function() {

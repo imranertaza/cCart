@@ -23,6 +23,7 @@
                     </div>
                     <div class="col-md-6 px-5">
                         <form id="add-fund-form" action="<?php echo base_url('add_funds_action')?>" method="post">
+                            <?= csrf_field() ?>
                             <div class="form-group mt-4">
                                 <label>Amount</label>
                                 <input type="text" name="amount" class="form-control" placeholder="Amount" required>
@@ -82,10 +83,13 @@
                 $('#checkout-form').attr('action', '<?php echo base_url('checkout_action'); ?>');
                 $('#checkout-form').attr('method', 'POST');
             }
+            let csrfName = $('meta[name="csrf-name"]').attr('content');
+            let csrfHash = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
                 method: "POST",
                 url: "<?php echo base_url('payment_instruction') ?>",
                 data: {
+                    [csrfName]: csrfHash,
                     id: id
                 },
                 success: function(response) {

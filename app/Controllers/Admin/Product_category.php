@@ -337,7 +337,7 @@ class Product_category extends BaseController
 
     /**
      * @description This method update product category
-     * @return void
+     * @return \CodeIgniter\HTTP\ResponseInterface
      */
     public function sort_update_action()
     {
@@ -348,6 +348,9 @@ class Product_category extends BaseController
 
         $table = DB()->table('cc_product_category');
         $table->where('prod_cat_id', $prod_cat_id)->update($data);
-        print '<div class="alert alert-success alert-dismissible" role="alert">Sort Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+        $message = '<div class="alert alert-success alert-dismissible" role="alert">Sort Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+        return $this->response
+            ->setHeader('X-CSRF-TOKEN', csrf_hash())
+            ->setBody($message);
     }
 }

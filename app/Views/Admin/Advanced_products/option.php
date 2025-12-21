@@ -1,6 +1,7 @@
 
 
 <form id="optionForm" action="<?php echo base_url('/admin/bulk_option_update') ?>" data-row="update_<?php echo $product_id;?>" method="post">
+    <?= csrf_field() ?>
     <div class="modal-header">
         <h4 class="modal-title">Options</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span>  </button>
@@ -59,3 +60,4 @@
         <button type="button" onclick="optionBulkUpdateAction()" class="btn btn-primary">Save changes</button>
     </div>
 </form>
+

@@ -341,7 +341,7 @@ class Blog extends BaseController
 
     /**
      * @description This method provides blog image remove
-     * @return void
+     * @return \CodeIgniter\HTTP\ResponseInterface
      */
     public function imageRemoveAction()
     {
@@ -366,11 +366,15 @@ class Blog extends BaseController
         $tableImage = DB()->table('cc_blog_carousel_image');
         $tableImage->where('blog_crassula_image_id', $id)->delete();
 
-        print '<div class="alert alert-success alert-dismissible" role="alert">Delete Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+        $message = '<div class="alert alert-success alert-dismissible" role="alert">Delete Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+
+        return $this->response
+            ->setHeader('X-CSRF-TOKEN', csrf_hash())
+            ->setBody($message);
     }
     /**
      * @description This method provides album alt name action
-     * @return void
+     * @return \CodeIgniter\HTTP\ResponseInterface
      */
     public function imageAltNameAction()
     {
@@ -379,5 +383,7 @@ class Blog extends BaseController
         $data['alt_name'] = $this->request->getPost('value');
         $table            = DB()->table('cc_blog_carousel_image');
         $table->where('blog_crassula_image_id', $blog_crassula_image_id)->update($data);
+        return $this->response
+            ->setHeader('X-CSRF-TOKEN', csrf_hash());
     }
 }

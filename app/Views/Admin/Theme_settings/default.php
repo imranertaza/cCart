@@ -1,6 +1,7 @@
 <div class="row">
     <div class="col-md-6 ">
         <form action="<?php echo base_url('admin/home_category') ?>" method="post" enctype="multipart/form-data">
+            <?= csrf_field() ?>
             <div class="form-group">
                 <label>Home category</label>
                 <select name="home_category" class="form-control" required>
@@ -23,6 +24,7 @@
         </form>
 
         <form action="<?php echo base_url('admin/home_category_banner') ?>" method="post" enctype="multipart/form-data">
+            <?= csrf_field() ?>
             <div class="form-group mt-5">
                 <?php
                 $themeAtlName = getThemeAltNameSettings();
@@ -46,7 +48,7 @@
 
     <div class="col-md-6">
         <form action="<?php echo base_url('admin/settings_update') ?>" method="post" enctype="multipart/form-data">
-
+            <?= csrf_field() ?>
             <div class="form-group">
                 <label>Featured Products Limit</label>
                 <input type="number" name="value" class="form-control"

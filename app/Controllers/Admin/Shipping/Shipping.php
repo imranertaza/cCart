@@ -220,7 +220,7 @@ class Shipping extends BaseController
 
     /**
      * @description This method provides data update
-     * @return void
+     * @return \CodeIgniter\HTTP\ResponseInterface
      */
     public function update_status()
     {
@@ -235,7 +235,10 @@ class Shipping extends BaseController
         $table = DB()->table('cc_shipping_method');
         $table->where('shipping_method_id', $shipping_method_id)->update($data);
 
-        print '<div class="alert alert-success alert-dismissible" role="alert">Shipping Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+        $message = '<div class="alert alert-success alert-dismissible" role="alert">Shipping Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+        return $this->response
+            ->setHeader('X-CSRF-TOKEN', csrf_hash())
+            ->setBody($message);
     }
 
     /**

@@ -320,7 +320,7 @@ class Album extends BaseController
 
     /**
      * @description This method provides album sort action
-     * @return void
+     * @return \CodeIgniter\HTTP\ResponseInterface
      */
     public function album_image_sort_action()
     {
@@ -329,11 +329,13 @@ class Album extends BaseController
         $data['sort_order'] = $this->request->getPost('value');
         $table              = DB()->table('cc_album_details');
         $table->where('album_details_id', $album_details_id)->update($data);
+
+        return $this->response->setHeader('X-CSRF-TOKEN', csrf_hash());
     }
 
     /**
      * @description This method provides album image delete
-     * @return void
+     * @return \CodeIgniter\HTTP\ResponseInterface
      */
     public function image_delete()
     {
@@ -358,12 +360,16 @@ class Album extends BaseController
         }
 
         $table->where('album_details_id', $album_details_id)->delete();
-        print '<div class="alert alert-success alert-dismissible" role="alert">Album Image Delete Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+        $message = '<div class="alert alert-success alert-dismissible" role="alert">Album Image Delete Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+
+        return $this->response
+            ->setHeader('X-CSRF-TOKEN', csrf_hash())
+            ->setBody($message);
     }
 
     /**
      * @description This method provides album alt name action
-     * @return void
+     * @return \CodeIgniter\HTTP\ResponseInterface
      */
     public function albumImageAltNameAction()
     {
@@ -372,5 +378,7 @@ class Album extends BaseController
         $data['alt_name'] = $this->request->getPost('value');
         $table            = DB()->table('cc_album_details');
         $table->where('album_details_id', $album_details_id)->update($data);
+
+        return $this->response->setHeader('X-CSRF-TOKEN', csrf_hash());
     }
 }

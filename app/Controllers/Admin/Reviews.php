@@ -55,7 +55,7 @@ class Reviews extends BaseController
 
     /**
      * @description This method update reviews status
-     * @return void
+     * @return \CodeIgniter\HTTP\ResponseInterface
      */
     public function reviews_status_update()
     {
@@ -65,7 +65,11 @@ class Reviews extends BaseController
         $table = DB()->table('cc_product_feedback');
         $table->where('product_feedback_id', $feedback_id)->update($data);
 
-        print '<div class="alert alert-success alert-dismissible" role="alert">Reviews Status Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+        $message = '<div class="alert alert-success alert-dismissible" role="alert">Reviews Status Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+
+        return $this->response
+            ->setHeader('X-CSRF-TOKEN', csrf_hash())
+            ->setBody($message);
     }
 
     /**

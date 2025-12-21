@@ -309,6 +309,7 @@ if (!empty($paymentDet)) {
                                     </div>
                                     <div class="col-md-6">
                                         <form action="<?php echo base_url('admin/order_history_action') ?>" method="post">
+                                            <?= csrf_field() ?>
                                             <div class="form-group">
                                                 <label>Status <span class="requi">*</span></label>
 
@@ -339,6 +340,7 @@ if (!empty($paymentDet)) {
                                     </div>
                                     <div class="col-md-6">
                                         <form action="<?php echo base_url('admin/order_point_action') ?>" method="post">
+                                            <?= csrf_field() ?>
                                             <div class="form-group">
                                                 <label>Status <span class="requi">*</span></label>
                                                 <select class="form-control" name="status" required>
@@ -382,10 +384,12 @@ if (!empty($paymentDet)) {
 <?= $this->section('java_script') ?>
 <script>
     function payment_status_update(status,orderId){
+        let csrfName = $('meta[name="csrf-name"]').attr('content');
+        let csrfHash = $('meta[name="csrf-token"]').attr('content');
         $.ajax({
             type: "POST",
             url: "<?php echo base_url('admin/order_payment_status_action');?>",
-            data: {status:status,order_id:orderId },
+            data: {[csrfName]: csrfHash,status:status,order_id:orderId },
             success: function(data){
                 $('#message').html(data); // show response from the php script.
             }

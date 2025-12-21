@@ -1064,3 +1064,33 @@ input[type=checkbox]{
     background-color: #000000;
 }
 .cusmenu .bg-custom-color{ background-color: #d1d1d1; }
+.login_form #captcha .preview {
+    color: #555;
+    width: 100%;
+    text-align: center;
+    height: 40px;
+    line-height: 40px;
+    letter-spacing: 8px;
+    border: 1px dashed #888;
+    border-radius: .5em;
+    margin-bottom: 1.6em;
+}
+.login_form #captcha .captcha_form input {
+    width: 100%;
+    font-size: 1em;
+    border-radius: .5em;
+    outline: none;
+    padding: 1em;
+    z-index: 1;
+    background: none;
+}
+.login_form #captcha .captcha_form .captcha_refersh {
+    width: 40px;
+    border: none;
+    outline: none;
+    background: #888;
+    color: #eee;
+    cursor: pointer;
+    border-radius: .5em;
+    margin-left: 5px;
+}

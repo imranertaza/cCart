@@ -44,6 +44,7 @@
             </div>
             <div class="card-body">
                 <form action="<?php echo base_url('admin/album_update_action')?>" method="post" enctype="multipart/form-data">
+                    <?= csrf_field() ?>
                     <div class="row" id="reloadImg">
 
                         <div class="col-md-6">
@@ -129,10 +130,12 @@
 <?= $this->section('java_script') ?>
     <script>
         function album_image_sort_update(album_details_id,val){
+            let csrfName = $('meta[name="csrf-name"]').attr('content');
+            let csrfHash = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
                 method: "POST",
                 url: "<?php echo base_url('admin/album_image_sort_action') ?>",
-                data: {album_details_id: album_details_id,value:val},
+                data: {[csrfName]: csrfHash,album_details_id: album_details_id,value:val},
                 beforeSend: function () {
                     $("#loading-image").show();
                 },
@@ -143,10 +146,13 @@
         }
 
         function removeAlbumImg(album_details_id) {
+            let csrfName = $('meta[name="csrf-name"]').attr('content');
+            let csrfHash = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
                 method: "POST",
                 url: "<?php echo base_url('admin/album_image_delete') ?>",
                 data: {
+                    [csrfName]: csrfHash,
                     album_details_id: album_details_id
                 },
                 beforeSend: function() {
@@ -161,10 +167,12 @@
         }
 
         function album_image_alt_name_update(album_details_id,val){
+            let csrfName = $('meta[name="csrf-name"]').attr('content');
+            let csrfHash = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
                 method: "POST",
                 url: "<?php echo base_url('admin/album_image_alt_name_action') ?>",
-                data: {album_details_id: album_details_id,value:val},
+                data: {[csrfName]: csrfHash,album_details_id: album_details_id,value:val},
                 beforeSend: function () {
                     $("#loading-image").show();
                 },

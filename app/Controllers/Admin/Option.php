@@ -231,7 +231,7 @@ class Option extends BaseController
 
     /**
      * @description This method provides data remove
-     * @return void
+     * @return \CodeIgniter\HTTP\ResponseInterface
      */
     public function option_remove_action()
     {
@@ -242,5 +242,7 @@ class Option extends BaseController
 
         $tableValDel = DB()->table('cc_option_value');
         $tableValDel->where('option_value_id', $option_value_id)->delete();
+
+        return $this->response->setHeader('X-CSRF-TOKEN', csrf_hash());
     }
 }

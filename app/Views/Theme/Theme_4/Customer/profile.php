@@ -4,7 +4,8 @@
 <section class="main-container my-5">
     <div class="container">
         <form action="<?php echo base_url('profile_update_action')?>" method="Post"  onsubmit="return onProfileForm()">
-        <div class="card border rounded-0">
+            <?= csrf_field() ?>
+            <div class="card border rounded-0">
             <div class="card-body p-3 p-md-5">
                 <div class="row mb-4">
                     <div class="col-md-12 px-5">
@@ -128,10 +129,13 @@
 <script src="<?php echo base_url() ?>/assets/theme_3/validation.js" ></script>
 <script>
     function selectState(country_id, id) {
+        let csrfName = $('meta[name="csrf-name"]').attr('content');
+        let csrfHash = $('meta[name="csrf-token"]').attr('content');
         $.ajax({
             method: "POST",
             url: "<?php echo base_url('checkout_country_zoon') ?>",
             data: {
+                [csrfName]: csrfHash,
                 country_id: country_id
             },
             success: function(data) {

@@ -44,6 +44,7 @@
             </div>
             <div class="card-body">
                 <form action="<?php echo base_url('admin/email_send_action')?>" method="post">
+                    <?= csrf_field() ?>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">

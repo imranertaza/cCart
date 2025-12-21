@@ -19,6 +19,7 @@
     <!-- Main content -->
     <section class="content">
         <form action="<?php echo base_url('admin/product_copy_action'); ?>" method="post">
+            <?= csrf_field() ?>
         <!-- Default box -->
         <div class="card">
             <div class="card-header">

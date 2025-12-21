@@ -31,6 +31,7 @@
                             <a href="<?php echo base_url('admin/product_create') ?>" class="btn btn-primary  btn-xs float-right "><i class="fas fa-plus"></i> Add</a>
                             <a class="btn btn-xs btn-info float-right mr-2" data-toggle="collapse" href="#collapseProduct" role="button" aria-expanded="false" aria-controls="collapseProduct">Settings</a>
                             <form id="multiActionForm" action="<?= base_url('admin/bulk_product_multi_option_edit')?>" method="post">
+                                <?= csrf_field() ?>
                             <?php if (modules_key_by_access('multi_option') == '1') { ?>
                                 <button type="submit"  class="btn btn-primary btn-xs float-right mr-2"><i class="fas fa-edit"></i> Multi option edit</button>
                             <?php } ?>

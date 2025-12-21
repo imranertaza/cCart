@@ -117,11 +117,14 @@
             if (inputcaptchavalue === captchaValue) {
                 let email = $('#email').val();
                 let message = $('#message').val();
+                let csrfName = $('meta[name="csrf-name"]').attr('content');
+                let csrfHash = $('meta[name="csrf-token"]').attr('content');
 
                 $.ajax({
                     method: "POST",
                     url: "<?php echo base_url('contact_form_action') ?>",
                     data: {
+                        [csrfName]: csrfHash,
                         email: email,
                         message: message,
                     },

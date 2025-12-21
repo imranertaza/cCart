@@ -175,6 +175,7 @@
                 <div class="separator"><span>or</span></div>
 
                 <form action="<?= base_url('register_action')?>" method="post" class="sing-up" onsubmit="return onRegistration()">
+                    <?= csrf_field() ?>
                     <div class="mb-2">
                         <label for="name" class="form-label required">First Name</label>
                         <input type="text" class="form-control" id="firstname" name="firstname" placeholder="First Name">

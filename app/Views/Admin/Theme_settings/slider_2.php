@@ -2,6 +2,7 @@
     <div class="col-md-6">
         <form action="<?php echo base_url('admin/slider_update') ?>" method="post"
               enctype="multipart/form-data">
+            <?= csrf_field() ?>
             <div class="form-group mt-5">
                 <?php
                 $sli_1 = get_lebel_by_value_in_theme_settings('slider_1');
@@ -25,6 +26,7 @@
 
         <form action="<?php echo base_url('admin/slider_update') ?>" method="post"
               enctype="multipart/form-data">
+            <?= csrf_field() ?>
             <div class="form-group mt-5">
                 <?php
                 $sli_3 = get_lebel_by_value_in_theme_settings('slider_3');
@@ -48,6 +50,7 @@
     <div class="col-md-6">
         <form action="<?php echo base_url('admin/slider_update') ?>" method="post"
               enctype="multipart/form-data">
+            <?= csrf_field() ?>
             <div class="form-group mt-5">
                 <?php
                 $sli_2 = get_lebel_by_value_in_theme_settings('slider_2');

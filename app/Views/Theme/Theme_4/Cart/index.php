@@ -73,6 +73,7 @@
                             <td colspan="4" style="padding: 32px 15px;">
                                 <?php if ($modules['coupon'] == '1') { ?>
                                 <form action="<?php echo base_url('checkout_coupon_action') ?>" method="post">
+                                    <?= csrf_field() ?>
                                     <div class="d-flex coupon">
                                         <input type="text" class="form-control input-cart w-auto rounded-0 me-1" name="coupon" placeholder="Coupon Code" required>
                                         <input class="btn bg-custom-color rounded-0 px-4 text-white" type="submit" name="submit" value="Apply Coupon">

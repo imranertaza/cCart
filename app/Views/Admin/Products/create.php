@@ -22,6 +22,7 @@
     <!-- Main content -->
     <section class="content">
         <form id="sample_form" action="<?php echo base_url('admin/product_create_action') ?>" method="post" enctype="multipart/form-data">
+            <?= csrf_field() ?>
             <!-- Default box -->
             <div class="card">
                 <div class="card-header">
@@ -418,12 +419,19 @@
     $(document).ready(function(){
         $('#sample_form').on('submit', function(event){
             event.preventDefault();
-            var fd = new FormData(this);
+
+            var formData = new FormData(this);
+
+            // ADD CSRF TOKEN (important for CI4)
+            formData.append(
+                $('meta[name="csrf-name"]').attr("content"),
+                $('meta[name="csrf-token"]').attr("content")
+            );
 
                 $.ajax({
                     method:"POST",
                     url:$(this).prop('action'),
-                    data:fd,
+                    data:formData,
                     contentType: false,
                     cache: false,
                     processData: false,
@@ -475,10 +483,13 @@
 
 
     function searchOptionUp(key) {
+        let csrfName = $('meta[name="csrf-name"]').attr('content');
+        let csrfHash = $('meta[name="csrf-token"]').attr('content');
         $.ajax({
             method: "POST",
             url: "<?php echo base_url('admin/product_option_search') ?>",
             data: {
+                [csrfName]: csrfHash,
                 key: key
             },
             beforeSend: function() {
@@ -515,11 +526,13 @@
     }
 
     function add_option_new_ajax(id, option_id) {
-        // var data = '';
+        let csrfName = $('meta[name="csrf-name"]').attr('content');
+        let csrfHash = $('meta[name="csrf-token"]').attr('content');
         $.ajax({
             method: "POST",
             url: "<?php echo base_url('admin/product_option_value_search') ?>",
             data: {
+                [csrfName]: csrfHash,
                 option_id: option_id
             },
             success: function(val) {
@@ -599,7 +612,10 @@
 
         const formData = new FormData();
         formData.append('file', document.getElementById('fileInput').files[0]);
-
+        formData.append(
+            $('meta[name="csrf-name"]').attr("content"),
+            $('meta[name="csrf-token"]').attr("content")
+        );
         try {
             const response = await fetch('/upload-endpoint', {
                 method: 'POST',

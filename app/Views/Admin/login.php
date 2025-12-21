@@ -37,6 +37,7 @@
                 <?php endif; ?>
 
                 <form action="<?php echo base_url()?>/admin/login_action" method="post">
+                    <?= csrf_field() ?>
                     <div class="input-group mb-3">
                         <input type="email" name="email" class="form-control" placeholder="Email"
                             value="<?php if (isset($_COOKIE['login_email'])) {

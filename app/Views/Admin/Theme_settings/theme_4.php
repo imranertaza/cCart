@@ -9,6 +9,7 @@
 <div class="row">
     <div class="col-md-6 mt-4 card">
         <form  action="<?= base_url('admin/top_category_section_one_update') ?>" method="post" enctype="multipart/form-data" >
+            <?= csrf_field() ?>
             <h3>Top Category One</h3>
             <div class="form-group">
                 <label><?= $themeSettingTitle['top_category_left_title'];?> </label>
@@ -47,6 +48,7 @@
 
     <div class="col-md-6 mt-4 card">
         <form  action="<?= base_url('admin/top_category_section_two_update') ?>" method="post" enctype="multipart/form-data" >
+            <?= csrf_field() ?>
             <h3>Top Category Two</h3>
             <div class="form-group">
                 <label><?= $themeSettingTitle['top_category_right_title'];?> </label>
@@ -84,6 +86,7 @@
 
     <div class="col-md-6 mt-4 card">
         <form  action="<?= base_url('admin/home_section_one_update') ?>" method="post" enctype="multipart/form-data" >
+            <?= csrf_field() ?>
             <h3>Section One</h3>
             <div class="form-group">
                 <label><?= $themeSettingTitle['section_one_title'];?> </label>
@@ -121,6 +124,7 @@
 
     <div class="col-md-6 mt-4 card">
         <form  action="<?= base_url('admin/home_section_two_update') ?>" method="post" enctype="multipart/form-data" >
+            <?= csrf_field() ?>
             <h3>Section Two</h3>
             <div class="form-group">
                 <label><?= $themeSettingTitle['section_two_title'];?> </label>
@@ -159,6 +163,7 @@
 
     <div class="col-md-6 mt-4 card">
         <form action="<?= base_url('admin/recent_product_update') ?>" method="post" enctype="multipart/form-data" >
+            <?= csrf_field() ?>
             <h3>Recent Product</h3>
             <div class="form-group">
                 <label><?= $themeSettingTitle['recent_product_title'];?> </label>
@@ -196,6 +201,7 @@
 
     <div class="col-md-6 mt-4 card">
         <form  action="<?= base_url('admin/offer_view_update') ?>" method="post" enctype="multipart/form-data" >
+            <?= csrf_field() ?>
             <h3>Offer</h3>
             <div class="form-group ">
                 <label><?= $themeSettingTitle['offer_view'];?> </label>
@@ -212,6 +218,7 @@
         </form>
 
         <form  action="<?= base_url('admin/popular_this_week_update') ?>" method="post" enctype="multipart/form-data" >
+            <?= csrf_field() ?>
             <h3>Popular this week</h3>
             <div class="form-group ">
                 <label><?= $themeSettingTitle['popular_this_week'];?> </label>

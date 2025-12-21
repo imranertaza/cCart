@@ -109,10 +109,13 @@ foreach ($fund_request as $val) { ?>
 <?= $this->section('java_script') ?>
 <script>
     function found_request_update(val,id){
+        let csrfName = $('meta[name="csrf-name"]').attr('content');
+        let csrfHash = $('meta[name="csrf-token"]').attr('content');
         $.ajax({
             url: '<?php echo base_url('admin/fund_request_action') ?>',
             type: "POST",
             data: {
+                [csrfName]: csrfHash,
                 status: val,
                 fund_request_id: id
             },

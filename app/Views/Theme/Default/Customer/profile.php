@@ -4,7 +4,8 @@
 <section class="main-container my-5">
     <div class="container">
         <form action="<?php echo base_url('profile_update_action')?>" method="Post"  onsubmit="return onProfileForm()">
-        <div class="card border-start border-end border-top border-bottom-0  rounded-0 ">
+            <?= csrf_field() ?>
+            <div class="card border-start border-end border-top border-bottom-0  rounded-0 ">
             <div class="row mb-4">
                 <div class="col-md-12 px-5">
                     <?php if (session()->getFlashdata('message')): ?>
@@ -124,10 +125,12 @@
 <?= $this->section('java_script') ?>
 <script>
     function selectState(country_id,id){
+        let csrfName = $('meta[name="csrf-name"]').attr('content');
+        let csrfHash = $('meta[name="csrf-token"]').attr('content');
         $.ajax({
             method: "POST",
             url: "<?php echo base_url('checkout_country_zoon')?>",
-            data: {country_id:country_id},
+            data: {[csrfName]: csrfHash,country_id:country_id},
             success: function(data){
                 $('#'+id).html(data);
             }

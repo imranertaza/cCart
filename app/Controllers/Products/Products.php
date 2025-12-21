@@ -136,7 +136,7 @@ class Products extends BaseController
 
     /**
      * @description This method provides option price calculate.
-     * @return void
+     * @return \CodeIgniter\HTTP\ResponseInterface
      */
     public function optionPriceCalculate()
     {
@@ -167,7 +167,11 @@ class Products extends BaseController
             $proPrice = $specialprice;
         }
 
-        print currency_symbol($proPrice + $totalOptionPrice);
+        $result = currency_symbol($proPrice + $totalOptionPrice);
+
+        return $this->response
+            ->setHeader('X-CSRF-TOKEN', csrf_hash())
+            ->setBody($result);
     }
 
     /**
@@ -207,19 +211,24 @@ class Products extends BaseController
 
     /**
      * @description This method provides both product price.
-     * @return void
+     * @return \CodeIgniter\HTTP\ResponseInterface
      */
     public function both_product_price()
     {
         $productId = $this->request->getPost('both_product[]');
         $total     = 0;
-
-        foreach ($productId as $id) {
-            $regPric = get_data_by_id('price', 'cc_products', 'product_id', $id);
-            $spPric  = get_data_by_id('special_price', 'cc_product_special', 'product_id', $id);
-            $total += !empty($spPric) ? $spPric : $regPric;
+        if(!empty($productId)) {
+            foreach ($productId as $id) {
+                $regPric = get_data_by_id('price', 'cc_products', 'product_id', $id);
+                $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $id);
+                $total += !empty($spPric) ? $spPric : $regPric;
+            }
         }
-        print currency_symbol($total);
+        $allAmount = currency_symbol($total);
+
+        return $this->response
+            ->setHeader('X-CSRF-TOKEN', csrf_hash())
+            ->setBody($allAmount);
     }
 
     /**

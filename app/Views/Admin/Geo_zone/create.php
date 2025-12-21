@@ -44,6 +44,7 @@
             </div>
             <div class="card-body">
                 <form action="<?php echo base_url('admin/geo_zone_create_action')?>" method="post" enctype="multipart/form-data">
+                    <?= csrf_field() ?>
                     <div class="row">
 
                         <div class="col-md-4">
@@ -119,10 +120,13 @@
         }
 
         function zoneVal(val,idview){
+            let csrfName = $('meta[name="csrf-name"]').attr('content');
+            let csrfHash = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
                 method: "POST",
                 url: "<?php echo base_url('get_zone_value') ?>",
                 data: {
+                    [csrfName]: csrfHash,
                     country_id: val
                 },
                 beforeSend: function() {

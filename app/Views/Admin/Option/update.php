@@ -44,6 +44,7 @@
             </div>
             <div class="card-body">
                 <form action="<?php echo base_url('admin/option_update_action')?>" method="post" enctype="multipart/form-data">
+                    <?= csrf_field() ?>
                     <div class="row">
 
                         <div class="col-md-6">
@@ -118,10 +119,13 @@ foreach ($optionVal as $val) { ?>
 
         function remove_option_new_remove(data, id) {
             $(data).parent().remove();
+            let csrfName = $('meta[name="csrf-name"]').attr('content');
+            let csrfHash = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
                 method: "POST",
                 url: "<?php echo base_url('admin/option_remove_action') ?>",
                 data: {
+                    [csrfName]: csrfHash,
                     id: id
                 },
                 beforeSend: function() {

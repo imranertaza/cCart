@@ -351,11 +351,13 @@ function remove_option(data) {
 }
 
 function optionVal(val, idview) {
-
+    let csrfName = $('meta[name="csrf-name"]').attr('content');
+    let csrfHash = $('meta[name="csrf-token"]').attr('content');
     $.ajax({
         method: "POST",
         url: "<?php echo base_url('Admin/Ajax/get_option_value') ?>",
         data: {
+            [csrfName]: csrfHash,
             option_id: val
         },
         beforeSend: function() {

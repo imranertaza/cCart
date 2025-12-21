@@ -77,6 +77,7 @@
                                     <div class="col-md-6">
                                         <form action="<?php echo base_url('admin/logo_update') ?>" method="post"
                                               enctype="multipart/form-data">
+                                            <?= csrf_field() ?>
                                             <div class="form-group mt-5">
                                                 <?php
 $side_logo = get_lebel_by_value_in_theme_settings('side_logo');
@@ -100,6 +101,7 @@ echo image_view('uploads/logo', '', $side_logo, 'noimage.png', '');
 
                                         <form action="<?php echo base_url('admin/favicon_update') ?>" method="post"
                                               enctype="multipart/form-data">
+                                            <?= csrf_field() ?>
                                             <div class="form-group mt-5">
                                                 <?php
 $favicon = get_lebel_by_value_in_theme_settings('favicon');

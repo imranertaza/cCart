@@ -7,6 +7,7 @@
     <div class="col-md-6">
         <form action="<?php echo base_url('admin/slider_update_four') ?>" method="post"
               enctype="multipart/form-data">
+            <?= csrf_field() ?>
             <div class="form-group mt-5">
                 <?= image_view('uploads/slider', '', $themeSetting['slider4_1'], 'noimage.png', 'width-full-100'); ?>
             </div>
@@ -47,6 +48,7 @@
 
         <form action="<?php echo base_url('admin/slider_update_four') ?>" method="post"
               enctype="multipart/form-data">
+            <?= csrf_field() ?>
             <div class="form-group mt-5">
                 <?= image_view('uploads/slider', '', $themeSetting['slider4_3'], 'noimage.png', 'width-full-100'); ?>
             </div>
@@ -87,6 +89,7 @@
     <div class="col-md-6">
         <form action="<?php echo base_url('admin/slider_update_four') ?>" method="post"
               enctype="multipart/form-data">
+            <?= csrf_field() ?>
             <div class="form-group mt-5">
                 <?= image_view('uploads/slider', '', $themeSetting['slider4_2'], 'noimage.png', 'width-full-100'); ?>
             </div>

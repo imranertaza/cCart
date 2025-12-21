@@ -79,7 +79,8 @@
                         <div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
                             <h4 class="ti-or-n">Change Password</h4>
                             <form action="<?php echo base_url('password_action_update')?>" method="post" onsubmit="return resetPassword()">
-                            <div class="mb-3 mt-3">
+                                <?= csrf_field() ?>
+                                <div class="mb-3 mt-3">
                                 <input type="password" name="current_password" class="form-control con-or text-center in_err" id="current_password" placeholder="Current Password*"  >
                                 <span class="text-danger d-inline-block err text-capitalize" id="password_err_mess"></span>
                             </div>
@@ -124,4 +125,34 @@
 <?= $this->endSection() ?>
 <?= $this->section('java_script') ?>
 <script src="<?php echo base_url() ?>/assets/theme_3/validation.js" ></script>
+<script>
+    function subscription() {
+
+        var val = 'unchecked';
+        var checkBox = document.getElementById("flexCheckDefault");
+
+        if (checkBox.checked) {
+            val = 'checked';
+        }
+        let csrfName = $('meta[name="csrf-name"]').attr('content');
+        let csrfHash = $('meta[name="csrf-token"]').attr('content');
+
+        $.ajax({
+            method: "POST",
+            url: "<?php echo base_url('newsletter_action'); ?>",
+            data: {[csrfName]: csrfHash,value: val },
+            success: function(response) {
+                $('#mesVal').html(response);
+                $('.message_alert').show();
+                setTimeout(function() {
+                    $("#messAlt").fadeOut(1500);
+                }, 600);
+            },
+            error: function(xhr, status, error) {
+                console.error("AJAX Error: ", error);
+                alert("Something went wrong!");
+            }
+        });
+    }
+</script>
 <?= $this->endSection() ?>

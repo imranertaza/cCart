@@ -96,10 +96,13 @@ foreach ($shipping as $val) { ?>
 <?= $this->section('java_script') ?>
     <script>
         function update_shipping_status(id) {
+            let csrfName = $('meta[name="csrf-name"]').attr('content');
+            let csrfHash = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
                 method: "POST",
                 url: "<?php echo base_url('admin/update_shipping_status') ?>",
                 data: {
+                    [csrfName]: csrfHash,
                     id: id
                 },
                 beforeSend: function() {

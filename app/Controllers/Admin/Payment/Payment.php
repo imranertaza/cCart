@@ -55,7 +55,7 @@ class Payment extends BaseController
 
     /**
      * @description This method provides status update
-     * @return void
+     * @return \CodeIgniter\HTTP\ResponseInterface
      */
     public function status_update()
     {
@@ -70,6 +70,9 @@ class Payment extends BaseController
         $table = DB()->table('cc_payment_method');
         $table->where('payment_method_id', $payment_method_id)->update($data);
 
-        print '<div class="alert alert-success alert-dismissible" role="alert">Payment Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+        $message = '<div class="alert alert-success alert-dismissible" role="alert">Payment Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+        return $this->response
+            ->setHeader('X-CSRF-TOKEN', csrf_hash())
+            ->setBody($message);
     }
 }
