@@ -1,8 +1,8 @@
 name: PHPUnit Tests
 
 on:
-#  push:
-#    branches: [ master, develop ]
+  #  push:
+  #    branches: [ master, develop ]
   pull_request:
     branches: [ master, develop ]
 
@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php-version: [ 8.1, 8.2, 8.3 ]
+        php-version: [ 7.4, 8.0, 8.1 ]
 
     services:
       mysql:
@@ -40,7 +40,6 @@ jobs:
       - name: Get Composer Cache Directory
         id: composer-cache
         run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-#        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_ENV
 
       - name: Cache Composer Dependencies
         uses: actions/cache@v3
@@ -50,7 +49,7 @@ jobs:
           restore-keys: ${{ runner.os }}-composer-
 
       - name: Install Composer Dependencies
-        run: composer install --prefer-dist --no-progress --no-scripts --no-interaction --no-suggest
+        run: composer install --prefer-dist --no-progress --no-suggest
 
       - name: Create .env file
         run: |
@@ -61,11 +60,11 @@ jobs:
               file_get_contents('.env')
           ));"
 
-#      - name: Run Migrations
-#        run: php spark migrate
-#
-#      - name: Run Seeders
-#        run: php spark db:seed AllDemo
+      #      - name: Run Migrations
+      #        run: php spark migrate
+      #
+      #      - name: Run Seeders
+      #        run: php spark db:seed AllDemo
 
       - name: Run PHPUnit tests
         run: vendor/bin/phpunit tests/app
