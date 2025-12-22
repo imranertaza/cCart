@@ -9,6 +9,7 @@
             </div>
             <div class="col-md-6 mb-4 mb-md-0">
                 <form action="<?php echo base_url('login_action')?>" method="post" class="sing-up" onsubmit="return onsubmitHendler()">
+                    <?= csrf_field() ?>
                     <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
                     <div class="form-group">
                         <div class="input-group d-flex in_err align-items-center bg-white border px-3 rounded-2">

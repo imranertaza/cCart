@@ -1,5 +1,32 @@
 <?= $this->extend('Theme/Default/layout') ?>
 <?= $this->section('content') ?>
+<div id="loader" style="display:none;">
+    <div class="spinner"></div>
+</div>
+
+<style>
+    #loader {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(255,255,255,0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 99999;
+    }
+    .spinner {
+        width: 45px;
+        height: 45px;
+        border: 5px solid #ddd;
+        border-top-color: #3498db;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+</style>
 <div class="main-container">
     <div class="container">
         <div class="row">
@@ -93,29 +120,47 @@
                 </div>
             </div>
 
-            <div class="col-md-12 mt-3" >
+            <div class="col-md-12 mt-3 login_form" >
                 <form id="commentForm" action="<?php echo base_url('blog-comment-action');?>"  method="post">
+                    <?= csrf_field() ?>
                     <div class="row mt-3">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="name" placeholder="Name" required >
+                                <input type="text" class="form-control" name="name" placeholder="Name"  >
+                                <span class="text-danger err d-inline-block text-capitalize" id="messageName"></span>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <input type="email" class="form-control" name="email" placeholder="Email" required >
+                                <input type="email" class="form-control" name="email" placeholder="Email"  >
                                 <input type="hidden" name="blog_id" placeholder="blog_id" value="<?php echo $blog->blog_id; ?>" >
+                                <span class="text-danger err d-inline-block text-capitalize" id="messageEmail"></span>
                             </div>
                         </div>
                     </div>
                     <div class="form-group mt-3">
                         <textarea class="form-control" name="comment" id="exampleFormControlTextarea1" rows="10"
-                                  placeholder="Write a comment" required ></textarea>
+                                  placeholder="Write a comment"  ></textarea>
+                        <span class="text-danger err d-inline-block text-capitalize" id="messageComment"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <div id="captcha" class="form_div mt-3">
+                            <input type="hidden" id="genaretCapt" >
+                            <div class="preview"></div>
+                            <div class="captcha_form d-flex">
+                                <input type="text" id="captcha_form" class="form_input_captcha" placeholder="Enter Captcha ">
+                                <button type="button" class="captcha_refersh">
+                                    <i class="fa fa-refresh"></i>
+                                </button>
+                            </div>
+                            <span class="text-danger err d-inline-block text-capitalize" id="messageRecaptcha"></span>
+                        </div>
                     </div>
 
 
                     <div class="form-group mt-3">
-                        <button type="button" onclick="commentAction('commentForm')" class="btn btn-post w-100" >Post Comment</button>
+                        <button type="submit"  class="btn btn-post w-100" >Post Comment</button>
                     </div>
                 </form>
             </div>
@@ -156,27 +201,120 @@
 <?= $this->section('java_script') ?>
 <script>
     // blog function
-    function commentAction(formID) {
-        var form = document.getElementById(formID);
-        $.ajax({
-            url: $(form).prop('action'),
-            type: "POST",
-            data: new FormData(form),
-            contentType: false,
-            cache: false,
-            processData: false,
-            success: function (response) {
-                $('#commentForm')[0].reset();
-                $('#mesVal').html(response);
-                $('#commentBoxReload').load(document.URL + ' #commentBoxReload');
-                $('.message_alert').show();
-                setTimeout(function () {
-                    $("#messAlt").fadeOut(1500);
-                }, 600);
+    $(document).ready(function () {
+        // Generate Captcha
+        function generateCaptcha() {
+            let captcha = Math.random().toString(36).substring(2, 8).toUpperCase();
+            document.getElementById("genaretCapt").value = captcha;
+            document.querySelector(".preview").innerHTML = captcha;
+        }
 
-            }
+        generateCaptcha();
+
+        document.querySelector(".captcha_refersh").addEventListener("click", function () {
+            generateCaptcha();
         });
-    }
+
+        // On form submit
+        $('#commentForm').on('submit', function (event) {
+            event.preventDefault(); // STOP default submission
+
+            let isValid = true;
+
+            // Get values
+            let name = $("input[name='name']").val().trim();
+            let email = $("input[name='email']").val().trim();
+            let comment = $("textarea[name='comment']").val().trim();
+            let captcha_input = $("#captcha_form").val().trim();
+            let captcha_generated = $("#genaretCapt").val();
+
+            // ----- NAME VALIDATION -----
+            let namePattern = /^[A-Za-z\s]{2,20}$/;
+            if (!namePattern.test(name)) {
+                $("#messageName").html("Name must be 2–20 letters!");
+                isValid = false;
+            } else {
+                $("#messageName").html("");
+            }
+
+            // ----- EMAIL VALIDATION -----
+            let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                $("#messageEmail").html("Enter a valid email!");
+                isValid = false;
+            } else {
+                $("#messageEmail").html("");
+            }
+
+            // ----- COMMENT VALIDATION -----
+            let cleanComment = comment.trim();
+
+            // Allow: letters, numbers, spaces, basic punctuation .,!?-():;
+            let allowedPattern = /^[\p{L}\p{N}\s.,!?()\-:;]{3,500}$/u;
+
+            if (!allowedPattern.test(cleanComment)) {
+                $("#messageComment").html("Comment must be 3–500 characters and cannot contain special characters!");
+                isValid = false;
+            } else {
+                $("#messageComment").html("");
+            }
+
+            // ----- CAPTCHA VALIDATION -----
+            if (captcha_input !== captcha_generated) {
+                $("#messageRecaptcha").html("Captcha does not match!");
+                isValid = false;
+            } else {
+                $("#messageRecaptcha").html("");
+            }
+
+            // ---- IF NOT VALID → STOP ----
+            if (!isValid) {
+                return false;
+            }
+
+            // ---- IF VALID → RUN AJAX ----
+            var formData = new FormData(this);
+
+            // Add CSRF Token
+            formData.append(
+                $('meta[name="csrf-name"]').attr("content"),
+                $('meta[name="csrf-token"]').attr("content")
+            );
+
+            $.ajax({
+                url: $(this).attr("action"),
+                type: "POST",
+                data: formData,
+                contentType: false,
+                cache: false,
+                processData: false,
+                // ⭐ BEFORE LOADING — place your pre-load actions here
+                beforeSend: function() {
+                    $("#loader").show();   // ⭐ Show loader
+                },
+                success: function (response) {
+                    // Reset form
+                    $('#commentForm')[0].reset();
+                    // Show response
+                    $('#mesVal').html(response);
+                    // Reload comment box
+                    $('#commentBoxReload').load(location.href + ' #commentBoxReload');
+
+                    $('.message_alert').show();
+                    setTimeout(function () {
+                        $("#messAlt").fadeOut(1500);
+                    }, 600);
+                    generateCaptcha(); // call captcha generator again
+                    $("#captcha_form").val(""); // clear input field
+                },
+                complete: function () {
+                    $("#loader").hide();   // ⭐ Hide loader when done
+                }
+            });
+
+        });
+
+    });
     function commentReply(show,id){
         var formID = "'commentReply_" + id+"'" ;
         var html = '<form id="commentReply_'+id+'" action="<?php echo base_url('blog-comment-reply-action')?>" method="post"><div class="d-flex" > <input type="hidden" name="comment_id" class="comment_id" value="'+id+'" required> <input type="text" name="com_name" placeholder="Name" class="input-c" required> <input type="text" name="com_email" placeholder="Email" class="input-c"> </div> <div class="mt-1"> <input type="text" name="com_text" placeholder="Text" class="input-c input-te" required> <br><button type="button" class="btn btn-reply mt-1" onclick="commentReplyAction('+formID+')" >Reply  Comment</button> </div></form>';
@@ -184,13 +322,22 @@
     }
     function commentReplyAction(formID){
         var form = document.getElementById(formID);
+        var formData = new FormData(form);
+        // ADD CSRF TOKEN (important for CI4)
+        formData.append(
+            $('meta[name="csrf-name"]').attr("content"),
+            $('meta[name="csrf-token"]').attr("content")
+        );
         $.ajax({
             url: $(form).prop('action'),
             type: "POST",
-            data: new FormData(form),
+            data: formData,
             contentType: false,
             cache: false,
             processData: false,
+            beforeSend: function() {
+                $("#loader").show();   // ⭐ Show loader
+            },
             success: function(response) {
                 $('#'+formID)[0].reset();
                 $('#'+formID).hide();
@@ -201,6 +348,9 @@
                     $("#messAlt").fadeOut(1500);
                 }, 600);
 
+            },
+            complete: function () {
+                $("#loader").hide();   // ⭐ Hide loader when done
             }
         });
     }

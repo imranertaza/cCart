@@ -32,7 +32,14 @@
                     <div class="col-md-4">
                     </div>
                     <div class="col-md-12" style="margin-top: 10px" id="message">
-                        <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
+                        <?php if (session()->getFlashdata('message')): ?>
+                            <div class="alert <?= session()->getFlashdata('success') ? 'alert-success' : 'alert-danger'; ?> alert-dismissible fade show" role="alert">
+                                <?= session()->getFlashdata('message'); ?>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -102,10 +109,13 @@ foreach ($fund_request as $val) { ?>
 <?= $this->section('java_script') ?>
 <script>
     function found_request_update(val,id){
+        let csrfName = $('meta[name="csrf-name"]').attr('content');
+        let csrfHash = $('meta[name="csrf-token"]').attr('content');
         $.ajax({
             url: '<?php echo base_url('admin/fund_request_action') ?>',
             type: "POST",
             data: {
+                [csrfName]: csrfHash,
                 status: val,
                 fund_request_id: id
             },

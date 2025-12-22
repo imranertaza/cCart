@@ -1,0 +1,30 @@
+name: Deploying to theme 3 server
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Deploy Running
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_THEME_3_HOST }}
+          username: ${{ secrets.FTP_THEME_3_USERNAME }}
+          password: ${{ secrets.FTP_THEME_3_PASSWORD }}
+          port: ${{ secrets.FTP_THEME_3_PORT }}
+          server-dir: ${{ secrets.FTP_THEME_3_TARGET }}
+          protocol: ftp
+          exclude: |
+            **/.git*
+            **/.github/**
+            **/.env
+          dangerous-clean-slate: false
+          passive: true

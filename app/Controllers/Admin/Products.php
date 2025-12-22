@@ -164,7 +164,7 @@ class Products extends BaseController
 
     /**
      * @description This method store product
-     * @return RedirectResponse
+     * @return ResponseInterface
      */
     public function create_action()
     {
@@ -185,7 +185,8 @@ class Products extends BaseController
         ]);
 
         if ($this->validation->run($data) == false) {
-            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            $this->session->setFlashdata('success', false);
+            $this->session->setFlashdata('message', $this->validation->listErrors());
 
             return redirect()->to('admin/product_create');
         } else {
@@ -481,9 +482,10 @@ class Products extends BaseController
 
 
             DB()->transComplete();
-            //            $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Create Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            //            return redirect()->to('admin/product_create');
-            echo '<div class="alert alert-success alert-dismissible" role="alert">Products Create Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+            $message = '<div class="alert alert-success alert-dismissible" role="alert">Products Create Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+            return $this->response
+                ->setHeader('X-CSRF-TOKEN', csrf_hash())
+                ->setBody($message);
         }
     }
 
@@ -675,12 +677,13 @@ class Products extends BaseController
             }
             DB()->transComplete();
 
-            $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Products Copy Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 
+            $this->session->setFlashdata('success', true);
+            $this->session->setFlashdata('message', 'Products Copy Success!');
             return redirect()->to('admin/products?page=1');
         } else {
-            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Please select any product! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+            $this->session->setFlashdata('success', false);
+            $this->session->setFlashdata('message', 'Please select any product!');
             return redirect()->back();
         }
     }
@@ -774,8 +777,8 @@ class Products extends BaseController
         ]);
 
         if ($this->validation->run($data) == false) {
-            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+            $this->session->setFlashdata('success', false);
+            $this->session->setFlashdata('message', $this->validation->listErrors());
             return redirect()->to('admin/product_update/' . $product_id);
         } else {
             DB()->transStart();
@@ -1139,15 +1142,16 @@ class Products extends BaseController
 
 
             DB()->transComplete();
-            $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Products Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 
+            $this->session->setFlashdata('success', true);
+            $this->session->setFlashdata('message', 'Products Update Success!');
             return redirect()->to('admin/product_update/' . $product_id);
         }
     }
 
     /**
      * @description This method delete product
-     * @return void
+     * @return ResponseInterface
      */
     public function delete()
     {
@@ -1209,7 +1213,10 @@ class Products extends BaseController
 
         DB()->transComplete();
 
-        print '<div class="alert alert-success alert-dismissible" role="alert">Products Delete Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+        $message = '<div class="alert alert-success alert-dismissible" role="alert">Products Delete Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+        return $this->response
+            ->setHeader('X-CSRF-TOKEN', csrf_hash())
+            ->setBody($message);
     }
 
     /**
@@ -1251,7 +1258,7 @@ class Products extends BaseController
 
     /**
      * @description This method delete product image
-     * @return void
+     * @return ResponseInterface
      */
     public function image_delete()
     {
@@ -1276,12 +1283,15 @@ class Products extends BaseController
         }
 
         $table->where('product_image_id', $product_image_id)->delete();
-        print '<div class="alert alert-success alert-dismissible" role="alert">Products Image Delete Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+        $message = '<div class="alert alert-success alert-dismissible" role="alert">Products Image Delete Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+        return $this->response
+            ->setHeader('X-CSRF-TOKEN', csrf_hash())
+            ->setBody($message);
     }
 
     /**
      * @description This method provides product option search
-     * @return void
+     * @return ResponseInterface
      */
     public function product_option_search()
     {
@@ -1298,12 +1308,14 @@ class Products extends BaseController
         }
         $view .= '</ul>';
 
-        print $view;
+        return $this->response
+            ->setHeader('X-CSRF-TOKEN', csrf_hash())
+            ->setBody($view);
     }
 
     /**
      * @description This method provides product option value search
-     * @return void
+     * @return ResponseInterface
      */
     public function product_option_value_search()
     {
@@ -1315,7 +1327,10 @@ class Products extends BaseController
         foreach ($data as $item) {
             $view .= '<option value="' . $item->option_value_id . '">' . $item->name . '</option>';
         }
-        print $view;
+
+        return $this->response
+            ->setHeader('X-CSRF-TOKEN', csrf_hash())
+            ->setBody($view);
     }
 
     /**
@@ -1411,15 +1426,18 @@ class Products extends BaseController
             //            echo view('Admin/Products/progress',$data);
             flush(); // Send the final output
 
-            $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Update Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
+            $this->session->setFlashdata('success', true);
+            $this->session->setFlashdata('message', 'Update Record Success!');
             $redirect_url = isset($_COOKIE['product_url_path']) ? $_COOKIE['product_url_path'] : 'admin/products';
             echo "<script>
                     window.location.href = '" . site_url($redirect_url) . "';
               </script>";
             flush(); // Ensure the redirect script is sent
         } else {
-            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Please select any product <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 
+            $this->session->setFlashdata('success', false);
+            $this->session->setFlashdata('message', 'Please select any product!');
             return redirect()->back();
         }
     }
@@ -1523,11 +1541,14 @@ class Products extends BaseController
             }
             DB()->transComplete();
 
-            $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Products Delete Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
+            $this->session->setFlashdata('success', true);
+            $this->session->setFlashdata('message', 'Products Delete Success!');
 
             return redirect()->back();
         } else {
-            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Please select any product <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            $this->session->setFlashdata('success', false);
+            $this->session->setFlashdata('message', 'Please select any product!');
 
             return redirect()->back();
         }
@@ -1561,7 +1582,9 @@ class Products extends BaseController
                     echo view('Admin/no_permission');
                 }
             } else {
-                $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">Please select any product <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
+                $this->session->setFlashdata('success', false);
+                $this->session->setFlashdata('message', 'Please select any product!');
 
                 return redirect()->to($redirect_url);
             }
@@ -1582,13 +1605,14 @@ class Products extends BaseController
             $table->update($data);
         }
 
-        $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Product status update successfully <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+        $this->session->setFlashdata('success', true);
+        $this->session->setFlashdata('message', 'Product status update successfully!');
 
         return redirect()->to($redirect_url);
     }
     /**
      * @description This method provides product image alt name action
-     * @return void
+     * @return ResponseInterface
      */
     public function productImageAltNameAction()
     {
@@ -1597,5 +1621,7 @@ class Products extends BaseController
         $data['alt_name'] = $this->request->getPost('value');
         $table            = DB()->table('cc_product_image');
         $table->where('product_image_id', $product_image_id)->update($data);
+        return $this->response
+            ->setHeader('X-CSRF-TOKEN', csrf_hash());
     }
 }

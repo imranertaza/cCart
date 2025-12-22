@@ -44,7 +44,7 @@ class Compare extends BaseController
 
     /**
      * @description This method provides compare store data
-     * @return void
+     * @return \CodeIgniter\HTTP\ResponseInterface
      */
     public function addtoCompare()
     {
@@ -62,17 +62,19 @@ class Compare extends BaseController
 
             if (!in_array($product_id, $ids)) {
                 $this->session->set('compare_session', $compareArray);
-                print 'Successfully add to compare';
+                $message = 'Successfully add to compare';
             } else {
-                print 'Already exists in compare';
+                $message = 'Already exists in compare';
             }
         }
-        //        unset($_SESSION['compare_session']);
+        return $this->response
+            ->setHeader('X-CSRF-TOKEN', csrf_hash())
+            ->setBody($message);
     }
 
     /**
      * @description This method provides compare remove data
-     * @return void
+     * @return \CodeIgniter\HTTP\ResponseInterface
      */
     public function removeToCompare()
     {
@@ -80,7 +82,10 @@ class Compare extends BaseController
 
         if (isset($this->session->compare_session)) {
             unset($_SESSION['compare_session'][$key_id]);
-            print 'Successfully remove to compare';
+            $message = 'Successfully remove to compare';
         }
+        return $this->response
+            ->setHeader('X-CSRF-TOKEN', csrf_hash())
+            ->setBody($message);
     }
 }

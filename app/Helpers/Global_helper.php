@@ -755,7 +755,7 @@ function product_id_by_rating($productId, $ratingCount = 0)
     $sty       = (!empty($ratingCount)) ? 'display: flex;' : '';
     $view      = '<div class="js-wc-star-rating" style="' . $sty . '">';
     $starColor = 'rgb(0, 0, 0)';
-    $starType  = 'fa-solid';
+    $starType  = 'fa-solid star';
 
     for ($x = 1; $x <= 5; $x++) {
         if ($x > $average) {
@@ -798,6 +798,55 @@ function product_id_by_average_rating($productId)
     return $average;
 }
 
+function productIdByRatingCount($productId)
+{
+    $table = DB()->table('cc_product_feedback');
+    $pro   = $table->where('product_id', $productId)->get()->getResult();
+    return count($pro);
+}
+
+function ratingViewByFeedbackStar($star)
+{
+
+    $sty       = (!empty($ratingCount)) ? 'display: flex;' : '';
+    $view      = '<div class="js-wc-star-rating" style="' . $sty . '">';
+    $starColor = 'rgb(0, 0, 0)';
+    $starType  = 'fa-solid star';
+
+    for ($x = 1; $x <= 5; $x++) {
+        if ($x > $star) {
+            $starColor = 'lightgray';
+            $starType  = 'fa-regular';
+        }
+        $view .= '<i data-index="0"  class="' . $starType . ' fa-star" style="color: ' . $starColor . '; margin: 2px; font-size: 1em;"></i>';
+    }
+    $view .= '</div>';
+
+    return $view;
+}
+
+function getUserRatingsByProductId($productId)
+{
+    $table = DB()->table('cc_product_feedback');
+    $feedbacks = $table->where('product_id', $productId)->get()->getResult();
+
+    $data = [
+        '1star' => 0,
+        '2star' => 0,
+        '3star' => 0,
+        '4star' => 0,
+        '5star' => 0,
+    ];
+
+    foreach ($feedbacks as $feedback) {
+        $star = (int)$feedback->feedback_star;
+        if ($star >= 1 && $star <= 5) {
+            $data[$star . 'star']++;
+        }
+    }
+
+    return $data;
+}
 /**
  * @description This function provides available template and selected.
  * @param string $sel
@@ -1256,13 +1305,13 @@ function addToCartBtn($product_id)
 
     if (!empty($qtyCheck)) {
         if ($optionCheck == true) {
-            $btn = '<button onclick="addToCart(' . $product_id . ')" class="btn btn-cart w-100 rounded-0 mt-auto">Add to Cart</button>';
+            $btn = '<button onclick="addToCart(' . $product_id . ')" class="btn btn-base recently-viewed-add-to-cart-btn w-100 btn-1 btn-cart w-100 rounded-0 mt-auto">Add to Cart</button>';
         } else {
             $url = base_url('detail/' . $product_id);
-            $btn = '<a href="' . $url . '"  class="btn btn-cart w-100 rounded-0 mt-auto">Add to Cart</a>';
+            $btn = '<a href="' . $url . '"  class="btn btn-base recently-viewed-add-to-cart-btn  btn-1 btn-cart w-100 rounded-0 mt-auto">Add to Cart</a>';
         }
     } else {
-        $btn = '<button  class="btn btn-cart w-100 rounded-0 mt-auto">Out of Stock</button>';
+        $btn = '<button  class="btn btn-base recently-viewed-add-to-cart-btn w-100 btn-1 btn-cart  rounded-0 mt-auto">Out of Stock</button>';
     }
 
     return $btn;
@@ -1997,3 +2046,76 @@ function bdDateFormat($data = '0000-00-00')
 {
     return ($data == '0000-00-00') ? 'Unknown' : date('d/m/y', strtotime($data));
 }
+
+function specialPriceAndPriceByOffPercent($specialPrice, $price) {
+    if (!empty($specialPrice) && $price > 0) {
+        return (int)((($price - $specialPrice) / $price) * 100);
+    }
+    return 0;
+}
+
+function categoryIdByProducts($categoryId, $order = 'DESC', $limit = 10)
+{
+    // Validate inputs
+    if (empty($categoryId)) {
+        return [];
+    }
+
+    $builder = DB()->table('cc_products p')
+        ->select('p.*, cpc.category_id')
+        ->join('cc_product_to_category cpc', 'cpc.product_id = p.product_id')
+        ->where('cpc.category_id', $categoryId)
+        ->where('p.status', 'Active')
+        ->orderBy('p.product_id', $order)
+        ->limit($limit);
+
+    $products = $builder->get()->getResult();
+
+    return $products;
+}
+function availableAllOffer(){
+    $now = date('Y-m-d H:i:s');
+
+    $offers = DB()->table('cc_offer')
+        ->where('offer_on', 'product')
+        ->where('expire_date >=', $now)
+        ->orderBy('offer_id', 'DESC')
+        ->get()
+        ->getResult();
+    return $offers;
+}
+function offerIdByProducts($offer_id)
+{
+    // Get offer info
+    $offer = DB()->table('cc_offer_on_product')
+        ->where('offer_id', $offer_id)->get()->getRow();
+
+    if (empty($offer)) {
+        return [];
+    }
+
+    $builder = DB()->table('cc_products');
+    $builder->select('cc_products.*');
+
+    if (!empty($offer->product_id)) {
+        $builder->join('cc_offer_on_product', 'cc_offer_on_product.product_id = cc_products.product_id')
+            ->where('cc_offer_on_product.offer_id', $offer_id);
+    } elseif (!empty($offer->brand_id)) {
+        $builder->join('cc_offer_on_product', 'cc_offer_on_product.brand_id = cc_products.brand_id')
+            ->where('cc_offer_on_product.offer_id', $offer_id);
+    } elseif (!empty($offer->prod_cat_id)) {
+        $builder->join('cc_product_to_category', 'cc_product_to_category.product_id = cc_products.product_id')
+            ->join('cc_offer_on_product', 'cc_offer_on_product.prod_cat_id = cc_product_to_category.category_id')
+            ->where('cc_offer_on_product.offer_id', $offer_id);
+    } else {
+        return [];
+    }
+
+    return $builder->where('cc_products.status', 'Active')
+        ->groupBy('cc_products.product_id')
+        ->orderBy('cc_products.product_id','DESC')
+        ->limit(6)
+        ->get()
+        ->getResult();
+}
+

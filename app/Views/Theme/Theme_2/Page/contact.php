@@ -35,6 +35,7 @@
                     <h3>Get in touch</h3>
                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
                     <form action="#" method="post" class="contact-form" onsubmit="return contactForm()">
+                        <?= csrf_field() ?>
                         <div class="mb-3">
                             <input class="form-control in_err" id="email" name="email" type="text" placeholder="Email">
                             <span class="text-danger err d-inline-block text-capitalize" id="emailError"></span>

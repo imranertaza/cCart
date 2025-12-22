@@ -10,6 +10,10 @@
     <meta name="description" content="<?php echo $description;?>">
     <meta name="keywords" content="<?php echo $keywords;?>">
 
+    <meta name="csrf-token" content="<?= csrf_hash() ?>">
+    <meta name="csrf-header" content="<?= csrf_header() ?>">
+    <meta name="csrf-name" content="<?= csrf_token() ?>">
+
     <link rel="shortcut icon" href="<?php echo base_url() ?>/uploads/logo/<?php echo get_lebel_by_value_in_theme_settings('favicon');?>">
 
     <link rel="stylesheet" href="<?php echo base_url() ?>/assets/theme_2/bootstrap.min.css">
@@ -880,10 +884,13 @@
 
 
     function addToCompare(pro_id) {
+        let csrfName = $('meta[name="csrf-name"]').attr('content');
+        let csrfHash = $('meta[name="csrf-token"]').attr('content');
         $.ajax({
             method: "POST",
             url: "<?php echo base_url('addtoCompare') ?>",
             data: {
+                [csrfName]: csrfHash,
                 product_id: pro_id
             },
             success: function(response) {
@@ -897,10 +904,13 @@
     }
 
     function removeToCompare(key_id) {
+        let csrfName = $('meta[name="csrf-name"]').attr('content');
+        let csrfHash = $('meta[name="csrf-token"]').attr('content');
         $.ajax({
             method: "POST",
             url: "<?php echo base_url('removeToCompare') ?>",
             data: {
+                [csrfName]: csrfHash,
                 key_id: key_id
             },
             success: function(response) {
@@ -915,10 +925,13 @@
     }
 
     function addToWishlist(pro_id) {
+        let csrfName = $('meta[name="csrf-name"]').attr('content');
+        let csrfHash = $('meta[name="csrf-token"]').attr('content');
         $.ajax({
             method: "POST",
             url: "<?php echo base_url('addtoWishlist') ?>",
             data: {
+                [csrfName]: csrfHash,
                 product_id: pro_id
             },
             success: function(response) {
@@ -932,10 +945,13 @@
     }
 
     function removeToWishlist(proId) {
+        let csrfName = $('meta[name="csrf-name"]').attr('content');
+        let csrfHash = $('meta[name="csrf-token"]').attr('content');
         $.ajax({
             method: "POST",
             url: "<?php echo base_url('removeToWishlist') ?>",
             data: {
+                [csrfName]: csrfHash,
                 product_id: proId
             },
             success: function(response) {
@@ -954,15 +970,22 @@
     function addToCart(pro_id) {
         var size = $("input[name='size']:checked").val();
         var color = $("input[name='color']:checked").val();
+        let csrfName = $('meta[name="csrf-name"]').attr('content');
+        let csrfHash = $('meta[name="csrf-token"]').attr('content');
 
         $.ajax({
             method: "POST",
             url: "<?php echo base_url('checkoption') ?>",
             data: {
+                [csrfName]: csrfHash,
                 product_id: pro_id
             },
-            success: function(response) {
-                if (response == true) {
+            success: function(response,status, xhr) {
+                let newToken = xhr.getResponseHeader("X-CSRF-TOKEN");
+                if (newToken) {
+                    $('meta[name="csrf-token"]').attr("content", newToken);
+                }
+                if (response == 'true') {
                     adtocartAction(pro_id);
                 } else {
                     if (size == null || color == null) {
@@ -979,6 +1002,8 @@
     }
 
     function adtocartAction(pro_id) {
+        let csrfName = $('meta[name="csrf-name"]').attr('content');
+        let csrfHash = $('meta[name="csrf-token"]').attr('content');
         var qty = $('#qty_input').val();
         if (qty == null) {
             qty = '1';
@@ -995,12 +1020,17 @@
             method: "POST",
             url: "<?php echo base_url('addtocart') ?>",
             data: {
+                [csrfName]: csrfHash,
                 product_id: pro_id,
                 qtyall: qty,
                 size: size,
                 color: color
             },
-            success: function(response) {
+            success: function(response,status, xhr) {
+                let newToken = xhr.getResponseHeader("X-CSRF-TOKEN");
+                if (newToken) {
+                    $('meta[name="csrf-token"]').attr("content", newToken);
+                }
                 $('#cartReload').load(location.href + " #cartReload");
                 $('#cartReload2').load(location.href + " #cartReload2");
                 $('#mesVal').html(response);
@@ -1021,10 +1051,18 @@
     function addToCartdetail() {
         $("#addto-cart-form").on('submit', (function(e) {
             e.preventDefault();
+
+            var formData = new FormData(this);
+            // ADD CSRF TOKEN (important for CI4)
+            formData.append(
+                $('meta[name="csrf-name"]').attr("content"),
+                $('meta[name="csrf-token"]').attr("content")
+            );
+
             $.ajax({
                 url: $(this).attr('action'),
                 type: "POST",
-                data: new FormData(this),
+                data: formData,
                 contentType: false,
                 cache: false,
                 processData: false,
@@ -1048,11 +1086,14 @@
     };
 
     function checkoption(pro_id) {
+        let csrfName = $('meta[name="csrf-name"]').attr('content');
+        let csrfHash = $('meta[name="csrf-token"]').attr('content');
         var result;
         $.ajax({
             method: "POST",
             url: "<?php echo base_url('checkoption') ?>",
             data: {
+                [csrfName]: csrfHash,
                 product_id: pro_id
             },
             success: function(response) {
@@ -1080,16 +1121,22 @@
     }
 
     function updateQty(rowid) {
+        let csrfName = $('meta[name="csrf-name"]').attr('content');
+        let csrfHash = $('meta[name="csrf-token"]').attr('content');
         var qty = $('.item_' + rowid).val();
         $.ajax({
             method: "POST",
             url: "<?php echo base_url('updateToCart') ?>",
             data: {
+                [csrfName]: csrfHash,
                 rowid: rowid,
                 qty: qty
             },
             dataType: 'json',
             success: function(response) {
+                $('meta[name="csrf-token"]').attr('content', response.csrfToken);
+                $('input[name="<?= csrf_token() ?>"]').val(response.csrfToken);
+
                 $('#cartReload').load(location.href + " #cartReload");
                 $('#tableReload').load(location.href + " #tableReload");
                 $('#cartReload2').load(location.href + " #cartReload2");
@@ -1109,13 +1156,21 @@
     }
 
     function removeCart(rowid,div) {
+        let csrfName = $('meta[name="csrf-name"]').attr('content');
+        let csrfHash = $('meta[name="csrf-token"]').attr('content');
         $.ajax({
             method: "POST",
             url: "<?php echo base_url('removeToCart') ?>",
             data: {
+                [csrfName]: csrfHash,
                 rowid: rowid
             },
-            success: function(response) {
+            success: function(response,status, xhr) {
+                let newToken = xhr.getResponseHeader("X-CSRF-TOKEN");
+                if (newToken) {
+                    $('meta[name="csrf-token"]').attr("content", newToken);
+                    $('input[name="<?= csrf_token() ?>"]').val(newToken);
+                }
                 $('#cartReload').load(location.href + " #cartReload");
                 $('#cartReload2').load(location.href + " #cartReload2");
                 $('#tableReload').load(location.href + " #tableReload");
@@ -1162,11 +1217,13 @@
         if (checkBox.checked) {
             val = 'checked';
         }
+        let csrfName = $('meta[name="csrf-name"]').attr('content');
+        let csrfHash = $('meta[name="csrf-token"]').attr('content');
 
         $.ajax({
             method: "POST",
             url: "<?php echo base_url('newsletter_action'); ?>",
-            data: { value: val },
+            data: {[csrfName]: csrfHash, value: val },
             success: function(response) {
                 $("#message").html(response);
             },
@@ -1178,8 +1235,11 @@
     }
 
     function bothPriceCalculat() {
+        let csrfName = $('meta[name="csrf-name"]').attr('content');
+        let csrfHash = $('meta[name="csrf-token"]').attr('content');
 
         var formData = $('#both-product').serialize();
+        formData += '&' + csrfName + '=' + csrfHash;
         $.ajax({
             type: "POST",
             url: '<?php echo base_url('both_product_price') ?>',
@@ -1193,7 +1253,11 @@
     }
 
     function groupAdtoCart() {
+        let csrfName = $('meta[name="csrf-name"]').attr('content');
+        let csrfHash = $('meta[name="csrf-token"]').attr('content');
+
         var formData = $('#both-product').serialize();
+        formData += '&' + csrfName + '=' + csrfHash;
         $.ajax({
             method: "POST",
             url: "<?php echo base_url('addtocartgroup') ?>",
@@ -1222,10 +1286,13 @@
                 $("#messAlt").fadeOut(1500);
             }, 600);
         } else {
+            let csrfName = $('meta[name="csrf-name"]').attr('content');
+            let csrfHash = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
                 method: "POST",
                 url: "<?php echo base_url('user_subscribe') ?>",
                 data: {
+                    [csrfName]: csrfHash,
                     email: email
                 },
                 success: function(response) {
@@ -1250,10 +1317,13 @@
         var <?php echo strtolower($v->name); ?> = $('[name="<?php echo strtolower($v->name); ?>"]').val();
         <?php }
     } ?>
+        let csrfName = $('meta[name="csrf-name"]').attr('content');
+        let csrfHash = $('meta[name="csrf-token"]').attr('content');
         $.ajax({
             method: "POST",
             url: "<?php echo base_url('optionPriceCalculate') ?>",
             data: {
+                [csrfName]: csrfHash,
                 product_id: product_id,
         <?php foreach (get_all_data_array('cc_option') as $vl) { ?>
         <?php echo strtolower($vl->name); ?>: <?php echo strtolower($vl->name); ?>,
@@ -1344,10 +1414,13 @@
             $('#checkout-form').attr('action', '<?php echo base_url('checkout_action'); ?>');
             $('#checkout-form').attr('method', 'POST');
         }
+        let csrfName = $('meta[name="csrf-name"]').attr('content');
+        let csrfHash = $('meta[name="csrf-token"]').attr('content');
         $.ajax({
             method: "POST",
             url: "<?php echo base_url('payment_instruction') ?>",
             data: {
+                [csrfName]: csrfHash,
                 id: id
             },
             success: function(response) {
@@ -1395,6 +1468,15 @@
 
     scrollToTopBtn.addEventListener("click", function () {
         window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    $(document).ajaxComplete(function(event, xhr) {
+        let headerName = $('meta[name="csrf-header"]').attr('content');
+        let newToken   = xhr.getResponseHeader(headerName);
+        if (newToken) {
+            $('meta[name="csrf-token"]').attr('content', newToken);
+            $('input[name="<?= csrf_token() ?>"]').val(newToken);
+        }
     });
 
 </script>

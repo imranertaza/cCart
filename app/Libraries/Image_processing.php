@@ -34,6 +34,9 @@ class Image_processing
         helper('Global');
         $theme = get_lebel_by_value_in_settings('Theme');
 
+        if ($theme == 'Theme_4') {
+            $libraries = new Theme_4();
+        }
         if ($theme == 'Theme_3') {
             $libraries = new Theme_3();
         }

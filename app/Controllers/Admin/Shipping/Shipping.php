@@ -152,9 +152,8 @@ class Shipping extends BaseController
             }
         }
 
-
-        $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Shipping Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+        $this->session->setFlashdata('success', true);
+        $this->session->setFlashdata('message', 'Shipping Update Success!');
         return redirect()->to('admin/shipping_settings/' . $shipping_method_id);
     }
 
@@ -200,8 +199,9 @@ class Shipping extends BaseController
                 $tableRate->insert($rateData);
             }
         }
-        $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Zone Rate Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 
+        $this->session->setFlashdata('success', true);
+        $this->session->setFlashdata('message', 'Zone Rate Update Success!');
         return redirect()->to('admin/shipping_settings/' . $shipping_method_id);
     }
 
@@ -220,7 +220,7 @@ class Shipping extends BaseController
 
     /**
      * @description This method provides data update
-     * @return void
+     * @return \CodeIgniter\HTTP\ResponseInterface
      */
     public function update_status()
     {
@@ -235,7 +235,10 @@ class Shipping extends BaseController
         $table = DB()->table('cc_shipping_method');
         $table->where('shipping_method_id', $shipping_method_id)->update($data);
 
-        print '<div class="alert alert-success alert-dismissible" role="alert">Shipping Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+        $message = '<div class="alert alert-success alert-dismissible" role="alert">Shipping Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+        return $this->response
+            ->setHeader('X-CSRF-TOKEN', csrf_hash())
+            ->setBody($message);
     }
 
     /**

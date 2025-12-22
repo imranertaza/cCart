@@ -23,7 +23,7 @@ class Ajax extends BaseController
 
     /**
      * @description This method provides all status view in option
-     * @return void
+     * @return \CodeIgniter\HTTP\ResponseInterface
      */
     public function get_state()
     {
@@ -37,12 +37,15 @@ class Ajax extends BaseController
             $options .= '<option value="' . $value->zone_id . '" ';
             $options .= '>' . $value->name . '</option>';
         }
-        print $options;
+
+        return $this->response
+            ->setHeader('X-CSRF-TOKEN', csrf_hash())
+            ->setBody($options);
     }
 
     /**
      * @description This method provides module update
-     * @return void
+     * @return \CodeIgniter\HTTP\ResponseInterface
      */
     public function module_update()
     {
@@ -56,11 +59,13 @@ class Ajax extends BaseController
         } else {
             $table->where('module_id', $id)->update(['status' => '1']);
         }
+        return $this->response
+            ->setHeader('X-CSRF-TOKEN', csrf_hash());
     }
 
     /**
      * @description This method provides all option view in option
-     * @return void
+     * @return \CodeIgniter\HTTP\ResponseInterface
      */
     public function get_option_value()
     {
@@ -74,12 +79,15 @@ class Ajax extends BaseController
             $options .= '<option value="' . $value->option_value_id . '" ';
             $options .= '>' . $value->name . '</option>';
         }
-        print $options;
+
+        return $this->response
+            ->setHeader('X-CSRF-TOKEN', csrf_hash())
+            ->setBody($options);
     }
 
     /**
      * @description This method provides country all zone view in option
-     * @return void
+     * @return \CodeIgniter\HTTP\ResponseInterface
      */
     public function get_zone_value()
     {
@@ -93,6 +101,9 @@ class Ajax extends BaseController
             $options .= '<option value="' . $value->zone_id . '" ';
             $options .= '>' . $value->name . '</option>';
         }
-        print $options;
+
+        return $this->response
+            ->setHeader('X-CSRF-TOKEN', csrf_hash())
+            ->setBody($options);
     }
 }

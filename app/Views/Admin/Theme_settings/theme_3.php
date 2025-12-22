@@ -1,6 +1,7 @@
 <div class="row">
     <div class="col-md-6 card p-2">
         <form action="<?php echo base_url('admin/header_section_one_update') ?>" method="post" enctype="multipart/form-data">
+            <?= csrf_field() ?>
             <h3>Top Section One</h3>
             <?php
                 $theme     = get_lebel_by_value_in_settings('Theme');
@@ -55,6 +56,7 @@
 
     <div class="col-md-6 card p-2">
         <form action="<?php echo base_url('admin/header_section_two_update') ?>" method="post" enctype="multipart/form-data">
+            <?= csrf_field() ?>
             <h3>Top Section Two</h3>
 
             <div class="form-group">
@@ -102,6 +104,7 @@
 
     <div class="col-md-6 card p-2">
         <form action="<?php echo base_url('admin/home_category_update') ?>" method="post" enctype="multipart/form-data">
+            <?= csrf_field() ?>
             <h3>Category Section One</h3>
             <div class="form-group">
                 <label><?php echo $themeSettingTitle['home_category_title_1'];?></label>
@@ -145,6 +148,7 @@
 
     <div class="col-md-6 card p-2">
         <form action="<?php echo base_url('admin/home_category_update') ?>" method="post" enctype="multipart/form-data">
+            <?= csrf_field() ?>
             <h3>Category Section Two</h3>
             <div class="form-group">
                 <label><?php echo $themeSettingTitle['home_category_title_2'];?></label>
@@ -189,6 +193,7 @@
 
     <div class="col-md-6 card p-2">
         <form action="<?php echo base_url('admin/home_category_update') ?>" method="post" enctype="multipart/form-data">
+            <?= csrf_field() ?>
             <h3>Category Section Three</h3>
             <div class="form-group">
                 <label><?php echo $themeSettingTitle['home_category_title_3'];?></label>
@@ -232,6 +237,7 @@
 
     <div class="col-md-6 card p-2">
         <form action="<?php echo base_url('admin/home_category_update') ?>" method="post" enctype="multipart/form-data">
+            <?= csrf_field() ?>
             <h3>Category Section Four</h3>
             <div class="form-group">
                 <label><?php echo $themeSettingTitle['home_category_title_4'];?></label>
@@ -275,6 +281,7 @@
 
     <div class="col-md-6 card p-2">
         <form action="<?php echo base_url('admin/home_category_update') ?>" method="post" enctype="multipart/form-data">
+            <?= csrf_field() ?>
             <h3>Category Section Five</h3>
             <div class="form-group">
                 <label><?php echo $themeSettingTitle['home_category_title_5'];?></label>
@@ -319,6 +326,7 @@
 
     <div class="col-md-6 card p-2">
         <form action="<?php echo base_url('admin/banner_bottom_update') ?>" method="post" enctype="multipart/form-data">
+            <?= csrf_field() ?>
             <h3>Banner Bottom</h3>
             <div class="form-group">
                 <?php

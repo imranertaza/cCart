@@ -1,0 +1,133 @@
+/* 🔶 Offer Section */
+.offer-section {
+    width: 100%;
+    border-radius: 14px;
+    background: #FFEAD5;
+    padding: 0 48px;
+}
+
+.offer-section-title {
+    font-size: 30px;
+    margin-bottom: 22px;
+    font-weight: 600;
+}
+
+.offer-section-subtitle {
+    font-size: 13px;
+    text-transform: uppercase;
+    color: #515151;
+    width: 75%;
+}
+
+.offer-section img {
+    width: 100%;
+    max-width: 326px;
+    height: auto;
+    object-fit: cover;
+}
+
+/* 🔻 Offer Section Bottom Spacing */
+.offer-container-bottom-hr {
+    padding-top: 30px;
+}
+
+/* 🛒 Best Seller Card */
+.best-seller-card {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* 🌀 Swiper Slider */
+.swiper,
+.swiper-slide,
+.card-slider-single-slide {
+    width: 100% !important;
+    max-width: 100%;
+}
+
+.card-slider-single-slide img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+/* 🧩 Category Filter Buttons */
+.category-sortby,
+.category-show {
+    padding: 10px 16px;
+    width: 95px;
+    font-size: 14px;
+    border-radius: 8px;
+    border: 1px solid #E6E6E6;
+    background: #FFFFFF;
+}
+.category-sortby {
+    width: 100px;
+}
+/* 🧭 Product View Toggle */
+.product-top-nav button {
+    width: 46px;
+    height: 42px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+}
+
+.grid-button {
+    background: #EFEFEF;
+}
+
+.list-button {
+    background: #efefef;
+    border: none;
+    padding: 10px;
+}
+.list-button svg path {
+    fill: #000;
+}
+.total-sold{
+    color: #666666;
+}
+.total-sold::marker{
+    color: #E0E0E0;
+}
+/* 🔽 Select Wrapper */
+.select-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.select-wrapper .select-icon {
+    position: absolute;
+    background-color: #fff;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+/* 🔍 Search Result Text */
+.search-result-text {
+    font-size: 18px;
+    font-family: 'poppins', sans-serif;
+}
+
+/* 📄 Pagination */
+.category-product-pagination {
+    margin-top: 50px;
+}
+.header-logo{
+    min-width: 65px;
+    height: auto;
+}
+/* 📱 Responsive Styles */
+@media screen and (max-width: 576px) {
+    .category-filter {
+        width: 100%;
+    }
+    .offer-section-subtitle {
+        width: 100%;
+    }
+}
+

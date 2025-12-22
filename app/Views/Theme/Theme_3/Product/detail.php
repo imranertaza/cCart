@@ -48,6 +48,7 @@
                     <!--image details showing -->
                     <div class="col-md-6">
                         <form id="addto-cart-form" action="<?php echo base_url('addtocartdetail') ?>" method="post">
+                            <?= csrf_field() ?>
                             <?php
                     $stock = get_data_by_id('quantity', 'cc_products', 'product_id', $products->product_id);
                     $brand = get_data_by_id('name', 'cc_brand', 'brand_id', $products->brand_id);
@@ -274,10 +275,17 @@
     function buyNowAction(){
         $("#addto-cart-form").on('submit', (function(e) {
             e.preventDefault();
+            var formData = new FormData(this);
+
+            // ADD CSRF TOKEN (important for CI4)
+            formData.append(
+                $('meta[name="csrf-name"]').attr("content"),
+                $('meta[name="csrf-token"]').attr("content")
+            );
             $.ajax({
                 url: $(this).attr('action'),
                 type: "POST",
-                data: new FormData(this),
+                data: formData,
                 contentType: false,
                 cache: false,
                 processData: false,
@@ -315,10 +323,13 @@
         var <?php echo strtolower($fildName); ?> = $('[name="<?php echo strtolower($fildName); ?>"]').val();
         <?php }
                                                         } ?>
+        let csrfName = $('meta[name="csrf-name"]').attr('content');
+        let csrfHash = $('meta[name="csrf-token"]').attr('content');
         $.ajax({
             method: "POST",
             url: "<?php echo base_url('optionPriceCalculate') ?>",
             data: {
+                [csrfName]: csrfHash,
                 product_id: product_id,
         <?php foreach (get_all_data_array('cc_option') as $vl) {
                                                             $fildName2 = str_replace(' ', '', $vl->name); ?>

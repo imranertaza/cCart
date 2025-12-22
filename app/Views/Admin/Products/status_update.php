@@ -31,8 +31,14 @@
                         </div>
                         <div class="col-md-8"> </div>
                         <div class="col-md-12" id="message" style="margin-top: 10px">
-                            <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message');
-                            endif; ?>
+                            <?php if (session()->getFlashdata('message')): ?>
+                                <div class="alert <?= session()->getFlashdata('success') ? 'alert-success' : 'alert-danger'; ?> alert-dismissible fade show" role="alert">
+                                    <?= session()->getFlashdata('message'); ?>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            <?php endif; ?>
                             <span id="mess" style="display: none"><div class="alert alert-success alert-dismissible" role="alert">Update Successfully <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div></span>
                         </div>
                     </div>
@@ -41,6 +47,7 @@
 
 
                     <form  action="<?php echo base_url('admin/product_status_update_action') ?>" method="post">
+                        <?= csrf_field() ?>
                         <div class="modal-header">
                             <h4 class="modal-title">Status Update</h4>
                         </div>

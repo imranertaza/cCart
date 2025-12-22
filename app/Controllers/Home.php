@@ -123,10 +123,21 @@ class Home extends BaseController
 
         return $data;
     }
+    private function Theme_4()
+    {
+        $data['blogs'] = DB()->table('cc_blog')
+            ->where('status', '1')
+            ->orderBy('blog_id', 'ASC')
+            ->limit(4)
+            ->get()->getResult();
+
+        $data['all'] = '';
+        return $data;
+    }
 
     /**
      * @description This method provides user subscription store
-     * @return void
+     * @return \CodeIgniter\HTTP\ResponseInterface
      */
     public function user_subscribe()
     {
@@ -149,10 +160,14 @@ class Home extends BaseController
             $this->session->set($sessionArray);
 
             email_send($email, $subject, $message);
-            print "Please Verify Your Email Address to Complete Your Subscription!";
+            $message = "Please Verify Your Email Address to Complete Your Subscription!";
         } else {
-            print 'Email required';
+            $message = 'Email required';
         }
+
+        return $this->response
+            ->setHeader('X-CSRF-TOKEN', csrf_hash())
+            ->setBody($message);
     }
 
     public function verify()

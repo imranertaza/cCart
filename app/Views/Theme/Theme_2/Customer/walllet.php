@@ -4,12 +4,19 @@
 <section class="main-container my-5">
     <div class="container">
         <form action="<?php echo base_url('profile_update_action') ?>" method="Post">
+            <?= csrf_field() ?>
             <div class="card border rounded-0">
                 <div class="card-body p-3 p-md-5">
                     <div class="row mb-4">
                         <div class="col-md-12 px-5">
-                            <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message');
-                            endif; ?>
+                            <?php if (session()->getFlashdata('message')): ?>
+                                <div class="alert <?= session()->getFlashdata('success') ? 'alert-success' : 'alert-danger'; ?> alert-dismissible fade show" role="alert">
+                                    <?= session()->getFlashdata('message'); ?>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            <?php endif; ?>
                         </div>
                         <div class="col-md-12 px-5 text-center">
 

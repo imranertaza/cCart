@@ -95,8 +95,8 @@ class Brand extends BaseController
         ]);
 
         if ($this->validation->run($data) == false) {
-            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+            $this->session->setFlashdata('success', false);
+            $this->session->setFlashdata('message', $this->validation->listErrors());
             return redirect()->to('admin/brand_create');
         } else {
             if (!empty($_FILES['image']['name'])) {
@@ -119,8 +119,8 @@ class Brand extends BaseController
             $table = DB()->table('cc_brand');
             $table->insert($data);
 
-            $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Brand Create Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+            $this->session->setFlashdata('success', true);
+            $this->session->setFlashdata('message', 'Brand Create Succes!');
             return redirect()->to('admin/brand_create');
         }
     }
@@ -175,8 +175,8 @@ class Brand extends BaseController
         ]);
 
         if ($this->validation->run($data) == false) {
-            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+            $this->session->setFlashdata('success', false);
+            $this->session->setFlashdata('message', $this->validation->listErrors());
             return redirect()->to('admin/brand_update/' . $brand_id);
         } else {
             if (!empty($_FILES['image']['name'])) {
@@ -210,8 +210,8 @@ class Brand extends BaseController
             $table = DB()->table('cc_brand');
             $table->where('brand_id', $brand_id)->update($data);
 
-            $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Brand Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+            $this->session->setFlashdata('success', true);
+            $this->session->setFlashdata('message', 'Brand Update Success!');
             return redirect()->to('admin/brand_update/' . $brand_id);
         }
     }
@@ -242,8 +242,8 @@ class Brand extends BaseController
         $table = DB()->table('cc_brand');
         $table->where('brand_id', $brand_id)->delete();
 
-        $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Brand Delete Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+        $this->session->setFlashdata('success', true);
+        $this->session->setFlashdata('message', 'Brand Delete Success!');
         return redirect()->to('admin/brand');
     }
 }

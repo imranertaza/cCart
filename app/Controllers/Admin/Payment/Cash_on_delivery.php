@@ -102,9 +102,8 @@ class Cash_on_delivery extends BaseController
         $table          = DB()->table('cc_payment_method');
         $table->where('payment_method_id', $payment_method_id)->update($data);
 
-
-        $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Cash On Delivery Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
-        return redirect()->to('admin/payment/bank_transfer/' . $payment_method_id);
+        $this->session->setFlashdata('success', true);
+        $this->session->setFlashdata('message', 'Cash On Delivery Update Success!');
+        return redirect()->to('admin/payment/cash_on/' . $payment_method_id);
     }
 }

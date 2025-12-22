@@ -100,9 +100,8 @@ class Stripe extends BaseController
         $table          = DB()->table('cc_payment_method');
         $table->where('payment_method_id', $payment_method_id)->update($data);
 
-
-        $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Stripe Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+        $this->session->setFlashdata('success', true);
+        $this->session->setFlashdata('message', 'Stripe Update Success!');
         return redirect()->to('admin/payment/stripe/' . $payment_method_id);
     }
 }

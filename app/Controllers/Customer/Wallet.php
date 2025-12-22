@@ -98,8 +98,8 @@ class Wallet extends BaseController
         ]);
 
         if ($this->validation->run($data) == false) {
-            $this->session->setFlashdata('message', '<div class="alert text-white alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . '</div>');
-
+            $this->session->setFlashdata('success', false);
+            $this->session->setFlashdata('message', $this->validation->listErrors());
             return redirect()->to('add-funds');
         } else {
             if ($data['payment_method_id'] == '7') {
@@ -112,8 +112,8 @@ class Wallet extends BaseController
             $table = DB()->table('cc_fund_request');
             $table->insert($data);
 
-            $this->session->setFlashdata('message', '<div class="alert-success-m alert-success alert-dismissible" role="alert">Fund Update successfully </div>');
-
+            $this->session->setFlashdata('success', true);
+            $this->session->setFlashdata('message', 'Fund Update Success!');
             return redirect()->to('my-wallet');
         }
     }
