@@ -185,7 +185,7 @@ class Offer_calculate
         }
 
         $this->discount     += $this->amountProDisc      + $this->productProDisc;
-        $this->shipDiscount += $this->amountShipDisc + $this->productShipDisc;
+        $this->shipDiscount += $this->amountShipDisc     + $this->productShipDisc;
 
         return [
             'discount_amount'          => $this->discount,

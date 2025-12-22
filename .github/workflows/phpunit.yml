@@ -1,8 +1,8 @@
 name: PHPUnit Tests
 
 on:
-#  push:
-#    branches: [ master, develop ]
+  #  push:
+  #    branches: [ master, develop ]
   pull_request:
     branches: [ master, develop ]
 
@@ -60,11 +60,11 @@ jobs:
               file_get_contents('.env')
           ));"
 
-#      - name: Run Migrations
-#        run: php spark migrate
-#
-#      - name: Run Seeders
-#        run: php spark db:seed AllDemo
+      #      - name: Run Migrations
+      #        run: php spark migrate
+      #
+      #      - name: Run Seeders
+      #        run: php spark db:seed AllDemo
 
       - name: Run PHPUnit tests
         run: vendor/bin/phpunit tests/app
