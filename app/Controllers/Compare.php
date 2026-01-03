@@ -54,7 +54,7 @@ class Compare extends BaseController
 
         if (empty($this->session->compare_session)) {
             $this->session->set('compare_session', $compareArray);
-            print 'Successfully add to compare';
+            $message = 'Successfully add to compare';
         } else {
             foreach ($this->session->compare_session as $stored_product) {
                 $ids[] = $stored_product;

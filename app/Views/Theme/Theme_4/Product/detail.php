@@ -180,6 +180,7 @@ $symbol = get_lebel_by_value_in_settings('currency_symbol');
                 <div class="" id="preview">
                     <div class="zoom-image-container d-none"></div>
                     <form id="addto-cart-form" action="<?php echo base_url('addtocartdetail') ?>" method="post">
+                        <?= csrf_field() ?>
                         <div class="">
                             <h4 class="title product-details-title"><?= $products->name; ?></h4>
                             <div class="d-flex align-items-center justify-content-between gap-2">
