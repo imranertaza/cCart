@@ -117,10 +117,13 @@
                 let email = $('#email').val();
                 let message = $('#message').val();
 
+                let csrfName = $('meta[name="csrf-name"]').attr('content');
+                let csrfHash = $('meta[name="csrf-token"]').attr('content');
                 $.ajax({
                     method: "POST",
                     url: "<?php echo base_url('contact_form_action') ?>",
                     data: {
+                        [csrfName]: csrfHash,
                         email: email,
                         message: message,
                     },
@@ -128,6 +131,7 @@
                         // alert(response);
                         $('#email').val('');
                         $('#message').val('');
+                        $('#captcha_form').val('');
                         $('#mesVal').html('Your message was successfully submitted');
                         $('.message_alert').show();
                         setTimeout(function () {

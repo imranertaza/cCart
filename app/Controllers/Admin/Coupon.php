@@ -113,8 +113,8 @@ class Coupon extends BaseController
         ]);
 
         if ($this->validation->run($data) == false) {
-            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+            $this->session->setFlashdata('success', false);
+            $this->session->setFlashdata('message', $this->validation->listErrors());
             return redirect()->to('admin/coupon_create');
         } else {
             DB()->transStart();
@@ -137,8 +137,8 @@ class Coupon extends BaseController
             }
             DB()->transComplete();
 
-            $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Coupon Create Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+            $this->session->setFlashdata('success', true);
+            $this->session->setFlashdata('message', 'Coupon Create Success!');
             return redirect()->to('admin/coupon_create');
         }
     }
@@ -211,8 +211,8 @@ class Coupon extends BaseController
         ]);
 
         if ($this->validation->run($data) == false) {
-            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+            $this->session->setFlashdata('success', false);
+            $this->session->setFlashdata('message', $this->validation->listErrors());
             return redirect()->to('admin/coupon_update/' . $coupon_id);
         } else {
             DB()->transStart();
@@ -236,8 +236,9 @@ class Coupon extends BaseController
                 $tableShip->insertBatch($shipData);
             }
             DB()->transComplete();
-            $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Coupon Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 
+            $this->session->setFlashdata('success', true);
+            $this->session->setFlashdata('message', 'Coupon Update Success!');
             return redirect()->to('admin/coupon_update/' . $coupon_id);
         }
     }
@@ -255,8 +256,8 @@ class Coupon extends BaseController
         $table = DB()->table('cc_coupon');
         $table->where('coupon_id', $coupon_id)->delete();
 
-        $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Coupon Delete Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+        $this->session->setFlashdata('success', true);
+        $this->session->setFlashdata('message', 'Coupon Delete Success!');
         return redirect()->to('admin/coupon');
     }
 }

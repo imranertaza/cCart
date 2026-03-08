@@ -85,8 +85,8 @@ class Profile extends BaseController
         ]);
 
         if ($this->validation->run($data) == false) {
-            $this->session->setFlashdata('message', '<div class="alert text-white alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . '</div>');
-
+            $this->session->setFlashdata('success', false);
+            $this->session->setFlashdata('message', $this->validation->listErrors());
             return redirect()->to('profile');
         } else {
             if (!empty($this->request->getPost('subscription'))) {
@@ -149,11 +149,8 @@ class Profile extends BaseController
                 $tabAd->where('customer_id', $this->session->cusUserId)->update($addData);
             }
 
-
-
-
-            $this->session->setFlashdata('message', '<div class="alert-success-m alert-success alert-dismissible" role="alert">Profile Update successfully </div>');
-
+            $this->session->setFlashdata('success', true);
+            $this->session->setFlashdata('message', 'Profile Update successfully!');
             return redirect()->to('profile');
         }
     }
@@ -175,7 +172,8 @@ class Profile extends BaseController
         ]);
 
         if ($this->validation->run($data) == false) {
-            $this->session->setFlashdata('message', '<div class="alert text-white  alert-dismissible" role="alert">' . $this->validation->listErrors() . '</div>');
+            $this->session->setFlashdata('success', false);
+            $this->session->setFlashdata('message', $this->validation->listErrors());
 
             return redirect()->to('dashboard');
         } else {
@@ -194,16 +192,15 @@ class Profile extends BaseController
             $table = DB()->table('cc_customer');
             $table->where('customer_id', $this->session->cusUserId)->update($cusData);
 
-
-            $this->session->setFlashdata('message', '<div class="alert-success-m alert-success alert-dismissible" role="alert">Update successfully </div>');
-
+            $this->session->setFlashdata('success', true);
+            $this->session->setFlashdata('message', 'Update Success!');
             return redirect()->to('dashboard');
         }
     }
 
     /**
      * @description This method provides newsletter data store.
-     * @return void
+     * @return \CodeIgniter\HTTP\ResponseInterface
      */
     public function newsletter_action()
     {
@@ -228,9 +225,9 @@ class Profile extends BaseController
                 $message = "Thank you.Your subscription has been successfully completed";
                 email_send($email, $subject, $message);
 
-                print '<div class="alert-success-m alert-success alert-dismissible" role="alert">Your subscription has been successfully completed </div>';
+                $message = '<div class="alert-success-m alert-success alert-dismissible" role="alert">Your subscription has been successfully completed </div>';
             } else {
-                print '<div class="alert alert-danger alert-dismissible text-white " role="alert">Your email already exists</div>';
+                $message = '<div class="alert alert-danger alert-dismissible text-white " role="alert">Your email already exists</div>';
             }
         } else {
             $newAd = DB()->table('cc_newsletter');
@@ -240,7 +237,12 @@ class Profile extends BaseController
             $cusData['newsletter'] = '0';
             $table                 = DB()->table('cc_customer');
             $table->where('customer_id', $this->session->cusUserId)->update($cusData);
-            print '<div class="alert-success-m alert-success alert-dismissible" role="alert">Your subscription has been successfully removed </div>';
+            $message = '<div class="alert-success-m alert-success alert-dismissible" role="alert">Your subscription has been successfully removed </div>';
         }
+
+        return $this->response
+            ->setHeader('X-CSRF-TOKEN', csrf_hash())
+            ->setBody($message);
+
     }
 }

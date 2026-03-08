@@ -257,6 +257,15 @@ $routes->group('admin', static function ($routes) {
     $routes->post('home_category_update', 'Admin\Theme_settings_3::home_category_update');
     $routes->post('banner_bottom_update', 'Admin\Theme_settings_3::banner_bottom_update');
 
+    $routes->post('top_category_section_one_update', 'Admin\Theme_settings_4::topCategorySectionOneUpdate');
+    $routes->post('top_category_section_two_update', 'Admin\Theme_settings_4::topCategorySectionTwoUpdate');
+    $routes->post('recent_product_update', 'Admin\Theme_settings_4::recentProductUpdate');
+    $routes->post('home_section_one_update', 'Admin\Theme_settings_4::homeSectionOneUpdate');
+    $routes->post('home_section_two_update', 'Admin\Theme_settings_4::homeSectionTwoUpdate');
+    $routes->post('offer_view_update', 'Admin\Theme_settings_4::offerViewUpdate');
+    $routes->post('popular_this_week_update', 'Admin\Theme_settings_4::popularThisWeekUpdate');
+    $routes->post('slider_update_four', 'Admin\Theme_settings_4::sliderUpdateFour');
+
     //Localization
     $routes->get('geo_zone', 'Admin\Geo_zone::index');
     $routes->get('geo_zone_create', 'Admin\Geo_zone::create');
@@ -438,6 +447,9 @@ $routes->get('/product_not_found', 'Products\Products::product_not_found');
 $routes->post('/review', 'Products\Products::review');
 $routes->post('/both_product_price', 'Products\Products::both_product_price');
 $routes->post('/optionPriceCalculate', 'Products\Products::optionPriceCalculate');
+
+$routes->get('/review-data/(:num)', 'Products\Products::reviewData/$1');
+$routes->post('/review-comment-search', 'Products\Products::reviewCommentSearch');
 
 $routes->get('/featuredproducts', 'Featuredproducts::index');
 

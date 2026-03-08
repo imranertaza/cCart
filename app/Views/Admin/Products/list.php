@@ -31,6 +31,7 @@
                     </div>
                     <div class="col-md-6">
                         <form id="multisubmitform" action="<?php echo base_url('admin/product_copy_action'); ?>" method="post">
+                            <?= csrf_field() ?>
                             <a href="<?php echo base_url('admin/product_create') ?>" class="btn btn-primary btn-xs float-right"><i class="fas fa-plus"></i> Add</a>
                             <?php if (modules_key_by_access('bulk_edit_products') == '1') {?>
                             <a href="<?php echo base_url('admin/bulk_edit_products') ?>" onclick="bulk_datatable_reset()" class="btn btn-info btn-xs float-right mr-2"><i class="fas fa-plus"></i> Bulk Edit Products</a>
@@ -46,7 +47,14 @@
                         </form>
                     </div>
                     <div class="col-md-12" style="margin-top: 10px" id="message">
-                        <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
+                        <?php if (session()->getFlashdata('message')): ?>
+                            <div class="alert <?= session()->getFlashdata('success') ? 'alert-success' : 'alert-danger'; ?> alert-dismissible fade show" role="alert">
+                                <?= session()->getFlashdata('message'); ?>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        <?php endif; ?>
 
                         <div class="form-group" id="process" style="display:none;">
                             <div class="progress">
@@ -59,6 +67,7 @@
             </div>
             <div class="card-body">
                 <form id="tableForm" action="<?php echo base_url('admin/products')?>" method="GET" >
+                    <?= csrf_field() ?>
                     <div class="row mb-3">
                         <div class="col-md-2 mx-auto">
 
@@ -149,65 +158,6 @@ foreach ($product as $val) {
 
 <?= $this->section('java_script') ?>
 <script>
-    // $(document).ready(function(){
-    //     $('#multisubmitform').on('submit', function(event){
-    //         event.preventDefault();
-    //         var fd = new FormData(this);
-    //
-    //         $.ajax({
-    //             method:"POST",
-    //             url:$(this).prop('action'),
-    //             data:fd,
-    //             contentType: false,
-    //             cache: false,
-    //             processData: false,
-    //             beforeSend:function()
-    //             {
-    //                 $('#save').attr('disabled', 'disabled');
-    //                 $('#process').css('display', 'block');
-    //                 var percentage = 0;
-    //                 var timer = setInterval(function(){
-    //                     percentage = percentage + 20;
-    //                     progress_bar_process_before(percentage, timer);
-    //                 }, 1000);
-    //             },
-    //             success:function(data){
-    //
-    //                 var percentage = 50;
-    //                 var timer = setInterval(function(){
-    //                     percentage = percentage + 20;
-    //                     progress_bar_process(percentage, timer,data);
-    //                 }, 1000);
-    //             }
-    //         })
-    //
-    //
-    //     });
-    //
-    //     function progress_bar_process_before(percentage, timer){
-    //         $('.progress-bar').css('width', percentage + '%');
-    //         if(percentage > 50){clearInterval(timer);}
-    //     }
-    //     function progress_bar_process(percentage, timer,data){
-    //         $('.progress-bar').css('width', percentage + '%');
-    //         if(percentage > 100)
-    //         {
-    //             clearInterval(timer);
-    //             $('#sample_form')[0].reset();
-    //             $('#process').css('display', 'none');
-    //             $('.progress-bar').css('width', '0%');
-    //             $('#save').attr('disabled', false);
-    //             $('#success_message').html(data);
-    //             setTimeout(function(){
-    //                 $('#success_message').html('');
-    //                 window.location.reload();
-    //                 alert("ok");
-    //             }, 2000);
-    //         }
-    //     }
-    //
-    // });
-
     function allchecked(source) {
         var checkboxes = document.querySelectorAll('input[type="checkbox"]');
         for (var i = 0; i < checkboxes.length; i++) {
@@ -218,10 +168,12 @@ foreach ($product as $val) {
 
     function product_delete(id){
         if (confirm('Do you want to delete it?')) {
+            let csrfName = $('meta[name="csrf-name"]').attr('content');
+            let csrfHash = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
                 method: "POST",
                 url: "<?php echo base_url('admin/product_delete') ?>",
-                data: {product_id: id},
+                data: {[csrfName]: csrfHash,product_id: id},
                 beforeSend: function () {
                     $("#loading-image").show();
                 },

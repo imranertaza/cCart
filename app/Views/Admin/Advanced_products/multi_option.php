@@ -41,6 +41,7 @@
 
 
                 <form id="optionForm" action="<?php echo base_url('admin/bulk_multi_option_action') ?>" method="post">
+                    <?= csrf_field() ?>
                     <div class="modal-header">
                         <h4 class="modal-title">Options</h4>
                     </div>
@@ -90,10 +91,13 @@
 <?= $this->section('java_script') ?>
 <script>
     function searchOptionUp(key) {
+        let csrfName = $('meta[name="csrf-name"]').attr('content');
+        let csrfHash = $('meta[name="csrf-token"]').attr('content');
         $.ajax({
             method: "POST",
             url: "<?php echo base_url('admin/product_option_search') ?>",
             data: {
+                [csrfName]: csrfHash,
                 key: key
             },
             beforeSend: function() {
@@ -131,11 +135,13 @@
 
     //option
     function add_option_new_ajax(id, option_id) {
-        // var data = '';
+        let csrfName = $('meta[name="csrf-name"]').attr('content');
+        let csrfHash = $('meta[name="csrf-token"]').attr('content');
         $.ajax({
             method: "POST",
             url: "<?php echo base_url('admin/product_option_value_search') ?>",
             data: {
+                [csrfName]: csrfHash,
                 option_id: option_id
             },
             success: function(val) {

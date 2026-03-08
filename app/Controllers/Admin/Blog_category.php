@@ -100,8 +100,8 @@ class Blog_category extends BaseController
         ]);
 
         if ($this->validation->run($data) == false) {
-            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+            $this->session->setFlashdata('success', false);
+            $this->session->setFlashdata('message', $this->validation->listErrors());
             return redirect()->to('admin/blog_category_create');
         } else {
             if (!empty($_FILES['image']['name'])) {
@@ -124,8 +124,8 @@ class Blog_category extends BaseController
             $table = DB()->table('cc_category');
             $table->insert($data);
 
-            $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Create Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+            $this->session->setFlashdata('success', true);
+            $this->session->setFlashdata('message', 'Create Record Success!');
             return redirect()->to('admin/blog_category_create');
         }
     }
@@ -183,7 +183,8 @@ class Blog_category extends BaseController
         ]);
 
         if ($this->validation->run($data) == false) {
-            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            $this->session->setFlashdata('success', false);
+            $this->session->setFlashdata('message', $this->validation->listErrors());
 
             return redirect()->to('admin/blog_category_update/' . $catId);
         } else {
@@ -218,7 +219,8 @@ class Blog_category extends BaseController
             $table = DB()->table('cc_category');
             $table->where('cat_id', $catId)->update($data);
 
-            $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Update Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            $this->session->setFlashdata('success', true);
+            $this->session->setFlashdata('message', 'Update Record Success!');
 
             return redirect()->to('admin/blog_category_update/' . $catId);
         }
@@ -246,15 +248,17 @@ class Blog_category extends BaseController
         ]);
 
         if ($this->validation->run($data) == false) {
-            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
+            $this->session->setFlashdata('success', false);
+            $this->session->setFlashdata('message', $this->validation->listErrors());
 
             return redirect()->to('admin/blog_category_update/' . $catId);
         } else {
             $table = DB()->table('cc_category');
             $table->where('cat_id', $catId)->update($data);
 
-            $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Update Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+            $this->session->setFlashdata('success', true);
+            $this->session->setFlashdata('message', 'Update Record Success!');
             return redirect()->to('admin/blog_category_update/' . $catId);
         }
     }
@@ -303,9 +307,9 @@ class Blog_category extends BaseController
         $table = DB()->table('cc_category');
         $table->where('cat_id', $catId)->delete();
         DB()->transComplete();
-
-        $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Delete Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+        
+        $this->session->setFlashdata('success', true);
+        $this->session->setFlashdata('message', 'Delete Record Success!');
         return redirect()->to('admin/blog_category');
     }
 

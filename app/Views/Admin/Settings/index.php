@@ -22,6 +22,7 @@
     <!-- Main content -->
     <section class="content">
         <form method="post" action="<?php echo base_url('admin/settings_update_action')?>" enctype="multipart/form-data">
+            <?= csrf_field() ?>
         <!-- Default box -->
         <div class="card">
             <div class="card-header">
@@ -35,7 +36,14 @@
                         <button type="submit" class="btn btn-primary btn-sm " >Save</button>
                     </div>
                     <div class="col-md-12" style="margin-top: 10px">
-                        <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
+                        <?php if (session()->getFlashdata('message')): ?>
+                            <div class="alert <?= session()->getFlashdata('success') ? 'alert-success' : 'alert-danger'; ?> alert-dismissible fade show" role="alert">
+                                <?= session()->getFlashdata('message'); ?>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -349,10 +357,13 @@ $settingsTitle                            = get_settings_title();
 <?= $this->section('java_script') ?>
     <script>
         function selectState(country_id) {
+            let csrfName = $('meta[name="csrf-name"]').attr('content');
+            let csrfHash = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
                 method: "POST",
                 url: "<?php echo base_url('get_state') ?>",
                 data: {
+                    [csrfName]: csrfHash,
                     country_id: country_id
                 },
                 beforeSend: function() {

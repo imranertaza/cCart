@@ -8,6 +8,7 @@
             </div>
             <div class="col-lg-6">
                 <form action="<?php echo base_url('reset_action')?>" method="post" class="sing-up" onsubmit="return passwordRecovery()">
+                    <?= csrf_field() ?>
                     <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
 
                     <div class="form-group">

@@ -31,12 +31,20 @@
                     </div>
                     <div class="col-md-4"> </div>
                     <div class="col-md-12" style="margin-top: 10px" id="message">
-                        <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
+                        <?php if (session()->getFlashdata('message')): ?>
+                            <div class="alert <?= session()->getFlashdata('success') ? 'alert-success' : 'alert-danger'; ?> alert-dismissible fade show" role="alert">
+                                <?= session()->getFlashdata('message'); ?>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
             <div class="card-body">
                 <form action="<?php echo base_url('admin/blog_update_action')?>" method="post" enctype="multipart/form-data">
+                    <?= csrf_field() ?>
                     <div class="row">
 
                         <div class="col-md-6">
@@ -156,10 +164,13 @@
         function removeBlogImage(id,blogid){
             var result = confirm("Want to delete?");
             if (result) {
+                let csrfName = $('meta[name="csrf-name"]').attr('content');
+                let csrfHash = $('meta[name="csrf-token"]').attr('content');
+
                 $.ajax({
                     method: 'POST',
                     url: "<?php echo base_url('admin/blog_image_remove_action')?>",
-                    data: {id:id,blogId:blogid},
+                    data: {[csrfName]: csrfHash,id:id,blogId:blogid},
                     success: function(response) {
                         $("#message").html(response);
                         $('#reloadImg').load(document.URL + ' #reloadImg');
@@ -169,10 +180,12 @@
         }
 
         function album_image_alt_name_update(blog_crassula_image_id,val){
+            let csrfName = $('meta[name="csrf-name"]').attr('content');
+            let csrfHash = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
                 method: "POST",
                 url: "<?php echo base_url('admin/blog_image_alt_name_action') ?>",
-                data: {blog_crassula_image_id: blog_crassula_image_id,value:val},
+                data: {[csrfName]: csrfHash,blog_crassula_image_id: blog_crassula_image_id,value:val},
                 beforeSend: function () {
                     $("#loading-image").show();
                 },

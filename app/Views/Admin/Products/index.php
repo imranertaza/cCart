@@ -19,6 +19,7 @@
     <!-- Main content -->
     <section class="content">
         <form action="<?php echo base_url('admin/product_copy_action'); ?>" method="post">
+            <?= csrf_field() ?>
         <!-- Default box -->
         <div class="card">
             <div class="card-header">
@@ -39,7 +40,14 @@
                         <button type="submit"  formaction="<?php echo base_url('/admin/product_multi_delete_action'); ?>" class="btn btn-danger btn-xs float-right mr-2"><i class="fas fa-trash"></i> Multi delete</button>
                     </div>
                     <div class="col-md-12" style="margin-top: 10px" id="message">
-                        <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
+                        <?php if (session()->getFlashdata('message')): ?>
+                            <div class="alert <?= session()->getFlashdata('success') ? 'alert-success' : 'alert-danger'; ?> alert-dismissible fade show" role="alert">
+                                <?= session()->getFlashdata('message'); ?>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>

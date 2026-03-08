@@ -111,8 +111,8 @@ class Blog extends BaseController
         ]);
 
         if ($this->validation->run($data) == false) {
-            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+            $this->session->setFlashdata('success', false);
+            $this->session->setFlashdata('message', $this->validation->listErrors());
             return redirect()->to('admin/blog_create');
         } else {
             DB()->transStart();
@@ -168,7 +168,8 @@ class Blog extends BaseController
             //multi image upload(start)
             DB()->transComplete();
 
-            $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Create Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            $this->session->setFlashdata('success', true);
+            $this->session->setFlashdata('message', 'Create Record Success!');
 
             return redirect()->to('admin/blog_create');
         }
@@ -238,8 +239,9 @@ class Blog extends BaseController
         ]);
 
         if ($this->validation->run($data) == false) {
-            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 
+            $this->session->setFlashdata('success', false);
+            $this->session->setFlashdata('message', $this->validation->listErrors());
             return redirect()->to('admin/blog_update/' . $blogId);
         } else {
             DB()->transStart();
@@ -292,8 +294,8 @@ class Blog extends BaseController
             //multi image upload(start)
             DB()->transComplete();
 
-            $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Update Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+            $this->session->setFlashdata('success', true);
+            $this->session->setFlashdata('message', 'Update Record Success!');
             return redirect()->to('admin/blog_update/' . $blogId);
         }
     }
@@ -332,14 +334,14 @@ class Blog extends BaseController
         DB()->transComplete();
 
 
-        $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Delete Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+        $this->session->setFlashdata('success', true);
+        $this->session->setFlashdata('message', 'Delete Record Success!');
         return redirect()->to('admin/admin-blog');
     }
 
     /**
      * @description This method provides blog image remove
-     * @return void
+     * @return \CodeIgniter\HTTP\ResponseInterface
      */
     public function imageRemoveAction()
     {
@@ -364,11 +366,15 @@ class Blog extends BaseController
         $tableImage = DB()->table('cc_blog_carousel_image');
         $tableImage->where('blog_crassula_image_id', $id)->delete();
 
-        print '<div class="alert alert-success alert-dismissible" role="alert">Delete Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+        $message = '<div class="alert alert-success alert-dismissible" role="alert">Delete Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+
+        return $this->response
+            ->setHeader('X-CSRF-TOKEN', csrf_hash())
+            ->setBody($message);
     }
     /**
      * @description This method provides album alt name action
-     * @return void
+     * @return \CodeIgniter\HTTP\ResponseInterface
      */
     public function imageAltNameAction()
     {
@@ -377,5 +383,7 @@ class Blog extends BaseController
         $data['alt_name'] = $this->request->getPost('value');
         $table            = DB()->table('cc_blog_carousel_image');
         $table->where('blog_crassula_image_id', $blog_crassula_image_id)->update($data);
+        return $this->response
+            ->setHeader('X-CSRF-TOKEN', csrf_hash());
     }
 }

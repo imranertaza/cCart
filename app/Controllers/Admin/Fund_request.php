@@ -54,7 +54,7 @@ class Fund_request extends BaseController
 
     /**
      * @description This method fund request update
-     * @return void
+     * @return \CodeIgniter\HTTP\ResponseInterface
      */
     public function fund_action()
     {
@@ -87,8 +87,9 @@ class Fund_request extends BaseController
             $tableCusLedg->insert($cusLedg);
         }
 
-
-
-        print  '<div class="alert alert-success alert-dismissible" role="alert">Fund Request Update Successfully <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+        $message = '<div class="alert alert-success alert-dismissible" role="alert">Fund Request Update Successfully <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+        return $this->response
+            ->setHeader('X-CSRF-TOKEN', csrf_hash())
+            ->setBody($message);
     }
 }

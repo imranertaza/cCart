@@ -9,6 +9,9 @@
     <meta name="description" content="<?php echo $description;?>">
     <meta name="keywords" content="<?php echo $keywords;?>">
 
+    <meta name="csrf-token" content="<?= csrf_hash() ?>">
+    <meta name="csrf-header" content="<?= csrf_header() ?>">
+    <meta name="csrf-name" content="<?= csrf_token() ?>">
 
     <link rel="shortcut icon" href="<?php echo base_url() ?>/uploads/logo/<?php echo get_lebel_by_value_in_theme_settings('favicon');?>">
 

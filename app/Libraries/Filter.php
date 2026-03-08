@@ -121,7 +121,7 @@ class Filter
         $view       = '';
 
         if ($this->allValuesNotEmpty($brandArray)) {
-            $view .= '<div class="product-filter"><p class="mb-2">Brands</p>';
+            $view .= '<div class="product-filter"><p class="mb-2 brand-title">Brands</p>';
 
             $table = DB()->table('cc_brand');
 
@@ -135,9 +135,9 @@ class Filter
                 foreach ($result as $brand) {
                     if (!empty($brand->brand_id)) {
                         $name = $brand->name;
-                        $view .= '<label class="w-100 mb-2"><input type="checkbox" class="brandInput" form="searchForm" onclick="formSubmit()" name="manufacturer[]" ';
+                        $view .= '<label class="w-100 mb-2 custom-checkbox"><input type="checkbox" class="brandInput" form="searchForm" onclick="formSubmit()" name="manufacturer[]" ';
                         $view .= (in_array($brand->brand_id, $brandSel)) ? 'checked ' : '';
-                        $view .= 'value="' . $brand->brand_id . '"> ' . $name . ' <span class="count">' . product_count_by_brand_id($brand->brand_id, $this->productArray) . '</span></label>';
+                        $view .= 'value="' . $brand->brand_id . '"><svg class="svg-check-icon d-none" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"> <rect x="3.75" y="3.67041" width="16.5" height="16.5" stroke="#C4C8CC" stroke-width="1.5" /></svg> ' . $name . ' <span class="count number-circle">' . product_count_by_brand_id($brand->brand_id, $this->productArray) . '</span></label>';
                     }
                 }
             }

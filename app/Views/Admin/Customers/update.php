@@ -33,7 +33,14 @@
                         <!--                        <a href="--><?php //echo base_url('Admin/Brand')?><!--" class="btn btn-primary btn-block ">Add</a>-->
                     </div>
                     <div class="col-md-12" style="margin-top: 10px">
-                        <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
+                        <?php if (session()->getFlashdata('message')): ?>
+                            <div class="alert <?= session()->getFlashdata('success') ? 'alert-success' : 'alert-danger'; ?> alert-dismissible fade show" role="alert">
+                                <?= session()->getFlashdata('message'); ?>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -58,6 +65,7 @@
                                 <div class="tab-content" id="custom-tabs-four-tabContent">
                                     <div class="tab-pane fade show active" id="custom-tabs-four-home" role="tabpanel" aria-labelledby="custom-tabs-four-home-tab">
                                         <form action="<?php echo base_url('admin/customers_update_action')?>" method="post" >
+                                            <?= csrf_field() ?>
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
@@ -102,11 +110,7 @@
                                     </div>
                                     <div class="tab-pane fade" id="custom-tabs-four-profile" role="tabpanel" aria-labelledby="custom-tabs-four-profile-tab">
                                         <form action="<?php echo base_url('admin/customers_general_action')?>" method="post">
-
-
-
-
-
+                                            <?= csrf_field() ?>
                                             <input type="hidden" name="customer_id" value="<?php echo $customers->customer_id;?>" required>
                                             <button class="btn btn-primary" >Update</button>
                                             <a href="<?php echo base_url('admin/customers')?>" class="btn btn-danger" >Back</a>

@@ -348,10 +348,7 @@
                                 <input type="hidden" name="product_id" value="<?php echo $products->product_id; ?>">
                                 <button class="btn rounded-0 mt-3 px-4 py-2" type="submit">Submit Review
                                 </button>
-                                <?php } else {
-                                                    echo '<p>Already Reviewed</p>';
-                                                }
-                                            } else { ?>
+                                <?php } else { echo '<p>Already Reviewed</p>'; } } else { ?>
                                 <a href="<?php echo base_url('login') ?>">Please login to continue</a>
                                 <?php } ?>
                             </form>

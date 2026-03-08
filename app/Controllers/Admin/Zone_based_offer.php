@@ -129,8 +129,8 @@ class Zone_based_offer extends BaseController
         ]);
 
         if ($this->validation->run($data) == false) {
-            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+            $this->session->setFlashdata('success', false);
+            $this->session->setFlashdata('message', $this->validation->listErrors());
             return redirect()->to('admin/zone_based_offer_create');
         } else {
             DB()->transStart();
@@ -249,8 +249,8 @@ class Zone_based_offer extends BaseController
 
             DB()->transComplete();
 
-            $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Offer Create Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+            $this->session->setFlashdata('success', true);
+            $this->session->setFlashdata('message', 'Offer Create Success!');
             return redirect()->to('admin/zone_based_offer_create');
         }
     }
@@ -339,7 +339,8 @@ class Zone_based_offer extends BaseController
         ]);
 
         if ($this->validation->run($data) == false) {
-            $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            $this->session->setFlashdata('success', false);
+            $this->session->setFlashdata('message', $this->validation->listErrors());
 
             return redirect()->to('admin/zone_based_offer_update/' . $offer_id);
         } else {
@@ -469,8 +470,8 @@ class Zone_based_offer extends BaseController
 
             DB()->transComplete();
 
-            $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Offer Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
+            $this->session->setFlashdata('success', true);
+            $this->session->setFlashdata('message', 'Offer Update Success!');
             return redirect()->to('admin/zone_based_offer_update/' . $offer_id);
         }
     }
@@ -507,8 +508,9 @@ class Zone_based_offer extends BaseController
         $table = DB()->table('cc_offer');
         $table->where('offer_id', $offer_id)->delete();
         DB()->transComplete();
-        $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Offer Delete Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 
+        $this->session->setFlashdata('success', true);
+        $this->session->setFlashdata('message', 'Offer Delete Success!');
         return redirect()->to('admin/zone_based_offer');
     }
 }

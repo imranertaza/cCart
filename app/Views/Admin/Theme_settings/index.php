@@ -31,7 +31,14 @@
                     </div>
                     <div class="col-md-4"></div>
                     <div class="col-md-12" style="margin-top: 10px">
-                        <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
+                        <?php if (session()->getFlashdata('message')): ?>
+                            <div class="alert <?= session()->getFlashdata('success') ? 'alert-success' : 'alert-danger'; ?> alert-dismissible fade show" role="alert">
+                                <?= session()->getFlashdata('message'); ?>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -40,16 +47,17 @@
                 <div class="card card-primary card-outline card-outline-tabs">
                     <div class="card-header p-0 border-bottom-0">
                         <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
+
                             <li class="nav-item">
-                                <a class="nav-link <?php echo ((isset($_GET['sel']) && $_GET['sel'] == 'slider') || !isset($_GET['sel'])) ? 'active' : ''; ?>" id="custom-tabs-four-home-tab" data-toggle="pill"
-                                   href="#custom-tabs-four-home" role="tab" aria-controls="custom-tabs-four-home"
-                                   aria-selected="true">Slider</a>
+                                <a class="nav-link <?php echo ((isset($_GET['sel']) && $_GET['sel'] == 'logo') || !isset($_GET['sel']))? 'active' : ''; ?>" id="custom-tabs-four-profile-tab" data-toggle="pill"
+                                   href="#custom-tabs-four-profile" role="tab" aria-controls="custom-tabs-four-profile"
+                                   aria-selected="false">Logo</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link <?php echo (isset($_GET['sel']) && $_GET['sel'] == 'logo') ? 'active' : ''; ?>" id="custom-tabs-four-profile-tab" data-toggle="pill"
-                                   href="#custom-tabs-four-profile" role="tab" aria-controls="custom-tabs-four-profile"
-                                   aria-selected="false">Logo</a>
+                                <a class="nav-link <?php echo (isset($_GET['sel']) && $_GET['sel'] == 'slider')  ? 'active' : ''; ?>" id="custom-tabs-four-home-tab" data-toggle="pill"
+                                   href="#custom-tabs-four-home" role="tab" aria-controls="custom-tabs-four-home"
+                                   aria-selected="true">Slider</a>
                             </li>
 
                             <li class="nav-item">
@@ -62,87 +70,14 @@
                     </div>
                     <div class="card-body">
                         <div class="tab-content" id="custom-tabs-four-tabContent">
-                            <div class="tab-pane fade <?php echo ((isset($_GET['sel']) && $_GET['sel'] == 'slider') || !isset($_GET['sel'])) ? 'active show' : ''; ?>" id="custom-tabs-four-home" role="tabpanel"
-                                 aria-labelledby="custom-tabs-four-home-tab">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <form action="<?php echo base_url('admin/slider_update') ?>" method="post"
-                                              enctype="multipart/form-data">
-                                            <div class="form-group mt-5">
-                                                <?php
-                                                $sli_1 = get_lebel_by_value_in_theme_settings('slider_1');
-echo image_view('uploads/slider', '', $sli_1, 'noimage.png', 'width-full-100');
-?>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Slider 1</label>
-                                                <input type="file" name="slider" class="form-control" >
-                                                <input type="hidden" name="nameslider" class="form-control"
-                                                       value="slider_1" required>
-                                                       <small>Size: <?php echo $theme_libraries->slider_width; ?> x <?php echo $theme_libraries->slider_height; ?></small>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>ALT Name</label>
-                                                <input type="text" name="alt_name" class="form-control" placeholder="Alt Name" value="<?php echo getLebelByAltNameInThemeSettings('slider_1'); ?>" >
-                                            </div>
 
-                                            <button type="submit" class="btn btn-primary">Save</button>
-                                        </form>
-
-                                        <form action="<?php echo base_url('admin/slider_update') ?>" method="post"
-                                              enctype="multipart/form-data">
-                                            <div class="form-group mt-5">
-                                                <?php
-$sli_3 = get_lebel_by_value_in_theme_settings('slider_3');
-echo image_view('uploads/slider', '', $sli_3, 'noimage.png', 'width-full-100');
-?>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Slider 3</label>
-                                                <input type="file" name="slider" class="form-control" >
-                                                <input type="hidden" name="nameslider" class="form-control"
-                                                       value="slider_3" required>
-                                                <small>Size: <?php echo $theme_libraries->slider_width; ?> x <?php echo $theme_libraries->slider_height; ?></small>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>ALT Name</label>
-                                                <input type="text" name="alt_name" class="form-control" placeholder="Alt Name" value="<?php echo getLebelByAltNameInThemeSettings('slider_3'); ?>" >
-                                            </div>
-                                            <button type="submit" class="btn btn-primary">Save</button>
-                                        </form>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <form action="<?php echo base_url('admin/slider_update') ?>" method="post"
-                                              enctype="multipart/form-data">
-                                            <div class="form-group mt-5">
-                                                <?php
-$sli_2 = get_lebel_by_value_in_theme_settings('slider_2');
-echo image_view('uploads/slider', '', $sli_2, 'noimage.png', 'width-full-100');
-?>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Slider 2</label>
-                                                <input type="file" name="slider" class="form-control" >
-                                                <input type="hidden" name="nameslider" class="form-control"
-                                                       value="slider_2" required>
-                                                <small>Size: <?php echo $theme_libraries->slider_width; ?> x <?php echo $theme_libraries->slider_height; ?></small>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>ALT Name</label>
-                                                <input type="text" name="alt_name" class="form-control" placeholder="Alt Name" value="<?php echo getLebelByAltNameInThemeSettings('slider_2'); ?>" >
-                                            </div>
-                                            <button type="submit" class="btn btn-primary">Save</button>
-                                        </form>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="tab-pane fade <?php echo (isset($_GET['sel']) && $_GET['sel'] == 'logo') ? 'active show' : ''; ?>" id="custom-tabs-four-profile" role="tabpanel"
+                            <div class="tab-pane fade <?php echo ((isset($_GET['sel']) && $_GET['sel'] == 'logo')|| !isset($_GET['sel'])) ? 'active show' : ''; ?>" id="custom-tabs-four-profile" role="tabpanel"
                                  aria-labelledby="custom-tabs-four-profile-tab">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <form action="<?php echo base_url('admin/logo_update') ?>" method="post"
                                               enctype="multipart/form-data">
+                                            <?= csrf_field() ?>
                                             <div class="form-group mt-5">
                                                 <?php
 $side_logo = get_lebel_by_value_in_theme_settings('side_logo');
@@ -166,6 +101,7 @@ echo image_view('uploads/logo', '', $side_logo, 'noimage.png', '');
 
                                         <form action="<?php echo base_url('admin/favicon_update') ?>" method="post"
                                               enctype="multipart/form-data">
+                                            <?= csrf_field() ?>
                                             <div class="form-group mt-5">
                                                 <?php
 $favicon = get_lebel_by_value_in_theme_settings('favicon');
@@ -182,6 +118,12 @@ echo image_view('uploads/logo', '', $favicon, 'noimage.png', '');
                                     </div>
 
                                 </div>
+                            </div>
+
+                            <div class="tab-pane fade <?php echo (isset($_GET['sel']) && $_GET['sel'] == 'slider')  ? 'active show' : ''; ?>" id="custom-tabs-four-home" role="tabpanel"
+                                 aria-labelledby="custom-tabs-four-home-tab">
+                                <?php echo $themeSlider;?>
+
                             </div>
 
                             <div class="tab-pane fade <?php echo (isset($_GET['sel']) && $_GET['sel'] == 'home_settings') ? 'active show' : ''; ?>" id="custom-tabs-four-messages" role="tabpanel"

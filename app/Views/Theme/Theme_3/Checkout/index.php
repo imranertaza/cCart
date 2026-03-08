@@ -3,6 +3,7 @@
 <div class="main-container checkout" id="tableReload2" >
     <div class="container">
         <form id="checkout-form" onsubmit="return onchackoutsubmit()" action="<?php echo base_url('checkout_action')  ?>" method="post">
+            <?= csrf_field() ?>
             <div class="row">
                 <div class="col-lg-12 ">
                     <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
@@ -459,10 +460,14 @@
             $('#check_total').html('<?php echo $symbol; ?> ' + totalAmount);
 
             <?php $symbol = $settings['currency_symbol']; ?>
+            let csrfName = $('meta[name="csrf-name"]').attr('content');
+            let csrfHash = $('meta[name="csrf-token"]').attr('content');
+
             $.ajax({
                 method: "POST",
                 url: "<?php echo base_url('shipping_rate') ?>",
                 data: {
+                    [csrfName]: csrfHash,
                     amount: totalAmount,
                     city_id: cityId,
                     shipCityId: shipcityId,
@@ -470,6 +475,8 @@
                 },
                 dataType: 'json',
                 success: function(data) {
+                    $('meta[name="csrf-token"]').attr('content', data.csrfToken);
+                    $('input[name="<?= csrf_token() ?>"]').val(data.csrfToken);
                     var dis = Number(data.discount);
                     var charge = Number(data.charge);
 
@@ -519,10 +526,13 @@
         }
 
         function selectState(country_id, id) {
+            let csrfName = $('meta[name="csrf-name"]').attr('content');
+            let csrfHash = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
                 method: "POST",
                 url: "<?php echo base_url('checkout_country_zoon') ?>",
                 data: {
+                    [csrfName]: csrfHash,
                     country_id: country_id
                 },
                 success: function(data) {
