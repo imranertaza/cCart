@@ -245,7 +245,7 @@
                                     $product  = get_all_row_data_by_id('cc_products', 'product_id', $val['id']);
                                     $des      = get_data_by_id('description', 'cc_product_description', 'product_id', $val['id']);
                                     ?>
-                                <img data-sizes="auto" src="<?= productImageViewUrl('uploads/products', $val['id'], $product->image, 'noimage.png', '100', '100');?>" alt="<?= $product->alt_name;?>" class="img-fluid" loading="lazy">
+                                <img data-sizes="auto" src="<?= productImageViewUrlNew($product->main_image, $product->image, '100', '100');?>" alt="<?= $product->alt_name;?>" class="img-fluid" loading="lazy">
 
                                 <div>
                                     <p class="fw-semibold mb-2"><?php echo $val['name']; ?></p>
@@ -530,7 +530,7 @@
             success: function(data) {
                 $('meta[name="csrf-token"]').attr('content', data.csrfToken);
                 $('input[name="<?= csrf_token() ?>"]').val(data.csrfToken);
-                
+
                 var charge = Number(data.charge);
                 var dis = Number(data.discount);
 

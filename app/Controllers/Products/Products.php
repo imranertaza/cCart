@@ -104,7 +104,11 @@ class Products extends BaseController
 
 
         $data['option'] = $this->optionView($product_id);
+        $data['optionArray'] = $this->optionArray($product_id);
 
+//        print '<pre>';
+//        print_r($data['optionArray']);
+//        die();
 
         $data['keywords']    = !empty($data['products']->meta_keyword) ? $data['products']->meta_keyword : $settings['meta_keyword'];
         $data['description'] = !empty($data['products']->meta_description) ? $data['products']->meta_description : $settings['meta_description'];
@@ -231,12 +235,38 @@ class Products extends BaseController
             ->setBody($allAmount);
     }
 
+    private function optionArray($product_id){
+        $productOption   = DB()->table('cc_product_option');
+        $allOptionsGroup = $productOption->where('product_id', $product_id)->groupBy('option_id')->get()->getResult();
+        $opArray = [];
+        foreach ($allOptionsGroup as $gro) {
+            $type = get_data_by_id('type', 'cc_option', 'option_id', $gro->option_id);
+            $name = get_data_by_id('name', 'cc_option', 'option_id', $gro->option_id);
+            $items = $this->itemValue($gro->option_id, $product_id);
+            $opArray[$name] = [
+                'type'  => $type,
+                'items' => $items,
+            ];
+
+        }
+        return $opArray;
+    }
+    private function itemValue($option_id,$product_id){
+        $table = DB()->table('cc_product_option');
+        $query  = $table->where('option_id', $option_id)->where('product_id', $product_id)->get()->getResult();
+        $array = [];
+        foreach ($query as $val){
+            $array[] = $val->option_value_id;
+        }
+        return $array;
+    }
+
     /**
      * @description This method provides option view.
      * @param int $product_id
      * @return string
      */
-    private function optionView($product_id)
+    private function optionView($product_id) // Deprecated
     {
         $productOption   = DB()->table('cc_product_option');
         $allOptionsGroup = $productOption->where('product_id', $product_id)->groupBy('option_id')->get()->getResult();

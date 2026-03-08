@@ -220,16 +220,19 @@ class Products extends BaseController
             $productId = DB()->insertID();
 
 
-            if (!empty($_FILES['image']['name'])) {
-                $target_dir = FCPATH . '/uploads/products/' . $productId . '/';
-                $this->imageProcessing->directory_create($target_dir);
+            $image = $this->request->getPost('image');
+            if (!empty($image)) {
+                $ext = pathinfo($image, PATHINFO_EXTENSION);
+                $mainImagePath = FCPATH . '/' . $image;
+                $targetDir = FCPATH . '/uploads/products/' . $productId . '/';
+                $saveImageName = 'pro_' . rand() . '.' . $ext;
 
-                //new image upload
-                $pic      = $this->request->getFile('image');
-                $news_img = $this->imageProcessing->product_image_upload_and_crop_all_size($pic, $target_dir);
+                $this->imageProcessing->directory_create($targetDir);
+                $this->imageProcessing->manager_image_crop($mainImagePath, $targetDir, $saveImageName);
 
-                $dataImg['image'] = $news_img;
-
+                $dataImg['alt_name'] = $data['pro_name'];
+                $dataImg['main_image'] = $image;
+                $dataImg['image'] = 'uploads/products/' . $productId . '/wm_600_'.$saveImageName;
                 $proUpTable = DB()->table('cc_products');
                 $proUpTable->where('product_id', $productId)->update($dataImg);
             }
@@ -237,35 +240,32 @@ class Products extends BaseController
 
 
             //multi image upload(start)
-            if ($this->request->getFileMultiple('multiImage')) {
-                $target_dir = FCPATH . '/uploads/products/' . $productId . '/';
-                $this->imageProcessing->directory_create($target_dir);
+            $multiImage = $this->request->getPost('multiImage');
+            if ($multiImage) {
+                foreach ($multiImage as $file) {
+                    $dataMultiImg['product_id'] = $productId;
+                    $dataMultiImg['alt_name']   = $data['pro_name'];
+                    $proImgTable                = DB()->table('cc_product_image');
+                    $proImgTable->insert($dataMultiImg);
+                    $proImgId = DB()->insertID();
 
-                $files = $this->request->getFileMultiple('multiImage');
+                    $targetDirMul = FCPATH . '/uploads/products/' . $productId . '/' . $proImgId . '/';
+                    $this->imageProcessing->directory_create($targetDirMul);
 
-                foreach ($files as $file) {
-                    if ($file->isValid() && ! $file->hasMoved()) {
-                        $dataMultiImg['product_id'] = $productId;
-                        $dataMultiImg['alt_name']   = $data['pro_name'];
-                        $proImgTable                = DB()->table('cc_product_image');
-                        $proImgTable->insert($dataMultiImg);
-                        $proImgId = DB()->insertID();
+                    $ext = pathinfo($file, PATHINFO_EXTENSION);
+                    $mainImagePath = FCPATH . '/' . $file;
+                    $saveImageName = 'pro_' . rand() . '.' . $ext;
 
-                        $target_dir2 = FCPATH . '/uploads/products/' . $productId . '/' . $proImgId . '/';
-                        $this->imageProcessing->directory_create($target_dir2);
+                    $this->imageProcessing->manager_image_crop($mainImagePath, $targetDirMul, $saveImageName);
 
-                        $news_img2 = $this->imageProcessing->product_image_upload_and_crop_all_size($file, $target_dir2);
+                    $dataMultiImg['main_image'] = $file;
+                    $dataMultiImg['image'] = 'uploads/products/' . $productId . '/' . $proImgId . '/wm_600_'.$saveImageName;
 
-                        $dataMultiImg2['image'] = $news_img2;
-
-                        $proImgUpTable = DB()->table('cc_product_image');
-                        $proImgUpTable->where('product_image_id', $proImgId)->update($dataMultiImg2);
-                    }
+                    $proImgUpTable = DB()->table('cc_product_image');
+                    $proImgUpTable->where('product_image_id', $proImgId)->update($dataMultiImg);
                 }
             }
             //multi image upload(start)
-
-
 
 
 
@@ -808,18 +808,21 @@ class Products extends BaseController
             $proTable = DB()->table('cc_products');
             $proTable->where('product_id', $product_id)->update($proData);
 
-
-
-            if (!empty($_FILES['image']['name'])) {
-                $target_dir = FCPATH . '/uploads/products/' . $product_id . '/';
-
-                //unlink
+            $image = $this->request->getPost('image');
+            if (!empty($image)) {
                 $oldImg   = get_data_by_id('image', 'cc_products', 'product_id', $product_id);
-                $pic      = $this->request->getFile('image');
-                $news_img = $this->imageProcessing->single_product_image_unlink($target_dir, $oldImg)->directory_create($target_dir)->product_image_upload_and_crop_all_size($pic, $target_dir);
 
-                $dataImg['image'] = $news_img;
+                $ext = pathinfo($image, PATHINFO_EXTENSION);
+                $mainImagePath = FCPATH . '/' . $image;
+                $targetDir = FCPATH . '/uploads/products/' . $product_id . '/';
+                $saveImageName = 'pro_' . rand() . '.' . $ext;
 
+                $this->imageProcessing->directory_create($targetDir);
+                $this->imageProcessing->manager_single_product_image_unlink($oldImg)->manager_image_crop($mainImagePath, $targetDir, $saveImageName);
+
+                $dataImg['alt_name'] = $data['pro_name'];
+                $dataImg['main_image'] = $image;
+                $dataImg['image'] = 'uploads/products/' . $product_id . '/wm_600_'.$saveImageName;
                 $proUpTable = DB()->table('cc_products');
                 $proUpTable->where('product_id', $product_id)->update($dataImg);
             }
@@ -827,28 +830,29 @@ class Products extends BaseController
 
 
             //multi image upload(start)
-            if ($this->request->getFileMultiple('multiImage')) {
-                $target_dir = FCPATH . '/uploads/products/' . $product_id . '/';
-                $this->imageProcessing->directory_create($target_dir);
+            $multiImage = $this->request->getPost('multiImage');
+            if ($multiImage) {
+                foreach ($multiImage as $file) {
+                    $dataMultiImg['product_id'] = $product_id;
+                    $dataMultiImg['alt_name']   = $data['pro_name'];
+                    $proImgTable                = DB()->table('cc_product_image');
+                    $proImgTable->insert($dataMultiImg);
+                    $proImgId = DB()->insertID();
 
-                $files = $this->request->getFileMultiple('multiImage');
+                    $targetDirMul = FCPATH . '/uploads/products/' . $product_id . '/' . $proImgId . '/';
+                    $this->imageProcessing->directory_create($targetDirMul);
 
-                foreach ($files as $file) {
-                    if ($file->isValid() && ! $file->hasMoved()) {
-                        $dataMultiImg['product_id'] = $product_id;
-                        $dataMultiImg['alt_name']   =  $data['alt_name'];
-                        $proImgTable                = DB()->table('cc_product_image');
-                        $proImgTable->insert($dataMultiImg);
-                        $proImgId = DB()->insertID();
+                    $ext = pathinfo($file, PATHINFO_EXTENSION);
+                    $mainImagePath = FCPATH . '/' . $file;
+                    $saveImageName = 'pro_' . rand() . '.' . $ext;
 
-                        $target_dir2 = FCPATH . '/uploads/products/' . $product_id . '/' . $proImgId . '/';
-                        $news_img2   = $this->imageProcessing->directory_create($target_dir2)->product_image_upload_and_crop_all_size($file, $target_dir2);
+                    $this->imageProcessing->manager_image_crop($mainImagePath, $targetDirMul, $saveImageName);
 
-                        $dataMultiImg2['image'] = $news_img2;
+                    $dataMultiImg['main_image'] = $file;
+                    $dataMultiImg['image'] = 'uploads/products/' . $product_id . '/' . $proImgId . '/wm_600_'.$saveImageName;
 
-                        $proImgUpTable = DB()->table('cc_product_image');
-                        $proImgUpTable->where('product_image_id', $proImgId)->update($dataMultiImg2);
-                    }
+                    $proImgUpTable = DB()->table('cc_product_image');
+                    $proImgUpTable->where('product_image_id', $proImgId)->update($dataMultiImg);
                 }
             }
             //multi image upload(start)

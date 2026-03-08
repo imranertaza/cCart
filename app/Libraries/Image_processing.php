@@ -248,4 +248,45 @@ class Image_processing
 
         return $news_img;
     }
+
+    public function manager_image_crop($imagePath,$saveDir,$saveImageName){
+
+        $this->manager_image_crop_600($saveDir, $imagePath, $saveImageName);
+        $this->manager_watermark_on_resized_image($saveDir, '600_'.$saveImageName);
+
+    }
+
+    public function manager_image_crop_600($dir, $imagePath, $saveImageName)
+    {
+        if (!file_exists($dir . '/' . 600 . '_' . $saveImageName)) {
+            $this->crop->withFile($imagePath)->fit(600, 600, 'center')->save($dir . 600 . '_' . $saveImageName, $this->quality);
+        }
+        return $this;
+    }
+    public function manager_watermark_on_resized_image($dir, $image)
+    {
+        if (!file_exists($dir . '/wm_600_' . $image)) {
+            if (pathinfo($image, PATHINFO_EXTENSION) == 'png') {
+                $mImg = imagecreatefrompng($dir . $image);
+            } else {
+                $mImg = imagecreatefromjpeg($dir . $image);
+            }
+            imagecopy($mImg, $this->wm, imagesx($mImg) - $this->sx - $this->marge_right, imagesy($mImg) - $this->sy - $this->marge_bottom, 0, 0, imagesx($this->wm), imagesy($this->wm));
+            imagePng($mImg, $dir . 'wm_' . $image);
+
+            $this->image_unlink($dir . $image);
+        }
+        return $this;
+    }
+    public function manager_single_product_image_unlink($image)
+    {
+        if (!empty($image)) {
+            $this->image_unlink(FCPATH.'/'.$image);
+        }
+
+        return $this;
+    }
+
+
+
 }

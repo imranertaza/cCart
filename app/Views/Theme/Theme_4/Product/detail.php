@@ -81,8 +81,8 @@ $symbol = get_lebel_by_value_in_settings('currency_symbol');
                                 <div class="swiper-wrapper">
                                     <div class="swiper-slide">
                                         <img class=""
-                                             src="<?= productImageViewUrl('uploads/products', $products->product_id, $products->image, 'noimage.png', '600', '600') ?>"
-                                             data-original-image="<?= productImageViewUrl('uploads/products', $products->product_id, $products->image, 'noimage.png', '600', '600') ?>"
+                                             src="<?= productImageViewUrlNew($products->main_image, $products->image, '600', '600') ?>"
+                                             data-original-image="<?= productImageViewUrlNew( $products->main_image, $products->image, '600', '600') ?>"
                                              alt="Product Image"
                                              fetchpriority="high" decoding="async" loading="eager">
                                     </div>
@@ -91,8 +91,8 @@ $symbol = get_lebel_by_value_in_settings('currency_symbol');
                                             ?>
                                             <div class="swiper-slide">
                                                 <img class="thumb"
-                                                     src="<?= productMultiImageViewUrl('uploads/products', $imgval->product_id, $imgval->product_image_id, $imgval->image, 'noimage.png', '600', '600') ?>"
-                                                     data-original-image="<?= productMultiImageViewUrl('uploads/products', $imgval->product_id, $imgval->product_image_id, $imgval->image, 'noimage.png', '600', '600') ?>"
+                                                     src="<?= productImageViewUrlNew( $imgval->main_image, $imgval->image, '600', '600') ?>"
+                                                     data-original-image="<?= productImageViewUrlNew( $imgval->main_image,$imgval->image, '600', '600') ?>"
                                                      alt="Product Image"
                                                      fetchpriority="high" decoding="async" loading="eager">
                                             </div>
@@ -158,7 +158,7 @@ $symbol = get_lebel_by_value_in_settings('currency_symbol');
                         <div class="swiper-wrapper">
                             <div class="swiper-slide" style="overflow: hidden;">
                                 <img
-                                    src="<?= productImageViewUrl('uploads/products', $products->product_id, $products->image, 'noimage.png', '100', '100') ?>"
+                                    src="<?= productImageViewUrlNew($products->main_image, $products->image,  '100', '100') ?>"
                                     alt="Product Image" loading="lazy">
                             </div>
                             <?php if (!empty($proImg)) {
@@ -166,7 +166,7 @@ $symbol = get_lebel_by_value_in_settings('currency_symbol');
                                     ?>
                                     <div class="swiper-slide" style="overflow: hidden;">
                                         <img
-                                            src="<?= productMultiImageViewUrl('uploads/products', $imgval->product_id, $imgval->product_image_id, $imgval->image, 'noimage.png', '100', '100') ?>"
+                                            src="<?= productImageViewUrlNew($imgval->main_image, $imgval->image, '100', '100') ?>"
                                             alt="Product Image" loading="lazy">
                                     </div>
                                 <?php }
@@ -219,7 +219,49 @@ $symbol = get_lebel_by_value_in_settings('currency_symbol');
 
                             </div>
 
-                            <?= $option; ?>
+                            <?php foreach ($optionArray as $key => $val){
+                                $fildName = str_replace(' ', '', $key);
+                            ?>
+                                <p class="selected-color"><?= $key ?>:</p>
+                                <?php if ($val['type'] == 'radio'){?>
+                                    <div class="d-flex size-button-container flex-wrap">
+
+                                        <?php foreach ($val['items'] as $item){
+
+                                            $nameVal  = get_data_by_id('name', 'cc_option_value', 'option_value_id', $item);
+                                            $firstCar =  mb_substr($nameVal, 0, 1);
+                                            $length   = strlen($nameVal);
+                                            $isColor  = (($firstCar == '#') && ($length == 7)) ? '' : $nameVal;
+                                            $nameOp   = !empty($isColor) ? $isColor : '';
+                                            $style    = empty($isColor) ? "background-color: $nameVal;" : "";
+                                        ?>
+                                        <input type="radio" class="btn-check d-none"  name="<?= strtolower($fildName)?>" id="option_<?= $item?>" value="<?= $item?>">
+                                        <label class="btn size-button" style="<?= $style ;?>" for="option_<?= $item?>"><?= $nameOp;?></label>
+                                        <?php }?>
+                                    </div>
+                                <?php }else{ ?>
+                                    <div class="mt-2 mb-3">
+                                        <select class="form-select" name="<?= strtolower($fildName)?>" id="sizeSelect">
+                                            <?php foreach ($val['items'] as $item){
+                                                $nameVal  = get_data_by_id('name', 'cc_option_value', 'option_value_id', $item);
+                                                $firstCar =  mb_substr($nameVal, 0, 1);
+                                                $length   = strlen($nameVal);
+                                                $isColor  = (($firstCar == '#') && ($length == 7)) ? '' : $nameVal;
+                                                $nameOp   = !empty($isColor) ? $isColor : '';
+                                                $style    = empty($isColor) ? "background-color: $nameVal;padding: 15px 18px; border: unset;" : "";
+                                            ?>
+                                            <option value="<?= $item?>" ><?= $nameVal;?></option>
+                                            <?php }?>
+                                        </select>
+                                    </div>
+                                <?php } ?>
+
+                            <?php } ?>
+
+
+
+
+
 
                             <div class="row align-items-center justify-content-between mb-40 g-3 mt-2">
                                 <div class="col-md-6">
@@ -341,7 +383,7 @@ $symbol = get_lebel_by_value_in_settings('currency_symbol');
                                         <div class="swiper-slide card-slider-single-slide">
 
                                             <img class="object-fit-cover"
-                                                 src="<?= productImageViewUrl('uploads/products', $rPro->product_id, $rPro->image, 'noimage.png', '267', '253'); ?>"
+                                                 src="<?= productImageViewUrlNew($rPro->main_image, $rPro->image, '267', '253'); ?>"
                                                  alt="<?= $rPro->alt_name; ?>" loading="lazy">
                                         </div>
                                         <?php $allImage = get_array_data_by_id('cc_product_image', 'product_id', $rPro->product_id); ?>
@@ -351,7 +393,7 @@ $symbol = get_lebel_by_value_in_settings('currency_symbol');
                                                 <div class="swiper-slide card-slider-single-slide">
 
                                                     <img class="object-fit-cover"
-                                                         src="<?= productImageViewUrl('uploads/products', $image->product_id . '/' . $image->product_image_id, $image->image, 'noimage.png', '267', '253'); ?>"
+                                                         src="<?= productImageViewUrlNew($image->main_image , $image->image, '267', '253'); ?>"
                                                          alt="<?= $image->alt_name ?>" loading="lazy">
                                                 </div>
                                             <?php }
@@ -776,7 +818,7 @@ $symbol = get_lebel_by_value_in_settings('currency_symbol');
                                 <div class="swiper-wrapper">
                                     <div class="swiper-slide card-slider-single-slide">
                                         <img class="object-fit-cover"
-                                             src="<?= productImageViewUrl('uploads/products', $pro->product_id, $pro->image, 'noimage.png', '261', '257'); ?>"
+                                             src="<?= productImageViewUrlNew( $pro->main_image, $pro->image, '261', '257'); ?>"
                                              alt="best seller product"
                                              loading="lazy">
                                     </div>
@@ -787,7 +829,7 @@ $symbol = get_lebel_by_value_in_settings('currency_symbol');
                                             <!-- Slide 2 -->
                                             <div class="swiper-slide card-slider-single-slide">
                                                 <img class="object-fit-cover"
-                                                     src="<?= productImageViewUrl('uploads/products', $image->product_id . '/' . $image->product_image_id, $image->image, 'noimage.png', '261', '257'); ?>"
+                                                     src="<?= productImageViewUrlNew($image->main_image, $image->image, '261', '257'); ?>"
                                                      alt="<?= $image->alt_name ?>" loading="lazy">
                                             </div>
                                         <?php }

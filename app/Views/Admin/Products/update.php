@@ -434,13 +434,14 @@ foreach ($prodCat as $key => $cat) { ?>
                                             <h3>Default Image <span class="requi">*</span></h3>
                                         </div>
                                         <div class="col-md-8">
-                                            <div class="row ">
+                                            <div class="row mb-4">
                                                 <div class="col-md-2 img_view">
-                                                    <img data-sizes="auto" src="<?= productImageViewUrl('uploads/products', $prod->product_id, $prod->image, 'noimage.png', '100', '100');?>" alt="<?= $prod->alt_name;?>" class="img-fluid" loading="lazy">
+                                                    <img data-sizes="auto" src="<?= productImageViewUrlNew($prod->main_image, $prod->image, '100', '100');?>" alt="<?= $prod->alt_name;?>" class="img-fluid" loading="lazy">
                                                 </div>
                                             </div>
-                                            <div id="framesdef"></div><br>
-                                            <input type="file" id="defimage" name="image" class="form-control">
+                                            <span id="singleImage"></span>
+                                            <br>
+                                            <button type="button" onclick="imageManager('singleImage','single')" class="btn mt-3 btn-outline-info">Choose File</button>
 
                                             <div class="form-group">
                                                 <label>ALT Name </label>
@@ -459,14 +460,15 @@ foreach ($prodCat as $key => $cat) { ?>
                                             <div class="row mb-4" >
                                             <?php foreach ($prodimage as $img) { ?>
                                                 <div class="col-md-2 img_view">
-                                                    <img data-sizes="auto" src="<?= productMultiImageViewUrl('uploads/products', $img->product_id, $img->product_image_id, $img->image, 'noimage.png', '100', '100');?>" alt="<?= $img->alt_name;?>" class="img-fluid" loading="lazy">
+                                                    <img data-sizes="auto" src="<?= productMultiImageViewUrlNew(  $img->main_image, $img->image, '100', '100');?>" alt="<?= $img->alt_name;?>" class="img-fluid" loading="lazy">
                                                     <input type="text" onchange="image_alt_name_update('<?=$img->product_image_id?>',this.value)" class="form-control mt-2 mb-2 text-center" style="height: 25px;" value="<?= $img->alt_name;?>">
                                                     <a href="javascript:void(0)" onclick="removeImg(<?php echo $img->product_image_id;?>)" class="btn del-btn"><i class="fas fa-trash"></i> Delete</a>
                                                 </div>
                                             <?php } ?>
                                             </div>
-                                            <div id="frames"></div><br>
-                                            <input type="file" class="form-control" id="image" name="multiImage[]" multiple />
+                                            <span id="multipleImage"></span>
+                                            <br>
+                                            <button type="button" onclick="imageManager('multipleImage','multiple')" class="btn mt-3 btn-outline-info">Choose File</button>
 
                                         </div>
                                     </div>

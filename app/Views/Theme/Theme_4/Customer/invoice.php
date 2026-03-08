@@ -83,7 +83,7 @@
                                     <td width="700" class="d-flex">
                                         <div class="img-table" >
                                             <?php $product = get_all_row_data_by_id('cc_products', 'product_id', $item->product_id); ?>
-                                            <img data-sizes="auto" src="<?= productImageViewUrl('uploads/products', $item->product_id, $product->image, 'noimage.png', '82', '82');?>" alt="<?= $product->alt_name;?>" class="img-fluid" loading="lazy">
+                                            <img data-sizes="auto" src="<?= productImageViewUrlNew( $item->main_image, $product->image, '82', '82');?>" alt="<?= $product->alt_name;?>" class="img-fluid" loading="lazy">
 
                                         </div>
                                         <div class="img-text" style="margin-left: 10px;">

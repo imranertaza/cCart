@@ -184,7 +184,7 @@
                         <div class="col">
                             <div class="recently-viewed-card d-flex">
                                 <div class="recently-viewed-card-image d-flex justify-content-center align-items-center mx-auto col-4">
-                                    <img class="img-fluid" src="<?= productImageViewUrl('uploads/products', $product->product_id, $product->image, 'noimage.png', '85', '85');?>" loading="lazy"
+                                    <img class="img-fluid" src="<?= productImageViewUrlNew( $product->main_image, $product->image, '85', '85');?>" loading="lazy"
                                          alt="<?= $product->alt_name;?>">
                                 </div>
                                 <div class="recently-viewed-card-content  col-8">
@@ -294,7 +294,7 @@
                         <div class="swiper-wrapper">
                             <!-- slide 1 -->
                             <div class="swiper-slide card-slider-single-slide">
-                                <img class="object-fit-cover" src="<?= productImageViewUrl('uploads/products', $pro->product_id, $pro->image, 'noimage.png', '261', '257');?>" alt="best seller product"
+                                <img class="object-fit-cover" src="<?= productImageViewUrlNew( $pro->main_image, $pro->image, '261', '257');?>" alt="best seller product"
                                      loading="lazy">
                             </div>
                             <?php $allImage = get_array_data_by_id('cc_product_image', 'product_id', $pro->product_id);?>
@@ -303,7 +303,7 @@
                                     ?>
                                     <!-- Slide 2 -->
                                     <div class="swiper-slide card-slider-single-slide">
-                                        <img class="object-fit-cover" src="<?= productImageViewUrl('uploads/products', $image->product_id.'/'.$image->product_image_id, $image->image, 'noimage.png', '261', '257');?>"
+                                        <img class="object-fit-cover" src="<?= productImageViewUrlNew($image->main_image, $image->image, '261', '257');?>"
                                              alt="<?= $image->alt_name?>" loading="lazy">
                                     </div>
                             <?php } }?>
@@ -409,7 +409,7 @@
                             <div class="swiper-wrapper">
                                 <!-- slide 1 -->
                                 <div class="swiper-slide card-slider-single-slide">
-                                    <img class="object-fit-cover" src="<?= productImageViewUrl('uploads/products', $pro->product_id, $pro->image, 'noimage.png', '261', '257');?>" alt="best seller product"
+                                    <img class="object-fit-cover" src="<?= productImageViewUrlNew($pro->main_image, $pro->image, '261', '257');?>" alt="best seller product"
                                          loading="lazy">
                                 </div>
                                 <?php $allImage = get_array_data_by_id('cc_product_image', 'product_id', $pro->product_id);?>
@@ -418,7 +418,7 @@
                                         ?>
                                         <!-- Slide 2 -->
                                         <div class="swiper-slide card-slider-single-slide">
-                                            <img class="object-fit-cover" src="<?= productImageViewUrl('uploads/products', $image->product_id.'/'.$image->product_image_id, $image->image, 'noimage.png', '261', '257');?>"
+                                            <img class="object-fit-cover" src="<?= productImageViewUrlNew($image->main_image, $image->image, '261', '257');?>"
                                                  alt="<?= $image->alt_name?>" loading="lazy">
                                         </div>
                                     <?php } }?>
@@ -531,7 +531,7 @@
                         <div class="swiper-wrapper">
                             <!-- slide 1 -->
                             <div class="swiper-slide card-slider-single-slide">
-                                <img class="object-fit-cover" src="<?= productImageViewUrl('uploads/products', $pro->product_id, $pro->image, 'noimage.png', '261', '257');?>"
+                                <img class="object-fit-cover" src="<?= productImageViewUrlNew( $pro->main_image, $pro->image, '261', '257');?>"
                                      alt="<?= $pro->alt_name;?>" loading="lazy">
                             </div>
                             <?php $allImage = get_array_data_by_id('cc_product_image', 'product_id', $pro->product_id);?>
@@ -540,7 +540,7 @@
                                     ?>
                                     <!-- Slide 2 -->
                                     <div class="swiper-slide card-slider-single-slide">
-                                        <img class="object-fit-cover" src="<?= productImageViewUrl('uploads/products', $image->product_id.'/'.$image->product_image_id, $image->image, 'noimage.png', '261', '257');?>"
+                                        <img class="object-fit-cover" src="<?= productImageViewUrlNew($image->main_image, $image->image, '261', '257');?>"
                                              alt="<?= $image->alt_name?>" loading="lazy">
                                     </div>
                                 <?php } }?>

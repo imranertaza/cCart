@@ -65,7 +65,7 @@ foreach ($album as $val) { ?>
                                 <?php $img2 = str_replace("pro_", "", $val->thumb);
     $url2                                   = base_url('uploads/album/' . $val->album_id . '/wm_' . $img2);?>
                                 <a class="album-image-link" href="<?= $url2;?>" data-lightbox="album-set_<?= $val->album_id; ?>" >
-                                    <img data-sizes="auto" src="<?= productImageViewUrl('uploads/album', $val->album_id, $val->thumb, 'noimage.png', '50', '50');?>" alt="<?= $val->alt_name;?>" class="img-fluid" loading="lazy">
+                                    <img data-sizes="auto" src="<?= productImageViewUrlNew($val->main_image, $val->thumb, '50', '50');?>" alt="<?= $val->alt_name;?>" class="img-fluid" loading="lazy">
                                 </a>
                             </td>
                             <td width="180">

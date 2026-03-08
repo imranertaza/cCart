@@ -9,7 +9,7 @@
 
     <meta name="csrf-token" content="<?= csrf_hash() ?>">
     <meta name="csrf-header" content="<?= csrf_header() ?>">
-    <meta name="csrf-name" content="<?= csrf_token() ?>">
+    <meta name="csrf-name" id="csrf" content="<?= csrf_token() ?>">
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -153,6 +153,12 @@
         <!-- Control sidebar content goes here -->
     </aside>
     <!-- /.control-sidebar -->
+    <div class="modal fade" id="managerModal">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content" id="dataViewModal">
+            </div>
+        </div>
+    </div>
 </div>
 <!-- ./wrapper -->
 <script src="<?php echo base_url() ?>/assets/theme_3/lightbox-plus-jquery.min.js"></script>
@@ -540,6 +546,18 @@ if (isset($_GET['page'])) {  ?>
             $('input[name="<?= csrf_token() ?>"]').val(newToken);
         }
     });
+
+    function imageManager(preId,type){
+        $.ajax({
+            url: '<?php echo base_url('admin/image-manager-show') ?>',
+            type: "GET",
+            data: { showId: preId,type:type},
+            success: function(data) {
+                $('#dataViewModal').html(data);
+                $('#managerModal').modal('show');
+            }
+        });
+    }
 
 </script>
 

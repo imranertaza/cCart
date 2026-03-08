@@ -1,0 +1,261 @@
+<?php
+
+namespace App\Database\Seeds;
+
+use CodeIgniter\Database\Seeder;
+
+class ThemeSettingsFT4 extends Seeder
+{
+    public function run()
+    {
+        $data = [
+            [
+                'theme_settings_id' => '41',
+                'label'             => 'favicon',
+                'title'             => 'Favicon',
+                'value'             => '',
+                'theme'             => '',
+            ],
+            [
+                'theme_settings_id' => '41',
+                'label'             => 'top_category_left_title',
+                'title'             => 'Top Category Left Title',
+                'value'             => '',
+                'theme'             => 'Theme_4',
+            ],
+            [
+                'theme_settings_id' => '43',
+                'label'             => 'top_category_left_sub_title',
+                'title'             => 'Category Left Sub Title',
+                'value'             => '',
+                'theme'             => 'Theme_4',
+            ],
+            [
+                'theme_settings_id' => '44',
+                'label'             => 'top_category_left_image',
+                'title'             => 'Top Category Left Image',
+                'value'             => '',
+                'theme'             => 'Theme_4',
+            ],
+            [
+                'theme_settings_id' => '45',
+                'label'             => 'top_category_left_category',
+                'title'             => 'Top Category Left Category',
+                'value'             => '',
+                'theme'             => 'Theme_4',
+            ],
+            [
+                'theme_settings_id' => '46',
+                'label'             => 'top_category_right_title',
+                'title'             => 'Top Category Right Title',
+                'value'             => '',
+                'theme'             => 'Theme_4',
+            ],
+            [
+                'theme_settings_id' => '47',
+                'label'             => 'top_category_right_sub_title',
+                'title'             => 'Top Category Right Sub Title',
+                'value'             => '',
+                'theme'             => 'Theme_4',
+            ],
+            [
+                'theme_settings_id' => '48',
+                'label'             => 'top_category_right_image',
+                'title'             => 'Top Category Right Image',
+                'value'             => '',
+                'theme'             => 'Theme_4',
+            ],
+            [
+                'theme_settings_id' => '49',
+                'label'             => 'top_category_right_category',
+                'title'             => 'Top Category Right Category',
+                'value'             => '',
+                'theme'             => 'Theme_4',
+            ],
+            [
+                'theme_settings_id' => '50',
+                'label'             => 'recent_product_title',
+                'title'             => 'Recent Product Title',
+                'value'             => '',
+                'theme'             => 'Theme_4',
+            ],
+            [
+                'theme_settings_id' => '51',
+                'label'             => 'recent_product_sub_title',
+                'title'             => 'Recent Product Sub Title',
+                'value'             => '',
+                'theme'             => 'Theme_4',
+            ],
+            [
+                'theme_settings_id' => '52',
+                'label'             => 'recent_product_image',
+                'title'             => 'Recent Product Image',
+                'value'             => '',
+                'theme'             => 'Theme_4',
+            ],
+            [
+                'theme_settings_id' => '53',
+                'label'             => 'recent_product_category',
+                'title'             => 'Recent Product Category',
+                'value'             => '',
+                'theme'             => 'Theme_4',
+            ],
+            [
+                'theme_settings_id' => '54',
+                'label'             => 'section_one_title',
+                'title'             => 'Section One Title',
+                'value'             => '',
+                'theme'             => 'Theme_4',
+            ],
+            [
+                'theme_settings_id' => '55',
+                'label'             => 'section_one_sub_title',
+                'title'             => 'Section One Sub Title',
+                'value'             => '',
+                'theme'             => 'Theme_4',
+            ],
+            [
+                'theme_settings_id' => '56',
+                'label'             => 'section_one_category',
+                'title'             => 'Section One Category',
+                'value'             => '',
+                'theme'             => 'Theme_4',
+            ],
+            [
+                'theme_settings_id' => '57',
+                'label'             => 'section_one_image',
+                'title'             => 'Section One Image',
+                'value'             => '',
+                'theme'             => 'Theme_4',
+            ],
+            [
+                'theme_settings_id' => '58',
+                'label'             => 'section_two_image',
+                'title'             => 'Section Two Image',
+                'value'             => '',
+                'theme'             => 'Theme_4',
+            ],
+            [
+                'theme_settings_id' => '59',
+                'label'             => 'section_two_category',
+                'title'             => 'Section Two Category',
+                'value'             => '',
+                'theme'             => 'Theme_4',
+            ],
+            [
+                'theme_settings_id' => '60',
+                'label'             => 'section_two_title',
+                'title'             => 'Section Two Title',
+                'value'             => '',
+                'theme'             => 'Theme_4',
+            ],
+            [
+                'theme_settings_id' => '61',
+                'label'             => 'section_two_sub_title',
+                'title'             => 'Section Two Sub Title',
+                'value'             => '',
+                'theme'             => 'Theme_4',
+            ],
+            [
+                'theme_settings_id' => '62',
+                'label'             => 'offer_view',
+                'title'             => 'Offer View',
+                'value'             => '',
+                'theme'             => 'Theme_4',
+            ],
+            [
+                'theme_settings_id' => '63',
+                'label'             => 'popular_this_week',
+                'title'             => 'Popular this week',
+                'value'             => '',
+                'theme'             => 'Theme_4',
+            ],
+            [
+                'theme_settings_id' => '64',
+                'label'             => 'slider4_1',
+                'title'             => 'Slider 1',
+                'value'             => '',
+                'theme'             => 'Theme_4',
+            ],
+            [
+                'theme_settings_id' => '65',
+                'label'             => 'slider4_2',
+                'title'             => 'Slider 2',
+                'value'             => '',
+                'theme'             => 'Theme_4',
+            ],
+            [
+                'theme_settings_id' => '66',
+                'label'             => 'slider4_3',
+                'title'             => 'Slider 3',
+                'value'             => '',
+                'theme'             => 'Theme_4',
+            ],
+            [
+                'theme_settings_id' => '67',
+                'label'             => 'slider4_text_1',
+                'title'             => 'Slider Text',
+                'value'             => '',
+                'theme'             => 'Theme_4',
+            ],
+            [
+                'theme_settings_id' => '68',
+                'label'             => 'slider4_text_2',
+                'title'             => 'Slider Text',
+                'value'             => '',
+                'theme'             => 'Theme_4',
+            ],
+            [
+                'theme_settings_id' => '69',
+                'label'             => 'slider4_text_3',
+                'title'             => 'Slider Text',
+                'value'             => '',
+                'theme'             => 'Theme_4',
+            ],
+            [
+                'theme_settings_id' => '70',
+                'label'             => 'slider4_sub_text_1',
+                'title'             => 'Slider Short Text',
+                'value'             => '',
+                'theme'             => 'Theme_4',
+            ],
+            [
+                'theme_settings_id' => '71',
+                'label'             => 'slider4_sub_text_2',
+                'title'             => 'Slider Short Text',
+                'value'             => '',
+                'theme'             => 'Theme_4',
+            ],
+            [
+                'theme_settings_id' => '72',
+                'label'             => 'slider4_sub_text_3',
+                'title'             => 'Slider Short Text',
+                'value'             => '',
+                'theme'             => 'Theme_4',
+            ],
+            [
+                'theme_settings_id' => '73',
+                'label'             => 'slider4_category_1',
+                'title'             => 'Slider Category',
+                'value'             => '',
+                'theme'             => 'Theme_4',
+            ],
+            [
+                'theme_settings_id' => '74',
+                'label'             => 'slider4_category_2',
+                'title'             => 'Slider Category',
+                'value'             => '',
+                'theme'             => 'Theme_4',
+            ],
+            [
+                'theme_settings_id' => '75',
+                'label'             => 'slider4_category_3',
+                'title'             => 'Slider Category',
+                'value'             => '',
+                'theme'             => 'Theme_4',
+            ],
+        ];
+        // Using Query Builder
+        $this->db->table('cc_theme_settings')->insertBatch($data);
+    }
+}
