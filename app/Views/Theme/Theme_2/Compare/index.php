@@ -25,7 +25,7 @@
                     <th></th>
                     <?php foreach ($products as $pro) { ?>
                     <td>
-                        <p><img data-sizes="auto" src="<?= productImageViewUrl('uploads/products', $pro->product_id, $pro->image, 'noimage.png', '191', '191');?>" alt="<?= $pro->alt_name;?>" class="img-fluid" loading="lazy"></p>
+                        <p><img data-sizes="auto" src="<?= productImageViewUrlNew( $pro->main_image, $pro->image, '191', '191');?>" alt="<?= $pro->alt_name;?>" class="img-fluid" loading="lazy"></p>
                         <p><a href="<?php echo base_url('detail/' . $pro->product_id)?>"><?php echo $pro->name;?></a></p>
                         <div class="">
                             <span><?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id);

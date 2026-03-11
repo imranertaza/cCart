@@ -1,4 +1,4 @@
-<?= $this->extend('Admin/layout') ?>
+ <?= $this->extend('Admin/layout') ?>
 
 <?= $this->section('content') ?>
 <div class="content-wrapper">
@@ -375,9 +375,9 @@
                                             <h3>Default Image <span class="requi">*</span></h3>
                                         </div>
                                         <div class="col-md-8">
-                                            <div id="framesdef"></div><br>
-                                            <input type="file" id="defimage" name="image" class="form-control" required>
-
+                                            <span id="singleImage"></span>
+                                            <br>
+                                            <button type="button" onclick="imageManager('singleImage','single')" class="btn mt-3 btn-outline-info">Choose File</button>
                                         </div>
                                         <div class="col-md-12">
                                             <hr>
@@ -386,8 +386,9 @@
                                             <h3>Multiple Image</h3>
                                         </div>
                                         <div class="col-md-8 mt-3">
-                                            <div id="frames"></div><br>
-                                            <input type="file" class="form-control" id="image" name="multiImage[]" multiple />
+                                            <span id="multipleImage"></span>
+                                            <br>
+                                            <button type="button" onclick="imageManager('multipleImage','multiple')" class="btn mt-3 btn-outline-info">Choose File</button>
 
                                         </div>
                                     </div>
@@ -480,8 +481,6 @@
 
     });
 
-
-
     function searchOptionUp(key) {
         let csrfName = $('meta[name="csrf-name"]').attr('content');
         let csrfHash = $('meta[name="csrf-token"]').attr('content');
@@ -560,7 +559,6 @@
     function remove_option(data) {
         $(data).parent().remove();
     }
-
     //attribute
     function add_attribute() {
         <?php $dat = getListInOption('', 'attribute_group_id', 'name', 'cc_product_attribute_group'); ?>
@@ -579,8 +577,6 @@
     function remove_attribute(data) {
         $(data).parent().remove();
     }
-
-
 
     function startProgressBar() {
         const progressBar = document.getElementById('progressBar');

@@ -1467,7 +1467,7 @@ function get_category_id_by_product_show_home_slide($category_id)
         }
 
         $view .= '<div class="product-top mb-2">
-                    <img data-sizes="auto" src="' . productImageViewUrl("uploads/products", $pro->product_id, $pro->image, "noimage.png", "132", "132") . '" class="img-fluid" alt="' . $pro->alt_name . '" loading="lazy">
+                    <img data-sizes="auto" src="' . productImageViewUrlNew( $pro->main_image, $pro->image, "132", "132") . '" class="img-fluid" alt="' . $pro->alt_name . '" loading="lazy">
                 </div>
                 <div class="product-bottom mt-auto">
                     <div class="product-title product_title_area mb-2">
@@ -2117,5 +2117,72 @@ function offerIdByProducts($offer_id)
         ->limit(6)
         ->get()
         ->getResult();
+}
+
+function productImageViewUrlNew($mainImage, $image, $width, $height)
+{
+    $modules = modules_access();
+
+    $imgMain = ($modules['watermark'] == '1') ?  basename($image) :  basename($mainImage);
+    $url  = ($modules['watermark'] == '1') ?  dirname($image) :  dirname($mainImage);
+    $dir = FCPATH . '/' . $url;
+
+    $noImage = 'https://placehold.co/'.$width.'x'.$height;
+    $result = $noImage;
+
+    if (!empty($image)) {
+        if (file_exists($dir)) {
+            $imgPath = $dir . '/' . $imgMain;
+
+            if (file_exists($imgPath)) {
+                $image   = explode('.', $imgMain);
+                $pathNew = 'cache/' . $url . '/' . $width . 'x' . $height . '_' . $image[0] . '.webp';
+
+                if (file_exists($pathNew)) {
+                    $imgFinal = base_url($pathNew);
+                } else {
+                    $urlNew   = base64_encode($url . '/');
+                    $imgFinal = base_url('image-resize/' . $urlNew . '/' . $width . 'x' . $height . '/' . $imgMain);
+                }
+                $result   = $imgFinal;
+            }
+        }
+    }
+
+    return $result;
+}
+
+function productMultiImageViewUrlNew($mainImage, $image, $width, $height)
+{
+    $modules = modules_access();
+
+    $imgMain = ($modules['watermark'] == '1') ?  basename($image) :  basename($mainImage);
+    $url  = ($modules['watermark'] == '1') ?  dirname($image) :  dirname($mainImage);
+
+    $dir = FCPATH . '/' . $url ;
+
+    $noImage = 'https://placehold.co/'.$width.'x'.$height;
+    $result = $noImage;
+
+    if (!empty($image)) {
+        if (file_exists($dir)) {
+            $imgPath = $dir . '/' . $imgMain;
+
+            if (file_exists($imgPath)) {
+                $image   = explode('.', $imgMain);
+                $pathNew = 'cache/' . $url .'/' . $width . 'x' . $height . '_' . $image[0] . '.webp';
+
+                if (file_exists($pathNew)) {
+                    $imgFinal = base_url($pathNew);
+                } else {
+                    $urlNew   = base64_encode($url . '/');
+                    $imgFinal = base_url('image-resize/' . $urlNew . '/' . $width . 'x' . $height . '/' . $imgMain);
+                }
+                $result   = $imgFinal;
+            }
+        }
+    }
+
+    return $result;
 }
 

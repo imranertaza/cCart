@@ -20,14 +20,14 @@
                                                     <div class="slider slider-nav thumb-image" style="height: 332px !important;">
                                                         <div class="thumbnail-image">
                                                             <div class="thumbImg">
-                                                                <img data-sizes="auto" src="<?= productImageViewUrl('uploads/products', $products->product_id, $products->image, 'noimage.png', '100', '92');?>" alt="<?= $products->alt_name;?>" class="img-fluid" loading="lazy">
+                                                                <img data-sizes="auto" src="<?= productImageViewUrlNew($products->main_image, $products->image, '100', '92');?>" alt="<?= $products->alt_name;?>" class="img-fluid" loading="lazy">
                                                             </div>
                                                         </div>
 
                                                         <?php
                                                         if (!empty($proImg)) {
                                                             foreach ($proImg as $imgval) {
-                                                                echo '<div class="thumbnail-image"><div class="thumbImg"><img data-sizes="auto" src="' . productMultiImageViewUrl('uploads/products', $imgval->product_id, $imgval->product_image_id, $imgval->image, 'noimage.png', '100', '92') . '" alt="' . $imgval->alt_name . '" class="img-fluid" loading="lazy"></div></div>';
+                                                                echo '<div class="thumbnail-image"><div class="thumbImg"><img data-sizes="auto" src="' . productMultiImageViewUrlNew( $imgval->main_image, $imgval->image, '100', '92') . '" alt="' . $imgval->alt_name . '" class="img-fluid" loading="lazy"></div></div>';
                                                             }
                                                         }
                                                 ?>
@@ -36,7 +36,7 @@
                                                             <div class="thumbImg video-thum">
                                                                 <a href="javascript:void(0)" data-bs-toggle="modal"
                                                                     data-bs-target="#videoeModal">
-                                                                    <img data-sizes="auto" src="<?= productImageViewUrl('uploads/products', $products->product_id, $products->image, 'noimage.png', '100', '92');?>" alt="<?= $products->alt_name;?>" class="img-fluid" loading="lazy">
+                                                                    <img data-sizes="auto" src="<?= productImageViewUrlNew( $products->main_image, $products->image, '100', '92');?>" alt="<?= $products->alt_name;?>" class="img-fluid" loading="lazy">
                                                                     <img src="<?php echo base_url('uploads/play.png') ?>"
                                                                         alt="" class="play-image">
                                                                 </a>
@@ -49,13 +49,13 @@
                                                 <div class="col-10 col-sm-9 col-md-10 col-lg-9">
                                                     <div class="slider slider-for slider-cus-css">
                                                         <div class="slider-banner-image">
-                                                            <img data-sizes="auto" src="<?= productImageViewUrl('uploads/products', $products->product_id, $products->image, 'noimage.png', '363', '332');?>" alt="<?= $products->alt_name;?>" class="img-fluid" loading="lazy">
+                                                            <img data-sizes="auto" src="<?= productImageViewUrlNew($products->main_image, $products->image, '363', '332');?>" alt="<?= $products->alt_name;?>" class="img-fluid" loading="lazy">
                                                         </div>
 
                                                         <?php
                                                         if (!empty($proImg)) {
                                                             foreach ($proImg as $imgval) {
-                                                                echo '<div class="slider-banner-image"><img data-sizes="auto" src="' . productMultiImageViewUrl('uploads/products', $imgval->product_id, $imgval->product_image_id, $imgval->image, 'noimage.png', '363', '332') . '" alt="' . $imgval->alt_name . '" class="img-fluid" loading="lazy"></div>';
+                                                                echo '<div class="slider-banner-image"><img data-sizes="auto" src="' . productMultiImageViewUrlNew($imgval->main_image,  $imgval->image, '363', '332') . '" alt="' . $imgval->alt_name . '" class="img-fluid" loading="lazy"></div>';
                                                             }
                                                         }
                                                         ?>
@@ -72,6 +72,7 @@
                         <div class="product-info-det p-3">
 
                             <form id="addto-cart-form" action="<?php echo base_url('addtocartdetail') ?>" method="post">
+                                <?= csrf_field() ?>
                                 <h5 class="mb-3 pro-t"><?php echo $products->name; ?></h5>
                                 <?php $stock = get_data_by_id('quantity', 'cc_products', 'product_id', $products->product_id) ?>
 
@@ -356,7 +357,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4 mb-3">
-                    <img data-sizes="auto" src="<?= productImageViewUrl('uploads/products', $products->product_id, $products->image, 'noimage.png', '356', '326');?>" alt="<?= $products->alt_name;?>" class="img-fluid" loading="lazy">
+                    <img data-sizes="auto" src="<?= productImageViewUrlNew($products->main_image, $products->image,  '356', '326');?>" alt="<?= $products->alt_name;?>" class="img-fluid" loading="lazy">
                 </div>
             </div>
         </div>
@@ -393,7 +394,7 @@
                                                 <div
                                                     class="product-grid h-100 d-flex align-items-stretch flex-column position-relative">
                                                     <div class="product-top border p-2">
-                                                        <img data-sizes="auto" src="<?= productImageViewUrl('uploads/products', $both->product_id, $both->image, 'noimage.png', '191', '191');?>" alt="<?= $both->alt_name;?>" class="img-fluid" loading="lazy">
+                                                        <img data-sizes="auto" src="<?= productImageViewUrlNew( $both->main_image, $both->image, '191', '191');?>" alt="<?= $both->alt_name;?>" class="img-fluid" loading="lazy">
                                                         <input type="checkbox" name="both_product[]"
                                                             onchange="bothPriceCalculat()"
                                                             class="form-check-input check-input"
@@ -504,7 +505,7 @@
                                     <?php } ?>
                                     <div class="product-top text-center">
                                         <a
-                                            href="<?php echo base_url('detail/' . $rPro->product_id) ?>"><img data-sizes="auto" src="<?= productImageViewUrl('uploads/products', $rPro->product_id, $rPro->image, 'noimage.png', '191', '191');?>" alt="<?= $rPro->alt_name;?>" class="img-fluid" loading="lazy"></a>
+                                            href="<?php echo base_url('detail/' . $rPro->product_id) ?>"><img data-sizes="auto" src="<?= productImageViewUrlNew( $rPro->main_image, $rPro->image, '191', '191');?>" alt="<?= $rPro->alt_name;?>" class="img-fluid" loading="lazy"></a>
                                         <div class="rating text-center my-2">
                                             <?php echo product_id_by_rating($rPro->product_id); ?>
                                         </div>
@@ -602,7 +603,7 @@
                                     <?php } ?>
                                     <div class="product-top text-center">
                                         <a
-                                            href="<?php echo base_url('detail/' . $rPro->product_id) ?>"><img data-sizes="auto" src="<?= productImageViewUrl('uploads/products', $rPro->product_id, $rPro->image, 'noimage.png', '191', '191');?>" alt="<?= $rPro->alt_name;?>" class="img-fluid" loading="lazy"></a>
+                                            href="<?php echo base_url('detail/' . $rPro->product_id) ?>"><img data-sizes="auto" src="<?= productImageViewUrlNew( $rPro->main_image, $rPro->image, '191', '191');?>" alt="<?= $rPro->alt_name;?>" class="img-fluid" loading="lazy"></a>
                                         <div class="rating text-center my-2">
                                             <?php echo product_id_by_rating($rPro->product_id); ?>
                                         </div>

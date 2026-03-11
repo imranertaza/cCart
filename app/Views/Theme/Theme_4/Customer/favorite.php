@@ -73,7 +73,7 @@
                                             <div class="swiper-wrapper">
                                                 <!-- slide 1 -->
                                                 <div class="swiper-slide card-slider-single-slide">
-                                                    <img class="object-fit-cover" src="<?= productImageViewUrl('uploads/products', $pro['product_id'], $pro['image'], 'noimage.png', '261', '247');?>"
+                                                    <img class="object-fit-cover" src="<?= productImageViewUrlNew( $pro['main_image'], $pro['image'], '261', '247');?>"
                                                          alt="<?= $pro['alt_name'];?>" loading="lazy">
                                                 </div>
                                                 <?php $allImage = get_array_data_by_id('cc_product_image', 'product_id', $pro['product_id']);?>
@@ -82,7 +82,7 @@
                                                 ?>
                                                 <!-- Slide 2 -->
                                                 <div class="swiper-slide card-slider-single-slide">
-                                                    <img class="object-fit-cover" src="<?= productImageViewUrl('uploads/products', $image->product_id.'/'.$image->product_image_id, $image->image, 'noimage.png', '261', '247');?>"
+                                                    <img class="object-fit-cover" src="<?= productImageViewUrlNew($image->main_image, $image->image,  '261', '247');?>"
                                                          alt="<?= $image->alt_name?>" loading="lazy">
                                                 </div>
                                                 <?php } }?>

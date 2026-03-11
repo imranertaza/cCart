@@ -180,6 +180,7 @@ class Products extends BaseController
         $data['brandView']   = $filter->product_array_by_brand($data['brandval']);
         $data['ratingView']  = $filter->product_array_by_rating_view($data['ratingval']);
         $data['productsArr'] = $productsArr;
+        $data['optionArray']  = $filter->product_array_by_options_array();
 
         if (!empty($manufacturer) && !empty($cat_id)) {
             $data['brandView'] = $filter->getSettings($productsArrCatBas)->product_array_by_brand($data['brandval']);

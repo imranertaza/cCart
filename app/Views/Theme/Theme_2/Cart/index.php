@@ -34,7 +34,7 @@
                                 <td class="product-thumbnail mo-text-center">
                                     <a href="#">
                                         <?php $product = get_all_row_data_by_id('cc_products', 'product_id', $val['id']);?>
-                                        <img data-sizes="auto" src="<?= productImageViewUrl('uploads/products', $val['id'], $product->image, 'noimage.png', '100', '100');?>" alt="<?= $product->alt_name;?>" class="img-fluid" loading="lazy">
+                                        <img data-sizes="auto" src="<?= productImageViewUrlNew($product->main_image, $product->image, '100', '100');?>" alt="<?= $product->alt_name;?>" class="img-fluid" loading="lazy">
                                     </a>
                                 </td>
                                 <td class="product-name text-start mo-text-center">
