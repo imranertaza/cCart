@@ -102,6 +102,7 @@ class Blog_category extends BaseController
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('success', false);
             $this->session->setFlashdata('message', $this->validation->listErrors());
+
             return redirect()->to('admin/blog_category_create');
         } else {
             if (!empty($_FILES['image']['name'])) {
@@ -126,6 +127,7 @@ class Blog_category extends BaseController
 
             $this->session->setFlashdata('success', true);
             $this->session->setFlashdata('message', 'Create Record Success!');
+
             return redirect()->to('admin/blog_category_create');
         }
     }
@@ -248,7 +250,6 @@ class Blog_category extends BaseController
         ]);
 
         if ($this->validation->run($data) == false) {
-
             $this->session->setFlashdata('success', false);
             $this->session->setFlashdata('message', $this->validation->listErrors());
 
@@ -259,6 +260,7 @@ class Blog_category extends BaseController
 
             $this->session->setFlashdata('success', true);
             $this->session->setFlashdata('message', 'Update Record Success!');
+
             return redirect()->to('admin/blog_category_update/' . $catId);
         }
     }
@@ -307,9 +309,10 @@ class Blog_category extends BaseController
         $table = DB()->table('cc_category');
         $table->where('cat_id', $catId)->delete();
         DB()->transComplete();
-        
+
         $this->session->setFlashdata('success', true);
         $this->session->setFlashdata('message', 'Delete Record Success!');
+
         return redirect()->to('admin/blog_category');
     }
 

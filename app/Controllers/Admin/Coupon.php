@@ -115,6 +115,7 @@ class Coupon extends BaseController
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('success', false);
             $this->session->setFlashdata('message', $this->validation->listErrors());
+
             return redirect()->to('admin/coupon_create');
         } else {
             DB()->transStart();
@@ -139,6 +140,7 @@ class Coupon extends BaseController
 
             $this->session->setFlashdata('success', true);
             $this->session->setFlashdata('message', 'Coupon Create Success!');
+
             return redirect()->to('admin/coupon_create');
         }
     }
@@ -213,6 +215,7 @@ class Coupon extends BaseController
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('success', false);
             $this->session->setFlashdata('message', $this->validation->listErrors());
+
             return redirect()->to('admin/coupon_update/' . $coupon_id);
         } else {
             DB()->transStart();
@@ -239,6 +242,7 @@ class Coupon extends BaseController
 
             $this->session->setFlashdata('success', true);
             $this->session->setFlashdata('message', 'Coupon Update Success!');
+
             return redirect()->to('admin/coupon_update/' . $coupon_id);
         }
     }
@@ -258,6 +262,7 @@ class Coupon extends BaseController
 
         $this->session->setFlashdata('success', true);
         $this->session->setFlashdata('message', 'Coupon Delete Success!');
+
         return redirect()->to('admin/coupon');
     }
 }

@@ -67,6 +67,7 @@ class Compare extends BaseController
                 $message = 'Already exists in compare';
             }
         }
+
         return $this->response
             ->setHeader('X-CSRF-TOKEN', csrf_hash())
             ->setBody($message);
@@ -84,6 +85,7 @@ class Compare extends BaseController
             unset($_SESSION['compare_session'][$key_id]);
             $message = 'Successfully remove to compare';
         }
+
         return $this->response
             ->setHeader('X-CSRF-TOKEN', csrf_hash())
             ->setBody($message);

@@ -101,6 +101,7 @@ class Album extends BaseController
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('success', false);
             $this->session->setFlashdata('message', $this->validation->listErrors());
+
             return redirect()->to('admin/album_create');
         } else {
             $table = DB()->table('cc_album');
@@ -111,18 +112,18 @@ class Album extends BaseController
 
             //album table data insert(end)
             $image = $this->request->getPost('image');
-            if (!empty($image)) {
 
-                $ext = pathinfo($image, PATHINFO_EXTENSION);
+            if (!empty($image)) {
+                $ext           = pathinfo($image, PATHINFO_EXTENSION);
                 $mainImagePath = FCPATH . '/' . $image;
-                $targetDir = FCPATH . '/uploads/album/' . $albumId . '/';
+                $targetDir     = FCPATH . '/uploads/album/' . $albumId . '/';
                 $saveImageName = 'pro_' . rand() . '.' . $ext;
 
                 $this->imageProcessing->directory_create($targetDir);
                 $this->imageProcessing->manager_image_crop($mainImagePath, $targetDir, $saveImageName);
 
                 $dataImg['main_image'] = $image;
-                $dataImg['thumb'] = 'uploads/album/' . $albumId . '/wm_600_'.$saveImageName;
+                $dataImg['thumb']      = 'uploads/album/' . $albumId . '/wm_600_' . $saveImageName;
 
                 $albumTable = DB()->table('cc_album');
                 $albumTable->where('album_id', $albumId)->update($dataImg);
@@ -131,6 +132,7 @@ class Album extends BaseController
 
             //multi image upload(start)
             $multiImage = $this->request->getPost('multiImage');
+
             if ($multiImage) {
                 foreach ($multiImage as $file) {
                     $dataMultiImg['album_id'] = $albumId;
@@ -142,14 +144,14 @@ class Album extends BaseController
                     $targetDirMul = FCPATH . '/uploads/album/' . $albumId . '/' . $albumImgId . '/';
                     $this->imageProcessing->directory_create($targetDirMul);
 
-                    $ext = pathinfo($file, PATHINFO_EXTENSION);
+                    $ext           = pathinfo($file, PATHINFO_EXTENSION);
                     $mainImagePath = FCPATH . '/' . $file;
                     $saveImageName = 'pro_' . rand() . '.' . $ext;
 
                     $this->imageProcessing->manager_image_crop($mainImagePath, $targetDirMul, $saveImageName);
 
                     $dataMultiImg2['main_image'] = $file;
-                    $dataMultiImg2['image'] = 'uploads/album/' . $albumId . '/' . $albumImgId . '/wm_600_'.$saveImageName;
+                    $dataMultiImg2['image']      = 'uploads/album/' . $albumId . '/' . $albumImgId . '/wm_600_' . $saveImageName;
 
                     $proImgUpTable = DB()->table('cc_album_details');
                     $proImgUpTable->where('album_details_id', $albumImgId)->update($dataMultiImg2);
@@ -159,6 +161,7 @@ class Album extends BaseController
 
             $this->session->setFlashdata('success', true);
             $this->session->setFlashdata('message', 'Album Create Success!');
+
             return redirect()->to('admin/album_create');
         }
     }
@@ -214,9 +217,9 @@ class Album extends BaseController
         ]);
 
         if ($this->validation->run($data) == false) {
-
             $this->session->setFlashdata('success', false);
             $this->session->setFlashdata('message', $this->validation->listErrors());
+
             return redirect()->to('admin/album_update/' . $album_id);
         } else {
             $table = DB()->table('cc_album');
@@ -226,19 +229,20 @@ class Album extends BaseController
 
             //image size array
             $image = $this->request->getPost('image');
+
             if (!empty($image)) {
                 $oldImg   = get_data_by_id('thumb', 'cc_album', 'album_id', $album_id);
 
-                $ext = pathinfo($image, PATHINFO_EXTENSION);
+                $ext           = pathinfo($image, PATHINFO_EXTENSION);
                 $mainImagePath = FCPATH . '/' . $image;
-                $targetDir = FCPATH . '/uploads/album/' . $album_id . '/';
+                $targetDir     = FCPATH . '/uploads/album/' . $album_id . '/';
                 $saveImageName = 'pro_' . rand() . '.' . $ext;
 
                 $this->imageProcessing->directory_create($targetDir);
                 $this->imageProcessing->manager_single_product_image_unlink($oldImg)->manager_image_crop($mainImagePath, $targetDir, $saveImageName);
 
                 $dataImg['main_image'] = $image;
-                $dataImg['thumb'] = 'uploads/album/' . $album_id . '/wm_600_'.$saveImageName;
+                $dataImg['thumb']      = 'uploads/album/' . $album_id . '/wm_600_' . $saveImageName;
 
                 $proUpTable = DB()->table('cc_album');
                 $proUpTable->where('album_id', $album_id)->update($dataImg);
@@ -247,6 +251,7 @@ class Album extends BaseController
 
             //multi image upload(start)
             $multiImage = $this->request->getPost('multiImage');
+
             if ($multiImage) {
                 foreach ($multiImage as $file) {
                     $dataMultiImg['album_id'] = $album_id;
@@ -258,14 +263,14 @@ class Album extends BaseController
                     $targetDirMul = FCPATH . '/uploads/album/' . $album_id . '/' . $albumImgId . '/';
                     $this->imageProcessing->directory_create($targetDirMul);
 
-                    $ext = pathinfo($file, PATHINFO_EXTENSION);
+                    $ext           = pathinfo($file, PATHINFO_EXTENSION);
                     $mainImagePath = FCPATH . '/' . $file;
                     $saveImageName = 'pro_' . rand() . '.' . $ext;
 
                     $this->imageProcessing->manager_image_crop($mainImagePath, $targetDirMul, $saveImageName);
 
                     $dataMultiImg2['main_image'] = $file;
-                    $dataMultiImg2['image'] = 'uploads/album/' . $album_id . '/' . $albumImgId . '/wm_600_'.$saveImageName;
+                    $dataMultiImg2['image']      = 'uploads/album/' . $album_id . '/' . $albumImgId . '/wm_600_' . $saveImageName;
 
                     $proImgUpTable = DB()->table('cc_album_details');
                     $proImgUpTable->where('album_details_id', $albumImgId)->update($dataMultiImg2);
@@ -316,6 +321,7 @@ class Album extends BaseController
 
         $this->session->setFlashdata('success', true);
         $this->session->setFlashdata('message', 'Album Delete Success!');
+
         return redirect()->back();
     }
 

@@ -103,9 +103,9 @@ class Customers extends BaseController
         ]);
 
         if ($this->validation->run($data) == false) {
-
             $this->session->setFlashdata('success', false);
             $this->session->setFlashdata('message', $this->validation->listErrors());
+
             return redirect()->to('admin/customers_create');
         } else {
             $check  = is_exists('cc_customer', 'phone', $data['phone']);
@@ -125,10 +125,12 @@ class Customers extends BaseController
 
                 $this->session->setFlashdata('success', true);
                 $this->session->setFlashdata('message', 'Customers Create Success!');
+
                 return redirect()->to('admin/customers_create');
             } else {
                 $this->session->setFlashdata('success', false);
                 $this->session->setFlashdata('message', 'Email Or Phone already exists!');
+
                 return redirect()->to('admin/customers_create');
             }
         }
@@ -182,9 +184,9 @@ class Customers extends BaseController
             $data['password'] = SHA1($this->request->getPost('password'));
 
             if ($this->request->getPost('password') != $this->request->getPost('con_password')) {
-
                 $this->session->setFlashdata('success', false);
                 $this->session->setFlashdata('message', 'Password and Confirm Password do not match!');
+
                 return redirect()->to('admin/customers_update/' . $customer_id);
             }
         }
@@ -212,10 +214,12 @@ class Customers extends BaseController
 
                 $this->session->setFlashdata('success', true);
                 $this->session->setFlashdata('message', 'Customers Update Success!');
+
                 return redirect()->to('admin/customers_update/' . $customer_id);
             } else {
                 $this->session->setFlashdata('success', false);
                 $this->session->setFlashdata('message', 'Email Or Phone already exists!');
+
                 return redirect()->to('admin/customers_update/' . $customer_id);
             }
         }
@@ -242,6 +246,7 @@ class Customers extends BaseController
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('success', false);
             $this->session->setFlashdata('message', $this->validation->listErrors());
+
             return redirect()->to('admin/customers_update/' . $customer_id);
         } else {
             $table = DB()->table('cc_customer');
@@ -249,6 +254,7 @@ class Customers extends BaseController
 
             $this->session->setFlashdata('success', true);
             $this->session->setFlashdata('message', 'Customers General Update Success!');
+
             return redirect()->to('admin/customers_update/' . $customer_id);
         }
     }
@@ -293,10 +299,12 @@ class Customers extends BaseController
 
             $this->session->setFlashdata('success', true);
             $this->session->setFlashdata('message', 'Customers Image Update Success!');
+
             return redirect()->to('admin/customers_update/' . $customer_id);
         } else {
             $this->session->setFlashdata('success', false);
             $this->session->setFlashdata('message', 'No image selected!');
+
             return redirect()->to('admin/customers_update/' . $customer_id);
         }
     }
@@ -313,6 +321,7 @@ class Customers extends BaseController
 
         $this->session->setFlashdata('success', true);
         $this->session->setFlashdata('message', 'Customers Delete Success!');
+
         return redirect()->to('admin/customers');
     }
 

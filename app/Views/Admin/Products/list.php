@@ -109,14 +109,14 @@
                         <?php $i = 1;
 
                         foreach ($product as $val) {
-                                $url = !empty($val->image) ? base_url().'/'.$val->main_image : 'https://placehold.co/200x200'; ?>
+                            $url = !empty($val->image) ? base_url() . '/' . $val->main_image : 'https://placehold.co/200x200'; ?>
                         <tr id="hide_<?php echo $val->product_id; ?>">
                             <td>
                                 <input type="checkbox" name="productId[]" value="<?php echo $val->product_id; ?>" form="multisubmitform" >
                             </td>
                             <td>
                                 <a class="product-image-link" href="<?= $url; ?>" data-lightbox="product-set-<?= $val->product_id; ?>">
-                                    <img data-sizes="auto" src="<?= productImageViewUrlNew( $val->main_image, $val->image, '50', '50'); ?>" alt="<?= $val->alt_name; ?>" class="img-fluid" loading="lazy">
+                                    <img data-sizes="auto" src="<?= productImageViewUrlNew($val->main_image, $val->image, '50', '50'); ?>" alt="<?= $val->alt_name; ?>" class="img-fluid" loading="lazy">
                                 </a>
                             </td>
                             <td><?php echo $val->name; ?></td>
@@ -130,7 +130,7 @@
                             </td>
                         </tr>
                         <?php
-} ?>
+                        } ?>
                     </tbody>
 
                 </table>

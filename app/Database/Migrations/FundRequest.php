@@ -50,7 +50,7 @@ class FundRequest extends Migration
             ],
             'status' => [
                 'type'       => 'ENUM',
-                'constraint' => ['Pending', 'Complete','Canceled'],
+                'constraint' => ['Pending', 'Complete', 'Canceled'],
                 'default'    => 'Pending',
             ],
             'createdDtm' => [

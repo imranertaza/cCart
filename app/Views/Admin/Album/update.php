@@ -66,7 +66,7 @@
                         <div class="col-md-8">
                             <div class="row ">
                                 <div class="col-md-4 img_view">
-                                    <img data-sizes="auto" src="<?= productImageViewUrlNew($album->main_image, $album->thumb,  '198', '198');?>" alt="<?= $album->alt_name;?>" class="img-fluid" loading="lazy">
+                                    <img data-sizes="auto" src="<?= productImageViewUrlNew($album->main_image, $album->thumb, '198', '198');?>" alt="<?= $album->alt_name;?>" class="img-fluid" loading="lazy">
                                 </div>
                             </div>
                             <span id="singleImage"></span>
@@ -91,7 +91,7 @@
                                 <?php foreach ($albumAll as $img) { ?>
                                     <div class="col-md-2 img_view">
                                         <input type="text" onchange="album_image_sort_update('<?=$img->album_details_id?>',this.value)" class="form-control mb-2 text-center" style="height: 25px;" name="sort_order" value="<?= $img->sort_order;?>">
-                                        <img data-sizes="auto" src="<?= productMultiImageViewUrlNew($img->	main_image,  $img->image, '96', '96');?>" alt="<?= $img->alt_name;?>" class="img-fluid" loading="lazy">
+                                        <img data-sizes="auto" src="<?= productMultiImageViewUrlNew($img->	main_image, $img->image, '96', '96');?>" alt="<?= $img->alt_name;?>" class="img-fluid" loading="lazy">
                                         <input type="text" onchange="album_image_alt_name_update('<?=$img->album_details_id?>',this.value)" class="form-control mt-2 mb-2 text-center" style="height: 25px;" placeholder="Alt Name" value="<?= $img->alt_name;?>">
                                         <a href="javascript:void(0)" onclick="removeAlbumImg(<?php echo $img->album_details_id;?>)" class="btn del-btn"><i class="fas fa-trash"></i> Delete</a>
                                     </div>

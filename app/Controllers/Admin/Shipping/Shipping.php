@@ -154,6 +154,7 @@ class Shipping extends BaseController
 
         $this->session->setFlashdata('success', true);
         $this->session->setFlashdata('message', 'Shipping Update Success!');
+
         return redirect()->to('admin/shipping_settings/' . $shipping_method_id);
     }
 
@@ -202,6 +203,7 @@ class Shipping extends BaseController
 
         $this->session->setFlashdata('success', true);
         $this->session->setFlashdata('message', 'Zone Rate Update Success!');
+
         return redirect()->to('admin/shipping_settings/' . $shipping_method_id);
     }
 
@@ -236,6 +238,7 @@ class Shipping extends BaseController
         $table->where('shipping_method_id', $shipping_method_id)->update($data);
 
         $message = '<div class="alert alert-success alert-dismissible" role="alert">Shipping Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+
         return $this->response
             ->setHeader('X-CSRF-TOKEN', csrf_hash())
             ->setBody($message);

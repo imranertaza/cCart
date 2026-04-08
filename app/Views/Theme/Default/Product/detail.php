@@ -30,12 +30,12 @@
                             <div class="swiper-container gallery-thumbs">
                                 <div class="swiper-wrapper">
                                     <div class="swiper-slide">
-                                        <img data-sizes="auto" src="<?= productImageViewUrlNew( $products->main_image, $products->image, '100', '100');?>" alt="<?= $products->alt_name;?>"  class="img-fluid" loading="lazy">
+                                        <img data-sizes="auto" src="<?= productImageViewUrlNew($products->main_image, $products->image, '100', '100');?>" alt="<?= $products->alt_name;?>"  class="img-fluid" loading="lazy">
                                     </div>
                                     <?php
                                         if (!empty($proImg)) {
                                             foreach ($proImg as $imgval) {
-                                                echo '<div class="swiper-slide"><img data-sizes="auto" src="' . productMultiImageViewUrlNew( $imgval->main_image, $imgval->image,  '100', '100') . '" alt="' . $imgval->alt_name . '" class="img-fluid" loading="lazy"></div>';
+                                                echo '<div class="swiper-slide"><img data-sizes="auto" src="' . productMultiImageViewUrlNew($imgval->main_image, $imgval->image, '100', '100') . '" alt="' . $imgval->alt_name . '" class="img-fluid" loading="lazy"></div>';
                                             }
                                         }
                                     ?>
@@ -209,7 +209,7 @@
                         <button onclick="addToCompare(<?php echo $relPro->product_id ?>)" class="btn-compare position-absolute start-0 top-0 mt-5 ms-2"><i class="fa-solid fa-code-compare"></i></button>
                         <?php } ?>
                         <div class="product-top">
-                            <img data-sizes="auto" src="<?= productImageViewUrlNew( $relPro->main_image, $relPro->image, '191', '191');?>" alt="<?= $relPro->alt_name;?>"  class="img-fluid" loading="lazy">
+                            <img data-sizes="auto" src="<?= productImageViewUrlNew($relPro->main_image, $relPro->image, '191', '191');?>" alt="<?= $relPro->alt_name;?>"  class="img-fluid" loading="lazy">
                             <div class="rating text-center my-2">
                                 <?php echo product_id_by_rating($relPro->product_id);?>
                             </div>

@@ -102,6 +102,7 @@ class Bitcoin extends BaseController
 
         $this->session->setFlashdata('success', true);
         $this->session->setFlashdata('message', 'Bitcoin Update Success!');
+
         return redirect()->to('admin/payment/bank_transfer/' . $payment_method_id);
     }
 }

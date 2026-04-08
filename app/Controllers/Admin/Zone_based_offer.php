@@ -131,6 +131,7 @@ class Zone_based_offer extends BaseController
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('success', false);
             $this->session->setFlashdata('message', $this->validation->listErrors());
+
             return redirect()->to('admin/zone_based_offer_create');
         } else {
             DB()->transStart();
@@ -251,6 +252,7 @@ class Zone_based_offer extends BaseController
 
             $this->session->setFlashdata('success', true);
             $this->session->setFlashdata('message', 'Offer Create Success!');
+
             return redirect()->to('admin/zone_based_offer_create');
         }
     }
@@ -472,6 +474,7 @@ class Zone_based_offer extends BaseController
 
             $this->session->setFlashdata('success', true);
             $this->session->setFlashdata('message', 'Offer Update Success!');
+
             return redirect()->to('admin/zone_based_offer_update/' . $offer_id);
         }
     }
@@ -511,6 +514,7 @@ class Zone_based_offer extends BaseController
 
         $this->session->setFlashdata('success', true);
         $this->session->setFlashdata('message', 'Offer Delete Success!');
+
         return redirect()->to('admin/zone_based_offer');
     }
 }

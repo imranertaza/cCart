@@ -104,6 +104,7 @@ class Credit_card extends BaseController
 
         $this->session->setFlashdata('success', true);
         $this->session->setFlashdata('message', 'Credit Card Update Success!');
+
         return redirect()->to('admin/payment/bank_transfer/' . $payment_method_id);
     }
 }

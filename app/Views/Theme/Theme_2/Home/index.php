@@ -62,7 +62,7 @@
                                         <div class="swiper-slide">
                                             <div class="product-grid d-flex align-items-stretch flex-column position-relative text-center">
                                                 <div class="product-top">
-                                                    <a href="<?php echo base_url('detail/' . $pro->product_id) ?>"><img data-sizes="auto" src="<?= productImageViewUrlNew( $pro->main_image, $pro->image, '100', '100');?>" alt="<?= $pro->alt_name;?>" class="img-fluid" loading="lazy"></a>
+                                                    <a href="<?php echo base_url('detail/' . $pro->product_id) ?>"><img data-sizes="auto" src="<?= productImageViewUrlNew($pro->main_image, $pro->image, '100', '100');?>" alt="<?= $pro->alt_name;?>" class="img-fluid" loading="lazy"></a>
                                                     <div class="rating text-center my-2">
                                                         <?php echo product_id_by_rating($pro->product_id); ?>
                                                     </div>
@@ -127,7 +127,7 @@
                                                 </button>
                                             <?php } ?>
                                             <div class="product-top text-center">
-                                                <a href="<?php echo base_url('detail/' . $pro->product_id) ?>"><img data-sizes="auto" src="<?= productImageViewUrlNew( $pro->main_image, $pro->image, '191', '191');?>" alt="<?= $pro->alt_name;?>" class="img-fluid" loading="lazy"></a>
+                                                <a href="<?php echo base_url('detail/' . $pro->product_id) ?>"><img data-sizes="auto" src="<?= productImageViewUrlNew($pro->main_image, $pro->image, '191', '191');?>" alt="<?= $pro->alt_name;?>" class="img-fluid" loading="lazy"></a>
                                                 <div class="rating text-center my-2">
                                                     <?php echo product_id_by_rating($pro->product_id); ?>
                                                 </div>
@@ -183,7 +183,7 @@
                                         <div class="swiper-slide">
                                             <div class="product-grid d-flex align-items-stretch flex-column position-relative text-center">
                                                 <div class="product-top">
-                                                    <a href="<?php echo base_url('detail/' . $pro->product_id) ?>"><img data-sizes="auto" src="<?= productImageViewUrlNew( $pro->main_image, $pro->image, '100', '100');?>" alt="<?= $pro->alt_name;?>" class="img-fluid" loading="lazy"></a>
+                                                    <a href="<?php echo base_url('detail/' . $pro->product_id) ?>"><img data-sizes="auto" src="<?= productImageViewUrlNew($pro->main_image, $pro->image, '100', '100');?>" alt="<?= $pro->alt_name;?>" class="img-fluid" loading="lazy"></a>
                                                     <div class="rating text-center my-2">
                                                         <?php echo product_id_by_rating($pro->product_id); ?>
                                                     </div>
@@ -363,7 +363,7 @@
 
                                                     <?php } ?>
                                                     <div class="product-top text-center">
-                                                        <a href="<?php echo base_url('detail/' . $pro->product_id) ?>"><img data-sizes="auto" src="<?= productImageViewUrlNew( $pro->main_image, $pro->image, '191', '191');?>" alt="<?= $pro->alt_name;?>" class="img-fluid" loading="lazy"></a>
+                                                        <a href="<?php echo base_url('detail/' . $pro->product_id) ?>"><img data-sizes="auto" src="<?= productImageViewUrlNew($pro->main_image, $pro->image, '191', '191');?>" alt="<?= $pro->alt_name;?>" class="img-fluid" loading="lazy"></a>
                                                         <div class="rating text-center my-2">
                                                             <?php echo product_id_by_rating($pro->product_id); ?>
                                                         </div>
@@ -513,7 +513,7 @@
 
                                             <?php } ?>
                                             <div class="product-top text-center">
-                                                <a href="<?php echo base_url('detail/' . $pro->product_id) ?>"><img data-sizes="auto" src="<?= productImageViewUrlNew( $pro->main_image, $pro->image, '191', '191');?>" alt="<?= $pro->alt_name;?>" class="img-fluid" loading="lazy"></a>
+                                                <a href="<?php echo base_url('detail/' . $pro->product_id) ?>"><img data-sizes="auto" src="<?= productImageViewUrlNew($pro->main_image, $pro->image, '191', '191');?>" alt="<?= $pro->alt_name;?>" class="img-fluid" loading="lazy"></a>
                                                 <div class="rating text-center my-2">
                                                     <?php echo product_id_by_rating($pro->product_id); ?>
                                                 </div>

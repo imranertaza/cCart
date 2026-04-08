@@ -52,7 +52,7 @@
 
                                 if (!empty($products)) {
                                     foreach ($products as $pro) {
-                            ?>
+                                        ?>
 
                                 <div class="col border p-2">
                                     <div class="product-grid h-100 d-flex align-items-stretch flex-column position-relative">
@@ -135,7 +135,7 @@
                                         <?php } ?>
 
                                         <div class="product-top text-center" style="width:40%;float:left; " >
-                                            <a href="<?php echo base_url('detail/' . $pro->product_id)?>"><img data-sizes="auto" src="<?= productImageViewUrlNew( $pro->main_image, $pro->image, '198', '198'); ?>" class="img-fluid" alt="<?= $pro->alt_name?>" loading="lazy"></a>
+                                            <a href="<?php echo base_url('detail/' . $pro->product_id)?>"><img data-sizes="auto" src="<?= productImageViewUrlNew($pro->main_image, $pro->image, '198', '198'); ?>" class="img-fluid" alt="<?= $pro->alt_name?>" loading="lazy"></a>
 
                                         </div>
 
@@ -290,6 +290,7 @@
 
                                                 <ul class="list-unstyled lh-lg">
                                                     <?php $i = 1; $j = 1;
+
                                                     foreach ($parent_Cat as $cat) { ?>
                                                     <li>
                                                         <div class="form-check d-flex flex-row align-items-center gap-1">
@@ -303,7 +304,8 @@
                                                     </li>
                                                     <?php } ?>
                                                 </ul>
-                                                <?php } else { if (!empty($main_Cat)) { ?>
+                                                <?php } else {
+                                                        if (!empty($main_Cat)) { ?>
                                                     <p class="mb-2">Category</p>
                                                     <ul class="lh-lg text-capitalize">
                                                         <?php  foreach ($main_Cat as $cat) { ?>

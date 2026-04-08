@@ -360,9 +360,9 @@ class Advanced_products extends BaseController
 
             echo view('Admin/Advanced_products/multi_option', $data);
         } else {
-
             $this->session->setFlashdata('success', false);
             $this->session->setFlashdata('message', 'Please select any product!');
+
             return redirect()->back();
         }
     }
@@ -407,11 +407,12 @@ class Advanced_products extends BaseController
 
             $this->session->setFlashdata('success', true);
             $this->session->setFlashdata('message', 'Multi Option Update Successfully!');
+
             return redirect()->to($redirect_url);
         } else {
-
             $this->session->setFlashdata('success', false);
             $this->session->setFlashdata('message', 'Invalid input!');
+
             return redirect()->to($redirect_url);
         }
     }
@@ -433,7 +434,6 @@ class Advanced_products extends BaseController
 
             echo view('Admin/Advanced_products/multi_attribute', $data);
         } else {
-
             $this->session->setFlashdata('success', false);
             $this->session->setFlashdata('message', 'Please select any product!');
 
@@ -477,7 +477,6 @@ class Advanced_products extends BaseController
 
             return redirect()->to($redirect_url);
         } else {
-
             $this->session->setFlashdata('success', false);
             $this->session->setFlashdata('message', 'Invalid input!');
 
@@ -502,9 +501,9 @@ class Advanced_products extends BaseController
 
             echo view('Admin/Advanced_products/category_edit', $data);
         } else {
-
             $this->session->setFlashdata('success', false);
             $this->session->setFlashdata('message', 'Please select any product!');
+
             return redirect()->back();
         }
     }
@@ -537,9 +536,9 @@ class Advanced_products extends BaseController
 
             $this->session->setFlashdata('success', true);
             $this->session->setFlashdata('message', 'Multi Category Update Successfully!');
+
             return redirect()->to($redirect_url);
         } else {
-
             $this->session->setFlashdata('success', false);
             $this->session->setFlashdata('message', 'Please select any category!');
 

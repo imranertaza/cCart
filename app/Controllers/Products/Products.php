@@ -15,9 +15,9 @@ class Products extends BaseController
 
     public function __construct()
     {
-        $this->validation = \Config\Services::validation();
-        $this->session    = \Config\Services::session();
-        $this->cart       = \Config\Services::cart();
+        $this->validation  = \Config\Services::validation();
+        $this->session     = \Config\Services::session();
+        $this->cart        = \Config\Services::cart();
         $this->reviewModel = new ReviewModel();
     }
 
@@ -103,7 +103,7 @@ class Products extends BaseController
 
 
 
-        $data['option'] = $this->optionView($product_id);
+        $data['option']      = $this->optionView($product_id);
         $data['optionArray'] = $this->optionArray($product_id);
 
 //        print '<pre>';
@@ -221,10 +221,11 @@ class Products extends BaseController
     {
         $productId = $this->request->getPost('both_product[]');
         $total     = 0;
-        if(!empty($productId)) {
+
+        if (!empty($productId)) {
             foreach ($productId as $id) {
                 $regPric = get_data_by_id('price', 'cc_products', 'product_id', $id);
-                $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $id);
+                $spPric  = get_data_by_id('special_price', 'cc_product_special', 'product_id', $id);
                 $total += !empty($spPric) ? $spPric : $regPric;
             }
         }
@@ -235,29 +236,34 @@ class Products extends BaseController
             ->setBody($allAmount);
     }
 
-    private function optionArray($product_id){
+    private function optionArray($product_id)
+    {
         $productOption   = DB()->table('cc_product_option');
         $allOptionsGroup = $productOption->where('product_id', $product_id)->groupBy('option_id')->get()->getResult();
-        $opArray = [];
+        $opArray         = [];
+
         foreach ($allOptionsGroup as $gro) {
-            $type = get_data_by_id('type', 'cc_option', 'option_id', $gro->option_id);
-            $name = get_data_by_id('name', 'cc_option', 'option_id', $gro->option_id);
-            $items = $this->itemValue($gro->option_id, $product_id);
+            $type           = get_data_by_id('type', 'cc_option', 'option_id', $gro->option_id);
+            $name           = get_data_by_id('name', 'cc_option', 'option_id', $gro->option_id);
+            $items          = $this->itemValue($gro->option_id, $product_id);
             $opArray[$name] = [
                 'type'  => $type,
                 'items' => $items,
             ];
-
         }
+
         return $opArray;
     }
-    private function itemValue($option_id,$product_id){
-        $table = DB()->table('cc_product_option');
+    private function itemValue($option_id, $product_id)
+    {
+        $table  = DB()->table('cc_product_option');
         $query  = $table->where('option_id', $option_id)->where('product_id', $product_id)->get()->getResult();
-        $array = [];
-        foreach ($query as $val){
+        $array  = [];
+
+        foreach ($query as $val) {
             $array[] = $val->option_value_id;
         }
+
         return $array;
     }
 
@@ -362,10 +368,10 @@ class Products extends BaseController
         return $view;
     }
 
-    public function reviewData($product_id){
-
-        $page = $this->request->getGet('pageNumber') ?? 1;
-        $pageSize = $this->request->getGet('pageSize') ?? 3;
+    public function reviewData($product_id)
+    {
+        $page     = $this->request->getGet('pageNumber') ?? 1;
+        $pageSize = $this->request->getGet('pageSize')   ?? 3;
 
         $offset = ($page - 1) * $pageSize;
 
@@ -375,22 +381,23 @@ class Products extends BaseController
             ->findAll($pageSize, $offset);
 
 
-        $data = array();
+        $data = [];
+
         foreach ($items as $key => $comments) {
-            $customer = get_all_row_data_by_id('cc_customer','customer_id',$comments->customer_id);
-            $data[] ='<div class="review-content">
+            $customer = get_all_row_data_by_id('cc_customer', 'customer_id', $comments->customer_id);
+            $data[]   = '<div class="review-content">
                 <p>
-                    '. ratingViewByFeedbackStar($comments->feedback_star).'
+                    ' . ratingViewByFeedbackStar($comments->feedback_star) . '
                 </p>
-                <h6 class="review-text">'. $comments->feedback_text .'</h6>
-                <p class=" subtitle my-0">'. invoiceDateFormat($comments->createdDtm).'</p>
+                <h6 class="review-text">' . $comments->feedback_text . '</h6>
+                <p class=" subtitle my-0">' . invoiceDateFormat($comments->createdDtm) . '</p>
                 <div class="profile-container mt-md-4 d-flex justify-content-between align-items-center">
                     <div class="user-profile">
                         <img class="img-fluid"
-                             src="'.base_url().'/assets/theme_4/images/peoduct-details/users/user-1.png"
+                             src="' . base_url() . '/assets/theme_4/images/peoduct-details/users/user-1.png"
                              alt="Product Image"
                              loading="lazy">
-                        <h6 class="py-0 my-0">'.$customer->firstname.' '.$customer->lastname.'</h6>
+                        <h6 class="py-0 my-0">' . $customer->firstname . ' ' . $customer->lastname . '</h6>
                     </div>
                 </div>
             </div>
@@ -401,15 +408,14 @@ class Products extends BaseController
 
 
         return $this->response->setJSON([
-            'items' => $data,
-            'totalNumber' => $total
+            'items'       => $data,
+            'totalNumber' => $total,
         ]);
-
     }
     public function reviewCommentSearch()
     {
         $feedback_star = $this->request->getPost('feedback_star');
-        $product_id = $this->request->getPost('product_id');
+        $product_id    = $this->request->getPost('product_id');
 
         $items = $this->reviewModel
             ->where('product_id', $product_id)
@@ -422,6 +428,7 @@ class Products extends BaseController
             echo '<div class="no-review text-center py-3">
                 <p>No reviews found for this rating.</p>
               </div>';
+
             return;
         }
 
@@ -452,6 +459,4 @@ class Products extends BaseController
 
         echo $html;
     }
-
-
 }

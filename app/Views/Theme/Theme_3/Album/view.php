@@ -11,21 +11,21 @@
                     <?php
                     $modules = modules_access();
                     $image   = ($modules['watermark'] == '1') ? $album->thumb : $album->main_image;
-                    $url     = base_url().'/'. $image; ?>
+                    $url     = base_url() . '/' . $image; ?>
                     <a class="example-image-link" href="<?= $url;?>" data-lightbox="example-set">
                         <img data-sizes="auto" src="<?= productImageViewUrlNew($album->main_image, $album->thumb, '324', '324');?>" alt="<?= $album->alt_name;?>" class="img-fluid" loading="lazy">
                     </a>
                 </div>
                 <?php foreach ($albumAll as $val) {
-                    $image2 = ($modules['watermark'] == '1') ?$val->image : $val->main_image;
-                    $url2   = base_url() .'/'. $image2; ?>
+                        $image2 = ($modules['watermark'] == '1') ? $val->image : $val->main_image;
+                        $url2   = base_url() . '/' . $image2; ?>
                     <div class="col-4 col-md-4 mt-4 text-center ">
                         <a class="example-image-link" href="<?= $url2; ?>" data-lightbox="example-set" >
                             <img data-sizes="auto" src="<?= productMultiImageViewUrlNew($val->main_image, $val->image, '324', '324'); ?>" alt="<?= $val->alt_name; ?>" class="img-fluid" loading="lazy">
                         </a>
                     </div>
                     <?php
-                } ?>
+                    } ?>
             </div>
         </div>
     </div>

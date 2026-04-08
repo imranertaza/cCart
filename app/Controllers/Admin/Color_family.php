@@ -98,6 +98,7 @@ class Color_family extends BaseController
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('success', false);
             $this->session->setFlashdata('message', $this->validation->listErrors());
+
             return redirect()->to('color_family_create');
         } else {
             $table = DB()->table('cc_color_family');
@@ -105,6 +106,7 @@ class Color_family extends BaseController
 
             $this->session->setFlashdata('success', true);
             $this->session->setFlashdata('message', 'Color Family Create Success!');
+
             return redirect()->to('color_family_create');
         }
     }
@@ -160,6 +162,7 @@ class Color_family extends BaseController
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('success', false);
             $this->session->setFlashdata('message', $this->validation->listErrors());
+
             return redirect()->to('color_family_update/' . $color_family_id);
         } else {
             $table = DB()->table('cc_color_family');
@@ -167,6 +170,7 @@ class Color_family extends BaseController
 
             $this->session->setFlashdata('success', true);
             $this->session->setFlashdata('message', 'Color Family Update Success!');
+
             return redirect()->to('color_family_update/' . $color_family_id);
         }
     }
@@ -183,6 +187,7 @@ class Color_family extends BaseController
 
         $this->session->setFlashdata('success', true);
         $this->session->setFlashdata('message', 'Color Family Delete Success!');
+
         return redirect()->to('color_family');
     }
 }

@@ -21,7 +21,7 @@ class Throttle implements FilterInterface
     {
         $cache = Services::cache();
 
-        $ip = $request->getIPAddress();
+        $ip  = $request->getIPAddress();
         $key = 'throttle_' . md5($ip);
 
         $limit   = $arguments[0] ?? 5;

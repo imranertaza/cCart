@@ -24,7 +24,7 @@ class ImageManager extends BaseController
         $this->crop            = \Config\Services::image();
         $this->permission      = new Permission();
         $this->imageProcessing = new Image_processing();
-        $this->basePath = realpath(FCPATH . 'uploads/manager');
+        $this->basePath        = realpath(FCPATH . 'uploads/manager');
     }
 
     /**
@@ -39,21 +39,22 @@ class ImageManager extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != true) {
             return redirect()->to(site_url('admin'));
         } else {
-
-            $dir = $this->request->getGet('dir') ?? '';
+            $dir         = $this->request->getGet('dir') ?? '';
             $currentPath = realpath($this->basePath . '/' . $dir);
 
             // 🔐 Security: prevent directory traversal
             if ($currentPath === false || strpos($currentPath, $this->basePath) !== 0) {
                 $currentPath = $this->basePath;
-                $dir = '';
+                $dir         = '';
             }
 
             $folders = [];
             $images  = [];
 
             foreach (scandir($currentPath) as $item) {
-                if ($item === '.' || $item === '..') continue;
+                if ($item === '.' || $item === '..') {
+                    continue;
+                }
 
                 $full = $currentPath . '/' . $item;
 
@@ -64,11 +65,11 @@ class ImageManager extends BaseController
                 }
             }
 
-            $data['dir'] = $dir;
+            $data['dir']     = $dir;
             $data['folders'] = $folders;
-            $data['images'] = $images;
+            $data['images']  = $images;
 
-                //$perm = array('create','read','update','delete','mod_access');
+            //$perm = array('create','read','update','delete','mod_access');
             $perm = $this->permission->module_permission_list($adRoleId, $this->module_name);
 
             foreach ($perm as $key => $val) {
@@ -91,7 +92,7 @@ class ImageManager extends BaseController
         if ($path === false || strpos($path, $this->basePath) !== 0) {
             return $this->response->setJSON([
                 'error' => 'Invalid folder',
-                'csrf' => csrf_hash()
+                'csrf'  => csrf_hash(),
             ]);
         }
 
@@ -100,7 +101,7 @@ class ImageManager extends BaseController
         if (!$file || !$file->isValid()) {
             return $this->response->setJSON([
                 'error' => 'Invalid image',
-                'csrf' => csrf_hash()
+                'csrf'  => csrf_hash(),
             ]);
         }
 
@@ -109,19 +110,19 @@ class ImageManager extends BaseController
 
         return $this->response->setJSON([
             'success' => true,
-            'csrf'    => csrf_hash()
+            'csrf'    => csrf_hash(),
         ]);
     }
 
     public function createFolder()
     {
-        $dir = $this->request->getPost('dir') ?? '';
+        $dir  = $this->request->getPost('dir') ?? '';
         $name = trim($this->request->getPost('name'));
 
         if (!$name) {
             return $this->response->setJSON([
                 'error' => 'Folder name required',
-                'csrf' => csrf_hash()
+                'csrf'  => csrf_hash(),
             ]);
         }
 
@@ -130,7 +131,7 @@ class ImageManager extends BaseController
         if ($path === false || strpos($path, $this->basePath) !== 0) {
             return $this->response->setJSON([
                 'error' => 'Invalid path',
-                'csrf' => csrf_hash()
+                'csrf'  => csrf_hash(),
             ]);
         }
 
@@ -139,13 +140,13 @@ class ImageManager extends BaseController
         if (!mkdir($new, 0777)) {
             return $this->response->setJSON([
                 'error' => 'Folder create failed',
-                'csrf' => csrf_hash()
+                'csrf'  => csrf_hash(),
             ]);
         }
 
         return $this->response->setJSON([
             'success' => true,
-            'csrf' => csrf_hash()
+            'csrf'    => csrf_hash(),
         ]);
     }
 
@@ -160,14 +161,14 @@ class ImageManager extends BaseController
         if ($path === false || strpos($path, $this->basePath) !== 0) {
             return $this->response->setJSON([
                 'error' => 'Invalid folder',
-                'csrf' => csrf_hash()
+                'csrf'  => csrf_hash(),
             ]);
         }
 
         if (count(scandir($path)) > 2) {
             return $this->response->setJSON([
                 'error' => 'Folder not empty',
-                'csrf' => csrf_hash()
+                'csrf'  => csrf_hash(),
             ]);
         }
 
@@ -175,7 +176,7 @@ class ImageManager extends BaseController
 
         return $this->response->setJSON([
             'success' => true,
-            'csrf' => csrf_hash()
+            'csrf'    => csrf_hash(),
         ]);
     }
 
@@ -193,27 +194,30 @@ class ImageManager extends BaseController
 
         return $this->response->setJSON([
             'success' => true,
-            'csrf' => csrf_hash()
+            'csrf'    => csrf_hash(),
         ]);
     }
 
-    public function modalView(){
-        $showId = $this->request->getGet('showId') ?? '';
-        $type = $this->request->getGet('type') ?? '';
-        $dir = $this->request->getGet('dir') ?? '';
+    public function modalView()
+    {
+        $showId      = $this->request->getGet('showId') ?? '';
+        $type        = $this->request->getGet('type')   ?? '';
+        $dir         = $this->request->getGet('dir')    ?? '';
         $currentPath = realpath($this->basePath . '/' . $dir);
 
         // 🔐 Security: prevent directory traversal
         if ($currentPath === false || strpos($currentPath, $this->basePath) !== 0) {
             $currentPath = $this->basePath;
-            $dir = '';
+            $dir         = '';
         }
 
         $folders = [];
         $images  = [];
 
         foreach (scandir($currentPath) as $item) {
-            if ($item === '.' || $item === '..') continue;
+            if ($item === '.' || $item === '..') {
+                continue;
+            }
 
             $full = $currentPath . '/' . $item;
 
@@ -224,29 +228,32 @@ class ImageManager extends BaseController
             }
         }
 
-        $data['showId'] = $showId;
-        $data['type'] = $type;
-        $data['dir'] = $dir;
+        $data['showId']  = $showId;
+        $data['type']    = $type;
+        $data['dir']     = $dir;
         $data['folders'] = $folders;
-        $data['images'] = $images;
+        $data['images']  = $images;
 
         echo view('Admin/ImageManager/manager', $data);
     }
-    public function modalViewUpdate(){
-        $dir = $this->request->getGet('dir') ?? '';
+    public function modalViewUpdate()
+    {
+        $dir         = $this->request->getGet('dir') ?? '';
         $currentPath = realpath($this->basePath . '/' . $dir);
 
         // 🔐 Security: prevent directory traversal
         if ($currentPath === false || strpos($currentPath, $this->basePath) !== 0) {
             $currentPath = $this->basePath;
-            $dir = '';
+            $dir         = '';
         }
 
         $folders = [];
         $images  = [];
 
         foreach (scandir($currentPath) as $item) {
-            if ($item === '.' || $item === '..') continue;
+            if ($item === '.' || $item === '..') {
+                continue;
+            }
 
             $full = $currentPath . '/' . $item;
 
@@ -257,28 +264,31 @@ class ImageManager extends BaseController
             }
         }
 
-        $data['dir'] = $dir;
+        $data['dir']     = $dir;
         $data['folders'] = $folders;
-        $data['images'] = $images;
+        $data['images']  = $images;
 
         echo view('Admin/ImageManager/managerUpdate', $data);
     }
 
-    public function imageFolderShow(){
-        $dir = $this->request->getGet('dir') ?? '';
+    public function imageFolderShow()
+    {
+        $dir         = $this->request->getGet('dir') ?? '';
         $currentPath = realpath($this->basePath . '/' . $dir);
 
         // 🔐 Security: prevent directory traversal
         if ($currentPath === false || strpos($currentPath, $this->basePath) !== 0) {
             $currentPath = $this->basePath;
-            $dir = '';
+            $dir         = '';
         }
 
         $folders = [];
         $images  = [];
 
         foreach (scandir($currentPath) as $item) {
-            if ($item === '.' || $item === '..') continue;
+            if ($item === '.' || $item === '..') {
+                continue;
+            }
 
             $full = $currentPath . '/' . $item;
 
@@ -289,11 +299,10 @@ class ImageManager extends BaseController
             }
         }
 
-        $data['dir'] = $dir;
+        $data['dir']     = $dir;
         $data['folders'] = $folders;
-        $data['images'] = $images;
+        $data['images']  = $images;
 
         echo view('Admin/ImageManager/managerUpdate', $data);
     }
-
 }

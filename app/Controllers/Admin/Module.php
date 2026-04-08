@@ -105,6 +105,7 @@ class Module extends BaseController
 
         $this->session->setFlashdata('success', true);
         $this->session->setFlashdata('message', 'Module Settings Update Success!');
+
         return redirect()->to('admin/module_settings/' . $module_id);
     }
 }

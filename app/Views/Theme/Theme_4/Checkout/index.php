@@ -74,7 +74,7 @@
 
 
                         <?php
-                    $coun = $zon =  $post = $add1 = $add2 = '';
+                    $coun     = $zon     =  $post     = $add1     = $add2     = '';
                     $cusAddr  = isset($customer->customer_id) ? get_all_row_data_by_id('cc_address', 'customer_id', $customer->customer_id) : '';
 
                 if (!empty($cusAddr)) {

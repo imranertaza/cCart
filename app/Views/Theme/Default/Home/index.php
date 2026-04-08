@@ -152,7 +152,7 @@
                                         <button onclick="addToCompare(<?php echo $pro->product_id ?>)" class="btn-compare position-absolute start-0 top-0 mt-5 ms-2"><i class="fa-solid fa-code-compare"></i></button>
                                         <?php } ?>
                                         <div class="product-top">
-                                            <img data-sizes="auto" src="<?= productImageViewUrlNew( $pro->main_image, $pro->image, '191', '191');?>" alt="<?= $pro->alt_name;?>" class="img-fluid" loading="lazy">
+                                            <img data-sizes="auto" src="<?= productImageViewUrlNew($pro->main_image, $pro->image, '191', '191');?>" alt="<?= $pro->alt_name;?>" class="img-fluid" loading="lazy">
                                             <div class="rating text-center my-2">
                                                 <?php echo product_id_by_rating($pro->product_id);?>
                                             </div>

@@ -100,6 +100,7 @@ class Wallet extends BaseController
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('success', false);
             $this->session->setFlashdata('message', $this->validation->listErrors());
+
             return redirect()->to('add-funds');
         } else {
             if ($data['payment_method_id'] == '7') {
@@ -114,6 +115,7 @@ class Wallet extends BaseController
 
             $this->session->setFlashdata('success', true);
             $this->session->setFlashdata('message', 'Fund Update Success!');
+
             return redirect()->to('my-wallet');
         }
     }

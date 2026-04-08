@@ -236,7 +236,7 @@
                         <div class="col-6 col-lg-3 col-sm-4">
                             <div class="card rounded-0">
                                 <div class="r-product">
-                                    <a href="<?php echo base_url('detail/' . $rPro->product_id) ?>"><img data-sizes="auto" src="<?= productImageViewUrlNew( $rPro->main_image, $rPro->image, '181', '181');?>" alt="<?= $rPro->alt_name;?>" class="card-img-top rounded-0" loading="lazy"></a>
+                                    <a href="<?php echo base_url('detail/' . $rPro->product_id) ?>"><img data-sizes="auto" src="<?= productImageViewUrlNew($rPro->main_image, $rPro->image, '181', '181');?>" alt="<?= $rPro->alt_name;?>" class="card-img-top rounded-0" loading="lazy"></a>
 
 
                                     <h5 class="card-title"><?php echo substr($rPro->name, 0, 60); ?></h5>

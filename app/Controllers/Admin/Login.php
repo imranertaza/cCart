@@ -43,6 +43,7 @@ class Login extends BaseController
         if ($this->validation->withRequest($this->request)->run() == false) {
             $this->session->setFlashdata('success', false);
             $this->session->setFlashdata('message', 'All field is required!');
+
             return redirect()->to(site_url('admin'));
         } else {
             $email    = strtolower($this->request->getPost('email'));
@@ -81,6 +82,7 @@ class Login extends BaseController
             } else {
                 $this->session->setFlashdata('success', false);
                 $this->session->setFlashdata('message', 'Your login detail not match!');
+
                 return redirect()->to(site_url('admin'));
             }
         }

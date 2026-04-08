@@ -105,6 +105,7 @@ class User extends BaseController
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('success', false);
             $this->session->setFlashdata('message', $this->validation->listErrors());
+
             return redirect()->to('admin/user_create');
         } else {
             $check = is_exists('cc_users', 'email', $data['email']);
@@ -123,10 +124,12 @@ class User extends BaseController
 
                 $this->session->setFlashdata('success', true);
                 $this->session->setFlashdata('message', 'User Create Success!');
+
                 return redirect()->to('admin/user_create');
             } else {
                 $this->session->setFlashdata('success', false);
                 $this->session->setFlashdata('message', 'Email already exists!');
+
                 return redirect()->to('admin/user_create');
             }
         }
@@ -192,6 +195,7 @@ class User extends BaseController
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('success', false);
             $this->session->setFlashdata('message', $this->validation->listErrors());
+
             return redirect()->to('admin/user_update/' . $user_id);
         } else {
             $check = is_exists_update('cc_users', 'email', $data['email'], 'user_id', $user_id);
@@ -202,10 +206,12 @@ class User extends BaseController
 
                 $this->session->setFlashdata('success', true);
                 $this->session->setFlashdata('message', 'User Update Success!');
+
                 return redirect()->to('admin/user_update/' . $user_id);
             } else {
                 $this->session->setFlashdata('success', false);
                 $this->session->setFlashdata('message', 'Email already exists!');
+
                 return redirect()->to('admin/user_update/' . $user_id);
             }
         }
@@ -230,6 +236,7 @@ class User extends BaseController
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('success', false);
             $this->session->setFlashdata('message', $this->validation->listErrors());
+
             return redirect()->to('admin/user_update/' . $user_id);
         } else {
             $table = DB()->table('cc_users');
@@ -237,6 +244,7 @@ class User extends BaseController
 
             $this->session->setFlashdata('success', true);
             $this->session->setFlashdata('message', 'General Update Success!');
+
             return redirect()->to('admin/user_update/' . $user_id);
         }
     }
@@ -283,6 +291,7 @@ class User extends BaseController
 
         $this->session->setFlashdata('success', true);
         $this->session->setFlashdata('message', 'Update Success!');
+
         return redirect()->to('admin/user_update/' . $user_id);
     }
 
@@ -310,6 +319,7 @@ class User extends BaseController
 
         $this->session->setFlashdata('success', true);
         $this->session->setFlashdata('message', 'User Delete Success!');
+
         return redirect()->to('admin/user');
     }
 }

@@ -96,9 +96,9 @@ class Option extends BaseController
         ]);
 
         if ($this->validation->run($data) == false) {
-
             $this->session->setFlashdata('success', false);
             $this->session->setFlashdata('message', $this->validation->listErrors());
+
             return redirect()->to('admin/option');
         } else {
             $table = DB()->table('cc_option');
@@ -118,6 +118,7 @@ class Option extends BaseController
 
             $this->session->setFlashdata('success', true);
             $this->session->setFlashdata('message', 'Option Create Success!');
+
             return redirect()->to('admin/option');
         }
     }
@@ -177,6 +178,7 @@ class Option extends BaseController
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('success', false);
             $this->session->setFlashdata('message', $this->validation->listErrors());
+
             return redirect()->to('admin/option_update/' . $option_id);
         } else {
             if (!empty($value)) {
@@ -199,10 +201,12 @@ class Option extends BaseController
 
                 $this->session->setFlashdata('success', true);
                 $this->session->setFlashdata('message', 'Option Update Success!');
+
                 return redirect()->to('admin/option_update/' . $option_id);
             } else {
                 $this->session->setFlashdata('success', false);
                 $this->session->setFlashdata('message', 'Please Add Value!');
+
                 return redirect()->to('admin/option_update/' . $option_id);
             }
         }
@@ -226,6 +230,7 @@ class Option extends BaseController
 
         $this->session->setFlashdata('success', true);
         $this->session->setFlashdata('message', 'Option Delete Success!');
+
         return redirect()->to('admin/option');
     }
 

@@ -86,8 +86,8 @@ class Filter
 
     public function product_array_by_options_array()
     {
+        $arrayData = [];
 
-        $arrayData =[];
         if (!empty($this->productArray)) {
             $productIds = array_column($this->productArray, 'product_id');
 
@@ -104,8 +104,8 @@ class Filter
 
                     foreach ($option as $valOption) {
                         $arrayData[$valOption->name] = [
-                            'option' => $valOption->option_id,
-                            'allOption' => $allOptVal
+                            'option'    => $valOption->option_id,
+                            'allOption' => $allOptVal,
                         ];
                     }
                 }
