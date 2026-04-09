@@ -17,10 +17,10 @@ class Theme_settings_4 extends BaseController
 
     public function __construct()
     {
-        $this->validation = \Config\Services::validation();
-        $this->session    = \Config\Services::session();
-        $this->crop       = \Config\Services::image();
-        $this->permission = new Permission();
+        $this->validation    = \Config\Services::validation();
+        $this->session       = \Config\Services::session();
+        $this->crop          = \Config\Services::image();
+        $this->permission    = new Permission();
         $this->theme_4       = new Theme_4();
     }
 
@@ -61,9 +61,9 @@ class Theme_settings_4 extends BaseController
      */
     public function topCategorySectionOneUpdate()
     {
-        $data['top_category_left_title']    = $this->request->getPost('top_category_left_title');
+        $data['top_category_left_title']     = $this->request->getPost('top_category_left_title');
         $data['top_category_left_sub_title'] = $this->request->getPost('top_category_left_sub_title');
-        $data['top_category_left_category'] = $this->request->getPost('top_category_left_category');
+        $data['top_category_left_category']  = $this->request->getPost('top_category_left_category');
 
         if (!empty($_FILES['top_category_left_image']['name'])) {
             $target_dir = FCPATH . '/uploads/home_category/';
@@ -94,13 +94,14 @@ class Theme_settings_4 extends BaseController
 
         $this->session->setFlashdata('success', true);
         $this->session->setFlashdata('message', 'Update Success!');
+
         return redirect()->to('admin/theme_settings?sel=home_settings');
     }
     public function topCategorySectionTwoUpdate()
     {
-        $data['top_category_right_title']    = $this->request->getPost('top_category_right_title');
+        $data['top_category_right_title']     = $this->request->getPost('top_category_right_title');
         $data['top_category_right_sub_title'] = $this->request->getPost('top_category_right_sub_title');
-        $data['top_category_right_category'] = $this->request->getPost('top_category_right_category');
+        $data['top_category_right_category']  = $this->request->getPost('top_category_right_category');
 
         if (!empty($_FILES['top_category_right_image']['name'])) {
             $target_dir = FCPATH . '/uploads/home_category/';
@@ -136,9 +137,9 @@ class Theme_settings_4 extends BaseController
     }
     public function recentProductUpdate()
     {
-        $data['recent_product_title']    = $this->request->getPost('recent_product_title');
+        $data['recent_product_title']     = $this->request->getPost('recent_product_title');
         $data['recent_product_sub_title'] = $this->request->getPost('recent_product_sub_title');
-        $data['recent_product_category'] = $this->request->getPost('recent_product_category');
+        $data['recent_product_category']  = $this->request->getPost('recent_product_category');
 
         if (!empty($_FILES['recent_product_image']['name'])) {
             $target_dir = FCPATH . '/uploads/home_category/';
@@ -174,9 +175,9 @@ class Theme_settings_4 extends BaseController
     }
     public function homeSectionOneUpdate()
     {
-        $data['section_one_title']    = $this->request->getPost('section_one_title');
+        $data['section_one_title']     = $this->request->getPost('section_one_title');
         $data['section_one_sub_title'] = $this->request->getPost('section_one_sub_title');
-        $data['section_one_category'] = $this->request->getPost('section_one_category');
+        $data['section_one_category']  = $this->request->getPost('section_one_category');
 
         if (!empty($_FILES['section_one_image']['name'])) {
             $target_dir = FCPATH . '/uploads/home_category/';
@@ -212,9 +213,9 @@ class Theme_settings_4 extends BaseController
     }
     public function homeSectionTwoUpdate()
     {
-        $data['section_two_title']    = $this->request->getPost('section_two_title');
+        $data['section_two_title']     = $this->request->getPost('section_two_title');
         $data['section_two_sub_title'] = $this->request->getPost('section_two_sub_title');
-        $data['section_two_category'] = $this->request->getPost('section_two_category');
+        $data['section_two_category']  = $this->request->getPost('section_two_category');
 
         if (!empty($_FILES['section_two_image']['name'])) {
             $target_dir = FCPATH . '/uploads/home_category/';
@@ -278,18 +279,18 @@ class Theme_settings_4 extends BaseController
 
         return redirect()->to('admin/theme_settings?sel=home_settings');
     }
-    public function sliderUpdateFour(){
-
+    public function sliderUpdateFour()
+    {
         $nameslider       = $this->request->getPost('nameslider');
         $data['alt_name'] = $this->request->getPost('alt_name');
 
-        $suk       = $this->request->getPost('suk');
-        $lable['slider4_text_'.$suk] = $this->request->getPost('title');
-        $lable['slider4_sub_text_'.$suk] = $this->request->getPost('subTitle');
-        $lable['slider4_category_'.$suk] = $this->request->getPost('category');
+        $suk                               = $this->request->getPost('suk');
+        $lable['slider4_text_' . $suk]     = $this->request->getPost('title');
+        $lable['slider4_sub_text_' . $suk] = $this->request->getPost('subTitle');
+        $lable['slider4_category_' . $suk] = $this->request->getPost('category');
 
 
-        $theme = get_lebel_by_value_in_settings('Theme');
+        $theme          = get_lebel_by_value_in_settings('Theme');
         $themeLibraries = ($theme === 'Theme_4') ? $this->theme_4 : null;
 
         if (!empty($_FILES['slider']['name'])) {
@@ -312,9 +313,9 @@ class Theme_settings_4 extends BaseController
         $table = DB()->table('cc_theme_settings');
         $table->where('label', $nameslider)->update($data);
 
-        foreach ($lable as $key => $val){
+        foreach ($lable as $key => $val) {
             $value['value'] = $val;
-            $table = DB()->table('cc_theme_settings');
+            $table          = DB()->table('cc_theme_settings');
             $table->where('label', $key)->update($value);
         }
 
@@ -323,6 +324,4 @@ class Theme_settings_4 extends BaseController
 
         return redirect()->to('admin/theme_settings?sel=slider');
     }
-
-
 }

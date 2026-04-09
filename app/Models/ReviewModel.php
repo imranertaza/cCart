@@ -12,7 +12,7 @@ class ReviewModel extends Model
     protected $primaryKey         = 'product_feedback_id';
     protected $returnType         = 'object';
     protected $useSoftDeletes     = false;
-    protected $allowedFields      = ['product_feedback_id', 'product_id', 'customer_id', 'feedback_star','feedback_text','status', 'createdBy', 'createdDtm', 'updatedBy', 'updatedDtm'];
+    protected $allowedFields      = ['product_feedback_id', 'product_id', 'customer_id', 'feedback_star', 'feedback_text', 'status', 'createdBy', 'createdDtm', 'updatedBy', 'updatedDtm'];
     protected $useTimestamps      = false;
     protected $validationRules    = [];
     protected $validationMessages = [];

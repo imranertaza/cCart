@@ -78,18 +78,15 @@
         "analyze": "phpstan analyse",
         "test": "phpunit",
         "cs": [
-            "php-cs-fixer fix --ansi --verbose --dry-run --diff --config=.php-cs-fixer.user-guide.php",
-            "php-cs-fixer fix --ansi --verbose --dry-run --diff --config=.php-cs-fixer.no-header.php",
-            "php-cs-fixer fix --ansi --verbose --dry-run --diff"
+            "php-cs-fixer fix app/ --dry-run --diff"
         ],
         "cs-fix": [
-            "php-cs-fixer fix --ansi --verbose --diff --config=.php-cs-fixer.user-guide.php",
-            "php-cs-fixer fix --ansi --verbose --diff --config=.php-cs-fixer.no-header.php",
-            "php-cs-fixer fix --ansi --verbose --diff"
+            "php-cs-fixer fix app/"
         ],
         "pre-push": [
-            "php-cs-fixer fix app/ --dry-run",
-            "phpunit"
+            "composer cs-fix",
+            "composer cs",
+            "composer test"
         ]
     },
     "support": {

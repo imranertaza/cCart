@@ -184,14 +184,18 @@
                     <?= csrf_field() ?>
                     <div class="mb-3 in_err">
                         <label for="email" class="form-label required">Email Address</label>
-                        <input type="email" name="email" class="form-control" id="email" placeholder="Demo@gmail.com" value="<?php if (isset($_COOKIE['login_email_web'])) { echo $_COOKIE['login_email_web']; } ?>">
+                        <input type="email" name="email" class="form-control" id="email" placeholder="Demo@gmail.com" value="<?php if (isset($_COOKIE['login_email_web'])) {
+    echo $_COOKIE['login_email_web'];
+} ?>">
                     </div>
                     <span class="text-danger d-inline-block text-capitalize err" id="emailMass"></span>
                     <div class="mb-3 ">
                         <label for="password" class="form-label required">Password</label>
                         <div class="position-relative">
 
-                            <input type="password" class="form-control pe-5" name="password" id="password" placeholder="********" value="<?php if (isset($_COOKIE['login_password_web'])) { echo $_COOKIE['login_password_web']; } ?>">
+                            <input type="password" class="form-control pe-5" name="password" id="password" placeholder="********" value="<?php if (isset($_COOKIE['login_password_web'])) {
+    echo $_COOKIE['login_password_web'];
+} ?>">
 
                             <!-- Toggle Icon Container -->
                             <span class="position-absolute top-50 end-0 translate-middle-y me-3"
@@ -219,7 +223,9 @@
                     <span class="text-danger d-inline-block text-capitalize err" id="passwordMass"></span>
                     <div class="form-check d-flex justify-content-between align-items-center">
                         <div class="remember">
-                            <input class="form-check-input" type="checkbox" name="remember" value="1" id="remember" <?php if (isset($_COOKIE['login_email_web'])) { echo 'checked'; } ?> >
+                            <input class="form-check-input" type="checkbox" name="remember" value="1" id="remember" <?php if (isset($_COOKIE['login_email_web'])) {
+    echo 'checked';
+} ?> >
                             <label class="form-check-label remember" for="remember"  >Remember Me</label>
                         </div>
                         <a href="<?= base_url('forgotpassword');?>" class="text-decoration-none">Forgot Password?</a>

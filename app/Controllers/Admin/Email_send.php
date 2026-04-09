@@ -95,6 +95,7 @@ class Email_send extends BaseController
 
             $this->session->setFlashdata('success', true);
             $this->session->setFlashdata('message', 'Email Send Success!');
+
             return redirect()->to('admin/email_send');
         }
     }

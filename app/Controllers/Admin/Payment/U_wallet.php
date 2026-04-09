@@ -104,6 +104,7 @@ class U_wallet extends BaseController
 
         $this->session->setFlashdata('success', true);
         $this->session->setFlashdata('message', 'Wallet Update Success!');
+
         return redirect()->to('admin/payment/u_wallet/' . $payment_method_id);
     }
 }

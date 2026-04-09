@@ -71,6 +71,7 @@ class Payment extends BaseController
         $table->where('payment_method_id', $payment_method_id)->update($data);
 
         $message = '<div class="alert alert-success alert-dismissible" role="alert">Payment Update Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+
         return $this->response
             ->setHeader('X-CSRF-TOKEN', csrf_hash())
             ->setBody($message);

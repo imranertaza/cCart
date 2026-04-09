@@ -345,12 +345,11 @@ $routes->group('admin', static function ($routes) {
     $routes->post('image-manager-upload', 'Admin\ImageManager::upload');
     $routes->post('image-manager-folder-create', 'Admin\ImageManager::createFolder');
     $routes->post('image-manager-folder-delete', 'Admin\ImageManager::deleteFolder');
-    $routes->post('image-manager-image-delete',  'Admin\ImageManager::deleteImage');
+    $routes->post('image-manager-image-delete', 'Admin\ImageManager::deleteImage');
 
     $routes->get('image-manager-show', 'Admin\ImageManager::modalView');
     $routes->get('image-manager-show-update', 'Admin\ImageManager::modalViewUpdate');
     $routes->get('image-folder-show', 'Admin\ImageManager::imageFolderShow');
-
 });
 
 

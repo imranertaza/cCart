@@ -615,6 +615,7 @@ class Checkout extends BaseController
         }
 
         $data['csrfToken'] = csrf_hash();
+
         return $this->response->setJSON($data);
     }
 
@@ -719,6 +720,7 @@ class Checkout extends BaseController
         $table = DB()->table('cc_payment_settings');
         $query = $table->where('payment_method_id', $payment_method_id)->where('label', 'instruction')->get()->getRow();
         $view  = '';
+
         if (!empty($query)) {
             $view .= '<div class="title-checkout">
                            <label class="btn bg-custom-color text-white w-100 rounded-0"><span class="text-label">' . $query->title . '</span></label>

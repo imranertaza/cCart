@@ -3,7 +3,6 @@
 namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
-use CodeIgniter\Database\RawSql;
 
 class Offer extends Migration
 {
@@ -58,7 +57,7 @@ class Offer extends Migration
             ],
             'discount_on' => [
                 'type'       => 'ENUM',
-                'constraint' => ['product', 'product_amount','shipping_amount'],
+                'constraint' => ['product', 'product_amount', 'shipping_amount'],
                 'default'    => 'product',
             ],
             'start_date' => [

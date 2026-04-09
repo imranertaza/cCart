@@ -123,6 +123,7 @@ class Blog extends BaseController
 
             $message = 'Comment Save successfully';
         }
+
         return $this->response
             ->setHeader('X-CSRF-TOKEN', csrf_hash())
             ->setBody($message);

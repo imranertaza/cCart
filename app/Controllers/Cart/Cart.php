@@ -49,7 +49,8 @@ class Cart extends BaseController
         $product_id = $this->request->getPost('product_id');
         $table      = DB()->table('cc_product_option');
         $check      = $table->where('product_id', $product_id)->countAllResults();
-        $result = (!empty($check)) ? 'false' : 'true';
+        $result     = (!empty($check)) ? 'false' : 'true';
+
         return $this->response
             ->setHeader('X-CSRF-TOKEN', csrf_hash())
             ->setBody($result);

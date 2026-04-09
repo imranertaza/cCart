@@ -3,9 +3,9 @@
 namespace App\Filters;
 
 use CodeIgniter\Filters\FilterInterface;
+use CodeIgniter\HTTP\Exceptions\BadRequestException;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
-use CodeIgniter\HTTP\Exceptions\BadRequestException;
 
 class CustomInvalidChars implements FilterInterface
 {
@@ -30,6 +30,7 @@ class CustomInvalidChars implements FilterInterface
 
         //JSON body (API)
         $json = $request->getJSON(true);
+
         if (is_array($json)) {
             array_walk_recursive($json, function ($val) use ($pattern) {
                 if (preg_match($pattern, (string) $val)) {

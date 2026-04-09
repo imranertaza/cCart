@@ -102,6 +102,7 @@ class Stripe extends BaseController
 
         $this->session->setFlashdata('success', true);
         $this->session->setFlashdata('message', 'Stripe Update Success!');
+
         return redirect()->to('admin/payment/stripe/' . $payment_method_id);
     }
 }

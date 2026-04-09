@@ -1,10 +1,10 @@
 <?= $this->extend('Theme/Theme_4/layout') ?>
 <?= $this->section('content') ?>
 <?php
-    $modules = modules_access();
+    $modules      = modules_access();
     $themeSetting = get_theme_settings();
     $themeAltName = getThemeAltNameSettings();
-    $symbol = get_lebel_by_value_in_settings('currency_symbol')
+    $symbol       = get_lebel_by_value_in_settings('currency_symbol')
 ?>
 <div class="header2">
     <section class="slider-container">
@@ -16,7 +16,7 @@
                         <div class="col-md-6 header-content text-md-start text-center animation ">
                             <h1 class=""><?= $themeSetting['slider4_text_1']?></h1>
                             <p class=""><?= $themeSetting['slider4_sub_text_1']?></p>
-                            <a href="<?= base_url('category/'.$themeSetting['slider4_category_1'])?>" class="btn-base btn-1">Browse Our Collections</a>
+                            <a href="<?= base_url('category/' . $themeSetting['slider4_category_1'])?>" class="btn-base btn-1">Browse Our Collections</a>
                         </div>
                         <div class="col-md-6">
                             <div class="header-content2">
@@ -31,7 +31,7 @@
                         <div class="col-md-6 header-content text-md-start text-center animation">
                             <h1 class=""><?= $themeSetting['slider4_text_2']?></h1>
                             <p class=""><?= $themeSetting['slider4_sub_text_2']?></p>
-                            <a href="<?= base_url('category/'.$themeSetting['slider4_category_2'])?>" class="btn-base btn-1">Browse Our Collections</a>
+                            <a href="<?= base_url('category/' . $themeSetting['slider4_category_2'])?>" class="btn-base btn-1">Browse Our Collections</a>
                         </div>
                         <div class="col-md-6">
                             <div class="header-content2">
@@ -48,7 +48,7 @@
                         <div class="col-md-6 header-content text-md-start text-center animation">
                             <h1 class=""><?= $themeSetting['slider4_text_3']?></h1>
                             <p class=""><?= $themeSetting['slider4_sub_text_3']?></p>
-                            <a href="<?= base_url('category/'.$themeSetting['slider4_category_3'])?>" class="btn-base btn-1">Browse Our Collections</a>
+                            <a href="<?= base_url('category/' . $themeSetting['slider4_category_3'])?>" class="btn-base btn-1">Browse Our Collections</a>
                         </div>
                         <div class="col-md-6">
                             <div class="header-content2">
@@ -80,7 +80,7 @@
                             <p><?= $themeSetting['top_category_left_sub_title'];?></p>
                         </div>
                         <div class="">
-                            <a href="<?= base_url('category/'.$themeSetting['top_category_left_category']);?>" class="btn-base text-decoration-none hover-lift-btn rounded-2 btn-1 slower">View all</a>
+                            <a href="<?= base_url('category/' . $themeSetting['top_category_left_category']);?>" class="btn-base text-decoration-none hover-lift-btn rounded-2 btn-1 slower">View all</a>
                         </div>
                     </div>
                 </div>
@@ -97,7 +97,7 @@
                             <p><?= $themeSetting['top_category_right_sub_title'];?></p>
                         </div>
                         <div class="">
-                            <a href="<?= base_url('category/'.$themeSetting['top_category_right_category']);?>" class="btn-base text-decoration-none hover-lift-btn rounded-2 btn-1 slower">View all</a>
+                            <a href="<?= base_url('category/' . $themeSetting['top_category_right_category']);?>" class="btn-base text-decoration-none hover-lift-btn rounded-2 btn-1 slower">View all</a>
                         </div>
                     </div>
                 </div>
@@ -177,26 +177,25 @@
                         <p class="subtitle"><?= $themeSetting['recent_product_sub_title'];?></p>
                     </div>
                     <div class=" row row-cols-1 row-cols-lg-2 justify-content-md-start w-100 g-3 justify-content-center align-items-center">
-                        <?php foreach (categoryIdByProducts($themeSetting['recent_product_category'], 'DESC', 4) as $product){
-                            $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $product->product_id);
-                            ?>
+                        <?php foreach (categoryIdByProducts($themeSetting['recent_product_category'], 'DESC', 4) as $product) {
+    $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $product->product_id); ?>
                         <!-- card 1 -->
                         <div class="col">
                             <div class="recently-viewed-card d-flex">
                                 <div class="recently-viewed-card-image d-flex justify-content-center align-items-center mx-auto col-4">
-                                    <img class="img-fluid" src="<?= productImageViewUrlNew( $product->main_image, $product->image, '85', '85');?>" loading="lazy"
-                                         alt="<?= $product->alt_name;?>">
+                                    <img class="img-fluid" src="<?= productImageViewUrlNew($product->main_image, $product->image, '85', '85'); ?>" loading="lazy"
+                                         alt="<?= $product->alt_name; ?>">
                                 </div>
                                 <div class="recently-viewed-card-content  col-8">
                                     <div class="d-flex justify-content-between w-100 recently-viewed-card-content-badges">
                                         <span class="badge badge-light-pink">&nbsp;</span>
-                                        <?php if(!empty($spPric)){?>
-                                            <span> <?= specialPriceAndPriceByOffPercent($spPric,$product->price)?>%</span>
+                                        <?php if (!empty($spPric)) {?>
+                                            <span> <?= specialPriceAndPriceByOffPercent($spPric, $product->price)?>%</span>
                                         <?php } ?>
                                     </div>
-                                    <h5 class="recently-viewed-card-title"><a href="<?= base_url('detail/' . $product->product_id)?>"><?php echo substr($product->name, 0, 60);?></a> </h5>
+                                    <h5 class="recently-viewed-card-title"><a href="<?= base_url('detail/' . $product->product_id)?>"><?php echo substr($product->name, 0, 60); ?></a> </h5>
                                     <div class="d-flex gap-2 flex-wrap align-items-center recently-viewed-card-rating align-items-center">
-                                        <?php echo product_id_by_rating($product->product_id, '1');?>
+                                        <?php echo product_id_by_rating($product->product_id, '1'); ?>
                                     </div>
                                     <div class="d-flex gap-2 justify-content-between align-items-center">
                                         <?php if (empty($spPric)) { ?>
@@ -204,12 +203,13 @@
                                         <?php } else { ?>
                                             <span class="recently-viewed-card-price prize-before-discount" ><?php echo currency_symbol_with_symbol($product->price, $symbol);?></span> <span class="recently-viewed-card-price prize-after-discount"><?php echo currency_symbol_with_symbol($spPric, $symbol);?></span>
                                         <?php } ?>
-                                        <?php echo addToCartBtn($product->product_id);?>
+                                        <?php echo addToCartBtn($product->product_id); ?>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <?php } ?>
+                        <?php
+} ?>
                     </div>
                 </div>
             </div>
@@ -228,7 +228,7 @@
                 <h2 class="title text-white"><?= $themeSetting['section_one_title'];?></h2>
                 <div class="d-flex justify-content-between">
                     <p class="subtitle mb-0 "><?= $themeSetting['section_one_sub_title'];?>.</p>
-                    <a href="<?= base_url('category/'. $themeSetting['section_one_category'])?>"
+                    <a href="<?= base_url('category/' . $themeSetting['section_one_category'])?>"
                        class="text-white text-decoration-none latest-blog-section-action text-nowrap view-all-link">View All
                         &#62;&#62;</a>
                 </div>
@@ -236,15 +236,14 @@
         </div>
 
         <div class="cards-container row">
-            <?php foreach (categoryIdByProducts($themeSetting['section_one_category'], 'DESC', 4) as $pro){
-            $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id);
-            ?>
+            <?php foreach (categoryIdByProducts($themeSetting['section_one_category'], 'DESC', 4) as $pro) {
+        $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id); ?>
             <div class="best-seller-card col-md-6 col-lg-4 col-xl-3 col-6">
                 <div class="card-slider position-relative overflow-hidden">
                     <div class="position-absolute top-2 w-100">
                         <div class="d-flex justify-content-between align-items-center w-100 px-4">
-                            <?php if(!empty($spPric)){?>
-                                <span class="badge light-yellow-badge"> <?= specialPriceAndPriceByOffPercent($spPric,$pro->price)?>%</span>
+                            <?php if (!empty($spPric)) {?>
+                                <span class="badge light-yellow-badge"> <?= specialPriceAndPriceByOffPercent($spPric, $pro->price)?>%</span>
                             <?php } ?>
                             <span class="badge tomato-badge"></span>
                         </div>
@@ -294,27 +293,29 @@
                         <div class="swiper-wrapper">
                             <!-- slide 1 -->
                             <div class="swiper-slide card-slider-single-slide">
-                                <img class="object-fit-cover" src="<?= productImageViewUrlNew( $pro->main_image, $pro->image, '261', '257');?>" alt="best seller product"
+                                <img class="object-fit-cover" src="<?= productImageViewUrlNew($pro->main_image, $pro->image, '261', '257'); ?>" alt="best seller product"
                                      loading="lazy">
                             </div>
-                            <?php $allImage = get_array_data_by_id('cc_product_image', 'product_id', $pro->product_id);?>
-                            <?php if (!empty($allImage)){
-                                foreach ($allImage as $image){
-                                    ?>
+                            <?php $allImage = get_array_data_by_id('cc_product_image', 'product_id', $pro->product_id); ?>
+                            <?php if (!empty($allImage)) {
+            foreach ($allImage as $image) {
+                ?>
                                     <!-- Slide 2 -->
                                     <div class="swiper-slide card-slider-single-slide">
-                                        <img class="object-fit-cover" src="<?= productImageViewUrlNew($image->main_image, $image->image, '261', '257');?>"
+                                        <img class="object-fit-cover" src="<?= productImageViewUrlNew($image->main_image, $image->image, '261', '257'); ?>"
                                              alt="<?= $image->alt_name?>" loading="lazy">
                                     </div>
-                            <?php } }?>
+                            <?php
+            }
+        } ?>
                         </div>
                         <div class="swiper-pagination card-swiper-pagination"></div>
                     </div>
                 </div>
                 <div class="card-bottom">
-                    <h4 class="recently-viewed-card-title"><a href="<?= base_url('detail/' . $pro->product_id)?>"><?php echo substr($pro->name, 0, 60);?></a> </h4>
+                    <h4 class="recently-viewed-card-title"><a href="<?= base_url('detail/' . $pro->product_id)?>"><?php echo substr($pro->name, 0, 60); ?></a> </h4>
                     <div class="d-flex gap-2 flex-wrap align-items-center recently-viewed-card-rating align-items-center">
-                        <?php echo product_id_by_rating($pro->product_id, '1');?>
+                        <?php echo product_id_by_rating($pro->product_id, '1'); ?>
                     </div>
                     <div class="d-flex gap-2 flex-xl-nowrap flex-wrap justify-content-between align-items-center">
                         <?php if (empty($spPric)) { ?>
@@ -322,11 +323,12 @@
                         <?php } else { ?>
                             <span class="recently-viewed-card-price prize-before-discount" ><?php echo currency_symbol_with_symbol($pro->price, $symbol);?></span> <span class="recently-viewed-card-price prize-after-discount"><?php echo currency_symbol_with_symbol($spPric, $symbol);?></span>
                         <?php } ?>
-                        <?php echo addToCartBtn($pro->product_id);?>
+                        <?php echo addToCartBtn($pro->product_id); ?>
                     </div>
                 </div>
             </div>
-            <?php }?>
+            <?php
+    }?>
 
         </div>
     </section>
@@ -344,22 +346,21 @@
                 <h2 class="title text-white"><?= $themeSetting['section_two_title'];?></h2>
                 <div class="d-flex justify-content-between">
                     <p class="subtitle mb-0 "><?= $themeSetting['section_two_sub_title'];?></p>
-                    <a href="<?= base_url('category/'. $themeSetting['section_two_category'])?>" class="text-white text-decoration-none latest-blog-section-action text-nowrap ">View All
+                    <a href="<?= base_url('category/' . $themeSetting['section_two_category'])?>" class="text-white text-decoration-none latest-blog-section-action text-nowrap ">View All
                         &#62;&#62;</a>
                 </div>
             </div>
         </div>
 
         <div class="cards-container row">
-            <?php foreach (categoryIdByProducts($themeSetting['section_two_category'], 'DESC', 4) as $pro){
-                $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id);
-                ?>
+            <?php foreach (categoryIdByProducts($themeSetting['section_two_category'], 'DESC', 4) as $pro) {
+        $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id); ?>
                 <div class="best-seller-card col-md-6 col-lg-4 col-xl-3 col-6">
                     <div class="card-slider position-relative overflow-hidden">
                         <div class="position-absolute top-2 w-100">
                             <div class="d-flex justify-content-between align-items-center w-100 px-4">
-                                <?php if(!empty($spPric)){?>
-                                    <span class="badge light-yellow-badge"> <?= specialPriceAndPriceByOffPercent($spPric,$pro->price)?>%</span>
+                                <?php if (!empty($spPric)) {?>
+                                    <span class="badge light-yellow-badge"> <?= specialPriceAndPriceByOffPercent($spPric, $pro->price)?>%</span>
                                 <?php } ?>
                                 <span class="badge tomato-badge"></span>
                             </div>
@@ -409,27 +410,29 @@
                             <div class="swiper-wrapper">
                                 <!-- slide 1 -->
                                 <div class="swiper-slide card-slider-single-slide">
-                                    <img class="object-fit-cover" src="<?= productImageViewUrlNew($pro->main_image, $pro->image, '261', '257');?>" alt="best seller product"
+                                    <img class="object-fit-cover" src="<?= productImageViewUrlNew($pro->main_image, $pro->image, '261', '257'); ?>" alt="best seller product"
                                          loading="lazy">
                                 </div>
-                                <?php $allImage = get_array_data_by_id('cc_product_image', 'product_id', $pro->product_id);?>
-                                <?php if (!empty($allImage)){
-                                    foreach ($allImage as $image){
-                                        ?>
+                                <?php $allImage = get_array_data_by_id('cc_product_image', 'product_id', $pro->product_id); ?>
+                                <?php if (!empty($allImage)) {
+            foreach ($allImage as $image) {
+                ?>
                                         <!-- Slide 2 -->
                                         <div class="swiper-slide card-slider-single-slide">
-                                            <img class="object-fit-cover" src="<?= productImageViewUrlNew($image->main_image, $image->image, '261', '257');?>"
+                                            <img class="object-fit-cover" src="<?= productImageViewUrlNew($image->main_image, $image->image, '261', '257'); ?>"
                                                  alt="<?= $image->alt_name?>" loading="lazy">
                                         </div>
-                                    <?php } }?>
+                                    <?php
+            }
+        } ?>
                             </div>
                             <div class="swiper-pagination card-swiper-pagination"></div>
                         </div>
                     </div>
                     <div class="card-bottom">
-                        <h4 class="recently-viewed-card-title"><a href="<?= base_url('detail/' . $pro->product_id)?>"><?php echo substr($pro->name, 0, 60);?></a> </h4>
+                        <h4 class="recently-viewed-card-title"><a href="<?= base_url('detail/' . $pro->product_id)?>"><?php echo substr($pro->name, 0, 60); ?></a> </h4>
                         <div class="d-flex gap-2 flex-wrap align-items-center recently-viewed-card-rating align-items-center">
-                            <?php echo product_id_by_rating($pro->product_id, '1');?>
+                            <?php echo product_id_by_rating($pro->product_id, '1'); ?>
                         </div>
                         <div class="d-flex gap-2 flex-xl-nowrap flex-wrap justify-content-between align-items-center">
                             <?php if (empty($spPric)) { ?>
@@ -437,30 +440,32 @@
                             <?php } else { ?>
                                 <span class="recently-viewed-card-price prize-before-discount" ><?php echo currency_symbol_with_symbol($pro->price, $symbol);?></span> <span class="recently-viewed-card-price prize-after-discount"><?php echo currency_symbol_with_symbol($spPric, $symbol);?></span>
                             <?php } ?>
-                            <?php echo addToCartBtn($pro->product_id);?>
+                            <?php echo addToCartBtn($pro->product_id); ?>
                         </div>
                     </div>
                 </div>
-            <?php }?>
+            <?php
+    }?>
         </div>
     </section>
     <!-- New Arrival Section end -->
 
     <!-- ITs time to shop section start  -->
     <?php
-        $offerId = $themeSetting['offer_view'];
-        $offerBanner = get_data_by_id('banner','cc_offer','offer_id',$offerId);
-        if (!empty($offerId)){
-    ?>
+        $offerId     = $themeSetting['offer_view'];
+        $offerBanner = get_data_by_id('banner', 'cc_offer', 'offer_id', $offerId);
+
+        if (!empty($offerId)) {
+            ?>
     <section class="container its-time-to-shop-section">
         <div class="row g-4">
             <div class="col-xl-6 col-12">
                 <div class="times-to-shop hover-lift">
-                    <img src="<?= commonImageViewUrl('uploads/offer', $offerId, $offerBanner, 'noimage.png', '546', '449');?>" srcset="<?= commonImageViewUrl('uploads/offer', $offerId, $offerBanner, 'noimage.png', '392', '306');?> 392w,
-                    <?= commonImageViewUrl('uploads/offer', $offerId, $offerBanner, 'noimage.png', '524', '409');?> 524w,
-                    <?= commonImageViewUrl('uploads/offer', $offerId, $offerBanner, 'noimage.png', '546', '449');?> 546w,
-                    <?= commonImageViewUrl('uploads/offer', $offerId, $offerBanner, 'noimage.png', '696', '544');?> 696w,
-                    <?= commonImageViewUrl('uploads/offer', $offerId, $offerBanner, 'noimage.png', '937', '771');?> 936w" sizes="(max-width: 1200px) 100vw, 40vw" loading="lazy" alt="offer">
+                    <img src="<?= commonImageViewUrl('uploads/offer', $offerId, $offerBanner, 'noimage.png', '546', '449'); ?>" srcset="<?= commonImageViewUrl('uploads/offer', $offerId, $offerBanner, 'noimage.png', '392', '306'); ?> 392w,
+                    <?= commonImageViewUrl('uploads/offer', $offerId, $offerBanner, 'noimage.png', '524', '409'); ?> 524w,
+                    <?= commonImageViewUrl('uploads/offer', $offerId, $offerBanner, 'noimage.png', '546', '449'); ?> 546w,
+                    <?= commonImageViewUrl('uploads/offer', $offerId, $offerBanner, 'noimage.png', '696', '544'); ?> 696w,
+                    <?= commonImageViewUrl('uploads/offer', $offerId, $offerBanner, 'noimage.png', '937', '771'); ?> 936w" sizes="(max-width: 1200px) 100vw, 40vw" loading="lazy" alt="offer">
                     <div class="inner-linier-gradient">
                         <img src="<?php echo base_url() ?>/assets/theme_4/images/best-seller/its-time-to-shopoverlay.png" alt="ts-time-to-shopoverlay"
                              loading="lazy">
@@ -473,16 +478,15 @@
                 </div>
             </div>
             <?php
-                foreach (offerIdByProducts($offerId) as $pro){
-                    $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id);
-            ?>
+                foreach (offerIdByProducts($offerId) as $pro) {
+                    $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id); ?>
             <!-- card 1 -->
             <div class="best-seller-card col-md-6 col-6 col-xl-3  col-lg-4 ">
                 <div class="card-slider position-relative overflow-hidden">
                     <div class="position-absolute top-2 w-100">
                         <div class="d-flex justify-content-between align-items-center w-100 px-4">
-                            <?php if(!empty($spPric)){?>
-                                <span class="badge light-yellow-badge"> <?= specialPriceAndPriceByOffPercent($spPric,$pro->price)?>%</span>
+                            <?php if (!empty($spPric)) {?>
+                                <span class="badge light-yellow-badge"> <?= specialPriceAndPriceByOffPercent($spPric, $pro->price)?>%</span>
                             <?php } ?>
                             <span class="badge tomato-badge"></span>
                         </div>
@@ -531,19 +535,21 @@
                         <div class="swiper-wrapper">
                             <!-- slide 1 -->
                             <div class="swiper-slide card-slider-single-slide">
-                                <img class="object-fit-cover" src="<?= productImageViewUrlNew( $pro->main_image, $pro->image, '261', '257');?>"
-                                     alt="<?= $pro->alt_name;?>" loading="lazy">
+                                <img class="object-fit-cover" src="<?= productImageViewUrlNew($pro->main_image, $pro->image, '261', '257'); ?>"
+                                     alt="<?= $pro->alt_name; ?>" loading="lazy">
                             </div>
-                            <?php $allImage = get_array_data_by_id('cc_product_image', 'product_id', $pro->product_id);?>
-                            <?php if (!empty($allImage)){
-                                foreach ($allImage as $image){
-                                    ?>
+                            <?php $allImage = get_array_data_by_id('cc_product_image', 'product_id', $pro->product_id); ?>
+                            <?php if (!empty($allImage)) {
+                        foreach ($allImage as $image) {
+                            ?>
                                     <!-- Slide 2 -->
                                     <div class="swiper-slide card-slider-single-slide">
-                                        <img class="object-fit-cover" src="<?= productImageViewUrlNew($image->main_image, $image->image, '261', '257');?>"
+                                        <img class="object-fit-cover" src="<?= productImageViewUrlNew($image->main_image, $image->image, '261', '257'); ?>"
                                              alt="<?= $image->alt_name?>" loading="lazy">
                                     </div>
-                                <?php } }?>
+                                <?php
+                        }
+                    } ?>
                         </div>
                         <div class="swiper-pagination card-swiper-pagination"></div>
                     </div>
@@ -551,9 +557,9 @@
                 <div class="card-bottom">
                     <div class="">
                     </div>
-                    <h4 class="recently-viewed-card-title"><a href="<?= base_url('detail/' . $pro->product_id)?>"><?= $pro->name;?></a> </h4>
+                    <h4 class="recently-viewed-card-title"><a href="<?= base_url('detail/' . $pro->product_id)?>"><?= $pro->name; ?></a> </h4>
                     <div class="d-flex gap-2 flex-wrap align-items-center recently-viewed-card-rating align-items-center">
-                        <?php echo product_id_by_rating($pro->product_id, '1');?>
+                        <?php echo product_id_by_rating($pro->product_id, '1'); ?>
                     </div>
                     <div class="d-flex gap-2 flex-xl-nowrap flex-wrap justify-content-between align-items-center">
                         <div class="d-flex align-items-center">
@@ -563,16 +569,18 @@
                                 <span class="recently-viewed-card-price prize-before-discount me-2" ><?php echo currency_symbol_with_symbol($pro->price, $symbol);?></span> <span class="recently-viewed-card-price prize-after-discount"><?php echo currency_symbol_with_symbol($spPric, $symbol);?></span>
                             <?php } ?>
                         </div>
-                        <?php echo addToCartBtn($pro->product_id);?>
+                        <?php echo addToCartBtn($pro->product_id); ?>
                     </div>
                 </div>
             </div>
-            <?php }?>
+            <?php
+                } ?>
 
         </div>
     </section>
     <!-- ITs time to shop section End  -->
-    <?php } ?>
+    <?php
+        } ?>
     <!-- Our Supplier section start  -->
     <section class="our-supplier-section container">
         <div class="our-supplier-header text-center">
@@ -584,7 +592,7 @@
         <div class="our-supplier-slider-container">
             <div class="swiper our-supplier-Swiper">
                 <div class="swiper-wrapper">
-                    <?php foreach ($brand as $val){ ?>
+                    <?php foreach ($brand as $val) { ?>
                     <div class="swiper-slide our-supplier-slide">
                         <img src="<?= commonImageViewUrl('uploads/brand', '', $val->image, 'noimage.png', '142', '80');?>" loading="lazy" alt="<?= $val->alt_name?>">
                     </div>
@@ -606,7 +614,7 @@
                 &#62;&#62;</a>
         </div>
         <div class="latest-blog-section-card-container row row-cols-xl-4 row-cols-lg-3 row-cols-2 g-md-3 g-2">
-            <?php foreach ($blogs as $blog){ ?>
+            <?php foreach ($blogs as $blog) { ?>
             <!-- blog-card 1 -->
             <div class="latest-blog-section-card mb-3 mb-">
                 <div class="latest-blog-section-card-image-container">

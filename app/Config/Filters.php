@@ -19,12 +19,12 @@ class Filters extends BaseConfig
      * @var array
      */
     public $aliases = [
-        'csrf'          => CSRF::class,
-        'toolbar'       => DebugToolbar::class,
-        'honeypot'      => Honeypot::class,
-        'invalidchars'  => InvalidChars::class,
-        'secureheaders' => SecureHeaders::class,
-        'throttle'      => \App\Filters\Throttle::class,
+        'csrf'           => CSRF::class,
+        'toolbar'        => DebugToolbar::class,
+        'honeypot'       => Honeypot::class,
+        'invalidchars'   => InvalidChars::class,
+        'secureheaders'  => SecureHeaders::class,
+        'throttle'       => \App\Filters\Throttle::class,
         'c_invalidchars' => \App\Filters\CustomInvalidChars::class,
 //        'minify'        => MinifyHtml::class,
     ];

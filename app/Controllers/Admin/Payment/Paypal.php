@@ -102,6 +102,7 @@ class Paypal extends BaseController
 
         $this->session->setFlashdata('success', true);
         $this->session->setFlashdata('message', 'Paypal Update Success!');
+
         return redirect()->to('admin/payment/paypal/' . $payment_method_id);
     }
 }

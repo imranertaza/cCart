@@ -102,6 +102,7 @@ class Bank_transfer extends BaseController
 
         $this->session->setFlashdata('success', true);
         $this->session->setFlashdata('message', 'Bank Transfer Update Success!');
+
         return redirect()->to('admin/payment/bank_transfer/' . $payment_method_id);
     }
 }

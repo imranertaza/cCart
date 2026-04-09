@@ -2,7 +2,7 @@
     $themeSetting      = get_theme_settings();
     $themeSettingTitle = get_theme_title_settings();
     $themeAtlName      = getThemeAltNameSettings();
-    $cat = get_all_data_array('cc_product_category');
+    $cat               = get_all_data_array('cc_product_category');
 
 ?>
 
@@ -24,7 +24,7 @@
                 <select name="top_category_left_category" class="form-control"   style="width: 100%;">
                     <option value="">Please select</option>
                     <?php foreach (get_array_data_by_id('cc_product_category', 'status', '1') as $cat) { ?>
-                        <option value="<?php echo $cat->prod_cat_id; ?>" <?= ($cat->prod_cat_id == $themeSetting['top_category_left_category'])?'selected':'';?>><?php echo display_category_with_parent($cat->prod_cat_id); ?></option>
+                        <option value="<?php echo $cat->prod_cat_id; ?>" <?= ($cat->prod_cat_id == $themeSetting['top_category_left_category']) ? 'selected' : '';?>><?php echo display_category_with_parent($cat->prod_cat_id); ?></option>
                     <?php } ?>
                 </select>
             </div>
@@ -63,7 +63,7 @@
                 <select name="top_category_right_category" class="form-control"   style="width: 100%;">
                     <option value="">Please select</option>
                     <?php foreach (get_array_data_by_id('cc_product_category', 'status', '1') as $cat) { ?>
-                        <option value="<?php echo $cat->prod_cat_id; ?>" <?= ($cat->prod_cat_id == $themeSetting['top_category_right_category'])?'selected':'';?>><?php echo display_category_with_parent($cat->prod_cat_id); ?></option>
+                        <option value="<?php echo $cat->prod_cat_id; ?>" <?= ($cat->prod_cat_id == $themeSetting['top_category_right_category']) ? 'selected' : '';?>><?php echo display_category_with_parent($cat->prod_cat_id); ?></option>
                     <?php } ?>
                 </select>
             </div>
@@ -101,7 +101,7 @@
                 <select name="section_one_category" class="form-control"   style="width: 100%;">
                     <option value="">Please select</option>
                     <?php foreach (get_array_data_by_id('cc_product_category', 'status', '1') as $cat) { ?>
-                        <option value="<?php echo $cat->prod_cat_id; ?>" <?= ($cat->prod_cat_id == $themeSetting['section_one_category'])?'selected':'';?>><?php echo display_category_with_parent($cat->prod_cat_id); ?></option>
+                        <option value="<?php echo $cat->prod_cat_id; ?>" <?= ($cat->prod_cat_id == $themeSetting['section_one_category']) ? 'selected' : '';?>><?php echo display_category_with_parent($cat->prod_cat_id); ?></option>
                     <?php } ?>
                 </select>
             </div>
@@ -139,7 +139,7 @@
                 <select name="section_two_category" class="form-control"   style="width: 100%;">
                     <option value="">Please select</option>
                     <?php foreach (get_array_data_by_id('cc_product_category', 'status', '1') as $cat) { ?>
-                        <option value="<?php echo $cat->prod_cat_id; ?>" <?= ($cat->prod_cat_id == $themeSetting['section_two_category'])?'selected':'';?>><?php echo display_category_with_parent($cat->prod_cat_id); ?></option>
+                        <option value="<?php echo $cat->prod_cat_id; ?>" <?= ($cat->prod_cat_id == $themeSetting['section_two_category']) ? 'selected' : '';?>><?php echo display_category_with_parent($cat->prod_cat_id); ?></option>
                     <?php } ?>
                 </select>
             </div>
@@ -178,7 +178,7 @@
                 <select name="recent_product_category" class="form-control"   style="width: 100%;">
                     <option value="">Please select</option>
                     <?php foreach (get_array_data_by_id('cc_product_category', 'status', '1') as $cat) { ?>
-                        <option value="<?php echo $cat->prod_cat_id; ?>" <?= ($cat->prod_cat_id == $themeSetting['recent_product_category'])?'selected':'';?>><?php echo display_category_with_parent($cat->prod_cat_id); ?></option>
+                        <option value="<?php echo $cat->prod_cat_id; ?>" <?= ($cat->prod_cat_id == $themeSetting['recent_product_category']) ? 'selected' : '';?>><?php echo display_category_with_parent($cat->prod_cat_id); ?></option>
                     <?php } ?>
                 </select>
             </div>
@@ -208,7 +208,7 @@
                 <select name="offer_view" class="form-control"   style="width: 100%;">
                     <option value="">Please select</option>
                     <?php foreach (availableAllOffer() as $offer) { ?>
-                        <option value="<?= $offer->offer_id; ?>" <?= ($offer->offer_id == $themeSetting['offer_view'])?'selected':'';?>><?= $offer->name; ?></option>
+                        <option value="<?= $offer->offer_id; ?>" <?= ($offer->offer_id == $themeSetting['offer_view']) ? 'selected' : '';?>><?= $offer->name; ?></option>
                     <?php } ?>
                 </select>
             </div>
@@ -225,7 +225,7 @@
                 <select name="popular_this_week" class="form-control"   style="width: 100%;">
                     <option value="">Please select</option>
                     <?php foreach (get_array_data_by_id('cc_product_category', 'status', '1') as $cat) { ?>
-                        <option value="<?php echo $cat->prod_cat_id; ?>" <?= ($cat->prod_cat_id == $themeSetting['popular_this_week'])?'selected':'';?>><?php echo display_category_with_parent($cat->prod_cat_id); ?></option>
+                        <option value="<?php echo $cat->prod_cat_id; ?>" <?= ($cat->prod_cat_id == $themeSetting['popular_this_week']) ? 'selected' : '';?>><?php echo display_category_with_parent($cat->prod_cat_id); ?></option>
                     <?php } ?>
                 </select>
             </div>

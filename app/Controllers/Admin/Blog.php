@@ -113,6 +113,7 @@ class Blog extends BaseController
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('success', false);
             $this->session->setFlashdata('message', $this->validation->listErrors());
+
             return redirect()->to('admin/blog_create');
         } else {
             DB()->transStart();
@@ -239,9 +240,9 @@ class Blog extends BaseController
         ]);
 
         if ($this->validation->run($data) == false) {
-
             $this->session->setFlashdata('success', false);
             $this->session->setFlashdata('message', $this->validation->listErrors());
+
             return redirect()->to('admin/blog_update/' . $blogId);
         } else {
             DB()->transStart();
@@ -296,6 +297,7 @@ class Blog extends BaseController
 
             $this->session->setFlashdata('success', true);
             $this->session->setFlashdata('message', 'Update Record Success!');
+
             return redirect()->to('admin/blog_update/' . $blogId);
         }
     }
@@ -336,6 +338,7 @@ class Blog extends BaseController
 
         $this->session->setFlashdata('success', true);
         $this->session->setFlashdata('message', 'Delete Record Success!');
+
         return redirect()->to('admin/admin-blog');
     }
 
@@ -383,6 +386,7 @@ class Blog extends BaseController
         $data['alt_name'] = $this->request->getPost('value');
         $table            = DB()->table('cc_blog_carousel_image');
         $table->where('blog_crassula_image_id', $blog_crassula_image_id)->update($data);
+
         return $this->response
             ->setHeader('X-CSRF-TOKEN', csrf_hash());
     }

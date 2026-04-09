@@ -54,10 +54,10 @@
 </style>
 <?= $this->endSection() ?>
 <?php
-$symbol = get_lebel_by_value_in_settings('currency_symbol');
-$modules = modules_access();
+$symbol       = get_lebel_by_value_in_settings('currency_symbol');
+$modules      = modules_access();
 $themeSetting = get_theme_settings();
-$symbol = get_lebel_by_value_in_settings('currency_symbol');
+$symbol       = get_lebel_by_value_in_settings('currency_symbol');
 ?>
 <div class="container">
     <nav class="breadcrumb-nav" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
@@ -82,22 +82,23 @@ $symbol = get_lebel_by_value_in_settings('currency_symbol');
                                     <div class="swiper-slide">
                                         <img class=""
                                              src="<?= productImageViewUrlNew($products->main_image, $products->image, '600', '600') ?>"
-                                             data-original-image="<?= productImageViewUrlNew( $products->main_image, $products->image, '600', '600') ?>"
+                                             data-original-image="<?= productImageViewUrlNew($products->main_image, $products->image, '600', '600') ?>"
                                              alt="Product Image"
                                              fetchpriority="high" decoding="async" loading="eager">
                                     </div>
                                     <?php if (!empty($proImg)) {
-                                        foreach ($proImg as $imgval) {
-                                            ?>
+    foreach ($proImg as $imgval) {
+        ?>
                                             <div class="swiper-slide">
                                                 <img class="thumb"
-                                                     src="<?= productImageViewUrlNew( $imgval->main_image, $imgval->image, '600', '600') ?>"
-                                                     data-original-image="<?= productImageViewUrlNew( $imgval->main_image,$imgval->image, '600', '600') ?>"
+                                                     src="<?= productImageViewUrlNew($imgval->main_image, $imgval->image, '600', '600') ?>"
+                                                     data-original-image="<?= productImageViewUrlNew($imgval->main_image, $imgval->image, '600', '600') ?>"
                                                      alt="Product Image"
                                                      fetchpriority="high" decoding="async" loading="eager">
                                             </div>
-                                        <?php }
-                                    } ?>
+                                        <?php
+    }
+} ?>
                                 </div>
 
                             </div>
@@ -158,19 +159,20 @@ $symbol = get_lebel_by_value_in_settings('currency_symbol');
                         <div class="swiper-wrapper">
                             <div class="swiper-slide" style="overflow: hidden;">
                                 <img
-                                    src="<?= productImageViewUrlNew($products->main_image, $products->image,  '100', '100') ?>"
+                                    src="<?= productImageViewUrlNew($products->main_image, $products->image, '100', '100') ?>"
                                     alt="Product Image" loading="lazy">
                             </div>
                             <?php if (!empty($proImg)) {
-                                foreach ($proImg as $imgval) {
-                                    ?>
+    foreach ($proImg as $imgval) {
+        ?>
                                     <div class="swiper-slide" style="overflow: hidden;">
                                         <img
                                             src="<?= productImageViewUrlNew($imgval->main_image, $imgval->image, '100', '100') ?>"
                                             alt="Product Image" loading="lazy">
                                     </div>
-                                <?php }
-                            } ?>
+                                <?php
+    }
+} ?>
                         </div>
                     </div>
                 </div>
@@ -186,6 +188,7 @@ $symbol = get_lebel_by_value_in_settings('currency_symbol');
                             <div class="d-flex align-items-center justify-content-between gap-2">
                                 <div class="d-flex gap-2 align-items-center">
                                     <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $products->product_id);
+
                                     if (empty($spPric)) { ?>
                                         <span
                                             class="product--price-now"><?= currency_symbol_with_symbol($products->price, $symbol) ?></span>
@@ -219,44 +222,43 @@ $symbol = get_lebel_by_value_in_settings('currency_symbol');
 
                             </div>
 
-                            <?php foreach ($optionArray as $key => $val){
-                                $fildName = str_replace(' ', '', $key);
-                            ?>
+                            <?php foreach ($optionArray as $key => $val) {
+                                        $fildName = str_replace(' ', '', $key); ?>
                                 <p class="selected-color"><?= $key ?>:</p>
-                                <?php if ($val['type'] == 'radio'){?>
+                                <?php if ($val['type'] == 'radio') {?>
                                     <div class="d-flex size-button-container flex-wrap">
 
-                                        <?php foreach ($val['items'] as $item){
-
+                                        <?php foreach ($val['items'] as $item) {
                                             $nameVal  = get_data_by_id('name', 'cc_option_value', 'option_value_id', $item);
                                             $firstCar =  mb_substr($nameVal, 0, 1);
                                             $length   = strlen($nameVal);
                                             $isColor  = (($firstCar == '#') && ($length == 7)) ? '' : $nameVal;
                                             $nameOp   = !empty($isColor) ? $isColor : '';
-                                            $style    = empty($isColor) ? "background-color: $nameVal;" : "";
-                                        ?>
+                                            $style    = empty($isColor) ? "background-color: $nameVal;" : ""; ?>
                                         <input type="radio" class="btn-check d-none"  name="<?= strtolower($fildName)?>" id="option_<?= $item?>" value="<?= $item?>">
-                                        <label class="btn size-button" style="<?= $style ;?>" for="option_<?= $item?>"><?= $nameOp;?></label>
-                                        <?php }?>
+                                        <label class="btn size-button" style="<?= $style ; ?>" for="option_<?= $item?>"><?= $nameOp; ?></label>
+                                        <?php
+                                        }?>
                                     </div>
-                                <?php }else{ ?>
+                                <?php } else { ?>
                                     <div class="mt-2 mb-3">
                                         <select class="form-select" name="<?= strtolower($fildName)?>" id="sizeSelect">
-                                            <?php foreach ($val['items'] as $item){
-                                                $nameVal  = get_data_by_id('name', 'cc_option_value', 'option_value_id', $item);
-                                                $firstCar =  mb_substr($nameVal, 0, 1);
-                                                $length   = strlen($nameVal);
-                                                $isColor  = (($firstCar == '#') && ($length == 7)) ? '' : $nameVal;
-                                                $nameOp   = !empty($isColor) ? $isColor : '';
-                                                $style    = empty($isColor) ? "background-color: $nameVal;padding: 15px 18px; border: unset;" : "";
-                                            ?>
-                                            <option value="<?= $item?>" ><?= $nameVal;?></option>
-                                            <?php }?>
+                                            <?php foreach ($val['items'] as $item) {
+                                            $nameVal  = get_data_by_id('name', 'cc_option_value', 'option_value_id', $item);
+                                            $firstCar =  mb_substr($nameVal, 0, 1);
+                                            $length   = strlen($nameVal);
+                                            $isColor  = (($firstCar == '#') && ($length == 7)) ? '' : $nameVal;
+                                            $nameOp   = !empty($isColor) ? $isColor : '';
+                                            $style    = empty($isColor) ? "background-color: $nameVal;padding: 15px 18px; border: unset;" : ""; ?>
+                                            <option value="<?= $item?>" ><?= $nameVal; ?></option>
+                                            <?php
+                                        }?>
                                         </select>
                                     </div>
                                 <?php } ?>
 
-                            <?php } ?>
+                            <?php
+                                    } ?>
 
 
 
@@ -309,9 +311,8 @@ $symbol = get_lebel_by_value_in_settings('currency_symbol');
             <div
                 class="row  row-cols-lg-4 row-cols-md-3 row-cols-2 related-product-cards  justify-content-start g-md-3 g-3">
                 <?php if (!empty($relProd)) {
-                    foreach ($relProd as $rPro) {
-                        $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $rPro->product_id);
-                        ?>
+                                        foreach ($relProd as $rPro) {
+                                            $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $rPro->product_id); ?>
                         <div class="col best-seller-card">
                             <div class="card-slider position-relative overflow-hidden">
                                 <div class="position-absolute top-2 w-100">
@@ -388,16 +389,17 @@ $symbol = get_lebel_by_value_in_settings('currency_symbol');
                                         </div>
                                         <?php $allImage = get_array_data_by_id('cc_product_image', 'product_id', $rPro->product_id); ?>
                                         <?php if (!empty($allImage)) {
-                                            foreach ($allImage as $image) {
-                                                ?>
+                                                foreach ($allImage as $image) {
+                                                    ?>
                                                 <div class="swiper-slide card-slider-single-slide">
 
                                                     <img class="object-fit-cover"
-                                                         src="<?= productImageViewUrlNew($image->main_image , $image->image, '267', '253'); ?>"
+                                                         src="<?= productImageViewUrlNew($image->main_image, $image->image, '267', '253'); ?>"
                                                          alt="<?= $image->alt_name ?>" loading="lazy">
                                                 </div>
-                                            <?php }
-                                        } ?>
+                                            <?php
+                                                }
+                                            } ?>
                                     </div>
                                     <div class="swiper-pagination card-swiper-pagination"></div>
                                 </div>
@@ -425,8 +427,9 @@ $symbol = get_lebel_by_value_in_settings('currency_symbol');
                                 </div>
                             </div>
                         </div>
-                    <?php }
-                } ?>
+                    <?php
+                                        }
+                                    } ?>
 
             </div>
         </div>
@@ -716,7 +719,7 @@ $symbol = get_lebel_by_value_in_settings('currency_symbol');
                                 <?= csrf_field() ?>
                                 <p class="mb-4 mt-2"><strong>Your Rating</strong></p>
                                 <?php if (isset(newSession()->isLoggedInCustomer)) {
-                                    if (empty(check_review($products->product_id))) { ?>
+                                        if (empty(check_review($products->product_id))) { ?>
                                         <div class="rating ">
                                             <div class="ratingPiont"></div>
                                         </div>
@@ -728,7 +731,10 @@ $symbol = get_lebel_by_value_in_settings('currency_symbol');
                                         <input type="hidden" name="product_id" value="<?php echo $products->product_id; ?>">
                                         <button class="btn btn-success rounded-0 mt-3 px-4 py-2" type="submit">Submit Review
                                         </button>
-                                    <?php } else { echo '<p>Already Reviewed</p>'; } } else { ?>
+                                    <?php } else {
+                                            echo '<p>Already Reviewed</p>';
+                                        }
+                                    } else { ?>
                                     <a href="<?php echo base_url('login') ?>">Please login to continue</a>
                                 <?php } ?>
                             </form>
@@ -750,13 +756,12 @@ $symbol = get_lebel_by_value_in_settings('currency_symbol');
         <div class="container">
             <div class="d-flex justify-content-between align-items-end related-product  mb-4">
                 <p class="title related-product">Popular this week</p>
-                <a href="<?= base_url('category/'.$themeSetting['popular_this_week'])?>" class="text-muted latest-blog-section-action text-nowrap">View All</a>
+                <a href="<?= base_url('category/' . $themeSetting['popular_this_week'])?>" class="text-muted latest-blog-section-action text-nowrap">View All</a>
             </div>
             <div
                 class="row  row-cols-lg-4 row-cols-md-3 row-cols-2 related-product-cards  justify-content-start g-md-3 g-3">
                 <?php foreach (categoryIdByProducts($themeSetting['popular_this_week'], 'DESC', 8) as $pro) {
-                    $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id);
-                    ?>
+                                        $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id); ?>
                     <div class="col best-seller-card">
                         <div class="card-slider position-relative overflow-hidden">
                             <div class="position-absolute top-2 w-100">
@@ -818,22 +823,23 @@ $symbol = get_lebel_by_value_in_settings('currency_symbol');
                                 <div class="swiper-wrapper">
                                     <div class="swiper-slide card-slider-single-slide">
                                         <img class="object-fit-cover"
-                                             src="<?= productImageViewUrlNew( $pro->main_image, $pro->image, '261', '257'); ?>"
+                                             src="<?= productImageViewUrlNew($pro->main_image, $pro->image, '261', '257'); ?>"
                                              alt="best seller product"
                                              loading="lazy">
                                     </div>
                                     <?php $allImage = get_array_data_by_id('cc_product_image', 'product_id', $pro->product_id); ?>
                                     <?php if (!empty($allImage)) {
-                                        foreach ($allImage as $image) {
-                                            ?>
+                                            foreach ($allImage as $image) {
+                                                ?>
                                             <!-- Slide 2 -->
                                             <div class="swiper-slide card-slider-single-slide">
                                                 <img class="object-fit-cover"
                                                      src="<?= productImageViewUrlNew($image->main_image, $image->image, '261', '257'); ?>"
                                                      alt="<?= $image->alt_name ?>" loading="lazy">
                                             </div>
-                                        <?php }
-                                    } ?>
+                                        <?php
+                                            }
+                                        } ?>
                                 </div>
                                 <div class="swiper-pagination card-swiper-pagination"></div>
                             </div>
@@ -861,7 +867,8 @@ $symbol = get_lebel_by_value_in_settings('currency_symbol');
                             </div>
                         </div>
                     </div>
-                <?php } ?>
+                <?php
+                                    } ?>
 
             </div>
         </div>
@@ -880,7 +887,7 @@ $symbol = get_lebel_by_value_in_settings('currency_symbol');
 <script>
     //review pagination
     $('#paginationjs').pagination({
-        dataSource: '<?= base_url("review-data/".$products->product_id) ?>',
+        dataSource: '<?= base_url("review-data/" . $products->product_id) ?>',
         locator: 'items',
         totalNumberLocator: function(response) {
             return response.totalNumber;
@@ -976,28 +983,28 @@ $symbol = get_lebel_by_value_in_settings('currency_symbol');
 
     function optionPriceCalculate(product_id) {
         <?php foreach (get_all_data_array('cc_option') as $v) {
-        $fildName = str_replace(' ', '', $v->name);
+                                        $fildName = str_replace(' ', '', $v->name);
 
-        if ($v->type == 'radio') { ?>
+                                        if ($v->type == 'radio') { ?>
         var <?php echo strtolower($fildName); ?> =
         $('input[name="<?php echo strtolower($fildName); ?>"]:checked').val();
         <?php }
 
-        if ($v->type == 'select') { ?>
+                                        if ($v->type == 'select') { ?>
         var <?php echo strtolower($fildName); ?> =
         $('[name="<?php echo strtolower($fildName); ?>"]').val();
         <?php }
-        } ?>
+                                    } ?>
         $.ajax({
             method: "POST",
             url: "<?php echo base_url('optionPriceCalculate') ?>",
             data: {
                 product_id: product_id,
         <?php foreach (get_all_data_array('cc_option') as $vl) {
-        $fildName2 = str_replace(' ', '', $vl->name); ?>
+                                        $fildName2 = str_replace(' ', '', $vl->name); ?>
         <?php echo strtolower($fildName2); ?>: <?php echo strtolower($fildName2); ?>,
         <?php
-        } ?>
+                                    } ?>
     },
         success: function (data) {
             $('#priceVal').html(data);

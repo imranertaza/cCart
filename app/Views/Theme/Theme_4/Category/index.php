@@ -125,15 +125,17 @@
     <nav class="breadcrumb-nav" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
         <ol class="breadcrumb mb-0">
             <?php if (!empty($prod_cat_id)) {
-                $par_id = get_data_by_id('parent_id', 'cc_product_category', 'prod_cat_id', $prod_cat_id);
-                $url2 = base_url('category/' . $prod_cat_id);
-                if (!empty($par_id)) {
-                $url = base_url('category/' . $par_id);
-            ?>
+    $par_id = get_data_by_id('parent_id', 'cc_product_category', 'prod_cat_id', $prod_cat_id);
+    $url2   = base_url('category/' . $prod_cat_id);
+
+    if (!empty($par_id)) {
+        $url = base_url('category/' . $par_id); ?>
             <li class="breadcrumb-item"><a href="<?= $url?>"><?= get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $par_id)?></a></li>
-            <?php }?>
+            <?php
+    } ?>
             <li class="breadcrumb-item"><a href="<?= $url2?>"><?= get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $prod_cat_id); ?></a></li>
-            <?php  }else{?>
+            <?php
+} else {?>
                 <li class="breadcrumb-item"><a href="#">Search Result</a></li>
             <?php } ?>
         </ol>
@@ -170,7 +172,7 @@
             <!-- Reviews Filter and Review Lists -->
             <?php
                 $modules = modules_access();
-                $sSel = !empty($searchPrice) ? 'form="searchForm"' : '';
+                $sSel    = !empty($searchPrice) ? 'form="searchForm"' : '';
             ?>
             <div class="d-flex gap-md-4 flex-wrap flex-md-nowrap product-reviews">
                 <button class="btn list-button text-white mb-2 active-view d-flex align-items-center active gap-2 d-md-none"
@@ -285,16 +287,16 @@
 
                                 <?php
                                 $modules = modules_access(); $symbol = get_lebel_by_value_in_settings('currency_symbol');
+
                                 if (!empty($products)) {
                                     foreach ($products as $pro) {
-                                        $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id);
-                                        ?>
+                                        $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id); ?>
                                         <div class="best-seller-card col-md-6 col-lg-4 col-6 ">
                                             <div class="card-slider position-relative overflow-hidden">
                                                 <div class="position-absolute top-2 w-100">
                                                     <div class="d-flex justify-content-between align-items-center w-100 px-4">
-                                                        <?php if(!empty($spPric)){?>
-                                                            <span class="badge light-yellow-badge"> <?= specialPriceAndPriceByOffPercent($spPric,$pro->price)?>%</span>
+                                                        <?php if (!empty($spPric)) {?>
+                                                            <span class="badge light-yellow-badge"> <?= specialPriceAndPriceByOffPercent($spPric, $pro->price)?>%</span>
                                                         <?php } ?>
                                                         <span class="badge tomato-badge">Hot</span>
                                                     </div>
@@ -344,27 +346,29 @@
                                                     <div class="swiper-wrapper">
                                                         <!-- slide 1 -->
                                                         <div class="swiper-slide card-slider-single-slide">
-                                                            <img class="object-fit-cover" src="<?= productImageViewUrlNew( $pro->main_image, $pro->image, '245', '235');?>"
-                                                                 alt="<?= $pro->alt_name;?>" loading="lazy">
+                                                            <img class="object-fit-cover" src="<?= productImageViewUrlNew($pro->main_image, $pro->image, '245', '235'); ?>"
+                                                                 alt="<?= $pro->alt_name; ?>" loading="lazy">
                                                         </div>
-                                                        <?php $allImage = get_array_data_by_id('cc_product_image', 'product_id', $pro->product_id);?>
-                                                        <?php if (!empty($allImage)){
-                                                            foreach ($allImage as $image){
-                                                                ?>
+                                                        <?php $allImage = get_array_data_by_id('cc_product_image', 'product_id', $pro->product_id); ?>
+                                                        <?php if (!empty($allImage)) {
+                                            foreach ($allImage as $image) {
+                                                ?>
                                                                 <!-- Slide 2 -->
                                                                 <div class="swiper-slide card-slider-single-slide">
-                                                                    <img class="object-fit-cover" src="<?= productImageViewUrlNew($image->main_image, $image->image,'245', '235');?>"
+                                                                    <img class="object-fit-cover" src="<?= productImageViewUrlNew($image->main_image, $image->image, '245', '235'); ?>"
                                                                          alt="<?= $image->alt_name?>" loading="lazy">
                                                                 </div>
-                                                            <?php } }?>
+                                                            <?php
+                                            }
+                                        } ?>
                                                     </div>
                                                     <div class="swiper-pagination card-swiper-pagination"></div>
                                                 </div>
                                             </div>
                                             <div class="card-bottom">
-                                                <h4 class="recently-viewed-card-title"><a href="<?= base_url('detail/' . $pro->product_id)?>"><?php echo substr($pro->name, 0, 60);?></a></h4>
+                                                <h4 class="recently-viewed-card-title"><a href="<?= base_url('detail/' . $pro->product_id)?>"><?php echo substr($pro->name, 0, 60); ?></a></h4>
                                                 <div class="d-flex gap-2 flex-wrap align-items-center recently-viewed-card-rating align-items-center">
-                                                    <?php echo product_id_by_rating($pro->product_id, '1');?>
+                                                    <?php echo product_id_by_rating($pro->product_id, '1'); ?>
                                                 </div>
                                                 <div class="d-flex gap-2 flex-xl-nowrap flex-wrap justify-content-between align-items-center">
                                                     <div class="d-flex align-items-center">
@@ -374,11 +378,13 @@
                                                             <span class="recently-viewed-card-price prize-before-discount me-2" ><?php echo currency_symbol_with_symbol($pro->price, $symbol);?></span> <span class="recently-viewed-card-price prize-after-discount"><?php echo currency_symbol_with_symbol($spPric, $symbol);?></span>
                                                         <?php } ?>
                                                     </div>
-                                                    <?php echo addToCartBtn($pro->product_id);?>
+                                                    <?php echo addToCartBtn($pro->product_id); ?>
                                                 </div>
                                             </div>
                                         </div>
-                                    <?php } } else {
+                                    <?php
+                                    }
+                                } else {
                                     echo 'No product available';
                                 } ?>
 
@@ -388,14 +394,13 @@
                              tabindex="0">
                             <div class="cards-container mt-0 row ">
                                 <?php foreach ($products as $pro) {
-                                $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id);
-                                ?>
+                                    $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id); ?>
                                 <div class="best-seller-card d-flex flat-card-view col-md-6 ">
                                     <div class="card-slider position-relative overflow-hidden">
                                         <div class="position-absolute top-2 w-100">
                                             <div class="d-flex justify-content-between align-items-center w-100 px-4">
-                                                <?php if(!empty($spPric)){?>
-                                                <span class="badge light-yellow-badge"><?= specialPriceAndPriceByOffPercent($spPric,$pro->price)?>%</span>
+                                                <?php if (!empty($spPric)) {?>
+                                                <span class="badge light-yellow-badge"><?= specialPriceAndPriceByOffPercent($spPric, $pro->price)?>%</span>
                                                 <?php } ?>
                                                 <span class="badge tomato-badge">Hot</span>
                                             </div>
@@ -449,29 +454,31 @@
                                                 <!-- slide 1 -->
                                                 <div class="swiper-slide card-slider-single-slide">
 
-                                                    <img class="object-fit-cover" src="<?= productImageViewUrlNew( $pro->main_image, $pro->image, '146', '138');?>"
-                                                         alt="<?= $pro->alt_name;?>" loading="lazy">
+                                                    <img class="object-fit-cover" src="<?= productImageViewUrlNew($pro->main_image, $pro->image, '146', '138'); ?>"
+                                                         alt="<?= $pro->alt_name; ?>" loading="lazy">
                                                 </div>
-                                                <?php $allImage = get_array_data_by_id('cc_product_image', 'product_id', $pro->product_id);?>
-                                                <?php if (!empty($allImage)){
-                                                    foreach ($allImage as $image){
-                                                ?>
+                                                <?php $allImage = get_array_data_by_id('cc_product_image', 'product_id', $pro->product_id); ?>
+                                                <?php if (!empty($allImage)) {
+                                        foreach ($allImage as $image) {
+                                            ?>
                                                 <div class="swiper-slide card-slider-single-slide">
 
-                                                    <img class="object-fit-cover" src="<?= productImageViewUrlNew($image->main_image, $image->image, '146', '138');?>"
+                                                    <img class="object-fit-cover" src="<?= productImageViewUrlNew($image->main_image, $image->image, '146', '138'); ?>"
                                                          alt="<?= $image->alt_name?>" loading="lazy">
                                                 </div>
-                                                <?php } }?>
+                                                <?php
+                                        }
+                                    } ?>
                                             </div>
                                             <div class="swiper-pagination card-swiper-pagination"></div>
                                         </div>
                                     </div>
                                     <div class="card-bottom">
                                         <div class="">
-                                            <h4 class="recently-viewed-card-title"><a href="<?= base_url('detail/' . $pro->product_id)?>"><?php echo substr($pro->name, 0, 60);?></a>
+                                            <h4 class="recently-viewed-card-title"><a href="<?= base_url('detail/' . $pro->product_id)?>"><?php echo substr($pro->name, 0, 60); ?></a>
                                             </h4>
                                             <div class="d-flex gap-2 flex-wrap align-items-center recently-viewed-card-rating align-items-center">
-                                                <?php echo product_id_by_rating($pro->product_id, '1');?>
+                                                <?php echo product_id_by_rating($pro->product_id, '1'); ?>
                                             </div>
                                         </div>
                                         <div class="d-flex gap-2 justify-content-between align-items-center">
@@ -481,12 +488,13 @@
                                                 <span class="recently-viewed-card-price prize-before-discount me-2" ><?php echo currency_symbol_with_symbol($pro->price, $symbol);?></span>
                                                 <span class="recently-viewed-card-price prize-after-discount"><?php echo currency_symbol_with_symbol($spPric, $symbol);?></span>
                                             <?php } ?>
-                                            <?php echo addToCartBtn($pro->product_id);?>
+                                            <?php echo addToCartBtn($pro->product_id); ?>
 <!--                                            <button class="btn-base px-2 recently-viewed-add-to-cart-btn w-100 btn-1">Add To Cart</button>-->
                                         </div>
                                     </div>
                                 </div>
-                                <?php } ?>
+                                <?php
+                                } ?>
                             </div>
 
                         </div>
@@ -511,13 +519,12 @@
         <div class="container">
             <div class="d-flex justify-content-between align-items-end related-product  mb-4">
                 <p class="title related-product">Popular this week</p>
-                <a href="<?= base_url('category/'.$themeSetting['popular_this_week'])?>" class="text-muted latest-blog-section-action text-nowrap">View All</a>
+                <a href="<?= base_url('category/' . $themeSetting['popular_this_week'])?>" class="text-muted latest-blog-section-action text-nowrap">View All</a>
             </div>
             <div  class="row row-cols-lg-4 row-cols-md-3 row-cols-2 related-product-cards  justify-content-start g-md-3 g-3">
 
                 <?php foreach (categoryIdByProducts($themeSetting['popular_this_week'], 'DESC', 4) as $pro) {
-                    $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id);
-                    ?>
+                                    $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id); ?>
                     <div class="col best-seller-card">
                         <div class="card-slider position-relative overflow-hidden">
                             <div class="position-absolute top-2 w-100">
@@ -593,7 +600,8 @@
                                                      src="<?= productImageViewUrlNew($image->main_image, $image->image, '261', '257'); ?>"
                                                      alt="<?= $image->alt_name ?>" loading="lazy">
                                             </div>
-                                        <?php }
+                                        <?php
+                                        }
                                     } ?>
                                 </div>
                                 <div class="swiper-pagination card-swiper-pagination"></div>
@@ -622,7 +630,8 @@
                             </div>
                         </div>
                     </div>
-                <?php } ?>
+                <?php
+                                } ?>
 
             </div>
         </div>
@@ -642,7 +651,7 @@
                     <div class="rating-container">
                         <?php if (!empty($prod_cat_id)) { ?>
                             <p class="title review-filter-title"><?= get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $prod_cat_id); ?></p>
-                        <?php }else{ ?>
+                        <?php } else { ?>
                             <p class="title review-filter-title">Search Result</p>
                         <?php }?>
                         <div class="hr-container py-3">
@@ -678,13 +687,15 @@
                                                         <span class="rating-label"><?= $cat->category_name;?> (<?= category_id_by_product_count($cat->prod_cat_id)?>)</span>
                                                     </label>
                                                 <?php } ?>
-                                            <?php } else { if (!empty($main_Cat)) { ?>
+                                            <?php } else {
+                                    if (!empty($main_Cat)) { ?>
                                                 <ul class="">
                                                     <?php  foreach ($main_Cat as $cat) { ?>
                                                     <li><a href="<?= base_url('category/' . $cat->prod_cat_id);?>" class="text-black" ><?= $cat->category_name;?></a></li>
                                                     <?php } ?>
                                                 </ul>
-                                            <?php } } ?>
+                                            <?php }
+                                } ?>
 
                                         </div>
                                     </div>
@@ -748,21 +759,22 @@
                                      data-bs-parent="#accordionFlushExample">
                                     <div class="accordion-body">
                                         <div class="d-flex flex-column gap-2">
-                                            <?php foreach ($optionArray as $key => $val){ ?>
+                                            <?php foreach ($optionArray as $key => $val) { ?>
                                                 <p class="selected-color"><?= $key ?>:</p>
                                                 <div class="d-flex size-button-container flex-wrap">
-                                                <?php foreach ($val['allOption'] as $item){
-        if ($val['option'] == $item->option_id){
-        $nameVal  = $item->name;
-        $firstCar = mb_substr($nameVal, 0, 1);
-        $length   = strlen($nameVal);
-        $isColor  = (($firstCar == '#') && ($length == 7)) ? '' : $nameVal;
-        $nameOp   = !empty($isColor) ? $isColor : '';
-        $style    = empty($isColor) ? "background-color: $nameVal !important;" : "";
-        ?>
-                                                    <input type="checkbox" class="btn-check d-none" form="searchForm" onclick="formSubmit()" <?= (in_array($item->option_value_id, $optionval)) ? 'checked ' : '';?>  name="options[]" id="option_<?= $item->option_value_id?>" value="<?= $item->option_value_id?>">
-                                                    <label class="btn size-button <?= (in_array($item->option_value_id, $optionval)) ? 'selected' : '';?>" style="<?= $style ;?>" for="option_<?= $item->option_value_id?>"><?= $nameOp;?></label>
-                                                <?php } } ?>
+                                                <?php foreach ($val['allOption'] as $item) {
+                                    if ($val['option'] == $item->option_id) {
+                                        $nameVal  = $item->name;
+                                        $firstCar = mb_substr($nameVal, 0, 1);
+                                        $length   = strlen($nameVal);
+                                        $isColor  = (($firstCar == '#') && ($length == 7)) ? '' : $nameVal;
+                                        $nameOp   = !empty($isColor) ? $isColor : '';
+                                        $style    = empty($isColor) ? "background-color: $nameVal !important;" : ""; ?>
+                                                    <input type="checkbox" class="btn-check d-none" form="searchForm" onclick="formSubmit()" <?= (in_array($item->option_value_id, $optionval)) ? 'checked ' : ''; ?>  name="options[]" id="option_<?= $item->option_value_id?>" value="<?= $item->option_value_id?>">
+                                                    <label class="btn size-button <?= (in_array($item->option_value_id, $optionval)) ? 'selected' : ''; ?>" style="<?= $style ; ?>" for="option_<?= $item->option_value_id?>"><?= $nameOp; ?></label>
+                                                <?php
+                                    }
+                                } ?>
                                                 </div>
                                             <?php } ?>
                                         </div>
@@ -832,13 +844,15 @@
                                                                 <span class="rating-label"><?= $cat->category_name;?> (<?= category_id_by_product_count($cat->prod_cat_id)?>)</span>
                                                             </label>
                                                         <?php } ?>
-                                                    <?php } else { if (!empty($main_Cat)) { ?>
+                                                    <?php } else {
+                                    if (!empty($main_Cat)) { ?>
                                                         <ul class="">
                                                             <?php  foreach ($main_Cat as $cat) { ?>
                                                                 <li><a href="<?= base_url('category/' . $cat->prod_cat_id);?>" class="text-black" ><?= $cat->category_name;?></a></li>
                                                             <?php } ?>
                                                         </ul>
-                                                    <?php } } ?>
+                                                    <?php }
+                                } ?>
 
                                                 </div>
                                             </div>
@@ -900,21 +914,22 @@
                                              data-bs-parent="#accordionFlushExample">
                                             <div class="accordion-body">
                                                 <div class="d-flex flex-column gap-2">
-                                                    <?php foreach ($optionArray as $key => $val){ ?>
+                                                    <?php foreach ($optionArray as $key => $val) { ?>
                                                         <p class="selected-color"><?= $key ?>:</p>
                                                         <div class="d-flex size-button-container flex-wrap">
-                                                            <?php foreach ($val['allOption'] as $item){
-        if ($val['option'] == $item->option_id){
-        $nameVal  = $item->name;
-        $firstCar = mb_substr($nameVal, 0, 1);
-        $length   = strlen($nameVal);
-        $isColor  = (($firstCar == '#') && ($length == 7)) ? '' : $nameVal;
-        $nameOp   = !empty($isColor) ? $isColor : '';
-        $style    = empty($isColor) ? "background-color: $nameVal !important;" : "";
-        ?>
-                                                                    <input type="checkbox" class="btn-check d-none" form="searchForm" onclick="formSubmit()" <?= (in_array($item->option_value_id, $optionval)) ? 'checked ' : '';?>  name="options[]" id="option_<?= $item->option_value_id?>" value="<?= $item->option_value_id?>">
-                                                                    <label class="btn size-button <?= (in_array($item->option_value_id, $optionval)) ? 'selected' : '';?>" style="<?= $style ;?>" for="option_<?= $item->option_value_id?>"><?= $nameOp;?></label>
-                                                                <?php } } ?>
+                                                            <?php foreach ($val['allOption'] as $item) {
+                                    if ($val['option'] == $item->option_id) {
+                                        $nameVal  = $item->name;
+                                        $firstCar = mb_substr($nameVal, 0, 1);
+                                        $length   = strlen($nameVal);
+                                        $isColor  = (($firstCar == '#') && ($length == 7)) ? '' : $nameVal;
+                                        $nameOp   = !empty($isColor) ? $isColor : '';
+                                        $style    = empty($isColor) ? "background-color: $nameVal !important;" : ""; ?>
+                                                                    <input type="checkbox" class="btn-check d-none" form="searchForm" onclick="formSubmit()" <?= (in_array($item->option_value_id, $optionval)) ? 'checked ' : ''; ?>  name="options[]" id="option_<?= $item->option_value_id?>" value="<?= $item->option_value_id?>">
+                                                                    <label class="btn size-button <?= (in_array($item->option_value_id, $optionval)) ? 'selected' : ''; ?>" style="<?= $style ; ?>" for="option_<?= $item->option_value_id?>"><?= $nameOp; ?></label>
+                                                                <?php
+                                    }
+                                } ?>
                                                         </div>
                                                     <?php } ?>
                                                 </div>

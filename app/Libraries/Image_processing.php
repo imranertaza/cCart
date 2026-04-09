@@ -37,6 +37,7 @@ class Image_processing
         if ($theme == 'Theme_4') {
             $libraries = new Theme_4();
         }
+
         if ($theme == 'Theme_3') {
             $libraries = new Theme_3();
         }
@@ -249,11 +250,10 @@ class Image_processing
         return $news_img;
     }
 
-    public function manager_image_crop($imagePath,$saveDir,$saveImageName){
-
+    public function manager_image_crop($imagePath, $saveDir, $saveImageName)
+    {
         $this->manager_image_crop_600($saveDir, $imagePath, $saveImageName);
-        $this->manager_watermark_on_resized_image($saveDir, '600_'.$saveImageName);
-
+        $this->manager_watermark_on_resized_image($saveDir, '600_' . $saveImageName);
     }
 
     public function manager_image_crop_600($dir, $imagePath, $saveImageName)
@@ -261,6 +261,7 @@ class Image_processing
         if (!file_exists($dir . '/' . 600 . '_' . $saveImageName)) {
             $this->crop->withFile($imagePath)->fit(600, 600, 'center')->save($dir . 600 . '_' . $saveImageName, $this->quality);
         }
+
         return $this;
     }
     public function manager_watermark_on_resized_image($dir, $image)
@@ -276,17 +277,15 @@ class Image_processing
 
             $this->image_unlink($dir . $image);
         }
+
         return $this;
     }
     public function manager_single_product_image_unlink($image)
     {
         if (!empty($image)) {
-            $this->image_unlink(FCPATH.'/'.$image);
+            $this->image_unlink(FCPATH . '/' . $image);
         }
 
         return $this;
     }
-
-
-
 }

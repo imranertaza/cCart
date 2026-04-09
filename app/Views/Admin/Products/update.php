@@ -460,7 +460,7 @@ foreach ($prodCat as $key => $cat) { ?>
                                             <div class="row mb-4" >
                                             <?php foreach ($prodimage as $img) { ?>
                                                 <div class="col-md-2 img_view">
-                                                    <img data-sizes="auto" src="<?= productMultiImageViewUrlNew(  $img->main_image, $img->image, '100', '100');?>" alt="<?= $img->alt_name;?>" class="img-fluid" loading="lazy">
+                                                    <img data-sizes="auto" src="<?= productMultiImageViewUrlNew($img->main_image, $img->image, '100', '100');?>" alt="<?= $img->alt_name;?>" class="img-fluid" loading="lazy">
                                                     <input type="text" onchange="image_alt_name_update('<?=$img->product_image_id?>',this.value)" class="form-control mt-2 mb-2 text-center" style="height: 25px;" value="<?= $img->alt_name;?>">
                                                     <a href="javascript:void(0)" onclick="removeImg(<?php echo $img->product_image_id;?>)" class="btn del-btn"><i class="fas fa-trash"></i> Delete</a>
                                                 </div>
