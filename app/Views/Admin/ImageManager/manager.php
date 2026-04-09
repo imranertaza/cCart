@@ -198,6 +198,7 @@
                         hideLoader();
                         if (data.success) {
                             csrfVal = data.csrf;
+                            $('input[name="csrf_test_name"]').val(data.csrf);
                             reloadImageArea();
                         } else {
                             alert(data.error);
@@ -280,6 +281,7 @@
                 hideLoader()
                 if (d.success) {
                     csrfVal = d.csrf;
+                    $('input[name="csrf_test_name"]').val(d.csrf);
                     reloadImageArea();
                 } else alert(d.error);
             });

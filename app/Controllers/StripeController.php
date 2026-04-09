@@ -4,7 +4,9 @@ namespace App\Controllers;
 
 use App\Libraries\Flat_shipping;
 use App\Libraries\Mycart;
+use App\Libraries\Offer_calculate;
 use App\Libraries\Weight_shipping;
+use App\Libraries\Zone_rate_shipping;
 use App\Libraries\Zone_shipping;
 use App\Models\ProductsModel;
 use CodeIgniter\HTTP\RedirectResponse;
@@ -18,18 +20,22 @@ class StripeController extends BaseController
     protected $weight_shipping;
     protected $flat_shipping;
     protected $zone_shipping;
+    protected $zone_rate_shipping;
+    protected $offer_calculate;
     protected $productsModel;
     protected $cart;
 
     public function __construct()
     {
-        $this->validation      = \Config\Services::validation();
-        $this->session         = \Config\Services::session();
-        $this->productsModel   = new ProductsModel();
-        $this->zone_shipping   = new Zone_shipping();
-        $this->flat_shipping   = new Flat_shipping();
-        $this->weight_shipping = new Weight_shipping();
-        $this->cart            = new Mycart();
+        $this->validation         = \Config\Services::validation();
+        $this->session            = \Config\Services::session();
+        $this->productsModel      = new ProductsModel();
+        $this->zone_shipping      = new Zone_shipping();
+        $this->flat_shipping      = new Flat_shipping();
+        $this->weight_shipping    = new Weight_shipping();
+        $this->cart               = new Mycart();
+        $this->zone_rate_shipping = new Zone_rate_shipping();
+        $this->offer_calculate    = new Offer_calculate();
     }
 
     /**
