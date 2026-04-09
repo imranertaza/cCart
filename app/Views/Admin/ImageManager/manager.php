@@ -148,35 +148,38 @@
         let csrfVal  = '<?= csrf_hash() ?>';
 
         let dir      = document.getElementById('dir').value;
-        let dropZone = document.getElementById('dropZone');
-        let fileInput = document.getElementById('upload');
 
-        /* Click upload */
-        dropZone.addEventListener('click', () => fileInput.click());
-
-        /* Browse upload */
-        fileInput.addEventListener('change', () => {
-            uploadFiles(fileInput.files);
-        });
-
-        /* Drag over */
-        dropZone.addEventListener('dragover', e => {
-            e.preventDefault();
-            dropZone.classList.add('dragover');
-        });
-
-        /* Drag leave */
-        dropZone.addEventListener('dragleave', () => {
-            dropZone.classList.remove('dragover');
-        });
-
-        /* Drop */
-        dropZone.addEventListener('drop', e => {
-            e.preventDefault();
-            dropZone.classList.remove('dragover');
-            uploadFiles(e.dataTransfer.files);
-        });
-
+        // function bindModalEvents() {
+        //        //     let dropZone = document.getElementById('dropZone');
+        //        //     let fileInput = document.getElementById('upload');
+        //        //
+        //        //     /* Click upload */
+        //        //     dropZone.addEventListener('click', () => fileInput.click());
+        //        //
+        //        //     /* Browse upload */
+        //        //     fileInput.addEventListener('change', () => {
+        //        //         uploadFiles(fileInput.files);
+        //        //     });
+        //        //
+        //        //     /* Drag over */
+        //        //     dropZone.addEventListener('dragover', e => {
+        //        //         e.preventDefault();
+        //        //         dropZone.classList.add('dragover');
+        //        //     });
+        //        //
+        //        //     /* Drag leave */
+        //        //     dropZone.addEventListener('dragleave', () => {
+        //        //         dropZone.classList.remove('dragover');
+        //        //     });
+        //        //
+        //        //     /* Drop */
+        //        //     dropZone.addEventListener('drop', e => {
+        //        //         e.preventDefault();
+        //        //         dropZone.classList.remove('dragover');
+        //        //         uploadFiles(e.dataTransfer.files);
+        //        //     });
+        //        // }
+        // bindModalEvents();
         /* Upload function */
         function uploadFiles(files) {
             let dir = document.getElementById('dir').value;
@@ -335,7 +338,6 @@
                 });
             }
             document.getElementById(preViewId).innerHTML = view;
-
             $('#managerModal').modal('hide');
         }
 

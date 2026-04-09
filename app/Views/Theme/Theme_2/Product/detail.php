@@ -157,7 +157,7 @@
                             </div>
 
                             <div class="option mt-3">
-                                <table class="table table-responsive table-borderless" style="margin-bottom: unset;">
+                                <table class="table table-responsive table-borderless text-capitalize" style="margin-bottom: unset;">
                                     <?php foreach (attribute_array_by_product_id($products->product_id) as $key => $spec) {
                                                 if ($key == 0) {  ?>
                                     <tr>
@@ -170,7 +170,7 @@
                                     <?php  }
                                             }?>
                                 </table>
-                                <table class="table table-responsive table-borderless" id="more" style="display: none">
+                                <table class="table table-responsive table-borderless text-capitalize" id="more" style="display: none">
                                     <?php foreach (attribute_array_by_product_id($products->product_id) as $key => $spec) {
                                                 if ($key != 0) {  ?>
                                     <tr>
@@ -405,7 +405,7 @@
                                                     </div>
                                                     <div class="product-bottom  mt-2">
                                                         <div class="product-title-2 mb-2">
-                                                            <a href="#"><?php echo substr($both->name, 0, 40); ?> </a>
+                                                            <a href="<?php echo base_url('detail/' . $both->product_id) ?>"><?php echo substr($both->name, 0, 40); ?> </a>
                                                         </div>
                                                         <div class="price-2 mb-3">
                                                             <?php $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $both->product_id);

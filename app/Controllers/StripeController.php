@@ -45,9 +45,7 @@ class StripeController extends BaseController
         $data['keywords']    = $settings['meta_keyword'];
         $data['description'] = $settings['meta_description'];
         $data['title']       = 'Stripe payment';
-//        echo view('Theme/' . $settings['Theme'] . '/header', $data);
-        echo view('Theme/' . $settings['Theme'] . '/Checkout/stripe');
-//        echo view('Theme/' . $settings['Theme'] . '/footer');
+        echo view('Theme/' . $settings['Theme'] . '/Checkout/stripe', $data);
     }
 
     /**
@@ -175,7 +173,7 @@ class StripeController extends BaseController
         //maximum discount calculate
         $finalProductDiscount = ($this->cart->total() > $totalProductDiscount) ? $totalProductDiscount : $this->cart->total();
         //final product amount calculate
-        $finalAmo = number_format($this->cart->total() - $finalProductDiscount, 2);
+        $finalAmo = $this->cart->total() - $finalProductDiscount;
 
         $finalShippingDiscount = null;
 
@@ -183,7 +181,7 @@ class StripeController extends BaseController
             //maximum discount calculate
             $finalShippingDiscount = ($data['shipping_charge'] > $totalShippingDiscount) ? $totalShippingDiscount : $data['shipping_charge'];
             //final product and shipping amount calculate
-            $finalAmo = number_format(($this->cart->total() + $data['shipping_charge']) - $finalShippingDiscount - $finalProductDiscount, 2);
+            $finalAmo = ($this->cart->total() + $data['shipping_charge']) - $finalShippingDiscount - $finalProductDiscount;
         }
 
         $data['payment_status'] = 'Paid';

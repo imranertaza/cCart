@@ -4,7 +4,9 @@ namespace App\Controllers;
 
 use App\Libraries\Flat_shipping;
 use App\Libraries\Mycart;
+use App\Libraries\Offer_calculate;
 use App\Libraries\Weight_shipping;
+use App\Libraries\Zone_rate_shipping;
 use App\Libraries\Zone_shipping;
 use App\Models\ProductsModel;
 use CodeIgniter\HTTP\RedirectResponse;
@@ -17,18 +19,22 @@ class OisbizcraftController extends BaseController
     protected $weight_shipping;
     protected $flat_shipping;
     protected $zone_shipping;
+    protected $zone_rate_shipping;
+    protected $offer_calculate;
     protected $productsModel;
     protected $cart;
 
     public function __construct()
     {
-        $this->validation      = \Config\Services::validation();
-        $this->session         = \Config\Services::session();
-        $this->productsModel   = new ProductsModel();
-        $this->zone_shipping   = new Zone_shipping();
-        $this->flat_shipping   = new Flat_shipping();
-        $this->weight_shipping = new Weight_shipping();
-        $this->cart            = new Mycart();
+        $this->validation         = \Config\Services::validation();
+        $this->session            = \Config\Services::session();
+        $this->productsModel      = new ProductsModel();
+        $this->zone_shipping      = new Zone_shipping();
+        $this->flat_shipping      = new Flat_shipping();
+        $this->zone_rate_shipping = new Zone_rate_shipping();
+        $this->weight_shipping    = new Weight_shipping();
+        $this->cart               = new Mycart();
+        $this->offer_calculate    = new Offer_calculate();
     }
 
     /**
@@ -309,7 +315,7 @@ class OisbizcraftController extends BaseController
         //maximum discount calculate
         $finalProductDiscount = ($this->cart->total() > $totalProductDiscount) ? $totalProductDiscount : $this->cart->total();
         //final product amount calculate
-        $finalAmo = number_format($this->cart->total() - $finalProductDiscount, 2);
+        $finalAmo = $this->cart->total() - $finalProductDiscount;
 
         $finalShippingDiscount = null;
 
@@ -317,7 +323,7 @@ class OisbizcraftController extends BaseController
             //maximum discount calculate
             $finalShippingDiscount = ($data['shipping_charge'] > $totalShippingDiscount) ? $totalShippingDiscount : $data['shipping_charge'];
             //final product and shipping amount calculate
-            $finalAmo = number_format(($this->cart->total() + $data['shipping_charge']) - $finalShippingDiscount - $finalProductDiscount, 2);
+            $finalAmo = ($this->cart->total() + $data['shipping_charge']) - $finalShippingDiscount - $finalProductDiscount;
         }
 
         $data['payment_status'] = 'Paid';
