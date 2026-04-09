@@ -546,6 +546,36 @@ if (isset($_GET['page'])) {  ?>
             $('input[name="<?= csrf_token() ?>"]').val(newToken);
         }
     });
+    function bindModalEvents() {
+        let dropZone = document.getElementById('dropZone');
+        let fileInput = document.getElementById('upload');
+
+        /* Click upload */
+        dropZone.addEventListener('click', () => fileInput.click());
+
+        /* Browse upload */
+        fileInput.addEventListener('change', () => {
+            uploadFiles(fileInput.files);
+        });
+
+        /* Drag over */
+        dropZone.addEventListener('dragover', e => {
+            e.preventDefault();
+            dropZone.classList.add('dragover');
+        });
+
+        /* Drag leave */
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('dragover');
+        });
+
+        /* Drop */
+        dropZone.addEventListener('drop', e => {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+            uploadFiles(e.dataTransfer.files);
+        });
+    }
 
     function imageManager(preId,type){
         $.ajax({
@@ -554,6 +584,7 @@ if (isset($_GET['page'])) {  ?>
             data: { showId: preId,type:type},
             success: function(data) {
                 $('#dataViewModal').html(data);
+                bindModalEvents();
                 $('#managerModal').modal('show');
             }
         });

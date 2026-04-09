@@ -108,7 +108,7 @@
                                 <?php foreach ($orderItem as $item) { ?>
                                     <tr>
                                         <td><?php $product = get_all_row_data_by_id('cc_products', 'product_id', $item->product_id); ?>
-                                            <img data-sizes="auto" src="<?= productImageViewUrlNew($item->main_image, $product->image, '100', '100');?>" alt="<?= $product->alt_name;?>" class="img-fluid" loading="lazy">
+                                            <img data-sizes="auto" src="<?= productImageViewUrlNew($product->main_image, $product->image, '100', '100');?>" alt="<?= $product->alt_name;?>" class="img-fluid" loading="lazy">
 
                                         </td>
                                         <td>
