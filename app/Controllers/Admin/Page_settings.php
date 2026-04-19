@@ -103,14 +103,15 @@ class Page_settings extends BaseController
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('success', false);
             $this->session->setFlashdata('message', $this->validation->listErrors());
+
             return redirect()->to('admin/page_create');
         } else {
-
             $table = DB()->table('cc_pages');
             $table->insert($data);
 
             $this->session->setFlashdata('success', true);
             $this->session->setFlashdata('message', 'Page Settings Create Success!');
+
             return redirect()->to('admin/page_create');
         }
     }
@@ -172,6 +173,7 @@ class Page_settings extends BaseController
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('success', false);
             $this->session->setFlashdata('message', $this->validation->listErrors());
+
             return redirect()->to('admin/page_update/' . $page_id);
         } else {
             $table = DB()->table('cc_pages');
@@ -179,6 +181,7 @@ class Page_settings extends BaseController
 
             $this->session->setFlashdata('success', true);
             $this->session->setFlashdata('message', 'Page Settings Update Success!');
+
             return redirect()->to('admin/page_update/' . $page_id);
         }
     }
@@ -195,6 +198,7 @@ class Page_settings extends BaseController
 
         $this->session->setFlashdata('success', true);
         $this->session->setFlashdata('message', 'Page Settings Delete Success!');
+
         return redirect()->to('admin/page_list');
     }
 }

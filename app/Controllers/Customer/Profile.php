@@ -87,6 +87,7 @@ class Profile extends BaseController
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('success', false);
             $this->session->setFlashdata('message', $this->validation->listErrors());
+
             return redirect()->to('profile');
         } else {
             if (!empty($this->request->getPost('subscription'))) {
@@ -151,6 +152,7 @@ class Profile extends BaseController
 
             $this->session->setFlashdata('success', true);
             $this->session->setFlashdata('message', 'Profile Update successfully!');
+
             return redirect()->to('profile');
         }
     }
@@ -194,6 +196,7 @@ class Profile extends BaseController
 
             $this->session->setFlashdata('success', true);
             $this->session->setFlashdata('message', 'Update Success!');
+
             return redirect()->to('dashboard');
         }
     }
@@ -243,6 +246,5 @@ class Profile extends BaseController
         return $this->response
             ->setHeader('X-CSRF-TOKEN', csrf_hash())
             ->setBody($message);
-
     }
 }

@@ -56,9 +56,7 @@ class Checkout extends BaseController
             $data['title']       = 'Checkout';
 
             $data['page_title'] = 'Checkout';
-//            echo view('Theme/' . $settings['Theme'] . '/header', $data);
             echo view('Theme/' . $settings['Theme'] . '/Checkout/index', $data);
-//            echo view('Theme/' . $settings['Theme'] . '/footer');
         } else {
             return redirect()->to('cart');
         }
@@ -386,7 +384,7 @@ class Checkout extends BaseController
                 $finalProductDiscount = ($this->cart->total() > $totalProductDiscount) ? $totalProductDiscount : $this->cart->total();
 
                 //final product amount calculate
-                $finalAmo = number_format($this->cart->total() - $finalProductDiscount, 2);
+                $finalAmo = $this->cart->total() - $finalProductDiscount;
 
                 $finalShippingDiscount = null;
 
@@ -394,7 +392,7 @@ class Checkout extends BaseController
                     //maximum discount calculate
                     $finalShippingDiscount = ($shipping_charge > $totalShippingDiscount) ? $totalShippingDiscount : $shipping_charge;
                     //final product and shipping amount calculate
-                    $finalAmo = number_format(($this->cart->total() + $shipping_charge) - $finalShippingDiscount - $finalProductDiscount, 2);
+                    $finalAmo = ($this->cart->total() + $shipping_charge) - $finalShippingDiscount - $finalProductDiscount;
                 }
 
                 if ($data['payment_method'] == '8') {
@@ -615,6 +613,7 @@ class Checkout extends BaseController
         }
 
         $data['csrfToken'] = csrf_hash();
+
         return $this->response->setJSON($data);
     }
 
@@ -719,6 +718,7 @@ class Checkout extends BaseController
         $table = DB()->table('cc_payment_settings');
         $query = $table->where('payment_method_id', $payment_method_id)->where('label', 'instruction')->get()->getRow();
         $view  = '';
+
         if (!empty($query)) {
             $view .= '<div class="title-checkout">
                            <label class="btn bg-custom-color text-white w-100 rounded-0"><span class="text-label">' . $query->title . '</span></label>

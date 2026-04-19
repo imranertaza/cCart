@@ -84,6 +84,37 @@ class Filter
         return $view;
     }
 
+    public function product_array_by_options_array()
+    {
+        $arrayData = [];
+
+        if (!empty($this->productArray)) {
+            $productIds = array_column($this->productArray, 'product_id');
+
+            if (!empty($productIds)) {
+                $table = DB()->table('cc_product_option');
+                $table->join('cc_option', 'cc_option.option_id = cc_product_option.option_id')
+                    ->whereIn('cc_product_option.product_id', $productIds)
+                    ->groupBy('cc_option.option_id');
+
+                $option = $table->get()->getResult();
+
+                if (!empty($option)) {
+                    $allOptVal = $this->product_option_value($option);
+
+                    foreach ($option as $valOption) {
+                        $arrayData[$valOption->name] = [
+                            'option'    => $valOption->option_id,
+                            'allOption' => $allOptVal,
+                        ];
+                    }
+                }
+            }
+        }
+
+        return $arrayData;
+    }
+
     /**
      * @description This method provides product option value.
      * @param int $optionId

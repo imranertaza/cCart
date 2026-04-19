@@ -4,7 +4,6 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Libraries\Permission;
-use CodeIgniter\Cache\Handlers\FileHandler;
 use CodeIgniter\HTTP\RedirectResponse;
 use FilesystemIterator;
 use RecursiveDirectoryIterator;

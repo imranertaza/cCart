@@ -93,6 +93,42 @@ class Modules extends Seeder
                 'module_key'  => 'album',
                 'status'      => 1,
             ],
+            [
+                'module_id'   => 15,
+                'module_name' => 'Multi Status Update',
+                'module_key'  => 'multi_status_update',
+                'status'      => 1,
+            ],
+            [
+                'module_id'   => 16,
+                'module_name' => 'Points',
+                'module_key'  => 'point',
+                'status'      => 1,
+            ],
+            [
+                'module_id'   => 17,
+                'module_name' => 'Both Products',
+                'module_key'  => 'both_products',
+                'status'      => 1,
+            ],
+            [
+                'module_id'   => 18,
+                'module_name' => 'Product Guides',
+                'module_key'  => 'product_guides',
+                'status'      => 1,
+            ],
+            [
+                'module_id'   => 19,
+                'module_name' => 'Other Products',
+                'module_key'  => 'other_products',
+                'status'      => 1,
+            ],
+            [
+                'module_id'   => 20,
+                'module_name' => 'Blog',
+                'module_key'  => 'blog',
+                'status'      => 1,
+            ],
         ];
 
         // Using Query Builder

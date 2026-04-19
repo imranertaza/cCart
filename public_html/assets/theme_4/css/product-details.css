@@ -235,7 +235,7 @@ footer .brand-content p {
 
 .size-button-container {
     gap: 8px;
-    margin-bottom: 56px;
+    margin-bottom: 25px;
 }
 
 .size-button {
@@ -251,7 +251,7 @@ footer .brand-content p {
 }
 
 .size-button.selected {
-    border: 1px solid #333;
+    border: 3px solid #333;
     background: #EBEBEB;
 }
 

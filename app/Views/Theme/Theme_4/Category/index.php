@@ -125,15 +125,17 @@
     <nav class="breadcrumb-nav" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
         <ol class="breadcrumb mb-0">
             <?php if (!empty($prod_cat_id)) {
-                $par_id = get_data_by_id('parent_id', 'cc_product_category', 'prod_cat_id', $prod_cat_id);
-                $url2 = base_url('category/' . $prod_cat_id);
-                if (!empty($par_id)) {
-                $url = base_url('category/' . $par_id);
-            ?>
+    $par_id = get_data_by_id('parent_id', 'cc_product_category', 'prod_cat_id', $prod_cat_id);
+    $url2   = base_url('category/' . $prod_cat_id);
+
+    if (!empty($par_id)) {
+        $url = base_url('category/' . $par_id); ?>
             <li class="breadcrumb-item"><a href="<?= $url?>"><?= get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $par_id)?></a></li>
-            <?php }?>
+            <?php
+    } ?>
             <li class="breadcrumb-item"><a href="<?= $url2?>"><?= get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $prod_cat_id); ?></a></li>
-            <?php  }else{?>
+            <?php
+} else {?>
                 <li class="breadcrumb-item"><a href="#">Search Result</a></li>
             <?php } ?>
         </ol>
@@ -170,7 +172,7 @@
             <!-- Reviews Filter and Review Lists -->
             <?php
                 $modules = modules_access();
-                $sSel = !empty($searchPrice) ? 'form="searchForm"' : '';
+                $sSel    = !empty($searchPrice) ? 'form="searchForm"' : '';
             ?>
             <div class="d-flex gap-md-4 flex-wrap flex-md-nowrap product-reviews">
                 <button class="btn list-button text-white mb-2 active-view d-flex align-items-center active gap-2 d-md-none"
@@ -187,282 +189,8 @@
                     <span>Filter</span>
                 </button>
 
-                <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
-                     aria-labelledby="offcanvasExampleLabel">
-                    <div class="offcanvas-header ">
-                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                    </div>
-                    <div class="offcanvas-body pt-0">
-                        <div class="category-filter show">
-                            <div class="rating-container">
-                                <p class="title review-filter-title d-none">Man Watch</p>
-                                <div class="hr-container py-3">
-                                    <div class="hr"></div>
-                                </div>
+                <div id="sideView"></div>
 
-
-                                <div class="accordion accordion-flush" id="accordionFlushExample">
-                                    <?php if (empty($keywordSearch)) { ?>
-                                    <!-- Category Section -->
-                                    <div class="accordion-item review-filter-accordion-item">
-                                        <h2 class="accordion-header">
-                                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                                    data-bs-target="#flush-collapseOne" aria-expanded="true" aria-controls="flush-collapseOne">
-                                                Category</button>
-                                        </h2>
-                                        <div id="flush-collapseOne" class="accordion-collapse collapse show"
-                                             data-bs-parent="#accordionFlushExample">
-                                            <div class="accordion-body">
-                                                <div class="d-flex flex-column gap-2">
-                                                    <?php if (!empty($parent_Cat)) { ?>
-                                                        <input type="hidden" name="prod_cat_id" form="searchForm" value="<?php echo $prod_cat_id?>">
-                                                        <!-- Review Topics -->
-                                                        <?php foreach ($parent_Cat as $cat) { ?>
-                                                            <label class="custom-radio custom-checkbox">
-                                                                <input type="radio" onclick="formSubmit()" form="searchForm" <?= ((isset($_GET['category'])) && ($_GET['category'] == $cat->prod_cat_id)) ? 'checked' : ''; ?> name="category" value="<?php echo $cat->prod_cat_id;?>" aria-label="Analog Watches">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                                                     fill="none">
-                                                                    <rect x="3.75" y="3.67041" width="16.5" height="16.5" stroke="#C4C8CC"
-                                                                          stroke-width="1.5" />
-                                                                </svg>
-                                                                <span class="rating-label"><?= $cat->category_name;?> (<?= category_id_by_product_count($cat->prod_cat_id)?>)</span>
-                                                            </label>
-                                                        <?php } ?>
-                                                    <?php } else { if (!empty($main_Cat)) { ?>
-                                                        <ul class="">
-                                                            <?php  foreach ($main_Cat as $cat) { ?>
-                                                                <li><a href="<?= base_url('category/' . $cat->prod_cat_id);?>" class="text-black" ><?= $cat->category_name;?></a></li>
-                                                            <?php } ?>
-                                                        </ul>
-                                                    <?php } } ?>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <?php } ?>
-                                    <!-- Brand Section -->
-                                    <div class="accordion-item review-filter-accordion-item">
-                                        <h2 class="accordion-header">
-                                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                                    data-bs-target="#flush-collapseFour" aria-expanded="true" aria-controls="flush-collapseFour">
-                                                Brand
-                                            </button>
-                                        </h2>
-                                        <div id="flush-collapseFour" class="accordion-collapse collapse show"
-                                             data-bs-parent="#accordionFlushExample">
-                                            <div class="accordion-body">
-                                                <div class="d-flex flex-column gap-2">
-                                                    <?= $brandView;?>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <?php if (!empty($productsArr)) { ?>
-                                        <div class="accordion-item review-filter-accordion-item">
-                                            <h2 class="accordion-header">
-                                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                                        data-bs-target="#flush-collapseFour11" aria-expanded="true" aria-controls="flush-collapseFour">
-                                                    Filter Price
-                                                </button>
-                                            </h2>
-                                            <div id="flush-collapseFour11" class="accordion-collapse collapse show"
-                                                 data-bs-parent="#accordionFlushExample">
-                                                <div class="accordion-body">
-                                                    <div class="">
-                                                        <div class="product-filter">
-                                                            <p>
-                                                                <span class="amountId" id="amount" aria-label="Selected price range"></span>
-                                                                <input class="priceId" type="hidden"  name="price" id="price"  <?php echo $sSel?> >
-                                                            </p>
-                                                            <div class="slider-range" role="slider" aria-label="Price range slider"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    <?php } ?>
-
-                                    <!-- Option Section -->
-                                    <div class="accordion-item review-filter-accordion-item">
-                                        <h2 class="accordion-header">
-                                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                                    data-bs-target="#flush-collapseThree" aria-expanded="true" aria-controls="flush-collapseThree">
-                                                Option
-                                            </button>
-                                        </h2>
-                                        <div id="flush-collapseThree" class="accordion-collapse collapse show"
-                                             data-bs-parent="#accordionFlushExample">
-                                            <div class="accordion-body">
-                                                <div class="d-flex flex-column gap-2">
-                                                    <?= $optionView;?>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <?php if ($modules['review'] == '1') { ?>
-                                        <!-- Rating Section -->
-                                        <div class="accordion-item review-filter-accordion-item">
-                                            <h2 class="accordion-header">
-                                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                                        data-bs-target="#flush-collapseTwo" aria-expanded="true" aria-controls="flush-collapseTwo">
-                                                    Rating
-                                                </button>
-                                            </h2>
-                                            <div id="flush-collapseTwo" class="accordion-collapse collapse show"
-                                                 data-bs-parent="#accordionFlushExample">
-                                                <div class="accordion-body review-filter-acordian-body">
-                                                    <div class="d-flex flex-column gap-2">
-                                                        <?= $ratingView?>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    <?php } ?>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="category-filter pt-0">
-                    <div class="rating-container">
-                        <?php if (!empty($prod_cat_id)) { ?>
-                            <p class="title review-filter-title"><?= get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $prod_cat_id); ?></p>
-                        <?php }else{ ?>
-                            <p class="title review-filter-title">Search Result</p>
-                        <?php }?>
-                        <div class="hr-container py-3">
-                            <div class="hr"></div>
-                        </div>
-
-
-                        <div class="accordion accordion-flush " id="accordionFlushExample">
-                            <!-- Review Topics Section -->
-                            <?php if (empty($keywordSearch)) { ?>
-                            <div class="accordion-item review-filter-accordion-item ">
-                                <input type="hidden" name="cat" form="searchForm" value="<?php echo $prod_cat_id?>">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#flush-collapseOne" aria-expanded="true" aria-controls="flush-collapseOne">
-                                        Category</button>
-                                </h2>
-                                <div id="flush-collapseOne" class="accordion-collapse collapse show"
-                                     data-bs-parent="#accordionFlushExample">
-                                    <div class="accordion-body">
-                                        <div class="d-flex flex-column gap-2">
-                                            <?php if (!empty($parent_Cat)) { ?>
-                                                <input type="hidden" name="prod_cat_id" form="searchForm" value="<?php echo $prod_cat_id?>">
-                                            <!-- Review Topics -->
-                                                <?php foreach ($parent_Cat as $cat) { ?>
-                                                    <label class="custom-radio custom-checkbox">
-                                                        <input type="radio" onclick="formSubmit()" form="searchForm" <?= ((isset($_GET['category'])) && ($_GET['category'] == $cat->prod_cat_id)) ? 'checked' : ''; ?> name="category" value="<?php echo $cat->prod_cat_id;?>" aria-label="Analog Watches">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                                             fill="none">
-                                                            <rect x="3.75" y="3.67041" width="16.5" height="16.5" stroke="#C4C8CC"
-                                                                  stroke-width="1.5" />
-                                                        </svg>
-                                                        <span class="rating-label"><?= $cat->category_name;?> (<?= category_id_by_product_count($cat->prod_cat_id)?>)</span>
-                                                    </label>
-                                                <?php } ?>
-                                            <?php } else { if (!empty($main_Cat)) { ?>
-                                                <ul class="">
-                                                    <?php  foreach ($main_Cat as $cat) { ?>
-                                                    <li><a href="<?= base_url('category/' . $cat->prod_cat_id);?>" class="text-black" ><?= $cat->category_name;?></a></li>
-                                                    <?php } ?>
-                                                </ul>
-                                            <?php } } ?>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <?php } ?>
-
-                            <!-- Brand Section -->
-                            <div class="accordion-item review-filter-accordion-item">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#flush-collapseFour" aria-expanded="true" aria-controls="flush-collapseFour">
-                                        Brand
-                                    </button>
-                                </h2>
-                                <div id="flush-collapseFour" class="accordion-collapse collapse show"
-                                     data-bs-parent="#accordionFlushExample">
-                                    <div class="accordion-body">
-                                        <div class="d-flex flex-column gap-2">
-                                            <?= $brandView;?>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <?php if (!empty($productsArr)) { ?>
-                            <div class="accordion-item review-filter-accordion-item">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#flush-collapseFour11" aria-expanded="true" aria-controls="flush-collapseFour">
-                                        Filter Price
-                                    </button>
-                                </h2>
-                                <div id="flush-collapseFour11" class="accordion-collapse collapse show"
-                                     data-bs-parent="#accordionFlushExample">
-                                    <div class="accordion-body">
-                                        <div class="">
-                                            <div class="product-filter">
-                                                <p>
-                                                    <span class="amountId" id="amount" aria-label="Selected price range"></span>
-                                                    <input class="priceId" type="hidden"  name="price" id="price"  <?php echo $sSel?> >
-                                                </p>
-                                                <div class="slider-range" role="slider" aria-label="Price range slider"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <?php } ?>
-
-
-                            <!-- Option Section -->
-                            <div class="accordion-item review-filter-accordion-item">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#flush-collapseThree" aria-expanded="true" aria-controls="flush-collapseThree">
-                                        Option
-                                    </button>
-                                </h2>
-                                <div id="flush-collapseThree" class="accordion-collapse collapse show"
-                                     data-bs-parent="#accordionFlushExample">
-                                    <div class="accordion-body">
-                                        <div class="d-flex flex-column gap-2">
-                                            <?= $optionView;?>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <?php if ($modules['review'] == '1') { ?>
-                            <!-- Rating Section -->
-                            <div class="accordion-item review-filter-accordion-item">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#flush-collapseTwo" aria-expanded="true" aria-controls="flush-collapseTwo">
-                                        Rating
-                                    </button>
-                                </h2>
-                                <div id="flush-collapseTwo" class="accordion-collapse collapse show"
-                                     data-bs-parent="#accordionFlushExample">
-                                    <div class="accordion-body review-filter-acordian-body">
-                                        <div class="d-flex flex-column gap-2">
-                                            <?= $ratingView?>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <?php } ?>
-                        </div>
-                    </div>
-                </div>
 
 
 
@@ -559,16 +287,16 @@
 
                                 <?php
                                 $modules = modules_access(); $symbol = get_lebel_by_value_in_settings('currency_symbol');
+
                                 if (!empty($products)) {
                                     foreach ($products as $pro) {
-                                        $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id);
-                                        ?>
+                                        $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id); ?>
                                         <div class="best-seller-card col-md-6 col-lg-4 col-6 ">
                                             <div class="card-slider position-relative overflow-hidden">
                                                 <div class="position-absolute top-2 w-100">
                                                     <div class="d-flex justify-content-between align-items-center w-100 px-4">
-                                                        <?php if(!empty($spPric)){?>
-                                                            <span class="badge light-yellow-badge"> <?= specialPriceAndPriceByOffPercent($spPric,$pro->price)?>%</span>
+                                                        <?php if (!empty($spPric)) {?>
+                                                            <span class="badge light-yellow-badge"> <?= specialPriceAndPriceByOffPercent($spPric, $pro->price)?>%</span>
                                                         <?php } ?>
                                                         <span class="badge tomato-badge">Hot</span>
                                                     </div>
@@ -618,27 +346,29 @@
                                                     <div class="swiper-wrapper">
                                                         <!-- slide 1 -->
                                                         <div class="swiper-slide card-slider-single-slide">
-                                                            <img class="object-fit-cover" src="<?= productImageViewUrl('uploads/products', $pro->product_id, $pro->image, 'noimage.png', '245', '235');?>"
-                                                                 alt="<?= $pro->alt_name;?>" loading="lazy">
+                                                            <img class="object-fit-cover" src="<?= productImageViewUrlNew($pro->main_image, $pro->image, '245', '235'); ?>"
+                                                                 alt="<?= $pro->alt_name; ?>" loading="lazy">
                                                         </div>
-                                                        <?php $allImage = get_array_data_by_id('cc_product_image', 'product_id', $pro->product_id);?>
-                                                        <?php if (!empty($allImage)){
-                                                            foreach ($allImage as $image){
-                                                                ?>
+                                                        <?php $allImage = get_array_data_by_id('cc_product_image', 'product_id', $pro->product_id); ?>
+                                                        <?php if (!empty($allImage)) {
+                                            foreach ($allImage as $image) {
+                                                ?>
                                                                 <!-- Slide 2 -->
                                                                 <div class="swiper-slide card-slider-single-slide">
-                                                                    <img class="object-fit-cover" src="<?= productImageViewUrl('uploads/products', $image->product_id.'/'.$image->product_image_id, $image->image, 'noimage.png', '245', '235');?>"
+                                                                    <img class="object-fit-cover" src="<?= productImageViewUrlNew($image->main_image, $image->image, '245', '235'); ?>"
                                                                          alt="<?= $image->alt_name?>" loading="lazy">
                                                                 </div>
-                                                            <?php } }?>
+                                                            <?php
+                                            }
+                                        } ?>
                                                     </div>
                                                     <div class="swiper-pagination card-swiper-pagination"></div>
                                                 </div>
                                             </div>
                                             <div class="card-bottom">
-                                                <h4 class="recently-viewed-card-title"><a href="<?= base_url('detail/' . $pro->product_id)?>"><?php echo substr($pro->name, 0, 60);?></a></h4>
+                                                <h4 class="recently-viewed-card-title"><a href="<?= base_url('detail/' . $pro->product_id)?>"><?php echo substr($pro->name, 0, 60); ?></a></h4>
                                                 <div class="d-flex gap-2 flex-wrap align-items-center recently-viewed-card-rating align-items-center">
-                                                    <?php echo product_id_by_rating($pro->product_id, '1');?>
+                                                    <?php echo product_id_by_rating($pro->product_id, '1'); ?>
                                                 </div>
                                                 <div class="d-flex gap-2 flex-xl-nowrap flex-wrap justify-content-between align-items-center">
                                                     <div class="d-flex align-items-center">
@@ -648,11 +378,13 @@
                                                             <span class="recently-viewed-card-price prize-before-discount me-2" ><?php echo currency_symbol_with_symbol($pro->price, $symbol);?></span> <span class="recently-viewed-card-price prize-after-discount"><?php echo currency_symbol_with_symbol($spPric, $symbol);?></span>
                                                         <?php } ?>
                                                     </div>
-                                                    <?php echo addToCartBtn($pro->product_id);?>
+                                                    <?php echo addToCartBtn($pro->product_id); ?>
                                                 </div>
                                             </div>
                                         </div>
-                                    <?php } } else {
+                                    <?php
+                                    }
+                                } else {
                                     echo 'No product available';
                                 } ?>
 
@@ -662,14 +394,13 @@
                              tabindex="0">
                             <div class="cards-container mt-0 row ">
                                 <?php foreach ($products as $pro) {
-                                $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id);
-                                ?>
+                                    $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id); ?>
                                 <div class="best-seller-card d-flex flat-card-view col-md-6 ">
                                     <div class="card-slider position-relative overflow-hidden">
                                         <div class="position-absolute top-2 w-100">
                                             <div class="d-flex justify-content-between align-items-center w-100 px-4">
-                                                <?php if(!empty($spPric)){?>
-                                                <span class="badge light-yellow-badge"><?= specialPriceAndPriceByOffPercent($spPric,$pro->price)?>%</span>
+                                                <?php if (!empty($spPric)) {?>
+                                                <span class="badge light-yellow-badge"><?= specialPriceAndPriceByOffPercent($spPric, $pro->price)?>%</span>
                                                 <?php } ?>
                                                 <span class="badge tomato-badge">Hot</span>
                                             </div>
@@ -723,29 +454,31 @@
                                                 <!-- slide 1 -->
                                                 <div class="swiper-slide card-slider-single-slide">
 
-                                                    <img class="object-fit-cover" src="<?= productImageViewUrl('uploads/products', $pro->product_id, $pro->image, 'noimage.png', '146', '138');?>"
-                                                         alt="<?= $pro->alt_name;?>" loading="lazy">
+                                                    <img class="object-fit-cover" src="<?= productImageViewUrlNew($pro->main_image, $pro->image, '146', '138'); ?>"
+                                                         alt="<?= $pro->alt_name; ?>" loading="lazy">
                                                 </div>
-                                                <?php $allImage = get_array_data_by_id('cc_product_image', 'product_id', $pro->product_id);?>
-                                                <?php if (!empty($allImage)){
-                                                    foreach ($allImage as $image){
-                                                ?>
+                                                <?php $allImage = get_array_data_by_id('cc_product_image', 'product_id', $pro->product_id); ?>
+                                                <?php if (!empty($allImage)) {
+                                        foreach ($allImage as $image) {
+                                            ?>
                                                 <div class="swiper-slide card-slider-single-slide">
 
-                                                    <img class="object-fit-cover" src="<?= productImageViewUrl('uploads/products', $image->product_id.'/'.$image->product_image_id, $image->image, 'noimage.png', '146', '138');?>"
+                                                    <img class="object-fit-cover" src="<?= productImageViewUrlNew($image->main_image, $image->image, '146', '138'); ?>"
                                                          alt="<?= $image->alt_name?>" loading="lazy">
                                                 </div>
-                                                <?php } }?>
+                                                <?php
+                                        }
+                                    } ?>
                                             </div>
                                             <div class="swiper-pagination card-swiper-pagination"></div>
                                         </div>
                                     </div>
                                     <div class="card-bottom">
                                         <div class="">
-                                            <h4 class="recently-viewed-card-title"><a href="<?= base_url('detail/' . $pro->product_id)?>"><?php echo substr($pro->name, 0, 60);?></a>
+                                            <h4 class="recently-viewed-card-title"><a href="<?= base_url('detail/' . $pro->product_id)?>"><?php echo substr($pro->name, 0, 60); ?></a>
                                             </h4>
                                             <div class="d-flex gap-2 flex-wrap align-items-center recently-viewed-card-rating align-items-center">
-                                                <?php echo product_id_by_rating($pro->product_id, '1');?>
+                                                <?php echo product_id_by_rating($pro->product_id, '1'); ?>
                                             </div>
                                         </div>
                                         <div class="d-flex gap-2 justify-content-between align-items-center">
@@ -755,12 +488,13 @@
                                                 <span class="recently-viewed-card-price prize-before-discount me-2" ><?php echo currency_symbol_with_symbol($pro->price, $symbol);?></span>
                                                 <span class="recently-viewed-card-price prize-after-discount"><?php echo currency_symbol_with_symbol($spPric, $symbol);?></span>
                                             <?php } ?>
-                                            <?php echo addToCartBtn($pro->product_id);?>
+                                            <?php echo addToCartBtn($pro->product_id); ?>
 <!--                                            <button class="btn-base px-2 recently-viewed-add-to-cart-btn w-100 btn-1">Add To Cart</button>-->
                                         </div>
                                     </div>
                                 </div>
-                                <?php } ?>
+                                <?php
+                                } ?>
                             </div>
 
                         </div>
@@ -785,13 +519,12 @@
         <div class="container">
             <div class="d-flex justify-content-between align-items-end related-product  mb-4">
                 <p class="title related-product">Popular this week</p>
-                <a href="<?= base_url('category/'.$themeSetting['popular_this_week'])?>" class="text-muted latest-blog-section-action text-nowrap">View All</a>
+                <a href="<?= base_url('category/' . $themeSetting['popular_this_week'])?>" class="text-muted latest-blog-section-action text-nowrap">View All</a>
             </div>
             <div  class="row row-cols-lg-4 row-cols-md-3 row-cols-2 related-product-cards  justify-content-start g-md-3 g-3">
 
                 <?php foreach (categoryIdByProducts($themeSetting['popular_this_week'], 'DESC', 4) as $pro) {
-                    $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id);
-                    ?>
+                                    $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro->product_id); ?>
                     <div class="col best-seller-card">
                         <div class="card-slider position-relative overflow-hidden">
                             <div class="position-absolute top-2 w-100">
@@ -853,7 +586,7 @@
                                 <div class="swiper-wrapper">
                                     <div class="swiper-slide card-slider-single-slide">
                                         <img class="object-fit-cover"
-                                             src="<?= productImageViewUrl('uploads/products', $pro->product_id, $pro->image, 'noimage.png', '261', '257'); ?>"
+                                             src="<?= productImageViewUrlNew($pro->main_image, $pro->image, '261', '257'); ?>"
                                              alt="best seller product"
                                              loading="lazy">
                                     </div>
@@ -864,10 +597,11 @@
                                             <!-- Slide 2 -->
                                             <div class="swiper-slide card-slider-single-slide">
                                                 <img class="object-fit-cover"
-                                                     src="<?= productImageViewUrl('uploads/products', $image->product_id . '/' . $image->product_image_id, $image->image, 'noimage.png', '261', '257'); ?>"
+                                                     src="<?= productImageViewUrlNew($image->main_image, $image->image, '261', '257'); ?>"
                                                      alt="<?= $image->alt_name ?>" loading="lazy">
                                             </div>
-                                        <?php }
+                                        <?php
+                                        }
                                     } ?>
                                 </div>
                                 <div class="swiper-pagination card-swiper-pagination"></div>
@@ -896,7 +630,8 @@
                             </div>
                         </div>
                     </div>
-                <?php } ?>
+                <?php
+                                } ?>
 
             </div>
         </div>
@@ -912,6 +647,325 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" defer></script>
 <script>
     $(document).ready(function() {
+        let html1 = `<div class="category-filter  pt-0">
+                    <div class="rating-container">
+                        <?php if (!empty($prod_cat_id)) { ?>
+                            <p class="title review-filter-title"><?= get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $prod_cat_id); ?></p>
+                        <?php } else { ?>
+                            <p class="title review-filter-title">Search Result</p>
+                        <?php }?>
+                        <div class="hr-container py-3">
+                            <div class="hr"></div>
+                        </div>
+
+
+                        <div class="accordion accordion-flush " id="accordionFlushExample">
+                            <!-- Review Topics Section -->
+                            <?php if (empty($keywordSearch)) { ?>
+                            <div class="accordion-item review-filter-accordion-item ">
+                                <input type="hidden" name="cat" form="searchForm" value="<?php echo $prod_cat_id?>">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#flush-collapseOne" aria-expanded="true" aria-controls="flush-collapseOne">
+                                        Category</button>
+                                </h2>
+                                <div id="flush-collapseOne" class="accordion-collapse collapse show"
+                                     data-bs-parent="#accordionFlushExample">
+                                    <div class="accordion-body">
+                                        <div class="d-flex flex-column gap-2">
+                                            <?php if (!empty($parent_Cat)) { ?>
+                                                <input type="hidden" name="prod_cat_id" form="searchForm" value="<?php echo $prod_cat_id?>">
+                                            <!-- Review Topics -->
+                                                <?php foreach ($parent_Cat as $cat) { ?>
+                                                    <label class="custom-radio custom-checkbox">
+                                                        <input type="radio" onclick="formSubmit()" form="searchForm" <?= ((isset($_GET['category'])) && ($_GET['category'] == $cat->prod_cat_id)) ? 'checked' : ''; ?> name="category" value="<?php echo $cat->prod_cat_id;?>" aria-label="Analog Watches">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                                             fill="none">
+                                                            <rect x="3.75" y="3.67041" width="16.5" height="16.5" stroke="#C4C8CC"
+                                                                  stroke-width="1.5" />
+                                                        </svg>
+                                                        <span class="rating-label"><?= $cat->category_name;?> (<?= category_id_by_product_count($cat->prod_cat_id)?>)</span>
+                                                    </label>
+                                                <?php } ?>
+                                            <?php } else {
+                                    if (!empty($main_Cat)) { ?>
+                                                <ul class="">
+                                                    <?php  foreach ($main_Cat as $cat) { ?>
+                                                    <li><a href="<?= base_url('category/' . $cat->prod_cat_id);?>" class="text-black" ><?= $cat->category_name;?></a></li>
+                                                    <?php } ?>
+                                                </ul>
+                                            <?php }
+                                } ?>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php } ?>
+
+                            <!-- Brand Section -->
+                            <div class="accordion-item review-filter-accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#flush-collapseFour" aria-expanded="true" aria-controls="flush-collapseFour">
+                                        Brand
+                                    </button>
+                                </h2>
+                                <div id="flush-collapseFour" class="accordion-collapse collapse show"
+                                     data-bs-parent="#accordionFlushExample">
+                                    <div class="accordion-body">
+                                        <div class="d-flex flex-column gap-2">
+                                            <?= $brandView;?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <?php if (!empty($productsArr)) { ?>
+                            <div class="accordion-item review-filter-accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#flush-collapseFour11" aria-expanded="true" aria-controls="flush-collapseFour">
+                                        Filter Price
+                                    </button>
+                                </h2>
+                                <div id="flush-collapseFour11" class="accordion-collapse collapse show"
+                                     data-bs-parent="#accordionFlushExample">
+                                    <div class="accordion-body">
+                                        <div class="">
+                                            <div class="product-filter">
+                                                <p>
+                                                    <span class="amountId" id="amount" aria-label="Selected price range"></span>
+                                                    <input class="priceId" type="hidden"  name="price" id="price"  <?php echo $sSel?> >
+                                                </p>
+                                                <div class="slider-range" role="slider" aria-label="Price range slider"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php } ?>
+
+
+                            <!-- Option Section -->
+                            <div class="accordion-item review-filter-accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#flush-collapseThree" aria-expanded="true" aria-controls="flush-collapseThree">
+                                        Option
+                                    </button>
+                                </h2>
+                                <div id="flush-collapseThree" class="accordion-collapse collapse show"
+                                     data-bs-parent="#accordionFlushExample">
+                                    <div class="accordion-body">
+                                        <div class="d-flex flex-column gap-2">
+                                            <?php foreach ($optionArray as $key => $val) { ?>
+                                                <p class="selected-color"><?= $key ?>:</p>
+                                                <div class="d-flex size-button-container flex-wrap">
+                                                <?php foreach ($val['allOption'] as $item) {
+                                    if ($val['option'] == $item->option_id) {
+                                        $nameVal  = $item->name;
+                                        $firstCar = mb_substr($nameVal, 0, 1);
+                                        $length   = strlen($nameVal);
+                                        $isColor  = (($firstCar == '#') && ($length == 7)) ? '' : $nameVal;
+                                        $nameOp   = !empty($isColor) ? $isColor : '';
+                                        $style    = empty($isColor) ? "background-color: $nameVal !important;" : ""; ?>
+                                                    <input type="checkbox" class="btn-check d-none" form="searchForm" onclick="formSubmit()" <?= (in_array($item->option_value_id, $optionval)) ? 'checked ' : ''; ?>  name="options[]" id="option_<?= $item->option_value_id?>" value="<?= $item->option_value_id?>">
+                                                    <label class="btn size-button <?= (in_array($item->option_value_id, $optionval)) ? 'selected' : ''; ?>" style="<?= $style ; ?>" for="option_<?= $item->option_value_id?>"><?= $nameOp; ?></label>
+                                                <?php
+                                    }
+                                } ?>
+                                                </div>
+                                            <?php } ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php if ($modules['review'] == '1') { ?>
+                            <!-- Rating Section -->
+                            <div class="accordion-item review-filter-accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#flush-collapseTwo" aria-expanded="true" aria-controls="flush-collapseTwo">
+                                        Rating
+                                    </button>
+                                </h2>
+                                <div id="flush-collapseTwo" class="accordion-collapse collapse show"
+                                     data-bs-parent="#accordionFlushExample">
+                                    <div class="accordion-body review-filter-acordian-body">
+                                        <div class="d-flex flex-column gap-2">
+                                            <?= $ratingView?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php } ?>
+                        </div>
+                    </div>
+                </div>`;
+        let html2 = `<div class="offcanvas offcanvas-start " tabindex="-1" id="offcanvasExample"
+                     aria-labelledby="offcanvasExampleLabel">
+                    <div class="offcanvas-header ">
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body pt-0">
+                        <div class="category-filter show">
+                            <div class="rating-container">
+                                <p class="title review-filter-title d-none">Man Watch</p>
+                                <div class="hr-container py-3">
+                                    <div class="hr"></div>
+                                </div>
+
+
+                                <div class="accordion accordion-flush" id="accordionFlushExample">
+                                    <?php if (empty($keywordSearch)) { ?>
+                                    <!-- Category Section -->
+                                    <div class="accordion-item review-filter-accordion-item">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                    data-bs-target="#flush-collapseOne" aria-expanded="true" aria-controls="flush-collapseOne">
+                                                Category</button>
+                                        </h2>
+                                        <div id="flush-collapseOne" class="accordion-collapse collapse show"
+                                             data-bs-parent="#accordionFlushExample">
+                                            <div class="accordion-body">
+                                                <div class="d-flex flex-column gap-2">
+                                                    <?php if (!empty($parent_Cat)) { ?>
+                                                        <input type="hidden" name="prod_cat_id" form="searchForm" value="<?php echo $prod_cat_id?>">
+                                                        <!-- Review Topics -->
+                                                        <?php foreach ($parent_Cat as $cat) { ?>
+                                                            <label class="custom-radio custom-checkbox">
+                                                                <input type="radio" onclick="formSubmit()" form="searchForm" <?= ((isset($_GET['category'])) && ($_GET['category'] == $cat->prod_cat_id)) ? 'checked' : ''; ?> name="category" value="<?php echo $cat->prod_cat_id;?>" aria-label="Analog Watches">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                                                     fill="none">
+                                                                    <rect x="3.75" y="3.67041" width="16.5" height="16.5" stroke="#C4C8CC"
+                                                                          stroke-width="1.5" />
+                                                                </svg>
+                                                                <span class="rating-label"><?= $cat->category_name;?> (<?= category_id_by_product_count($cat->prod_cat_id)?>)</span>
+                                                            </label>
+                                                        <?php } ?>
+                                                    <?php } else {
+                                    if (!empty($main_Cat)) { ?>
+                                                        <ul class="">
+                                                            <?php  foreach ($main_Cat as $cat) { ?>
+                                                                <li><a href="<?= base_url('category/' . $cat->prod_cat_id);?>" class="text-black" ><?= $cat->category_name;?></a></li>
+                                                            <?php } ?>
+                                                        </ul>
+                                                    <?php }
+                                } ?>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <?php } ?>
+                                    <!-- Brand Section -->
+                                    <div class="accordion-item review-filter-accordion-item">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                    data-bs-target="#flush-collapseFour" aria-expanded="true" aria-controls="flush-collapseFour">
+                                                Brand
+                                            </button>
+                                        </h2>
+                                        <div id="flush-collapseFour" class="accordion-collapse collapse show"
+                                             data-bs-parent="#accordionFlushExample">
+                                            <div class="accordion-body">
+                                                <div class="d-flex flex-column gap-2">
+                                                    <?= $brandView;?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <?php if (!empty($productsArr)) { ?>
+                                        <div class="accordion-item review-filter-accordion-item">
+                                            <h2 class="accordion-header">
+                                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                        data-bs-target="#flush-collapseFour11" aria-expanded="true" aria-controls="flush-collapseFour">
+                                                    Filter Price
+                                                </button>
+                                            </h2>
+                                            <div id="flush-collapseFour11" class="accordion-collapse collapse show"
+                                                 data-bs-parent="#accordionFlushExample">
+                                                <div class="accordion-body">
+                                                    <div class="">
+                                                        <div class="product-filter">
+                                                            <p>
+                                                                <span class="amountId" id="amount" aria-label="Selected price range"></span>
+                                                                <input class="priceId" type="hidden"  name="price" id="price"  <?php echo $sSel?> >
+                                                            </p>
+                                                            <div class="slider-range" role="slider" aria-label="Price range slider"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php } ?>
+
+                                    <!-- Option Section -->
+                                    <div class="accordion-item review-filter-accordion-item">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                    data-bs-target="#flush-collapseThree" aria-expanded="true" aria-controls="flush-collapseThree">
+                                                Option
+                                            </button>
+                                        </h2>
+                                        <div id="flush-collapseThree" class="accordion-collapse collapse show"
+                                             data-bs-parent="#accordionFlushExample">
+                                            <div class="accordion-body">
+                                                <div class="d-flex flex-column gap-2">
+                                                    <?php foreach ($optionArray as $key => $val) { ?>
+                                                        <p class="selected-color"><?= $key ?>:</p>
+                                                        <div class="d-flex size-button-container flex-wrap">
+                                                            <?php foreach ($val['allOption'] as $item) {
+                                    if ($val['option'] == $item->option_id) {
+                                        $nameVal  = $item->name;
+                                        $firstCar = mb_substr($nameVal, 0, 1);
+                                        $length   = strlen($nameVal);
+                                        $isColor  = (($firstCar == '#') && ($length == 7)) ? '' : $nameVal;
+                                        $nameOp   = !empty($isColor) ? $isColor : '';
+                                        $style    = empty($isColor) ? "background-color: $nameVal !important;" : ""; ?>
+                                                                    <input type="checkbox" class="btn-check d-none" form="searchForm" onclick="formSubmit()" <?= (in_array($item->option_value_id, $optionval)) ? 'checked ' : ''; ?>  name="options[]" id="option_<?= $item->option_value_id?>" value="<?= $item->option_value_id?>">
+                                                                    <label class="btn size-button <?= (in_array($item->option_value_id, $optionval)) ? 'selected' : ''; ?>" style="<?= $style ; ?>" for="option_<?= $item->option_value_id?>"><?= $nameOp; ?></label>
+                                                                <?php
+                                    }
+                                } ?>
+                                                        </div>
+                                                    <?php } ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <?php if ($modules['review'] == '1') { ?>
+                                        <!-- Rating Section -->
+                                        <div class="accordion-item review-filter-accordion-item">
+                                            <h2 class="accordion-header">
+                                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                        data-bs-target="#flush-collapseTwo" aria-expanded="true" aria-controls="flush-collapseTwo">
+                                                    Rating
+                                                </button>
+                                            </h2>
+                                            <div id="flush-collapseTwo" class="accordion-collapse collapse show"
+                                                 data-bs-parent="#accordionFlushExample">
+                                                <div class="accordion-body review-filter-acordian-body">
+                                                    <div class="d-flex flex-column gap-2">
+                                                        <?= $ratingView?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php } ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+        if ($(window).width() > 767) {
+            $('#sideView').html(html1)
+        }else{
+            $('#sideView').html(html2)
+        }
+
         // Initialize the slider
         $(".slider-range").slider({
             range: true,

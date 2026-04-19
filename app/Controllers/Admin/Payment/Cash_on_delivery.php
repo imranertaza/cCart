@@ -104,6 +104,7 @@ class Cash_on_delivery extends BaseController
 
         $this->session->setFlashdata('success', true);
         $this->session->setFlashdata('message', 'Cash On Delivery Update Success!');
+
         return redirect()->to('admin/payment/cash_on/' . $payment_method_id);
     }
 }

@@ -110,6 +110,7 @@ class Order extends BaseController
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('success', false);
             $this->session->setFlashdata('message', $this->validation->listErrors());
+
             return redirect()->to('admin/order_view/' . $data['order_id'] . '?selTab=history');
         } else {
             $table = DB()->table('cc_order_history');
@@ -161,6 +162,7 @@ class Order extends BaseController
 
             $this->session->setFlashdata('success', true);
             $this->session->setFlashdata('message', 'History Add Success!');
+
             return redirect()->to('admin/order_view/' . $data['order_id'] . '?selTab=history');
         }
     }
@@ -214,6 +216,7 @@ class Order extends BaseController
 
 
         $message = '<div class="alert alert-success alert-dismissible" role="alert"> Payment status update success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+
         return $this->response
             ->setHeader('X-CSRF-TOKEN', csrf_hash())
             ->setBody($message);
@@ -233,6 +236,7 @@ class Order extends BaseController
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('success', false);
             $this->session->setFlashdata('message', $this->validation->listErrors());
+
             return redirect()->to('admin/order_view/' . $data['order_id'] . '?selTab=point');
         } else {
             $tabOrder = DB()->table('cc_order');
@@ -307,6 +311,7 @@ class Order extends BaseController
 
             $this->session->setFlashdata('success', true);
             $this->session->setFlashdata('message', 'Point Add Success!');
+
             return redirect()->to('admin/order_view/' . $data['order_id'] . '?selTab=point');
         }
     }
@@ -332,6 +337,7 @@ class Order extends BaseController
 
         $this->session->setFlashdata('success', true);
         $this->session->setFlashdata('message', 'Order Delete Success!');
+
         return redirect()->to('admin/order_list');
     }
 }

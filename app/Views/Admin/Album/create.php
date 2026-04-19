@@ -58,8 +58,9 @@
                             <h3>Default Image <span class="requi">*</span></h3>
                         </div>
                         <div class="col-md-8">
-                            <div id="framesdef"></div><br>
-                            <input type="file" id="defimage" name="thumb" accept="image/*" class="form-control" required>
+                            <span id="singleImage"></span>
+                            <br>
+                            <button type="button" onclick="imageManager('singleImage','single')" class="btn mt-3 btn-outline-info">Choose File</button><br>
                             <span>Recommended Size (800x800)</span>
                         </div>
                         <div class="col-md-12">
@@ -69,8 +70,9 @@
                             <h3>Multiple Image</h3>
                         </div>
                         <div class="col-md-8 mt-3">
-                            <div id="frames"></div><br>
-                            <input type="file" class="form-control" id="image" accept="image/*" name="multiImage[]" multiple />
+                            <span id="multipleImage"></span>
+                            <br>
+                            <button type="button" onclick="imageManager('multipleImage','multiple')" class="btn mt-3 btn-outline-info">Choose File</button><br>
                             <span>Recommended Size (800x800)</span>
                         </div>
                         <div class="col-md-12">

@@ -132,6 +132,7 @@ class Home extends BaseController
             ->get()->getResult();
 
         $data['all'] = '';
+
         return $data;
     }
 

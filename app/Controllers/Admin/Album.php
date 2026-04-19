@@ -101,6 +101,7 @@ class Album extends BaseController
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('success', false);
             $this->session->setFlashdata('message', $this->validation->listErrors());
+
             return redirect()->to('admin/album_create');
         } else {
             $table = DB()->table('cc_album');
@@ -109,19 +110,20 @@ class Album extends BaseController
 
 
 
-            //image size array
-            $this->imageProcessing->sizeArray = [];
+            //album table data insert(end)
+            $image = $this->request->getPost('image');
 
-            if (!empty($_FILES['thumb']['name'])) {
-                $target_dir = FCPATH . '/uploads/album/' . $albumId . '/';
-                $this->imageProcessing->directory_create($target_dir);
+            if (!empty($image)) {
+                $ext           = pathinfo($image, PATHINFO_EXTENSION);
+                $mainImagePath = FCPATH . '/' . $image;
+                $targetDir     = FCPATH . '/uploads/album/' . $albumId . '/';
+                $saveImageName = 'pro_' . rand() . '.' . $ext;
 
-                //new image upload
-                $pic = $this->request->getFile('thumb');
+                $this->imageProcessing->directory_create($targetDir);
+                $this->imageProcessing->manager_image_crop($mainImagePath, $targetDir, $saveImageName);
 
-                $news_img = $this->imageProcessing->product_image_upload_and_crop_all_size($pic, $target_dir);
-
-                $dataImg['thumb'] = $news_img;
+                $dataImg['main_image'] = $image;
+                $dataImg['thumb']      = 'uploads/album/' . $albumId . '/wm_600_' . $saveImageName;
 
                 $albumTable = DB()->table('cc_album');
                 $albumTable->where('album_id', $albumId)->update($dataImg);
@@ -129,39 +131,37 @@ class Album extends BaseController
             //album table data insert(end)
 
             //multi image upload(start)
-            if ($this->request->getFileMultiple('multiImage')) {
-                $target_dir = FCPATH . '/uploads/album/' . $albumId . '/';
-                $this->imageProcessing->directory_create($target_dir);
+            $multiImage = $this->request->getPost('multiImage');
 
-                $files = $this->request->getFileMultiple('multiImage');
+            if ($multiImage) {
+                foreach ($multiImage as $file) {
+                    $dataMultiImg['album_id'] = $albumId;
+                    $dataMultiImg['alt_name'] = $data['name'];
+                    $albumImgTable            = DB()->table('cc_album_details');
+                    $albumImgTable->insert($dataMultiImg);
+                    $albumImgId = DB()->insertID();
 
-                foreach ($files as $file) {
-                    if ($file->isValid() && ! $file->hasMoved()) {
-                        $dataMultiImg['album_id'] = $albumId;
-                        $dataMultiImg['alt_name'] = $data['name'];
-                        $albumImgTable            = DB()->table('cc_album_details');
-                        $albumImgTable->insert($dataMultiImg);
-                        $albumImgId = DB()->insertID();
+                    $targetDirMul = FCPATH . '/uploads/album/' . $albumId . '/' . $albumImgId . '/';
+                    $this->imageProcessing->directory_create($targetDirMul);
 
-                        $target_dir2 = FCPATH . '/uploads/album/' . $albumId . '/' . $albumImgId . '/';
-                        $this->imageProcessing->directory_create($target_dir2);
+                    $ext           = pathinfo($file, PATHINFO_EXTENSION);
+                    $mainImagePath = FCPATH . '/' . $file;
+                    $saveImageName = 'pro_' . rand() . '.' . $ext;
 
-                        $news_img2 = $this->imageProcessing->product_image_upload_and_crop_all_size($file, $target_dir2);
+                    $this->imageProcessing->manager_image_crop($mainImagePath, $targetDirMul, $saveImageName);
 
-                        $dataMultiImg2['image'] = $news_img2;
+                    $dataMultiImg2['main_image'] = $file;
+                    $dataMultiImg2['image']      = 'uploads/album/' . $albumId . '/' . $albumImgId . '/wm_600_' . $saveImageName;
 
-                        $proImgUpTable = DB()->table('cc_album_details');
-                        $proImgUpTable->where('album_details_id', $albumImgId)->update($dataMultiImg2);
-                    }
+                    $proImgUpTable = DB()->table('cc_album_details');
+                    $proImgUpTable->where('album_details_id', $albumImgId)->update($dataMultiImg2);
                 }
             }
             //multi image upload(start)
 
-
-
-
             $this->session->setFlashdata('success', true);
             $this->session->setFlashdata('message', 'Album Create Success!');
+
             return redirect()->to('admin/album_create');
         }
     }
@@ -217,9 +217,9 @@ class Album extends BaseController
         ]);
 
         if ($this->validation->run($data) == false) {
-
             $this->session->setFlashdata('success', false);
             $this->session->setFlashdata('message', $this->validation->listErrors());
+
             return redirect()->to('admin/album_update/' . $album_id);
         } else {
             $table = DB()->table('cc_album');
@@ -228,17 +228,21 @@ class Album extends BaseController
 
 
             //image size array
-//            $this->imageProcessing->sizeArray = array( array( 'width'=>'498', 'height'=>'498', ),array( 'width'=>'261', 'height'=>'261', ), array( 'width'=>'198', 'height'=>'198', ),array( 'width'=>'50', 'height'=>'50', ),);
-            $this->imageProcessing->sizeArray = [];
+            $image = $this->request->getPost('image');
 
-            if (!empty($_FILES['thumb']['name'])) {
-                $target_dir = FCPATH . '/uploads/album/' . $album_id . '/';
-                //unlink
+            if (!empty($image)) {
                 $oldImg   = get_data_by_id('thumb', 'cc_album', 'album_id', $album_id);
-                $pic      = $this->request->getFile('thumb');
-                $news_img = $this->imageProcessing->single_product_image_unlink($target_dir, $oldImg)->directory_create($target_dir)->product_image_upload_and_crop_all_size($pic, $target_dir);
 
-                $dataImg['thumb'] = $news_img;
+                $ext           = pathinfo($image, PATHINFO_EXTENSION);
+                $mainImagePath = FCPATH . '/' . $image;
+                $targetDir     = FCPATH . '/uploads/album/' . $album_id . '/';
+                $saveImageName = 'pro_' . rand() . '.' . $ext;
+
+                $this->imageProcessing->directory_create($targetDir);
+                $this->imageProcessing->manager_single_product_image_unlink($oldImg)->manager_image_crop($mainImagePath, $targetDir, $saveImageName);
+
+                $dataImg['main_image'] = $image;
+                $dataImg['thumb']      = 'uploads/album/' . $album_id . '/wm_600_' . $saveImageName;
 
                 $proUpTable = DB()->table('cc_album');
                 $proUpTable->where('album_id', $album_id)->update($dataImg);
@@ -246,28 +250,30 @@ class Album extends BaseController
             //product table data insert(end)
 
             //multi image upload(start)
-            if ($this->request->getFileMultiple('multiImage')) {
-                $target_dir = FCPATH . '/uploads/album/' . $album_id . '/';
-                $this->imageProcessing->directory_create($target_dir);
+            $multiImage = $this->request->getPost('multiImage');
 
-                $files = $this->request->getFileMultiple('multiImage');
+            if ($multiImage) {
+                foreach ($multiImage as $file) {
+                    $dataMultiImg['album_id'] = $album_id;
+                    $dataMultiImg['alt_name'] = $data['alt_name'];
+                    $proImgTable              = DB()->table('cc_album_details');
+                    $proImgTable->insert($dataMultiImg);
+                    $albumImgId = DB()->insertID();
 
-                foreach ($files as $file) {
-                    if ($file->isValid() && ! $file->hasMoved()) {
-                        $dataMultiImg['album_id'] = $album_id;
-                        $dataMultiImg['alt_name'] = $data['alt_name'];
-                        $proImgTable              = DB()->table('cc_album_details');
-                        $proImgTable->insert($dataMultiImg);
-                        $albumImgId = DB()->insertID();
+                    $targetDirMul = FCPATH . '/uploads/album/' . $album_id . '/' . $albumImgId . '/';
+                    $this->imageProcessing->directory_create($targetDirMul);
 
-                        $target_dir2 = FCPATH . '/uploads/album/' . $album_id . '/' . $albumImgId . '/';
-                        $news_img2   = $this->imageProcessing->directory_create($target_dir2)->product_image_upload_and_crop_all_size($file, $target_dir2);
+                    $ext           = pathinfo($file, PATHINFO_EXTENSION);
+                    $mainImagePath = FCPATH . '/' . $file;
+                    $saveImageName = 'pro_' . rand() . '.' . $ext;
 
-                        $dataMultiImg2['image'] = $news_img2;
+                    $this->imageProcessing->manager_image_crop($mainImagePath, $targetDirMul, $saveImageName);
 
-                        $proImgUpTable = DB()->table('cc_album_details');
-                        $proImgUpTable->where('album_details_id', $albumImgId)->update($dataMultiImg2);
-                    }
+                    $dataMultiImg2['main_image'] = $file;
+                    $dataMultiImg2['image']      = 'uploads/album/' . $album_id . '/' . $albumImgId . '/wm_600_' . $saveImageName;
+
+                    $proImgUpTable = DB()->table('cc_album_details');
+                    $proImgUpTable->where('album_details_id', $albumImgId)->update($dataMultiImg2);
                 }
             }
             //multi image upload(start)
@@ -315,6 +321,7 @@ class Album extends BaseController
 
         $this->session->setFlashdata('success', true);
         $this->session->setFlashdata('message', 'Album Delete Success!');
+
         return redirect()->back();
     }
 

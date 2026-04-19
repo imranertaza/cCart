@@ -91,6 +91,7 @@ class Theme_settings_3 extends BaseController
 
         $this->session->setFlashdata('success', true);
         $this->session->setFlashdata('message', 'Header Section Update Success!');
+
         return redirect()->to('admin/theme_settings?sel=home_settings');
     }
 
@@ -132,6 +133,7 @@ class Theme_settings_3 extends BaseController
 
         $this->session->setFlashdata('success', true);
         $this->session->setFlashdata('message', 'Header Section Two Update Success!');
+
         return redirect()->to('admin/theme_settings?sel=home_settings');
     }
 
@@ -173,6 +175,7 @@ class Theme_settings_3 extends BaseController
 
         $this->session->setFlashdata('success', true);
         $this->session->setFlashdata('message', 'Home Category Update Success!');
+
         return redirect()->to('admin/theme_settings?sel=home_settings');
     }
 
@@ -204,6 +207,7 @@ class Theme_settings_3 extends BaseController
 
         $this->session->setFlashdata('success', true);
         $this->session->setFlashdata('message', 'Banner Bottom Update  Success!');
+
         return redirect()->to('admin/theme_settings?sel=home_settings');
     }
 
@@ -236,11 +240,12 @@ class Theme_settings_3 extends BaseController
 
             $this->session->setFlashdata('success', true);
             $this->session->setFlashdata('message', 'Slider Update Success!');
+
             return redirect()->to('admin/theme_settings');
         } else {
-
             $this->session->setFlashdata('success', false);
             $this->session->setFlashdata('message', 'Image required!');
+
             return redirect()->to('admin/theme_settings');
         }
     }
@@ -269,10 +274,12 @@ class Theme_settings_3 extends BaseController
 
             $this->session->setFlashdata('success', true);
             $this->session->setFlashdata('message', 'Logo Update Success!');
+
             return redirect()->to('admin/theme_settings');
         } else {
             $this->session->setFlashdata('success', false);
             $this->session->setFlashdata('message', 'Image required!');
+
             return redirect()->to('admin/theme_settings');
         }
     }
@@ -304,10 +311,12 @@ class Theme_settings_3 extends BaseController
 
             $this->session->setFlashdata('success', true);
             $this->session->setFlashdata('message', 'Category Banner Update Success!');
+
             return redirect()->to('admin/theme_settings');
         } else {
             $this->session->setFlashdata('success', false);
             $this->session->setFlashdata('message', 'Logo required!');
+
             return redirect()->to('admin/theme_settings');
         }
     }
@@ -327,6 +336,7 @@ class Theme_settings_3 extends BaseController
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('success', false);
             $this->session->setFlashdata('message', $this->validation->listErrors());
+
             return redirect()->to('admin/theme_settings?sel=home_settings');
         } else {
             $table = DB()->table('cc_theme_settings');
@@ -334,6 +344,7 @@ class Theme_settings_3 extends BaseController
 
             $this->session->setFlashdata('success', true);
             $this->session->setFlashdata('message', 'Home Category Update Success!');
+
             return redirect()->to('admin/theme_settings?sel=home_settings');
         }
     }
@@ -352,6 +363,7 @@ class Theme_settings_3 extends BaseController
 
         $this->session->setFlashdata('success', true);
         $this->session->setFlashdata('message', 'Settings Update Success!');
+
         return redirect()->to('admin/theme_settings?sel=home_settings');
 
         //new image uplode
@@ -391,10 +403,12 @@ class Theme_settings_3 extends BaseController
 
             $this->session->setFlashdata('success', true);
             $this->session->setFlashdata('message', 'Special Banner Update Success!');
+
             return redirect()->to('admin/theme_settings?sel=home_settings');
         } else {
             $this->session->setFlashdata('success', false);
             $this->session->setFlashdata('message', 'Special Banner required!');
+
             return redirect()->to('admin/theme_settings?sel=home_settings');
         }
     }
@@ -428,10 +442,12 @@ class Theme_settings_3 extends BaseController
 
             $this->session->setFlashdata('success', true);
             $this->session->setFlashdata('message', 'Side Banner Update Success!');
+
             return redirect()->to('admin/theme_settings?sel=home_settings');
         } else {
             $this->session->setFlashdata('success', false);
             $this->session->setFlashdata('message', 'Side Banner required!');
+
             return redirect()->to('admin/theme_settings?sel=home_settings');
         }
     }

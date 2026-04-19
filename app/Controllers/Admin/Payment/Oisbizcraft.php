@@ -102,6 +102,7 @@ class Oisbizcraft extends BaseController
 
         $this->session->setFlashdata('success', true);
         $this->session->setFlashdata('message', 'Ois Bizcraft Update Success!');
+
         return redirect()->to('admin/payment/oisbizcraft/' . $payment_method_id);
     }
 }

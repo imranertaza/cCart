@@ -802,12 +802,12 @@ function productIdByRatingCount($productId)
 {
     $table = DB()->table('cc_product_feedback');
     $pro   = $table->where('product_id', $productId)->get()->getResult();
+
     return count($pro);
 }
 
 function ratingViewByFeedbackStar($star)
 {
-
     $sty       = (!empty($ratingCount)) ? 'display: flex;' : '';
     $view      = '<div class="js-wc-star-rating" style="' . $sty . '">';
     $starColor = 'rgb(0, 0, 0)';
@@ -827,7 +827,7 @@ function ratingViewByFeedbackStar($star)
 
 function getUserRatingsByProductId($productId)
 {
-    $table = DB()->table('cc_product_feedback');
+    $table     = DB()->table('cc_product_feedback');
     $feedbacks = $table->where('product_id', $productId)->get()->getResult();
 
     $data = [
@@ -839,7 +839,8 @@ function getUserRatingsByProductId($productId)
     ];
 
     foreach ($feedbacks as $feedback) {
-        $star = (int)$feedback->feedback_star;
+        $star = (int) $feedback->feedback_star;
+
         if ($star >= 1 && $star <= 5) {
             $data[$star . 'star']++;
         }
@@ -1467,7 +1468,7 @@ function get_category_id_by_product_show_home_slide($category_id)
         }
 
         $view .= '<div class="product-top mb-2">
-                    <img data-sizes="auto" src="' . productImageViewUrl("uploads/products", $pro->product_id, $pro->image, "noimage.png", "132", "132") . '" class="img-fluid" alt="' . $pro->alt_name . '" loading="lazy">
+                    <img data-sizes="auto" src="' . productImageViewUrlNew($pro->main_image, $pro->image, "132", "132") . '" class="img-fluid" alt="' . $pro->alt_name . '" loading="lazy">
                 </div>
                 <div class="product-bottom mt-auto">
                     <div class="product-title product_title_area mb-2">
@@ -2047,10 +2048,12 @@ function bdDateFormat($data = '0000-00-00')
     return ($data == '0000-00-00') ? 'Unknown' : date('d/m/y', strtotime($data));
 }
 
-function specialPriceAndPriceByOffPercent($specialPrice, $price) {
+function specialPriceAndPriceByOffPercent($specialPrice, $price)
+{
     if (!empty($specialPrice) && $price > 0) {
-        return (int)((($price - $specialPrice) / $price) * 100);
+        return (int) ((($price - $specialPrice) / $price) * 100);
     }
+
     return 0;
 }
 
@@ -2073,7 +2076,8 @@ function categoryIdByProducts($categoryId, $order = 'DESC', $limit = 10)
 
     return $products;
 }
-function availableAllOffer(){
+function availableAllOffer()
+{
     $now = date('Y-m-d H:i:s');
 
     $offers = DB()->table('cc_offer')
@@ -2082,6 +2086,7 @@ function availableAllOffer(){
         ->orderBy('offer_id', 'DESC')
         ->get()
         ->getResult();
+
     return $offers;
 }
 function offerIdByProducts($offer_id)
@@ -2113,9 +2118,75 @@ function offerIdByProducts($offer_id)
 
     return $builder->where('cc_products.status', 'Active')
         ->groupBy('cc_products.product_id')
-        ->orderBy('cc_products.product_id','DESC')
+        ->orderBy('cc_products.product_id', 'DESC')
         ->limit(6)
         ->get()
         ->getResult();
 }
 
+function productImageViewUrlNew($mainImage, $image, $width, $height)
+{
+    $modules = modules_access();
+
+    $imgMain = ($modules['watermark'] == '1') ? basename($image) : basename($mainImage);
+    $url     = ($modules['watermark'] == '1') ? dirname($image) : dirname($mainImage);
+    $dir     = FCPATH . '/' . $url;
+
+    $noImage = 'https://placehold.co/' . $width . 'x' . $height;
+    $result  = $noImage;
+
+    if (!empty($image)) {
+        if (file_exists($dir)) {
+            $imgPath = $dir . '/' . $imgMain;
+
+            if (file_exists($imgPath)) {
+                $image   = explode('.', $imgMain);
+                $pathNew = 'cache/' . $url . '/' . $width . 'x' . $height . '_' . $image[0] . '.webp';
+
+                if (file_exists($pathNew)) {
+                    $imgFinal = base_url($pathNew);
+                } else {
+                    $urlNew   = base64_encode($url . '/');
+                    $imgFinal = base_url('image-resize/' . $urlNew . '/' . $width . 'x' . $height . '/' . $imgMain);
+                }
+                $result   = $imgFinal;
+            }
+        }
+    }
+
+    return $result;
+}
+
+function productMultiImageViewUrlNew($mainImage, $image, $width, $height)
+{
+    $modules = modules_access();
+
+    $imgMain = ($modules['watermark'] == '1') ? basename($image) : basename($mainImage);
+    $url     = ($modules['watermark'] == '1') ? dirname($image) : dirname($mainImage);
+
+    $dir = FCPATH . '/' . $url ;
+
+    $noImage = 'https://placehold.co/' . $width . 'x' . $height;
+    $result  = $noImage;
+
+    if (!empty($image)) {
+        if (file_exists($dir)) {
+            $imgPath = $dir . '/' . $imgMain;
+
+            if (file_exists($imgPath)) {
+                $image   = explode('.', $imgMain);
+                $pathNew = 'cache/' . $url . '/' . $width . 'x' . $height . '_' . $image[0] . '.webp';
+
+                if (file_exists($pathNew)) {
+                    $imgFinal = base_url($pathNew);
+                } else {
+                    $urlNew   = base64_encode($url . '/');
+                    $imgFinal = base_url('image-resize/' . $urlNew . '/' . $width . 'x' . $height . '/' . $imgMain);
+                }
+                $result   = $imgFinal;
+            }
+        }
+    }
+
+    return $result;
+}

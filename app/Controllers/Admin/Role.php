@@ -101,6 +101,7 @@ class Role extends BaseController
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('success', false);
             $this->session->setFlashdata('message', $this->validation->listErrors());
+
             return redirect()->to('admin/role_create');
         } else {
             $roleTable = DB()->table('cc_roles');
@@ -108,6 +109,7 @@ class Role extends BaseController
 
             $this->session->setFlashdata('success', true);
             $this->session->setFlashdata('message', 'Role Create Success!');
+
             return redirect()->to('admin/role_create');
         }
     }
@@ -166,6 +168,7 @@ class Role extends BaseController
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('success', false);
             $this->session->setFlashdata('message', $this->validation->listErrors());
+
             return redirect()->to('admin/role_update/' . $role_id);
         } else {
             $table = DB()->table('cc_roles');
@@ -173,6 +176,7 @@ class Role extends BaseController
 
             $this->session->setFlashdata('success', true);
             $this->session->setFlashdata('message', 'Role Update Success!');
+
             return redirect()->to('admin/role_update/' . $role_id);
         }
     }
@@ -189,6 +193,7 @@ class Role extends BaseController
 
         $this->session->setFlashdata('success', true);
         $this->session->setFlashdata('message', 'Role Delete Success!');
+
         return redirect()->to('admin/role');
     }
 }

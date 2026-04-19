@@ -1639,7 +1639,7 @@
 
                 <a class="navbar-brand" href="<?php echo base_url() ?>">
                     <?php $logoImg = get_lebel_by_value_in_theme_settings('side_logo');
-                    $alt_name = getLebelByAltNameInThemeSettings('side_logo');
+                    $alt_name      = getLebelByAltNameInThemeSettings('side_logo');
                     echo image_view('uploads/logo', '', $logoImg, 'noimage.png', 'header-logo', $alt_name, 'side_log'); ?>
 
                 </a>
@@ -1807,6 +1807,7 @@
                                                        aria-expanded="false">
                                                         <?php echo $sCat->category_name; ?>
                                                         <?php $sSubCat = getCategoryBySubArray($sCat->prod_cat_id);
+
                                                         if (!empty(count($sSubCat))) { ?>
                                                             <svg class="dropdown-icon" viewBox="0 0 24 24" fill="none"
                                                                  stroke="currentColor"

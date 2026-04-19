@@ -49,7 +49,8 @@ class Cart extends BaseController
         $product_id = $this->request->getPost('product_id');
         $table      = DB()->table('cc_product_option');
         $check      = $table->where('product_id', $product_id)->countAllResults();
-        $result = (!empty($check)) ? 'false' : 'true';
+        $result     = (!empty($check)) ? 'false' : 'true';
+
         return $this->response
             ->setHeader('X-CSRF-TOKEN', csrf_hash())
             ->setBody($result);
@@ -173,23 +174,27 @@ class Cart extends BaseController
     {
         $productId = $this->request->getPost('both_product[]');
 
-        foreach ($productId as $product_id) {
-            $name         = get_data_by_id('name', 'cc_products', 'product_id', $product_id);
-            $price        = get_data_by_id('price', 'cc_products', 'product_id', $product_id);
-            $specialprice = get_data_by_id('special_price', 'cc_product_special', 'product_id', $product_id);
+        if (!empty($productId)) {
+            foreach ($productId as $product_id) {
+                $name         = get_data_by_id('name', 'cc_products', 'product_id', $product_id);
+                $price        = get_data_by_id('price', 'cc_products', 'product_id', $product_id);
+                $specialprice = get_data_by_id('special_price', 'cc_product_special', 'product_id', $product_id);
 
-            if (!empty($specialprice)) {
-                $price = $specialprice;
+                if (!empty($specialprice)) {
+                    $price = $specialprice;
+                }
+                $data = [
+                    'id'    => $product_id,
+                    'name'  => strval($name),
+                    'qty'   => 1,
+                    'price' => $price,
+                ];
+                $this->cart->insert($data);
             }
-            $data = [
-                'id'    => $product_id,
-                'name'  => strval($name),
-                'qty'   => 1,
-                'price' => $price,
-            ];
-            $this->cart->insert($data);
+            $message = 'Successfully add to cart';
+        } else {
+            $message = 'Your cart is empty';
         }
-        $message = 'Successfully add to cart';
 
         return $this->response
             ->setHeader('X-CSRF-TOKEN', csrf_hash())

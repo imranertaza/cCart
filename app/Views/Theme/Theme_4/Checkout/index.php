@@ -74,7 +74,7 @@
 
 
                         <?php
-                    $coun = $zon =  $post = $add1 = $add2 = '';
+                    $coun     = $zon     =  $post     = $add1     = $add2     = '';
                     $cusAddr  = isset($customer->customer_id) ? get_all_row_data_by_id('cc_address', 'customer_id', $customer->customer_id) : '';
 
                 if (!empty($cusAddr)) {
@@ -254,7 +254,7 @@
                                     $product  = get_all_row_data_by_id('cc_products', 'product_id', $val['id']);
                                     $des      = get_data_by_id('description', 'cc_product_description', 'product_id', $val['id']);
                                 ?>
-                                <img data-sizes="auto" src="<?= productImageViewUrl('uploads/products', $val['id'], $product->image, 'noimage.png', '100', '100');?>" class="img-fluid" alt="<?= $product->alt_name?>" loading="lazy">
+                                <img data-sizes="auto" src="<?= productImageViewUrlNew($product->main_image, $product->image, '100', '100');?>" class="img-fluid" alt="<?= $product->alt_name?>" loading="lazy">
                                 <div>
                                     <p class="fw-semibold mb-2"><?php echo $val['name']; ?></p>
                                     <p class="lh-sm">

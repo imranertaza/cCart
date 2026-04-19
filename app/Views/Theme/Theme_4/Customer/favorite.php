@@ -15,15 +15,17 @@
 
 
                             <?php
-                            $symbol = get_lebel_by_value_in_settings('currency_symbol');
+                            $symbol  = get_lebel_by_value_in_settings('currency_symbol');
                             $modules = modules_access();
-                            foreach ($allProd as $pro) { $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro['product_id']); ?>
+
+                            foreach ($allProd as $pro) {
+                                $spPric = get_data_by_id('special_price', 'cc_product_special', 'product_id', $pro['product_id']); ?>
                                 <div class="best-seller-card col-md-6 col-6 col-xl-3  col-lg-4 ">
                                     <div class="card-slider position-relative overflow-hidden">
                                         <div class="position-absolute top-2 w-100">
                                             <div class="d-flex justify-content-between align-items-center w-100 px-4">
-                                                <?php if(!empty($spPric)){?>
-                                                <span class="badge light-yellow-badge"><?= specialPriceAndPriceByOffPercent($spPric,$pro['price'])?>%</span>
+                                                <?php if (!empty($spPric)) {?>
+                                                <span class="badge light-yellow-badge"><?= specialPriceAndPriceByOffPercent($spPric, $pro['price'])?>%</span>
                                                 <?php } ?>
                                                 <span class="badge tomato-badge">Hot</span>
                                             </div>
@@ -73,27 +75,29 @@
                                             <div class="swiper-wrapper">
                                                 <!-- slide 1 -->
                                                 <div class="swiper-slide card-slider-single-slide">
-                                                    <img class="object-fit-cover" src="<?= productImageViewUrl('uploads/products', $pro['product_id'], $pro['image'], 'noimage.png', '261', '247');?>"
-                                                         alt="<?= $pro['alt_name'];?>" loading="lazy">
+                                                    <img class="object-fit-cover" src="<?= productImageViewUrlNew($pro['main_image'], $pro['image'], '261', '247'); ?>"
+                                                         alt="<?= $pro['alt_name']; ?>" loading="lazy">
                                                 </div>
-                                                <?php $allImage = get_array_data_by_id('cc_product_image', 'product_id', $pro['product_id']);?>
-                                                <?php if (!empty($allImage)){
-                                                    foreach ($allImage as $image){
-                                                ?>
+                                                <?php $allImage = get_array_data_by_id('cc_product_image', 'product_id', $pro['product_id']); ?>
+                                                <?php if (!empty($allImage)) {
+                                    foreach ($allImage as $image) {
+                                        ?>
                                                 <!-- Slide 2 -->
                                                 <div class="swiper-slide card-slider-single-slide">
-                                                    <img class="object-fit-cover" src="<?= productImageViewUrl('uploads/products', $image->product_id.'/'.$image->product_image_id, $image->image, 'noimage.png', '261', '247');?>"
+                                                    <img class="object-fit-cover" src="<?= productImageViewUrlNew($image->main_image, $image->image, '261', '247'); ?>"
                                                          alt="<?= $image->alt_name?>" loading="lazy">
                                                 </div>
-                                                <?php } }?>
+                                                <?php
+                                    }
+                                } ?>
                                             </div>
                                             <div class="swiper-pagination card-swiper-pagination"></div>
                                         </div>
                                     </div>
                                     <div class="card-bottom">
-                                        <h4 class="recently-viewed-card-title"><a href="<?= base_url('detail/' . $pro['product_id'])?>"><?php echo substr($pro['name'], 0, 60);?></a></h4>
+                                        <h4 class="recently-viewed-card-title"><a href="<?= base_url('detail/' . $pro['product_id'])?>"><?php echo substr($pro['name'], 0, 60); ?></a></h4>
                                         <div class="d-flex gap-2 flex-wrap align-items-center recently-viewed-card-rating align-items-center">
-                                            <?php echo product_id_by_rating($pro['product_id'], '1');?>
+                                            <?php echo product_id_by_rating($pro['product_id'], '1'); ?>
                                         </div>
                                         <div class="d-flex gap-2 flex-xl-nowrap flex-wrap justify-content-between align-items-center">
                                             <div class="d-flex align-items-center">
@@ -103,12 +107,13 @@
                                                    <span class="recently-viewed-card-price prize-before-discount me-2" ><?php echo currency_symbol_with_symbol($pro['price'], $symbol);?></span> <span class="recently-viewed-card-price prize-after-discount"><?php echo currency_symbol_with_symbol($spPric, $symbol);?></span>
                                                <?php } ?>
                                             </div>
-                                            <?php echo addToCartBtn($pro['product_id']);?>
+                                            <?php echo addToCartBtn($pro['product_id']); ?>
                                         </div>
                                     </div>
                                 </div>
 
-                            <?php } ?>
+                            <?php
+                            } ?>
 
 
                         </div>

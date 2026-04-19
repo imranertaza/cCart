@@ -97,6 +97,7 @@ class Brand extends BaseController
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('success', false);
             $this->session->setFlashdata('message', $this->validation->listErrors());
+
             return redirect()->to('admin/brand_create');
         } else {
             if (!empty($_FILES['image']['name'])) {
@@ -121,6 +122,7 @@ class Brand extends BaseController
 
             $this->session->setFlashdata('success', true);
             $this->session->setFlashdata('message', 'Brand Create Succes!');
+
             return redirect()->to('admin/brand_create');
         }
     }
@@ -177,6 +179,7 @@ class Brand extends BaseController
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('success', false);
             $this->session->setFlashdata('message', $this->validation->listErrors());
+
             return redirect()->to('admin/brand_update/' . $brand_id);
         } else {
             if (!empty($_FILES['image']['name'])) {
@@ -212,6 +215,7 @@ class Brand extends BaseController
 
             $this->session->setFlashdata('success', true);
             $this->session->setFlashdata('message', 'Brand Update Success!');
+
             return redirect()->to('admin/brand_update/' . $brand_id);
         }
     }
@@ -244,6 +248,7 @@ class Brand extends BaseController
 
         $this->session->setFlashdata('success', true);
         $this->session->setFlashdata('message', 'Brand Delete Success!');
+
         return redirect()->to('admin/brand');
     }
 }

@@ -174,12 +174,13 @@ class Products extends BaseController
             }
         }
 
-        $filter              = $this->filter->getSettings($productsArr);
-        $data['price']       = $filter->product_array_by_price_range();
-        $data['optionView']  = $filter->product_array_by_options($data['optionval']);
-        $data['brandView']   = $filter->product_array_by_brand($data['brandval']);
-        $data['ratingView']  = $filter->product_array_by_rating_view($data['ratingval']);
-        $data['productsArr'] = $productsArr;
+        $filter               = $this->filter->getSettings($productsArr);
+        $data['price']        = $filter->product_array_by_price_range();
+        $data['optionView']   = $filter->product_array_by_options($data['optionval']);
+        $data['brandView']    = $filter->product_array_by_brand($data['brandval']);
+        $data['ratingView']   = $filter->product_array_by_rating_view($data['ratingval']);
+        $data['productsArr']  = $productsArr;
+        $data['optionArray']  = $filter->product_array_by_options_array();
 
         if (!empty($manufacturer) && !empty($cat_id)) {
             $data['brandView'] = $filter->getSettings($productsArrCatBas)->product_array_by_brand($data['brandval']);

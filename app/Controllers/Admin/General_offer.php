@@ -130,6 +130,7 @@ class General_offer extends BaseController
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('success', false);
             $this->session->setFlashdata('message', $this->validation->listErrors());
+
             return redirect()->to('admin/general_offer_create');
         } else {
             DB()->transStart();
@@ -235,6 +236,7 @@ class General_offer extends BaseController
 
             $this->session->setFlashdata('success', true);
             $this->session->setFlashdata('message', 'Offer Create Success!');
+
             return redirect()->to('admin/general_offer_create');
         }
     }
@@ -321,9 +323,9 @@ class General_offer extends BaseController
         ]);
 
         if ($this->validation->run($data) == false) {
-
             $this->session->setFlashdata('success', false);
             $this->session->setFlashdata('message', $this->validation->listErrors());
+
             return redirect()->to('admin/general_offer_update/' . $offer_id);
         } else {
             DB()->transStart();
@@ -441,6 +443,7 @@ class General_offer extends BaseController
 
             $this->session->setFlashdata('success', true);
             $this->session->setFlashdata('message', 'Offer Update Success!');
+
             return redirect()->to('admin/general_offer_update/' . $offer_id);
         }
     }
@@ -480,6 +483,7 @@ class General_offer extends BaseController
 
         $this->session->setFlashdata('success', true);
         $this->session->setFlashdata('message', 'Offer Delete Success!');
+
         return redirect()->to('admin/general_offer');
     }
 }

@@ -220,52 +220,54 @@ class Products extends BaseController
             $productId = DB()->insertID();
 
 
-            if (!empty($_FILES['image']['name'])) {
-                $target_dir = FCPATH . '/uploads/products/' . $productId . '/';
-                $this->imageProcessing->directory_create($target_dir);
+            $image = $this->request->getPost('image');
 
-                //new image upload
-                $pic      = $this->request->getFile('image');
-                $news_img = $this->imageProcessing->product_image_upload_and_crop_all_size($pic, $target_dir);
+            if (!empty($image)) {
+                $ext           = pathinfo($image, PATHINFO_EXTENSION);
+                $mainImagePath = FCPATH . '/' . $image;
+                $targetDir     = FCPATH . '/uploads/products/' . $productId . '/';
+                $saveImageName = 'pro_' . rand() . '.' . $ext;
 
-                $dataImg['image'] = $news_img;
+                $this->imageProcessing->directory_create($targetDir);
+                $this->imageProcessing->manager_image_crop($mainImagePath, $targetDir, $saveImageName);
 
-                $proUpTable = DB()->table('cc_products');
+                $dataImg['alt_name']   = $data['pro_name'];
+                $dataImg['main_image'] = $image;
+                $dataImg['image']      = 'uploads/products/' . $productId . '/wm_600_' . $saveImageName;
+                $proUpTable            = DB()->table('cc_products');
                 $proUpTable->where('product_id', $productId)->update($dataImg);
             }
             //product table data insert(end)
 
 
             //multi image upload(start)
-            if ($this->request->getFileMultiple('multiImage')) {
-                $target_dir = FCPATH . '/uploads/products/' . $productId . '/';
-                $this->imageProcessing->directory_create($target_dir);
+            $multiImage = $this->request->getPost('multiImage');
 
-                $files = $this->request->getFileMultiple('multiImage');
+            if ($multiImage) {
+                foreach ($multiImage as $file) {
+                    $dataMultiImg['product_id'] = $productId;
+                    $dataMultiImg['alt_name']   = $data['pro_name'];
+                    $proImgTable                = DB()->table('cc_product_image');
+                    $proImgTable->insert($dataMultiImg);
+                    $proImgId = DB()->insertID();
 
-                foreach ($files as $file) {
-                    if ($file->isValid() && ! $file->hasMoved()) {
-                        $dataMultiImg['product_id'] = $productId;
-                        $dataMultiImg['alt_name']   = $data['pro_name'];
-                        $proImgTable                = DB()->table('cc_product_image');
-                        $proImgTable->insert($dataMultiImg);
-                        $proImgId = DB()->insertID();
+                    $targetDirMul = FCPATH . '/uploads/products/' . $productId . '/' . $proImgId . '/';
+                    $this->imageProcessing->directory_create($targetDirMul);
 
-                        $target_dir2 = FCPATH . '/uploads/products/' . $productId . '/' . $proImgId . '/';
-                        $this->imageProcessing->directory_create($target_dir2);
+                    $ext           = pathinfo($file, PATHINFO_EXTENSION);
+                    $mainImagePath = FCPATH . '/' . $file;
+                    $saveImageName = 'pro_' . rand() . '.' . $ext;
 
-                        $news_img2 = $this->imageProcessing->product_image_upload_and_crop_all_size($file, $target_dir2);
+                    $this->imageProcessing->manager_image_crop($mainImagePath, $targetDirMul, $saveImageName);
 
-                        $dataMultiImg2['image'] = $news_img2;
+                    $dataMultiImg['main_image'] = $file;
+                    $dataMultiImg['image']      = 'uploads/products/' . $productId . '/' . $proImgId . '/wm_600_' . $saveImageName;
 
-                        $proImgUpTable = DB()->table('cc_product_image');
-                        $proImgUpTable->where('product_image_id', $proImgId)->update($dataMultiImg2);
-                    }
+                    $proImgUpTable = DB()->table('cc_product_image');
+                    $proImgUpTable->where('product_image_id', $proImgId)->update($dataMultiImg);
                 }
             }
             //multi image upload(start)
-
-
 
 
 
@@ -483,6 +485,7 @@ class Products extends BaseController
 
             DB()->transComplete();
             $message = '<div class="alert alert-success alert-dismissible" role="alert">Products Create Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+
             return $this->response
                 ->setHeader('X-CSRF-TOKEN', csrf_hash())
                 ->setBody($message);
@@ -680,10 +683,12 @@ class Products extends BaseController
 
             $this->session->setFlashdata('success', true);
             $this->session->setFlashdata('message', 'Products Copy Success!');
+
             return redirect()->to('admin/products?page=1');
         } else {
             $this->session->setFlashdata('success', false);
             $this->session->setFlashdata('message', 'Please select any product!');
+
             return redirect()->back();
         }
     }
@@ -779,6 +784,7 @@ class Products extends BaseController
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('success', false);
             $this->session->setFlashdata('message', $this->validation->listErrors());
+
             return redirect()->to('admin/product_update/' . $product_id);
         } else {
             DB()->transStart();
@@ -808,47 +814,53 @@ class Products extends BaseController
             $proTable = DB()->table('cc_products');
             $proTable->where('product_id', $product_id)->update($proData);
 
+            $image = $this->request->getPost('image');
 
-
-            if (!empty($_FILES['image']['name'])) {
-                $target_dir = FCPATH . '/uploads/products/' . $product_id . '/';
-
-                //unlink
+            if (!empty($image)) {
                 $oldImg   = get_data_by_id('image', 'cc_products', 'product_id', $product_id);
-                $pic      = $this->request->getFile('image');
-                $news_img = $this->imageProcessing->single_product_image_unlink($target_dir, $oldImg)->directory_create($target_dir)->product_image_upload_and_crop_all_size($pic, $target_dir);
 
-                $dataImg['image'] = $news_img;
+                $ext           = pathinfo($image, PATHINFO_EXTENSION);
+                $mainImagePath = FCPATH . '/' . $image;
+                $targetDir     = FCPATH . '/uploads/products/' . $product_id . '/';
+                $saveImageName = 'pro_' . rand() . '.' . $ext;
 
-                $proUpTable = DB()->table('cc_products');
+                $this->imageProcessing->directory_create($targetDir);
+                $this->imageProcessing->manager_single_product_image_unlink($oldImg)->manager_image_crop($mainImagePath, $targetDir, $saveImageName);
+
+                $dataImg['alt_name']   = $data['pro_name'];
+                $dataImg['main_image'] = $image;
+                $dataImg['image']      = 'uploads/products/' . $product_id . '/wm_600_' . $saveImageName;
+                $proUpTable            = DB()->table('cc_products');
                 $proUpTable->where('product_id', $product_id)->update($dataImg);
             }
             //product table data insert(end)
 
 
             //multi image upload(start)
-            if ($this->request->getFileMultiple('multiImage')) {
-                $target_dir = FCPATH . '/uploads/products/' . $product_id . '/';
-                $this->imageProcessing->directory_create($target_dir);
+            $multiImage = $this->request->getPost('multiImage');
 
-                $files = $this->request->getFileMultiple('multiImage');
+            if ($multiImage) {
+                foreach ($multiImage as $file) {
+                    $dataMultiImg['product_id'] = $product_id;
+                    $dataMultiImg['alt_name']   = $data['pro_name'];
+                    $proImgTable                = DB()->table('cc_product_image');
+                    $proImgTable->insert($dataMultiImg);
+                    $proImgId = DB()->insertID();
 
-                foreach ($files as $file) {
-                    if ($file->isValid() && ! $file->hasMoved()) {
-                        $dataMultiImg['product_id'] = $product_id;
-                        $dataMultiImg['alt_name']   =  $data['alt_name'];
-                        $proImgTable                = DB()->table('cc_product_image');
-                        $proImgTable->insert($dataMultiImg);
-                        $proImgId = DB()->insertID();
+                    $targetDirMul = FCPATH . '/uploads/products/' . $product_id . '/' . $proImgId . '/';
+                    $this->imageProcessing->directory_create($targetDirMul);
 
-                        $target_dir2 = FCPATH . '/uploads/products/' . $product_id . '/' . $proImgId . '/';
-                        $news_img2   = $this->imageProcessing->directory_create($target_dir2)->product_image_upload_and_crop_all_size($file, $target_dir2);
+                    $ext           = pathinfo($file, PATHINFO_EXTENSION);
+                    $mainImagePath = FCPATH . '/' . $file;
+                    $saveImageName = 'pro_' . rand() . '.' . $ext;
 
-                        $dataMultiImg2['image'] = $news_img2;
+                    $this->imageProcessing->manager_image_crop($mainImagePath, $targetDirMul, $saveImageName);
 
-                        $proImgUpTable = DB()->table('cc_product_image');
-                        $proImgUpTable->where('product_image_id', $proImgId)->update($dataMultiImg2);
-                    }
+                    $dataMultiImg['main_image'] = $file;
+                    $dataMultiImg['image']      = 'uploads/products/' . $product_id . '/' . $proImgId . '/wm_600_' . $saveImageName;
+
+                    $proImgUpTable = DB()->table('cc_product_image');
+                    $proImgUpTable->where('product_image_id', $proImgId)->update($dataMultiImg);
                 }
             }
             //multi image upload(start)
@@ -1145,6 +1157,7 @@ class Products extends BaseController
 
             $this->session->setFlashdata('success', true);
             $this->session->setFlashdata('message', 'Products Update Success!');
+
             return redirect()->to('admin/product_update/' . $product_id);
         }
     }
@@ -1214,6 +1227,7 @@ class Products extends BaseController
         DB()->transComplete();
 
         $message = '<div class="alert alert-success alert-dismissible" role="alert">Products Delete Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+
         return $this->response
             ->setHeader('X-CSRF-TOKEN', csrf_hash())
             ->setBody($message);
@@ -1284,6 +1298,7 @@ class Products extends BaseController
 
         $table->where('product_image_id', $product_image_id)->delete();
         $message = '<div class="alert alert-success alert-dismissible" role="alert">Products Image Delete Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+
         return $this->response
             ->setHeader('X-CSRF-TOKEN', csrf_hash())
             ->setBody($message);
@@ -1435,9 +1450,9 @@ class Products extends BaseController
               </script>";
             flush(); // Ensure the redirect script is sent
         } else {
-
             $this->session->setFlashdata('success', false);
             $this->session->setFlashdata('message', 'Please select any product!');
+
             return redirect()->back();
         }
     }
@@ -1582,7 +1597,6 @@ class Products extends BaseController
                     echo view('Admin/no_permission');
                 }
             } else {
-
                 $this->session->setFlashdata('success', false);
                 $this->session->setFlashdata('message', 'Please select any product!');
 
@@ -1621,6 +1635,7 @@ class Products extends BaseController
         $data['alt_name'] = $this->request->getPost('value');
         $table            = DB()->table('cc_product_image');
         $table->where('product_image_id', $product_image_id)->update($data);
+
         return $this->response
             ->setHeader('X-CSRF-TOKEN', csrf_hash());
     }

@@ -74,9 +74,8 @@ class Category extends BaseController
         $data['ratingView']  = $filter->product_array_by_rating_view($data['ratingval']);
         $data['productsArr'] = $productsArr;
 
-        //        print_r($data['optionView']);
-        //
-        //        die();
+        $data['optionArray']  = $filter->product_array_by_options_array();
+
         setcookie('category_cookie', $cat_id, time() + 86400, "/");
 
         $data['page_title'] = 'Category products';
@@ -172,6 +171,6 @@ class Category extends BaseController
         $data['title']       = !empty($settings['meta_title']) ? $settings['meta_title'] : $settings['store_name'];
 
         $data['page_title'] = 'Category Not Found';
-        echo view('Theme/' . $settings['Theme'] . '/Category/not_found',$data);
+        echo view('Theme/' . $settings['Theme'] . '/Category/not_found', $data);
     }
 }

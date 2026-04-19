@@ -10,7 +10,7 @@
                 <?php foreach ($qcpicture as $val) { ?>
                 <div class="col-3 col-md-3 mt-4 text-center">
                     <a href="<?= base_url('qc-picture-view/' . $val->album_id);?>">
-                        <img data-sizes="auto" src="<?= productImageViewUrl('uploads/album', $val->album_id, $val->thumb, 'noimage.png', '261', '261');?>" class="img-fluid" alt="<?= $val->alt_name?>" loading="lazy">
+                        <img data-sizes="auto" src="<?= productImageViewUrlNew($val->main_image, $val->thumb, '198', '198');?>" class="img-fluid" alt="<?= $val->alt_name?>" loading="lazy">
                         <p class="text-capitalize text-black mt-3"><b><?php echo $val->name; ?></b></p>
                     </a>
                 </div>

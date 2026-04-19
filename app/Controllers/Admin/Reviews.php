@@ -84,6 +84,7 @@ class Reviews extends BaseController
 
         $this->session->setFlashdata('success', true);
         $this->session->setFlashdata('message', 'Reviews Delete Record Success!');
+
         return redirect()->to('admin/reviews');
     }
 }

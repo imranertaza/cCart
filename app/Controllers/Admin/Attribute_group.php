@@ -95,6 +95,7 @@ class Attribute_group extends BaseController
         if ($this->validation->run($data) == false) {
             $this->session->setFlashdata('success', false);
             $this->session->setFlashdata('message', $this->validation->listErrors());
+
             return redirect()->to('admin/attribute_create');
         } else {
             $table = DB()->table('cc_product_attribute_group');
@@ -154,9 +155,9 @@ class Attribute_group extends BaseController
         ]);
 
         if ($this->validation->run($data) == false) {
-
             $this->session->setFlashdata('success', false);
             $this->session->setFlashdata('message', $this->validation->listErrors());
+
             return redirect()->to('admin/attribute_update/' . $attribute_group_id);
         } else {
             $table = DB()->table('cc_product_attribute_group');
@@ -185,11 +186,12 @@ class Attribute_group extends BaseController
 
             $this->session->setFlashdata('success', true);
             $this->session->setFlashdata('message', 'Attribute Group Delete Success!');
+
             return redirect()->to('admin/attribute_group');
         } else {
-
             $this->session->setFlashdata('success', false);
             $this->session->setFlashdata('message', 'Already used in another table!');
+
             return redirect()->to('admin/attribute_group');
         }
     }

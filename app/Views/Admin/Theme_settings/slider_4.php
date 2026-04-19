@@ -38,7 +38,7 @@
                 <select name="category" class="form-control"   style="width: 100%;">
                     <option value="">Please select</option>
                     <?php foreach (get_array_data_by_id('cc_product_category', 'status', '1') as $cat) { ?>
-                        <option value="<?php echo $cat->prod_cat_id; ?>" <?= ($cat->prod_cat_id == $themeSetting['slider4_category_1'])?'selected':'';?>><?php echo display_category_with_parent($cat->prod_cat_id); ?></option>
+                        <option value="<?php echo $cat->prod_cat_id; ?>" <?= ($cat->prod_cat_id == $themeSetting['slider4_category_1']) ? 'selected' : '';?>><?php echo display_category_with_parent($cat->prod_cat_id); ?></option>
                     <?php } ?>
                 </select>
             </div>
@@ -79,7 +79,7 @@
                 <select name="category" class="form-control"   style="width: 100%;">
                     <option value="">Please select</option>
                     <?php foreach (get_array_data_by_id('cc_product_category', 'status', '1') as $cat) { ?>
-                        <option value="<?php echo $cat->prod_cat_id; ?>" <?= ($cat->prod_cat_id == $themeSetting['slider4_category_3'])?'selected':'';?>><?php echo display_category_with_parent($cat->prod_cat_id); ?></option>
+                        <option value="<?php echo $cat->prod_cat_id; ?>" <?= ($cat->prod_cat_id == $themeSetting['slider4_category_3']) ? 'selected' : '';?>><?php echo display_category_with_parent($cat->prod_cat_id); ?></option>
                     <?php } ?>
                 </select>
             </div>
@@ -120,7 +120,7 @@
                 <select name="category" class="form-control"   style="width: 100%;">
                     <option value="">Please select</option>
                     <?php foreach (get_array_data_by_id('cc_product_category', 'status', '1') as $cat) { ?>
-                        <option value="<?php echo $cat->prod_cat_id; ?>" <?= ($cat->prod_cat_id == $themeSetting['slider4_category_2'])?'selected':'';?>><?php echo display_category_with_parent($cat->prod_cat_id); ?></option>
+                        <option value="<?php echo $cat->prod_cat_id; ?>" <?= ($cat->prod_cat_id == $themeSetting['slider4_category_2']) ? 'selected' : '';?>><?php echo display_category_with_parent($cat->prod_cat_id); ?></option>
                     <?php } ?>
                 </select>
             </div>

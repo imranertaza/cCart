@@ -49,13 +49,13 @@
                         <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
 
                             <li class="nav-item">
-                                <a class="nav-link <?php echo ((isset($_GET['sel']) && $_GET['sel'] == 'logo') || !isset($_GET['sel']))? 'active' : ''; ?>" id="custom-tabs-four-profile-tab" data-toggle="pill"
+                                <a class="nav-link <?php echo ((isset($_GET['sel']) && $_GET['sel'] == 'logo') || !isset($_GET['sel'])) ? 'active' : ''; ?>" id="custom-tabs-four-profile-tab" data-toggle="pill"
                                    href="#custom-tabs-four-profile" role="tab" aria-controls="custom-tabs-four-profile"
                                    aria-selected="false">Logo</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link <?php echo (isset($_GET['sel']) && $_GET['sel'] == 'slider')  ? 'active' : ''; ?>" id="custom-tabs-four-home-tab" data-toggle="pill"
+                                <a class="nav-link <?php echo (isset($_GET['sel']) && $_GET['sel'] == 'slider') ? 'active' : ''; ?>" id="custom-tabs-four-home-tab" data-toggle="pill"
                                    href="#custom-tabs-four-home" role="tab" aria-controls="custom-tabs-four-home"
                                    aria-selected="true">Slider</a>
                             </li>
@@ -71,7 +71,7 @@
                     <div class="card-body">
                         <div class="tab-content" id="custom-tabs-four-tabContent">
 
-                            <div class="tab-pane fade <?php echo ((isset($_GET['sel']) && $_GET['sel'] == 'logo')|| !isset($_GET['sel'])) ? 'active show' : ''; ?>" id="custom-tabs-four-profile" role="tabpanel"
+                            <div class="tab-pane fade <?php echo ((isset($_GET['sel']) && $_GET['sel'] == 'logo') || !isset($_GET['sel'])) ? 'active show' : ''; ?>" id="custom-tabs-four-profile" role="tabpanel"
                                  aria-labelledby="custom-tabs-four-profile-tab">
                                 <div class="row">
                                     <div class="col-md-6">
@@ -120,7 +120,7 @@ echo image_view('uploads/logo', '', $favicon, 'noimage.png', '');
                                 </div>
                             </div>
 
-                            <div class="tab-pane fade <?php echo (isset($_GET['sel']) && $_GET['sel'] == 'slider')  ? 'active show' : ''; ?>" id="custom-tabs-four-home" role="tabpanel"
+                            <div class="tab-pane fade <?php echo (isset($_GET['sel']) && $_GET['sel'] == 'slider') ? 'active show' : ''; ?>" id="custom-tabs-four-home" role="tabpanel"
                                  aria-labelledby="custom-tabs-four-home-tab">
                                 <?php echo $themeSlider;?>
 
