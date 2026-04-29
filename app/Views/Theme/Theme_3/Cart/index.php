@@ -5,9 +5,7 @@
         <div class="cart">
             <div class="row">
                 <div class="col-md-12 ">
-                    <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message');endif;
-                    $modules = modules_access();
-                    ?>
+                    <?php $modules = modules_access(); ?>
                 </div>
             </div>
             <div class="table-responsive">
