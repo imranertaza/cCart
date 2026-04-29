@@ -5,7 +5,8 @@
         <div class="cart">
             <div class="row">
                 <div class="col-md-12 ">
-                    <?php if (session()->getFlashdata('message') !== null) : echo session()->getFlashdata('message'); endif; ?>
+                    <?php if (session()->getFlashdata('message') !== null) : echo '<div class="alert alert-success alert-dismissible fade show" role="alert" style="background-color: unset !important;" >'.session()->getFlashdata('message').'</div>'; endif; ?>
+
                 </div>
             </div>
             <?php $modules = modules_access();  ?>
